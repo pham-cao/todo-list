@@ -1,0 +1,30 @@
+== TZ=UTC
+# tests 15
+# pass 15
+# fail 0
+== TZ=America/New_York
+# tests 15
+# pass 15
+# fail 0
+== TZ=Asia/Ho_Chi_Minh
+# tests 15
+# pass 15
+# fail 0
+== TZ=Pacific/Auckland
+# tests 15
+# pass 15
+# fail 0
+== TZ=Europe/London
+# tests 15
+# pass 15
+# fail 0
+== TZ=America/Sao_Paulo
+# tests 15
+# pass 15
+# fail 0
+America/Havana days 36525 last 2099-12-31 mismatch 0
+America/Sao_Paulo days 36525 last 2099-12-31 mismatch 0
+Asia/Beirut days 36525 last 2099-12-31 mismatch 0
+Pacific/Auckland days 36525 last 2099-12-31 mismatch 0
+Asia/Ho_Chi_Minh days 36525 last 2099-12-31 mismatch 0
+America/New_York days 36525 last 2099-12-31 mismatch 0

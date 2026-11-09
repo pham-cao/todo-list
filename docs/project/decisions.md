@@ -216,3 +216,77 @@ Choice: Later, add to backlog (by user)
 ## 2026-11-09: Continue with day-navigation after release?
 Options: Yes, Stop here
 Choice: Stop here for now (by user)
+
+## 2026-11-09: day-navigation: What can be done on past and future days?
+Options: Everything on every day, Past days tick only, Future days read only
+Choice: Everything on every day (by user)
+Reason: Lets the owner log yesterday late or plan tomorrow.
+
+## 2026-11-09: day-navigation: Keep the viewed day across reload?
+Options: URL hash #yyyy-mm-dd (plain address means today), Always open today, Remember in localStorage
+Choice: URL hash, plain address opens today (by user)
+Reason: Works on GitHub Pages, bookmarkable, predictable default.
+
+## 2026-11-09: day-navigation: Midnight while viewing another day?
+Options: Stay on the viewed date and refresh wording, Jump to the new today
+Choice: Stay on the viewed date and refresh wording; viewing today still follows to the new today (by user)
+
+## 2026-11-09: day-navigation: Add a browser history entry per day move?
+Options: Yes, Back returns to the previous day, No, replace the address
+Choice: Yes (by user)
+
+## 2026-11-09: day-navigation: "Về hôm nay" button when already on today?
+Options: Visible but inactive (aria-disabled), Hidden
+Choice: Visible but inactive (by PM)
+Reason: Keeps focus and header layout stable.
+
+## 2026-11-09: day-navigation: Heading and placeholder on other days?
+Options: "Việc cần làm" and "Bạn cần làm gì ngày này?", Keep "hôm nay" wording
+Choice: "Việc cần làm" and "Bạn cần làm gì ngày này?" (by PM)
+Reason: "hôm nay" would be wrong and could cause tasks to land on the wrong day.
+
+## 2026-11-09: day-navigation: Bound the date range to years 2000 to 2099?
+Options: Yes, No bound
+Choice: Yes (by PM)
+Reason: Guards against odd dates from typing or hand edited URLs.
+
+## 2026-11-09: Approve day-navigation requirements?
+Options: Approve, Request changes
+Choice: Approve (by user)
+
+## 2026-11-09: day-navigation UX: "Về hôm nay" wraps under the arrows at 360 px
+Options: Accept the wrap, Icon only below 381 px, Let the nav row extend into the margin
+Choice: Accept the right aligned wrap (by user)
+
+## 2026-11-09: day-navigation UX: Hash that equals today on load
+Options: Replace with the plain address and add no history entry, Keep the address
+Choice: Replace with the plain address, no history entry (by user)
+Reason: The plain address always means today.
+
+## 2026-11-09: Approve day-navigation UX?
+Options: Approve, Request changes
+Choice: Approve (by user)
+
+## 2026-11-09: day-navigation design: Remove an invalid or out of range hash from the address?
+Options: Yes, replace with the plain address and no history entry, No, leave it
+Choice: Yes (by PM)
+Reason: The plain address then always matches what is on screen.
+
+## 2026-11-09: day-navigation design: Typing in the picker can add one history entry per valid intermediate date
+Options: Accept it, Replace instead of push for typed picker changes
+Choice: Accept it (by PM)
+Reason: Mouse and touch picks add one entry; reliably telling typing from picking is not worth the complexity.
+
+## 2026-11-09: day-navigation design: Choices made in the design (recorded for the team)
+Choice: An open edit stays open when midnight passes while viewing another day; day controls take their target from the day on screen before the midnight check; a bad picker value is reset when the field loses focus (by architect, accepted by PM)
+
+## 2026-11-09: Approve day-navigation design and tasks?
+Options: Approve, Request changes
+Choice: Approve (by user)
+
+## 2026-11-09: day-navigation test design: open points from QA plan
+Choice (by PM):
+- Hash equal to today is cleaned with replaceState and no history entry: confirmed (user decision earlier).
+- NFR6 subpath hosting (T3-15): check relative URLs by code reading plus a manual run; no subpath server needed.
+- Picker contradiction in design.md steps 5 and 6: the T5 owner must make the change handler ignore incomplete or out of range values while the picker has focus, and reset only on blur.
+- No qa-test-generator specialist: each FE task writes its e2e tests as before, QA executes and fills gaps.

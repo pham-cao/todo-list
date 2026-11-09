@@ -466,3 +466,90 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
   .progress--celebrate::after { display: none; }
   .task--peek .task__swipe > * { animation: none; }
 }
+
+/* ---------- Day navigation (feature day-navigation, additive) ----------
+   A row under the title: two page turning arrows, a rubber date stamp that holds the native date picker,
+   then the "Về hôm nay" index tab. The nav is .app-header__nav, moved out of .app-header__top into its
+   own header row (after the h1, before the date line) so it never squeezes the title. */
+:root { --dur-turn: 240ms; }
+
+.day-nav { flex-wrap: wrap; align-items: center; column-gap: var(--space-2); row-gap: var(--space-2); }
+@media (min-width: 601px) { .day-nav { margin-bottom: var(--space-4); } } /* room for a tooltip above the date tape */
+.day-nav__step { display: flex; align-items: center; gap: 0; }
+
+/* Previous and next: pen chevrons on the 44 px icon button, tooltip from aria-label */
+.day-nav__turn { color: var(--color-pen); }
+.day-nav__turn .icon { width: 22px; height: 22px; stroke-width: 2.2; }
+
+/* Date stamp: a wrapper inked like a rubber stamp around a native <input type="date">.
+   At rest it shows only a calendar mark, because the native text follows the browser locale
+   (it may read mm/dd/yyyy) and the date is already written on the washi tape.
+   Mouse or touch opens the browser's calendar anywhere on the stamp. With a fine pointer and focus
+   (keyboard), the stamp widens to show the native field so the date can be typed. */
+.date-stamp {
+  position: relative; display: inline-grid; align-items: center; min-width: var(--tap); height: var(--tap);
+  margin-left: var(--space-1); border: 3px double var(--color-pen); border-radius: var(--radius-control);
+  color: var(--color-pen); rotate: -2deg; transition: background-color var(--dur-fast) ease;
+}
+.date-stamp:hover { background: var(--color-pen-wash); }
+.date-stamp > .icon { grid-area: 1 / 1; margin-left: 9px; pointer-events: none; }
+.date-stamp input {
+  grid-area: 1 / 1; width: 38px; height: 100%; padding: 0; border: 0; border-radius: 0; background: transparent;
+  color: transparent; cursor: pointer; font-size: var(--fs-meta); font-weight: var(--fw-semibold);
+  font-variant-numeric: tabular-nums; letter-spacing: 0.02em;
+}
+.date-stamp input:focus { outline: none; }
+.date-stamp input::-webkit-datetime-edit { opacity: 0; }
+.date-stamp input::-webkit-calendar-picker-indicator { position: absolute; inset: 0; width: auto; height: auto; margin: 0; opacity: 0; cursor: pointer; }
+.date-stamp:focus-within { outline: 2px solid var(--color-pen); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) {
+  .date-stamp:focus-within input { width: auto; padding: 0 var(--space-3) 0 36px; color: var(--color-pen); }
+  .date-stamp:focus-within input::-webkit-datetime-edit { opacity: 1; }
+}
+
+/* Tooltips in the nav open below the controls so they never cover the heading */
+.day-nav__step { margin-left: -11px; } /* optical alignment: the chevron lines up with the title */
+.day-nav .icon-btn::after { bottom: auto; top: calc(100% + 2px); translate: -50% -4px; }
+.date-stamp::after { /* the stamp's tooltip, same look as the icon button tooltip */
+  content: attr(data-tip); position: absolute; top: calc(100% + 5px); left: 50%; translate: -50% -4px; rotate: 2deg;
+  padding: 3px 8px; border-radius: 4px; background: var(--color-ink); color: var(--color-paper);
+  font-size: var(--fs-tiny); font-weight: var(--fw-medium); line-height: 1.4; white-space: nowrap;
+  opacity: 0; pointer-events: none; transition: opacity var(--dur-fast) ease, translate var(--dur-fast) ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .date-stamp:hover:not(:focus-within)::after { opacity: 1; translate: -50% 0; transition-delay: 350ms; }
+}
+/* Very narrow phones: the placeholder on other days ("ngày này?") is one word longer, keep it whole */
+@media (max-width: 380px) { .add-form__input::placeholder { font-size: var(--fs-small); } }
+
+/* Back to today: an index tab. Pen filled on other days; a dashed pencil outline on today. */
+.today-tab {
+  display: inline-flex; align-items: center; gap: var(--space-2); min-height: var(--tap); padding: 0 var(--space-4);
+  margin-left: auto; border: 1.5px solid var(--color-pen); border-radius: var(--radius-control) var(--radius-control) 2px 2px;
+  background: var(--color-pen); color: var(--color-on-pen); cursor: pointer; text-decoration: none;
+  font-size: var(--fs-meta); font-weight: var(--fw-semibold); line-height: 1; white-space: nowrap;
+  transition: background-color var(--dur-fast) ease;
+}
+.today-tab .icon { width: 18px; height: 18px; }
+.today-tab:hover { background: var(--color-pen-strong); }
+.today-tab[aria-disabled="true"] { /* R5: stays visible and focusable, does nothing, looks muted */
+  background: transparent; color: var(--color-ink-done); border: 1.5px dashed var(--color-pencil); cursor: default;
+}
+.today-tab[aria-disabled="true"] .icon { display: none; }
+@media (max-width: 600px) {
+  .today-tab { padding: 0 var(--space-3); font-size: var(--fs-small); }
+  .today-tab .icon { display: none; }
+}
+
+/* Page turn: the one orchestrated moment. Lines slide in from the side the owner turned towards and the
+   washi tape is pressed down again. Add the classes for one run when the viewed day changes;
+   use turn--forward for a later day, turn--back for an earlier one. */
+.turn--back { animation: turn-back var(--dur-turn) var(--ease-out); }
+.turn--forward { animation: turn-forward var(--dur-turn) var(--ease-out); }
+.washi--restick { animation: restick var(--dur-slow) var(--ease-out); }
+@keyframes turn-back { from { opacity: 0; translate: -18px 0; } }
+@keyframes turn-forward { from { opacity: 0; translate: 18px 0; } }
+@keyframes restick { from { opacity: 0.2; rotate: -4deg; scale: 1.04; } }
+@media (prefers-reduced-motion: reduce) {
+  .turn--back, .turn--forward, .washi--restick { animation: none; }
+}
