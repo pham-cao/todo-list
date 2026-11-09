@@ -1,4 +1,4 @@
-import { toDateKey, parseDateKey, dayKind, dateLine } from "./date.js";
+import { toDateKey, parseDateKey, addDays, dayKind, dateLine } from "./date.js";
 import { createStore, getStorage } from "./store.js";
 
 const $ = (id) => document.getElementById(id);
@@ -328,6 +328,51 @@ const endPeek = (e) => { if (e.animationName === "peek") e.target.closest(".task
 els.list.addEventListener("animationend", endPeek);
 els.list.addEventListener("animationcancel", endPeek);
 
+// Leaving the viewed day (R7): the unsaved edit and any open swipe go with the old rows,
+// the delete note closes with nothing deleted, the add error clears, typed add text stays.
+function resetTransient() {
+  editing = null;
+  pendingDelete = null;
+  els.dialog.close();
+  openSwipe = null;
+  closeSwipes();
+  setAddError(null);
+}
+
+// One move is one history entry (R22, R25). Focus is left on the control used (R8).
+function go(key) {
+  if (!key || key === viewed) { els.picker.value = viewed; return; }
+  resetTransient();
+  writeAddress(key, true);
+  viewed = key;
+  renderDay();
+}
+
+// Back, Forward or an edited hash on a loaded page (R24). popstate and hashchange both
+// arrive for a hash entry; the second call finds nothing to do.
+function syncFromAddress() {
+  checkDay();
+  const key = readHash() ?? today;
+  if (key === today && location.href.includes("#")) writeAddress(today, false);
+  if (key === viewed) return;
+  resetTransient();
+  viewed = key;
+  renderDay();
+}
+
+// Targets come from the day on screen, before the midnight check.
+for (const [id, n] of [["prev-day", -1], ["next-day", 1]]) {
+  $(id).addEventListener("click", () => { const key = addDays(viewed, n); checkDay(); go(key); });
+}
+// checkDay first: after a silent midnight the muted tab still means "show the new today".
+els.toToday.addEventListener("click", () => {
+  checkDay();
+  if (els.toToday.getAttribute("aria-disabled") === "true") return;
+  go(today);
+});
+window.addEventListener("popstate", syncFromAddress);
+window.addEventListener("hashchange", syncFromAddress);
+
 // Day change (R25): a page left open past midnight moves to the new day when the
 // owner comes back or adds a task. Earlier days stay in the store untouched.
 function checkDay(now = new Date()) {
@@ -341,11 +386,8 @@ function checkDay(now = new Date()) {
     if (viewed === today) writeAddress(today, false);
     return;
   }
+  resetTransient();
   viewed = today;
-  editing = null; // the unsaved edit goes with the old rows
-  pendingDelete = null;
-  els.dialog.close();
-  openSwipe = null;
   renderDay();
   // Focus that sat on an old row or the note is gone; start the fresh page at the add field.
   if (!document.activeElement || document.activeElement === document.body) els.input.focus();
