@@ -568,3 +568,151 @@ test('a real swipe opens one row; swiping another closes it; a tap outside close
   await page.locator('.app-header__title').tap();
   await expect.poll(() => scrollLeft(page, 1)).toBe(0);
 });
+
+// Storage unavailable slip (R26, R27)
+const slip = (page) => page.getByRole('alert').filter({ hasText: 'Không thể lưu dữ liệu trên trình duyệt này.' });
+
+test('a blocked save shows the slip, the app keeps working in memory, and the next good save hides it', async ({ page }) => {
+  await page.addInitScript(() => {
+    const real = Storage.prototype.setItem;
+    window.blockSaves = true;
+    Storage.prototype.setItem = function (...args) {
+      if (window.blockSaves) throw new DOMException('Quota exceeded', 'QuotaExceededError');
+      return real.apply(this, args);
+    };
+  });
+  await open(page);
+  await expect(slip(page)).toBeHidden();
+
+  await input(page).fill('Một');
+  await input(page).press('Enter');
+  await expect(slip(page)).toBeVisible();
+  await input(page).fill('Hai');
+  await input(page).press('Enter');
+  await expect(labels(page)).toHaveText(['Một', 'Hai']);
+  await tick(page, 0, true);
+  await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 1/2 việc');
+  await expect(slip(page)).toBeVisible();
+  expect(await page.evaluate((key) => localStorage.getItem(key), KEY)).toBeNull();
+
+  await page.evaluate(() => { window.blockSaves = false; });
+  await tick(page, 1, true);
+  await expect(slip(page)).toBeHidden();
+  expect((await stored(page)).map((t) => [t.text, t.done])).toEqual([['Một', true], ['Hai', true]]);
+});
+
+test('a throwing localStorage shows the slip on load for the whole session; add, tick, edit and delete still work', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await page.addInitScript(() => {
+    Object.defineProperty(window, 'localStorage', { get() { throw new DOMException('Blocked', 'SecurityError'); } });
+  });
+  await open(page);
+  await expect(slip(page)).toBeVisible();
+  await expect(page.getByText('Hôm nay chưa có việc nào. Hãy thêm việc đầu tiên nhé!')).toBeVisible();
+
+  await input(page).fill('Một');
+  await input(page).press('Enter');
+  await input(page).fill('Hai');
+  await input(page).press('Enter');
+  await tick(page, 0, true);
+  await editBtn(page, 1).click();
+  await editInput(page).fill('Hai đã sửa');
+  await editInput(page).press('Enter');
+  await expect(labels(page)).toHaveText(['Một', 'Hai đã sửa']);
+  await removeBtn(page, 0).click();
+  await delDialog(page).getByRole('button', { name: 'Xóa việc' }).click();
+  await expect(labels(page)).toHaveText(['Hai đã sửa']);
+  await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 0/1 việc');
+  await expect(slip(page)).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
+test('corrupt stored data starts an empty list with no slip and no console error, and keeps a backup', async ({ page }) => {
+  const errors = [];
+  page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
+  page.on('pageerror', (e) => errors.push(e.message));
+  await page.addInitScript((key) => {
+    if (!sessionStorage.getItem('seeded')) localStorage.setItem(key, '{not json');
+    sessionStorage.setItem('seeded', '1');
+  }, KEY);
+  await open(page);
+  await expect(page.getByText('Hôm nay chưa có việc nào. Hãy thêm việc đầu tiên nhé!')).toBeVisible();
+  await expect(rows(page)).toHaveCount(0);
+  await expect(slip(page)).toBeHidden();
+  expect(await page.evaluate((key) => localStorage.getItem(`${key}:corrupt`), KEY)).toBe('{not json');
+
+  await input(page).fill('Một');
+  await input(page).press('Enter');
+  await expect(slip(page)).toBeHidden();
+  expect((await stored(page)).map((t) => t.text)).toEqual(['Một']);
+  expect(errors).toEqual([]);
+});
+
+test('after a failed first read nothing is written to the tasks key, so earlier days are never overwritten', async ({ page }) => {
+  const seed = JSON.stringify([task('a', 'Một'), task('o', 'Hôm qua', false, '2026-11-08')]);
+  await page.addInitScript(([key, value]) => {
+    if (!sessionStorage.getItem('seeded')) { localStorage.setItem(key, value); sessionStorage.setItem('seeded', '1'); }
+    const get = Storage.prototype.getItem, set = Storage.prototype.setItem;
+    window.rawGet = (k) => get.call(localStorage, k);
+    window.writes = [];
+    Storage.prototype.getItem = function (k) { if (k === key) throw new Error('read failed'); return get.call(this, k); };
+    Storage.prototype.setItem = function (k, v) { window.writes.push(k); return set.call(this, k, v); };
+  }, [KEY, seed]);
+  await open(page);
+  await expect(slip(page)).toBeVisible();
+  await expect(rows(page)).toHaveCount(0);
+  await input(page).fill('Mới');
+  await input(page).press('Enter');
+  await tick(page, 0, true);
+  await expect(labels(page)).toHaveText(['Mới']);
+  await expect(slip(page)).toBeVisible();
+  expect(await page.evaluate(() => window.writes.filter((k) => k === 'daily-todo:tasks:v1'))).toEqual([]);
+  expect(await page.evaluate((key) => window.rawGet(key), KEY)).toBe(seed);
+});
+
+test('the slip shows at once when a save fails on edit and on delete, and quota errors keep the stored value', async ({ page }) => {
+  await page.addInitScript(() => {
+    const real = Storage.prototype.setItem;
+    window.blockSaves = false;
+    Storage.prototype.setItem = function (...a) {
+      if (window.blockSaves) throw new DOMException('Quota exceeded', 'QuotaExceededError');
+      return real.apply(this, a);
+    };
+  });
+  await open(page, [task('a', 'Một'), task('b', 'Hai')]);
+  const before = await page.evaluate((key) => localStorage.getItem(key), KEY);
+  await expect(slip(page)).toBeHidden();
+  await page.evaluate(() => { window.blockSaves = true; });
+  await editBtn(page, 1).click();
+  await editInput(page).fill('Hai sửa');
+  await editInput(page).press('Enter');
+  await expect(slip(page)).toBeVisible();
+  await expect(labels(page)).toHaveText(['Một', 'Hai sửa']);
+  await page.evaluate(() => { window.blockSaves = false; });
+  await tick(page, 0, true);
+  await expect(slip(page)).toBeHidden();
+  await page.evaluate(() => { window.blockSaves = true; });
+  await removeBtn(page, 0).click();
+  await delDialog(page).getByRole('button', { name: 'Xóa việc' }).click();
+  await expect(slip(page)).toBeVisible();
+  await expect(labels(page)).toHaveText(['Hai sửa']);
+  expect(await page.evaluate((key) => localStorage.getItem(key), KEY)).not.toBe(before);
+  expect((await stored(page)).map((t) => t.text)).toEqual(['Một', 'Hai sửa']);
+});
+
+for (const [name, value] of [['object', '{"a":1}'], ['string', '"x"'], ['null', 'null'], ['invalid items only', '[{"bad":1},5]']]) {
+  test(`stored ${name} starts an empty list with no slip and no error`, async ({ page }) => {
+    const errors = [];
+    page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
+    page.on('pageerror', (e) => errors.push(e.message));
+    await page.addInitScript(([key, v]) => {
+      if (!sessionStorage.getItem('seeded')) localStorage.setItem(key, v);
+      sessionStorage.setItem('seeded', '1');
+    }, [KEY, value]);
+    await open(page);
+    await expect(page.getByText('Hôm nay chưa có việc nào. Hãy thêm việc đầu tiên nhé!')).toBeVisible();
+    await expect(slip(page)).toBeHidden();
+    expect(errors).toEqual([]);
+  });
+}

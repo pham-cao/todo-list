@@ -206,11 +206,12 @@ function confirmDelete() {
   if (!row?.isConnected) return;
   if (editing === row) closeEdit(false);
   store.remove(row.dataset.id);
+  updateSlip();
   // Skip rows still erasing from an earlier delete.
   const live = (el, dir) => { while (el?.classList.contains("task--exit")) el = el[dir]; return el; };
   const next = live(row.nextElementSibling, "nextElementSibling") ?? live(row.previousElementSibling, "previousElementSibling");
   (next?.querySelector(".check input") ?? els.input).focus();
-  const finish = () => { row.remove(); updateSummary(); updateSlip(); };
+  const finish = () => { row.remove(); updateSummary(); };
   row.classList.remove("task--enter");
   row.classList.add("task--exit");
   const anim = row.getAnimations()[0];
