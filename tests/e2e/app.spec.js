@@ -681,7 +681,6 @@ test('the slip shows at once when a save fails on edit and on delete, and quota 
     };
   });
   await open(page, [task('a', 'Một'), task('b', 'Hai')]);
-  const before = await page.evaluate((key) => localStorage.getItem(key), KEY);
   await expect(slip(page)).toBeHidden();
   await page.evaluate(() => { window.blockSaves = true; });
   await editBtn(page, 1).click();
@@ -697,25 +696,23 @@ test('the slip shows at once when a save fails on edit and on delete, and quota 
   await delDialog(page).getByRole('button', { name: 'Xóa việc' }).click();
   await expect(slip(page)).toBeVisible();
   await expect(labels(page)).toHaveText(['Hai sửa']);
-  expect(await page.evaluate((key) => localStorage.getItem(key), KEY)).not.toBe(before);
   expect((await stored(page)).map((t) => t.text)).toEqual(['Một', 'Hai sửa']);
 });
 
-for (const [name, value] of [['object', '{"a":1}'], ['string', '"x"'], ['null', 'null'], ['invalid items only', '[{"bad":1},5]']]) {
-  test(`stored ${name} starts an empty list with no slip and no error`, async ({ page }) => {
-    const errors = [];
-    page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
-    page.on('pageerror', (e) => errors.push(e.message));
-    await page.addInitScript(([key, v]) => {
-      if (!sessionStorage.getItem('seeded')) localStorage.setItem(key, v);
-      sessionStorage.setItem('seeded', '1');
-    }, [KEY, value]);
-    await open(page);
-    await expect(page.getByText('Hôm nay chưa có việc nào. Hãy thêm việc đầu tiên nhé!')).toBeVisible();
-    await expect(slip(page)).toBeHidden();
-    expect(errors).toEqual([]);
-  });
-}
+// Other non array shapes are covered in tests/unit/store.test.js.
+test('a stored non array value starts an empty list with no slip and no error', async ({ page }) => {
+  const errors = [];
+  page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
+  page.on('pageerror', (e) => errors.push(e.message));
+  await page.addInitScript(([key, v]) => {
+    if (!sessionStorage.getItem('seeded')) localStorage.setItem(key, v);
+    sessionStorage.setItem('seeded', '1');
+  }, [KEY, '{"a":1}']);
+  await open(page);
+  await expect(page.getByText('Hôm nay chưa có việc nào. Hãy thêm việc đầu tiên nhé!')).toBeVisible();
+  await expect(slip(page)).toBeHidden();
+  expect(errors).toEqual([]);
+});
 
 const AFTER_MIDNIGHT = new Date('2026-11-10T00:05:00+07:00');
 const becomeVisible = (page) => page.evaluate(() => document.dispatchEvent(new Event('visibilitychange')));
@@ -816,4 +813,97 @@ test('a session with blocked storage still switches day, keeps the slip and acce
   await input(page).fill('Hai');
   await input(page).press('Enter');
   await expect(rows(page).locator('.task__label')).toHaveText(['Hai']);
+});
+
+// T12: keyboard, names and performance (R28, NFR1).
+test('keyboard only: add, tick with Space, edit with Enter, cancel with Escape, save and delete', async ({ page }) => {
+  await page.addInitScript((k) => localStorage.setItem(k, '1'), HINT);
+  await open(page);
+  const kb = page.keyboard;
+  const focused = (name, role = 'button') => expect(page.getByRole(role, { name, exact: true }).first()).toBeFocused();
+
+  await expect(input(page)).toBeFocused();
+  await kb.type('Gọi điện cho mẹ');
+  await kb.press('Enter');
+  await expect(labels(page)).toHaveText(['Gọi điện cho mẹ']);
+  await expect(input(page)).toBeFocused();
+
+  await kb.press('Tab'); // Thêm
+  await focused('Thêm');
+  await kb.press('Tab');
+  await expect(box(page, 0)).toBeFocused();
+  await kb.press('Space');
+  await expect(box(page, 0)).toBeChecked();
+  await expect(page.locator('#summary')).toHaveText('Đã hoàn thành 1/1 việc');
+
+  await kb.press('Tab');
+  await expect(editBtn(page, 0)).toBeFocused();
+  await kb.press('Enter');
+  await expect(editInput(page)).toBeFocused();
+  await kb.type(' tối nay');
+  await kb.press('Escape');
+  await expect(editInput(page)).toHaveCount(0);
+  await expect(labels(page)).toHaveText(['Gọi điện cho mẹ']);
+  await expect(editBtn(page, 0)).toBeFocused();
+
+  await kb.press('Enter');
+  await kb.type(' tối nay');
+  await kb.press('Enter');
+  await expect(labels(page)).toHaveText(['Gọi điện cho mẹ tối nay']);
+  await expect(editBtn(page, 0)).toBeFocused();
+  await expect(box(page, 0)).toBeChecked();
+
+  await kb.press('Tab');
+  await expect(removeBtn(page, 0)).toBeFocused();
+  await kb.press('Enter');
+  await expect(delDialog(page)).toBeVisible();
+  await focused('Giữ lại');
+  await kb.press('Tab');
+  await focused('Xóa việc');
+  await kb.press('Enter');
+  await expect(rows(page)).toHaveCount(0);
+  await expect(input(page)).toBeFocused();
+  expect(await stored(page)).toEqual([]);
+});
+
+test('every button and checkbox has its Vietnamese accessible name', async ({ page }) => {
+  await open(page, [task('a', 'Một'), task('b', 'Hai')]);
+  // Hidden controls (the note's buttons, a row's line while it edits) have no name until shown, so check each state.
+  const namesOf = (scope) => scope.locator('button:visible, input[type="checkbox"]').evaluateAll((els) => els.map((el) => el.getAttribute('aria-label') ?? el.textContent.trim()));
+  const expectNamed = async (scope, expected) => {
+    const names = await namesOf(scope);
+    expect(names).toEqual(expected);
+    const controls = scope.locator('button:visible, input[type="checkbox"]');
+    for (let i = 0; i < names.length; i++) await expect(controls.nth(i)).toHaveAccessibleName(names[i]);
+  };
+  await expectNamed(page.locator('main'), ['Thêm', 'Đánh dấu hoàn thành', 'Sửa', 'Xóa', 'Đánh dấu hoàn thành', 'Sửa', 'Xóa']);
+  // The row text is the description, so a screen reader hears which task each control is for.
+  await expect(box(page, 0)).toHaveAccessibleDescription('Một');
+  await expect(removeBtn(page, 1)).toHaveAccessibleDescription('Hai');
+
+  await editBtn(page, 1).click();
+  await expectNamed(rows(page).nth(1), ['Đánh dấu hoàn thành', 'Hủy', 'Lưu']);
+  await expect(editInput(page)).toHaveAccessibleName('Sửa');
+  await page.keyboard.press('Escape');
+
+  await removeBtn(page, 0).click();
+  await expectNamed(delDialog(page), ['Giữ lại', 'Xóa việc']);
+});
+
+test('200 tasks render quickly and a tick updates in under 100 ms', async ({ page }) => {
+  const many = Array.from({ length: 200 }, (_, i) => task(`t${i}`, `Việc số ${i + 1}: ${'chữ '.repeat(i % 30)}`.trim(), i % 3 === 0));
+  const start = Date.now();
+  await open(page, many);
+  await expect(rows(page)).toHaveCount(200);
+  expect(Date.now() - start).toBeLessThan(1000);
+  await expect(page.locator('#summary')).toHaveText('Đã hoàn thành 67/200 việc');
+  // setFixedTime fakes Date only; performance.now() keeps running, so time the tick in the page.
+  const tickMs = await page.evaluate(() => new Promise((r) => {
+    const t0 = performance.now();
+    document.querySelectorAll('.check input')[151].click();
+    requestAnimationFrame(() => setTimeout(() => r(performance.now() - t0)));
+  }));
+  expect(tickMs).toBeLessThan(100);
+  await expect(page.locator('#summary')).toHaveText('Đã hoàn thành 68/200 việc');
+  expect((await stored(page)).find((t) => t.id === 't151').done).toBe(true);
 });

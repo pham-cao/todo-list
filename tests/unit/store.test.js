@@ -91,7 +91,7 @@ test("data survives a new store on the same storage", () => {
 });
 
 test("corrupt JSON and non array start empty and back up raw value", () => {
-  for (const raw of ["{not json", '{"a":1}', "42"]) {
+  for (const raw of ["{not json", '{"a":1}', "42", "null", '"x"']) {
     const st = fake({ [STORAGE_KEY]: raw });
     const s = createStore(st);
     assert.equal(s.storageOk, true);

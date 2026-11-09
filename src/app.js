@@ -22,7 +22,8 @@ const els = {
 const show = (el, on) => { el.hidden = !on; };
 
 const store = createStore(getStorage());
-let shownDate = toDateKey();
+const startedAt = new Date();
+let shownDate = toDateKey(startedAt);
 
 function renderRow(task) {
   const row = els.rowTemplate.content.firstElementChild.cloneNode(true);
@@ -54,8 +55,8 @@ function updateSlip() {
   show(els.slip, !store.storageOk);
 }
 
-function renderAll() {
-  els.date.textContent = `Hôm nay, ${formatDate()}`;
+function renderAll(now) {
+  els.date.textContent = `Hôm nay, ${formatDate(now)}`;
   els.list.replaceChildren(...store.tasksFor(shownDate).map(renderRow));
   updateSummary();
   updateSlip();
@@ -296,7 +297,7 @@ function checkDay(now = new Date()) {
   openSwipe = null;
   clearTimeout(celebrateTimer);
   els.progress.classList.remove("progress--celebrate");
-  renderAll();
+  renderAll(now);
   // Focus that sat on an old row or the note is gone; start the fresh page at the add field.
   if (!document.activeElement || document.activeElement === document.body) els.input.focus();
 }
@@ -305,6 +306,6 @@ document.addEventListener("visibilitychange", () => { if (document.visibilitySta
 window.addEventListener("focus", () => checkDay());
 
 setAddError(null);
-renderAll();
+renderAll(startedAt);
 els.input.focus();
 maybePeek();
