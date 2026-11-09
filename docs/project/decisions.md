@@ -407,3 +407,11 @@ Choice: Approve (by user)
 Options: Drop later duplicates on load, Accept as out of scope
 Choice: Accept as out of scope (by PM)
 Reason: The UI can never create such names; only a hand edited store can.
+
+## 2026-11-09: task-groups QA plan open points
+Choice (by PM):
+- R47 hidden group notice for an ungrouped add uses the name "Chưa phân nhóm": confirmed.
+- moveGroup(from, to) with from equal to to, or an unknown id: no data change and no loss: confirmed.
+- Group names are stored as typed (not NFC normalised); only the length and duplicate checks use NFC: confirmed, intended.
+- Two tabs, last writer wins on the groups key: accepted as a residual risk; the existing backlog follow up for multi tab sync covers it.
+- No qa-test-generator specialist: each FE task writes its own e2e tests in a new tests/e2e/groups.spec.js using tests/e2e/helpers.js; QA executes and fills gaps.

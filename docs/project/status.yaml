@@ -171,7 +171,7 @@ features:
         title: "Version every asset reference"
         owner: be
         depends_on: []
-        state: doing
+        state: done
         attempts: 0
         bugs_opened: []
         trello_card: ""
@@ -195,7 +195,7 @@ features:
         title: "Day list in sections with collapse"
         owner: fe
         depends_on: [T1, T3]
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""
