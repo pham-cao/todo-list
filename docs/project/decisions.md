@@ -457,3 +457,16 @@ Choice: Accept the three design-system.css changes (card dialog full prototype w
 
 ## 2026-11-10: task-groups T8: storage failure slip hidden behind the modal card
 Choice: Accept for now; T11 (safety checks) decides whether the card should also announce a failed write, reusing the existing storage message text (by PM)
+
+## 2026-11-10: task-groups T9 bugs
+Choice (by PM):
+- BUG-009: yes, at "Xóa nhóm" confirm time re-read the stored tasks and show the blocked note if the group now has tasks on any day. Wider stale tasks across tabs stays out of scope (existing multi tab follow up).
+- BUG-010: fix the forced layout in closeSwipes (skip scrollLeft reads when no swipe strip is open) so a settled move with 200 tasks stays under 100 ms, then remove the fixme; T11 rechecks add, collapse and filter on a settled page.
+
+## 2026-11-10: task-groups T9 review minors
+Choice (by PM):
+- storedUsage must count only entries the store would load (filter with the store's validity check), so a damaged entry cannot block a delete or produce a bad hash: fix before commit.
+- After "Xem các việc này" on the BUG-009 path, the day may look empty because this tab's tasks are not reloaded: accepted as the existing cross tab stale tasks limit (multi tab follow up in the backlog).
+
+## 2026-11-10: task-groups: carry to T11
+Choice (by PM): T11 checks that a stored task with a well formed but impossible date (e.g. 2026-13-45) in a group cannot make "Xem các việc này" move to an invalid day (go() or showGroupTasks must use parseDateKey).

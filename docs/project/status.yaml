@@ -235,15 +235,15 @@ features:
         title: "Delete a group, blocked delete and show its tasks"
         owner: fe
         depends_on: [T8]
-        state: doing
-        attempts: 0
-        bugs_opened: []
+        state: done
+        attempts: 2
+        bugs_opened: [BUG-009, BUG-010, BUG-011]
         trello_card: ""
       - id: T10
         title: "Move all tasks of a group"
         owner: fe
         depends_on: [T9]
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""

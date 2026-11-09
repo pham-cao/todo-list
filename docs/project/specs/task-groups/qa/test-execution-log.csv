@@ -187,3 +187,38 @@ date,task,tc,result,evidence,bug
 2026-11-10,T8,TC-task-groups-T8-29,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
 2026-11-10,T8,TC-task-groups-T8-30,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
 2026-11-10,T8,TC-task-groups-T8-24,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-24/retest-short-screens.txt,"BUG-008 Verified then Closed; 12 probes (640x360, 360x640, 390x700, 360x500; first, middle, last row): input and Lưu both inside the visible list"
+2026-11-10,T9,TC-task-groups-T9-01,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,"Xóa asks first, Giữ lại focused (desktop and mobile)"
+2026-11-10,T9,TC-task-groups-T9-02,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,"Xóa nhóm removes, tasks key unchanged, focus next Sửa / previous / Đóng (desktop and mobile)"
+2026-11-10,T9,TC-task-groups-T9-03,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,"Giữ lại, Escape and backdrop keep the group, focus on Xóa (desktop and mobile)"
+2026-11-10,T9,TC-task-groups-T9-04,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,filter and add choice reset (two tests) (desktop and mobile)
+2026-11-10,T9,TC-task-groups-T9-05,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,n and d for 1/1 and 5/3 (desktop and mobile)
+2026-11-10,T9,TC-task-groups-T9-06,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,"Đã hiểu and Escape, Xóa focusable and not disabled, storage unchanged (desktop and mobile)"
+2026-11-10,T9,TC-task-groups-T9-07,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,emptied one by one then deletable (desktop and mobile)
+2026-11-10,T9,TC-task-groups-T9-08,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,"past only: 08/11, hash (desktop and mobile)"
+2026-11-10,T9,TC-task-groups-T9-09,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,future only: earliest later day (desktop and mobile)
+2026-11-10,T9,TC-task-groups-T9-10,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,today included (desktop and mobile)
+2026-11-10,T9,TC-task-groups-T9-11,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,same day: no new history entry (desktop and mobile)
+2026-11-10,T9,TC-task-groups-T9-12,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,"Back returns, filter kept (desktop and mobile)"
+2026-11-10,T9,TC-task-groups-T9-13,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,focus on Quản lý nhóm (desktop and mobile)
+2026-11-10,T9,TC-task-groups-T9-14,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,collapsed entry removed (desktop and mobile)
+2026-11-10,T9,TC-task-groups-T9-15,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,"colours and order kept, next colour continues (desktop and mobile)"
+2026-11-10,T9,TC-task-groups-T9-16,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,markup and quotes plain text (desktop and mobile)
+2026-11-10,T9,TC-task-groups-T9-17,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,normal task delete empties the group (desktop and mobile)
+2026-11-10,T9,TC-task-groups-T9-18,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,keyboard only flow (desktop and mobile)
+2026-11-10,T9,TC-task-groups-T9-19,pass,docs/project/specs/task-groups/qa/evidence/T9/shots/,"Compared delete, blocked and show-tasks with ux/screenshots at 1440 and 390 light and dark: layout, sticker corner, button stack and colours match"
+2026-11-10,T9,TC-task-groups-T9-20,pass,docs/project/specs/task-groups/qa/evidence/T9/full-suite.txt,"502 passed, 20 skipped, 0 failed; npm test 65 pass"
+2026-11-10,T9,TC-task-groups-T7-14,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,"Delete half executed with T9-04: filter resets to Tất cả nhóm, add choice to Chưa phân nhóm, no error; rename half passed with T8-15"
+2026-11-10,T9,TC-task-groups-T9-21,pass,docs/project/specs/task-groups/qa/evidence/T9/full-suite.txt,"Written by QA; groups key setItem throws on Xóa nhóm: slip shown, row removed in page, storage untouched, no page error"
+2026-11-10,T9,TC-task-groups-T9-22,fail,docs/project/specs/task-groups/qa/evidence/T9/full-suite.txt,BUG-009: second tab adds a task to the group while the delete question is open; Xóa nhóm still deletes the group and the stored task keeps a missing group id. Test is test.fail until fixed
+2026-11-10,T9,TC-task-groups-T9-23,pass,docs/project/specs/task-groups/qa/evidence/T9/full-suite.txt,"Written by QA; 390 and 360 px: notes inside the screen, buttons at least 44 px, no horizontal scroll"
+2026-11-10,T9,TC-task-groups-T9-24,pass,docs/project/specs/task-groups/qa/evidence/T9/axe-18-runs.txt,"Alertdialog names checked in e2e (role name equals message text); Escape closes note then card; axe 0 violations in 18 runs, no horizontal scroll at 1440, 390, 360"
+2026-11-10,T9,TC-task-groups-T9-25,pass,docs/project/specs/task-groups/qa/evidence/T9/shots/blocked-light-390.png,"Chuyển tất cả việc visible and focusable, inert until T10 as agreed"
+2026-11-10,T9,TC-task-groups-T9-26,fail,docs/project/specs/task-groups/qa/evidence/T9/speed-investigation.txt,"BUG-010: settled move of a task with 200 tasks in 20 groups takes 250 to 300 ms (70 to 90 ms with a warm CPU); same at T6 commit a1ac08f, so not a regression. Test set to test.fixme"
+2026-11-10,T9,TC-task-groups-T9-22,pass,docs/project/specs/task-groups/qa/evidence/T9/full-suite-retry2-repeat2.txt,"BUG-009 Verified then Closed. Test no longer test.fail; second tab adds a task, Xóa nhóm now shows the blocked note with fresh n and d and the group stays"
+2026-11-10,T9,TC-task-groups-T9-26,pass,docs/project/specs/task-groups/qa/evidence/T9/speed-retest.txt,"BUG-010 Verified then Closed. Settled 500 ms and 2000 ms, 8 runs each, desktop and mobile: move 10 to 50 ms"
+2026-11-10,T9,TC-task-groups-T9-20,pass,docs/project/specs/task-groups/qa/evidence/T9/full-suite-retry2-repeat2.txt,"Retry 2: full suite --repeat-each=2, 1008 passed, 36 skipped, 0 failed; swipe regression test added and passed 3 times (evidence swipe-regression.txt)"
+2026-11-10,T9,TC-task-groups-T9-27,pass,docs/project/specs/task-groups/qa/evidence/T9/rapid-probes.txt,"Keyboard bursts on all four dialogs, 8 cycles, 5 repeats per project, desktop and mobile: last note acts"
+2026-11-10,T9,TC-task-groups-T9-28,pass,docs/project/specs/task-groups/qa/evidence/T9/rapid-probes.txt,"Mouse cycles, 5 repeats per project"
+2026-11-10,T9,TC-task-groups-T9-29,pass,docs/project/specs/task-groups/qa/evidence/T9/rapid-probes.txt,"Card cycles, 5 repeats per project"
+2026-11-10,T9,TC-task-groups-T9-30,pass,docs/project/specs/task-groups/qa/evidence/T9/full-suite-attempt3-repeat2.txt,BUG-009 path end to end with the FE test that failed without the guard; Xem các việc này works after the re-read
+2026-11-10,T9,TC-task-groups-T9-20,pass,docs/project/specs/task-groups/qa/evidence/T9/full-suite-attempt3-repeat2.txt,"Attempt 3: full suite --repeat-each=2, 1018 passed, 38 skipped, 0 failed (run started before the 4 rapid probes were appended; probes then ran 40 of 40 passed). BUG-011 Verified then Closed"

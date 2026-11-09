@@ -1,0 +1,132 @@
+
+Running 32 tests using 1 worker
+
+[1/32] [desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+[desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+PROBE desktop wait=500 ms=43
+
+[2/32] [desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+[desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+PROBE desktop wait=2000 ms=45
+
+[3/32] [desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+[desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+PROBE desktop wait=500 ms=43
+
+[4/32] [desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+[desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+PROBE desktop wait=2000 ms=45
+
+[5/32] [desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+[desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+PROBE desktop wait=500 ms=11
+
+[6/32] [desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+[desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+PROBE desktop wait=2000 ms=45
+
+[7/32] [desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+[desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+PROBE desktop wait=500 ms=45
+
+[8/32] [desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+[desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+PROBE desktop wait=2000 ms=44
+
+[9/32] [desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+[desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+PROBE desktop wait=500 ms=43
+
+[10/32] [desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+[desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+PROBE desktop wait=2000 ms=43
+
+[11/32] [desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+[desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+PROBE desktop wait=500 ms=44
+
+[12/32] [desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+[desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+PROBE desktop wait=2000 ms=42
+
+[13/32] [desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+[desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+PROBE desktop wait=500 ms=42
+
+[14/32] [desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+[desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+PROBE desktop wait=2000 ms=44
+
+[15/32] [desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+[desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+PROBE desktop wait=500 ms=43
+
+[16/32] [desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+[desktop] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+PROBE desktop wait=2000 ms=44
+
+[17/32] [mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+[mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+PROBE mobile wait=500 ms=44
+
+[18/32] [mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+[mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+PROBE mobile wait=2000 ms=43
+
+[19/32] [mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+[mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+PROBE mobile wait=500 ms=42
+
+[20/32] [mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+[mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+PROBE mobile wait=2000 ms=44
+
+[21/32] [mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+[mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+PROBE mobile wait=500 ms=43
+
+[22/32] [mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+[mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+PROBE mobile wait=2000 ms=43
+
+[23/32] [mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+[mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+PROBE mobile wait=500 ms=43
+
+[24/32] [mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+[mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+PROBE mobile wait=2000 ms=43
+
+[25/32] [mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+[mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+PROBE mobile wait=500 ms=43
+
+[26/32] [mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+[mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+PROBE mobile wait=2000 ms=44
+
+[27/32] [mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+[mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+PROBE mobile wait=500 ms=43
+
+[28/32] [mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+[mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+PROBE mobile wait=2000 ms=10
+
+[29/32] [mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+[mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+PROBE mobile wait=500 ms=50
+
+[30/32] [mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+[mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+PROBE mobile wait=2000 ms=29
+
+[31/32] [mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+[mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 500
+PROBE mobile wait=500 ms=44
+
+[32/32] [mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+[mobile] › tests/e2e/_probe.spec.js:3:33 › probe wait 2000
+PROBE mobile wait=2000 ms=34
+
+  32 passed (1.0m)
