@@ -1,25 +1,5 @@
 import { test, expect } from '@playwright/test';
-
-const KEY = 'daily-todo:tasks:v1';
-const TODAY = '2026-11-09';
-const NOW = new Date('2026-11-09T09:00:00+07:00');
-
-const task = (id, text, done = false, date = TODAY, createdAt = NOW.getTime()) => ({ id, text, done, createdAt, date });
-
-async function open(page, tasks) {
-  await page.clock.setFixedTime(NOW);
-  if (tasks) {
-    // Seed once per tab so a reload shows what the app saved, not the seed again.
-    await page.addInitScript(([key, value]) => {
-      if (sessionStorage.getItem('seeded')) return;
-      localStorage.setItem(key, value);
-      sessionStorage.setItem('seeded', '1');
-    }, [KEY, JSON.stringify(tasks)]);
-  }
-  await page.goto('./');
-}
-
-const rows = (page) => page.locator('.task-list > .task');
+import { TODAY, KEY, AFTER_MIDNIGHT, task, open, rows, labels, progress, box, stored, storedRaw, addTask, tick, passMidnight } from './helpers.js';
 
 test('page has the expected title and the date line for today', async ({ page }) => {
   const errors = [];
@@ -41,7 +21,7 @@ test('shows only today\'s tasks, oldest first, with their done state and summary
     task('c', 'Tập yoga 30 phút', true),
   ]);
   await expect(rows(page)).toHaveCount(3);
-  await expect(rows(page).locator('.task__label')).toHaveText(['Gửi báo cáo tuần', 'Đi chợ mua rau', 'Tập yoga 30 phút']);
+  await expect(labels(page)).toHaveText(['Gửi báo cáo tuần', 'Đi chợ mua rau', 'Tập yoga 30 phút']);
   await expect(page.getByText('Việc của hôm qua')).toHaveCount(0);
   const boxes = rows(page).getByRole('checkbox', { name: 'Đánh dấu hoàn thành' });
   await expect(boxes.nth(0)).toBeChecked();
@@ -50,9 +30,9 @@ test('shows only today\'s tasks, oldest first, with their done state and summary
   await expect(rows(page).nth(1).getByRole('button', { name: 'Sửa' })).toHaveCount(1);
   await expect(rows(page).nth(1).getByRole('button', { name: 'Xóa' })).toHaveCount(1);
   await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 2/3 việc');
-  await expect(page.locator('.progress')).toBeVisible();
-  await expect(page.locator('.progress')).toHaveCSS('--p', '67');
-  await expect(page.locator('.progress')).not.toHaveClass(/progress--complete/);
+  await expect(progress(page)).toBeVisible();
+  await expect(progress(page)).toHaveCSS('--p', '67');
+  await expect(progress(page)).not.toHaveClass(/progress--complete/);
   await expect(page.locator('.empty')).toBeHidden();
   await expect(page.locator('.alert')).toBeHidden();
   await expect(page.locator('.add-form .field-error')).toBeHidden();
@@ -63,7 +43,7 @@ test('shows the empty state with no rows, progress or summary', async ({ page })
   await expect(page.getByText('Hôm nay chưa có việc nào. Hãy thêm việc đầu tiên nhé!')).toBeVisible();
   await expect(rows(page)).toHaveCount(0);
   await expect(page.getByRole('status')).toBeHidden();
-  await expect(page.locator('.progress')).toBeHidden();
+  await expect(progress(page)).toBeHidden();
   await expect(page.locator('.alert')).toBeHidden();
   await expect(page.getByRole('dialog')).toBeHidden();
 });
@@ -71,13 +51,13 @@ test('shows the empty state with no rows, progress or summary', async ({ page })
 test('shows the star stamp without the celebration when every task is done', async ({ page }) => {
   await open(page, [task('a', 'Một', true), task('b', 'Hai', true)]);
   await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 2/2 việc');
-  await expect(page.locator('.progress')).toHaveClass(/progress--complete/);
-  await expect(page.locator('.progress')).not.toHaveClass(/progress--celebrate/);
+  await expect(progress(page)).toHaveClass(/progress--complete/);
+  await expect(progress(page)).not.toHaveClass(/progress--celebrate/);
 });
 
 test('shows task text as plain text, never as markup', async ({ page }) => {
   await open(page, [task('x', '<b>abc</b>')]);
-  await expect(rows(page).locator('.task__label')).toHaveText('<b>abc</b>');
+  await expect(labels(page)).toHaveText('<b>abc</b>');
   await expect(page.locator('.task-list b')).toHaveCount(0);
 });
 
@@ -88,28 +68,26 @@ test('adds a task with Thêm and Enter, keeps focus, and keeps it after reload',
   await open(page, [task('a', 'Gửi báo cáo tuần', true)]);
   await input(page).fill('  Đi chợ mua rau 🥬  ');
   await page.getByRole('button', { name: 'Thêm' }).click();
-  await expect(rows(page).locator('.task__label')).toHaveText(['Gửi báo cáo tuần', 'Đi chợ mua rau 🥬']);
+  await expect(labels(page)).toHaveText(['Gửi báo cáo tuần', 'Đi chợ mua rau 🥬']);
   await expect(rows(page).last()).toHaveClass(/task--enter/);
   await expect(input(page)).toHaveValue('');
   await expect(input(page)).toBeFocused();
   await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 1/2 việc');
 
-  await input(page).fill('Tập yoga 30 phút');
-  await input(page).press('Enter');
+  await addTask(page, 'Tập yoga 30 phút');
   await expect(rows(page)).toHaveCount(3);
   await expect(input(page)).toBeFocused();
   await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 1/3 việc');
-  await expect(page.locator('.progress')).toHaveCSS('--p', '33');
+  await expect(progress(page)).toHaveCSS('--p', '33');
 
   await page.reload();
-  await expect(rows(page).locator('.task__label')).toHaveText(['Gửi báo cáo tuần', 'Đi chợ mua rau 🥬', 'Tập yoga 30 phút']);
+  await expect(labels(page)).toHaveText(['Gửi báo cáo tuần', 'Đi chợ mua rau 🥬', 'Tập yoga 30 phút']);
   await expect(rows(page).getByRole('checkbox').nth(1)).not.toBeChecked();
 });
 
 test('adding the first task replaces the empty state', async ({ page }) => {
   await open(page);
-  await input(page).fill('Việc đầu tiên');
-  await input(page).press('Enter');
+  await addTask(page, 'Việc đầu tiên');
   await expect(rows(page)).toHaveCount(1);
   await expect(page.locator('.empty')).toBeHidden();
   await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 0/1 việc');
@@ -117,8 +95,7 @@ test('adding the first task replaces the empty state', async ({ page }) => {
 
 test('empty or blank input shows the empty text error, and typing removes it', async ({ page }) => {
   await open(page);
-  await input(page).fill('   ');
-  await input(page).press('Enter');
+  await addTask(page, '   ');
   await expect(rows(page)).toHaveCount(0);
   await expect(addError(page)).toBeVisible();
   await expect(addError(page)).toHaveText('Vui lòng nhập nội dung công việc.');
@@ -141,28 +118,20 @@ test('over 200 characters shows the too long error; exactly 200 after trim is ad
   await expect(input(page)).toHaveValue('a'.repeat(201));
   await input(page).press('Backspace');
   await expect(addError(page)).toBeHidden();
-  await input(page).fill(`  ${'ệ'.normalize('NFD').repeat(200)}  `);
-  await input(page).press('Enter');
+  await addTask(page, `  ${'ệ'.normalize('NFD').repeat(200)}  `);
   await expect(rows(page)).toHaveCount(1);
   await expect(addError(page)).toBeHidden();
 });
 
-const box = (page, i) => rows(page).nth(i).getByRole('checkbox', { name: 'Đánh dấu hoàn thành' });
-// The drawn box sits over the hidden input, so click it the way a user does.
-async function tick(page, i, on) {
-  await rows(page).nth(i).locator('.check__box').click();
-  await (on ? expect(box(page, i)).toBeChecked() : expect(box(page, i)).not.toBeChecked());
-}
-const stored = (page) => page.evaluate((key) => JSON.parse(localStorage.getItem(key)), KEY);
 
 test('ticking saves, keeps the row in place and updates the summary and ink circle', async ({ page }) => {
   await open(page, [task('a', 'Một'), task('b', 'Hai'), task('c', 'Ba')]);
   await tick(page, 0, true);
-  await expect(rows(page).locator('.task__label')).toHaveText(['Một', 'Hai', 'Ba']);
+  await expect(labels(page)).toHaveText(['Một', 'Hai', 'Ba']);
   await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 1/3 việc');
-  await expect(page.locator('.progress')).toHaveCSS('--p', '33');
+  await expect(progress(page)).toHaveCSS('--p', '33');
   expect((await stored(page)).map((t) => t.done)).toEqual([true, false, false]);
-  await expect(page.locator('.progress')).not.toHaveClass(/progress--complete/);
+  await expect(progress(page)).not.toHaveClass(/progress--complete/);
 });
 
 test('unticking after a reload saves and keeps the order', async ({ page }) => {
@@ -173,45 +142,42 @@ test('unticking after a reload saves and keeps the order', async ({ page }) => {
   await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 1/2 việc');
   await tick(page, 1, false);
   await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 0/2 việc');
-  await expect(page.locator('.progress')).toHaveCSS('--p', '0');
+  await expect(progress(page)).toHaveCSS('--p', '0');
   await page.reload();
-  await expect(rows(page).locator('.task__label')).toHaveText(['Một', 'Hai']);
+  await expect(labels(page)).toHaveText(['Một', 'Hai']);
   await expect(box(page, 1)).not.toBeChecked();
 });
 
 test('ticking the last open task stamps the star, celebrates briefly, and unticking clears it', async ({ page }) => {
   await open(page, [task('a', 'Một', true), task('b', 'Hai')]);
-  const progress = page.locator('.progress');
   await tick(page, 1, true);
   await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 2/2 việc');
-  await expect(progress).toHaveClass(/progress--complete/);
-  await expect(progress).toHaveClass(/progress--celebrate/);
-  await expect(progress).not.toHaveClass(/progress--celebrate/, { timeout: 2000 });
-  await expect(progress).toHaveClass(/progress--complete/);
+  await expect(progress(page)).toHaveClass(/progress--complete/);
+  await expect(progress(page)).toHaveClass(/progress--celebrate/);
+  await expect(progress(page)).not.toHaveClass(/progress--celebrate/, { timeout: 2000 });
+  await expect(progress(page)).toHaveClass(/progress--complete/);
 
   await tick(page, 0, false);
-  await expect(progress).not.toHaveClass(/progress--complete/);
-  await expect(progress).not.toHaveClass(/progress--celebrate/);
+  await expect(progress(page)).not.toHaveClass(/progress--complete/);
+  await expect(progress(page)).not.toHaveClass(/progress--celebrate/);
   await tick(page, 0, true);
-  await expect(progress).toHaveClass(/progress--celebrate/);
+  await expect(progress(page)).toHaveClass(/progress--celebrate/);
   await tick(page, 0, false);
-  await expect(progress).not.toHaveClass(/progress--complete|progress--celebrate/);
+  await expect(progress(page)).not.toHaveClass(/progress--complete|progress--celebrate/);
 });
 
 test('adding a task while all are done removes the stamp', async ({ page }) => {
   await open(page, [task('a', 'Một'), task('b', 'Hai', true)]);
   await tick(page, 0, true);
-  await expect(page.locator('.progress')).toHaveClass(/progress--celebrate/);
-  await input(page).fill('Ba');
-  await input(page).press('Enter');
-  await expect(page.locator('.progress')).not.toHaveClass(/progress--complete|progress--celebrate/);
+  await expect(progress(page)).toHaveClass(/progress--celebrate/);
+  await addTask(page, 'Ba');
+  await expect(progress(page)).not.toHaveClass(/progress--complete|progress--celebrate/);
   await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 2/3 việc');
 });
 
 const editBtn = (page, i) => rows(page).nth(i).getByRole('button', { name: 'Sửa' });
 const editInput = (page) => page.getByRole('textbox', { name: 'Sửa' });
 const editError = (page) => page.locator('.task__edit .field-error');
-const labels = (page) => rows(page).locator('.task__label');
 
 test('Sửa opens a prefilled, focused edit line; Lưu saves and keeps done state and position', async ({ page }) => {
   await open(page, [task('a', 'Một'), task('b', 'Hai', true), task('c', 'Ba')]);
@@ -296,8 +262,7 @@ test('only one row edits at a time, and adding and ticking still work while edit
   await expect(editInput(page)).toBeFocused();
 
   await tick(page, 0, true);
-  await input(page).fill('Ba');
-  await input(page).press('Enter');
+  await addTask(page, 'Ba');
   await expect(rows(page)).toHaveCount(3);
   await expect(rows(page).nth(1)).toHaveClass(/task--editing/);
   await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 1/3 việc');
@@ -387,8 +352,8 @@ test('Xóa việc removes the task, saves, updates the summary and moves focus o
   await expect(labels(page)).toHaveText(['Một']);
   await expect(box(page, 0)).toBeFocused();
   // Only done tasks remain: the stamp shows without the celebration.
-  await expect(page.locator('.progress')).toHaveClass(/progress--complete/);
-  await expect(page.locator('.progress')).not.toHaveClass(/progress--celebrate/);
+  await expect(progress(page)).toHaveClass(/progress--complete/);
+  await expect(progress(page)).not.toHaveClass(/progress--celebrate/);
 
   // Only row: the empty state returns and focus goes to the add input.
   await removeBtn(page, 0).click();
@@ -455,12 +420,10 @@ test('the peek waits for the first task, and only plays once', async ({ page, is
   test.skip(!isMobile, 'phone layout only');
   await open(page);
   expect(await page.evaluate((k) => localStorage.getItem(k), HINT)).toBeNull();
-  await input(page).fill('Một');
-  await input(page).press('Enter');
+  await addTask(page, 'Một');
   await expect(rows(page).nth(0)).toHaveClass(/task--peek/);
   await expect(rows(page).nth(0)).not.toHaveClass(/task--peek/, { timeout: 4000 });
-  await input(page).fill('Hai');
-  await input(page).press('Enter');
+  await addTask(page, 'Hai');
   await expect(rows(page)).toHaveCount(2);
   await expect(rows(page).nth(0)).not.toHaveClass(/task--peek/);
 });
@@ -584,16 +547,14 @@ test('a blocked save shows the slip, the app keeps working in memory, and the ne
   await open(page);
   await expect(slip(page)).toBeHidden();
 
-  await input(page).fill('Một');
-  await input(page).press('Enter');
+  await addTask(page, 'Một');
   await expect(slip(page)).toBeVisible();
-  await input(page).fill('Hai');
-  await input(page).press('Enter');
+  await addTask(page, 'Hai');
   await expect(labels(page)).toHaveText(['Một', 'Hai']);
   await tick(page, 0, true);
   await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 1/2 việc');
   await expect(slip(page)).toBeVisible();
-  expect(await page.evaluate((key) => localStorage.getItem(key), KEY)).toBeNull();
+  expect(await storedRaw(page)).toBeNull();
 
   await page.evaluate(() => { window.blockSaves = false; });
   await tick(page, 1, true);
@@ -611,10 +572,8 @@ test('a throwing localStorage shows the slip on load for the whole session; add,
   await expect(slip(page)).toBeVisible();
   await expect(page.getByText('Hôm nay chưa có việc nào. Hãy thêm việc đầu tiên nhé!')).toBeVisible();
 
-  await input(page).fill('Một');
-  await input(page).press('Enter');
-  await input(page).fill('Hai');
-  await input(page).press('Enter');
+  await addTask(page, 'Một');
+  await addTask(page, 'Hai');
   await tick(page, 0, true);
   await editBtn(page, 1).click();
   await editInput(page).fill('Hai đã sửa');
@@ -642,8 +601,7 @@ test('corrupt stored data starts an empty list with no slip and no console error
   await expect(slip(page)).toBeHidden();
   expect(await page.evaluate((key) => localStorage.getItem(`${key}:corrupt`), KEY)).toBe('{not json');
 
-  await input(page).fill('Một');
-  await input(page).press('Enter');
+  await addTask(page, 'Một');
   await expect(slip(page)).toBeHidden();
   expect((await stored(page)).map((t) => t.text)).toEqual(['Một']);
   expect(errors).toEqual([]);
@@ -662,8 +620,7 @@ test('after a failed first read nothing is written to the tasks key, so earlier 
   await open(page);
   await expect(slip(page)).toBeVisible();
   await expect(rows(page)).toHaveCount(0);
-  await input(page).fill('Mới');
-  await input(page).press('Enter');
+  await addTask(page, 'Mới');
   await tick(page, 0, true);
   await expect(labels(page)).toHaveText(['Mới']);
   await expect(slip(page)).toBeVisible();
@@ -714,29 +671,24 @@ test('a stored non array value starts an empty list with no slip and no error', 
   expect(errors).toEqual([]);
 });
 
-const AFTER_MIDNIGHT = new Date('2026-11-10T00:05:00+07:00');
-const becomeVisible = (page) => page.evaluate(() => document.dispatchEvent(new Event('visibilitychange')));
 
 test('after midnight, returning to the page shows the new date and an empty list; yesterday stays stored', async ({ page }) => {
   await open(page, [task('a', 'Gửi báo cáo tuần'), task('b', 'Đi chợ mua rau', true)]);
   await expect(rows(page)).toHaveCount(2);
-  await page.clock.setFixedTime(AFTER_MIDNIGHT);
-  await becomeVisible(page);
+  await passMidnight(page);
   await expect(page.locator('.app-header__date')).toHaveText('Hôm nay, Thứ Ba, 10/11/2026');
   await expect(rows(page)).toHaveCount(0);
   await expect(page.locator('.empty')).toBeVisible();
-  await expect(page.locator('.progress')).toBeHidden();
+  await expect(progress(page)).toBeHidden();
   await expect(page.locator('.summary')).toBeHidden();
-  const stored = await page.evaluate((k) => JSON.parse(localStorage.getItem(k)), KEY);
-  expect(stored.map((t) => [t.id, t.date])).toEqual([['a', TODAY], ['b', TODAY]]);
+    expect((await stored(page)).map((t) => [t.id, t.date])).toEqual([['a', TODAY], ['b', TODAY]]);
 });
 
 test('window focus also checks the day, and nothing changes on the same day', async ({ page }) => {
   await open(page, [task('a', 'Gửi báo cáo tuần')]);
   await page.evaluate(() => window.dispatchEvent(new Event('focus')));
   await expect(rows(page)).toHaveCount(1);
-  await page.clock.setFixedTime(AFTER_MIDNIGHT);
-  await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+  await passMidnight(page, 'focus');
   await expect(page.locator('.app-header__date')).toHaveText('Hôm nay, Thứ Ba, 10/11/2026');
   await expect(rows(page)).toHaveCount(0);
 });
@@ -744,13 +696,11 @@ test('window focus also checks the day, and nothing changes on the same day', as
 test('adding right after midnight saves the task to the new day on a fresh list', async ({ page }) => {
   await open(page, [task('a', 'Gửi báo cáo tuần')]);
   await page.clock.setFixedTime(AFTER_MIDNIGHT);
-  await page.getByLabel('Bạn cần làm gì hôm nay?').fill('Việc ngày mới');
-  await page.getByLabel('Bạn cần làm gì hôm nay?').press('Enter');
+  await addTask(page, 'Việc ngày mới');
   await expect(page.locator('.app-header__date')).toHaveText('Hôm nay, Thứ Ba, 10/11/2026');
-  await expect(rows(page).locator('.task__label')).toHaveText(['Việc ngày mới']);
+  await expect(labels(page)).toHaveText(['Việc ngày mới']);
   await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 0/1 việc');
-  const stored = await page.evaluate((k) => JSON.parse(localStorage.getItem(k)), KEY);
-  expect(stored.map((t) => [t.text, t.date])).toEqual([['Gửi báo cáo tuần', TODAY], ['Việc ngày mới', '2026-11-10']]);
+    expect((await stored(page)).map((t) => [t.text, t.date])).toEqual([['Gửi báo cáo tuần', TODAY], ['Việc ngày mới', '2026-11-10']]);
 });
 
 test('a day change drops an open edit and closes the delete note without saving or deleting', async ({ page }) => {
@@ -759,40 +709,34 @@ test('a day change drops an open edit and closes the delete note without saving 
   await page.locator('.task__edit .input').fill('Chưa lưu');
   await rows(page).nth(1).getByRole('button', { name: 'Xóa' }).click();
   await expect(page.locator('#delete-dialog')).toBeVisible();
-  await page.clock.setFixedTime(AFTER_MIDNIGHT);
-  await becomeVisible(page);
+  await passMidnight(page);
   await expect(page.locator('#delete-dialog')).toBeHidden();
   await expect(rows(page)).toHaveCount(0);
   await expect(page.locator('.task__edit')).toHaveCount(0);
   await expect(page.getByLabel('Bạn cần làm gì hôm nay?')).toBeFocused();
-  const stored = await page.evaluate((k) => JSON.parse(localStorage.getItem(k)), KEY);
-  expect(stored.map((t) => t.text)).toEqual(['Gửi báo cáo tuần', 'Đi chợ mua rau']);
+    expect((await stored(page)).map((t) => t.text)).toEqual(['Gửi báo cáo tuần', 'Đi chợ mua rau']);
   // The new day works normally afterwards.
-  await page.getByLabel('Bạn cần làm gì hôm nay?').fill('Việc ngày mới');
-  await page.getByLabel('Bạn cần làm gì hôm nay?').press('Enter');
+  await addTask(page, 'Việc ngày mới');
   await expect(rows(page)).toHaveCount(1);
 });
 
 test('a day change does not replay the celebration or the swipe hint', async ({ page }) => {
   await open(page, [task('a', 'Gửi báo cáo tuần'), task('n', 'Việc ngày mai', true, '2026-11-10')]);
-  await rows(page).first().locator('.check__box').click();
-  await expect(page.locator('.progress')).toHaveClass(/progress--celebrate/);
-  await page.clock.setFixedTime(AFTER_MIDNIGHT);
-  await becomeVisible(page);
-  await expect(rows(page).locator('.task__label')).toHaveText(['Việc ngày mai']);
-  await expect(page.locator('.progress')).toHaveClass(/progress--complete/);
-  await expect(page.locator('.progress')).not.toHaveClass(/progress--celebrate/);
+  await tick(page, 0);
+  await expect(progress(page)).toHaveClass(/progress--celebrate/);
+  await passMidnight(page);
+  await expect(labels(page)).toHaveText(['Việc ngày mai']);
+  await expect(progress(page)).toHaveClass(/progress--complete/);
+  await expect(progress(page)).not.toHaveClass(/progress--celebrate/);
   await expect(page.locator('.task--peek')).toHaveCount(0);
 });
 
 test('the day boundary is local midnight: 23:59:59.999 stays, 00:00:00 switches (Asia/Ho_Chi_Minh)', async ({ page }) => {
   await open(page, [task('a', 'Gửi báo cáo tuần')]);
-  await page.clock.setFixedTime(new Date('2026-11-09T23:59:59.999+07:00'));
-  await becomeVisible(page);
+  await passMidnight(page, 'visibilitychange', new Date('2026-11-09T23:59:59.999+07:00'));
   await expect(page.locator('.app-header__date')).toHaveText('Hôm nay, Thứ Hai, 09/11/2026');
   await expect(rows(page)).toHaveCount(1);
-  await page.clock.setFixedTime(new Date('2026-11-10T00:00:00+07:00'));
-  await becomeVisible(page);
+  await passMidnight(page, 'visibilitychange', new Date('2026-11-10T00:00:00+07:00'));
   await expect(page.locator('.app-header__date')).toHaveText('Hôm nay, Thứ Ba, 10/11/2026');
   await expect(rows(page)).toHaveCount(0);
 });
@@ -802,17 +746,14 @@ test('a session with blocked storage still switches day, keeps the slip and acce
     Object.defineProperty(window, 'localStorage', { get() { throw new DOMException('Blocked', 'SecurityError'); } });
   });
   await open(page);
-  await input(page).fill('Một');
-  await input(page).press('Enter');
+  await addTask(page, 'Một');
   await expect(rows(page)).toHaveCount(1);
-  await page.clock.setFixedTime(AFTER_MIDNIGHT);
-  await becomeVisible(page);
+  await passMidnight(page);
   await expect(page.locator('.app-header__date')).toHaveText('Hôm nay, Thứ Ba, 10/11/2026');
   await expect(rows(page)).toHaveCount(0);
   await expect(slip(page)).toBeVisible();
-  await input(page).fill('Hai');
-  await input(page).press('Enter');
-  await expect(rows(page).locator('.task__label')).toHaveText(['Hai']);
+  await addTask(page, 'Hai');
+  await expect(labels(page)).toHaveText(['Hai']);
 });
 
 // T12: keyboard, names and performance (R28, NFR1).
