@@ -558,3 +558,240 @@ test('keyboard: Tab reaches the picker and arrow keys change the day while focus
   expect(hash(page)).toBe('#2026-10-08');
   await expect(picker(page)).toBeFocused();
 });
+
+// T6: work on any day and the midnight rules
+const stored = async (page) => JSON.parse(await storedTasks(page));
+const AFTER_MIDNIGHT = new Date('2026-11-10T00:05:00+07:00');
+const returnToPage = (page) => page.evaluate(() => document.dispatchEvent(new Event('visibilitychange')));
+
+test('adding on yesterday saves that date at the end of its list with the real creation time', async ({ page }) => {
+  await open(page, SEED, '#2026-11-08');
+  await input(page).fill('Việc bổ sung');
+  await input(page).press('Enter');
+  await expect(rows(page).locator('.task__label')).toHaveText(['Dọn tủ quần áo', 'Gọi video cho bố mẹ', 'Nấu canh chua', 'Việc bổ sung']);
+  await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 2/4 việc');
+  await expect(input(page)).toBeFocused();
+  const added = (await stored(page)).at(-1);
+  expect(added).toMatchObject({ text: 'Việc bổ sung', date: '2026-11-08', done: false, createdAt: NOW.getTime() });
+  await page.reload();
+  await expect(rows(page).last().locator('.task__label')).toHaveText('Việc bổ sung');
+  await toToday(page).click();
+  await expect(rows(page).locator('.task__label')).toHaveText(['Gửi báo cáo tuần']);
+});
+
+test('adding on an empty future day replaces the empty text and saves that date', async ({ page }) => {
+  await open(page, SEED, '#2026-11-10');
+  await input(page).fill('Chuẩn bị họp');
+  await page.getByRole('button', { name: 'Thêm' }).click();
+  await expect(page.locator('.empty')).toBeHidden();
+  await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 0/1 việc');
+  expect((await stored(page)).at(-1)).toMatchObject({ text: 'Chuẩn bị họp', date: '2026-11-10' });
+});
+
+test('tick, edit and delete on another day keep date and order and save', async ({ page }) => {
+  await open(page, SEED, '#2026-11-08');
+  const labels = rows(page).locator('.task__label');
+
+  await rows(page).nth(1).locator('.check__box').click();
+  await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 3/3 việc');
+  await page.reload();
+  await expect(rows(page).nth(1).locator('.check input')).toBeChecked();
+  await rows(page).nth(1).locator('.check__box').click();
+  await expect(rows(page).nth(1).locator('.check input')).not.toBeChecked();
+
+  await rows(page).nth(0).getByRole('button', { name: 'Sửa' }).click();
+  await page.locator('.task__edit .input').fill('Dọn tủ giày');
+  await page.locator('.task__edit .input').press('Enter');
+  await expect(labels).toHaveText(['Dọn tủ giày', 'Gọi video cho bố mẹ', 'Nấu canh chua']);
+
+  await rows(page).nth(1).getByRole('button', { name: 'Xóa' }).click();
+  await page.getByRole('button', { name: 'Giữ lại' }).click();
+  await expect(labels).toHaveCount(3);
+  await rows(page).nth(1).getByRole('button', { name: 'Xóa' }).click();
+  await page.getByRole('button', { name: 'Xóa việc' }).click();
+  await expect(labels).toHaveText(['Dọn tủ giày', 'Nấu canh chua']);
+
+  await page.reload();
+  await expect(labels).toHaveText(['Dọn tủ giày', 'Nấu canh chua']);
+  expect((await stored(page)).map((t) => [t.id, t.text, t.done, t.date])).toEqual([
+    ['y1', 'Dọn tủ giày', true, '2026-11-08'],
+    ['t1', 'Gửi báo cáo tuần', false, TODAY],
+    ['y3', 'Nấu canh chua', true, '2026-11-08'],
+  ]);
+});
+
+test('ticking the last task on a future day celebrates', async ({ page }) => {
+  await open(page, [task('f', 'Một', false, '2026-11-12')], '#2026-11-12');
+  await rows(page).first().locator('.check__box').click();
+  await expect(page.locator('.progress')).toHaveClass(/progress--complete/);
+  await expect(page.locator('.progress')).toHaveClass(/progress--celebrate/);
+});
+
+test('after midnight, viewing today follows to the new today with a plain address', async ({ page }) => {
+  await open(page, SEED);
+  await page.clock.setFixedTime(AFTER_MIDNIGHT);
+  await returnToPage(page);
+  await expect(dateLine(page)).toHaveText('Hôm nay, Thứ Ba, 10/11/2026');
+  await expect(rows(page)).toHaveCount(0);
+  await expect(toToday(page)).toHaveAttribute('aria-disabled', 'true');
+  expect(hash(page)).toBe('');
+});
+
+test('after midnight, viewing tomorrow stays and becomes today with a muted Về hôm nay and a plain address', async ({ page }) => {
+  await open(page, [...SEED, task('m1', 'Đi chợ sớm', false, '2026-11-10')], '#2026-11-10');
+  const start = await historyLength(page);
+  await page.clock.setFixedTime(AFTER_MIDNIGHT);
+  await returnToPage(page);
+  await expectWording(page, { title: 'Việc cần làm hôm nay', line: 'Hôm nay, Thứ Ba, 10/11/2026', ask: 'Bạn cần làm gì hôm nay?' });
+  await expect(rows(page).locator('.task__label')).toHaveText(['Đi chợ sớm']);
+  await expect(toToday(page)).toHaveAttribute('aria-disabled', 'true');
+  expect(page.url()).toBe(new URL('./', page.url()).href);
+  expect(await historyLength(page)).toBe(start);
+});
+
+test('after midnight, an older day stays with its open edit and plain wording', async ({ page }) => {
+  await open(page, [task('o1', 'Trả sách thư viện', false, '2026-11-05')], '#2026-11-05');
+  await rows(page).first().getByRole('button', { name: 'Sửa' }).click();
+  const field = page.locator('.task__edit .input');
+  await field.fill('Trả sách và mượn thêm');
+  await page.clock.setFixedTime(AFTER_MIDNIGHT);
+  await returnToPage(page);
+  await expect(dateLine(page)).toHaveText('Thứ Năm, 05/11/2026');
+  await expect(field).toHaveValue('Trả sách và mượn thêm');
+  await expect(field).toBeFocused();
+  expect(hash(page)).toBe('#2026-11-05');
+  await field.press('Enter');
+  await expect(rows(page).locator('.task__label')).toHaveText(['Trả sách và mượn thêm']);
+  expect((await stored(page))[0]).toMatchObject({ text: 'Trả sách và mượn thêm', date: '2026-11-05' });
+});
+
+for (const [key, before, after] of [
+  ['2026-11-08', 'Hôm qua, Chủ Nhật, 08/11/2026', 'Chủ Nhật, 08/11/2026'],
+  ['2026-11-11', 'Thứ Tư, 11/11/2026', 'Ngày mai, Thứ Tư, 11/11/2026'],
+]) {
+  test(`after midnight, the wording of ${key} follows the new today`, async ({ page }) => {
+    await open(page, SEED, `#${key}`);
+    await expect(dateLine(page)).toHaveText(before);
+    await page.clock.setFixedTime(AFTER_MIDNIGHT);
+    await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+    await expect(dateLine(page)).toHaveText(after);
+    await expect(heading(page)).toHaveText('Việc cần làm');
+    await expect(toToday(page)).not.toHaveAttribute('aria-disabled');
+    expect(hash(page)).toBe(`#${key}`);
+  });
+}
+
+test('an add right after a silent midnight on another day saves to the viewed day', async ({ page }) => {
+  await open(page, SEED, '#2026-11-05');
+  await page.clock.setFixedTime(AFTER_MIDNIGHT);
+  await input(page).fill('Việc bỏ sót');
+  await input(page).press('Enter');
+  await expect(dateLine(page)).toHaveText('Thứ Năm, 05/11/2026');
+  await expect(rows(page).locator('.task__label')).toHaveText(['Việc bỏ sót']);
+  expect((await stored(page)).at(-1)).toMatchObject({ text: 'Việc bỏ sót', date: '2026-11-05', createdAt: AFTER_MIDNIGHT.getTime() });
+  expect(hash(page)).toBe('#2026-11-05');
+});
+
+// T6 (QA additions): invalid text, stamp transitions, per day counts, storage slip, old data, midnight celebration.
+const addError = (page) => page.locator('.add-form .field-error');
+const slipOnPage = (page) => page.getByRole('alert').filter({ hasText: 'Không thể lưu dữ liệu trên trình duyệt này.' });
+
+test('on a past day an empty, blank or 201 character add shows the usual errors and stores nothing', async ({ page }) => {
+  await open(page, SEED, '#2026-11-08');
+  const before = await storedTasks(page);
+  for (const [text, msg] of [['', 'Vui lòng nhập nội dung công việc.'], ['   ', 'Vui lòng nhập nội dung công việc.'], ['a'.repeat(201), 'Nội dung tối đa 200 ký tự.']]) {
+    await input(page).fill(text);
+    await input(page).press('Enter');
+    await expect(addError(page)).toHaveText(msg);
+  }
+  await expect(rows(page)).toHaveCount(3);
+  expect(await storedTasks(page)).toBe(before);
+});
+
+test('on a past day an invalid edit keeps edit mode and the stored task', async ({ page }) => {
+  await open(page, SEED, '#2026-11-08');
+  const before = await storedTasks(page);
+  await rows(page).first().getByRole('button', { name: 'Sửa' }).click();
+  const field = page.locator('.task__edit .input');
+  await field.fill('a'.repeat(201));
+  await field.press('Enter');
+  await expect(page.locator('.task__edit .field-error')).toHaveText('Nội dung tối đa 200 ký tự.');
+  await expect(field).toBeFocused();
+  expect(await storedTasks(page)).toBe(before);
+});
+
+test('on another day the stamp follows tick, untick, add and delete; reload shows it without the celebration', async ({ page }) => {
+  await open(page, [task('a', 'Một', false, '2026-11-08')], '#2026-11-08');
+  const progress = page.locator('.progress');
+  await rows(page).first().locator('.check__box').click();
+  await expect(progress).toHaveClass(/progress--celebrate/);
+  await page.reload();
+  await expect(progress).toHaveClass(/progress--complete/);
+  await expect(progress).not.toHaveClass(/progress--celebrate/);
+  await rows(page).first().locator('.check__box').click();
+  await expect(progress).not.toHaveClass(/progress--complete/);
+  await rows(page).first().locator('.check__box').click();
+  await expect(progress).toHaveClass(/progress--complete/);
+  await input(page).fill('Hai');
+  await input(page).press('Enter');
+  await expect(progress).not.toHaveClass(/progress--complete/);
+  await rows(page).nth(1).getByRole('button', { name: 'Xóa' }).click();
+  await page.getByRole('button', { name: 'Xóa việc' }).click();
+  await expect(progress).toHaveClass(/progress--complete/);
+  await expect(progress).not.toHaveClass(/progress--celebrate/);
+});
+
+test('each day lists and counts only its own tasks after adding on three days', async ({ page }) => {
+  await open(page, [task('a', 'Cũ', false, '2026-11-08'), task('b', 'Nay', true), task('c', 'Mai', false, '2026-11-10')]);
+  const days = [['2026-11-08', 'Cũ'], ['2026-11-09', 'Nay'], ['2026-11-10', 'Mai']];
+  for (const [key, old] of days) {
+    await page.goto(`./#${key}`);
+    await input(page).fill(`Thêm ${key}`);
+    await input(page).press('Enter');
+    await expect(rows(page).locator('.task__label')).toHaveText([old, `Thêm ${key}`]);
+  }
+  await page.goto('./#2026-11-08');
+  await expect(rows(page).locator('.task__label')).toHaveText(['Cũ', 'Thêm 2026-11-08']);
+  await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 0/2 việc');
+  expect((await stored(page)).map((t) => t.date)).toEqual(['2026-11-08', '2026-11-09', '2026-11-10', '2026-11-08', '2026-11-09', '2026-11-10']);
+});
+
+test('storage that refuses writes on another day shows the slip, keeps memory and the old stored value', async ({ page }) => {
+  await page.addInitScript(() => {
+    if (!sessionStorage.getItem('locked')) { sessionStorage.setItem('locked', '1'); return; }
+    Storage.prototype.setItem = () => { throw new DOMException('Full', 'QuotaExceededError'); };
+  });
+  await open(page, SEED, '#2026-11-08');
+  await page.reload();
+  const before = await storedTasks(page);
+  await rows(page).nth(0).locator('.check__box').click();
+  await expect(slipOnPage(page)).toBeVisible();
+  await input(page).fill('Việc mới');
+  await input(page).press('Enter');
+  await expect(rows(page).locator('.task__label')).toHaveText(['Dọn tủ quần áo', 'Gọi video cho bố mẹ', 'Nấu canh chua', 'Việc mới']);
+  await expect(rows(page).nth(0).locator('.check input')).not.toBeChecked();
+  expect(await storedTasks(page)).toBe(before);
+});
+
+test('data saved by the daily task log in its exact shape shows on its days without conversion', async ({ page }) => {
+  const old = [
+    { id: 'o1', text: 'Việc cũ', done: true, createdAt: 1700000000000, date: '2023-11-14' },
+    { id: 'o2', text: 'Việc năm nay', done: false, createdAt: 1790000000000, date: '2026-10-01' },
+  ];
+  await open(page, old, '#2026-10-01');
+  await expect(rows(page).locator('.task__label')).toHaveText(['Việc năm nay']);
+  await page.goto('./#2023-11-14');
+  await expect(rows(page).locator('.task__label')).toHaveText(['Việc cũ']);
+  await expect(rows(page).first().locator('.check input')).toBeChecked();
+  expect(await stored(page)).toEqual(old);
+});
+
+test('after midnight on an all done day nothing celebrates again and no page turn plays', async ({ page }) => {
+  await open(page, [task('a', 'Một', true, '2026-11-08')], '#2026-11-08');
+  await page.clock.setFixedTime(AFTER_MIDNIGHT);
+  await returnToPage(page);
+  await expect(dateLine(page)).toHaveText('Chủ Nhật, 08/11/2026');
+  await expect(page.locator('.progress')).toHaveClass(/progress--complete/);
+  await expect(page.locator('.progress')).not.toHaveClass(/progress--celebrate/);
+  await expect(page.locator('.turn--back, .turn--forward, .washi--restick')).toHaveCount(0);
+});
