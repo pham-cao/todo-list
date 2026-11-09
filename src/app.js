@@ -78,7 +78,8 @@ function renderWording() {
   els.input.placeholder = w.ask;
   els.addLabel.textContent = w.ask;
   els.emptyText.textContent = w.empty;
-  els.picker.value = viewed;
+  // Rewriting an equal value would cut off a date the owner is typing in the picker.
+  if (els.picker.value !== viewed) els.picker.value = viewed;
   if (viewed === today) els.toToday.setAttribute("aria-disabled", "true");
   else els.toToday.removeAttribute("aria-disabled");
 }
@@ -341,7 +342,7 @@ function resetTransient() {
 
 // One move is one history entry (R22, R25). Focus is left on the control used (R8).
 function go(key) {
-  if (!key || key === viewed) { els.picker.value = viewed; return; }
+  if (!key || key === viewed) { if (els.picker.value !== viewed) els.picker.value = viewed; return; }
   resetTransient();
   writeAddress(key, true);
   viewed = key;
@@ -370,6 +371,18 @@ els.toToday.addEventListener("click", () => {
   if (els.toToday.getAttribute("aria-disabled") === "true") return;
   go(today);
 });
+// Picker (R3, R9): Chromium reports partial years such as 0202-11-08 while the owner types,
+// so a bad value is ignored while the field has focus and put back to the viewed day on blur.
+els.picker.addEventListener("change", () => {
+  const key = els.picker.value;
+  if (!parseDateKey(key)) {
+    if (document.activeElement !== els.picker) els.picker.value = viewed;
+    return;
+  }
+  checkDay();
+  go(key);
+});
+els.picker.addEventListener("blur", () => { if (els.picker.value !== viewed) els.picker.value = viewed; });
 window.addEventListener("popstate", syncFromAddress);
 window.addEventListener("hashchange", syncFromAddress);
 

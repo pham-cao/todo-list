@@ -447,3 +447,114 @@ test('Về hôm nay after a silent midnight moves to the new today and keeps foc
   await expect(toToday(page)).toBeFocused();
   expect(page.url()).toBe(new URL('./', page.url()).href);
 });
+
+// T5: date picker
+const picker = (page) => page.getByLabel('Chọn ngày');
+
+test('picking a date shows that day, writes the hash and keeps focus on the picker', async ({ page }) => {
+  await open(page, [...SEED, task('o1', 'Nộp hồ sơ', false, '2026-10-01', 4)]);
+  const start = await historyLength(page);
+  await picker(page).fill('2026-10-01');
+  await expect(dateLine(page)).toHaveText('Thứ Năm, 01/10/2026');
+  await expect(rows(page).locator('.task__label')).toHaveText(['Nộp hồ sơ']);
+  expect(hash(page)).toBe('#2026-10-01');
+  expect(await historyLength(page)).toBe(start + 1);
+  await expect(picker(page)).toBeFocused();
+  await expect(picker(page)).toHaveValue('2026-10-01');
+});
+
+test('the picker follows the viewed day after every move, load, Back and midnight', async ({ page }) => {
+  await open(page, SEED, '#2026-11-08');
+  await expect(picker(page)).toHaveValue('2026-11-08');
+  await prev(page).click();
+  await expect(picker(page)).toHaveValue('2026-11-07');
+  await next(page).click();
+  await next(page).click();
+  await expect(picker(page)).toHaveValue(TODAY);
+  await prev(page).click();
+  await toToday(page).click();
+  await expect(picker(page)).toHaveValue(TODAY);
+  await page.goBack();
+  await expect(picker(page)).toHaveValue('2026-11-08');
+  await toToday(page).click();
+  await page.clock.setFixedTime(new Date('2026-11-10T00:00:01+07:00'));
+  await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+  await expect(picker(page)).toHaveValue('2026-11-10');
+});
+
+test('an empty or out of range pick changes nothing and the picker shows the viewed day after blur', async ({ page }) => {
+  await open(page, SEED, '#2026-11-08');
+  const start = await historyLength(page);
+  for (const value of ['1999-12-31', '2100-01-01', '']) {
+    await picker(page).fill(value);
+    await expect(dateLine(page)).toHaveText('Hôm qua, Chủ Nhật, 08/11/2026');
+    expect(hash(page)).toBe('#2026-11-08');
+    expect(await historyLength(page)).toBe(start);
+    await picker(page).blur();
+    await expect(picker(page)).toHaveValue('2026-11-08');
+  }
+  await expect(page.locator('[role="alert"]:visible')).toHaveCount(0);
+});
+
+test('the first and last allowed days can be picked', async ({ page }) => {
+  await open(page, SEED);
+  await picker(page).fill('2000-01-01');
+  await expect(dateLine(page)).toHaveText('Thứ Bảy, 01/01/2000');
+  expect(hash(page)).toBe('#2000-01-01');
+  await picker(page).fill('2099-12-31');
+  await expect(dateLine(page)).toHaveText('Thứ Năm, 31/12/2099');
+  expect(hash(page)).toBe('#2099-12-31');
+});
+
+test('picking the viewed day adds no history entry; picking today removes the hash', async ({ page }) => {
+  await open(page, SEED, '#2026-11-08');
+  const start = await historyLength(page);
+  await picker(page).fill('2026-11-08');
+  await expect(dateLine(page)).toHaveText('Hôm qua, Chủ Nhật, 08/11/2026');
+  expect(await historyLength(page)).toBe(start);
+  await picker(page).fill(TODAY);
+  await expect(dateLine(page)).toHaveText('Hôm nay, Thứ Hai, 09/11/2026');
+  expect(hash(page)).toBe('');
+  await expect(toToday(page)).toHaveAttribute('aria-disabled', 'true');
+});
+
+test('typing a date digit by digit ends on that day without jumping back', async ({ page }) => {
+  await open(page, SEED, '#2026-11-08');
+  await picker(page).focus();
+  // 10/10 reads the same in dd/mm and mm/dd order. The year passes through 0002, 0020 and 0202 on the way to 2026.
+  for (const key of '10102026') await page.keyboard.press(key);
+  await expect(picker(page)).toHaveValue('2026-10-10');
+  await expect(dateLine(page)).toHaveText('Thứ Bảy, 10/10/2026');
+  expect(hash(page)).toBe('#2026-10-10');
+  await expect(picker(page)).toBeFocused();
+  await picker(page).blur();
+  await expect(picker(page)).toHaveValue('2026-10-10');
+});
+
+test('a partial year typed into the picker is kept while focused and reset on blur', async ({ page }) => {
+  await open(page, SEED, '#2026-11-08');
+  await picker(page).focus();
+  await page.keyboard.press('Tab');
+  await page.keyboard.press('Tab');
+  // Now on the year segment: two digits make year 0020, outside the range.
+  await page.keyboard.press('2');
+  await page.keyboard.press('0');
+  await expect(picker(page)).toHaveValue('0020-11-08');
+  await expect(dateLine(page)).toHaveText('Hôm qua, Chủ Nhật, 08/11/2026');
+  await picker(page).blur();
+  await expect(picker(page)).toHaveValue('2026-11-08');
+  expect(hash(page)).toBe('#2026-11-08');
+});
+
+test('keyboard: Tab reaches the picker and arrow keys change the day while focus stays', async ({ page }) => {
+  await open(page, SEED, '#2026-11-08');
+  await next(page).focus();
+  await page.keyboard.press('Tab');
+  await expect(picker(page)).toBeFocused();
+  // First segment is the month in vi-VN Chromium (mm/dd/yyyy): ArrowDown moves 11 to 10.
+  await page.keyboard.press('ArrowDown');
+  await expect(picker(page)).toHaveValue('2026-10-08');
+  await expect(dateLine(page)).toHaveText('Thứ Năm, 08/10/2026');
+  expect(hash(page)).toBe('#2026-10-08');
+  await expect(picker(page)).toBeFocused();
+});
