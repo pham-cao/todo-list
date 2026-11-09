@@ -207,3 +207,127 @@ test('adding a task while all are done removes the stamp', async ({ page }) => {
   await expect(page.locator('.progress')).not.toHaveClass(/progress--complete|progress--celebrate/);
   await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 2/3 việc');
 });
+
+const editBtn = (page, i) => rows(page).nth(i).getByRole('button', { name: 'Sửa' });
+const editInput = (page) => page.getByRole('textbox', { name: 'Sửa' });
+const editError = (page) => page.locator('.task__edit .field-error');
+const labels = (page) => rows(page).locator('.task__label');
+
+test('Sửa opens a prefilled, focused edit line; Lưu saves and keeps done state and position', async ({ page }) => {
+  await open(page, [task('a', 'Một'), task('b', 'Hai', true), task('c', 'Ba')]);
+  await editBtn(page, 1).click();
+  await expect(rows(page).nth(1)).toHaveClass(/task--editing/);
+  await expect(editInput(page)).toHaveValue('Hai');
+  await expect(editInput(page)).toBeFocused();
+  expect(await editInput(page).evaluate((el) => [el.selectionStart, el.selectionEnd])).toEqual([3, 3]);
+  await expect(rows(page).nth(1).getByRole('button', { name: 'Hủy' })).toBeVisible();
+
+  await editInput(page).fill('  Hai mươi  ');
+  await rows(page).nth(1).getByRole('button', { name: 'Lưu' }).click();
+  await expect(rows(page).nth(1)).not.toHaveClass(/task--editing/);
+  await expect(editInput(page)).toHaveCount(0);
+  await expect(labels(page)).toHaveText(['Một', 'Hai mươi', 'Ba']);
+  await expect(box(page, 1)).toBeChecked();
+  await expect(box(page, 1)).toHaveAccessibleDescription('Hai mươi');
+  await expect(editBtn(page, 1)).toBeFocused();
+  await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 1/3 việc');
+
+  await editBtn(page, 2).click();
+  await editInput(page).fill('Ba lần');
+  await editInput(page).press('Enter');
+  await expect(labels(page)).toHaveText(['Một', 'Hai mươi', 'Ba lần']);
+  await expect(editBtn(page, 2)).toBeFocused();
+
+  await page.reload();
+  await expect(labels(page)).toHaveText(['Một', 'Hai mươi', 'Ba lần']);
+  await expect(box(page, 1)).toBeChecked();
+});
+
+test('invalid edit text keeps edit mode with the matching error and the old saved text', async ({ page }) => {
+  await open(page, [task('a', 'Một')]);
+  await editBtn(page, 0).click();
+  await editInput(page).fill('   ');
+  await editInput(page).press('Enter');
+  await expect(rows(page).nth(0)).toHaveClass(/task--editing/);
+  await expect(editError(page)).toHaveText('Vui lòng nhập nội dung công việc.');
+  await expect(editInput(page)).toHaveAttribute('aria-invalid', 'true');
+  await expect(editInput(page)).toHaveAccessibleDescription('Vui lòng nhập nội dung công việc.');
+  await expect(editInput(page)).toBeFocused();
+
+  await editInput(page).fill('a'.repeat(201));
+  await rows(page).nth(0).getByRole('button', { name: 'Lưu' }).click();
+  await expect(editError(page)).toHaveText('Nội dung tối đa 200 ký tự.');
+  expect(await stored(page)).toEqual([task('a', 'Một')]);
+
+  await editInput(page).press('Backspace');
+  await expect(editError(page)).toBeHidden();
+  await expect(editInput(page)).not.toHaveAttribute('aria-invalid');
+  await expect(editInput(page)).not.toHaveAttribute('aria-describedby');
+});
+
+test('Hủy and Escape leave edit mode and keep the old text', async ({ page }) => {
+  await open(page, [task('a', 'Một'), task('b', 'Hai')]);
+  await editBtn(page, 0).click();
+  await editInput(page).fill('Đổi');
+  await rows(page).nth(0).getByRole('button', { name: 'Hủy' }).click();
+  await expect(labels(page)).toHaveText(['Một', 'Hai']);
+  await expect(rows(page).nth(0)).not.toHaveClass(/task--editing/);
+  await expect(editBtn(page, 0)).toBeFocused();
+
+  await editBtn(page, 1).click();
+  await editInput(page).fill('');
+  await editInput(page).press('Enter');
+  await expect(editError(page)).toBeVisible();
+  await editInput(page).press('Escape');
+  await expect(labels(page)).toHaveText(['Một', 'Hai']);
+  await expect(editInput(page)).toHaveCount(0);
+  await expect(editBtn(page, 1)).toBeFocused();
+});
+
+test('only one row edits at a time, and adding and ticking still work while editing', async ({ page }) => {
+  await open(page, [task('a', 'Một'), task('b', 'Hai')]);
+  await editBtn(page, 0).click();
+  await editInput(page).fill('Không lưu');
+  await editBtn(page, 1).click();
+  await expect(page.locator('.task--editing')).toHaveCount(1);
+  await expect(rows(page).nth(1)).toHaveClass(/task--editing/);
+  await expect(labels(page).nth(0)).toHaveText('Một');
+  await expect(editInput(page)).toHaveValue('Hai');
+  await expect(editInput(page)).toBeFocused();
+
+  await tick(page, 0, true);
+  await input(page).fill('Ba');
+  await input(page).press('Enter');
+  await expect(rows(page)).toHaveCount(3);
+  await expect(rows(page).nth(1)).toHaveClass(/task--editing/);
+  await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 1/3 việc');
+  await editInput(page).fill('Hai mới');
+  await editInput(page).press('Enter');
+  await expect(labels(page)).toHaveText(['Một', 'Hai mới', 'Ba']);
+});
+
+// QA T7 additions: boundary of the 200 limit while editing, and the highlighter under mouse hover.
+test('edit accepts exactly 200 characters (trimmed) and rejects 201', async ({ page }) => {
+  await open(page, [task('a', 'Một')]);
+  await editBtn(page, 0).click();
+  await editInput(page).fill('z'.repeat(201) + '   ');
+  await editInput(page).press('Enter');
+  await expect(editError(page)).toHaveText('Nội dung tối đa 200 ký tự.');
+  await editInput(page).fill('  ' + 'y'.repeat(200) + '  ');
+  await editInput(page).press('Enter');
+  await expect(rows(page).nth(0)).not.toHaveClass(/task--editing/);
+  await expect(labels(page).nth(0)).toHaveText('y'.repeat(200));
+});
+
+test('the editing row keeps the highlighter wash under mouse hover', async ({ page, isMobile }) => {
+  test.skip(isMobile, 'hover is a desktop pointer feature');
+  await open(page, [task('a', 'Một'), task('b', 'Hai')]);
+  await editBtn(page, 0).click();
+  const bg = (i) => rows(page).nth(i).evaluate((el) => getComputedStyle(el).backgroundImage);
+  await rows(page).nth(1).hover();
+  const hovered = await bg(1);
+  await rows(page).nth(0).hover({ position: { x: 300, y: 15 } });
+  const editing = await bg(0);
+  expect(editing).toContain('250, 214, 72');
+  expect(editing).not.toBe(hovered);
+});

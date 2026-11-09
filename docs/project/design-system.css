@@ -433,7 +433,7 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
 }
 
 /* Edit mode: the line gets a highlighter wash, Hủy and Lưu sit on the next line */
-.task--editing { background: linear-gradient(to right, transparent calc(var(--holes-w) + var(--margin-w)), var(--color-highlight) 0); }
+.task.task--editing, .task.task--editing:hover { background: linear-gradient(to right, transparent calc(var(--holes-w) + var(--margin-w)), var(--color-highlight) 0); }
 .task__edit { grid-column: 2; min-width: 0; }
 .task__edit .input { padding-left: 0; }
 .task__edit-actions { display: flex; justify-content: flex-end; gap: var(--space-2); height: var(--rule); align-items: center; }
