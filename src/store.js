@@ -20,7 +20,8 @@ export function getStorage() {
   }
 }
 
-const isValid = (t) =>
+// Exported so a read only recount (app.js storedUsage) skips exactly what the store skips on load.
+export const isValid = (t) =>
   t && typeof t === "object" &&
   typeof t.id === "string" && t.id !== "" &&
   typeof t.text === "string" &&

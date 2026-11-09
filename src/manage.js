@@ -30,7 +30,9 @@ export function showFieldError(input, errorEl, code, messages) {
 
 // The "Nhóm việc" card (R35 to R38). groups() returns the live groups instance, which the storage listener may replace.
 // refresh() rebuilds the add choice, the filter and the day list behind the card.
-export function createManage({ groups, store, button, refresh }) {
+// notify(text) shows the info slip (T10). showGroupTasks(id) puts the filter on the group and turns to its nearest day (R53).
+// storedUsage(id) reads the group's tasks from storage again, read only (BUG-009).
+export function createManage({ groups, store, button, refresh, notify, showGroupTasks, storedUsage }) {
   const $ = (id) => document.getElementById(id);
   const dialog = $("manage-dialog");
   const list = $("group-rows");
@@ -40,6 +42,10 @@ export function createManage({ groups, store, button, refresh }) {
   const clone = (t) => t.content.firstElementChild.cloneNode(true);
   // The group whose row is in edit; one at a time (R36).
   let editId = null;
+  // The sticky notes stacked over the card for Xóa (R51, R52), and the group they are about.
+  const deleteNote = $("group-delete-dialog");
+  const blockedNote = $("group-blocked-dialog");
+  let noteId = null;
 
   function viewRow(g, i) {
     const row = clone(rowTemplate);
@@ -80,9 +86,87 @@ export function createManage({ groups, store, button, refresh }) {
     if (!all.some((g) => g.id === editId)) editId = null;
     list.replaceChildren(...all.map((g, i) => (g.id === editId ? editRow(g) : viewRow(g, i))));
     show(empty, !all.length);
-    if (!focusId) return;
-    const row = [...list.children].find((r) => r.dataset.id === focusId);
+    if (focusId) focusRow(focusId, action);
+  }
+
+  function focusRow(id, action) {
+    const row = [...list.children].find((r) => r.dataset.id === id);
     (row?.querySelector(`[data-action="${action}"]`) ?? dialog.querySelector('[data-action="close"]')).focus();
+  }
+
+  // Xóa: an empty group asks first; a group with a task on any day is never deleted (R51, R52). Xóa is never disabled.
+  function askDelete(id, usage = store.groupUsage(id)) {
+    if (editId) { editId = null; render(id, "delete"); } // an open row edit is dropped, as Sửa does (R36)
+    const g = groups().get(id);
+    if (!g) return render(null); // gone in another tab
+    const { count, days } = usage;
+    const note = count ? blockedNote : deleteNote;
+    note.querySelector(".dialog__title").textContent = count
+      ? `Chưa thể xóa nhóm "${g.name}" vì nhóm còn ${count} việc trong ${days.length} ngày. Hãy chuyển các việc này sang nhóm khác trước.`
+      : `Xóa nhóm "${g.name}"?`;
+    const sticker = note.querySelector(".sticker");
+    sticker.textContent = g.name;
+    sticker.dataset.color = g.color;
+    noteId = id;
+    note.showModal();
+  }
+
+  // Ends a note's errand: the close event then has nothing left to put back.
+  function takeNote(note) {
+    const id = noteId;
+    noteId = null;
+    note.close();
+    return id;
+  }
+
+  // Xóa nhóm: tasks are never touched; focus goes to the next row's Sửa, else the previous one, else Đóng.
+  function removeGroup() {
+    const id = takeNote(deleteNote);
+    // Another tab may have given the group a task while the question was open: read the stored tasks again (BUG-009).
+    const fresh = storedUsage(id);
+    if (fresh.count) return askDelete(id, fresh);
+    const rows = [...list.children];
+    const i = rows.findIndex((r) => r.dataset.id === id);
+    const next = rows[i + 1] ?? rows[i - 1];
+    groups().remove(id);
+    refresh(); // a filter or add choice on it falls back at once (R48, R21)
+    render(null);
+    focusRow(next?.dataset.id, "rename");
+  }
+
+  // Xem các việc này (R53): both dialogs close (the card's close runs refresh() and focuses Quản lý nhóm), then the day turns.
+  function showTasks() {
+    const id = takeNote(blockedNote);
+    dialog.close();
+    showGroupTasks(id);
+  }
+
+  deleteNote.addEventListener("click", (e) => {
+    const action = e.target.closest("[data-action]")?.dataset.action;
+    if (action === "remove") removeGroup();
+    else if (action === "keep") deleteNote.close();
+  });
+  blockedNote.addEventListener("click", (e) => {
+    const action = e.target.closest("[data-action]")?.dataset.action;
+    if (action === "show") showTasks();
+    else if (action === "keep") blockedNote.close();
+    // move: Chuyển tất cả việc is wired in T10.
+  });
+  // Giữ lại, Đã hiểu, Escape and the backdrop, as on the task note: the group stays and focus goes back to its Xóa.
+  for (const note of [deleteNote, blockedNote]) {
+    note.addEventListener("click", (e) => {
+      if (e.target !== note) return; // the note's own padding also targets the dialog
+      const r = note.getBoundingClientRect();
+      if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) note.close();
+    });
+    note.addEventListener("close", () => {
+      // The close event is queued: a quick Enter may have opened this note again, or Xóa nhóm may have handed over
+      // to the blocked note (BUG-009). Either way the open note owns noteId now.
+      if (deleteNote.open || blockedNote.open) return;
+      const id = noteId;
+      noteId = null;
+      if (id) focusRow(id, "delete");
+    });
   }
 
   const nameInput = () => list.querySelector(".group-row--editing .input");
@@ -112,7 +196,8 @@ export function createManage({ groups, store, button, refresh }) {
     if (action === "close") dialog.close();
     else if (action === "rename") startEdit(e.target.closest(".group-row").dataset.id);
     else if (action === "cancel") cancelEdit();
-    // move (T10) and delete (T9) come later.
+    else if (action === "delete") askDelete(e.target.closest(".group-row").dataset.id);
+    // move comes with T10.
   });
 
   dialog.addEventListener("submit", (e) => {
@@ -156,6 +241,7 @@ export function createManage({ groups, store, button, refresh }) {
 
   // Đóng or Escape (R38). A backdrop click does nothing: the card holds forms.
   dialog.addEventListener("close", () => {
+    if (dialog.open) return; // queued event of a card that was opened again straight away: keep its focus
     editId = null;
     refresh();
     button.focus();

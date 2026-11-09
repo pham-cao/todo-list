@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import {
   TODAY, NOW, KEY, GROUPS_KEY, UI_KEY, task, group, open, rows, labels, progress, box, storedRaw, storedJson,
-  addTask, tick, sections, section, toggle, passMidnight,
+  addTask, tick, sections, section, toggle, passMidnight, hash,
 } from './helpers.js';
 
 // T4: the day list in sections, with collapse (R29 to R34, R39, R40, R50, R57, R58, R63, R65, NFR1)
@@ -1024,12 +1024,15 @@ test('on a phone the swipe and Sửa reach the edit form inside a section; the f
   await expect(editOf(page, 'Tưới cây')).toBeFocused();
 });
 
-test('200 tasks in 20 groups: a move stays under 100 ms', async ({ page }) => {
+// BUG-010: measured settled (like day-nav T7-07, BUG-002). closeSwipes used to read scrollLeft of every strip on focus,
+// forcing a layout of all 200 rows (250 to 300 ms on an idle host); it now touches only the open strip.
+test('200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)', async ({ page }) => {
   const gs = Array.from({ length: 20 }, (_, i) => group(`g${i}`, `Nhóm ${i + 1}`, 'yellow', i + 1));
   const big = Array.from({ length: 200 }, (_, i) => ({ ...task(`t${i}`, `Việc số ${i + 1}`, false, TODAY, i + 1), groupId: `g${i % 20}` }));
   await open(page, big, '', { groups: gs });
   await editOf(page, 'Việc số 1').click();
   await editChoice(page).selectOption({ label: 'Nhóm 7' });
+  await page.waitForTimeout(500); // let the page settle: an idle page is the slow case (the CPU clocks down)
   const ms = await page.evaluate(() => {
     const t0 = performance.now();
     document.querySelector('.task__edit').requestSubmit();
@@ -1920,4 +1923,571 @@ test('Sửa on a row whose group went in another tab while another row was in ed
   await expect(cardRows(page).locator('.sticker')).toHaveText(['Công ty', 'Học tiếng Nhật']);
   await expect(renameInput(page)).toHaveCount(0);
   expect(errors).toEqual([]);
+});
+
+// T9: delete a group, the blocked note and Xem các việc này (R40, R48, R51 to R54, R62, R65)
+const deleteNote = (page) => page.locator('#group-delete-dialog');
+const blockedNote = (page) => page.locator('#group-blocked-dialog');
+const xoa = (page, name) => cardRow(page, name).getByRole('button', { name: 'Xóa', exact: true });
+const sua = (page, name) => cardRow(page, name).getByRole('button', { name: 'Sửa', exact: true });
+const blockedText = (name, n, d) => `Chưa thể xóa nhóm "${name}" vì nhóm còn ${n} việc trong ${d} ngày. Hãy chuyển các việc này sang nhóm khác trước.`;
+const inGroup = (id, ...args) => ({ ...task(...args), groupId: id });
+const SK = group('sk', 'Sức khỏe', 'blue', at(7, 3));
+
+test('Xóa on a group with no task asks first, with the name, Giữ lại focused and Xóa nhóm', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await openCard(page);
+  await xoa(page, 'Học tiếng Nhật').click();
+  const note = page.getByRole('alertdialog', { name: 'Xóa nhóm "Học tiếng Nhật"?' });
+  await expect(note).toBeVisible();
+  await expect(note.getByRole('button', { name: 'Giữ lại' })).toBeFocused();
+  await expect(note.getByRole('button')).toHaveText(['Giữ lại', 'Xóa nhóm']);
+  await expect(note.locator('.sticker')).toHaveText('Học tiếng Nhật');
+  await expect(note.locator('.sticker')).toHaveAttribute('data-color', 'green');
+  await expect(card(page)).toBeVisible(); // the note sits on the card
+});
+
+test('Xóa nhóm removes the group from storage and the card, tasks untouched; focus on the next Sửa, else the previous, else Đóng', async ({ page }) => {
+  await open(page, DAY, '', { groups: [...GROUPS, SK] });
+  const tasksBefore = await storedRaw(page);
+  await openCard(page);
+  const confirm = () => deleteNote(page).getByRole('button', { name: 'Xóa nhóm' }).click();
+  await xoa(page, 'Học tiếng Nhật').click();
+  await confirm();
+  await expect(deleteNote(page)).toBeHidden();
+  await expect(card(page)).toBeVisible();
+  await expect(cardRows(page).locator('.sticker')).toHaveText(['Công ty', 'Nhà', 'Sức khỏe']);
+  await expect(sua(page, 'Sức khỏe')).toBeFocused();
+  expect((await storedJson(page, GROUPS_KEY)).map((g) => g.id)).toEqual(['cty', 'nha', 'sk']);
+  await xoa(page, 'Sức khỏe').click(); // the last row: focus goes to the previous one
+  await confirm();
+  await expect(sua(page, 'Nhà')).toBeFocused();
+  expect(await storedRaw(page)).toBe(tasksBefore);
+});
+
+test('deleting the only group leaves Bạn chưa có nhóm nào. with focus on Đóng', async ({ page }) => {
+  const confirm = () => deleteNote(page).getByRole('button', { name: 'Xóa nhóm' }).click();
+  await open(page, [], '', { groups: [SK] });
+  await openCard(page);
+  await xoa(page, 'Sức khỏe').click();
+  await confirm();
+  await expect(card(page).getByRole('button', { name: 'Đóng' })).toBeFocused();
+  await expect(card(page).locator('.dialog__empty')).toBeVisible();
+  expect(await storedJson(page, GROUPS_KEY)).toEqual([]);
+});
+
+test('Giữ lại, Escape and a backdrop click keep the group, the card stays open and focus returns to Xóa', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await openCard(page);
+  const exits = [
+    () => deleteNote(page).getByRole('button', { name: 'Giữ lại' }).click(),
+    () => page.keyboard.press('Escape'),
+    () => page.mouse.click(3, 3),
+  ];
+  for (const exit of exits) {
+    await xoa(page, 'Học tiếng Nhật').click();
+    await expect(deleteNote(page)).toBeVisible();
+    await exit();
+    await expect(deleteNote(page)).toBeHidden();
+    await expect(card(page)).toBeVisible();
+    await expect(xoa(page, 'Học tiếng Nhật')).toBeFocused();
+  }
+  expect((await storedJson(page, GROUPS_KEY)).map((g) => g.id)).toEqual(['cty', 'nha', 'jp']);
+  await page.keyboard.press('Escape'); // the next Escape closes the card
+  await expect(card(page)).toBeHidden();
+});
+
+test('deleting the filtered group that is also the add choice resets both; the last group returns the plain list (T7-14)', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await open(page, [task('a', 'Một')], '', { groups: [SK] });
+  await filterSel(page).selectOption({ label: 'Sức khỏe' });
+  await expect(choice(page)).toHaveValue('sk');
+  await openCard(page);
+  await xoa(page, 'Sức khỏe').click();
+  await deleteNote(page).getByRole('button', { name: 'Xóa nhóm' }).click();
+  // The page behind follows at once, before the card closes.
+  await expect(choice(page)).toHaveValue('none');
+  await page.keyboard.press('Escape');
+  await expect(manageBtn(page)).toBeFocused();
+  await expect(filterSel(page)).toBeHidden();
+  await expect(sections(page)).toHaveCount(0);
+  await expect(labels(page)).toHaveText(['Một']);
+  await expect(page.locator('#group-bar')).not.toHaveClass(/group-bar--filtered/);
+  expect(errors).toEqual([]);
+});
+
+test('deleting the filtered group among others: filter Tất cả nhóm, add choice Chưa phân nhóm, all sections back', async ({ page }) => {
+  await open(page, DAY, '', { groups: [...GROUPS, SK] });
+  await filterSel(page).selectOption({ label: 'Sức khỏe' });
+  await openCard(page);
+  await xoa(page, 'Sức khỏe').click();
+  await deleteNote(page).getByRole('button', { name: 'Xóa nhóm' }).click();
+  await page.keyboard.press('Escape');
+  await expect(filterSel(page)).toHaveValue('all');
+  await expect(choice(page)).toHaveValue('none');
+  await expect(names(page)).toHaveText(['Công ty', 'Nhà', 'Chưa phân nhóm']);
+});
+
+test('a deleted group leaves the collapsed list; the others keep order and colour; a new group continues from the latest', async ({ page }) => {
+  const abc = [group('a', 'A', 'yellow', at(7, 0)), group('b', 'B', 'pink', at(7, 1)), group('c', 'C', 'green', at(7, 2))];
+  await open(page, [], '', { groups: abc, ui: { collapsed: ['b', 'a'] } });
+  await openCard(page);
+  await xoa(page, 'B').click();
+  await deleteNote(page).getByRole('button', { name: 'Xóa nhóm' }).click();
+  expect((await storedJson(page, UI_KEY)).collapsed).toEqual(['a']);
+  await page.keyboard.press('Escape');
+  await choice(page).selectOption('new');
+  await nameInput(page).fill('D');
+  await createBtn(page).click();
+  expect((await storedJson(page, GROUPS_KEY)).map((g) => [g.id === 'a' || g.id === 'c' ? g.id : g.name, g.color]))
+    .toEqual([['a', 'yellow'], ['c', 'green'], ['D', 'blue']]);
+});
+
+test('a group with tasks on any day is never deleted: the blocked note gives n and d, three buttons, and Xóa stays usable', async ({ page }) => {
+  const tasks = [
+    inGroup('nha', 'p1', 'Hôm trước', true, '2026-11-05', at(6, 0)),
+    inGroup('nha', 'p2', 'Hôm trước nữa', false, '2026-11-05', at(6, 1)),
+    inGroup('nha', 't1', 'Hôm nay', true, TODAY, at(6, 2)),
+    inGroup('nha', 'f1', 'Tuần sau', false, '2026-11-16', at(6, 3)),
+    inGroup('nha', 'f2', 'Tuần sau nữa', true, '2026-11-16', at(6, 4)),
+    inGroup('cty', 'c1', 'Một việc', false, TODAY, at(6, 5)),
+  ];
+  await open(page, tasks, '', { groups: GROUPS });
+  const before = await storedAll(page);
+  await openCard(page);
+  for (const [name, n, d] of [['Công ty', 1, 1], ['Nhà', 5, 3]]) {
+    await xoa(page, name).click();
+    const note = page.getByRole('alertdialog', { name: blockedText(name, n, d) });
+    await expect(note).toBeVisible();
+    await expect(note.locator('.dialog__title')).toHaveText(blockedText(name, n, d));
+    await expect(note.getByRole('button')).toHaveText(['Chuyển tất cả việc', 'Xem các việc này', 'Đã hiểu']);
+    await expect(note.getByRole('button', { name: 'Đã hiểu' })).toBeFocused();
+    await expect(deleteNote(page)).toBeHidden();
+    await note.getByRole('button', { name: 'Đã hiểu' }).click();
+    await expect(note).toBeHidden();
+    await expect(xoa(page, name)).toBeFocused();
+    await expect(xoa(page, name)).not.toHaveAttribute('aria-disabled', /.*/);
+    await expect(xoa(page, name)).toBeEnabled();
+    await page.keyboard.press('Enter'); // Xóa again from the keyboard, then Escape
+    await expect(note).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(note).toBeHidden();
+    await expect(card(page)).toBeVisible();
+    await expect(xoa(page, name)).toBeFocused();
+  }
+  expect(await storedAll(page)).toEqual(before);
+});
+
+test('a group emptied by moving its tasks out one by one, or by deleting them, can then be deleted; no task goes with it', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  const moveOut = async (text) => {
+    await editOf(page, text).click();
+    await editChoice(page).selectOption({ label: 'Chưa phân nhóm' });
+    await page.getByRole('button', { name: 'Lưu', exact: true }).click();
+  };
+  await moveOut('Tưới cây');
+  await openCard(page);
+  await xoa(page, 'Nhà').click();
+  await expect(page.getByRole('alertdialog', { name: blockedText('Nhà', 1, 1) })).toBeVisible();
+  await page.keyboard.press('Escape');
+  await page.keyboard.press('Escape');
+  await moveOut('Nấu cơm');
+  await openCard(page);
+  await xoa(page, 'Nhà').click();
+  await deleteNote(page).getByRole('button', { name: 'Xóa nhóm' }).click();
+  await page.keyboard.press('Escape');
+  expect((await storedJson(page, KEY)).length).toBe(6);
+  await expect(names(page)).toHaveText(['Công ty', 'Chưa phân nhóm']);
+
+  // The normal task delete empties Công ty step by step; counts follow.
+  for (const [text, left] of [['Gửi báo cáo', 2], ['Họp nhóm', 1], ['Trả lời email', 0]]) {
+    await rowOf(page, text).getByRole('button', { name: 'Xóa' }).evaluate((b) => b.click()); // phones hide it behind the swipe
+    await page.locator('#delete-dialog').getByRole('button', { name: 'Xóa việc' }).click();
+    await expect(rowOf(page, text)).toHaveCount(0);
+    await openCard(page);
+    await xoa(page, 'Công ty').click();
+    if (left) {
+      await expect(page.getByRole('alertdialog', { name: blockedText('Công ty', left, 1) })).toBeVisible();
+      await page.keyboard.press('Escape');
+      await page.keyboard.press('Escape');
+    } else {
+      await expect(page.getByRole('alertdialog', { name: 'Xóa nhóm "Công ty"?' })).toBeVisible();
+    }
+  }
+});
+
+for (const [title, dates, from, to] of [
+  ['past only: the latest day up to today', ['2026-11-05', '2026-11-08'], '#2026-11-10', '2026-11-08'],
+  ['future only: the earliest later day', ['2026-11-20', '2026-11-12'], '', '2026-11-12'],
+  ['today included: today', ['2026-11-05', TODAY, '2026-11-12'], '#2026-11-12', TODAY],
+]) {
+  test(`Xem các việc này, ${title}; filter and add choice on the group, hash written, Back returns, focus on Quản lý nhóm`, async ({ page }) => {
+    const tasks = [...DAY.filter((t) => t.groupId !== 'nha'), ...dates.map((d, i) => inGroup('nha', `x${i}`, `Việc ${i}`, false, d, at(6, i)))];
+    await open(page, tasks, from, { groups: GROUPS });
+    const before = await storedAll(page);
+    await openCard(page);
+    await xoa(page, 'Nhà').click();
+    await blockedNote(page).getByRole('button', { name: 'Xem các việc này' }).click();
+    await expect(blockedNote(page)).toBeHidden();
+    await expect(card(page)).toBeHidden();
+    await expect(manageBtn(page)).toBeFocused();
+    await expect(filterSel(page)).toHaveValue('nha');
+    await expect(choice(page)).toHaveValue('nha');
+    await expect(page.locator('#day-picker')).toHaveValue(to);
+    expect(hash(page)).toBe(to === TODAY ? '' : `#${to}`);
+    await expect(names(page)).toHaveText(['Nhà']);
+    await page.goBack();
+    await expect(page.locator('#day-picker')).toHaveValue(from ? from.slice(1) : TODAY);
+    await expect(filterSel(page)).toHaveValue('nha'); // the filter follows the owner across days (R45)
+    expect(await storedAll(page)).toEqual(before);
+  });
+}
+
+test('Xem các việc này on the day already shown stays there, filters the list and adds no history entry', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  const length = await page.evaluate(() => history.length);
+  await openCard(page);
+  await xoa(page, 'Nhà').click();
+  await blockedNote(page).getByRole('button', { name: 'Xem các việc này' }).click();
+  await expect(card(page)).toBeHidden();
+  await expect(sectionLabels(page, 'Nhà')).toHaveText(['Tưới cây', 'Nấu cơm']);
+  await expect(names(page)).toHaveText(['Nhà']);
+  await expect(filterSel(page)).toHaveValue('nha');
+  expect(hash(page)).toBe('');
+  expect(await page.evaluate(() => history.length)).toBe(length);
+  await expect(manageBtn(page)).toBeFocused();
+});
+
+test('names with markup and quotes are plain text in both notes', async ({ page }) => {
+  const odd = [group('b', '<b>x</b>', 'pink', at(7, 0)), group('q', 'Nhà "mới"', 'blue', at(7, 1))];
+  await open(page, [inGroup('q', 't', 'Một', false, TODAY, at(8, 0))], '', { groups: odd });
+  await openCard(page);
+  await xoa(page, '<b>x</b>').click();
+  await expect(deleteNote(page).locator('.dialog__title')).toHaveText('Xóa nhóm "<b>x</b>"?');
+  await expect(deleteNote(page).locator('.sticker')).toHaveText('<b>x</b>');
+  await expect(page.locator('dialog b')).toHaveCount(0);
+  await page.keyboard.press('Escape');
+  await xoa(page, 'Nhà "mới"').click();
+  await expect(blockedNote(page).locator('.dialog__title')).toHaveText(blockedText('Nhà "mới"', 1, 1));
+});
+
+test('keyboard only: Xóa, Giữ lại, Escape, Xóa nhóm; then the blocked note with Đã hiểu and Xem các việc này', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await manageBtn(page).focus();
+  await page.keyboard.press('Enter');
+  await expect(card(page)).toBeVisible();
+  await xoa(page, 'Học tiếng Nhật').focus();
+  await page.keyboard.press('Enter');
+  await expect(deleteNote(page).getByRole('button', { name: 'Giữ lại' })).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(xoa(page, 'Học tiếng Nhật')).toBeFocused();
+  await page.keyboard.press('Enter');
+  await page.keyboard.press('Escape');
+  await expect(xoa(page, 'Học tiếng Nhật')).toBeFocused();
+  await page.keyboard.press('Enter');
+  await page.keyboard.press('Tab');
+  await expect(deleteNote(page).getByRole('button', { name: 'Xóa nhóm' })).toBeFocused();
+  await page.keyboard.press('Tab'); // focus stays inside the note
+  await page.keyboard.press('Shift+Tab');
+  await expect(deleteNote(page).getByRole('button', { name: 'Xóa nhóm' })).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(sua(page, 'Nhà')).toBeFocused();
+  await expect(cardRows(page)).toHaveCount(2);
+
+  await page.keyboard.press('Shift+Tab'); // from Nhà's Sửa back to Công ty's Xóa
+  await expect(xoa(page, 'Công ty')).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(blockedNote(page).getByRole('button', { name: 'Đã hiểu' })).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(xoa(page, 'Công ty')).toBeFocused();
+  await page.keyboard.press('Enter');
+  await page.keyboard.press('Shift+Tab');
+  await expect(blockedNote(page).getByRole('button', { name: 'Xem các việc này' })).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(card(page)).toBeHidden();
+  await expect(manageBtn(page)).toBeFocused();
+  await expect(filterSel(page)).toHaveValue('cty');
+});
+
+test('a group deleted in another tab while its note is open: Escape ends it quietly with focus on Đóng', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await open(page, DAY, '', { groups: GROUPS });
+  await openCard(page);
+  await xoa(page, 'Học tiếng Nhật').click();
+  await otherTab(page, GROUPS.filter((g) => g.id !== 'jp'));
+  await page.keyboard.press('Escape');
+  await expect(card(page).getByRole('button', { name: 'Đóng' })).toBeFocused();
+  await expect(cardRows(page)).toHaveCount(2);
+  expect(errors).toEqual([]);
+});
+
+// T9 QA additions: storage failure on delete, a task added elsewhere, phone size (TC-task-groups-T9-21 to T9-23)
+test('a failing write on Xóa nhóm: no error, the slip shows, the group goes in the page and the stored list is untouched', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await open(page, DAY, '', { groups: [...GROUPS, SK] });
+  const tasksBefore = await storedRaw(page);
+  await openCard(page);
+  await xoa(page, 'Sức khỏe').click();
+  await page.evaluate((k) => {
+    const set = Storage.prototype.setItem;
+    Storage.prototype.setItem = function (key, v) { if (key === k) throw new DOMException('Full', 'QuotaExceededError'); return set.call(this, key, v); };
+  }, GROUPS_KEY);
+  await deleteNote(page).getByRole('button', { name: 'Xóa nhóm' }).click();
+  await expect(deleteNote(page)).toBeHidden();
+  await expect(slip(page)).toBeVisible();
+  await expect(cardRows(page).locator('.sticker')).toHaveText(['Công ty', 'Nhà', 'Học tiếng Nhật']);
+  await expect(sua(page, 'Học tiếng Nhật')).toBeFocused();
+  expect((await storedJson(page, GROUPS_KEY)).map((g) => g.id)).toContain('sk');
+  expect(await storedRaw(page)).toBe(tasksBefore);
+  expect(errors).toEqual([]);
+});
+
+// BUG-009: Xóa nhóm reads the stored tasks again, so a task another tab just gave the group blocks the delete.
+test('a task added to the group in another tab while Xóa nhóm? is open: the group must not be deleted (BUG-009)', async ({ page, context }) => {
+  await open(page, DAY, '', { groups: [...GROUPS, SK] });
+  await openCard(page);
+  await xoa(page, 'Sức khỏe').click();
+  await expect(deleteNote(page)).toBeVisible();
+  const other = await context.newPage();
+  await other.goto('/');
+  await other.evaluate(([key, g]) => {
+    const all = JSON.parse(localStorage.getItem(key));
+    all.push({ id: 'other', text: 'Việc từ tab khác', done: false, createdAt: Date.now(), date: all[0].date, groupId: g });
+    localStorage.setItem(key, JSON.stringify(all));
+  }, [KEY, 'sk']);
+  await other.close();
+  await deleteNote(page).getByRole('button', { name: 'Xóa nhóm' }).click();
+  await expect(page.getByRole('alertdialog', { name: blockedText('Sức khỏe', 1, 1) })).toBeVisible();
+  await expect(blockedNote(page).getByRole('button', { name: 'Đã hiểu' })).toBeFocused();
+  await page.keyboard.press('Escape');
+  await expect(xoa(page, 'Sức khỏe')).toBeFocused();
+  expect((await storedJson(page, GROUPS_KEY)).map((g) => g.id)).toContain('sk');
+  expect((await storedJson(page, KEY)).filter((t) => t.groupId === 'sk')).toHaveLength(1);
+});
+
+// BUG-009 follow up: the blocked note opened at confirm time keeps its group, so Xem các việc này still works
+// (the delete note's late close event must not clear it).
+test('BUG-009: after a task arrives from another tab, Xem các việc này on the blocked note sets the filter, the add choice and the day', async ({ page, context }) => {
+  await open(page, DAY, '', { groups: [...GROUPS, SK] });
+  await openCard(page);
+  await xoa(page, 'Sức khỏe').click();
+  const other = await context.newPage();
+  await other.goto('/');
+  await other.evaluate(([key, g]) => {
+    const all = JSON.parse(localStorage.getItem(key));
+    all.push({ id: 'other', text: 'Việc từ tab khác', done: false, createdAt: Date.now(), date: '2026-11-05', groupId: g });
+    localStorage.setItem(key, JSON.stringify(all));
+  }, [KEY, 'sk']);
+  await other.close();
+  await deleteNote(page).getByRole('button', { name: 'Xóa nhóm' }).click();
+  await expect(page.getByRole('alertdialog', { name: blockedText('Sức khỏe', 1, 1) })).toBeVisible();
+  await blockedNote(page).getByRole('button', { name: 'Xem các việc này' }).click();
+  await expect(card(page)).toBeHidden();
+  await expect(filterSel(page)).toHaveValue('sk');
+  await expect(choice(page)).toHaveValue('sk');
+  await expect(page.locator('#day-picker')).toHaveValue('2026-11-05');
+  expect(hash(page)).toBe('#2026-11-05');
+  await expect(manageBtn(page)).toBeFocused();
+  expect((await storedJson(page, GROUPS_KEY)).map((g) => g.id)).toContain('sk');
+});
+
+for (const [w, h] of [[390, 844], [360, 640]]) {
+  test(`phone ${w}px: both notes fit, buttons at least 44 px, no horizontal scroll`, async ({ page, isMobile }) => {
+    test.skip(!isMobile, 'phone layout only');
+    await page.setViewportSize({ width: w, height: h });
+    await open(page, DAY, '', { groups: GROUPS });
+    await openCard(page);
+    for (const [name, note] of [['Học tiếng Nhật', deleteNote], ['Nhà', blockedNote]]) {
+      await xoa(page, name).click();
+      await expect(note(page)).toBeVisible();
+      const box = await note(page).boundingBox();
+      expect(box.x).toBeGreaterThanOrEqual(0);
+      expect(box.x + box.width).toBeLessThanOrEqual(w);
+      expect(box.y + box.height).toBeLessThanOrEqual(h);
+      for (const b of await note(page).getByRole('button').all()) {
+        const r = await b.boundingBox();
+        expect(r.height).toBeGreaterThanOrEqual(44);
+        expect(r.width).toBeGreaterThanOrEqual(44);
+        expect(r.x + r.width).toBeLessThanOrEqual(w);
+      }
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(w);
+      await page.keyboard.press('Escape');
+    }
+  });
+}
+
+// T9 retry 2 QA: swipe behaviour after the closeSwipes change (BUG-010), real touch inside sections
+test('phone swipes in sections: one strip open, another swipe closes it, a tap outside closes all, Tab into Sửa opens that strip, Giữ lại leaves only it open', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'phone layout only');
+  await open(page, DAY, '', { groups: GROUPS });
+  await page.evaluate((k) => localStorage.setItem(k, '1'), HINT);
+  const strip = (text) => rowOf(page, text).locator('.task__swipe');
+  const open_ = (text) => strip(text).evaluate((el) => el.scrollLeft > 100);
+  await touchDrag(page, strip('Tưới cây'), -200);
+  await expect.poll(() => open_('Tưới cây')).toBe(true);
+  await touchDrag(page, strip('Gửi báo cáo'), -200);
+  await expect.poll(() => open_('Gửi báo cáo')).toBe(true);
+  await expect.poll(() => open_('Tưới cây')).toBe(false);
+  await page.locator('.app-header__title').tap();
+  await expect.poll(() => open_('Gửi báo cáo')).toBe(false);
+  await touchDrag(page, strip('Tưới cây'), -200);
+  await expect.poll(() => open_('Tưới cây')).toBe(true);
+  await rowOf(page, 'Nấu cơm').getByRole('button', { name: 'Sửa' }).focus(); // Tab into a row opens that strip, closes the other
+  await expect.poll(() => open_('Nấu cơm')).toBe(true);
+  await expect.poll(() => open_('Tưới cây')).toBe(false);
+  await touchDrag(page, strip('Họp nhóm'), -200); // delete note from a just swiped strip
+  await expect.poll(() => open_('Họp nhóm')).toBe(true);
+  await rowOf(page, 'Họp nhóm').getByRole('button', { name: 'Xóa' }).tap();
+  await page.locator('#delete-dialog').getByRole('button', { name: 'Giữ lại' }).tap();
+  await expect(rowOf(page, 'Họp nhóm').getByRole('button', { name: 'Xóa' })).toBeFocused();
+  await expect.poll(() => open_('Họp nhóm')).toBe(true);
+  await expect.poll(() => open_('Nấu cơm')).toBe(false);
+});
+
+// A dialog's close event is queued: Giữ lại then a quick Enter on Xóa reopens the note before it arrives.
+// The late event must not clear the reopened note's task, or Xóa việc would delete nothing.
+test('task delete note: Giữ lại, then Enter on Xóa straight away, then Xóa việc still deletes that task', async ({ page }) => {
+  await open(page, [task('a', 'Một'), task('b', 'Hai')]);
+  const note = page.locator('#delete-dialog');
+  for (let i = 0; i < 3; i++) {
+    await rows(page).nth(1).getByRole('button', { name: 'Xóa' }).focus();
+    await page.keyboard.press('Enter');
+    await expect(note.getByRole('button', { name: 'Giữ lại' })).toBeFocused();
+    await page.keyboard.press('Enter');
+    await page.keyboard.press('Enter'); // focus is back on Xóa: open the note again at once
+    await expect(note).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(note).toBeHidden();
+  }
+  await rows(page).nth(1).getByRole('button', { name: 'Xóa' }).focus();
+  await page.keyboard.press('Enter');
+  await page.keyboard.press('Enter'); // Giữ lại
+  await page.keyboard.press('Enter'); // Xóa again
+  await page.keyboard.press('Tab');
+  await expect(note.getByRole('button', { name: 'Xóa việc' })).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(labels(page)).toHaveText(['Một']);
+});
+
+// T9 attempt 3 QA: rapid open, close and reopen on all four dialogs (BUG-011 and the BUG-009 path)
+const burst = async (page, press, n = 6) => { for (let i = 0; i < n; i++) await press(); };
+test('rapid keyboard cycles on the task delete note: after the last reopen, Xóa việc still deletes (BUG-011)', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  for (let round = 0; round < 8; round++) {
+    const btn = rowOf(page, 'Tưới cây').getByRole('button', { name: 'Xóa' });
+    await btn.focus();
+    await page.keyboard.press('Enter');
+    await expect(page.locator('#delete-dialog')).toBeVisible();
+    await page.keyboard.press('Enter'); // Giữ lại is focused
+    await page.keyboard.press('Enter'); // at once, Xóa again
+    await expect(page.locator('#delete-dialog')).toBeVisible();
+    await page.keyboard.press('Escape');
+    await page.keyboard.press('Enter');
+    await expect(page.locator('#delete-dialog')).toBeVisible();
+    if (round < 7) { await page.keyboard.press('Escape'); await expect(page.locator('#delete-dialog')).toBeHidden(); }
+  }
+  await page.locator('#delete-dialog').getByRole('button', { name: 'Xóa việc' }).click();
+  await expect(rowOf(page, 'Tưới cây')).toHaveCount(0);
+  expect((await storedJson(page, KEY)).some((t) => t.text === 'Tưới cây')).toBe(false);
+});
+
+test('rapid keyboard cycles on the group delete question and blocked note: the last note always acts, never a stale one', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await open(page, DAY, '', { groups: GROUPS });
+  await openCard(page);
+  for (let i = 0; i < 8; i++) {
+    await xoa(page, 'Học tiếng Nhật').focus();
+    await page.keyboard.press('Enter');
+    await page.keyboard.press('Enter'); // Giữ lại
+    await page.keyboard.press('Enter'); // Xóa again at once
+    await page.keyboard.press('Escape');
+    await page.keyboard.press('Enter');
+    await page.keyboard.press('Escape');
+    await xoa(page, 'Nhà').focus();
+    await page.keyboard.press('Enter');
+    await page.keyboard.press('Enter'); // Đã hiểu
+    await page.keyboard.press('Enter'); // Xóa again at once
+    await page.keyboard.press('Escape');
+  }
+  await expect(deleteNote(page)).toBeHidden();
+  await expect(blockedNote(page)).toBeHidden();
+  await expect(card(page)).toBeVisible();
+  // After the noise, both notes still do their job.
+  await xoa(page, 'Nhà').focus();
+  await page.keyboard.press('Enter');
+  await page.keyboard.press('Enter');
+  await page.keyboard.press('Enter');
+  await blockedNote(page).getByRole('button', { name: 'Xem các việc này' }).click();
+  await expect(card(page)).toBeHidden();
+  await expect(filterSel(page)).toHaveValue('nha');
+  await openCard(page);
+  await xoa(page, 'Học tiếng Nhật').focus();
+  await page.keyboard.press('Enter');
+  await page.keyboard.press('Enter'); // Giữ lại
+  await page.keyboard.press('Enter');
+  await deleteNote(page).getByRole('button', { name: 'Xóa nhóm' }).click();
+  expect((await storedJson(page, GROUPS_KEY)).map((g) => g.id)).toEqual(['cty', 'nha']);
+  expect(errors).toEqual([]);
+});
+
+test('rapid mouse cycles: card, delete question and blocked note opened and closed in a row; the last one acts', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  for (let i = 0; i < 6; i++) {
+    await manageBtn(page).click();
+    await xoa(page, 'Học tiếng Nhật').click();
+    await deleteNote(page).getByRole('button', { name: 'Giữ lại' }).click();
+    await xoa(page, 'Học tiếng Nhật').click();
+    await page.mouse.click(3, 3); // backdrop
+    await xoa(page, 'Nhà').click();
+    await blockedNote(page).getByRole('button', { name: 'Đã hiểu' }).click();
+    await xoa(page, 'Nhà').click();
+    await blockedNote(page).getByRole('button', { name: 'Xem các việc này' }).click();
+    await expect(card(page)).toBeHidden();
+    await expect(manageBtn(page)).toBeFocused();
+  }
+  await expect(filterSel(page)).toHaveValue('nha');
+  await manageBtn(page).click();
+  await xoa(page, 'Học tiếng Nhật').click();
+  await deleteNote(page).getByRole('button', { name: 'Xóa nhóm' }).click();
+  expect((await storedJson(page, GROUPS_KEY)).map((g) => g.id)).toEqual(['cty', 'nha']);
+});
+
+test('rapid card cycles: Enter on Quản lý nhóm, Escape, Enter again; the card opens and closes cleanly with focus back', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await manageBtn(page).focus();
+  for (let i = 0; i < 10; i++) { await page.keyboard.press('Enter'); await page.keyboard.press('Escape'); }
+  await page.keyboard.press('Enter');
+  await expect(card(page)).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(card(page)).toBeHidden();
+  await expect(manageBtn(page)).toBeFocused();
+});
+
+// Damaged stored entries are skipped on load, so they never count for a group: no blocked note, no bad hash.
+test('damaged stored entries in a group neither block its delete nor send Xem các việc này to a bad day', async ({ page }) => {
+  const damaged = [
+    { id: 'd1', text: 'Không có ngày', done: false, createdAt: 1, groupId: 'sk' },
+    { id: 'd2', text: 'Ngày hỏng', done: false, createdAt: 2, date: '2026-11-08x', groupId: 'sk' },
+    { id: 'd3', done: 'no', createdAt: 3, date: TODAY, groupId: 'sk' },
+    { id: 'd4', text: 'Ngày hỏng', done: false, createdAt: 4, date: '2026-11-08x', groupId: 'nha' },
+  ];
+  const tasks = [...DAY.filter((t) => t.groupId !== 'nha'), inGroup('nha', 'p1', 'Hôm trước', false, '2026-11-05', at(6, 0)), ...damaged];
+  await open(page, tasks, '', { groups: [...GROUPS, SK] });
+  await openCard(page);
+  await xoa(page, 'Nhà').click();
+  await expect(page.getByRole('alertdialog', { name: blockedText('Nhà', 1, 1) })).toBeVisible();
+  await page.keyboard.press('Escape');
+  await xoa(page, 'Sức khỏe').click();
+  await expect(page.getByRole('alertdialog', { name: 'Xóa nhóm "Sức khỏe"?' })).toBeVisible();
+  await deleteNote(page).getByRole('button', { name: 'Xóa nhóm' }).click();
+  expect((await storedJson(page, GROUPS_KEY)).map((g) => g.id)).not.toContain('sk');
+  await xoa(page, 'Nhà').click();
+  await blockedNote(page).getByRole('button', { name: 'Xem các việc này' }).click();
+  await expect(page.locator('#day-picker')).toHaveValue('2026-11-05');
+  expect(hash(page)).toBe('#2026-11-05');
+  await expect(filterSel(page)).toHaveValue('nha');
 });

@@ -89,6 +89,23 @@
     <p class="dialog__empty" id="group-rows-empty" hidden>Bạn chưa có nhóm nào.</p>
   </dialog>
 
+  <dialog class="dialog" id="group-delete-dialog" role="alertdialog" aria-labelledby="group-delete-title">
+    <span class="sticker sticker--corner" aria-hidden="true"></span><h2 class="dialog__title" id="group-delete-title"></h2>
+    <div class="dialog__actions">
+      <button class="btn btn--secondary" type="button" data-action="keep" autofocus>Giữ lại</button>
+      <button class="btn btn--danger" type="button" data-action="remove">Xóa nhóm</button>
+    </div>
+  </dialog>
+
+  <dialog class="dialog" id="group-blocked-dialog" role="alertdialog" aria-labelledby="group-blocked-title">
+    <span class="sticker sticker--corner" aria-hidden="true"></span><h2 class="dialog__title dialog__title--message" id="group-blocked-title"></h2>
+    <div class="dialog__actions dialog__actions--stack">
+      <button class="btn btn--primary" type="button" data-action="move">Chuyển tất cả việc</button>
+      <button class="btn btn--secondary" type="button" data-action="show">Xem các việc này</button>
+      <button class="btn btn--ghost" type="button" data-action="keep" autofocus>Đã hiểu</button>
+    </div>
+  </dialog>
+
   <template id="group-row-template">
     <li class="group-row">
       <span class="group-row__name"><span class="sticker"></span><span class="group-row__hint">Nhóm này chưa có việc nào.</span></span>

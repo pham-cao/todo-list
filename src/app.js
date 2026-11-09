@@ -1,5 +1,5 @@
 import { toDateKey, parseDateKey, addDays, dayKind, dateLine } from "./date.js?v=1.2.0";
-import { createStore, getStorage } from "./store.js?v=1.2.0";
+import { createStore, getStorage, isValid, STORAGE_KEY } from "./store.js?v=1.2.0";
 import { createGroups, nextColor, GROUPS_KEY, MAX_GROUPS, UNGROUPED, UNGROUPED_NAME } from "./groups.js?v=1.2.0";
 import { createManage, setFieldError, showFieldError, GROUP_ERRORS } from "./manage.js?v=1.2.0";
 
@@ -413,7 +413,36 @@ function refresh() {
   renderList();
 }
 
-const manage = createManage({ groups: () => groups, store, button: $("manage-groups"), refresh });
+// Xem các việc này (R53): filter and add choice on the group (R46), then the day closest to today that holds one of
+// its tasks: the latest up to today, else the earliest later one. A day move writes the hash like any other (R22 to R25).
+function showGroupTasks(id) {
+  const { days } = storedUsage(id);
+  if (!groups.get(id) || !days.length) return;
+  notify(null);
+  filter = addGroup = id;
+  renderChoices();
+  checkDay();
+  const day = days.findLast((d) => d <= today) ?? days[0];
+  if (day !== viewed) return go(day);
+  renderList();
+  if (editing && !editing.isConnected) editing = null; // an open edit on a row the filter hid is dropped
+}
+
+// The group's tasks as stored right now: another tab may have added one since load (BUG-009).
+// Read only: it parses the tasks key and never writes; unreadable storage falls back to this tab's copy.
+// Only entries the store would load count, so a damaged one never blocks a delete or turns to a bad day.
+function storedUsage(id) {
+  try {
+    const all = JSON.parse(getStorage()?.getItem(STORAGE_KEY) ?? "null");
+    if (!Array.isArray(all)) return store.groupUsage(id);
+    const hit = all.filter((t) => isValid(t) && t.groupId === id);
+    return { count: hit.length, days: [...new Set(hit.map((t) => t.date))].sort() };
+  } catch {
+    return store.groupUsage(id);
+  }
+}
+
+const manage = createManage({ groups: () => groups, store, button: $("manage-groups"), refresh, notify, showGroupTasks, storedUsage });
 $("manage-groups").addEventListener("click", () => manage.open());
 
 // Edit in place: one row at a time. The read-only line stays in the DOM (hidden)
@@ -580,6 +609,7 @@ els.dialog.addEventListener("click", (e) => {
 
 // Giữ lại, Escape and the backdrop all end here with the task kept.
 els.dialog.addEventListener("close", () => {
+  if (els.dialog.open) return; // queued event of a note that a quick Enter already opened again: it owns pendingDelete
   const row = pendingDelete;
   pendingDelete = null;
   if (!row?.isConnected) return;
@@ -591,21 +621,29 @@ els.dialog.addEventListener("close", () => {
 
 // Phones: CSS scroll snap does the swipe. Script only keeps one line open:
 // opening another line, or a tap or focus anywhere outside the open line, closes it.
+// openSwipe is the strip that is open or about to open from focus or a press. Only it is touched, never every strip:
+// reading scrollLeft of 200 strips on each focus forced a layout of the whole day (BUG-010).
 let openSwipe = null;
 
-// Reads scrollLeft rather than trusting scroll events, which arrive a frame late.
 function closeSwipes(keep) {
-  for (const s of els.list.querySelectorAll(".task__swipe")) if (s.scrollLeft > 0 && !keep?.contains(s)) s.scrollLeft = 0;
+  if (!openSwipe || keep?.contains(openSwipe)) return;
+  openSwipe.scrollLeft = 0;
+  openSwipe = null;
 }
 
 els.list.addEventListener("scroll", (e) => {
   const swipe = e.target;
   if (!swipe.classList?.contains("task__swipe") || swipe.scrollLeft <= 0 || swipe === openSwipe) return;
+  closeSwipes();
   openSwipe = swipe;
-  closeSwipes(swipe);
 }, true);
 
-const closeOutside = (e) => { openSwipe = null; closeSwipes(e.target.closest?.(".task")); };
+// Focus on a button in a strip scrolls it open, but its scroll event comes a frame later: track the strip now,
+// so a note opened by that same click still closes it.
+const closeOutside = (e) => {
+  closeSwipes(e.target.closest?.(".task"));
+  openSwipe ??= e.target.closest?.(".task__swipe") ?? null;
+};
 document.addEventListener("pointerdown", closeOutside);
 document.addEventListener("focusin", closeOutside);
 
@@ -639,7 +677,6 @@ function resetTransient() {
   editing = null;
   pendingDelete = null;
   els.dialog.close();
-  openSwipe = null;
   closeSwipes();
   setAddError(null);
   notify(null);
