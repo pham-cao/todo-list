@@ -1,6 +1,6 @@
 # task-groups: user flows and screen inventory
 
-All screens are in `screens/`, built on the paper notebook design system (v3) with the additions described in `design-system.md`, section "Task groups". Every visible string is Vietnamese and taken word for word from the requirements table; text not in that table is the existing daily-task-log and day-navigation text.
+Group labels are torn paper labels (owner decisions after the first approval; flows unchanged). All screens are in `screens/`, built on the paper notebook design system (v3) with the additions described in `design-system.md`, section "Task groups". Every visible string is Vietnamese and taken word for word from the requirements table; text not in that table is the existing daily-task-log and day-navigation text.
 
 ## Flow 1: Create a group while adding a task (R14 to R22)
 
@@ -46,7 +46,7 @@ flowchart TD
   D1 --> B
   D -->|yes| E[[Save text and groupId together]]
   E --> F{Filter on another group?}
-  F -->|no| G[Task shown in new section by creation time, section expanded, short highlighter wash, focus on its Sửa, section name announced]
+  F -->|no| G[Task shown in new section by creation time, section expanded, short wash in its new colour, focus on its Sửa, section name announced]
   F -->|yes| H[Task leaves the view, focus to next row, else previous, else add input]
   G --> I([Done])
   H --> I

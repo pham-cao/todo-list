@@ -361,3 +361,44 @@ Choice: At 20 groups the limit error shows as soon as "Nhóm mới..." is chosen
 ## 2026-11-09: Approve task-groups UX?
 Options: Approve, Request changes
 Choice: Approve (by user)
+
+## 2026-11-09: task-groups UX change after approval: group label style
+Options: Highlighter swipe (approved), Paper sticker
+Choice: Group labels look like paper stickers stuck on the page, to match the notebook style (by user)
+Reason: Owner feedback; UX revises the group label look only, flows and behaviour unchanged.
+
+## 2026-11-09: task-groups UX: sticker review
+Options: Approve, Request changes
+Choice: Request changes: labels should look like torn paper labels with jagged, sawtooth edges (by user)
+
+## 2026-11-09: task-groups UX: live preview sticker when renaming or recolouring?
+Options: No, Yes
+Choice: No (by user)
+
+## 2026-11-09: task-groups UX: group choice cut short at 390 px on the add line
+Choice: Fix so the full name shows (by PM; the owner's answer to this question was the torn label request)
+
+## 2026-11-09: task-groups design: Bulk move when storage was unavailable from page load
+Options: Move in memory like every other change in that session, Always show the move error
+Choice: Move in memory (R61); show the error only when a real write fails (by PM)
+
+## 2026-11-09: task-groups design: Version value for cache busting
+Options: package.json version (1.2.0 now, bumped each release), Date stamp, npm bump script
+Choice: package.json version, set to 1.2.0 now and bumped each release; the unit test catches any reference left behind (by PM)
+
+## 2026-11-09: task-groups design: Filter "Chưa phân nhóm" also sets the add choice to ungrouped?
+Options: Yes, the add choice follows any single filter choice, No
+Choice: Yes (by PM)
+Reason: New tasks go where the owner is looking.
+
+## 2026-11-09: Approve task-groups UX (torn paper labels)?
+Options: Approve, Request changes
+Choice: Approve (by user)
+
+## 2026-11-09: task-groups UX: filter choice truncated at 360 px
+Options: "Quản lý nhóm" icon only on narrow screens, Accept truncation
+Choice: "Quản lý nhóm" icon only below 381 px, keeping its accessible name and tooltip (by user); FE applies this in T7
+
+## 2026-11-09: Approve task-groups design and 11 tasks?
+Options: Approve, Request changes
+Choice: Approve (by user)

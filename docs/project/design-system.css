@@ -559,10 +559,11 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
 }
 
 /* ---------- Task groups (feature task-groups, additive) ----------
-   Groups are written into the notebook with a highlighter: each section header is one ruled line with a
-   highlighter swipe behind the group name. Six fixed colours, chosen by data-color on any element:
-   yellow, pink, green, blue, orange, purple. Anything else (or none) falls back to the neutral pencil style,
-   which is also the "Chưa phân nhóm" look. Each colour has a band (behind text) and a mark (swatch ring). */
+   Group labels are torn paper labels: a strip of coloured paper torn off at both ends, so the left and right
+   edges are jagged sawtooth (răng cưa), with paper grain, a small tilt and a soft lift shadow. Six fixed colours,
+   chosen by data-color on any element: yellow, pink, green, blue, orange, purple. Anything else (or none) gives
+   the blank label, which is the "Chưa phân nhóm" look. Each colour has a fill (--hl, behind text) and a mark
+   (--hl-mark, the thin outline that keeps mini labels visible on paper). */
 :root {
   /* Light: soft highlighter bands, black text 13.5 to 16.7:1; marks 3.8 to 5.1:1 on paper (non text) */
   --hl-yellow: #FCE57E;  --hl-yellow-mark: #9C7A00;
@@ -576,6 +577,14 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
   --color-card: #FFFDF8;          /* index card for the group dialogs */
   --color-card-rule: #F0A3AE;     /* red head line of the index card, decorative */
   --dur-fold: 200ms;
+  /* Torn labels (light). The torn edges are clip-path polygons: teeth 1 to 6 px deep, irregular like real paper.
+     Labels keep 15 px padding at each end, so a tooth never reaches the text. */
+  --label-blank: #FFFFFF;         /* muted ink on blank 7.5:1 */
+  --label-shadow: drop-shadow(0 1px 0.5px rgba(56, 48, 30, 0.22)) drop-shadow(1px 2px 2px rgba(56, 48, 30, 0.20));
+  --torn: polygon(5px 0, calc(100% - 4px) 0, 100% 10%, calc(100% - 5px) 22%, calc(100% - 1px) 34%, calc(100% - 6px) 47%,
+    100% 60%, calc(100% - 4px) 72%, calc(100% - 1px) 85%, calc(100% - 5px) 100%, 3px 100%, 0 88%, 5px 76%, 1px 63%,
+    6px 50%, 0 38%, 4px 26%, 1px 13%);
+  --torn-mini: polygon(0 0, 100% 0, calc(100% - 3px) 25%, 100% 50%, calc(100% - 3px) 75%, 100% 100%, 0 100%, 3px 75%, 0 50%, 3px 25%);
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -590,9 +599,11 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
     --color-notice-ink: #C6D7F4;  /* 8.7:1 */
     --color-card: #282C34;
     --color-card-rule: #9E4D5C;
+    --label-blank: #353A43;       /* muted ink on blank 5.7:1 */
+    --label-shadow: drop-shadow(0 1px 0.5px rgba(0, 0, 0, 0.55)) drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.55));
   }
 }
-[data-color] { --hl: transparent; --hl-mark: var(--color-pencil); }
+[data-color] { --hl: var(--label-blank); --hl-mark: var(--color-pencil); }
 [data-color="yellow"] { --hl: var(--hl-yellow); --hl-mark: var(--hl-yellow-mark); }
 [data-color="pink"]   { --hl: var(--hl-pink);   --hl-mark: var(--hl-pink-mark); }
 [data-color="green"]  { --hl: var(--hl-green);  --hl-mark: var(--hl-green-mark); }
@@ -600,12 +611,29 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
 [data-color="orange"] { --hl: var(--hl-orange); --hl-mark: var(--hl-orange-mark); }
 [data-color="purple"] { --hl: var(--hl-purple); --hl-mark: var(--hl-purple-mark); }
 
-/* Swatch: the band colour inside a ring of its mark, so it stays visible on paper (3:1) in both modes */
-.swatch {
-  display: inline-block; flex: none; width: 16px; height: 16px; border-radius: 50%;
-  background: var(--hl); box-shadow: inset 0 0 0 2px var(--hl-mark);
+/* Torn label (.sticker): the group label. The paper is a ::before layer clipped to the torn shape; the shadow is a
+   drop-shadow filter on the label itself, so it follows the jagged edges instead of a box. Text is main ink. */
+.sticker {
+  position: relative; isolation: isolate; display: inline-block; max-width: 100%; padding: 4px 15px 5px;
+  color: var(--text); font-weight: var(--fw-bold); line-height: 1.35; overflow-wrap: anywhere;
+  filter: var(--label-shadow); rotate: -1.4deg;
 }
-.swatch[data-color="none"] { background: transparent; box-shadow: none; border: 1.5px dashed var(--color-pencil); }
+.sticker::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--grain), var(--hl); clip-path: var(--torn); }
+[data-color="none"].sticker, [data-color="none"] .sticker { color: var(--text-muted); }
+[data-color="none"].sticker::before, [data-color="none"] .sticker::before { /* Chưa phân nhóm: a blank label, pencil dashes along its straight edges */
+  border-block: 1.5px dashed var(--color-pencil);
+}
+.sticker--corner { /* stuck on the corner of a note or card, decorative (aria-hidden) */
+  position: absolute; top: -14px; right: -12px; z-index: 1; rotate: 7deg; font-size: var(--fs-small); padding: 3px 13px 4px;
+}
+
+/* Mini label (.swatch): a small torn label without text for choices and previews. A simpler two tooth edge keeps it
+   crisp at 20 px; four 1 px drop-shadows in the mark colour draw an outline that follows the teeth (3:1 on paper). */
+.swatch {
+  position: relative; isolation: isolate; display: inline-block; flex: none; width: 20px; height: 13px; rotate: -6deg;
+  filter: drop-shadow(1px 0 0 var(--hl-mark)) drop-shadow(-1px 0 0 var(--hl-mark)) drop-shadow(0 1px 0 var(--hl-mark)) drop-shadow(0 -1px 0 var(--hl-mark));
+}
+.swatch::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--hl); clip-path: var(--torn-mini); }
 
 /* Native select written on the line: underline like the inputs, a pen chevron drawn beside it */
 .select { position: relative; display: inline-flex; align-items: center; gap: var(--space-2); min-width: 0; max-width: 100%; }
@@ -626,18 +654,22 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
 /* Add form: the group choice sits on the add line (desktop) or on its own line under it (phone) */
 .add-form__line { flex-wrap: wrap; }
 .add-form__pen { align-self: start; }
-.add-form__group { display: flex; align-items: center; gap: var(--space-2); min-width: 0; max-width: 220px; }
+.add-form__group { display: flex; align-items: center; gap: var(--space-2); min-width: 0; max-width: 250px; }
 .add-form__group .select { flex: 1; }
 .add-form__newgroup { /* the "Nhóm mới..." line: name input and Tạo nhóm, next colour shown in the margin */
   grid-column: 1 / -1; display: grid; grid-template-columns: var(--margin-w) minmax(0, 1fr); column-gap: var(--margin-gap); align-items: center;
 }
-.add-form__newgroup > .swatch { justify-self: center; width: 18px; height: 18px; }
+.add-form__newgroup > .swatch { justify-self: center; width: 24px; height: 16px; }
 .add-form__newgroup-line { display: flex; align-items: center; gap: var(--space-3); min-width: 0; }
 .add-form__newgroup .input { flex: 1; max-width: 320px; }
 .add-form__newgroup .field-error { grid-column: 2; }
 @media (max-width: 600px) {
   .add-form__input { flex: 1 0 100%; } /* phone: the input gets line one, Nhóm and Thêm share line two */
   .add-form__group { flex: 1 1 0; max-width: none; }
+  .add-form__group .select select { width: 100%; } /* the choice uses the whole width left of Thêm */
+  .add-form__group .field-label { /* phones: the word "Nhóm" stays as the accessible label but is hidden, so the full choice fits */
+    position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+  }
   .add-form__newgroup .input { max-width: none; }
 }
 
@@ -683,15 +715,8 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
 }
 .group__chev .icon { width: 20px; height: 20px; stroke-width: 2.2; }
 .group__toggle[aria-expanded="false"] .group__chev { rotate: -90deg; }
-.group__name { /* the highlighter swipe: slightly uneven ends, a hair of tilt, wraps cleanly if the name is long */
-  justify-self: start; padding: 3px 12px 4px 10px; margin-left: -10px;
-  background: var(--hl); border-radius: 4px 12px 5px 14px / 9px 4px 10px 5px;
-  -webkit-box-decoration-break: clone; box-decoration-break: clone; overflow-wrap: anywhere; rotate: -0.6deg;
-}
-.group[data-color="none"] .group__name { /* Chưa phân nhóm: no colour, a pencil underline in the neutral notebook style */
-  background: none; rotate: 0deg; padding-left: 0; margin-left: 0; color: var(--text-muted);
-  text-decoration: underline dashed var(--color-pencil); text-decoration-thickness: 1.5px; text-underline-offset: 6px;
-}
+.group__name { justify-self: start; margin-left: -4px; } /* a .sticker; every other header leans the other way */
+.group:nth-child(even) .group__name { rotate: 1.1deg; }
 .group__count { color: var(--text-muted); font-size: var(--fs-meta); font-weight: var(--fw-semibold); font-variant-numeric: tabular-nums; padding-left: var(--space-2); }
 .group__static .group__chev { visibility: hidden; } /* filter on: no toggle, the inked funnel in the bar above says why */
 .group--collapsed .task-list { display: none; }
@@ -736,12 +761,13 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
 /* Group rows inside the card: ruled, swatch in a margin, name, then Sửa, Chuyển tất cả việc, Xóa */
 .group-rows { list-style: none; padding: 0; margin-top: var(--space-1); }
 .group-row {
-  display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; column-gap: var(--space-3); align-items: center;
-  min-height: var(--rule); padding: var(--space-1) 0; border-bottom: 1px solid var(--color-rule);
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--space-3); align-items: center;
+  min-height: 52px; padding: var(--space-2) 0; border-bottom: 1px solid var(--color-rule);
 }
-.group-row > .swatch { justify-self: center; }
-.group-row__name { font-weight: var(--fw-semibold); overflow-wrap: anywhere; line-height: 1.35; }
-.group-row__hint { display: block; font-size: var(--fs-small); font-weight: var(--fw-regular); color: var(--text-muted); }
+.group-row__name { min-width: 0; padding-left: var(--space-1); }
+.group-row__name .sticker { font-size: var(--fs-meta); }
+.group-row:nth-child(even) .sticker { rotate: 1deg; }
+.group-row__hint { display: block; margin-top: var(--space-1); font-size: var(--fs-small); font-weight: var(--fw-regular); color: var(--text-muted); }
 .group-row__actions { display: flex; }
 .group-row__actions .icon-btn[aria-disabled="true"] { color: var(--color-pencil); cursor: default; background: none; }
 .group-row__actions .icon-btn[aria-disabled="true"]::after { content: attr(data-hint); }
@@ -757,14 +783,16 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
 .colour-pick { border: 0; padding: 0; margin-top: var(--space-2); min-width: 0; }
 .colour-pick legend { padding: 0; font-size: var(--fs-small); color: var(--text-muted); font-weight: var(--fw-medium); }
 .colour-pick__list { display: flex; flex-wrap: wrap; gap: 2px; margin-top: var(--space-1); }
-.colour-pick label { position: relative; display: grid; place-items: center; width: var(--tap); height: var(--tap); cursor: pointer; border-radius: 50%; }
+.colour-pick label { position: relative; display: grid; place-items: center; width: var(--tap); height: var(--tap); cursor: pointer; border-radius: var(--radius-control); }
 .colour-pick input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
-.colour-pick .swatch { width: 28px; height: 28px; transition: scale var(--dur-fast) ease; }
-.colour-pick label:hover .swatch { scale: 1.08; }
-.colour-pick input:checked + .swatch { box-shadow: inset 0 0 0 2px var(--hl-mark), 0 0 0 2px var(--color-card), 0 0 0 4px var(--text); }
+.colour-pick .swatch { width: 30px; height: 20px; transition: translate var(--dur-fast) ease; }
+.colour-pick label:nth-child(even) .swatch { rotate: 5deg; }
+.colour-pick label:hover .swatch { translate: 0 -1px; }
+.colour-pick label:has(input:checked) { box-shadow: inset 0 0 0 2px var(--text); } /* chosen: an ink frame, a lift and a tick */
+.colour-pick input:checked + .swatch { translate: 0 -2px; }
 .colour-pick .colour-pick__tick { position: absolute; width: 16px; height: 16px; color: var(--text); opacity: 0; pointer-events: none; stroke-width: 2.8; }
 .colour-pick input:checked ~ .colour-pick__tick { opacity: 1; }
-.colour-pick input:focus-visible + .swatch { outline: 2px solid var(--color-pen); outline-offset: 5px; }
+.colour-pick label:has(input:focus-visible) { outline: 2px solid var(--color-pen); outline-offset: 2px; }
 
 /* The move form inside the card */
 .move-field { display: flex; flex-wrap: wrap; align-items: center; column-gap: var(--space-3); margin-top: var(--space-4); }
@@ -784,3 +812,6 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
   .group-row__move::after { display: none; }
   .group-row__move[aria-disabled="true"]::after { display: block; }
 }
+/* Very narrow phones: drop the mini sticker inside the add line and filter selects so the group name has room
+   (the name stays as text, and the section headers keep their stickers) */
+@media (max-width: 380px) { .add-form__group .swatch, .group-bar .swatch { display: none; } }

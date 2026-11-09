@@ -51,7 +51,7 @@
           <input class="add-form__input" id="new-task" name="text" type="text" placeholder="Bạn cần làm gì hôm nay?" autocomplete="off" value="">
           <span class="add-form__group">
             <label class="field-label" for="new-task-group">Nhóm</label>
-            <span class="select"><select id="new-task-group"><option value="" selected>Chưa phân nhóm</option><option value="cty">Công ty</option><option value="nha">Nhà</option><option value="jp">Học tiếng Nhật</option><option value="sk">Sức khỏe</option><option value="new">Nhóm mới...</option></select><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+            <span class="select"><span class="swatch" data-color="none" aria-hidden="true"></span><select id="new-task-group"><option value="" selected>Chưa phân nhóm</option><option value="cty">Công ty</option><option value="nha">Nhà</option><option value="jp">Học tiếng Nhật</option><option value="sk">Sức khỏe</option><option value="new">Nhóm mới...</option></select><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
           </span>
           <button class="btn btn--primary" type="submit">Thêm</button>
         </div>
@@ -65,7 +65,7 @@
         </div>
       </div>
       <section class="group" data-color="yellow">
-      <h2 class="group__head"><a class="group__toggle" role="button" href="sections--collapsed.html" aria-expanded="true" aria-label="Nhóm Công ty, đã hoàn thành 1/3 việc"><span class="group__chev"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span><span class="group__name">Công ty</span><span class="group__count">1/3</span></a></h2>
+      <h2 class="group__head"><a class="group__toggle" role="button" href="sections--collapsed.html" aria-expanded="true" aria-label="Nhóm Công ty, đã hoàn thành 1/3 việc"><span class="group__chev"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span><span class="group__name sticker">Công ty</span><span class="group__count">1/3</span></a></h2>
       <ul class="task-list">
         <li class="task">
           <label class="check"><input type="checkbox" aria-label="Đánh dấu hoàn thành" aria-describedby="t-1-text" checked><span class="check__box" aria-hidden="true"><svg viewBox="0 0 28 28"><path pathLength="100" d="M5 15.5c2.2 1.6 3.9 3.6 5.2 6.2C13.4 13.6 18 7.4 25 2.5"/></svg></span></label>
@@ -100,7 +100,7 @@
       </ul>
     </section>
     <section class="group" data-color="pink">
-      <h2 class="group__head"><a class="group__toggle" role="button" href="sections--collapsed.html" aria-expanded="true" aria-label="Nhóm Nhà, đã hoàn thành 1/2 việc"><span class="group__chev"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span><span class="group__name">Nhà</span><span class="group__count">1/2</span></a></h2>
+      <h2 class="group__head"><a class="group__toggle" role="button" href="sections--collapsed.html" aria-expanded="true" aria-label="Nhóm Nhà, đã hoàn thành 1/2 việc"><span class="group__chev"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span><span class="group__name sticker">Nhà</span><span class="group__count">1/2</span></a></h2>
       <ul class="task-list">
         <li class="task">
           <label class="check"><input type="checkbox" aria-label="Đánh dấu hoàn thành" aria-describedby="t-2-text"><span class="check__box" aria-hidden="true"><svg viewBox="0 0 28 28"><path pathLength="100" d="M5 15.5c2.2 1.6 3.9 3.6 5.2 6.2C13.4 13.6 18 7.4 25 2.5"/></svg></span></label>
@@ -125,7 +125,7 @@
       </ul>
     </section>
     <section class="group" data-color="green">
-      <h2 class="group__head"><a class="group__toggle" role="button" href="sections--collapsed.html" aria-expanded="true" aria-label="Nhóm Học tiếng Nhật, đã hoàn thành 1/1 việc"><span class="group__chev"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span><span class="group__name">Học tiếng Nhật</span><span class="group__count">1/1</span></a></h2>
+      <h2 class="group__head"><a class="group__toggle" role="button" href="sections--collapsed.html" aria-expanded="true" aria-label="Nhóm Học tiếng Nhật, đã hoàn thành 1/1 việc"><span class="group__chev"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span><span class="group__name sticker">Học tiếng Nhật</span><span class="group__count">1/1</span></a></h2>
       <ul class="task-list">
         <li class="task">
           <label class="check"><input type="checkbox" aria-label="Đánh dấu hoàn thành" aria-describedby="t-5-text" checked><span class="check__box" aria-hidden="true"><svg viewBox="0 0 28 28"><path pathLength="100" d="M5 15.5c2.2 1.6 3.9 3.6 5.2 6.2C13.4 13.6 18 7.4 25 2.5"/></svg></span></label>
@@ -140,7 +140,7 @@
       </ul>
     </section>
     <section class="group" data-color="none">
-      <h2 class="group__head"><a class="group__toggle" role="button" href="sections--collapsed.html" aria-expanded="true" aria-label="Nhóm Chưa phân nhóm, đã hoàn thành 0/1 việc"><span class="group__chev"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span><span class="group__name">Chưa phân nhóm</span><span class="group__count">0/1</span></a></h2>
+      <h2 class="group__head"><a class="group__toggle" role="button" href="sections--collapsed.html" aria-expanded="true" aria-label="Nhóm Chưa phân nhóm, đã hoàn thành 0/1 việc"><span class="group__chev"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span><span class="group__name sticker">Chưa phân nhóm</span><span class="group__count">0/1</span></a></h2>
       <ul class="task-list">
         <li class="task">
           <label class="check"><input type="checkbox" aria-label="Đánh dấu hoàn thành" aria-describedby="t-4-text"><span class="check__box" aria-hidden="true"><svg viewBox="0 0 28 28"><path pathLength="100" d="M5 15.5c2.2 1.6 3.9 3.6 5.2 6.2C13.4 13.6 18 7.4 25 2.5"/></svg></span></label>
@@ -162,8 +162,7 @@
       <div class="dialog__head"><h2 class="dialog__title" id="mg-title">Nhóm việc</h2><a class="btn btn--ghost" href="sections.html">Đóng</a></div>
       <ul class="group-rows">
         <li class="group-row">
-          <span class="swatch" data-color="yellow" aria-hidden="true"></span>
-          <span class="group-row__name" id="gr-cty">Công ty</span>
+          <span class="group-row__name" id="gr-cty"><span class="sticker" data-color="yellow">Công ty</span></span>
           <span class="group-row__actions">
             <a class="icon-btn" href="manage--edit.html" aria-label="Sửa" aria-describedby="gr-cty"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.17 6.81a1 1 0 0 0-3.99-3.99L3.84 16.17a2 2 0 0 0-.5.83l-1.32 4.35a.5.5 0 0 0 .62.62l4.35-1.32a2 2 0 0 0 .83-.5z"/><path d="m15 5 4 4"/></svg></a>
             <a class="icon-btn group-row__move" href="move-all.html" aria-label="Chuyển tất cả việc" aria-describedby="gr-cty"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9V5a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v1"/><path d="M2 13v6a2 2 0 0 0 2 2h7"/><path d="M14 17h8m-3-3 3 3-3 3"/></svg><span class="group-row__move-label" aria-hidden="true">Chuyển tất cả việc</span></a>
@@ -171,8 +170,7 @@
           </span>
         </li>
         <li class="group-row">
-          <span class="swatch" data-color="pink" aria-hidden="true"></span>
-          <span class="group-row__name" id="gr-nha">Nhà</span>
+          <span class="group-row__name" id="gr-nha"><span class="sticker" data-color="pink">Nhà</span></span>
           <span class="group-row__actions">
             <a class="icon-btn" href="manage--edit.html" aria-label="Sửa" aria-describedby="gr-nha"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.17 6.81a1 1 0 0 0-3.99-3.99L3.84 16.17a2 2 0 0 0-.5.83l-1.32 4.35a.5.5 0 0 0 .62.62l4.35-1.32a2 2 0 0 0 .83-.5z"/><path d="m15 5 4 4"/></svg></a>
             <a class="icon-btn group-row__move" href="move-all.html" aria-label="Chuyển tất cả việc" aria-describedby="gr-nha"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9V5a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v1"/><path d="M2 13v6a2 2 0 0 0 2 2h7"/><path d="M14 17h8m-3-3 3 3-3 3"/></svg><span class="group-row__move-label" aria-hidden="true">Chuyển tất cả việc</span></a>
@@ -180,8 +178,7 @@
           </span>
         </li>
         <li class="group-row">
-          <span class="swatch" data-color="green" aria-hidden="true"></span>
-          <span class="group-row__name" id="gr-jp">Học tiếng Nhật</span>
+          <span class="group-row__name" id="gr-jp"><span class="sticker" data-color="green">Học tiếng Nhật</span></span>
           <span class="group-row__actions">
             <a class="icon-btn" href="manage--edit.html" aria-label="Sửa" aria-describedby="gr-jp"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.17 6.81a1 1 0 0 0-3.99-3.99L3.84 16.17a2 2 0 0 0-.5.83l-1.32 4.35a.5.5 0 0 0 .62.62l4.35-1.32a2 2 0 0 0 .83-.5z"/><path d="m15 5 4 4"/></svg></a>
             <a class="icon-btn group-row__move" href="move-all.html" aria-label="Chuyển tất cả việc" aria-describedby="gr-jp"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9V5a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v1"/><path d="M2 13v6a2 2 0 0 0 2 2h7"/><path d="M14 17h8m-3-3 3 3-3 3"/></svg><span class="group-row__move-label" aria-hidden="true">Chuyển tất cả việc</span></a>
@@ -189,8 +186,7 @@
           </span>
         </li>
         <li class="group-row">
-          <span class="swatch" data-color="blue" aria-hidden="true"></span>
-          <span class="group-row__name" id="gr-sk">Sức khỏe<span class="group-row__hint" id="gr-sk-hint">Nhóm này chưa có việc nào.</span></span>
+          <span class="group-row__name" id="gr-sk"><span class="sticker" data-color="blue">Sức khỏe</span><span class="group-row__hint" id="gr-sk-hint">Nhóm này chưa có việc nào.</span></span>
           <span class="group-row__actions">
             <a class="icon-btn" href="manage--edit.html" aria-label="Sửa" aria-describedby="gr-sk"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.17 6.81a1 1 0 0 0-3.99-3.99L3.84 16.17a2 2 0 0 0-.5.83l-1.32 4.35a.5.5 0 0 0 .62.62l4.35-1.32a2 2 0 0 0 .83-.5z"/><path d="m15 5 4 4"/></svg></a>
             <span class="icon-btn group-row__move" role="button" tabindex="0" aria-disabled="true" aria-label="Chuyển tất cả việc" aria-describedby="gr-sk-hint" data-hint="Nhóm này chưa có việc nào."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9V5a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v1"/><path d="M2 13v6a2 2 0 0 0 2 2h7"/><path d="M14 17h8m-3-3 3 3-3 3"/></svg><span class="group-row__move-label" aria-hidden="true">Chuyển tất cả việc</span></span>
@@ -202,6 +198,7 @@
   </div>
   <div class="backdrop backdrop--stack">
     <div class="dialog dialog--card" role="dialog" aria-modal="true" aria-labelledby="mv-title" aria-describedby="mv-text">
+      <span class="sticker sticker--corner" data-color="yellow" aria-hidden="true">Công ty</span>
       <div class="dialog__head"><h2 class="dialog__title" id="mv-title">Chuyển tất cả việc của nhóm "Công ty"</h2></div>
       <form action="move-all--done.html">
         <div class="move-field">

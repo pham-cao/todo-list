@@ -1,6 +1,41 @@
 # task-groups UX: critique and heuristic review
 
-Method: every screen was captured with Playwright at 1440 px and 390 px in light and dark mode, and the eight busiest screens also at 360 px. The visual-critique:critique-screen pass (hierarchy, brand, composition, typography, colour, affordance, density) was run on those captures, followed by a Nielsen heuristic walk through each flow. Horizontal overflow was measured on every capture (none found) and the new controls were measured for size (toggle, filter, group choices, colour choices, dialog buttons and Quản lý nhóm all reach 44 px, the 36 px drawn buttons extend their hit area to 44 px as Thêm does today). Highlighter contrast was calculated per colour, see design-system.md.
+## Revision 2: torn paper labels (owner feedback on the sticker version)
+
+The owner asked for labels torn off a strip, with jagged sawtooth (răng cưa) ends, instead of the smooth die cut sticker with a peeled corner, and for the add line choice to show the full "Chưa phân nhóm" at 390 px. Only the label look and that line changed. All 20 screens were captured again at 1440 and 390 px in light and dark mode, plus 360 px for the eight busiest screens, and visual-critique:critique-screen was run again. No capture has horizontal scroll. A close up of one label is in `screenshots/zoom-label-light.png`.
+
+| Priority | Dimension | Issue | Fix |
+| --- | --- | --- | --- |
+| P1 | Typography | At 390 px the add line choice was cut to "Chưa phân..." | On phones the word "Nhóm" is visually hidden (still the accessible label) and the select fills the space left of Thêm: 172 px available, 153 px needed, at both 390 and 360 px |
+| P2 | Colour | A box shadow would show a rectangle behind the torn ends | The shadow is a drop-shadow filter on the label, so it follows the teeth; darker at night |
+| P2 | Colour | A ring on a torn mini label cannot follow the teeth | Four 1 px drop-shadows in the mark colour outline the mini label, keeping 3:1 on paper |
+| P2 | Affordance | The chosen colour's ring no longer fitted the torn shape | The chosen choice gets a 2 px ink frame around its 44 px target, a 2 px lift and a tick |
+| P2 | Typography | Teeth must never touch the text | 15 px padding at each end against teeth at most 6 px deep |
+| P3 | Typography | At 360 px the filter choice still shortens "Chưa phân nhóm" | Accepted: the filter shares its line with Quản lý nhóm; the open list and the section header show the full name |
+| P3 | Brand | Irregular teeth could look like a rendering error at a glance | Teeth alternate shallow and deep on both ends like real torn paper, and every label in the app uses the same shape |
+
+Text contrast is unchanged from the colour table (13.5:1 or better light, 7.4:1 or better dark; blank label 7.5:1 light, 5.7:1 dark). No live preview label was added to the rename block (owner decision).
+
+## Revision 1: paper stickers (replaced by revision 2)
+
+## Revision: paper stickers (owner feedback after approval)
+
+The owner asked for group labels that look like paper stickers stuck on the notebook page instead of the highlighter swipe. Only the label look changed; flows, layout, text, sizes and colours are the same. All 20 screens were regenerated and captured again at 1440 and 390 px in light and dark mode, plus 360 px for the eight busiest screens, and the visual-critique:critique-screen pass was run again on the new captures. No capture has horizontal scroll.
+
+| Priority | Dimension | Issue | Fix |
+| --- | --- | --- | --- |
+| P2 | Typography | The mini sticker in the add line select cut "Chưa phân nhóm" short on desktop | The add line group choice may now grow to 250 px |
+| P2 | Typography | At 360 px the mini stickers inside the add line and filter selects left too little room ("Chưa ...", "Sức kh...") | Below 381 px the mini sticker inside those two selects is hidden; the name stays as text and the section headers keep their stickers |
+| P2 | Consistency | Chưa phân nhóm had no mark in the choices while it is a sticker in the list | A blank mini sticker now stands for Chưa phân nhóm in every choice ("Tất cả nhóm" has none) |
+| P3 | Brand | The tilt could make a column of headers look untidy | Tilts are small (1.1 to 1.4 degrees) and alternate per section, like stickers placed by hand; text stays horizontal enough to read |
+| P3 | Composition | The sticker on the corner of the move and blocked notes could cover the title | It sits on the top right corner, away from the title start, and is decorative (aria-hidden) |
+| P3 | Colour | In dark mode a white cut edge glared | Night stickers use a grey cut edge #4A515C and a darker lift shadow |
+
+Contrast of sticker text is unchanged from the colour table (13.5:1 or better light, 7.4:1 or better dark); the blank sticker uses muted ink at 7.5:1 light and 5.7:1 dark. Mini stickers keep a thin mark ring for 3:1 against the page.
+
+## First review (highlighter version)
+
+Method: every screen was captured with Playwright at 1440 px and 390 px in light and dark mode, and the eight busiest screens also at 360 px. The visual-critique:critique-screen pass (hierarchy, brand, composition, typography, colour, affordance, density) was run on those captures, followed by a Nielsen heuristic walk through each flow. Horizontal overflow was measured on every capture (none found) and the new controls were measured for size (toggle, filter, group choices, colour choices, dialog buttons and Quản lý nhóm all reach 44 px, the 36 px drawn buttons extend their hit area to 44 px as Thêm does today). Sticker contrast was calculated per colour, see design-system.md.
 
 ## Fixed in this review
 

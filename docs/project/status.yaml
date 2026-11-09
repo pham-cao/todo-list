@@ -162,11 +162,99 @@ features:
         bugs_opened: [BUG-002]
         trello_card: ""
   - slug: task-groups
-    phase: design
+    phase: build
     has_ui: true
     pr: ""
     trello_card: ""
-    tasks: []
+    tasks:
+      - id: T1
+        title: "Version every asset reference"
+        owner: be
+        depends_on: []
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T2
+        title: "Tasks remember their group"
+        owner: be
+        depends_on: []
+        state: doing
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T3
+        title: "Groups and collapsed state module"
+        owner: be
+        depends_on: [T2]
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T4
+        title: "Day list in sections with collapse"
+        owner: fe
+        depends_on: [T1, T3]
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T5
+        title: "Group choice and new group in the add form"
+        owner: fe
+        depends_on: [T4]
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T6
+        title: "Move a task through the edit form"
+        owner: fe
+        depends_on: [T5]
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T7
+        title: "Group bar and filter"
+        owner: fe
+        depends_on: [T6]
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T8
+        title: "Manage dialog with rename and colour"
+        owner: fe
+        depends_on: [T7]
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T9
+        title: "Delete a group, blocked delete and show its tasks"
+        owner: fe
+        depends_on: [T8]
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T10
+        title: "Move all tasks of a group"
+        owner: fe
+        depends_on: [T9]
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T11
+        title: "Keyboard, size, safety and speed checks"
+        owner: fe
+        depends_on: [T1, T10]
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
 # - slug: user-login
 #   phase: requirements   # requirements | ux | design | build | release | done
 #   has_ui: true

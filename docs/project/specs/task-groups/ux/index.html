@@ -22,7 +22,6 @@
     .notes li + li { margin-top: var(--space-3); }
     .chips { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-3); list-style: none; padding: 0; }
     .chips li { display: flex; align-items: center; gap: var(--space-2); font-size: var(--fs-meta); }
-    .chips .name { padding: 2px 10px; background: var(--hl); border-radius: 4px 12px 5px 14px / 9px 4px 10px 5px; font-weight: var(--fw-bold); }
   </style>
 </head>
 <body>
@@ -35,14 +34,15 @@
     <h2>Start here</h2>
     <p>Open <a href="screens/no-groups.html">a day before any group exists</a>, choose Nhóm mới... and follow the links to create Gia đình and add a task to it. Then open <a href="screens/sections.html">a day with groups</a> and try folding, the filter, Sửa and Quản lý nhóm. The flows, screen inventory and requirement coverage are in <a href="flows.md">flows.md</a>, the new components in <a href="../../../design-system.md">design-system.md</a> (section "Task groups"), and the review notes in <a href="critique.md">critique.md</a>.</p>
 
-    <h2>The six highlighter colours</h2>
+    <h2>The six label colours and the blank label</h2>
     <ul class="chips" lang="vi">
-      <li data-color="yellow"><span class="swatch" aria-hidden="true"></span><span class="name">Vàng</span></li>
-      <li data-color="pink"><span class="swatch" aria-hidden="true"></span><span class="name">Hồng</span></li>
-      <li data-color="green"><span class="swatch" aria-hidden="true"></span><span class="name">Xanh lá</span></li>
-      <li data-color="blue"><span class="swatch" aria-hidden="true"></span><span class="name">Xanh dương</span></li>
-      <li data-color="orange"><span class="swatch" aria-hidden="true"></span><span class="name">Cam</span></li>
-      <li data-color="purple"><span class="swatch" aria-hidden="true"></span><span class="name">Tím</span></li>
+      <li><span class="sticker" data-color="yellow">Vàng</span></li>
+      <li><span class="sticker" data-color="pink">Hồng</span></li>
+      <li><span class="sticker" data-color="green">Xanh lá</span></li>
+      <li><span class="sticker" data-color="blue">Xanh dương</span></li>
+      <li><span class="sticker" data-color="orange">Cam</span></li>
+      <li><span class="sticker" data-color="purple">Tím</span></li>
+      <li><span class="sticker" data-color="none">Chưa phân nhóm</span></li>
     </ul>
 
     <h2>Screens and states</h2>
@@ -55,7 +55,7 @@
       <li><a href="screens/add-new-group--created.html"><strong>Group created</strong><span>Chosen in the add line, ready for the task.</span></a></li>
       <li><a href="screens/add-new-group--added.html"><strong>Task added to the new group</strong><span>The new section appears.</span></a></li>
       <li><a href="screens/edit-move.html"><strong>Move a task while editing</strong><span>Nhóm choice on the edit line.</span></a></li>
-      <li><a href="screens/edit-move--saved.html"><strong>Task moved</strong><span>Placed by creation time, short highlighter wash, focus on Sửa.</span></a></li>
+      <li><a href="screens/edit-move--saved.html"><strong>Task moved</strong><span>Placed by creation time, a short wash in its new colour, focus on Sửa.</span></a></li>
       <li><a href="screens/swipe.html"><strong>Phone swipe inside a section</strong><span>The approved swipe rows, unchanged.</span></a></li>
       <li><a href="screens/manage--empty.html"><strong>Quản lý nhóm, empty</strong><span>Bạn chưa có nhóm nào.</span></a></li>
       <li><a href="screens/manage.html"><strong>Quản lý nhóm</strong><span>Every group with Sửa, Chuyển tất cả việc and Xóa; an inactive move for an empty group.</span></a></li>
@@ -71,8 +71,8 @@
 
     <h2>Key design decisions</h2>
     <ul class="notes">
-      <li>Groups are written with a highlighter. A section header is one ruled line: the fold chevron sits in the margin where the checkboxes are, the group name has a highlighter swipe behind it, and the done and total count sits at the end of the line. A blank line separates sections, as on paper. Chưa phân nhóm has no colour, only a dashed pencil underline.</li>
-      <li>Colour is never the only cue: the name is always written, swatches carry a darker ring so they stay visible on paper, and the chosen colour in the dialog also gets an ink ring and a tick. Black text on the light highlighters is 13.5:1 or better, and warm white on the deep night highlighters is 7.4:1 or better.</li>
+      <li>Group labels are torn paper labels, like a label torn off a strip: coloured paper with the grain, both ends torn into a sawtooth (răng cưa), a small tilt (alternating per section) and a soft shadow that follows the torn edges. A section header is one ruled line: the fold chevron in the margin where the checkboxes are, the torn label with the group name, and the done and total count at the end. A blank line separates sections, as on paper. Chưa phân nhóm is a blank white label torn the same way, with pencil dashes along its edges, so it still reads as a group. The same label appears everywhere a group shows: as a mini label in the add, edit, filter and move choices, as the name in Quản lý nhóm rows, as the colour choices, and stuck on the corner of the delete and move notes. (Revised twice at the owner's request: first highlighter, then sticker, now torn label.)</li>
+      <li>Colour is never the only cue: the name is always written, mini labels carry a thin darker outline so they stay visible on paper, and the chosen colour in the dialog is lifted, framed in ink and ticked. Black text on the light labels is 13.5:1 or better, warm white on the deep night labels is 7.4:1 or better, and muted ink on the blank label is 7.5:1 (light) and 5.7:1 (dark).</li>
       <li>The group choice lives on the add line on desktop and on a second line on phones, so a group can be picked or created without leaving the add flow. Nhóm mới... opens one extra line with the name and Tạo nhóm, and the margin previews the colour the new group will get.</li>
       <li>One group bar sits directly above the list: Lọc theo nhóm on the left (from the first group on) and Quản lý nhóm on the right (always, on every day). When a filter is on, the funnel is inked in so the owner knows part of the day is hidden.</li>
       <li>Quản lý nhóm opens an index card rather than the sticky note, because it is a small form and needs a straighter, calmer surface. Questions that need an answer (delete, delete blocked) keep the approved sticky note, stacked on top of the card.</li>
