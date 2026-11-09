@@ -387,6 +387,10 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
 /* Task list */
 .task-list { list-style: none; padding: 0; }
 .task { position: relative; align-items: start; }
+/* NFR1: rows off screen skip layout and paint, so a day of 200 tasks lays out in a few ms. Paint containment would clip
+   the Sửa and Xóa tooltips above the row, so a hovered or focused row (always on screen) renders normally. */
+.task { content-visibility: auto; contain-intrinsic-size: auto var(--rule); }
+.task:hover, .task:focus-within { content-visibility: visible; }
 .task > .check { grid-column: 1; justify-self: center; }
 .task__swipe { grid-column: 2; display: flex; align-items: start; min-width: 0; }
 .task__text {
@@ -528,7 +532,7 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
   margin-left: auto; border: 1.5px solid var(--color-pen); border-radius: var(--radius-control) var(--radius-control) 2px 2px;
   background: var(--color-pen); color: var(--color-on-pen); cursor: pointer; text-decoration: none;
   font-size: var(--fs-meta); font-weight: var(--fw-semibold); line-height: 1; white-space: nowrap;
-  transition: background-color var(--dur-fast) ease;
+  transition: background-color var(--dur-fast) ease, color var(--dur-fast) ease; /* together, or the label flashes unreadable */
 }
 .today-tab .icon { width: 18px; height: 18px; }
 .today-tab:hover { background: var(--color-pen-strong); }

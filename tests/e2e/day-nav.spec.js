@@ -536,7 +536,8 @@ test('a partial year typed into the picker is kept while focused and reset on bl
   await picker(page).focus();
   await page.keyboard.press('Tab');
   await page.keyboard.press('Tab');
-  // Now on the year segment: two digits make year 0020, outside the range.
+  // Now on the year segment, the third in every order Chromium uses for vi-VN (locale set in playwright.config.js).
+  // Two digits make year 0020, outside the range.
   await page.keyboard.press('2');
   await page.keyboard.press('0');
   await expect(picker(page)).toHaveValue('0020-11-08');
@@ -551,11 +552,14 @@ test('keyboard: Tab reaches the picker and arrow keys change the day while focus
   await next(page).focus();
   await page.keyboard.press('Tab');
   await expect(picker(page)).toBeFocused();
-  // First segment is the month in vi-VN Chromium (mm/dd/yyyy): ArrowDown moves 11 to 10.
+  // ArrowDown lowers the first segment by one. Chromium shows month first for the vi-VN locale set in
+  // playwright.config.js (mm/dd/yyyy) and day first for dd/mm/yyyy locales; accept either.
   await page.keyboard.press('ArrowDown');
-  await expect(picker(page)).toHaveValue('2026-10-08');
-  await expect(dateLine(page)).toHaveText('Thứ Năm, 08/10/2026');
-  expect(hash(page)).toBe('#2026-10-08');
+  const [key, line] = await picker(page).inputValue() === '2026-10-08'
+    ? ['2026-10-08', 'Thứ Năm, 08/10/2026'] : ['2026-11-07', 'Thứ Bảy, 07/11/2026'];
+  await expect(picker(page)).toHaveValue(key);
+  await expect(dateLine(page)).toHaveText(line);
+  expect(hash(page)).toBe(`#${key}`);
   await expect(picker(page)).toBeFocused();
 });
 
@@ -635,6 +639,7 @@ test('after midnight, viewing today follows to the new today with a plain addres
   await expect(rows(page)).toHaveCount(0);
   await expect(toToday(page)).toHaveAttribute('aria-disabled', 'true');
   expect(hash(page)).toBe('');
+  await expect(input(page)).toBeFocused();
 });
 
 test('after midnight, viewing tomorrow stays and becomes today with a muted Về hôm nay and a plain address', async ({ page }) => {
@@ -787,6 +792,7 @@ test('data saved by the daily task log in its exact shape shows on its days with
 });
 
 test('after midnight on an all done day nothing celebrates again and no page turn plays', async ({ page }) => {
+  await watchTurns(page);
   await open(page, [task('a', 'Một', true, '2026-11-08')], '#2026-11-08');
   await page.clock.setFixedTime(AFTER_MIDNIGHT);
   await returnToPage(page);
@@ -794,4 +800,217 @@ test('after midnight on an all done day nothing celebrates again and no page tur
   await expect(page.locator('.progress')).toHaveClass(/progress--complete/);
   await expect(page.locator('.progress')).not.toHaveClass(/progress--celebrate/);
   await expect(page.locator('.turn--back, .turn--forward, .washi--restick')).toHaveCount(0);
+  expect(await turnsSeen(page)).toEqual([]);
+});
+
+// T7: page turn motion, keyboard order, size and speed
+// Records every turn or restick class ever set, so a 240 ms animation cannot slip between two checks.
+async function watchTurns(page) {
+  await page.addInitScript(() => {
+    window.__turns = [];
+    new MutationObserver((list) => {
+      for (const m of list) for (const c of m.target.classList) if (/^turn--|^washi--restick$/.test(c)) window.__turns.push(c);
+    }).observe(document, { subtree: true, attributes: true, attributeFilter: ['class'] });
+  });
+}
+const turnsSeen = (page) => page.evaluate(() => [...new Set(window.__turns)]);
+const sheetBody = (page) => page.locator('.sheet__body');
+// Clicks inside the page and reads the classes in the same task, before any animation can end.
+const clickAndRead = (page, id) => page.evaluate((id) => {
+  document.getElementById(id).click();
+  return [document.querySelector('.sheet__body').className, document.getElementById('date-line').className];
+}, id);
+
+test('a move turns the page by direction and the classes go after the animation', async ({ page }) => {
+  await open(page, SEED);
+  let [body, date] = await clickAndRead(page, 'next-day');
+  expect(body.split(' ')).toContain('turn--forward');
+  expect(body).not.toContain('turn--back');
+  expect(date.split(' ')).toContain('washi--restick');
+  await expect(sheetBody(page)).not.toHaveClass(/turn--/);
+  await expect(dateLine(page)).not.toHaveClass(/washi--restick/);
+
+  [body, date] = await clickAndRead(page, 'prev-day');
+  expect(body.split(' ')).toContain('turn--back');
+  expect(body).not.toContain('turn--forward');
+  expect(date.split(' ')).toContain('washi--restick');
+  await expect(sheetBody(page)).not.toHaveClass(/turn--/);
+  await expect(dateLine(page)).not.toHaveClass(/washi--restick/);
+
+  // Browser Back is a move too: back from today to tomorrow turns forward.
+  await page.goBack();
+  await expect(dateLine(page)).toHaveText('Ngày mai, Thứ Ba, 10/11/2026');
+  await expect(sheetBody(page)).not.toHaveClass(/turn--/);
+});
+
+test('loading a day plays no page turn', async ({ page }) => {
+  await watchTurns(page);
+  await open(page, SEED, '#2026-11-08');
+  await expect(dateLine(page)).toHaveText('Hôm qua, Chủ Nhật, 08/11/2026');
+  await page.reload();
+  await expect(dateLine(page)).toHaveText('Hôm qua, Chủ Nhật, 08/11/2026');
+  expect(await turnsSeen(page)).toEqual([]);
+});
+
+test('with reduced motion a move changes the day and plays no page turn', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await watchTurns(page);
+  await open(page, SEED);
+  await page.getByRole('button', { name: 'Xem ngày trước' }).click();
+  await expect(dateLine(page)).toHaveText('Hôm qua, Chủ Nhật, 08/11/2026');
+  await expect(rows(page)).toHaveCount(3);
+  await page.getByRole('button', { name: 'Xem ngày sau' }).click();
+  await expect(dateLine(page)).toHaveText('Hôm nay, Thứ Hai, 09/11/2026');
+  expect(await turnsSeen(page)).toEqual([]);
+});
+
+test('Tab from the page start reaches previous, next, Chọn ngày, Về hôm nay, then the add field', async ({ page }) => {
+  await open(page, SEED);
+  // Clicking the title moves the focus starting point to the top, before every control.
+  await heading(page).click();
+  const order = [];
+  for (let i = 0; i < 12 && order.at(-1) !== 'new-task'; i++) {
+    await page.keyboard.press('Tab');
+    const id = await page.evaluate(() => document.activeElement.id);
+    // The picker's date segments are separate Tab stops in Chromium; count the control once.
+    if (order.at(-1) !== id) order.push(id);
+  }
+  expect(order).toEqual(['prev-day', 'next-day', 'day-picker', 'to-today', 'new-task']);
+});
+
+for (const hash of ['', '#2026-11-08']) {
+  test(`each nav control is at least 44 by 44 px on ${hash || 'today'}`, async ({ page }) => {
+    await open(page, SEED, hash);
+    // The stamp is the picker's hit area: its calendar indicator covers the whole stamp.
+    for (const sel of ['#prev-day', '#next-day', '.date-stamp', '#to-today']) {
+      const box = await page.locator(sel).boundingBox();
+      expect(box.width, sel).toBeGreaterThanOrEqual(44);
+      expect(box.height, sel).toBeGreaterThanOrEqual(44);
+    }
+  });
+}
+
+test('no horizontal scroll at 360 px on today and on a past day, with a long unbroken task', async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 780 });
+  const long = 'Đ'.repeat(200);
+  await open(page, [task('a', long), task('b', long, false, '2026-11-08')]);
+  for (const hash of ['', '#2026-11-08']) {
+    if (hash) await page.getByRole('button', { name: 'Xem ngày trước' }).click();
+    await expect(rows(page)).toHaveCount(1);
+    await expect(sheetBody(page)).not.toHaveClass(/turn--/);
+    const [scroll, client] = await page.evaluate(() => [document.documentElement.scrollWidth, document.documentElement.clientWidth]);
+    expect(scroll, hash || 'today').toBeLessThanOrEqual(client);
+  }
+});
+
+for (const count of [0, 1, 200]) {
+  test(`moving to a day with ${count} tasks renders in under 100 ms`, async ({ page }) => {
+    const many = Array.from({ length: count }, (_, i) => task(`p${i}`, `Việc số ${i + 1} của hôm qua`, i % 3 === 0, '2026-11-08', i));
+    await open(page, many);
+    // BUG-002: let the page settle first. An idle page is the slow case (the CPU clocks down), and right after load it hides it.
+    await page.waitForTimeout(500);
+    // Click, then force style and layout so the time covers the rows actually laid out.
+    const ms = await page.evaluate(() => {
+      const t = performance.now();
+      document.getElementById('prev-day').click();
+      void document.body.offsetHeight;
+      return performance.now() - t;
+    });
+    await expect(rows(page)).toHaveCount(count);
+    expect(ms).toBeLessThan(100);
+  });
+}
+
+// BUG-001: Về hôm nay must not show its filled text on bare paper.
+test('Về hôm nay is filled from the first frame after load on another day', async ({ page }) => {
+  await page.addInitScript(() => {
+    window.__tab = [];
+    const sample = () => {
+      const el = document.getElementById('to-today');
+      if (el) {
+        const cs = getComputedStyle(el);
+        window.__tab.push({ muted: el.getAttribute('aria-disabled') === 'true', bg: cs.backgroundColor, color: cs.color });
+      }
+      if (window.__tab.length < 30) requestAnimationFrame(sample);
+    };
+    requestAnimationFrame(sample);
+  });
+  await open(page, SEED, '#2026-11-08');
+  await page.waitForFunction(() => window.__tab.length >= 30);
+  const final = await toToday(page).evaluate((el) => [getComputedStyle(el).backgroundColor, getComputedStyle(el).color]);
+  const filled = await page.evaluate(() => window.__tab.filter((s) => !s.muted));
+  expect(filled.length).toBeGreaterThan(0);
+  for (const s of filled) expect([s.bg, s.color]).toEqual(final);
+});
+
+test('on a move, the label colour changes together with the Về hôm nay fill', async ({ page }) => {
+  await open(page, SEED);
+  const props = await page.evaluate(() => {
+    const el = document.getElementById('to-today');
+    document.getElementById('prev-day').click();
+    getComputedStyle(el).color; // start the transitions now
+    return el.getAnimations().map((a) => a.transitionProperty);
+  });
+  expect(props).toEqual(expect.arrayContaining(['background-color', 'color']));
+});
+
+// BUG-002 fix regression: rows use content-visibility: auto. A 200 row day must keep behaving like a short one.
+const BIG = Array.from({ length: 200 }, (_, i) => task(`b${i}`, i === 199 ? `Việc cuối ${'rất dài '.repeat(25)}hết` : `Việc số ${i + 1}`, i < 199, TODAY, i));
+const inView = (loc) => loc.evaluate((el) => { const r = el.getBoundingClientRect(); return r.top >= 0 && r.bottom <= innerHeight; });
+
+test('200 rows: Tab from the add field into rows scrolled away brings the first row back into view', async ({ page }) => {
+  await open(page, BIG.map((t) => ({ ...t, done: false })));
+  await input(page).focus();
+  await page.evaluate(() => scrollTo(0, document.body.scrollHeight));
+  await page.keyboard.press('Tab');
+  await page.keyboard.press('Tab');
+  const focused = page.locator(':focus');
+  await expect(rows(page).nth(0)).toContainText('Việc số 1');
+  await expect(focused).toBeVisible();
+  expect(await inView(focused)).toBe(true);
+  expect(await page.evaluate(() => scrollY)).toBeLessThan(400);
+});
+
+test('200 rows: browser find reaches text of a row that is off screen', async ({ page }) => {
+  await open(page, BIG);
+  expect(await page.evaluate(() => window.find('Việc số 150'))).toBe(true);
+  expect(await page.evaluate(() => scrollY)).toBeGreaterThan(1000);
+  expect(await page.evaluate(() => getSelection().toString())).toBe('Việc số 150');
+});
+
+test('200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted', async ({ page }) => {
+  await open(page, BIG);
+  const last = rows(page).nth(199);
+  await last.scrollIntoViewIfNeeded();
+  await page.evaluate(() => scrollTo(0, document.body.scrollHeight));
+  const [scroll, client] = await page.evaluate(() => [document.documentElement.scrollWidth, document.documentElement.clientWidth]);
+  expect(scroll).toBeLessThanOrEqual(client);
+  // Sized as one line until it is on screen (known side effect of content-visibility), then it wraps at its real height.
+  await expect.poll(async () => (await last.boundingBox()).height).toBeGreaterThan(50);
+  await page.evaluate(() => scrollTo(0, document.body.scrollHeight));
+  expect(await inView(last)).toBe(true);
+  await last.locator('.check__box').click();
+  await expect(page.locator('.progress')).toHaveClass(/progress--celebrate/);
+  await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 200/200 việc');
+  await last.getByRole('button', { name: 'Sửa' }).click();
+  await page.getByRole('textbox', { name: 'Sửa' }).fill('Đã sửa');
+  await last.getByRole('button', { name: 'Lưu' }).click();
+  await expect(last.locator('.task__label')).toHaveText('Đã sửa');
+  await last.getByRole('button', { name: 'Xóa' }).click();
+  await page.getByRole('alertdialog').getByRole('button', { name: 'Xóa việc' }).click();
+  await expect(rows(page)).toHaveCount(199);
+});
+
+test('200 rows: a hovered or focused row renders in full so the Sửa and Xóa tooltips are not clipped', async ({ page, isMobile }) => {
+  await open(page, BIG);
+  const row = rows(page).nth(3);
+  const cv = () => row.evaluate((el) => getComputedStyle(el).contentVisibility);
+  expect(await rows(page).nth(150).evaluate((el) => getComputedStyle(el).contentVisibility)).toBe('auto');
+  await row.getByRole('button', { name: 'Sửa' }).focus();
+  expect(await cv()).toBe('visible');
+  if (!isMobile) {
+    await row.getByRole('button', { name: 'Xóa' }).hover();
+    expect(await cv()).toBe('visible');
+    await expect.poll(() => row.getByRole('button', { name: 'Xóa' }).evaluate((el) => getComputedStyle(el, '::after').opacity)).toBe('1');
+  }
 });

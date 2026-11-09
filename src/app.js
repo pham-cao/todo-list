@@ -20,6 +20,7 @@ const els = {
   list: $("task-list"),
   rowTemplate: $("task-template"),
   editTemplate: $("edit-template"),
+  sheetBody: document.querySelector(".sheet__body"),
   dialog: $("delete-dialog"),
   quote: $("del-task"),
 };
@@ -340,11 +341,29 @@ function resetTransient() {
   setAddError(null);
 }
 
+// Page turn (R8): only a move plays it, never a load or a midnight refresh. Keys are YYYY-MM-DD, so they compare as strings.
+const TURNS = ["turn--back", "turn--forward", "washi--restick"];
+function turnPage(from, to) {
+  if (reducedMotion.matches) return; // the CSS drops the animation, so animationend would never clear the class
+  els.sheetBody.classList.remove(...TURNS);
+  els.date.classList.remove(...TURNS);
+  void els.sheetBody.offsetWidth; // restart the animation on quick repeated moves
+  els.sheetBody.classList.add(to < from ? "turn--back" : "turn--forward");
+  els.date.classList.add("washi--restick");
+}
+// Row animations bubble up to the sheet body; only its own turn ends here.
+const endTurn = (e) => { if (e.target === e.currentTarget) e.target.classList.remove(...TURNS); };
+for (const el of [els.sheetBody, els.date]) {
+  el.addEventListener("animationend", endTurn);
+  el.addEventListener("animationcancel", endTurn);
+}
+
 // One move is one history entry (R22, R25). Focus is left on the control used (R8).
 function go(key) {
   if (!key || key === viewed) { if (els.picker.value !== viewed) els.picker.value = viewed; return; }
   resetTransient();
   writeAddress(key, true);
+  turnPage(viewed, key);
   viewed = key;
   renderDay();
 }
@@ -357,6 +376,7 @@ function syncFromAddress() {
   if (key === today && location.href.includes("#")) writeAddress(today, false);
   if (key === viewed) return;
   resetTransient();
+  turnPage(viewed, key);
   viewed = key;
   renderDay();
 }
@@ -413,5 +433,9 @@ viewed = readHash() ?? today;
 // A hash that is bad, out of range or today (even a bare "#") becomes the plain address, with no history entry.
 if (viewed === today && location.href.includes("#")) writeAddress(today, false);
 setAddError(null);
+// BUG-001: the markup starts muted; settle the real Về hôm nay look before any transition can run.
+els.toToday.style.transition = "none";
 renderDay();
+void els.toToday.offsetWidth;
+els.toToday.style.transition = "";
 els.input.focus();
