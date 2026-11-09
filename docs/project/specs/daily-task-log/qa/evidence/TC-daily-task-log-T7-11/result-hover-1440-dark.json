@@ -1,0 +1,6 @@
+{
+ "editingHoverBg": "linear-gradient(to right, rgba(0, 0, 0, 0) 120px, rgba(250, 214, 72, 0.1) 0px)",
+ "highlight": "rgba(250, 214, 72, 0.10)",
+ "otherHoverBg": "linear-gradient(to right, rgba(0, 0, 0, 0) 120px, rgba(169, 195, 238, 0.09) 0px)",
+ "containsHighlight": true
+}

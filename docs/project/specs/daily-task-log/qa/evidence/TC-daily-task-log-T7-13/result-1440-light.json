@@ -1,0 +1,15 @@
+{
+ "hs": false,
+ "inputBox": {
+  "w": 604,
+  "right": 1064,
+  "vw": 1440
+ },
+ "tabs": [
+  "BUTTON:Hủy",
+  "BUTTON:Lưu",
+  "INPUT:Đánh dấu hoàn thành",
+  "BUTTON:Sửa"
+ ],
+ "logs": []
+}

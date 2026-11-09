@@ -1,0 +1,5 @@
+2026-11-09 QA run on branch daily-task-log (uncommitted T12 changes)
+npm test: 21 pass, 0 fail
+npx playwright test --repeat-each=2 (desktop + mobile, Chromium): 174 passed, 18 skipped (viewport-specific skips), 0 failed, 0 flaky
+Firefox (Desktop Firefox, repo spec, same config otherwise): 40 passed, 7 skipped (phone-only tests), 0 failed
+WebKit: browser downloaded but cannot launch: "Host system is missing dependencies to run browsers" (needs sudo apt libs). Not run. Gap for NFR3 (Safari).

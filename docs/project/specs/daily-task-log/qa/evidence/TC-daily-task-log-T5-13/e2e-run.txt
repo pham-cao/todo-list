@@ -1,0 +1,116 @@
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:33] "GET / HTTP/1.1" 200 -
+
+Running 18 tests using 2 workers
+
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:33] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:33] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:33] "GET /docs/project/design-system.css HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:33] "GET /src/app.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:33] "GET /src/date.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:33] "GET /src/store.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:33] "GET /docs/project/design-system.css HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:33] "GET /src/app.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:33] "GET /src/date.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:33] "GET /src/store.js HTTP/1.1" 200 -
+  ✓   1 [desktop] › tests/e2e/app.spec.js:24:1 › page has the expected title and the date line for today (149ms)
+  ✓   2 [mobile] › tests/e2e/app.spec.js:24:1 › page has the expected title and the date line for today (151ms)
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:33] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:33] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:33] "GET /docs/project/design-system.css HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:33] "GET /src/app.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:33] "GET /src/date.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:33] "GET /src/store.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:33] "GET /src/app.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:33] "GET /docs/project/design-system.css HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:33] "GET /src/date.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:33] "GET /src/store.js HTTP/1.1" 200 -
+  ✓   3 [desktop] › tests/e2e/app.spec.js:36:1 › shows only today's tasks, oldest first, with their done state and summary (148ms)
+  ✓   4 [mobile] › tests/e2e/app.spec.js:36:1 › shows only today's tasks, oldest first, with their done state and summary (156ms)
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /docs/project/design-system.css HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/app.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/date.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/store.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /docs/project/design-system.css HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/app.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/date.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/store.js HTTP/1.1" 200 -
+  ✓   5 [desktop] › tests/e2e/app.spec.js:61:1 › shows the empty state with no rows, progress or summary (105ms)
+  ✓   6 [mobile] › tests/e2e/app.spec.js:61:1 › shows the empty state with no rows, progress or summary (105ms)
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /docs/project/design-system.css HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/app.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/date.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/store.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /docs/project/design-system.css HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/app.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/store.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/date.js HTTP/1.1" 200 -
+  ✓   7 [desktop] › tests/e2e/app.spec.js:71:1 › shows the star stamp without the celebration when every task is done (96ms)
+  ✓   8 [mobile] › tests/e2e/app.spec.js:71:1 › shows the star stamp without the celebration when every task is done (94ms)
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /docs/project/design-system.css HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/app.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/store.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/date.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/app.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /docs/project/design-system.css HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/store.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/date.js HTTP/1.1" 200 -
+  ✓   9 [desktop] › tests/e2e/app.spec.js:78:1 › shows task text as plain text, never as markup (98ms)
+  ✓  10 [mobile] › tests/e2e/app.spec.js:78:1 › shows task text as plain text, never as markup (100ms)
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /docs/project/design-system.css HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/app.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/date.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/store.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/app.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /docs/project/design-system.css HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/store.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/date.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET / HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET / HTTP/1.1" 304 -
+  ✓  11 [desktop] › tests/e2e/app.spec.js:87:1 › adds a task with Thêm and Enter, keeps focus, and keeps it after reload (224ms)
+  ✓  12 [mobile] › tests/e2e/app.spec.js:87:1 › adds a task with Thêm and Enter, keeps focus, and keeps it after reload (226ms)
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/app.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /docs/project/design-system.css HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/date.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/store.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /docs/project/design-system.css HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/app.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/date.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/store.js HTTP/1.1" 200 -
+  ✓  13 [desktop] › tests/e2e/app.spec.js:109:1 › adding the first task replaces the empty state (111ms)
+  ✓  14 [mobile] › tests/e2e/app.spec.js:109:1 › adding the first task replaces the empty state (111ms)
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /docs/project/design-system.css HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/app.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/store.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/date.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /docs/project/design-system.css HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/app.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/date.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/store.js HTTP/1.1" 200 -
+  ✓  15 [desktop] › tests/e2e/app.spec.js:118:1 › empty or blank input shows the empty text error, and typing removes it (134ms)
+  ✓  16 [mobile] › tests/e2e/app.spec.js:118:1 › empty or blank input shows the empty text error, and typing removes it (137ms)
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/app.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /docs/project/design-system.css HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/store.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/date.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /docs/project/design-system.css HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/app.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/store.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 15:15:34] "GET /src/date.js HTTP/1.1" 200 -
+  ✓  17 [desktop] › tests/e2e/app.spec.js:134:1 › over 200 characters shows the too long error; exactly 200 after trim is added (176ms)
+  ✓  18 [mobile] › tests/e2e/app.spec.js:134:1 › over 200 characters shows the too long error; exactly 200 after trim is added (174ms)
+
+  18 passed (2.4s)

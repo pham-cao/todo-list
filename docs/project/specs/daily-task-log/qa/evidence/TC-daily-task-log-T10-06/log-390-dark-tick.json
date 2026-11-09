@@ -1,0 +1,20 @@
+{
+  "slipAfterGoodSave": false,
+  "stored": [
+    [
+      "Một",
+      true,
+      "2026-11-09"
+    ],
+    [
+      "Hai",
+      true,
+      "2026-11-09"
+    ],
+    [
+      "Hôm qua",
+      false,
+      "2026-11-08"
+    ]
+  ]
+}

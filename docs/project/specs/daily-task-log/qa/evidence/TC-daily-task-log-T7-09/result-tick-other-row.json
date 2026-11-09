@@ -1,0 +1,42 @@
+[
+ {
+  "w": 1440,
+  "checked": [
+   false,
+   true
+  ],
+  "summary": "Đã hoàn thành 1/2 việc",
+  "editVal": "Đang sửa",
+  "editing": 1,
+  "stored": [
+   [
+    "Một",
+    false
+   ],
+   [
+    "Hai",
+    true
+   ]
+  ]
+ },
+ {
+  "w": 390,
+  "checked": [
+   false,
+   true
+  ],
+  "summary": "Đã hoàn thành 1/2 việc",
+  "editVal": "Đang sửa",
+  "editing": 1,
+  "stored": [
+   [
+    "Một",
+    false
+   ],
+   [
+    "Hai",
+    true
+   ]
+  ]
+ }
+]

@@ -1,0 +1,12 @@
+{
+  "slipBefore": false,
+  "slipImmediately": true,
+  "slipAfter": true,
+  "rows": [
+    "Một",
+    "Hai sửa"
+  ],
+  "storedUnchanged": true,
+  "focusOk": "BUTTON",
+  "errs": []
+}

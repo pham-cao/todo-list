@@ -1,0 +1,42 @@
+{
+ "k1": {
+  "tag": "INPUT",
+  "id": "edit-b",
+  "text": "",
+  "action": null,
+  "row": "b"
+ },
+ "tab1": {
+  "tag": "BUTTON",
+  "id": "",
+  "text": "Hủy",
+  "action": "cancel",
+  "row": "b"
+ },
+ "tab2": {
+  "tag": "BUTTON",
+  "id": "",
+  "text": "Lưu",
+  "action": null,
+  "row": "b"
+ },
+ "k2": {
+  "labels": [
+   "Gửi báo cáo tuần cho chị Lan trước 10 giờ",
+   "Đi chợ mua rau muống, trứng và sữa tươi sớm",
+   "Gọi điện đặt lịch khám răng cho bé Na"
+  ],
+  "focus": {
+   "tag": "BUTTON",
+   "id": "",
+   "text": "Sửa",
+   "action": "edit",
+   "row": "b"
+  },
+  "mode": {
+   "editing": 0,
+   "inputs": 0
+  }
+ },
+ "logs": []
+}

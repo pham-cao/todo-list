@@ -1,0 +1,10 @@
+{
+  "slipOnLoad": true,
+  "emptyShown": true,
+  "setItemKeys": [],
+  "storedEqualsSeed": true,
+  "slipAfter": true,
+  "errs": [
+    "info: Autofocus processing was blocked because a document already has a focused element."
+  ]
+}

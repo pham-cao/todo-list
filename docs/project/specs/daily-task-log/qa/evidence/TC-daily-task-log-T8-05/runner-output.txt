@@ -1,0 +1,7 @@
+PASS closed
+PASS remaining rows
+PASS summary: Đã hoàn thành 1/2 việc
+PASS focus on next row checkbox: INPUT|Gọi điện cho bác sĩ
+PASS 2 rows after reload
+PASS store a,c
+PASS no console errors

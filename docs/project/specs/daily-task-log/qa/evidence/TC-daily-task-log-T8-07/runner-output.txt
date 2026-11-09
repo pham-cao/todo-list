@@ -1,0 +1,13 @@
+PASS 1440: empty state visible
+PASS 1440: summary hidden
+PASS 1440: progress hidden
+PASS 1440: focus on add input
+PASS 1440: still empty after reload
+PASS 1440: store empty
+PASS 390: empty state visible
+PASS 390: summary hidden
+PASS 390: progress hidden
+PASS 390: focus on add input
+PASS 390: still empty after reload
+PASS 390: store empty
+PASS no console errors

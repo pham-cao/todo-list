@@ -1,0 +1,12 @@
+{
+  "val": "\"x\"",
+  "empty": true,
+  "rows": 0,
+  "slip": false,
+  "backup": "\"x\"",
+  "errs": [],
+  "afterAddSlip": false,
+  "mainKeyAfterAdd": [
+    "Một"
+  ]
+}

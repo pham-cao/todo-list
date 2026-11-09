@@ -1,0 +1,36 @@
+{
+ "e1": {
+  "hidden": false,
+  "display": "flex",
+  "text": "Vui lòng nhập nội dung công việc.",
+  "role": "alert",
+  "invalid": "true",
+  "desc": "edit-b-error",
+  "errId": "edit-b-error",
+  "color": "rgb(163, 36, 47)",
+  "focus": true
+ },
+ "m1": {
+  "editing": 1,
+  "inputs": 1
+ },
+ "e2": {
+  "hidden": false,
+  "display": "flex",
+  "text": "Vui lòng nhập nội dung công việc.",
+  "role": "alert",
+  "invalid": "true",
+  "desc": "edit-b-error",
+  "errId": "edit-b-error",
+  "color": "rgb(163, 36, 47)",
+  "focus": true
+ },
+ "storedAfter": [
+  "Gửi báo cáo tuần cho chị Lan trước 10 giờ",
+  "Đi chợ mua rau muống, trứng và sữa tươi",
+  "Gọi điện đặt lịch khám răng cho bé Na"
+ ],
+ "logs": [
+  "info: Autofocus processing was blocked because a document already has a focused element."
+ ]
+}

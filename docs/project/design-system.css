@@ -1,0 +1,468 @@
+/* daily-todo design system v3 ("Paper notebook").
+   Tokens first, then base elements, then shared components, then app layout.
+   Light mode is the default; dark mode ("notebook at night") follows prefers-color-scheme.
+   Extend this file for new features; never redefine tokens inside a feature. */
+
+/* ---------- Tokens ---------- */
+:root {
+  color-scheme: light dark;
+
+  /* Color, light: cream paper on a sage desk blotter, black ink, blue-black pen */
+  --color-desk: #C9CEC4;          /* desk blotter around the sheet */
+  --color-desk-deep: #B4BAAF;     /* punched hole rim */
+  --color-paper: #FCF9F1;         /* the sheet, inputs */
+  --color-paper-edge: #EFE8D8;    /* the sheet underneath (stack edge) */
+  --color-rule: #CAD7E6;          /* pale blue ruled lines */
+  --color-rule-strong: #8EA6C4;   /* double line under the header band */
+  --color-margin: #E3899A;        /* pink red margin line, decorative */
+  --color-ink: #000000;           /* main text, 19.6:1 on paper */
+  --color-ink-muted: #5A5446;     /* date, summary, quoted task, 7.2:1 */
+  --color-ink-done: #6B6555;      /* done task text, 5.5:1 */
+  --color-pencil: #8C8676;        /* checkbox frame, placeholder line, 3.4:1 non text */
+  --color-pen: #1F3A68;           /* blue-black pen: ticks, strike, primary, focus, 11.1:1 */
+  --color-pen-strong: #142A4F;
+  --color-pen-wash: rgba(31, 58, 104, 0.07);  /* hover wash, hover chip */
+  --color-highlight: rgba(250, 214, 72, 0.30); /* highlighter on the line being edited */
+  --color-on-pen: #FFFFFF;
+  --color-stamp: #C23A4F;         /* star stamp, decorative */
+  --color-danger: #A3242F;        /* errors, delete, 7.1:1 */
+  --color-danger-strong: #821B24;
+  --color-on-danger: #FFFFFF;
+  --color-washi: #BFD3DD;         /* date tape stripes */
+  --color-washi-2: #D3E2E8;
+  --color-sticky: #FBEFA6;        /* delete note */
+  --color-sticky-edge: #EBDC86;
+  --color-slip: #F6E6BF;          /* storage warning slip */
+  --color-slip-ink: #5E3D00;      /* 8.6:1 on slip */
+  --color-scrim: rgba(38, 42, 36, 0.38);
+  --shadow-sheet: 0 1px 1px rgba(56, 48, 30, 0.10), 0 10px 30px -8px rgba(56, 48, 30, 0.28),
+                  5px 6px 0 -1px var(--color-paper-edge), 5px 7px 3px -1px rgba(56, 48, 30, 0.16);
+  --shadow-note: 0 2px 2px rgba(56, 48, 30, 0.12), 0 18px 40px -10px rgba(56, 48, 30, 0.40);
+  --grain-opacity: 0.55;
+
+  --text: var(--color-ink);
+  --text-muted: var(--color-ink-muted);
+
+  /* Type: Aptos everywhere, Vietnamese capable fallbacks, no web fonts */
+  --font-sans: "Aptos", "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", "Noto Sans", Roboto, Arial, sans-serif;
+  --fs-display: 2.125rem; /* 34 px page title */
+  --fs-title: 1.125rem;   /* 18 px dialog title */
+  --fs-body: 1.0625rem;   /* 17 px task text, inputs */
+  --fs-meta: 0.9375rem;   /* 15 px date, summary, buttons */
+  --fs-small: 0.875rem;   /* 14 px field errors, swipe labels */
+  --fs-tiny: 0.8125rem;   /* 13 px tooltips, prototype notes */
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* The ruling: every line of the sheet body is one rule tall */
+  --rule: 44px;            /* line pitch = row height = tap target */
+  --rule-shift: -10px;     /* lifts the line so text sits on it, not under it */
+
+  /* Sheet geometry (desktop) */
+  --sheet-max: 800px;
+  --holes-w: 56px;         /* punched hole strip */
+  --margin-w: 64px;        /* margin column, holds checkboxes and marks */
+  --margin-gap: 20px;      /* space between margin line and writing */
+  --sheet-pad-end: 56px;
+  --desk-gutter: 48px;
+
+  /* Spacing, 4 px base */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 20px;
+  --space-6: 24px; --space-8: 32px; --space-10: 40px; --space-12: 48px; --space-16: 64px;
+
+  /* Size, radius */
+  --tap: 44px;
+  --radius-paper: 3px;     /* sheet corners */
+  --radius-control: 6px;   /* buttons, inputs, swipe actions */
+  --radius-chip: 50%;
+
+  /* Motion */
+  --dur-fast: 140ms;
+  --dur-base: 220ms;
+  --dur-slow: 360ms;
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-stamp: cubic-bezier(0.3, 1.5, 0.5, 1);
+
+  --focus-ring: 0 0 0 2px var(--color-paper), 0 0 0 4px var(--color-pen);
+
+  /* Paper grain: inline SVG noise, no external image */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.3 0 0 0 0 0.2 0 0 0 0.09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Dark mode: notebook at night. Charcoal paper, warm white gel ink, pale blue pen. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-desk: #15181C;
+    --color-desk-deep: #0C0E11;
+    --color-paper: #22262D;
+    --color-paper-edge: #1A1D22;
+    --color-rule: #343B46;
+    --color-rule-strong: #4F5F78;
+    --color-margin: #9E4D5C;
+    --color-ink: #F1EDE4;         /* 13.4:1 on night paper */
+    --color-ink-muted: #BDB6A6;   /* 8.0:1 */
+    --color-ink-done: #A39D8F;    /* 5.9:1 */
+    --color-pencil: #858071;      /* 3.6:1 non text */
+    --color-pen: #A9C3EE;         /* 8.9:1 */
+    --color-pen-strong: #C6D7F4;
+    --color-pen-wash: rgba(169, 195, 238, 0.09);
+    --color-highlight: rgba(250, 214, 72, 0.10);
+    --color-on-pen: #0F1B30;
+    --color-stamp: #E57386;
+    --color-danger: #F2959B;      /* 7.5:1 */
+    --color-danger-strong: #F7B6BA;
+    --color-on-danger: #2A0B0E;
+    --color-washi: #3D5360;
+    --color-washi-2: #344752;
+    --color-sticky: #433A2A;
+    --color-sticky-edge: #4E4433;
+    --color-slip: #3B3122;
+    --color-slip-ink: #F2D9A6;
+    --color-scrim: rgba(0, 0, 0, 0.55);
+    --shadow-sheet: 0 1px 1px rgba(0, 0, 0, 0.4), 0 14px 36px -8px rgba(0, 0, 0, 0.7),
+                    5px 6px 0 -1px var(--color-paper-edge), 5px 7px 3px -1px rgba(0, 0, 0, 0.5);
+    --shadow-note: 0 2px 2px rgba(0, 0, 0, 0.4), 0 18px 40px -10px rgba(0, 0, 0, 0.8);
+    --grain-opacity: 0.9;
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --fs-display: 1.625rem; /* 26 px */
+    --holes-w: 24px;
+    --margin-w: 48px;
+    --margin-gap: 12px;
+    --sheet-pad-end: 12px;
+    --desk-gutter: 8px;
+  }
+}
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--grain), var(--color-desk);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+button, input { font: inherit; color: inherit; }
+a { color: var(--color-pen); text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--color-pen); outline-offset: 2px; }
+[hidden] { display: none !important; } /* components set their own display, so hidden must win */
+.visually-hidden {
+  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.icon { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+  min-height: var(--tap); min-width: var(--tap); padding: 0 var(--space-5);
+  border: 1.5px solid transparent; border-radius: var(--radius-control);
+  font-size: var(--fs-meta); font-weight: var(--fw-semibold); line-height: 1; text-decoration: none;
+  cursor: pointer; white-space: nowrap;
+  transition: background-color var(--dur-fast) ease, border-color var(--dur-fast) ease, transform var(--dur-fast) ease;
+}
+.btn:active { transform: translateY(1px); }
+.btn--primary { background: var(--color-pen); color: var(--color-on-pen); }
+.btn--primary:hover { background: var(--color-pen-strong); }
+.btn--secondary { background: transparent; color: var(--text); border-color: var(--color-ink-muted); }
+.btn--secondary:hover { background: var(--color-pen-wash); border-color: var(--text); }
+.btn--ghost { background: transparent; color: var(--text-muted); }
+.btn--ghost:hover { background: var(--color-pen-wash); color: var(--text); }
+.btn--danger { background: var(--color-danger); color: var(--color-on-danger); }
+.btn--danger:hover { background: var(--color-danger-strong); }
+
+/* Icon button: 44 px hit area, round wash on hover, tooltip from aria-label */
+.icon-btn {
+  position: relative; display: inline-grid; place-items: center;
+  width: var(--tap); height: var(--tap); border: 0; border-radius: var(--radius-control);
+  background: transparent; color: var(--text-muted); cursor: pointer; text-decoration: none;
+  transition: color var(--dur-fast) ease, background-color var(--dur-fast) ease;
+}
+.icon-btn .icon { width: 19px; height: 19px; }
+.icon-btn__label { display: none; }
+.icon-btn:hover { color: var(--color-pen); background: var(--color-pen-wash); }
+.icon-btn--danger:hover { color: var(--color-danger); }
+.icon-btn::after {
+  content: attr(aria-label); position: absolute; bottom: calc(100% + 2px); left: 50%; translate: -50% 4px;
+  padding: 3px 8px; border-radius: 4px; background: var(--color-ink); color: var(--color-paper);
+  font-size: var(--fs-tiny); font-weight: var(--fw-medium); line-height: 1.4; white-space: nowrap;
+  opacity: 0; pointer-events: none; transition: opacity var(--dur-fast) ease, translate var(--dur-fast) ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .icon-btn:hover::after { opacity: 1; translate: -50% 0; transition-delay: 350ms; }
+}
+.icon-btn:focus-visible::after { opacity: 1; translate: -50% 0; }
+
+/* ---------- Inputs: written on the line ---------- */
+.input {
+  width: 100%; height: var(--rule); padding: 0 var(--space-1);
+  border: 0; border-bottom: 2px solid var(--color-pencil); border-radius: 0;
+  background: transparent; font-size: var(--fs-body); color: var(--text);
+}
+.input::placeholder { color: var(--color-ink-done); opacity: 1; }
+.input:focus { outline: none; border-bottom-color: var(--color-pen); }
+.input:focus-visible { outline: none; }
+.input[aria-invalid="true"] { border-bottom-color: var(--color-danger); }
+
+.field-error {
+  display: flex; align-items: center; gap: var(--space-2); min-height: var(--rule);
+  color: var(--color-danger); font-size: var(--fs-small); font-weight: var(--fw-medium); line-height: 1.3;
+  animation: rise var(--dur-base) var(--ease-out);
+}
+.field-error .icon { width: 17px; height: 17px; }
+
+/* ---------- Checkbox: a drawn square with an ink tick ---------- */
+.check { position: relative; display: grid; place-items: center; width: var(--tap); height: var(--tap); flex: none; cursor: pointer; }
+.check input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+.check__box {
+  position: relative; width: 20px; height: 20px;
+  border: 1.75px solid var(--color-pencil); border-radius: 3px 4px 3px 5px;
+  transition: border-color var(--dur-fast) ease, background-color var(--dur-fast) ease;
+}
+.check__box svg { /* the tick overshoots the box like a real pen mark */
+  position: absolute; left: -3px; top: -8px; width: 28px; height: 28px;
+  fill: none; stroke: var(--color-pen); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; overflow: visible;
+}
+.check__box path { stroke-dasharray: 101; stroke-dashoffset: 101; transition: stroke-dashoffset var(--dur-slow) var(--ease-out); }
+.check:hover .check__box { border-color: var(--color-pen); background: var(--color-pen-wash); }
+.check input:focus-visible + .check__box { box-shadow: var(--focus-ring); }
+.check input:checked + .check__box { border-color: var(--color-ink-muted); }
+.check input:checked + .check__box path { stroke-dashoffset: 0; }
+
+/* ---------- Alert: a slip of paper clipped to the sheet ---------- */
+.alert {
+  position: relative; display: flex; gap: var(--space-3); align-items: flex-start;
+  padding: var(--space-3) var(--space-4) var(--space-3) var(--space-4);
+  background: var(--grain), var(--color-slip); color: var(--color-slip-ink);
+  font-size: var(--fs-meta); line-height: 1.45; border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(56, 48, 30, 0.18);
+  rotate: -0.4deg;
+}
+.alert .icon { margin-top: 1px; }
+.alert--warning { color: var(--color-slip-ink); }
+
+/* ---------- Dialog: a sticky note ---------- */
+.dialog {
+  margin: auto; width: min(400px, calc(100vw - 32px)); padding: var(--space-8) var(--space-6) var(--space-6);
+  border: 0; border-radius: 2px 2px 14px 2px;
+  background: var(--grain), linear-gradient(to bottom, var(--color-sticky-edge), var(--color-sticky) 18px), var(--color-sticky);
+  color: var(--text); box-shadow: var(--shadow-note); rotate: -1.2deg; overflow: visible;
+}
+.dialog::before { /* a strip of tape holding the note */
+  content: ""; position: absolute; top: -12px; left: 50%; width: 104px; height: 24px; translate: -50% 0; rotate: 2deg;
+  background: repeating-linear-gradient(-45deg, var(--color-washi) 0 6px, var(--color-washi-2) 6px 12px);
+  opacity: 0.85; clip-path: polygon(0 8%, 4% 0, 8% 10%, 12% 0, 100% 0, 97% 20%, 100% 45%, 96% 70%, 100% 100%, 0 100%, 3% 70%, 0 45%);
+}
+.dialog::backdrop, .backdrop { background: var(--color-scrim); }
+.dialog[open] { animation: note-in var(--dur-slow) var(--ease-out); }
+.dialog__title { font-size: var(--fs-title); font-weight: var(--fw-bold); line-height: 1.4; text-wrap: balance; }
+.dialog__quote {
+  margin-top: var(--space-3); padding-left: var(--space-3); border-left: 2px solid var(--color-pencil);
+  color: var(--text-muted); font-size: var(--fs-meta); overflow-wrap: anywhere;
+}
+.dialog__actions { display: flex; justify-content: flex-end; gap: var(--space-3); margin-top: var(--space-6); }
+@media (max-width: 600px) {
+  .dialog__actions .btn { flex: 1; }
+}
+
+/* ---------- Table (reserved for later features) ---------- */
+.table { width: 100%; border-collapse: collapse; font-size: var(--fs-meta); }
+.table th { text-align: left; font-weight: var(--fw-semibold); color: var(--text-muted); padding: 0 var(--space-3); height: var(--rule); border-bottom: 2px solid var(--color-rule-strong); }
+.table td { padding: 0 var(--space-3); height: var(--rule); border-bottom: 1px solid var(--color-rule); }
+
+/* ---------- App layout: the sheet ---------- */
+.desk { padding: var(--desk-gutter); }
+.sheet {
+  position: relative; display: flex; flex-direction: column;
+  max-width: var(--sheet-max); min-height: calc(100vh - 2 * var(--desk-gutter)); margin: 0 auto;
+  background: var(--grain), var(--color-paper); border-radius: var(--radius-paper);
+  box-shadow: var(--shadow-sheet);
+}
+@media (min-width: 601px) { .sheet { min-height: 880px; } }
+.sheet::before { /* punched holes */
+  content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: var(--holes-w); pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, var(--color-desk) 0 6px, var(--color-desk-deep) 6.5px 7.5px, transparent 8px) 0 22px / 100% 88px repeat-y;
+}
+.sheet::after { /* double margin line */
+  content: ""; position: absolute; top: 0; bottom: 0; left: calc(var(--holes-w) + var(--margin-w) - 4px); width: 4px; pointer-events: none;
+  border-left: 1px solid var(--color-margin); border-right: 1px solid var(--color-margin); opacity: 0.85;
+}
+@media (max-width: 600px) {
+  .sheet::before { background-size: 100% 66px; background-image: radial-gradient(circle at 50% 50%, var(--color-desk) 0 4.5px, var(--color-desk-deep) 5px 6px, transparent 6.5px); }
+}
+
+/* Shared two column grid: margin column, then the writing column */
+.app-header, .add-form, .task, .empty {
+  display: grid; grid-template-columns: var(--margin-w) minmax(0, 1fr); column-gap: var(--margin-gap);
+  padding-left: var(--holes-w); padding-right: var(--sheet-pad-end);
+}
+
+/* Header band: unruled, closed by a double rule */
+.app-header {
+  padding-top: var(--space-12); padding-bottom: var(--space-5);
+  border-bottom: 3px double var(--color-rule-strong);
+  row-gap: var(--space-3); align-items: center;
+}
+@media (max-width: 600px) { .app-header { padding-top: var(--space-8); } }
+.app-header > * { grid-column: 2; }
+.app-header__top { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); }
+.app-header__title { font-size: var(--fs-display); font-weight: var(--fw-bold); line-height: 1.2; letter-spacing: -0.015em; text-wrap: balance; }
+.app-header__nav { display: flex; gap: var(--space-1); min-height: var(--tap); } /* reserved: page turning, empty in daily-task-log */
+.app-header__date { justify-self: start; }
+.app-header__summary { color: var(--text-muted); font-size: var(--fs-meta); }
+.app-header__summary strong { color: var(--text); font-weight: var(--fw-semibold); }
+.app-header__mark { grid-column: 1; justify-self: center; }
+
+/* Washi tape holding the date */
+.washi {
+  display: inline-block; padding: 5px 18px 6px; rotate: -1deg;
+  background: repeating-linear-gradient(-45deg, var(--color-washi) 0 7px, var(--color-washi-2) 7px 14px);
+  color: var(--text); font-size: var(--fs-meta); font-weight: var(--fw-medium); line-height: 1.4;
+  clip-path: polygon(0 6%, 3% 0, 6% 9%, 9% 0, 91% 0, 94% 8%, 97% 0, 100% 7%, 98% 30%, 100% 55%, 98% 80%, 100% 100%, 0 100%, 2% 75%, 0 50%, 2% 25%);
+}
+
+/* Progress: an ink circle drawn in the margin, then a star stamp when the day is done */
+.progress { position: relative; width: 36px; height: 36px; }
+.progress svg { display: block; width: 36px; height: 36px; overflow: visible; }
+.progress__track { fill: none; stroke: var(--color-pencil); stroke-width: 1.5; stroke-dasharray: 1.5 3.5; }
+.progress__ink {
+  fill: none; stroke: var(--color-pen); stroke-width: 2.6; stroke-linecap: round;
+  stroke-dasharray: var(--p, 0) 100; transform: rotate(-96deg); transform-origin: 50% 50%;
+  transition: stroke-dasharray var(--dur-slow) var(--ease-out);
+}
+.progress__stamp {
+  position: absolute; inset: -12px; width: 60px; height: 60px; opacity: 0; scale: 1.4; rotate: -14deg;
+  color: var(--color-stamp); pointer-events: none;
+}
+.progress__stamp svg { width: 60px; height: 60px; }
+.progress--complete .progress__ink { stroke-dasharray: 100 100; }
+.progress--complete > svg { opacity: 0; transition: opacity var(--dur-base) ease 260ms; } /* the stamp replaces the closed circle */
+.progress--complete .progress__stamp { opacity: 0.92; scale: 1; }
+.progress--celebrate .progress__stamp { animation: stamp-in 520ms var(--ease-stamp) both; }
+.progress--celebrate::after { /* one soft ink bloom, then gone */
+  content: ""; position: absolute; inset: -14px; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-stamp) 45%, transparent) 0, transparent 70%);
+  animation: bloom 900ms ease-out both;
+}
+
+/* Sheet body: the ruled area */
+.sheet__body {
+  flex: 1; padding-bottom: calc(var(--rule) * 2);
+  background: repeating-linear-gradient(to bottom, transparent 0 calc(var(--rule) - 1px), var(--color-rule) calc(var(--rule) - 1px) var(--rule)) 0 var(--rule-shift) / 100% var(--rule);
+}
+.app-header .alert { grid-column: 2; margin-top: var(--space-2); max-width: 60ch; } /* storage slip lives in the unruled header band */
+
+/* Add row: a blank line with a pen in the margin */
+.add-form { align-items: center; }
+.add-form__pen { grid-column: 1; justify-self: center; display: grid; place-items: center; width: var(--tap); height: var(--rule); color: var(--color-pen); }
+.add-form__line { display: flex; align-items: center; gap: var(--space-3); min-width: 0; }
+.add-form__input {
+  flex: 1; min-width: 0; height: var(--rule); padding: 0; border: 0; border-bottom: 2px solid transparent; border-radius: 0;
+  background: transparent; font-size: var(--fs-body);
+}
+.add-form__input::placeholder { color: var(--color-ink-done); opacity: 1; }
+.add-form__input:focus { outline: none; border-bottom-color: var(--color-pen); }
+.add-form__input[aria-invalid="true"] { border-bottom-color: var(--color-danger); animation: nudge 260ms ease; }
+.add-form .btn { min-height: 36px; margin-block: 4px; padding: 0 var(--space-4); }
+.add-form .btn::before { content: ""; position: absolute; inset: -4px 0; } /* keeps the hit area 44 px tall */
+.add-form .btn { position: relative; }
+.add-form .field-error { grid-column: 2; }
+@media (max-width: 600px) {
+  .add-form__input, .task__text, .input { font-size: 1rem; } /* 16 px keeps iOS from zooming and fits the placeholder */
+  .add-form__line { gap: var(--space-2); }
+  .add-form .btn { padding: 0 var(--space-3); }
+}
+
+/* Task list */
+.task-list { list-style: none; padding: 0; }
+.task { position: relative; align-items: start; }
+.task > .check { grid-column: 1; justify-self: center; }
+.task__swipe { grid-column: 2; display: flex; align-items: start; min-width: 0; }
+.task__text {
+  flex: 1; min-width: 0; line-height: var(--rule); overflow-wrap: anywhere; color: var(--text);
+  transition: color var(--dur-base) ease;
+}
+.task__label { /* inline so the ink strike follows every wrapped line */
+  background: linear-gradient(var(--color-pen), var(--color-pen)) no-repeat 0 62% / 0 2px;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  transition: background-size var(--dur-slow) var(--ease-out);
+}
+.task:has(.check input:checked) .task__text { color: var(--color-ink-done); }
+.task:has(.check input:checked) .task__label { background-size: 100% 2px; }
+.task__actions { display: flex; flex: none; }
+.task--enter { animation: write-in var(--dur-base) var(--ease-out); }
+.task--exit { animation: erase-out var(--dur-base) ease forwards; }
+
+/* Desktop with a mouse: actions appear on hover or keyboard focus */
+@media (hover: hover) and (pointer: fine) and (min-width: 601px) {
+  .task__actions { opacity: 0; transition: opacity var(--dur-fast) ease; }
+  .task:hover .task__actions, .task:focus-within .task__actions, .task--revealed .task__actions { opacity: 1; }
+  .task:hover { background: linear-gradient(to right, transparent calc(var(--holes-w) + var(--margin-w)), var(--color-pen-wash) 0); }
+}
+
+/* Phones and touch screens: swipe the line left to reveal Sửa and Xóa (native scroll snap, no script needed) */
+@media (hover: none), (max-width: 600px) {
+  .task__swipe {
+    overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none;
+  }
+  .task__swipe::-webkit-scrollbar { display: none; }
+  .task__text { flex: 0 0 100%; scroll-snap-align: start; padding-right: var(--space-2); }
+  .task__actions { scroll-snap-align: end; align-self: stretch; gap: 2px; }
+  .task__actions .icon-btn {
+    width: 64px; height: auto; min-height: var(--rule); border-radius: 0; display: flex; flex-direction: column; gap: 0;
+    background: var(--color-pen); color: var(--color-on-pen);
+  }
+  .task__actions .icon-btn--danger { background: var(--color-danger); color: var(--color-on-danger); }
+  .task__actions .icon-btn .icon { width: 17px; height: 17px; }
+  .task__actions .icon-btn__label { display: block; font-size: var(--fs-small); font-weight: var(--fw-semibold); line-height: 1.1; }
+  .task__actions .icon-btn::after { display: none; }
+  .task__actions .icon-btn:focus-visible { outline-offset: -4px; outline-color: var(--color-on-pen); }
+  .task__actions .icon-btn--danger:focus-visible { outline-color: var(--color-on-danger); }
+  .task--revealed .task__swipe > * { transform: translateX(-130px); } /* prototype only: the swiped position */
+  /* One time hint: the first line slides open far enough to show Sửa, then settles back */
+  .task--peek .task__swipe > * { animation: peek 1100ms var(--ease-out) 400ms; }
+}
+
+/* Edit mode: the line gets a highlighter wash, Hủy and Lưu sit on the next line */
+.task.task--editing, .task.task--editing:hover { background: linear-gradient(to right, transparent calc(var(--holes-w) + var(--margin-w)), var(--color-highlight) 0); }
+.task__edit { grid-column: 2; min-width: 0; }
+.task__edit .input { padding-left: 0; }
+.task__edit-actions { display: flex; justify-content: flex-end; gap: var(--space-2); height: var(--rule); align-items: center; }
+.task__edit-actions .btn { min-height: 36px; position: relative; }
+.task__edit-actions .btn::before { content: ""; position: absolute; inset: -4px 0; }
+@media (max-width: 600px) { .task__edit-actions .btn { flex: 1; } }
+
+/* Empty state: a doodle of a cà phê phin and one line of writing */
+.empty { padding-top: var(--rule); }
+.empty > * { grid-column: 2; }
+.empty__art { display: block; width: 132px; height: calc(var(--rule) * 3); color: var(--color-ink-muted); }
+.empty__art .doodle { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.empty__art .doodle--pen { stroke: var(--color-pen); }
+.empty__text { line-height: var(--rule); color: var(--text); text-wrap: pretty; }
+
+/* ---------- Motion ---------- */
+@keyframes rise { from { opacity: 0; translate: 0 4px; } }
+@keyframes nudge { 25% { translate: -4px 0; } 50% { translate: 3px 0; } 75% { translate: -2px 0; } }
+@keyframes write-in { from { opacity: 0; clip-path: inset(0 100% 0 0); } to { opacity: 1; clip-path: inset(0 0 0 0); } }
+@keyframes erase-out { to { opacity: 0; translate: -8px 0; } }
+@keyframes note-in { from { opacity: 0; translate: 0 10px; rotate: -3deg; } }
+@keyframes stamp-in { 0% { opacity: 0; scale: 1.6; } 60% { opacity: 0.95; scale: 0.94; } 100% { opacity: 0.92; scale: 1; } }
+@keyframes peek { 30%, 65% { translate: -64px 0; } }
+@keyframes bloom { 0% { opacity: 0; scale: 0.6; } 35% { opacity: 1; } 100% { opacity: 0; scale: 1.5; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; }
+  .progress--celebrate::after { display: none; }
+  .task--peek .task__swipe > * { animation: none; }
+}

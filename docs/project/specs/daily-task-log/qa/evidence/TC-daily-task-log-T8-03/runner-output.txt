@@ -1,0 +1,5 @@
+PASS closed
+PASS 3 rows
+PASS focus on Xóa: remove|Gọi điện cho bác sĩ
+PASS reopens with Enter on Xóa
+PASS no console errors

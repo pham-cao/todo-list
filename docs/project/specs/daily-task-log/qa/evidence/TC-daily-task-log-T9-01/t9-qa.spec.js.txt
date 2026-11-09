@@ -1,0 +1,202 @@
+// QA execution of T9 (R28, R29): real touch gestures in fresh touch contexts.
+import { test, expect } from '@playwright/test';
+import fs from 'node:fs';
+
+const KEY = 'daily-todo:tasks:v1';
+const HINT = 'daily-todo:swipe-hint-seen';
+const NOW = new Date('2026-11-09T09:00:00+07:00');
+const T = (id, text, done = false) => ({ id, text, done, createdAt: NOW.getTime(), date: '2026-11-09' });
+const EV = (n) => { const d = `docs/project/specs/daily-task-log/qa/evidence/TC-daily-task-log-T9-${n}`; fs.mkdirSync(d, { recursive: true }); return d; };
+const rows = (p) => p.locator('.task-list > .task');
+const sl = (p, i) => rows(p).nth(i).locator('.task__swipe').evaluate((e) => e.scrollLeft);
+
+async function ctx(browser, { w, scheme = 'light', reduced = 'no-preference', touch = true, tasks, hintSeen = true }) {
+  const context = await browser.newContext({
+    viewport: { width: w, height: touch ? 780 : 900 }, hasTouch: touch, isMobile: touch, deviceScaleFactor: 2,
+    locale: 'vi-VN', timezoneId: 'Asia/Ho_Chi_Minh', colorScheme: scheme, reducedMotion: reduced,
+  });
+  const page = await context.newPage();
+  await page.clock.setFixedTime(NOW);
+  await page.addInitScript(([k, v, h, seen]) => {
+    window.__peeks = 0;
+    document.addEventListener('animationstart', (e) => { if (e.animationName === 'peek') window.__peeks++; });
+    if (sessionStorage.getItem('seeded')) return;
+    sessionStorage.setItem('seeded', '1');
+    if (v) localStorage.setItem(k, v);
+    if (seen) localStorage.setItem(h, '1');
+  }, [KEY, tasks ? JSON.stringify(tasks) : '', HINT, hintSeen]);
+  await page.goto('http://localhost:4173/');
+  return { context, page };
+}
+
+// Real touch drag through CDP so the browser's own scroller and snap logic run.
+async function drag(page, locator, dx) {
+  const b = await locator.boundingBox();
+  const y = b.y + b.height / 2, x0 = b.x + b.width - 30;
+  const cdp = await page.context().newCDPSession(page);
+  const send = (type, x) => cdp.send('Input.dispatchTouchEvent', { type, touchPoints: type === 'touchEnd' ? [] : [{ x, y }] });
+  await send('touchStart', x0);
+  for (let i = 1; i <= 10; i++) { await send('touchMove', x0 + (dx * i) / 10); await page.waitForTimeout(16); }
+  await send('touchEnd', x0 + dx);
+  await cdp.detach();
+}
+
+const three = [T('a', 'Một'), T('b', 'Hai'), T('c', 'Ba')];
+const long = [T('a', 'Chuẩn bị slide cho buổi họp dự án sáng thứ Tư: tổng hợp số liệu tháng 10, cập nhật tiến độ và danh sách rủi ro'), T('b', 'x'.repeat(200)), T('c', 'Ba')];
+const combos = [[360, 'light'], [360, 'dark'], [390, 'light'], [390, 'dark']];
+
+for (const [w, scheme] of combos) {
+  test.describe(`${w}px ${scheme}`, () => {
+    test(`TC-01 real swipe opens one row only (${w} ${scheme})`, async ({ browser }) => {
+      const { context, page } = await ctx(browser, { w, scheme, tasks: three });
+      const label = (i) => rows(page).nth(i).locator('.task__swipe');
+      await drag(page, label(0), -200);
+      await expect.poll(() => sl(page, 0)).toBeGreaterThan(100);
+      await drag(page, label(1), -200);
+      await expect.poll(() => sl(page, 1)).toBeGreaterThan(100);
+      await expect.poll(() => sl(page, 0)).toBe(0);
+      expect(await sl(page, 2)).toBe(0);
+      await page.screenshot({ path: `${EV('01')}/swipe-${w}-${scheme}.png` });
+      // TC-02 tap elsewhere closes
+      await page.locator('.app-header__title').tap();
+      await expect.poll(() => sl(page, 1)).toBe(0);
+      // swipe back right closes
+      await drag(page, label(2), -200);
+      await expect.poll(() => sl(page, 2)).toBeGreaterThan(100);
+      await page.locator('.add-form input').tap();
+      await expect.poll(() => sl(page, 2)).toBe(0);
+      await context.close();
+    });
+
+    test(`TC-06 no horizontal scroll, targets 44px (${w} ${scheme})`, async ({ browser }) => {
+      const { context, page } = await ctx(browser, { w, scheme, tasks: long });
+      for (const open of [false, true]) {
+        if (open) await drag(page, rows(page).nth(0).locator('.task__swipe'), -200);
+        const m = await page.evaluate(() => ({ s: document.documentElement.scrollWidth, c: document.documentElement.clientWidth, bs: document.body.scrollWidth, x: scrollX }));
+        expect(m.s).toBeLessThanOrEqual(m.c);
+        expect(m.bs).toBeLessThanOrEqual(m.c);
+        expect(m.x).toBe(0);
+      }
+      await expect.poll(() => sl(page, 0)).toBeGreaterThan(100);
+      for (const n of ['Sửa', 'Xóa']) {
+        const b = await rows(page).nth(0).getByRole('button', { name: n }).boundingBox();
+        expect(b.width).toBeGreaterThanOrEqual(44); expect(b.height).toBeGreaterThanOrEqual(44);
+      }
+      await page.screenshot({ path: `${EV('06')}/long-open-${w}-${scheme}.png` });
+      await context.close();
+    });
+
+    test(`TC-04 peek plays once, not after reload (${w} ${scheme})`, async ({ browser }) => {
+      const { context, page } = await ctx(browser, { w, scheme, tasks: three, hintSeen: false });
+      await expect(rows(page).nth(0)).toHaveClass(/task--peek/);
+      await expect(rows(page).nth(1)).not.toHaveClass(/task--peek/);
+      await page.waitForTimeout(900);
+      await page.screenshot({ path: `${EV('04')}/peek-${w}-${scheme}.png` });
+      await expect(rows(page).nth(0)).not.toHaveClass(/task--peek/, { timeout: 4000 });
+      expect(await sl(page, 0)).toBe(0);
+      expect(await page.evaluate((k) => localStorage.getItem(k), HINT)).toBe('1');
+      await page.reload();
+      await expect(rows(page)).toHaveCount(3);
+      await page.waitForTimeout(1800);
+      expect(await page.evaluate(() => window.__peeks)).toBe(0);
+      await context.close();
+    });
+  });
+}
+
+test('TC-03 Tab and Shift+Tab reach Sửa and Xóa, with Vietnamese names (390 light)', async ({ browser }) => {
+  const { context, page } = await ctx(browser, { w: 390, tasks: three });
+  await rows(page).nth(1).getByRole('checkbox').focus();
+  await page.keyboard.press('Tab');
+  const edit = rows(page).nth(1).getByRole('button', { name: 'Sửa', exact: true });
+  const del = rows(page).nth(1).getByRole('button', { name: 'Xóa', exact: true });
+  await expect(edit).toBeFocused();
+  await expect.poll(() => sl(page, 1)).toBeGreaterThan(0);
+  await expect(edit).toBeInViewport({ ratio: 1 });
+  await page.screenshot({ path: `${EV('03')}/tab-edit.png` });
+  await page.keyboard.press('Tab');
+  await expect(del).toBeFocused();
+  await expect(del).toBeInViewport({ ratio: 1 });
+  await page.screenshot({ path: `${EV('03')}/tab-delete.png` });
+  await page.keyboard.press('Shift+Tab');
+  await expect(edit).toBeFocused();
+  await page.keyboard.press('Shift+Tab');
+  await expect(rows(page).nth(1).getByRole('checkbox')).toBeFocused();
+  // Observation O-1: focus returning to the tick box of the same row leaves that row open (same line).
+  fs.writeFileSync(`${EV('03')}/observation-scrollLeft-after-shift-tab.txt`, `scrollLeft=${await sl(page, 1)}\n`);
+  // accessible names
+  const names = await rows(page).nth(1).evaluate((r) => [...r.querySelectorAll('button,input')].map((e) => e.getAttribute('aria-label') || e.innerText.trim() || e.getAttribute('title')));
+  fs.writeFileSync(`${EV('03')}/accessible-names.txt`, names.join('\n') + '\n');
+  expect(names).toEqual(expect.arrayContaining(['Sửa', 'Xóa']));
+  await page.screenshot({ path: `${EV('03')}/aria.png` });
+  fs.writeFileSync(`${EV('03')}/aria-snapshot.txt`, await rows(page).nth(1).ariaSnapshot());
+  await context.close();
+});
+
+test('TC-05 reduced motion: no peek, flag set (390 dark)', async ({ browser }) => {
+  const { context, page } = await ctx(browser, { w: 390, scheme: 'dark', reduced: 'reduce', tasks: three, hintSeen: false });
+  await expect(rows(page)).toHaveCount(3);
+  await page.waitForTimeout(1800);
+  expect(await page.evaluate(() => window.__peeks)).toBe(0);
+  await expect(rows(page).nth(0)).not.toHaveClass(/task--peek/);
+  expect(await sl(page, 0)).toBe(0);
+  expect(await page.evaluate((k) => localStorage.getItem(k), HINT)).toBe('1');
+  await page.screenshot({ path: `${EV('05')}/reduced-motion.png` });
+  await context.close();
+});
+
+test('TC-08 edit, delete and tick still work on a phone after swiping (360 light)', async ({ browser }) => {
+  const { context, page } = await ctx(browser, { w: 360, tasks: three });
+  const errors = []; page.on('pageerror', (e) => errors.push(e.message)); page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
+  const lab = (i) => rows(page).nth(i).locator('.task__swipe');
+  // tick by tap
+  await rows(page).nth(0).locator('.check__box').tap({ timeout: 5000 });
+  await expect(rows(page).nth(0).getByRole('checkbox')).toBeChecked();
+  // swipe, tap Sửa, edit, save
+  await drag(page, lab(1), -200);
+  await expect.poll(() => sl(page, 1)).toBeGreaterThan(100);
+  await rows(page).nth(1).getByRole('button', { name: 'Sửa', exact: true }).tap({ timeout: 5000 });
+  const field = page.locator('.task--editing input[type=text], .task--editing input:not([type=checkbox])').first();
+  await expect(field).toBeVisible();
+  await field.fill('Hai đã sửa');
+  await page.screenshot({ path: `${EV('08')}/editing.png` });
+  await field.press('Enter');
+  await expect(rows(page).nth(1).locator('.task__label')).toHaveText('Hai đã sửa');
+  // swipe, tap Xóa, confirm
+  await drag(page, lab(2), -200);
+  await expect.poll(() => sl(page, 2)).toBeGreaterThan(100);
+  await rows(page).nth(2).getByRole('button', { name: 'Xóa', exact: true }).tap({ timeout: 5000 });
+  const dlg = page.getByRole('alertdialog');
+  await expect(dlg).toBeVisible();
+  await page.screenshot({ path: `${EV('08')}/delete-note.png` });
+  await dlg.getByRole('button', { name: /^Xóa việc/ }).tap({ timeout: 5000 });
+  await expect(rows(page)).toHaveCount(2);
+  await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 1/2 việc');
+  // Giữ lại path
+  await drag(page, lab(0), -200);
+  await rows(page).nth(0).getByRole('button', { name: 'Xóa', exact: true }).tap({ timeout: 5000 });
+  await dlg.getByRole('button', { name: 'Giữ lại' }).tap({ timeout: 5000 });
+  await expect(rows(page)).toHaveCount(2);
+  expect(errors).toEqual([]);
+  await context.close();
+});
+
+test('TC-07 desktop 1440: hover reveal unchanged, no peek, no swipe scroller', async ({ browser }) => {
+  const { context, page } = await ctx(browser, { w: 1440, touch: false, tasks: three, hintSeen: false });
+  await expect(rows(page)).toHaveCount(3);
+  await page.waitForTimeout(1800);
+  expect(await page.evaluate(() => window.__peeks)).toBe(0);
+  expect(await page.evaluate((k) => localStorage.getItem(k), HINT)).toBeNull();
+  const actions = rows(page).nth(1).locator('.task__actions');
+  await expect(actions).toHaveCSS('opacity', '0');
+  await page.mouse.move(0, 0);
+  await rows(page).nth(1).hover();
+  await expect(actions).toHaveCSS('opacity', '1');
+  await page.screenshot({ path: `${EV('07')}/hover-1440.png` });
+  await page.mouse.move(0, 0);
+  await expect(actions).toHaveCSS('opacity', '0');
+  await page.keyboard.press('Tab');
+  const m = await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth);
+  expect(m).toBe(true);
+  await context.close();
+});

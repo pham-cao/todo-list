@@ -1,0 +1,119 @@
+project: "daily-todo"
+idea: "Web app todo list de ghi lai (log) cac viec can lam hang ngay (daily). Nguyen van: hien tai toi can lam todolist web log may cai toi can lam trong daily"
+state: waiting_user        # running | waiting_user | done
+waiting_for: "URL of the empty GitHub repo to push daily-task-log and open the PR"
+phase: features       # discovery | features | done
+current_feature: "daily-task-log"
+trello:               # optional mirror of this file, see "Trello sync" in the PM skill
+  enabled: false
+  board_url: ""
+  lists: {}           # state name -> Trello list id
+features:
+  - slug: daily-task-log
+    phase: release
+    has_ui: true
+    pr: ""
+    trello_card: ""
+    tasks:
+      - id: T1
+        title: "Project setup and git init"
+        owner: be
+        depends_on: []
+        state: done
+        attempts: 0
+        trello_card: ""
+      - id: T2
+        title: "Date helpers"
+        owner: be
+        depends_on: [T1]
+        state: done
+        attempts: 0
+        trello_card: ""
+      - id: T3
+        title: "Task store and persistence"
+        owner: be
+        depends_on: [T1, T2]
+        state: done
+        attempts: 0
+        trello_card: ""
+      - id: T4
+        title: "Page shell and initial render"
+        owner: fe
+        depends_on: [T2, T3]
+        state: done
+        attempts: 0
+        trello_card: ""
+      - id: T5
+        title: "Add a task with validation"
+        owner: fe
+        depends_on: [T4]
+        state: done
+        attempts: 0
+        trello_card: ""
+      - id: T6
+        title: "Complete, undo, progress and star stamp"
+        owner: fe
+        depends_on: [T4]
+        state: done
+        attempts: 0
+        trello_card: ""
+      - id: T7
+        title: "Edit a task in place"
+        owner: fe
+        depends_on: [T4]
+        state: done
+        attempts: 0
+        trello_card: ""
+      - id: T8
+        title: "Delete with sticky note confirmation"
+        owner: fe
+        depends_on: [T4]
+        state: done
+        attempts: 0
+        trello_card: ""
+      - id: T9
+        title: "Phone row actions and one time swipe hint"
+        owner: fe
+        depends_on: [T7, T8]
+        state: done
+        attempts: 0
+        trello_card: ""
+      - id: T10
+        title: "Storage unavailable slip"
+        owner: fe
+        depends_on: [T5, T6]
+        state: done
+        attempts: 0
+        trello_card: ""
+      - id: T11
+        title: "Day change while the page is open"
+        owner: fe
+        depends_on: [T7, T8]
+        state: done
+        attempts: 0
+        trello_card: ""
+      - id: T12
+        title: "Keyboard, layout and final acceptance pass"
+        owner: fe
+        depends_on: [T9, T10, T11]
+        state: done
+        attempts: 0
+        trello_card: ""
+  - slug: day-navigation
+    phase: requirements
+    has_ui: true
+    pr: ""
+    trello_card: ""
+    tasks: []
+# - slug: user-login
+#   phase: requirements   # requirements | ux | design | build | release | done
+#   has_ui: true
+#   pr: ""
+#   trello_card: ""     # card id
+#   tasks:
+#     - id: T1
+#       title: ""
+#       owner: be       # be | fe
+#       depends_on: []
+#       state: todo       # todo | doing | done | blocked
+#       attempts: 0

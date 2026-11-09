@@ -1,0 +1,119 @@
+
+> todo-list@0.1.0 test
+> node --test tests/unit/
+
+TAP version 13
+# Subtest: toDateKey pads month and day
+ok 1 - toDateKey pads month and day
+  ---
+  duration_ms: 1.388656
+  ...
+# Subtest: toDateKey uses local midnight boundary
+ok 2 - toDateKey uses local midnight boundary
+  ---
+  duration_ms: 0.208544
+  ...
+# Subtest: toDateKey and formatDate default to now
+ok 3 - toDateKey and formatDate default to now
+  ---
+  duration_ms: 0.319795
+  ...
+# Subtest: formatDate example
+ok 4 - formatDate example
+  ---
+  duration_ms: 0.14644
+  ...
+# Subtest: formatDate gives all seven weekday names
+ok 5 - formatDate gives all seven weekday names
+  ---
+  duration_ms: 0.197089
+  ...
+# Subtest: validateText limits
+ok 6 - validateText limits
+  ---
+  duration_ms: 2.576061
+  ...
+# Subtest: validateText trims only
+ok 7 - validateText trims only
+  ---
+  duration_ms: 0.195699
+  ...
+# Subtest: getStorage returns null when unavailable
+ok 8 - getStorage returns null when unavailable
+  ---
+  duration_ms: 0.156488
+  ...
+# Subtest: add sets fields; tasksFor filters by date in creation order
+ok 9 - add sets fields; tasksFor filters by date in creation order
+  ---
+  duration_ms: 2.228795
+  ...
+# Subtest: tasksFor returns copies
+ok 10 - tasksFor returns copies
+  ---
+  duration_ms: 0.195885
+  ...
+# Subtest: updateText keeps done, date and position; errors leave text
+ok 11 - updateText keeps done, date and position; errors leave text
+  ---
+  duration_ms: 0.385665
+  ...
+# Subtest: setDone and remove
+ok 12 - setDone and remove
+  ---
+  duration_ms: 0.301685
+  ...
+# Subtest: data survives a new store on the same storage
+ok 13 - data survives a new store on the same storage
+  ---
+  duration_ms: 0.305098
+  ...
+# Subtest: corrupt JSON and non array start empty and back up raw value
+ok 14 - corrupt JSON and non array start empty and back up raw value
+  ---
+  duration_ms: 0.461935
+  ...
+# Subtest: missing or empty value starts empty without backup
+ok 15 - missing or empty value starts empty without backup
+  ---
+  duration_ms: 0.276665
+  ...
+# Subtest: invalid items are dropped, valid kept
+ok 16 - invalid items are dropped, valid kept
+  ---
+  duration_ms: 0.332055
+  ...
+# Subtest: read failure: memory only, no writes
+ok 17 - read failure: memory only, no writes
+  ---
+  duration_ms: 0.323344
+  ...
+# Subtest: write failure keeps memory and old stored value; recovery restores storageOk
+ok 18 - write failure keeps memory and old stored value; recovery restores storageOk
+  ---
+  duration_ms: 0.263116
+  ...
+# Subtest: unknown id: updateText notFound, setDone undefined, remove harmless
+ok 19 - unknown id: updateText notFound, setDone undefined, remove harmless
+  ---
+  duration_ms: 0.219462
+  ...
+# Subtest: write failure on remove and setDone keeps memory change
+ok 20 - write failure on remove and setDone keeps memory change
+  ---
+  duration_ms: 0.266645
+  ...
+# Subtest: corrupt backup failing does not throw or lock the store
+ok 21 - corrupt backup failing does not throw or lock the store
+  ---
+  duration_ms: 0.30326
+  ...
+1..21
+# tests 21
+# suites 0
+# pass 21
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 72.59206

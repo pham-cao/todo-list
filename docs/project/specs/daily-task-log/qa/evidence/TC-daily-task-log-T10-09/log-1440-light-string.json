@@ -1,0 +1,14 @@
+{
+  "val": "\"x\"",
+  "empty": true,
+  "rows": 0,
+  "slip": false,
+  "backup": "\"x\"",
+  "errs": [
+    "info: Autofocus processing was blocked because a document already has a focused element."
+  ],
+  "afterAddSlip": false,
+  "mainKeyAfterAdd": [
+    "Một"
+  ]
+}

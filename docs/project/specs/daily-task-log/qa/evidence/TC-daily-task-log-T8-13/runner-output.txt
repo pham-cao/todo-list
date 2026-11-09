@@ -1,0 +1,5 @@
+1440 light: {"focusVisible":true,"outline":"solid 2px","delBg":"rgb(163, 36, 47)","delFg":"rgb(255, 255, 255)","delCR":"7.37","keepFg":"rgb(0, 0, 0)","noteBg":"rgb(251, 239, 166)","titleCR":"18.00"} errors=0
+1440 dark: {"focusVisible":true,"outline":"solid 2px","delBg":"rgb(242, 149, 155)","delFg":"rgb(42, 11, 14)","delCR":"8.28","keepFg":"rgb(241, 237, 228)","noteBg":"rgb(67, 58, 42)","titleCR":"9.57"} errors=0
+390 light: {"focusVisible":true,"outline":"solid 2px","delBg":"rgb(163, 36, 47)","delFg":"rgb(255, 255, 255)","delCR":"7.37","keepFg":"rgb(0, 0, 0)","noteBg":"rgb(251, 239, 166)","titleCR":"18.00"} errors=0
+390 dark: {"focusVisible":true,"outline":"solid 2px","delBg":"rgb(242, 149, 155)","delFg":"rgb(42, 11, 14)","delCR":"8.28","keepFg":"rgb(241, 237, 228)","noteBg":"rgb(67, 58, 42)","titleCR":"9.57"} errors=0
+PASS

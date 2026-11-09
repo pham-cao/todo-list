@@ -1,0 +1,1138 @@
+{
+ "TC-daily-task-log-T10-01": {
+  "1440-light": {
+   "r": {
+    "slipOnLoad": true,
+    "text": "Không thể lưu dữ liệu trên trình duyệt này. Công việc có thể bị mất khi bạn tải lại trang.",
+    "empty": true,
+    "rows": 2,
+    "status": "Đã hoàn thành 1/2 việc",
+    "slipAfterWork": true,
+    "errs": []
+   }
+  },
+  "1440-dark": {
+   "r": {
+    "slipOnLoad": true,
+    "text": "Không thể lưu dữ liệu trên trình duyệt này. Công việc có thể bị mất khi bạn tải lại trang.",
+    "empty": true,
+    "rows": 2,
+    "status": "Đã hoàn thành 1/2 việc",
+    "slipAfterWork": true,
+    "errs": []
+   }
+  },
+  "390-light": {
+   "r": {
+    "slipOnLoad": true,
+    "text": "Không thể lưu dữ liệu trên trình duyệt này. Công việc có thể bị mất khi bạn tải lại trang.",
+    "empty": true,
+    "rows": 2,
+    "status": "Đã hoàn thành 1/2 việc",
+    "slipAfterWork": true,
+    "errs": []
+   }
+  },
+  "390-dark": {
+   "r": {
+    "slipOnLoad": true,
+    "text": "Không thể lưu dữ liệu trên trình duyệt này. Công việc có thể bị mất khi bạn tải lại trang.",
+    "empty": true,
+    "rows": 2,
+    "status": "Đã hoàn thành 1/2 việc",
+    "slipAfterWork": true,
+    "errs": []
+   }
+  }
+ },
+ "TC-daily-task-log-T10-06": {
+  "1440-light-add": {
+   "r": {
+    "slipAfterGoodSave": false,
+    "stored": [
+     [
+      "Một",
+      false,
+      "2026-11-09"
+     ],
+     [
+      "Hai",
+      true,
+      "2026-11-09"
+     ],
+     [
+      "Hôm qua",
+      false,
+      "2026-11-08"
+     ],
+     [
+      "Ba",
+      false,
+      "2026-11-09"
+     ]
+    ]
+   }
+  },
+  "1440-light-tick": {
+   "r": {
+    "slipAfterGoodSave": false,
+    "stored": [
+     [
+      "Một",
+      true,
+      "2026-11-09"
+     ],
+     [
+      "Hai",
+      true,
+      "2026-11-09"
+     ],
+     [
+      "Hôm qua",
+      false,
+      "2026-11-08"
+     ]
+    ]
+   }
+  },
+  "1440-dark-add": {
+   "r": {
+    "slipAfterGoodSave": false,
+    "stored": [
+     [
+      "Một",
+      false,
+      "2026-11-09"
+     ],
+     [
+      "Hai",
+      true,
+      "2026-11-09"
+     ],
+     [
+      "Hôm qua",
+      false,
+      "2026-11-08"
+     ],
+     [
+      "Ba",
+      false,
+      "2026-11-09"
+     ]
+    ]
+   }
+  },
+  "1440-dark-tick": {
+   "r": {
+    "slipAfterGoodSave": false,
+    "stored": [
+     [
+      "Một",
+      true,
+      "2026-11-09"
+     ],
+     [
+      "Hai",
+      true,
+      "2026-11-09"
+     ],
+     [
+      "Hôm qua",
+      false,
+      "2026-11-08"
+     ]
+    ]
+   }
+  },
+  "390-light-add": {
+   "r": {
+    "slipAfterGoodSave": false,
+    "stored": [
+     [
+      "Một",
+      false,
+      "2026-11-09"
+     ],
+     [
+      "Hai",
+      true,
+      "2026-11-09"
+     ],
+     [
+      "Hôm qua",
+      false,
+      "2026-11-08"
+     ],
+     [
+      "Ba",
+      false,
+      "2026-11-09"
+     ]
+    ]
+   }
+  },
+  "390-light-tick": {
+   "r": {
+    "slipAfterGoodSave": false,
+    "stored": [
+     [
+      "Một",
+      true,
+      "2026-11-09"
+     ],
+     [
+      "Hai",
+      true,
+      "2026-11-09"
+     ],
+     [
+      "Hôm qua",
+      false,
+      "2026-11-08"
+     ]
+    ]
+   }
+  },
+  "390-dark-add": {
+   "r": {
+    "slipAfterGoodSave": false,
+    "stored": [
+     [
+      "Một",
+      false,
+      "2026-11-09"
+     ],
+     [
+      "Hai",
+      true,
+      "2026-11-09"
+     ],
+     [
+      "Hôm qua",
+      false,
+      "2026-11-08"
+     ],
+     [
+      "Ba",
+      false,
+      "2026-11-09"
+     ]
+    ]
+   }
+  },
+  "390-dark-tick": {
+   "r": {
+    "slipAfterGoodSave": false,
+    "stored": [
+     [
+      "Một",
+      true,
+      "2026-11-09"
+     ],
+     [
+      "Hai",
+      true,
+      "2026-11-09"
+     ],
+     [
+      "Hôm qua",
+      false,
+      "2026-11-08"
+     ]
+    ]
+   }
+  }
+ },
+ "TC-daily-task-log-T10-02": {
+  "1440-light": {
+   "r": {
+    "slipBefore": false,
+    "slipImmediately": true,
+    "slipAfter": true,
+    "rows": [
+     "Một",
+     "Hai",
+     "Ba"
+    ],
+    "storedUnchanged": true,
+    "focusOk": "INPUT",
+    "errs": []
+   }
+  },
+  "1440-dark": {
+   "r": {
+    "slipBefore": false,
+    "slipImmediately": true,
+    "slipAfter": true,
+    "rows": [
+     "Một",
+     "Hai",
+     "Ba"
+    ],
+    "storedUnchanged": true,
+    "focusOk": "INPUT",
+    "errs": [
+     "info: Autofocus processing was blocked because a document already has a focused element."
+    ]
+   }
+  },
+  "390-light": {
+   "r": {
+    "slipBefore": false,
+    "slipImmediately": true,
+    "slipAfter": true,
+    "rows": [
+     "Một\nSửa\nXóa",
+     "Hai\nSửa\nXóa",
+     "Ba\nSửa\nXóa"
+    ],
+    "storedUnchanged": true,
+    "focusOk": "INPUT",
+    "errs": []
+   }
+  },
+  "390-dark": {
+   "r": {
+    "slipBefore": false,
+    "slipImmediately": true,
+    "slipAfter": true,
+    "rows": [
+     "Một\nSửa\nXóa",
+     "Hai\nSửa\nXóa",
+     "Ba\nSửa\nXóa"
+    ],
+    "storedUnchanged": true,
+    "focusOk": "INPUT",
+    "errs": [
+     "info: Autofocus processing was blocked because a document already has a focused element."
+    ]
+   }
+  }
+ },
+ "TC-daily-task-log-T10-03": {
+  "1440-light": {
+   "r": {
+    "slipBefore": false,
+    "slipImmediately": true,
+    "slipAfter": true,
+    "rows": [
+     "Một",
+     "Hai"
+    ],
+    "storedUnchanged": true,
+    "focusOk": "INPUT",
+    "errs": []
+   }
+  },
+  "1440-dark": {
+   "r": {
+    "slipBefore": false,
+    "slipImmediately": true,
+    "slipAfter": true,
+    "rows": [
+     "Một",
+     "Hai"
+    ],
+    "storedUnchanged": true,
+    "focusOk": "INPUT",
+    "errs": []
+   }
+  },
+  "390-light": {
+   "r": {
+    "slipBefore": false,
+    "slipImmediately": true,
+    "slipAfter": true,
+    "rows": [
+     "Một\nSửa\nXóa",
+     "Hai\nSửa\nXóa"
+    ],
+    "storedUnchanged": true,
+    "focusOk": "INPUT",
+    "errs": []
+   }
+  },
+  "390-dark": {
+   "r": {
+    "slipBefore": false,
+    "slipImmediately": true,
+    "slipAfter": true,
+    "rows": [
+     "Một\nSửa\nXóa",
+     "Hai\nSửa\nXóa"
+    ],
+    "storedUnchanged": true,
+    "focusOk": "INPUT",
+    "errs": []
+   }
+  }
+ },
+ "TC-daily-task-log-T10-04": {
+  "1440-light": {
+   "r": {
+    "slipBefore": false,
+    "slipImmediately": true,
+    "slipAfter": true,
+    "rows": [
+     "Một",
+     "Hai sửa"
+    ],
+    "storedUnchanged": true,
+    "focusOk": "BUTTON",
+    "errs": []
+   }
+  },
+  "1440-dark": {
+   "r": {
+    "slipBefore": false,
+    "slipImmediately": true,
+    "slipAfter": true,
+    "rows": [
+     "Một",
+     "Hai sửa"
+    ],
+    "storedUnchanged": true,
+    "focusOk": "BUTTON",
+    "errs": []
+   }
+  },
+  "390-light": {
+   "r": {
+    "slipBefore": false,
+    "slipImmediately": true,
+    "slipAfter": true,
+    "rows": [
+     "Một\nSửa\nXóa",
+     "Hai sửa\nSửa\nXóa"
+    ],
+    "storedUnchanged": true,
+    "focusOk": "BUTTON",
+    "errs": []
+   }
+  },
+  "390-dark": {
+   "r": {
+    "slipBefore": false,
+    "slipImmediately": true,
+    "slipAfter": true,
+    "rows": [
+     "Một\nSửa\nXóa",
+     "Hai sửa\nSửa\nXóa"
+    ],
+    "storedUnchanged": true,
+    "focusOk": "BUTTON",
+    "errs": []
+   }
+  }
+ },
+ "TC-daily-task-log-T10-05": {
+  "1440-light": {
+   "r": {
+    "slipBefore": false,
+    "slipImmediately": true,
+    "slipAfter": true,
+    "rows": [
+     "Một"
+    ],
+    "storedUnchanged": true,
+    "focusOk": "INPUT",
+    "errs": []
+   }
+  },
+  "1440-dark": {
+   "r": {
+    "slipBefore": false,
+    "slipImmediately": true,
+    "slipAfter": true,
+    "rows": [
+     "Một"
+    ],
+    "storedUnchanged": true,
+    "focusOk": "INPUT",
+    "errs": []
+   }
+  },
+  "390-light": {
+   "r": {
+    "slipBefore": false,
+    "slipImmediately": true,
+    "slipAfter": true,
+    "rows": [
+     "Một\nSửa\nXóa"
+    ],
+    "storedUnchanged": true,
+    "focusOk": "INPUT",
+    "errs": [
+     "info: Autofocus processing was blocked because a document already has a focused element."
+    ]
+   }
+  },
+  "390-dark": {
+   "r": {
+    "slipBefore": false,
+    "slipImmediately": true,
+    "slipAfter": true,
+    "rows": [
+     "Một\nSửa\nXóa"
+    ],
+    "storedUnchanged": true,
+    "focusOk": "INPUT",
+    "errs": [
+     "info: Autofocus processing was blocked because a document already has a focused element."
+    ]
+   }
+  }
+ },
+ "TC-daily-task-log-T10-07": {
+  "1440-light": {
+   "r": {
+    "slipOnLoad": true,
+    "emptyShown": true,
+    "setItemKeys": [],
+    "storedEqualsSeed": true,
+    "slipAfter": true,
+    "errs": [
+     "info: Autofocus processing was blocked because a document already has a focused element."
+    ]
+   }
+  },
+  "1440-dark": {
+   "r": {
+    "slipOnLoad": true,
+    "emptyShown": true,
+    "setItemKeys": [],
+    "storedEqualsSeed": true,
+    "slipAfter": true,
+    "errs": []
+   }
+  },
+  "390-light": {
+   "r": {
+    "slipOnLoad": true,
+    "emptyShown": true,
+    "setItemKeys": [
+     "daily-todo:swipe-hint-seen"
+    ],
+    "storedEqualsSeed": true,
+    "slipAfter": true,
+    "errs": [
+     "info: Autofocus processing was blocked because a document already has a focused element."
+    ]
+   }
+  },
+  "390-dark": {
+   "r": {
+    "slipOnLoad": true,
+    "emptyShown": true,
+    "setItemKeys": [
+     "daily-todo:swipe-hint-seen"
+    ],
+    "storedEqualsSeed": true,
+    "slipAfter": true,
+    "errs": []
+   }
+  }
+ },
+ "TC-daily-task-log-T10-08": {
+  "1440-light-badjson": {
+   "r": {
+    "val": "{not json",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": "{not json",
+    "errs": [],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  },
+  "1440-dark-badjson": {
+   "r": {
+    "val": "{not json",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": "{not json",
+    "errs": [
+     "info: Autofocus processing was blocked because a document already has a focused element."
+    ],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  },
+  "390-light-badjson": {
+   "r": {
+    "val": "{not json",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": "{not json",
+    "errs": [],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  },
+  "390-dark-badjson": {
+   "r": {
+    "val": "{not json",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": "{not json",
+    "errs": [],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  }
+ },
+ "TC-daily-task-log-T10-09": {
+  "1440-light-object": {
+   "r": {
+    "val": "{\"a\":1}",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": "{\"a\":1}",
+    "errs": [
+     "info: Autofocus processing was blocked because a document already has a focused element."
+    ],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  },
+  "1440-light-string": {
+   "r": {
+    "val": "\"x\"",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": "\"x\"",
+    "errs": [
+     "info: Autofocus processing was blocked because a document already has a focused element."
+    ],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  },
+  "1440-light-number": {
+   "r": {
+    "val": "5",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": "5",
+    "errs": [],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  },
+  "1440-light-null": {
+   "r": {
+    "val": "null",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": "null",
+    "errs": [],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  },
+  "1440-light-empty": {
+   "r": {
+    "val": "",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": null,
+    "errs": [],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  },
+  "1440-light-invaliditems": {
+   "r": {
+    "val": "[{\"bad\":1},5]",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": null,
+    "errs": [],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  },
+  "1440-dark-object": {
+   "r": {
+    "val": "{\"a\":1}",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": "{\"a\":1}",
+    "errs": [],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  },
+  "1440-dark-string": {
+   "r": {
+    "val": "\"x\"",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": "\"x\"",
+    "errs": [],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  },
+  "1440-dark-number": {
+   "r": {
+    "val": "5",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": "5",
+    "errs": [],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  },
+  "1440-dark-null": {
+   "r": {
+    "val": "null",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": "null",
+    "errs": [],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  },
+  "1440-dark-empty": {
+   "r": {
+    "val": "",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": null,
+    "errs": [
+     "info: Autofocus processing was blocked because a document already has a focused element."
+    ],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  },
+  "1440-dark-invaliditems": {
+   "r": {
+    "val": "[{\"bad\":1},5]",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": null,
+    "errs": [],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  },
+  "390-light-object": {
+   "r": {
+    "val": "{\"a\":1}",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": "{\"a\":1}",
+    "errs": [],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  },
+  "390-light-string": {
+   "r": {
+    "val": "\"x\"",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": "\"x\"",
+    "errs": [],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  },
+  "390-light-number": {
+   "r": {
+    "val": "5",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": "5",
+    "errs": [],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  },
+  "390-light-null": {
+   "r": {
+    "val": "null",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": "null",
+    "errs": [
+     "info: Autofocus processing was blocked because a document already has a focused element."
+    ],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  },
+  "390-light-empty": {
+   "r": {
+    "val": "",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": null,
+    "errs": [],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  },
+  "390-light-invaliditems": {
+   "r": {
+    "val": "[{\"bad\":1},5]",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": null,
+    "errs": [],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  },
+  "390-dark-object": {
+   "r": {
+    "val": "{\"a\":1}",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": "{\"a\":1}",
+    "errs": [
+     "info: Autofocus processing was blocked because a document already has a focused element."
+    ],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  },
+  "390-dark-string": {
+   "r": {
+    "val": "\"x\"",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": "\"x\"",
+    "errs": [],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  },
+  "390-dark-number": {
+   "r": {
+    "val": "5",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": "5",
+    "errs": [],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  },
+  "390-dark-null": {
+   "r": {
+    "val": "null",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": "null",
+    "errs": [],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  },
+  "390-dark-empty": {
+   "r": {
+    "val": "",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": null,
+    "errs": [],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  },
+  "390-dark-invaliditems": {
+   "r": {
+    "val": "[{\"bad\":1},5]",
+    "empty": true,
+    "rows": 0,
+    "slip": false,
+    "backup": null,
+    "errs": [],
+    "afterAddSlip": false,
+    "mainKeyAfterAdd": [
+     "Một"
+    ]
+   }
+  }
+ },
+ "TC-daily-task-log-T10-10": {
+  "1440-light": {
+   "r": {
+    "slipBefore": false,
+    "slip": true,
+    "rows": 3,
+    "previousIntact": true,
+    "errs": []
+   }
+  },
+  "1440-dark": {
+   "r": {
+    "slipBefore": false,
+    "slip": true,
+    "rows": 3,
+    "previousIntact": true,
+    "errs": []
+   }
+  },
+  "390-light": {
+   "r": {
+    "slipBefore": false,
+    "slip": true,
+    "rows": 3,
+    "previousIntact": true,
+    "errs": [
+     "info: Autofocus processing was blocked because a document already has a focused element."
+    ]
+   }
+  },
+  "390-dark": {
+   "r": {
+    "slipBefore": false,
+    "slip": true,
+    "rows": 3,
+    "previousIntact": true,
+    "errs": []
+   }
+  }
+ },
+ "TC-daily-task-log-T10-11": {
+  "1440-light": {
+   "r": {
+    "role": "alert",
+    "ariaLive": null,
+    "hidden": false,
+    "iconHidden": "true",
+    "inHeader": true,
+    "color": "rgb(94, 61, 0)",
+    "bg": "rgb(246, 230, 191)",
+    "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe ",
+    "size": "15px",
+    "w": 515,
+    "h": 71,
+    "border": "rgb(94, 61, 0)",
+    "aria": "- alert:\n  - paragraph: Không thể lưu dữ liệu trên trình duyệt này. Công việc có thể bị mất khi bạn tải lại trang.",
+    "focusOnInput": "new-task",
+    "hScroll": false,
+    "toggle": {
+     "domPresentWhenHidden": 1,
+     "displayWhenHidden": "none",
+     "mutations": [
+      "hidden:false"
+     ],
+     "displayWhenShown": "flex",
+     "focusKept": "INPUT:"
+    },
+    "proto": {
+     "color": "rgb(94, 61, 0)",
+     "bg": "rgb(246, 230, 191)",
+     "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe ",
+     "size": "15px",
+     "w": 515,
+     "h": 71,
+     "border": "rgb(94, 61, 0)",
+     "text": "Không thể lưu dữ liệu trên trình duyệt này. Công việc có thể bị mất khi bạn tải lại trang."
+    }
+   }
+  },
+  "1440-dark": {
+   "r": {
+    "role": "alert",
+    "ariaLive": null,
+    "hidden": false,
+    "iconHidden": "true",
+    "inHeader": true,
+    "color": "rgb(242, 217, 166)",
+    "bg": "rgb(59, 49, 34)",
+    "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe ",
+    "size": "15px",
+    "w": 515,
+    "h": 71,
+    "border": "rgb(242, 217, 166)",
+    "aria": "- alert:\n  - paragraph: Không thể lưu dữ liệu trên trình duyệt này. Công việc có thể bị mất khi bạn tải lại trang.",
+    "focusOnInput": "new-task",
+    "hScroll": false,
+    "toggle": {
+     "domPresentWhenHidden": 1,
+     "displayWhenHidden": "none",
+     "mutations": [
+      "hidden:false"
+     ],
+     "displayWhenShown": "flex",
+     "focusKept": "INPUT:"
+    },
+    "proto": {
+     "color": "rgb(242, 217, 166)",
+     "bg": "rgb(59, 49, 34)",
+     "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe ",
+     "size": "15px",
+     "w": 515,
+     "h": 71,
+     "border": "rgb(242, 217, 166)",
+     "text": "Không thể lưu dữ liệu trên trình duyệt này. Công việc có thể bị mất khi bạn tải lại trang."
+    }
+   }
+  },
+  "390-light": {
+   "r": {
+    "role": "alert",
+    "ariaLive": null,
+    "hidden": false,
+    "iconHidden": "true",
+    "inHeader": true,
+    "color": "rgb(94, 61, 0)",
+    "bg": "rgb(246, 230, 191)",
+    "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe ",
+    "size": "15px",
+    "w": 279,
+    "h": 113,
+    "border": "rgb(94, 61, 0)",
+    "aria": "- alert:\n  - paragraph: Không thể lưu dữ liệu trên trình duyệt này. Công việc có thể bị mất khi bạn tải lại trang.",
+    "focusOnInput": "new-task",
+    "hScroll": false,
+    "toggle": {
+     "domPresentWhenHidden": 1,
+     "displayWhenHidden": "none",
+     "mutations": [
+      "hidden:false"
+     ],
+     "displayWhenShown": "flex",
+     "focusKept": "INPUT:"
+    },
+    "proto": {
+     "color": "rgb(94, 61, 0)",
+     "bg": "rgb(246, 230, 191)",
+     "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe ",
+     "size": "15px",
+     "w": 279,
+     "h": 113,
+     "border": "rgb(94, 61, 0)",
+     "text": "Không thể lưu dữ liệu trên trình duyệt này. Công việc có thể bị mất khi bạn tải lại trang."
+    }
+   }
+  },
+  "390-dark": {
+   "r": {
+    "role": "alert",
+    "ariaLive": null,
+    "hidden": false,
+    "iconHidden": "true",
+    "inHeader": true,
+    "color": "rgb(242, 217, 166)",
+    "bg": "rgb(59, 49, 34)",
+    "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe ",
+    "size": "15px",
+    "w": 279,
+    "h": 113,
+    "border": "rgb(242, 217, 166)",
+    "aria": "- alert:\n  - paragraph: Không thể lưu dữ liệu trên trình duyệt này. Công việc có thể bị mất khi bạn tải lại trang.",
+    "focusOnInput": "new-task",
+    "hScroll": false,
+    "toggle": {
+     "domPresentWhenHidden": 1,
+     "displayWhenHidden": "none",
+     "mutations": [
+      "hidden:false"
+     ],
+     "displayWhenShown": "flex",
+     "focusKept": "INPUT:"
+    },
+    "proto": {
+     "color": "rgb(242, 217, 166)",
+     "bg": "rgb(59, 49, 34)",
+     "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe ",
+     "size": "15px",
+     "w": 279,
+     "h": 113,
+     "border": "rgb(242, 217, 166)",
+     "text": "Không thể lưu dữ liệu trên trình duyệt này. Công việc có thể bị mất khi bạn tải lại trang."
+    }
+   }
+  }
+ }
+}

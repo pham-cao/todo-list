@@ -1,0 +1,40 @@
+{
+ "focus": {
+  "tag": "INPUT",
+  "id": "edit-b",
+  "text": "",
+  "action": null,
+  "row": "b"
+ },
+ "val": "Đi chợ mua rau muống, trứng và sữa tươi",
+ "caret": [
+  39,
+  39,
+  39
+ ],
+ "mode": {
+  "editing": 1,
+  "inputs": 1
+ },
+ "cls": "task task--editing",
+ "label": {
+  "inputId": "edit-b",
+  "labelFor": "edit-b",
+  "labelsCount": 1,
+  "errId": "edit-b-error"
+ },
+ "buttons": [
+  "Hủy",
+  "Lưu"
+ ],
+ "readOnlyHidden": true,
+ "checkboxDesc": {
+  "name": "Đánh dấu hoàn thành",
+  "desc": "Đi chợ mua rau muống, trứng và sữa tươi"
+ },
+ "hscroll": false,
+ "aria": "- main \"Việc cần làm hôm nay\":\n  - heading \"Việc cần làm hôm nay\" [level=1]\n  - paragraph: Hôm nay, Thứ Hai, 09/11/2026\n  - status:\n    - text: Đã hoàn thành\n    - strong: 1/3\n    - text: việc\n  - text: Bạn cần làm gì hôm nay?\n  - textbox \"Bạn cần làm gì hôm nay?\"\n  - button \"Thêm\"\n  - list:\n    - listitem:\n      - checkbox \"Đánh dấu hoàn thành\" [checked]\n      - text: Gửi báo cáo tuần cho chị Lan trước 10 giờ\n      - button \"Sửa\"\n      - button \"Xóa\"\n    - listitem:\n      - checkbox \"Đánh dấu hoàn thành\"\n      - text: Sửa\n      - textbox \"Sửa\": Đi chợ mua rau muống, trứng và sữa tươi\n      - button \"Hủy\"\n      - button \"Lưu\"\n    - listitem:\n      - checkbox \"Đánh dấu hoàn thành\"\n      - text: Gọi điện đặt lịch khám răng cho bé Na\n      - button \"Sửa\"\n      - button \"Xóa\"",
+ "logs": [
+  "info: Autofocus processing was blocked because a document already has a focused element."
+ ]
+}

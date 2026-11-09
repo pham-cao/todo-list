@@ -1,0 +1,122 @@
+{
+ "desktop-light": {
+  "hscroll": false,
+  "sw": 1440,
+  "cw": 1440,
+  "lang": "vi",
+  "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", syste",
+  "under44": [
+   [
+    "Thêm",
+    76,
+    36
+   ]
+  ],
+  "markupInjected": 0,
+  "literalShown": true,
+  "requests": [
+   "/",
+   "/docs/project/design-system.css",
+   "/src/app.js",
+   "/src/date.js",
+   "/src/store.js"
+  ],
+  "errors": []
+ },
+ "desktop-dark": {
+  "hscroll": false,
+  "sw": 1440,
+  "cw": 1440,
+  "lang": "vi",
+  "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", syste",
+  "under44": [
+   [
+    "Thêm",
+    76,
+    36
+   ]
+  ],
+  "markupInjected": 0,
+  "literalShown": true,
+  "requests": [
+   "/",
+   "/docs/project/design-system.css",
+   "/src/app.js",
+   "/src/date.js",
+   "/src/store.js"
+  ],
+  "errors": []
+ },
+ "mobile-light": {
+  "hscroll": false,
+  "sw": 390,
+  "cw": 390,
+  "lang": "vi",
+  "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", syste",
+  "under44": [
+   [
+    "Thêm",
+    68,
+    36
+   ]
+  ],
+  "markupInjected": 0,
+  "literalShown": true,
+  "requests": [
+   "/",
+   "/docs/project/design-system.css",
+   "/src/app.js",
+   "/src/date.js",
+   "/src/store.js"
+  ],
+  "errors": []
+ },
+ "mobile-dark": {
+  "hscroll": false,
+  "sw": 390,
+  "cw": 390,
+  "lang": "vi",
+  "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", syste",
+  "under44": [
+   [
+    "Thêm",
+    68,
+    36
+   ]
+  ],
+  "markupInjected": 0,
+  "literalShown": true,
+  "requests": [
+   "/",
+   "/docs/project/design-system.css",
+   "/src/app.js",
+   "/src/date.js",
+   "/src/store.js"
+  ],
+  "errors": []
+ },
+ "w360": {
+  "hscroll": false,
+  "sw": 360,
+  "cw": 360,
+  "lang": "vi",
+  "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", syste",
+  "under44": [
+   [
+    "Thêm",
+    68,
+    36
+   ]
+  ],
+  "markupInjected": 0,
+  "literalShown": true,
+  "requests": [
+   "/",
+   "/docs/project/design-system.css",
+   "/src/app.js",
+   "/src/date.js",
+   "/src/store.js"
+  ],
+  "errors": []
+ }
+}

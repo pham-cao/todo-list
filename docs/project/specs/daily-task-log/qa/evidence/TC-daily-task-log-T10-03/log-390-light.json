@@ -1,0 +1,12 @@
+{
+  "slipBefore": false,
+  "slipImmediately": true,
+  "slipAfter": true,
+  "rows": [
+    "Một\nSửa\nXóa",
+    "Hai\nSửa\nXóa"
+  ],
+  "storedUnchanged": true,
+  "focusOk": "INPUT",
+  "errs": []
+}

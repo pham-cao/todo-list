@@ -1,0 +1,29 @@
+{
+  "match": false,
+  "diffs": [
+    {
+      "k": "sheet",
+      "app": {
+        "text": "Việc cần làm hôm nay Hôm nay, Thứ Ba, 10/11/2026 Đã hoàn thành 0/0 việc Không thể lưu dữ liệu trên trình duyệt này. Công việc có thể bị mất khi bạn tải lại trang. Bạn cần làm gì hôm nay? Thêm Hôm nay chưa có việc nào. Hãy thêm việc đầu tiên nhé!",
+        "color": "rgb(0, 0, 0)",
+        "bg": "rgb(252, 249, 241)",
+        "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", \"Noto Sans\", Roboto, Arial, sans-serif",
+        "size": "17px",
+        "weight": "400",
+        "w": 374,
+        "h": 828
+      },
+      "proto": {
+        "text": "Việc cần làm hôm nay Hôm nay, Thứ Ba, 10/11/2026 Bạn cần làm gì hôm nay? Thêm Hôm nay chưa có việc nào. Hãy thêm việc đầu tiên nhé!",
+        "color": "rgb(0, 0, 0)",
+        "bg": "rgb(252, 249, 241)",
+        "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", \"Noto Sans\", Roboto, Arial, sans-serif",
+        "size": "17px",
+        "weight": "400",
+        "w": 374,
+        "h": 828
+      }
+    }
+  ],
+  "errs": []
+}

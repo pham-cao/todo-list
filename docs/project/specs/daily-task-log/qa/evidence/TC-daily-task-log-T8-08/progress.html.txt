@@ -1,0 +1,1 @@
+ll="none" stroke="currentColor" stroke-width="1"></circle><path d="M30 13.5l4.6 10 10.9 1.1-8.2 7.3 2.4 10.7L30 37.1l-9.7 5.5 2.4-10.7-8.2-7.3 10.9-1.1z" fill="currentColor"></path></svg></span></div>

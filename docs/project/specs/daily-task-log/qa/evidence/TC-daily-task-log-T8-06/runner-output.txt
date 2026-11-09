@@ -1,0 +1,2 @@
+PASS focus on previous row checkbox
+PASS no console errors

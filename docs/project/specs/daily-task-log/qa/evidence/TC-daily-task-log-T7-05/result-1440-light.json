@@ -1,0 +1,69 @@
+{
+ "e3": {
+  "hidden": false,
+  "display": "flex",
+  "text": "Nội dung tối đa 200 ký tự.",
+  "role": "alert",
+  "invalid": "true",
+  "desc": "edit-b-error",
+  "errId": "edit-b-error",
+  "color": "rgb(163, 36, 47)",
+  "focus": true
+ },
+ "keptLen": 201,
+ "e4": {
+  "hidden": true,
+  "display": "none",
+  "text": "",
+  "role": "alert",
+  "invalid": null,
+  "desc": null,
+  "errId": "edit-b-error",
+  "color": "rgb(163, 36, 47)",
+  "focus": true
+ },
+ "e5": {
+  "labels": [
+   "Gửi báo cáo tuần cho chị Lan trước 10 giờ",
+   "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+   "Gọi điện đặt lịch khám răng cho bé Na"
+  ],
+  "mode": {
+   "editing": 0,
+   "inputs": 0
+  }
+ },
+ "e6trailing201": {
+  "hidden": false,
+  "display": "flex",
+  "text": "Nội dung tối đa 200 ký tự.",
+  "role": "alert",
+  "invalid": "true",
+  "desc": "edit-a-error",
+  "errId": "edit-a-error",
+  "color": "rgb(163, 36, 47)",
+  "focus": true
+ },
+ "switchClearsError": {
+  "err": {
+   "hidden": true,
+   "display": "none",
+   "text": "",
+   "role": "alert",
+   "invalid": null,
+   "desc": null,
+   "errId": "edit-c-error",
+   "color": "rgb(163, 36, 47)",
+   "focus": true
+  },
+  "mode": {
+   "editing": 1,
+   "inputs": 1
+  },
+  "labels": [
+   "Gửi báo cáo tuần cho chị Lan trước 10 giờ",
+   "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+   "Gọi điện đặt lịch khám răng cho bé Na"
+  ]
+ }
+}

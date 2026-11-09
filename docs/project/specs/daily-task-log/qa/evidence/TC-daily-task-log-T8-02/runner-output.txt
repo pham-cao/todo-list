@@ -1,0 +1,5 @@
+PASS closed
+PASS 3 rows
+PASS focus on Xóa of same row: remove|Đi chợ mua rau muống, trứng và sữa tươi
+PASS store keeps 3
+PASS no console errors

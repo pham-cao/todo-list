@@ -1,0 +1,10 @@
+PASS row 0 quoted as text
+PASS no img element injected
+PASS no horizontal scroll: 390
+PASS note inside viewport {"x":14.773995399475098,"y":318.5468444824219,"width":360.45201778411865,"height":226.90634155273438}
+PASS row 1 quoted as text
+PASS no img element injected
+PASS no horizontal scroll: 390
+PASS note inside viewport {"x":12.418876647949219,"y":273.6085205078125,"width":365.16223907470703,"height":316.782958984375}
+PASS no alert fired
+PASS no console errors

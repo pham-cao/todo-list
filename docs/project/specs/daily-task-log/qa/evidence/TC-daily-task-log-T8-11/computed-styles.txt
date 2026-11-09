@@ -1,0 +1,12 @@
+1440-light title rgb(0, 0, 0) Aptos, "Segoe UI Variable Text
+1440-dark title rgb(241, 237, 228) Aptos, "Segoe UI Variable Text
+390-light title rgb(0, 0, 0) Aptos, "Segoe UI Variable Text
+390-dark title rgb(241, 237, 228) Aptos, "Segoe UI Variable Text
+1440-light title rgb(0, 0, 0) Aptos, "Segoe UI Variable Text
+1440-dark title rgb(241, 237, 228) Aptos, "Segoe UI Variable Text
+390-light title rgb(0, 0, 0) Aptos, "Segoe UI Variable Text
+390-dark title rgb(241, 237, 228) Aptos, "Segoe UI Variable Text
+1440-light title rgb(0, 0, 0) Aptos, "Segoe UI Variable Text
+1440-dark title rgb(241, 237, 228) Aptos, "Segoe UI Variable Text
+390-light title rgb(0, 0, 0) Aptos, "Segoe UI Variable Text
+390-dark title rgb(241, 237, 228) Aptos, "Segoe UI Variable Text

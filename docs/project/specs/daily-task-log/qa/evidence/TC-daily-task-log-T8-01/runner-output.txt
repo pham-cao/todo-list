@@ -1,0 +1,10 @@
+PASS dialog open (showModal)
+PASS role=alertdialog
+PASS title text
+PASS quote equals task
+PASS :modal
+PASS focus on Giữ lại
+PASS accessible name resolves
+PASS accessible description = task text
+PASS n/a
+PASS no console errors

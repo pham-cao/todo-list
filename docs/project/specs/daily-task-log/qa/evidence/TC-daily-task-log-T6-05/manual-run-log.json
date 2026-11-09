@@ -1,0 +1,68 @@
+{
+ "T6-01": [
+  "1440-light tick checked=true summary=\"Đã hoàn thành 2/3 việc\" stored=[true,true,false] --p=67 order=Gửi báo cáo tuần|Đi chợ mua rau|Gọi điện cho mẹ",
+  "1440-dark tick checked=true summary=\"Đã hoàn thành 2/3 việc\" stored=[true,true,false] --p=67 order=Gửi báo cáo tuần|Đi chợ mua rau|Gọi điện cho mẹ",
+  "390-light tick checked=true summary=\"Đã hoàn thành 2/3 việc\" stored=[true,true,false] --p=67 order=Gửi báo cáo tuần|Đi chợ mua rau|Gọi điện cho mẹ",
+  "390-dark tick checked=true summary=\"Đã hoàn thành 2/3 việc\" stored=[true,true,false] --p=67 order=Gửi báo cáo tuần|Đi chợ mua rau|Gọi điện cho mẹ"
+ ],
+ "T6-02": [
+  "1440-light after reload checked=true summary=\"Đã hoàn thành 2/3 việc\"",
+  "1440-light untick checked=false stored=[true,false,false] summary=\"Đã hoàn thành 1/3 việc\"",
+  "1440-light reload after untick checked=false stored=[true,false,false]",
+  "1440-dark after reload checked=true summary=\"Đã hoàn thành 2/3 việc\"",
+  "1440-dark untick checked=false stored=[true,false,false] summary=\"Đã hoàn thành 1/3 việc\"",
+  "1440-dark reload after untick checked=false stored=[true,false,false]",
+  "390-light after reload checked=true summary=\"Đã hoàn thành 2/3 việc\"",
+  "390-light untick checked=false stored=[true,false,false] summary=\"Đã hoàn thành 1/3 việc\"",
+  "390-light reload after untick checked=false stored=[true,false,false]",
+  "390-dark after reload checked=true summary=\"Đã hoàn thành 2/3 việc\"",
+  "390-dark untick checked=false stored=[true,false,false] summary=\"Đã hoàn thành 1/3 việc\"",
+  "390-dark reload after untick checked=false stored=[true,false,false]"
+ ],
+ "T6-03": [
+  "1440-light Space tick checked=true stored=[true,true,false] focused=true",
+  "1440-light Space untick checked=false stored=[true,false,false]",
+  "1440-dark Space tick checked=true stored=[true,true,false] focused=true",
+  "1440-dark Space untick checked=false stored=[true,false,false]",
+  "390-light Space tick checked=true stored=[true,true,false] focused=true",
+  "390-light Space untick checked=false stored=[true,false,false]",
+  "390-dark Space tick checked=true stored=[true,true,false] focused=true",
+  "390-dark Space untick checked=false stored=[true,false,false]"
+ ],
+ "T6-04": [
+  "1440-light events(ms from tick)=[[0,\"CHANGE\"],[0,\"app-header__mark progress progress--complete progress--celebrate\"],[1002,\"app-header__mark progress progress--complete\"]] summary=\"Đã hoàn thành 3/3 việc\"",
+  "1440-light settled class=\"app-header__mark progress progress--complete\"",
+  "1440-dark events(ms from tick)=[[0,\"CHANGE\"],[1,\"app-header__mark progress progress--complete progress--celebrate\"],[1001,\"app-header__mark progress progress--complete\"]] summary=\"Đã hoàn thành 3/3 việc\"",
+  "1440-dark settled class=\"app-header__mark progress progress--complete\"",
+  "390-light events(ms from tick)=[[0,\"CHANGE\"],[1,\"app-header__mark progress progress--complete progress--celebrate\"],[1000,\"app-header__mark progress progress--complete\"]] summary=\"Đã hoàn thành 3/3 việc\"",
+  "390-light settled class=\"app-header__mark progress progress--complete\"",
+  "390-dark events(ms from tick)=[[0,\"CHANGE\"],[1,\"app-header__mark progress progress--complete progress--celebrate\"],[1001,\"app-header__mark progress progress--complete\"]] summary=\"Đã hoàn thành 3/3 việc\"",
+  "390-dark settled class=\"app-header__mark progress progress--complete\""
+ ],
+ "T6-05": [
+  "1440-light untick class=\"app-header__mark progress\"",
+  "1440-light reload all-done class=\"app-header__mark progress progress--complete\" (expect complete only)",
+  "1440-light add while all done class=\"app-header__mark progress\" summary=\"Đã hoàn thành 3/4 việc\"",
+  "1440-light console errors=[]",
+  "1440-dark untick class=\"app-header__mark progress\"",
+  "1440-dark reload all-done class=\"app-header__mark progress progress--complete\" (expect complete only)",
+  "1440-dark add while all done class=\"app-header__mark progress\" summary=\"Đã hoàn thành 3/4 việc\"",
+  "1440-dark console errors=[]",
+  "390-light untick class=\"app-header__mark progress\"",
+  "390-light reload all-done class=\"app-header__mark progress progress--complete\" (expect complete only)",
+  "390-light add while all done class=\"app-header__mark progress\" summary=\"Đã hoàn thành 3/4 việc\"",
+  "390-light console errors=[]",
+  "390-dark untick class=\"app-header__mark progress\"",
+  "390-dark reload all-done class=\"app-header__mark progress progress--complete\" (expect complete only)",
+  "390-dark add while all done class=\"app-header__mark progress\" summary=\"Đã hoàn thành 3/4 việc\"",
+  "390-dark console errors=[]"
+ ],
+ "T6-07": [
+  "geometry {\"input\":[386,299,44,44],\"box\":[398,311,20,20],\"check\":[386,299,44,44],\"centerHit\":\"svg.[object SVGAnimatedString]\",\"ringHit\":\"INPUT.\",\"inputOpacity\":\"0\",\"boxAria\":\"true\",\"inLabel\":true}",
+  "click on target ring (outside drawn box): checked=true",
+  "click on box centre toggles back: checked=false",
+  "locator.check(): check() fails: locator.check: Timeout 3000ms exceeded. / Call log: / \u001b[2m  - waiting for locator('.task-list > .task').first().getByRole('checkbox')\u001b[22m / \u001b[2m    - locator resolved to <input type=\"checkbox\" aria-describedby=\"task-a-text\" aria-label=\"Đánh dấu hoàn thành\"/>\u001b[22m",
+  "aria snapshot: - listitem:   - checkbox \"Đánh dấu hoàn thành\"   - text: Một   - button \"Sửa\"   - button \"Xóa\"",
+  "with pointer-events:none centre hit=INPUT; check() ok with fix; hover on .check still styles: true"
+ ]
+}

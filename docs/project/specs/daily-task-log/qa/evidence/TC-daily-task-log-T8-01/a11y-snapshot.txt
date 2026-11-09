@@ -1,0 +1,5 @@
+- alertdialog "Bạn có chắc muốn xóa việc này không?":
+  - heading "Bạn có chắc muốn xóa việc này không?" [level=2]
+  - paragraph: Đi chợ mua rau muống, trứng và sữa tươi
+  - button "Giữ lại"
+  - button "Xóa việc"

@@ -1,0 +1,1 @@
+Headless Chromium logged no console errors. Real browsers request /favicon.ico, which the dev server answers 404 (curl confirmed). Not a failure of R1-R5/R22/R30.

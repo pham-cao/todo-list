@@ -1,0 +1,54 @@
+{
+ "r2": {
+  "labels": [
+   "Gửi báo cáo tuần cho chị Hoa",
+   "Đi chợ mua rau muống, trứng và sữa tươi",
+   "Gọi điện đặt lịch khám răng cho bé Na"
+  ],
+  "done": [
+   true,
+   false,
+   false
+  ],
+  "mode": {
+   "editing": 0,
+   "inputs": 0
+  },
+  "focus": {
+   "tag": "BUTTON",
+   "id": "",
+   "text": "Sửa",
+   "action": "edit",
+   "row": "a"
+  },
+  "summary": "Đã hoàn thành 1/3 việc",
+  "store": [
+   {
+    "id": "a",
+    "text": "Gửi báo cáo tuần cho chị Hoa",
+    "done": true,
+    "createdAt": 1,
+    "date": "2026-11-09"
+   },
+   {
+    "id": "b",
+    "text": "Đi chợ mua rau muống, trứng và sữa tươi",
+    "done": false,
+    "createdAt": 2,
+    "date": "2026-11-09"
+   },
+   {
+    "id": "c",
+    "text": "Gọi điện đặt lịch khám răng cho bé Na",
+    "done": false,
+    "createdAt": 3,
+    "date": "2026-11-09"
+   }
+  ],
+  "strike": "none",
+  "desc": "Gửi báo cáo tuần cho chị Hoa"
+ },
+ "logs": [
+  "info: Autofocus processing was blocked because a document already has a focused element."
+ ]
+}
