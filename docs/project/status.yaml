@@ -171,7 +171,7 @@ features:
         title: "Version every asset reference"
         owner: be
         depends_on: []
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""
@@ -179,17 +179,17 @@ features:
         title: "Tasks remember their group"
         owner: be
         depends_on: []
-        state: doing
+        state: done
         attempts: 0
-        bugs_opened: []
+        bugs_opened: [BUG-003]
         trello_card: ""
       - id: T3
         title: "Groups and collapsed state module"
         owner: be
         depends_on: [T2]
-        state: todo
+        state: done
         attempts: 0
-        bugs_opened: []
+        bugs_opened: [BUG-004]
         trello_card: ""
       - id: T4
         title: "Day list in sections with collapse"

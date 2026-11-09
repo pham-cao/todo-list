@@ -402,3 +402,8 @@ Choice: "Quản lý nhóm" icon only below 381 px, keeping its accessible name a
 ## 2026-11-09: Approve task-groups design and 11 tasks?
 Options: Approve, Request changes
 Choice: Approve (by user)
+
+## 2026-11-09: task-groups T3 review: duplicate names differing only in case or NFC in a hand edited store
+Options: Drop later duplicates on load, Accept as out of scope
+Choice: Accept as out of scope (by PM)
+Reason: The UI can never create such names; only a hand edited store can.

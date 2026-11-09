@@ -1,0 +1,6 @@
+  ✓  250 [mobile] › tests/e2e/app.spec.js:760:1 › keyboard only: add, tick with Space, edit with Enter, cancel with Escape, save and delete (465ms)
+  ✓  251 [mobile] › tests/e2e/app.spec.js:810:1 › every button and checkbox has its Vietnamese accessible name (227ms)
+  ✓  252 [mobile] › tests/e2e/app.spec.js:834:1 › 200 tasks render quickly and a tick updates in under 100 ms (205ms)
+
+  10 skipped
+  242 passed (30.4s)

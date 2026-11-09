@@ -1,0 +1,34 @@
+ids [
+  '{"error":"notFound"}',
+  '{"error":"notFound"}',
+  '{"error":"notFound"}',
+  '{"error":"notFound"}',
+  '{"error":"notFound"}',
+  '{"error":"notFound"}',
+  '{"error":"notFound"}'
+]
+rmv non-string ok
+getNonString undefined
+color invalid update {"group":{"id":"67c61ccb-7d91-42f4-a67f-b5fc32c44420","name":"A","color":"yellow","createdAt":1794237040592}} {"group":{"id":"67c61ccb-7d91-42f4-a67f-b5fc32c44420","name":"A","color":"purple","createdAt":1794237040592}} {"group":{"id":"67c61ccb-7d91-42f4-a67f-b5fc32c44420","name":"A","color":"purple","createdAt":1794237040592}}
+proto color {"group":{"id":"67c61ccb-7d91-42f4-a67f-b5fc32c44420","name":"A","color":"purple","createdAt":1794237040592}} {"group":{"id":"67c61ccb-7d91-42f4-a67f-b5fc32c44420","name":"A","color":"purple","createdAt":1794237040592}}
+nfc dup {"group":{"id":"6c02b530-a492-41aa-b71c-b4c138763e52","name":"Á","color":"yellow","createdAt":1794237040594}} {"error":"duplicate"}
+non string name [
+  '{"error":"empty"}',
+  '{"error":"empty"}',
+  '{"group":{"id":"83239a0d-209e-4dec-b34c-147942abba9c","name":"5","color":"pink","createdAt":1794237040594}}',
+  '{"group":{"id":"3e76bd95-76bc-424e-b7b6-a5b876e839e5","name":"[object Object]","color":"green","createdAt":1794237040594}}'
+]
+rename same other case {"group":{"id":"67c61ccb-7d91-42f4-a67f-b5fc32c44420","name":"a","color":"purple","createdAt":1794237040592}}
+rename to ungrouped {"error":"duplicate"} {"error":"duplicate"}
+setCollapsed nonstring {"collapsed":[null,5]}
+limit {"error":"tooMany"} {"error":"tooMany"}
+load [{"id":"a","name":"X","createdAt":1,"color":"yellow"},{"id":"a","name":"Y","createdAt":2,"color":"yellow"},{"id":"b","name":"x","createdAt":3,"color":"yellow"},{"id":"d","name":"W","createdAt":4,"color":"yellow"}]
+loaded25 25 {"error":"tooMany"}
+ui true true
+corrupt {bad {bad2
+null false {"group":{"id":"55e03d8d-f686-4aa7-824d-c90c45157c90","name":"a","color":"yellow","createdAt":1794237040596}} false
+bad false
+recovered true
+null json corrupt copy null
+{"collapsed":["none"]}
+71 {"error":"tooLong"}
