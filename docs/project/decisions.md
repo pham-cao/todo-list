@@ -433,3 +433,8 @@ Choice: Accepted as normal add behaviour, no change (by PM, on QA's judgement)
 Options: Move group UI to src/groups-ui.js before T7, Keep the design plan (src/manage.js from T8)
 Choice: Keep the design plan; T8 creates src/manage.js for the dialog work and may move the add choice and filter helpers there if app.js passes about 900 lines (by PM)
 Reason: Avoid an extra refactor task; the planned split already covers the biggest piece.
+
+## 2026-11-10: task-groups T6 QA optional points
+Choice (by PM):
+- Edit select named "Nhóm" (same as the add select): keep as is, consistent with the edit textbox "Sửa"; no extra aria-label.
+- Repeated live region message for two moves to the same group: make it reliably announced by clearing the text and setting it again on the next frame (small change, done with the T6 review fixes).

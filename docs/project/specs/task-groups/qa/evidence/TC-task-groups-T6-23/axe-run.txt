@@ -1,0 +1,13 @@
+200
+1440 light edit hscroll 0 viol []
+1440 light saved hscroll 0 viol []
+1440 dark edit hscroll 0 viol []
+1440 dark saved hscroll 0 viol []
+390 light edit hscroll 0 viol []
+390 light saved hscroll 0 viol []
+390 dark edit hscroll 0 viol []
+390 dark saved hscroll 0 viol []
+360 light edit hscroll 0 viol []
+360 light saved hscroll 0 viol []
+360 dark edit hscroll 0 viol []
+360 dark saved hscroll 0 viol []

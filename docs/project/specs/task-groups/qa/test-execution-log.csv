@@ -101,3 +101,26 @@ date,task,tc,result,evidence,bug
 2026-11-10,T5,TC-task-groups-T5-31,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-31/probe-output.txt,"390, 360, 320 px; automated names test"
 2026-11-10,T5,TC-task-groups-T5-30,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-30/e2e-full-run-retest.txt,retest: BUG-006 verified and closed; swatch follows the next colour
 2026-11-10,T5,TC-task-groups-T5-27,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-30/e2e-full-run-retest.txt,retest: IME Enter ignored with isComposing and with keyCode 229 (new test); automated
+2026-11-10,T6,TC-task-groups-T6-01,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-01/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-02,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-02/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-03,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-03/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-04,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-04/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-05,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-05/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-06,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-06/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-07,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-07/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-08,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-08/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-09,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-09/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-10,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-10/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-11,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-11/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-12,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-12/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-13,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-13/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-14,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-14/runner-output.txt,live region text and polite checked by e2e; accessibility tree read
+2026-11-10,T6,TC-task-groups-T6-15,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-15/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-16,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-16/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-17,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-17/edit-light-1440.png,compared with edit-move and edit-move--saved at 1440 and 390; manual
+2026-11-10,T6,TC-task-groups-T6-18,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-18/e2e-full-run.txt,full e2e 368 passed 14 skipped; unit 65
+2026-11-10,T6,TC-task-groups-T6-19,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-19/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-20,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-20/edit-light-360.png,390 and 360
+2026-11-10,T6,TC-task-groups-T6-21,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-21/accessibility-tree-and-edit-markup.txt,"observation O-T6-1 raised, no bug"
+2026-11-10,T6,TC-task-groups-T6-22,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-22/runner-output.txt,"observation: identical text on repeat, node rewritten"
+2026-11-10,T6,TC-task-groups-T6-23,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-23/axe-run.txt,axe 12 runs clean

@@ -211,7 +211,7 @@ features:
         title: "Move a task through the edit form"
         owner: fe
         depends_on: [T5]
-        state: doing
+        state: done
         attempts: 0
         bugs_opened: []
         trello_card: ""
@@ -219,7 +219,7 @@ features:
         title: "Group bar and filter"
         owner: fe
         depends_on: [T6]
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""

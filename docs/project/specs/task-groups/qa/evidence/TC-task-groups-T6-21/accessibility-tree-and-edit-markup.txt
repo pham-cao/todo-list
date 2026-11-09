@@ -1,0 +1,57 @@
+- main "Việc cần làm hôm nay":
+  - heading "Việc cần làm hôm nay" [level=1]
+  - navigation:
+    - button "Xem ngày trước"
+    - button "Xem ngày sau"
+    - textbox "Chọn ngày": 2026-11-09
+    - text: Chọn ngày
+    - button "Về hôm nay" [disabled]
+  - paragraph: Hôm nay, Thứ Hai, 09/11/2026
+  - status:
+    - text: Đã hoàn thành
+    - strong: 0/2
+    - text: việc
+  - paragraph
+  - text: Bạn cần làm gì hôm nay?
+  - textbox "Bạn cần làm gì hôm nay?"
+  - text: Nhóm
+  - combobox "Nhóm":
+    - option "Chưa phân nhóm" [selected]
+    - option "Nhà"
+    - option "Nhóm mới..."
+  - button "Thêm"
+  - heading "Nhóm Nhà 0/1 việc đã hoàn thành" [level=2]:
+    - button "Nhóm Nhà 0/1 việc đã hoàn thành" [expanded]
+  - list:
+    - listitem:
+      - checkbox "Đánh dấu hoàn thành"
+      - text: Sửa
+      - textbox "Sửa": Tưới cây
+      - text: Nhóm
+      - combobox "Nhóm":
+        - option "Chưa phân nhóm"
+        - option "Nhà" [selected]
+      - button "Hủy"
+      - button "Lưu"
+  - heading "Nhóm Chưa phân nhóm 0/1 việc đã hoàn thành" [level=2]:
+    - button "Nhóm Chưa phân nhóm 0/1 việc đã hoàn thành" [expanded]
+  - list:
+    - listitem:
+      - checkbox "Đánh dấu hoàn thành"
+      - text: Đọc
+      - button "Sửa"
+      - button "Xóa"
+----
+<form class="task__edit" novalidate="">
+      <label class="visually-hidden" for="edit-a">Sửa</label>
+      <input class="input" type="text" autocomplete="off" id="edit-a">
+      <p class="field-error" role="alert" hidden="" id="edit-a-error"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4M12 16h.01"></path></svg><span class="field-error__text"></span></p>
+      <div class="task__edit-actions">
+        <span class="task__edit-group">
+          <label class="field-label" for="edit-a-group">Nhóm</label>
+          <span class="select"><span class="swatch" data-color="pink" aria-hidden="true"></span><select id="edit-a-group" data-from="nha"><option value="none">Chưa phân nhóm</option><option value="nha">Nhà</option></select><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></span>
+        </span>
+        <button class="btn btn--ghost" type="button" data-action="cancel">Hủy</button>
+        <button class="btn btn--primary" type="submit">Lưu</button>
+      </div>
+    </form>
