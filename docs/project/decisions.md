@@ -415,3 +415,8 @@ Choice (by PM):
 - Group names are stored as typed (not NFC normalised); only the length and duplicate checks use NFC: confirmed, intended.
 - Two tabs, last writer wins on the groups key: accepted as a residual risk; the existing backlog follow up for multi tab sync covers it.
 - No qa-test-generator specialist: each FE task writes its own e2e tests in a new tests/e2e/groups.spec.js using tests/e2e/helpers.js; QA executes and fills gaps.
+
+## 2026-11-09: task-groups BUG-005: section toggle name conflicts with WCAG 2.5.3 (label in name)
+Options: Change the name so it starts with or contains the visible text, Waive the axe rule, Move the count outside the button
+Choice: Fix it: the toggle's accessible name must contain its visible text ("{name} {d}/{t}") so axe label-content-name-mismatch passes, while still telling screen reader users it is a group and its progress (for example the visible text as the name plus a description). R63 wording is amended accordingly; FE picks the simplest markup that passes axe and reads well in Vietnamese (by PM)
+Reason: Accessibility is not waived; the change is small and reused by later tasks.

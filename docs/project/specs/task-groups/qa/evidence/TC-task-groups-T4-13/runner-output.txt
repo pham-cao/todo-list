@@ -1,0 +1,7 @@
+Command: npx playwright test tests/e2e/groups.spec.js --reporter=list (2026-11-09, desktop and mobile projects)
+  ✓  15 [desktop] › tests/e2e/groups.spec.js:137:1 › group names are shown as text, never as markup (115ms)
+  ✓  16 [mobile] › tests/e2e/groups.spec.js:137:1 › group names are shown as text, never as markup (135ms)
+
+
+  1 skipped
+  45 passed (12.2s)

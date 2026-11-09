@@ -1,0 +1,314 @@
+[
+ {
+  "w": 1440,
+  "scheme": "light",
+  "view": "sections",
+  "v": [
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "n": 6,
+    "t": [
+     "section[data-key=\"cty\"] > .group__head > .group__toggle[type=\"button\"]",
+     "section[data-key=\"nha\"] > .group__head > .group__toggle[type=\"button\"]",
+     "section[data-key=\"jp\"] > .group__head > .group__toggle[type=\"button\"]"
+    ]
+   }
+  ],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 36
+ },
+ {
+  "w": 1440,
+  "scheme": "light",
+  "view": "collapsed",
+  "v": [
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "n": 6,
+    "t": [
+     "section[data-key=\"cty\"] > .group__head > .group__toggle[type=\"button\"]",
+     "section[data-key=\"nha\"] > .group__head > .group__toggle[type=\"button\"]",
+     "section[data-key=\"jp\"] > .group__head > .group__toggle[type=\"button\"]"
+    ]
+   }
+  ],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 36
+ },
+ {
+  "w": 1440,
+  "scheme": "light",
+  "view": "plain",
+  "v": [],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 36
+ },
+ {
+  "w": 1440,
+  "scheme": "dark",
+  "view": "sections",
+  "v": [
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "n": 6,
+    "t": [
+     "section[data-key=\"cty\"] > .group__head > .group__toggle[type=\"button\"]",
+     "section[data-key=\"nha\"] > .group__head > .group__toggle[type=\"button\"]",
+     "section[data-key=\"jp\"] > .group__head > .group__toggle[type=\"button\"]"
+    ]
+   }
+  ],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 36
+ },
+ {
+  "w": 1440,
+  "scheme": "dark",
+  "view": "collapsed",
+  "v": [
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "n": 6,
+    "t": [
+     "section[data-key=\"cty\"] > .group__head > .group__toggle[type=\"button\"]",
+     "section[data-key=\"nha\"] > .group__head > .group__toggle[type=\"button\"]",
+     "section[data-key=\"jp\"] > .group__head > .group__toggle[type=\"button\"]"
+    ]
+   }
+  ],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 36
+ },
+ {
+  "w": 1440,
+  "scheme": "dark",
+  "view": "plain",
+  "v": [],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 36
+ },
+ {
+  "w": 390,
+  "scheme": "light",
+  "view": "sections",
+  "v": [
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "n": 6,
+    "t": [
+     "section[data-key=\"cty\"] > .group__head > .group__toggle[type=\"button\"]",
+     "section[data-key=\"nha\"] > .group__head > .group__toggle[type=\"button\"]",
+     "section[data-key=\"jp\"] > .group__head > .group__toggle[type=\"button\"]"
+    ]
+   }
+  ],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 38
+ },
+ {
+  "w": 390,
+  "scheme": "light",
+  "view": "collapsed",
+  "v": [
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "n": 6,
+    "t": [
+     "section[data-key=\"cty\"] > .group__head > .group__toggle[type=\"button\"]",
+     "section[data-key=\"nha\"] > .group__head > .group__toggle[type=\"button\"]",
+     "section[data-key=\"jp\"] > .group__head > .group__toggle[type=\"button\"]"
+    ]
+   }
+  ],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 38
+ },
+ {
+  "w": 390,
+  "scheme": "light",
+  "view": "plain",
+  "v": [],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 38
+ },
+ {
+  "w": 390,
+  "scheme": "dark",
+  "view": "sections",
+  "v": [
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "n": 6,
+    "t": [
+     "section[data-key=\"cty\"] > .group__head > .group__toggle[type=\"button\"]",
+     "section[data-key=\"nha\"] > .group__head > .group__toggle[type=\"button\"]",
+     "section[data-key=\"jp\"] > .group__head > .group__toggle[type=\"button\"]"
+    ]
+   }
+  ],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 38
+ },
+ {
+  "w": 390,
+  "scheme": "dark",
+  "view": "collapsed",
+  "v": [
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "n": 6,
+    "t": [
+     "section[data-key=\"cty\"] > .group__head > .group__toggle[type=\"button\"]",
+     "section[data-key=\"nha\"] > .group__head > .group__toggle[type=\"button\"]",
+     "section[data-key=\"jp\"] > .group__head > .group__toggle[type=\"button\"]"
+    ]
+   }
+  ],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 38
+ },
+ {
+  "w": 390,
+  "scheme": "dark",
+  "view": "plain",
+  "v": [],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 38
+ },
+ {
+  "w": 360,
+  "scheme": "light",
+  "view": "sections",
+  "v": [
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "n": 6,
+    "t": [
+     "section[data-key=\"cty\"] > .group__head > .group__toggle[type=\"button\"]",
+     "section[data-key=\"nha\"] > .group__head > .group__toggle[type=\"button\"]",
+     "section[data-key=\"jp\"] > .group__head > .group__toggle[type=\"button\"]"
+    ]
+   }
+  ],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 38
+ },
+ {
+  "w": 360,
+  "scheme": "light",
+  "view": "collapsed",
+  "v": [
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "n": 6,
+    "t": [
+     "section[data-key=\"cty\"] > .group__head > .group__toggle[type=\"button\"]",
+     "section[data-key=\"nha\"] > .group__head > .group__toggle[type=\"button\"]",
+     "section[data-key=\"jp\"] > .group__head > .group__toggle[type=\"button\"]"
+    ]
+   }
+  ],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 38
+ },
+ {
+  "w": 360,
+  "scheme": "light",
+  "view": "plain",
+  "v": [],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 38
+ },
+ {
+  "w": 360,
+  "scheme": "dark",
+  "view": "sections",
+  "v": [
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "n": 6,
+    "t": [
+     "section[data-key=\"cty\"] > .group__head > .group__toggle[type=\"button\"]",
+     "section[data-key=\"nha\"] > .group__head > .group__toggle[type=\"button\"]",
+     "section[data-key=\"jp\"] > .group__head > .group__toggle[type=\"button\"]"
+    ]
+   }
+  ],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 38
+ },
+ {
+  "w": 360,
+  "scheme": "dark",
+  "view": "collapsed",
+  "v": [
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "n": 6,
+    "t": [
+     "section[data-key=\"cty\"] > .group__head > .group__toggle[type=\"button\"]",
+     "section[data-key=\"nha\"] > .group__head > .group__toggle[type=\"button\"]",
+     "section[data-key=\"jp\"] > .group__head > .group__toggle[type=\"button\"]"
+    ]
+   }
+  ],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 38
+ },
+ {
+  "w": 360,
+  "scheme": "dark",
+  "view": "plain",
+  "v": [],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 38
+ }
+]

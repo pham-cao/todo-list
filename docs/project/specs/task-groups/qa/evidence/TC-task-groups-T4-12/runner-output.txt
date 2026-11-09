@@ -1,0 +1,7 @@
+Command: npx playwright test tests/e2e/groups.spec.js --reporter=list (2026-11-09, desktop and mobile projects)
+  ✓  26 [desktop] › tests/e2e/groups.spec.js:220:1 › each day builds only its own sections with the same rules (157ms)
+  ✓  32 [mobile] › tests/e2e/groups.spec.js:220:1 › each day builds only its own sections with the same rules (147ms)
+
+
+  1 skipped
+  45 passed (12.2s)

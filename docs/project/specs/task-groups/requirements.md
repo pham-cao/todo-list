@@ -70,7 +70,7 @@ New text is exact. Text not listed here stays as in `daily-task-log` and `day-na
 | Move all error, nothing saved | Không thể lưu thay đổi. Chưa có việc nào được chuyển. |
 | Move all, group has no tasks (button inactive hint) | Nhóm này chưa có việc nào. |
 | Section header count | {done}/{total} |
-| Section toggle accessible name | Nhóm {name}, đã hoàn thành {done}/{total} việc |
+| Section toggle accessible name | Nhóm {name} {done}/{total} việc đã hoàn thành (the visible "{name} {done}/{total}" stays one unbroken piece) |
 | Filter label | Lọc theo nhóm |
 | Filter option, all | Tất cả nhóm |
 | Filter option, ungrouped | Chưa phân nhóm |
@@ -248,7 +248,9 @@ R72. IF the group chosen in the add form was the source group THEN THE SYSTEM SH
 
 R62. THE SYSTEM SHALL make every group control usable with the keyboard alone: the group choice (native select), the name input, "Tạo nhóm", "Quản lý nhóm", the colour choices, the filter, the section toggles, and the dialog buttons, in a logical Tab order, with Enter to confirm and Escape to cancel, each with its Vietnamese accessible name from the table.
 
-R63. THE SYSTEM SHALL give each section header a heading role containing the toggle button, with the accessible name "Nhóm {name}, đã hoàn thành {done}/{total} việc", so that a screen reader user can jump between sections.
+R63. THE SYSTEM SHALL give each section header a heading role containing the toggle button, with the accessible name "Nhóm {name} {done}/{total} việc đã hoàn thành" (for example "Nhóm Công ty 1/3 việc đã hoàn thành"). The name is the visible text "{name} {done}/{total}" with visually hidden words added before and after it, and the visible text stays one unbroken piece of the name, so that a screen reader user can jump between sections and a voice control user can activate the toggle by saying what they see.
+
+R63a. THE SYSTEM SHALL give every control an accessible name that contains its visible text as one unbroken piece (WCAG 2.5.3 Label in Name). Extra context is added around the visible text, never in place of it or in the middle of it.
 
 R64. THE SYSTEM SHALL fit a 360 pixel wide phone screen without horizontal scrolling, with all new controls (toggle, filter, colour choices, buttons) at least 44 by 44 pixels to tap. On a phone the group choice and the add input may sit on two lines. The swipe actions of task rows keep working inside sections.
 

@@ -1,0 +1,84 @@
+ARIA SNAPSHOT of #day-list
+- heading "Nhóm Công ty 1/2 việc đã hoàn thành" [level=2]:
+  - button "Nhóm Công ty 1/2 việc đã hoàn thành" [expanded]
+- list:
+  - listitem:
+    - checkbox "Đánh dấu hoàn thành" [checked]
+    - text: Gửi báo cáo
+    - button "Sửa"
+    - button "Xóa"
+  - listitem:
+    - checkbox "Đánh dấu hoàn thành"
+    - text: Họp
+    - button "Sửa"
+    - button "Xóa"
+- heading "Nhóm Nhà 0/1 việc đã hoàn thành" [level=2]:
+  - button "Nhóm Nhà 0/1 việc đã hoàn thành" [expanded]
+- list:
+  - listitem:
+    - checkbox "Đánh dấu hoàn thành"
+    - text: Chuyển khoản
+    - button "Sửa"
+    - button "Xóa"
+- heading "Nhóm Chưa phân nhóm 0/1 việc đã hoàn thành" [level=2]:
+  - button "Nhóm Chưa phân nhóm 0/1 việc đã hoàn thành" [expanded]
+- list:
+  - listitem:
+    - checkbox "Đánh dấu hoàn thành"
+    - text: Cắt tóc
+    - button "Sửa"
+    - button "Xóa"
+tab 1: BUTTON
+tab 2: BUTTON [expanded=true]
+tab 3: Đánh dấu hoàn thành
+tab 4: Sửa
+tab 5: Xóa
+tab 6: Đánh dấu hoàn thành
+tab 7: Sửa
+tab 8: Xóa
+tab 9: BUTTON [expanded=true]
+tab 10: Đánh dấu hoàn thành
+tab 11: Sửa
+tab 12: Xóa
+tab 13: BUTTON [expanded=true]
+tab 14: Đánh dấu hoàn thành
+tab 15: Sửa
+tab 16: Xóa
+tab 17: BODY
+tab 18: Xem ngày trước
+tab 19: Xem ngày sau
+tab 20: Chọn ngày
+tab 21: Chọn ngày
+tab 22: Chọn ngày
+after Enter on first toggle: focus=BUTTON [expanded=false] ; visible rows=2
+Tab from collapsed toggle goes to: BUTTON [expanded=true]
+after Space: focus=BUTTON [expanded=true] ; visible rows=4
+ARIA SNAPSHOT collapsed Nhà
+
+- heading "Nhóm Công ty 1/2 việc đã hoàn thành" [level=2]:
+  - button "Nhóm Công ty 1/2 việc đã hoàn thành" [expanded]
+- list:
+  - listitem:
+    - checkbox "Đánh dấu hoàn thành" [checked]
+    - text: Gửi báo cáo
+    - button "Sửa"
+    - button "Xóa"
+  - listitem:
+    - checkbox "Đánh dấu hoàn thành"
+    - text: Họp
+    - button "Sửa"
+    - button "Xóa"
+- heading "Nhóm Nhà 0/1 việc đã hoàn thành" [level=2]:
+  - button "Nhóm Nhà 0/1 việc đã hoàn thành"
+- heading "Nhóm Chưa phân nhóm 0/1 việc đã hoàn thành" [level=2]:
+  - button "Nhóm Chưa phân nhóm 0/1 việc đã hoàn thành" [expanded]
+- list:
+  - listitem:
+    - checkbox "Đánh dấu hoàn thành"
+    - text: Cắt tóc
+    - button "Sửa"
+    - button "Xóa"
+summary role=status aria-live=null
+after Space on checkbox: focus kept=true ; count=2/2 name=null
+edit open then collapse: edit input visible=false value kept=Đang sửa dở
+expand again: edit visible=true value=Đang sửa dở

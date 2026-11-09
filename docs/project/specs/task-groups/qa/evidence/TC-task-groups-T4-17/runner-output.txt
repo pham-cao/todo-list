@@ -1,0 +1,7 @@
+Command: npx playwright test tests/e2e/groups.spec.js --reporter=list (2026-11-09, desktop and mobile projects)
+  ✓  23 [desktop] › tests/e2e/groups.spec.js:191:1 › an open edit stays open with its text when a row in another section is ticked (176ms)
+  ✓  25 [mobile] › tests/e2e/groups.spec.js:191:1 › an open edit stays open with its text when a row in another section is ticked (174ms)
+
+
+  1 skipped
+  45 passed (12.2s)

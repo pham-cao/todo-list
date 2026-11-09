@@ -61,7 +61,7 @@ R59,TC-task-groups-T3-12;TC-task-groups-T3-13;TC-task-groups-T3-14;TC-task-group
 R60,TC-task-groups-T3-20;TC-task-groups-T11-10,
 R61,TC-task-groups-T2-13;TC-task-groups-T3-17;TC-task-groups-T3-18;TC-task-groups-T10-16;TC-task-groups-T10-17;TC-task-groups-T11-11;TC-task-groups-T11-12;TC-task-groups-T11-17;TC-task-groups-T11-26,
 R62,TC-task-groups-T5-02;TC-task-groups-T5-20;TC-task-groups-T5-26;TC-task-groups-T6-13;TC-task-groups-T7-17;TC-task-groups-T7-18;TC-task-groups-T7-21;TC-task-groups-T8-04;TC-task-groups-T8-17;TC-task-groups-T9-13;TC-task-groups-T9-18;TC-task-groups-T10-25;TC-task-groups-T11-01,
-R63,TC-task-groups-T4-05;TC-task-groups-T4-18;TC-task-groups-T11-19,
+R63,TC-task-groups-T4-05;TC-task-groups-T4-18;TC-task-groups-T11-19,BUG-005
 R64,TC-task-groups-T4-15;TC-task-groups-T6-12;TC-task-groups-T7-19;TC-task-groups-T8-18;TC-task-groups-T10-22;TC-task-groups-T11-02;TC-task-groups-T11-03;TC-task-groups-T11-29,
 R65,TC-task-groups-T3-01;TC-task-groups-T4-13;TC-task-groups-T5-19;TC-task-groups-T8-13;TC-task-groups-T9-16;TC-task-groups-T11-15,
 R66,TC-task-groups-T4-19;TC-task-groups-T5-25;TC-task-groups-T6-17;TC-task-groups-T7-22;TC-task-groups-T8-21;TC-task-groups-T9-19;TC-task-groups-T10-23;TC-task-groups-T11-04;TC-task-groups-T11-06;TC-task-groups-T11-23,
@@ -76,6 +76,6 @@ NFR2,TC-task-groups-T1-07;TC-task-groups-T3-16;TC-task-groups-T4-13;TC-task-grou
 NFR3,TC-task-groups-T2-12;TC-task-groups-T2-15;TC-task-groups-T3-18;TC-task-groups-T9-07;TC-task-groups-T9-17;TC-task-groups-T10-15;TC-task-groups-T10-21;TC-task-groups-T11-09;TC-task-groups-T11-12;TC-task-groups-T11-17;TC-task-groups-T11-18;TC-task-groups-T11-32,
 NFR4,TC-task-groups-T2-02;TC-task-groups-T2-06;TC-task-groups-T2-20;TC-task-groups-T11-07;TC-task-groups-T11-08;TC-task-groups-T11-32,
 NFR5,TC-task-groups-T1-01;TC-task-groups-T1-02;TC-task-groups-T1-03;TC-task-groups-T1-04;TC-task-groups-T1-05;TC-task-groups-T1-06;TC-task-groups-T1-07;TC-task-groups-T1-08;TC-task-groups-T1-09;TC-task-groups-T1-10;TC-task-groups-T11-31,
-NFR6,TC-task-groups-T4-18;TC-task-groups-T8-20;TC-task-groups-T10-24;TC-task-groups-T11-19,
+NFR6,TC-task-groups-T4-18;TC-task-groups-T8-20;TC-task-groups-T10-24;TC-task-groups-T11-19,BUG-005
 NFR7,TC-task-groups-T11-20;TC-task-groups-T11-21,
 NFR8,TC-task-groups-T11-22,

@@ -1,0 +1,303 @@
+
+Running 298 tests using 6 workers
+
+[1/298] [mobile] › tests/e2e/groups.spec.js:28:1 › sections follow group creation order, Chưa phân nhóm last, empty groups hidden, rows oldest first
+[2/298] [desktop] › tests/e2e/app.spec.js:4:1 › page has the expected title and the date line for today
+[3/298] [desktop] › tests/e2e/groups.spec.js:28:1 › sections follow group creation order, Chưa phân nhóm last, empty groups hidden, rows oldest first
+[4/298] [desktop] › tests/e2e/day-nav.spec.js:26:1 › nav row has the named buttons, the date stamp and a live date line
+[5/298] [mobile] › tests/e2e/day-nav.spec.js:26:1 › nav row has the named buttons, the date stamp and a live date line
+[6/298] [mobile] › tests/e2e/app.spec.js:4:1 › page has the expected title and the date line for today
+[7/298] [desktop] › tests/e2e/app.spec.js:16:1 › shows only today's tasks, oldest first, with their done state and summary
+[8/298] [mobile] › tests/e2e/groups.spec.js:41:1 › each header is an h2 holding the toggle named with the group and its count
+[9/298] [desktop] › tests/e2e/groups.spec.js:41:1 › each header is an h2 holding the toggle named with the group and its count
+[10/298] [mobile] › tests/e2e/day-nav.spec.js:44:1 › loading yesterday from the address shows its wording, tasks and summary
+[11/298] [desktop] › tests/e2e/day-nav.spec.js:44:1 › loading yesterday from the address shows its wording, tasks and summary
+[12/298] [mobile] › tests/e2e/app.spec.js:16:1 › shows only today's tasks, oldest first, with their done state and summary
+[13/298] [desktop] › tests/e2e/app.spec.js:41:1 › shows the empty state with no rows, progress or summary
+[14/298] [mobile] › tests/e2e/groups.spec.js:53:1 › a day with only ungrouped tasks, and a task with an unknown group, show the plain list
+[15/298] [desktop] › tests/e2e/groups.spec.js:53:1 › a day with only ungrouped tasks, and a task with an unknown group, show the plain list
+[16/298] [mobile] › tests/e2e/day-nav.spec.js:57:1 › an empty future day and an empty past day show their own empty text
+[17/298] [desktop] › tests/e2e/day-nav.spec.js:57:1 › an empty future day and an empty past day show their own empty text
+[18/298] [mobile] › tests/e2e/app.spec.js:41:1 › shows the empty state with no rows, progress or summary
+[19/298] [desktop] › tests/e2e/app.spec.js:51:1 › shows the star stamp without the celebration when every task is done
+[20/298] [mobile] › tests/e2e/groups.spec.js:66:1 › a tick and an untick update the header count and the summary, keep the row in place, and persist
+[21/298] [desktop] › tests/e2e/groups.spec.js:66:1 › a tick and an untick update the header count and the summary, keep the row in place, and persist
+[22/298] [mobile] › tests/e2e/app.spec.js:51:1 › shows the star stamp without the celebration when every task is done
+[23/298] [desktop] › tests/e2e/app.spec.js:58:1 › shows task text as plain text, never as markup
+[24/298] [mobile] › tests/e2e/day-nav.spec.js:76:1 › today keeps its own wording on the plain address
+[25/298] [desktop] › tests/e2e/day-nav.spec.js:76:1 › today keeps its own wording on the plain address
+[26/298] [mobile] › tests/e2e/app.spec.js:58:1 › shows task text as plain text, never as markup
+[27/298] [desktop] › tests/e2e/app.spec.js:67:1 › adds a task with Thêm and Enter, keeps focus, and keeps it after reload
+[28/298] [mobile] › tests/e2e/day-nav.spec.js:84:1 › arriving on an all done day shows the stamp without the celebration
+[29/298] [desktop] › tests/e2e/day-nav.spec.js:84:1 › arriving on an all done day shows the stamp without the celebration
+[30/298] [desktop] › tests/e2e/groups.spec.js:81:1 › a section collapses with a click, Enter and Space, and the fold is remembered across reload and days
+[31/298] [mobile] › tests/e2e/app.spec.js:67:1 › adds a task with Thêm and Enter, keeps focus, and keeps it after reload
+[32/298] [mobile] › tests/e2e/groups.spec.js:81:1 › a section collapses with a click, Enter and Space, and the fold is remembered across reload and days
+[33/298] [mobile] › tests/e2e/day-nav.spec.js:94:1 › ticking the last task on the viewed day still celebrates
+[34/298] [desktop] › tests/e2e/day-nav.spec.js:94:1 › ticking the last task on the viewed day still celebrates
+[35/298] [desktop] › tests/e2e/app.spec.js:88:1 › adding the first task replaces the empty state
+[36/298] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-02-30 shows today and cleans the address without a history entry
+[37/298] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-02-30 shows today and cleans the address without a history entry
+[38/298] [mobile] › tests/e2e/app.spec.js:88:1 › adding the first task replaces the empty state
+[39/298] [mobile] › tests/e2e/groups.spec.js:111:1 › Chưa phân nhóm can be folded when another section is shown, and the plain list has no toggle
+[40/298] [desktop] › tests/e2e/groups.spec.js:111:1 › Chưa phân nhóm can be folded when another section is shown, and the plain list has no toggle
+[41/298] [desktop] › tests/e2e/app.spec.js:96:1 › empty or blank input shows the empty text error, and typing removes it
+[42/298] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash #1999-12-31 shows today and cleans the address without a history entry
+[43/298] [mobile] › tests/e2e/app.spec.js:96:1 › empty or blank input shows the empty text error, and typing removes it
+[44/298] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash #1999-12-31 shows today and cleans the address without a history entry
+[45/298] [desktop] › tests/e2e/app.spec.js:111:1 › over 200 characters shows the too long error; exactly 200 after trim is added
+[46/298] [desktop] › tests/e2e/groups.spec.js:124:1 › a collapsed section still counts in the summary, the progress mark and the stamp
+[47/298] [mobile] › tests/e2e/groups.spec.js:124:1 › a collapsed section still counts in the summary, the progress mark and the stamp
+[48/298] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash #2100-01-01 shows today and cleans the address without a history entry
+[49/298] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash #2100-01-01 shows today and cleans the address without a history entry
+[50/298] [mobile] › tests/e2e/app.spec.js:111:1 › over 200 characters shows the too long error; exactly 200 after trim is added
+[51/298] [desktop] › tests/e2e/app.spec.js:127:1 › ticking saves, keeps the row in place and updates the summary and ink circle
+[52/298] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash #abc shows today and cleans the address without a history entry
+[53/298] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash #abc shows today and cleans the address without a history entry
+[54/298] [desktop] › tests/e2e/groups.spec.js:137:1 › group names are shown as text, never as markup
+[55/298] [mobile] › tests/e2e/app.spec.js:127:1 › ticking saves, keeps the row in place and updates the summary and ink circle
+[56/298] [mobile] › tests/e2e/groups.spec.js:137:1 › group names are shown as text, never as markup
+[57/298] [desktop] › tests/e2e/app.spec.js:137:1 › unticking after a reload saves and keeps the order
+[58/298] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-1-5 shows today and cleans the address without a history entry
+[59/298] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-1-5 shows today and cleans the address without a history entry
+[60/298] [desktop] › tests/e2e/groups.spec.js:149:1 › six colours give six coloured headers; an unknown colour shows as yellow
+[61/298] [mobile] › tests/e2e/groups.spec.js:149:1 › six colours give six coloured headers; an unknown colour shows as yellow
+[62/298] [mobile] › tests/e2e/app.spec.js:137:1 › unticking after a reload saves and keeps the order
+[63/298] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-13-01 shows today and cleans the address without a history entry
+[64/298] [desktop] › tests/e2e/groups.spec.js:161:1 › deleting the last task of a section removes it; the last grouped task turns the day into the plain list
+[65/298] [mobile] › tests/e2e/groups.spec.js:161:1 › deleting the last task of a section removes it; the last grouped task turns the day into the plain list
+[66/298] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-13-01 shows today and cleans the address without a history entry
+[67/298] [desktop] › tests/e2e/app.spec.js:151:1 › ticking the last open task stamps the star, celebrates briefly, and unticking clears it
+[68/298] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash # shows today and cleans the address without a history entry
+[69/298] [mobile] › tests/e2e/app.spec.js:151:1 › ticking the last open task stamps the star, celebrates briefly, and unticking clears it
+[70/298] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash # shows today and cleans the address without a history entry
+[71/298] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-11-09 shows today and cleans the address without a history entry
+[72/298] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-11-09 shows today and cleans the address without a history entry
+[73/298] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash #<img src=x onerror=alert(1)> shows today and cleans the address without a history entry
+[74/298] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash #<img src=x onerror=alert(1)> shows today and cleans the address without a history entry
+[75/298] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-11-08%3Cb%3E shows today and cleans the address without a history entry
+[76/298] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-11-08%3Cb%3E shows today and cleans the address without a history entry
+[77/298] [mobile] › tests/e2e/day-nav.spec.js:123:1 › a hash equal to today on first load is replaced, not pushed
+[78/298] [desktop] › tests/e2e/day-nav.spec.js:123:1 › a hash equal to today on first load is replaced, not pushed
+[79/298] [mobile] › tests/e2e/day-nav.spec.js:130:1 › Về hôm nay is muted on today and filled on other days
+[80/298] [desktop] › tests/e2e/day-nav.spec.js:130:1 › Về hôm nay is muted on today and filled on other days
+[81/298] [mobile] › tests/e2e/day-nav.spec.js:142:1 › the app works under a subpath: relative assets, address keeps path and query
+[82/298] [desktop] › tests/e2e/day-nav.spec.js:142:1 › the app works under a subpath: relative assets, address keeps path and query
+[83/298] [mobile] › tests/e2e/day-nav.spec.js:162:1 › new nav controls and day wording are Vietnamese with diacritics
+[84/298] [desktop] › tests/e2e/day-nav.spec.js:162:1 › new nav controls and day wording are Vietnamese with diacritics
+[85/298] [desktop] › tests/e2e/app.spec.js:169:1 › adding a task while all are done removes the stamp
+[86/298] [mobile] › tests/e2e/app.spec.js:169:1 › adding a task while all are done removes the stamp
+[87/298] [desktop] › tests/e2e/day-nav.spec.js:175:1 › previous and next move one day, write the address and never reload
+[88/298] [mobile] › tests/e2e/day-nav.spec.js:175:1 › previous and next move one day, write the address and never reload
+[89/298] [desktop] › tests/e2e/app.spec.js:182:1 › Sửa opens a prefilled, focused edit line; Lưu saves and keeps done state and position
+[90/298] [mobile] › tests/e2e/app.spec.js:182:1 › Sửa opens a prefilled, focused edit line; Lưu saves and keeps done state and position
+[91/298] [desktop] › tests/e2e/day-nav.spec.js:201:1 › Về hôm nay returns to today, removes the hash and keeps focus
+[92/298] [mobile] › tests/e2e/day-nav.spec.js:201:1 › Về hôm nay returns to today, removes the hash and keeps focus
+[93/298] [desktop] › tests/e2e/app.spec.js:212:1 › invalid edit text keeps edit mode with the matching error and the old saved text
+[94/298] [mobile] › tests/e2e/app.spec.js:212:1 › invalid edit text keeps edit mode with the matching error and the old saved text
+[95/298] [desktop] › tests/e2e/day-nav.spec.js:213:1 › Về hôm nay on today does nothing with click, Enter or Space
+[96/298] [mobile] › tests/e2e/day-nav.spec.js:213:1 › Về hôm nay on today does nothing with click, Enter or Space
+[97/298] [desktop] › tests/e2e/day-nav.spec.js:226:1 › Enter and Space on the nav buttons move and keep focus
+[98/298] [mobile] › tests/e2e/day-nav.spec.js:226:1 › Enter and Space on the nav buttons move and keep focus
+[99/298] [desktop] › tests/e2e/app.spec.js:234:1 › Hủy and Escape leave edit mode and keep the old text
+[100/298] [mobile] › tests/e2e/app.spec.js:234:1 › Hủy and Escape leave edit mode and keep the old text
+[101/298] [mobile] › tests/e2e/groups.spec.js:182:1 › delete focus skips rows in a folded section and falls back to the previous row
+[102/298] [desktop] › tests/e2e/day-nav.spec.js:243:1 › browser Back and Forward retrace three moves day by day
+[103/298] [mobile] › tests/e2e/day-nav.spec.js:243:1 › browser Back and Forward retrace three moves day by day
+[104/298] [desktop] › tests/e2e/app.spec.js:253:1 › only one row edits at a time, and adding and ticking still work while editing
+[105/298] [mobile] › tests/e2e/app.spec.js:253:1 › only one row edits at a time, and adding and ticking still work while editing
+[106/298] [desktop] › tests/e2e/groups.spec.js:182:1 › delete focus skips rows in a folded section and falls back to the previous row
+[107/298] [desktop] › tests/e2e/day-nav.spec.js:266:3 › pressing past the year bound on #2099-12-31 changes nothing
+[108/298] [mobile] › tests/e2e/day-nav.spec.js:266:3 › pressing past the year bound on #2099-12-31 changes nothing
+[109/298] [desktop] › tests/e2e/app.spec.js:275:1 › edit accepts exactly 200 characters (trimmed) and rejects 201
+[110/298] [desktop] › tests/e2e/day-nav.spec.js:266:3 › pressing past the year bound on #2000-01-01 changes nothing
+[111/298] [mobile] › tests/e2e/day-nav.spec.js:266:3 › pressing past the year bound on #2000-01-01 changes nothing
+[112/298] [mobile] › tests/e2e/app.spec.js:275:1 › edit accepts exactly 200 characters (trimmed) and rejects 201
+[113/298] [mobile] › tests/e2e/day-nav.spec.js:280:1 › moves cross year end and the leap day
+[114/298] [desktop] › tests/e2e/day-nav.spec.js:280:1 › moves cross year end and the leap day
+[115/298] [desktop] › tests/e2e/app.spec.js:287:1 › the editing row keeps the highlighter wash under mouse hover
+[116/298] [mobile] › tests/e2e/groups.spec.js:191:1 › an open edit stays open with its text when a row in another section is ticked
+[117/298] [mobile] › tests/e2e/app.spec.js:287:1 › the editing row keeps the highlighter wash under mouse hover
+[118/298] [mobile] › tests/e2e/app.spec.js:303:1 › Xóa opens the sticky note with the task quoted and focus on Giữ lại
+[119/298] [mobile] › tests/e2e/day-nav.spec.js:294:1 › a move drops an open edit without saving it
+[120/298] [desktop] › tests/e2e/day-nav.spec.js:294:1 › a move drops an open edit without saving it
+[121/298] [mobile] › tests/e2e/app.spec.js:314:1 › Giữ lại, Escape and a backdrop click keep the task and return focus to Xóa
+[122/298] [mobile] › tests/e2e/groups.spec.js:203:1 › an ungrouped task added to a day of sections lands in Chưa phân nhóm and opens it when folded
+[123/298] [desktop] › tests/e2e/app.spec.js:303:1 › Xóa opens the sticky note with the task quoted and focus on Giữ lại
+[124/298] [desktop] › tests/e2e/groups.spec.js:191:1 › an open edit stays open with its text when a row in another section is ticked
+[125/298] [desktop] › tests/e2e/app.spec.js:314:1 › Giữ lại, Escape and a backdrop click keep the task and return focus to Xóa
+[126/298] [mobile] › tests/e2e/day-nav.spec.js:306:1 › a move closes an open delete note without deleting
+[127/298] [desktop] › tests/e2e/day-nav.spec.js:306:1 › a move closes an open delete note without deleting
+[128/298] [desktop] › tests/e2e/groups.spec.js:203:1 › an ungrouped task added to a day of sections lands in Chưa phân nhóm and opens it when folded
+[129/298] [mobile] › tests/e2e/groups.spec.js:220:1 › each day builds only its own sections with the same rules
+[130/298] [mobile] › tests/e2e/groups.spec.js:235:1 › groups and UI state that cannot be read leave the plain list and no error
+[131/298] [mobile] › tests/e2e/groups.spec.js:258:1 › on a phone the peek skips a folded section, and swipe, tick and delete work inside sections
+[132/298] [mobile] › tests/e2e/day-nav.spec.js:319:1 › a move clears the add error and keeps the typed add text
+[133/298] [desktop] › tests/e2e/groups.spec.js:220:1 › each day builds only its own sections with the same rules
+[134/298] [desktop] › tests/e2e/day-nav.spec.js:319:1 › a move clears the add error and keeps the typed add text
+[135/298] [desktop] › tests/e2e/groups.spec.js:235:1 › groups and UI state that cannot be read leave the plain list and no error
+[136/298] [mobile] › tests/e2e/day-nav.spec.js:336:1 › a move leaves no row swiped open on a phone
+[137/298] [desktop] › tests/e2e/day-nav.spec.js:336:1 › a move leaves no row swiped open on a phone
+[138/298] [desktop] › tests/e2e/groups.spec.js:258:1 › on a phone the peek skips a folded section, and swipe, tick and delete work inside sections
+[139/298] [desktop] › tests/e2e/day-nav.spec.js:350:1 › changing the hash on a loaded page shows that day, then today
+[140/298] [mobile] › tests/e2e/app.spec.js:337:1 › Xóa việc removes the task, saves, updates the summary and moves focus on
+[141/298] [desktop] › tests/e2e/groups.spec.js:280:1 › 200 tasks in 5 groups: render, collapse and tick each under 100 ms
+[142/298] [desktop] › tests/e2e/app.spec.js:337:1 › Xóa việc removes the task, saves, updates the summary and moves focus on
+[143/298] [mobile] › tests/e2e/day-nav.spec.js:350:1 › changing the hash on a loaded page shows that day, then today
+[144/298] [desktop] › tests/e2e/day-nav.spec.js:365:1 › moving around never writes the tasks
+[145/298] [mobile] › tests/e2e/day-nav.spec.js:365:1 › moving around never writes the tasks
+[146/298] [desktop] › tests/e2e/groups.spec.js:305:1 › local midnight with sections on screen: the new day starts empty, folds stay, the old day keeps its sections
+[147/298] [desktop] › tests/e2e/groups.spec.js:318:1 › Back and Forward between days rebuild the right sections
+[148/298] [desktop] › tests/e2e/day-nav.spec.js:382:1 › under a subpath, moves keep the path and query and Về hôm nay restores the plain address
+[149/298] [mobile] › tests/e2e/day-nav.spec.js:382:1 › under a subpath, moves keep the path and query and Về hôm nay restores the plain address
+[150/298] [desktop] › tests/e2e/groups.spec.js:329:1 › older data without groups or UI keys is shown as before and never rewritten by viewing, folding or ticking
+[151/298] [desktop] › tests/e2e/day-nav.spec.js:402:1 › the date line is one live region that changes once per move
+[152/298] [desktop] › tests/e2e/groups.spec.js:341:1 › ticking keeps the groupId of every task and writes nothing to the groups key
+[153/298] [mobile] › tests/e2e/day-nav.spec.js:402:1 › the date line is one live region that changes once per move
+[154/298] [desktop] › tests/e2e/day-nav.spec.js:417:1 › Về hôm nay after a silent midnight moves to the new today and keeps focus
+[155/298] [desktop] › tests/e2e/groups.spec.js:350:1 › groups storage that cannot be read: slip shown, tasks still listed, day still usable
+[156/298] [mobile] › tests/e2e/day-nav.spec.js:417:1 › Về hôm nay after a silent midnight moves to the new today and keeps focus
+[157/298] [desktop] › tests/e2e/day-nav.spec.js:433:1 › picking a date shows that day, writes the hash and keeps focus on the picker
+[158/298] [desktop] › tests/e2e/groups.spec.js:363:1 › a failing write of the fold shows the slip, and the section still folds in memory
+[159/298] [mobile] › tests/e2e/day-nav.spec.js:433:1 › picking a date shows that day, writes the hash and keeps focus on the picker
+[160/298] [desktop] › tests/e2e/day-nav.spec.js:445:1 › the picker follows the viewed day after every move, load, Back and midnight
+[161/298] [mobile] › tests/e2e/day-nav.spec.js:445:1 › the picker follows the viewed day after every move, load, Back and midnight
+[162/298] [desktop] › tests/e2e/day-nav.spec.js:463:1 › an empty or out of range pick changes nothing and the picker shows the viewed day after blur
+[163/298] [mobile] › tests/e2e/day-nav.spec.js:463:1 › an empty or out of range pick changes nothing and the picker shows the viewed day after blur
+[164/298] [desktop] › tests/e2e/day-nav.spec.js:477:1 › the first and last allowed days can be picked
+[165/298] [mobile] › tests/e2e/day-nav.spec.js:477:1 › the first and last allowed days can be picked
+[166/298] [desktop] › tests/e2e/day-nav.spec.js:487:1 › picking the viewed day adds no history entry; picking today removes the hash
+[167/298] [mobile] › tests/e2e/day-nav.spec.js:487:1 › picking the viewed day adds no history entry; picking today removes the hash
+[168/298] [desktop] › tests/e2e/day-nav.spec.js:499:1 › typing a date digit by digit ends on that day without jumping back
+[169/298] [mobile] › tests/e2e/day-nav.spec.js:499:1 › typing a date digit by digit ends on that day without jumping back
+[170/298] [desktop] › tests/e2e/day-nav.spec.js:512:1 › a partial year typed into the picker is kept while focused and reset on blur
+[171/298] [mobile] › tests/e2e/day-nav.spec.js:512:1 › a partial year typed into the picker is kept while focused and reset on blur
+[172/298] [desktop] › tests/e2e/day-nav.spec.js:528:1 › keyboard: Tab reaches the picker and arrow keys change the day while focus stays
+[173/298] [mobile] › tests/e2e/day-nav.spec.js:528:1 › keyboard: Tab reaches the picker and arrow keys change the day while focus stays
+[174/298] [desktop] › tests/e2e/day-nav.spec.js:546:1 › adding on yesterday saves that date at the end of its list with the real creation time
+[175/298] [mobile] › tests/e2e/day-nav.spec.js:546:1 › adding on yesterday saves that date at the end of its list with the real creation time
+[176/298] [desktop] › tests/e2e/day-nav.spec.js:560:1 › adding on an empty future day replaces the empty text and saves that date
+[177/298] [mobile] › tests/e2e/day-nav.spec.js:560:1 › adding on an empty future day replaces the empty text and saves that date
+[178/298] [desktop] › tests/e2e/day-nav.spec.js:569:1 › tick, edit and delete on another day keep date and order and save
+[179/298] [desktop] › tests/e2e/app.spec.js:369:1 › deleting a row while another row is being edited keeps that edit open
+[180/298] [mobile] › tests/e2e/groups.spec.js:280:1 › 200 tasks in 5 groups: render, collapse and tick each under 100 ms
+[181/298] [mobile] › tests/e2e/day-nav.spec.js:569:1 › tick, edit and delete on another day keep date and order and save
+[182/298] [mobile] › tests/e2e/app.spec.js:369:1 › deleting a row while another row is being edited keeps that edit open
+[183/298] [mobile] › tests/e2e/groups.spec.js:305:1 › local midnight with sections on screen: the new day starts empty, folds stay, the old day keeps its sections
+[184/298] [mobile] › tests/e2e/groups.spec.js:318:1 › Back and Forward between days rebuild the right sections
+[185/298] [mobile] › tests/e2e/groups.spec.js:329:1 › older data without groups or UI keys is shown as before and never rewritten by viewing, folding or ticking
+[186/298] [desktop] › tests/e2e/app.spec.js:381:1 › the sticky note sits in the middle of the viewport
+[187/298] [mobile] › tests/e2e/groups.spec.js:341:1 › ticking keeps the groupId of every task and writes nothing to the groups key
+[188/298] [mobile] › tests/e2e/groups.spec.js:350:1 › groups storage that cannot be read: slip shown, tasks still listed, day still usable
+[189/298] [mobile] › tests/e2e/groups.spec.js:363:1 › a failing write of the fold shows the slip, and the section still folds in memory
+[190/298] [mobile] › tests/e2e/app.spec.js:381:1 › the sticky note sits in the middle of the viewport
+[191/298] [desktop] › tests/e2e/app.spec.js:401:1 › the first row peeks once on a phone, and not again after a reload
+[192/298] [desktop] › tests/e2e/app.spec.js:419:1 › the peek waits for the first task, and only plays once
+[193/298] [desktop] › tests/e2e/app.spec.js:431:1 › under reduced motion the peek is skipped but remembered
+[194/298] [desktop] › tests/e2e/app.spec.js:442:1 › the desktop layout never peeks
+[195/298] [desktop] › tests/e2e/day-nav.spec.js:599:1 › ticking the last task on a future day celebrates
+[196/298] [desktop] › tests/e2e/app.spec.js:449:1 › only one row stays swiped open; a tap elsewhere closes it
+[197/298] [desktop] › tests/e2e/app.spec.js:466:1 › Tab to Sửa scrolls the row open; Giữ lại leaves only that row open
+[198/298] [desktop] › tests/e2e/app.spec.js:494:1 › no horizontal page scroll at 360 px with a long task
+[199/298] [desktop] › tests/e2e/day-nav.spec.js:606:1 › after midnight, viewing today follows to the new today with a plain address
+[200/298] [desktop] › tests/e2e/app.spec.js:521:1 › a real swipe opens one row; swiping another closes it; a tap outside closes all
+[201/298] [desktop] › tests/e2e/app.spec.js:538:1 › a blocked save shows the slip, the app keeps working in memory, and the next good save hides it
+[202/298] [desktop] › tests/e2e/day-nav.spec.js:616:1 › after midnight, viewing tomorrow stays and becomes today with a muted Về hôm nay and a plain address
+[203/298] [desktop] › tests/e2e/day-nav.spec.js:627:1 › after midnight, an older day stays with its open edit and plain wording
+[204/298] [desktop] › tests/e2e/app.spec.js:565:1 › a throwing localStorage shows the slip on load for the whole session; add, tick, edit and delete still work
+[205/298] [desktop] › tests/e2e/day-nav.spec.js:646:3 › after midnight, the wording of 2026-11-08 follows the new today
+[206/298] [mobile] › tests/e2e/day-nav.spec.js:599:1 › ticking the last task on a future day celebrates
+[207/298] [mobile] › tests/e2e/app.spec.js:401:1 › the first row peeks once on a phone, and not again after a reload
+[208/298] [desktop] › tests/e2e/day-nav.spec.js:646:3 › after midnight, the wording of 2026-11-11 follows the new today
+[209/298] [mobile] › tests/e2e/day-nav.spec.js:606:1 › after midnight, viewing today follows to the new today with a plain address
+[210/298] [desktop] › tests/e2e/day-nav.spec.js:657:1 › an add right after a silent midnight on another day saves to the viewed day
+[211/298] [mobile] › tests/e2e/day-nav.spec.js:616:1 › after midnight, viewing tomorrow stays and becomes today with a muted Về hôm nay and a plain address
+[212/298] [desktop] › tests/e2e/day-nav.spec.js:671:1 › on a past day an empty, blank or 201 character add shows the usual errors and stores nothing
+[213/298] [mobile] › tests/e2e/day-nav.spec.js:627:1 › after midnight, an older day stays with its open edit and plain wording
+[214/298] [desktop] › tests/e2e/day-nav.spec.js:682:1 › on a past day an invalid edit keeps edit mode and the stored task
+[215/298] [mobile] › tests/e2e/day-nav.spec.js:646:3 › after midnight, the wording of 2026-11-08 follows the new today
+[216/298] [desktop] › tests/e2e/day-nav.spec.js:694:1 › on another day the stamp follows tick, untick, add and delete; reload shows it without the celebration
+[217/298] [mobile] › tests/e2e/day-nav.spec.js:646:3 › after midnight, the wording of 2026-11-11 follows the new today
+[218/298] [desktop] › tests/e2e/app.spec.js:590:1 › corrupt stored data starts an empty list with no slip and no console error, and keeps a backup
+[219/298] [mobile] › tests/e2e/day-nav.spec.js:657:1 › an add right after a silent midnight on another day saves to the viewed day
+[220/298] [desktop] › tests/e2e/app.spec.js:610:1 › after a failed first read nothing is written to the tasks key, so earlier days are never overwritten
+[221/298] [mobile] › tests/e2e/day-nav.spec.js:671:1 › on a past day an empty, blank or 201 character add shows the usual errors and stores nothing
+[222/298] [desktop] › tests/e2e/app.spec.js:631:1 › the slip shows at once when a save fails on edit and on delete, and quota errors keep the stored value
+[223/298] [mobile] › tests/e2e/day-nav.spec.js:682:1 › on a past day an invalid edit keeps edit mode and the stored task
+[224/298] [mobile] › tests/e2e/day-nav.spec.js:694:1 › on another day the stamp follows tick, untick, add and delete; reload shows it without the celebration
+[225/298] [desktop] › tests/e2e/day-nav.spec.js:713:1 › each day lists and counts only its own tasks after adding on three days
+[226/298] [desktop] › tests/e2e/app.spec.js:660:1 › a stored non array value starts an empty list with no slip and no error
+[227/298] [desktop] › tests/e2e/day-nav.spec.js:727:1 › storage that refuses writes on another day shows the slip, keeps memory and the old stored value
+[228/298] [desktop] › tests/e2e/app.spec.js:675:1 › after midnight, returning to the page shows the new date and an empty list; yesterday stays stored
+[229/298] [desktop] › tests/e2e/day-nav.spec.js:743:1 › data saved by the daily task log in its exact shape shows on its days without conversion
+[230/298] [desktop] › tests/e2e/app.spec.js:687:1 › window focus also checks the day, and nothing changes on the same day
+[231/298] [desktop] › tests/e2e/day-nav.spec.js:756:1 › after midnight on an all done day nothing celebrates again and no page turn plays
+[232/298] [desktop] › tests/e2e/app.spec.js:696:1 › adding right after midnight saves the task to the new day on a fresh list
+[233/298] [desktop] › tests/e2e/day-nav.spec.js:785:1 › a move turns the page by direction and the classes go after the animation
+[234/298] [desktop] › tests/e2e/app.spec.js:706:1 › a day change drops an open edit and closes the delete note without saving or deleting
+[235/298] [mobile] › tests/e2e/day-nav.spec.js:713:1 › each day lists and counts only its own tasks after adding on three days
+[236/298] [mobile] › tests/e2e/day-nav.spec.js:727:1 › storage that refuses writes on another day shows the slip, keeps memory and the old stored value
+[237/298] [desktop] › tests/e2e/app.spec.js:723:1 › a day change does not replay the celebration or the swipe hint
+[238/298] [mobile] › tests/e2e/day-nav.spec.js:743:1 › data saved by the daily task log in its exact shape shows on its days without conversion
+[239/298] [desktop] › tests/e2e/app.spec.js:734:1 › the day boundary is local midnight: 23:59:59.999 stays, 00:00:00 switches (Asia/Ho_Chi_Minh)
+[240/298] [mobile] › tests/e2e/day-nav.spec.js:756:1 › after midnight on an all done day nothing celebrates again and no page turn plays
+[241/298] [desktop] › tests/e2e/app.spec.js:744:1 › a session with blocked storage still switches day, keeps the slip and accepts a new task
+[242/298] [mobile] › tests/e2e/day-nav.spec.js:785:1 › a move turns the page by direction and the classes go after the animation
+[243/298] [desktop] › tests/e2e/app.spec.js:760:1 › keyboard only: add, tick with Space, edit with Enter, cancel with Escape, save and delete
+[244/298] [mobile] › tests/e2e/app.spec.js:419:1 › the peek waits for the first task, and only plays once
+[245/298] [desktop] › tests/e2e/app.spec.js:810:1 › every button and checkbox has its Vietnamese accessible name
+[246/298] [desktop] › tests/e2e/day-nav.spec.js:807:1 › loading a day plays no page turn
+[247/298] [desktop] › tests/e2e/day-nav.spec.js:816:1 › with reduced motion a move changes the day and plays no page turn
+[248/298] [desktop] › tests/e2e/app.spec.js:834:1 › 200 tasks render quickly and a tick updates in under 100 ms
+[249/298] [desktop] › tests/e2e/day-nav.spec.js:828:1 › Tab from the page start reaches previous, next, Chọn ngày, Về hôm nay, then the add field
+[250/298] [desktop] › tests/e2e/day-nav.spec.js:843:3 › each nav control is at least 44 by 44 px on today
+[251/298] [mobile] › tests/e2e/day-nav.spec.js:807:1 › loading a day plays no page turn
+[252/298] [desktop] › tests/e2e/day-nav.spec.js:843:3 › each nav control is at least 44 by 44 px on #2026-11-08
+[253/298] [desktop] › tests/e2e/day-nav.spec.js:854:1 › no horizontal scroll at 360 px on today and on a past day, with a long unbroken task
+[254/298] [mobile] › tests/e2e/day-nav.spec.js:816:1 › with reduced motion a move changes the day and plays no page turn
+[255/298] [mobile] › tests/e2e/day-nav.spec.js:828:1 › Tab from the page start reaches previous, next, Chọn ngày, Về hôm nay, then the add field
+[256/298] [mobile] › tests/e2e/day-nav.spec.js:843:3 › each nav control is at least 44 by 44 px on today
+[257/298] [desktop] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 0 tasks renders in under 100 ms
+[258/298] [mobile] › tests/e2e/day-nav.spec.js:843:3 › each nav control is at least 44 by 44 px on #2026-11-08
+[259/298] [mobile] › tests/e2e/day-nav.spec.js:854:1 › no horizontal scroll at 360 px on today and on a past day, with a long unbroken task
+[260/298] [mobile] › tests/e2e/app.spec.js:431:1 › under reduced motion the peek is skipped but remembered
+[261/298] [mobile] › tests/e2e/app.spec.js:442:1 › the desktop layout never peeks
+[262/298] [mobile] › tests/e2e/app.spec.js:449:1 › only one row stays swiped open; a tap elsewhere closes it
+[263/298] [mobile] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 0 tasks renders in under 100 ms
+[264/298] [desktop] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 1 tasks renders in under 100 ms
+[265/298] [mobile] › tests/e2e/app.spec.js:466:1 › Tab to Sửa scrolls the row open; Giữ lại leaves only that row open
+[266/298] [mobile] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 1 tasks renders in under 100 ms
+[267/298] [desktop] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[268/298] [mobile] › tests/e2e/app.spec.js:494:1 › no horizontal page scroll at 360 px with a long task
+[269/298] [mobile] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[270/298] [desktop] › tests/e2e/day-nav.spec.js:886:1 › Về hôm nay is filled from the first frame after load on another day
+[271/298] [desktop] › tests/e2e/day-nav.spec.js:907:1 › on a move, the label colour changes together with the Về hôm nay fill
+[272/298] [mobile] › tests/e2e/day-nav.spec.js:886:1 › Về hôm nay is filled from the first frame after load on another day
+[273/298] [desktop] › tests/e2e/day-nav.spec.js:922:1 › 200 rows: Tab from the add field into rows scrolled away brings the first row back into view
+[274/298] [desktop] › tests/e2e/day-nav.spec.js:935:1 › 200 rows: browser find reaches text of a row that is off screen
+[275/298] [desktop] › tests/e2e/day-nav.spec.js:942:1 › 200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted
+[276/298] [mobile] › tests/e2e/day-nav.spec.js:907:1 › on a move, the label colour changes together with the Về hôm nay fill
+[277/298] [mobile] › tests/e2e/day-nav.spec.js:922:1 › 200 rows: Tab from the add field into rows scrolled away brings the first row back into view
+[278/298] [mobile] › tests/e2e/app.spec.js:521:1 › a real swipe opens one row; swiping another closes it; a tap outside closes all
+[279/298] [mobile] › tests/e2e/day-nav.spec.js:935:1 › 200 rows: browser find reaches text of a row that is off screen
+[280/298] [mobile] › tests/e2e/day-nav.spec.js:942:1 › 200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted
+[281/298] [mobile] › tests/e2e/app.spec.js:538:1 › a blocked save shows the slip, the app keeps working in memory, and the next good save hides it
+[282/298] [desktop] › tests/e2e/day-nav.spec.js:965:1 › 200 rows: a hovered or focused row renders in full so the Sửa and Xóa tooltips are not clipped
+[283/298] [mobile] › tests/e2e/app.spec.js:565:1 › a throwing localStorage shows the slip on load for the whole session; add, tick, edit and delete still work
+[284/298] [mobile] › tests/e2e/day-nav.spec.js:965:1 › 200 rows: a hovered or focused row renders in full so the Sửa and Xóa tooltips are not clipped
+[285/298] [mobile] › tests/e2e/app.spec.js:590:1 › corrupt stored data starts an empty list with no slip and no console error, and keeps a backup
+[286/298] [mobile] › tests/e2e/app.spec.js:610:1 › after a failed first read nothing is written to the tasks key, so earlier days are never overwritten
+[287/298] [mobile] › tests/e2e/app.spec.js:631:1 › the slip shows at once when a save fails on edit and on delete, and quota errors keep the stored value
+[288/298] [mobile] › tests/e2e/app.spec.js:660:1 › a stored non array value starts an empty list with no slip and no error
+[289/298] [mobile] › tests/e2e/app.spec.js:675:1 › after midnight, returning to the page shows the new date and an empty list; yesterday stays stored
+[290/298] [mobile] › tests/e2e/app.spec.js:687:1 › window focus also checks the day, and nothing changes on the same day
+[291/298] [mobile] › tests/e2e/app.spec.js:696:1 › adding right after midnight saves the task to the new day on a fresh list
+[292/298] [mobile] › tests/e2e/app.spec.js:706:1 › a day change drops an open edit and closes the delete note without saving or deleting
+[293/298] [mobile] › tests/e2e/app.spec.js:723:1 › a day change does not replay the celebration or the swipe hint
+[294/298] [mobile] › tests/e2e/app.spec.js:734:1 › the day boundary is local midnight: 23:59:59.999 stays, 00:00:00 switches (Asia/Ho_Chi_Minh)
+[295/298] [mobile] › tests/e2e/app.spec.js:744:1 › a session with blocked storage still switches day, keeps the slip and accepts a new task
+[296/298] [mobile] › tests/e2e/app.spec.js:760:1 › keyboard only: add, tick with Space, edit with Enter, cancel with Escape, save and delete
+[297/298] [mobile] › tests/e2e/app.spec.js:810:1 › every button and checkbox has its Vietnamese accessible name
+[298/298] [mobile] › tests/e2e/app.spec.js:834:1 › 200 tasks render quickly and a tick updates in under 100 ms
+  11 skipped
+  287 passed (30.4s)

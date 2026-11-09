@@ -195,15 +195,15 @@ features:
         title: "Day list in sections with collapse"
         owner: fe
         depends_on: [T1, T3]
-        state: doing
-        attempts: 0
-        bugs_opened: []
+        state: done
+        attempts: 1
+        bugs_opened: [BUG-005]
         trello_card: ""
       - id: T5
         title: "Group choice and new group in the add form"
         owner: fe
         depends_on: [T4]
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""
