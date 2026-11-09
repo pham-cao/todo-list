@@ -15,6 +15,8 @@ const els = {
   list: $("task-list"),
   rowTemplate: $("task-template"),
   editTemplate: $("edit-template"),
+  dialog: $("delete-dialog"),
+  quote: $("del-task"),
 };
 
 const show = (el, on) => { el.hidden = !on; };
@@ -158,6 +160,7 @@ els.list.addEventListener("click", (e) => {
   const row = e.target.closest(".task");
   if (action === "edit") openEdit(row);
   else if (action === "cancel") closeEdit(true);
+  else if (action === "remove") askDelete(row);
 });
 
 els.list.addEventListener("submit", (e) => {
@@ -183,6 +186,50 @@ els.list.addEventListener("input", (e) => {
   const form = e.target.closest(".task__edit");
   const errorEl = form?.querySelector(".field-error");
   if (errorEl && !errorEl.hidden) setFieldError(e.target, errorEl, null);
+});
+
+// Delete: a sticky note confirmation. Xóa is hidden on an editing row, so the
+// row being deleted is never the one in edit mode; any other open edit stays.
+let pendingDelete = null;
+
+function askDelete(row) {
+  pendingDelete = row;
+  els.quote.textContent = row.querySelector(".task__label").textContent;
+  els.dialog.showModal();
+}
+
+function confirmDelete() {
+  const row = pendingDelete;
+  pendingDelete = null;
+  els.dialog.close();
+  if (!row?.isConnected) return;
+  if (editing === row) closeEdit(false);
+  store.remove(row.dataset.id);
+  const next = row.nextElementSibling ?? row.previousElementSibling;
+  (next?.querySelector(".check input") ?? els.input).focus();
+  const finish = () => { row.remove(); updateSummary(); updateSlip(); };
+  row.classList.remove("task--enter");
+  row.classList.add("task--exit");
+  const anim = row.getAnimations()[0];
+  if (anim) anim.finished.then(finish, finish); else finish();
+}
+
+els.dialog.addEventListener("click", (e) => {
+  const action = e.target.closest("[data-action]")?.dataset.action;
+  if (action === "delete") return confirmDelete();
+  if (action === "keep") return els.dialog.close();
+  // Clicks on the note's own padding also target the dialog; only the backdrop closes it.
+  if (e.target !== els.dialog) return;
+  const r = els.dialog.getBoundingClientRect();
+  const inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+  if (!inside) els.dialog.close();
+});
+
+// Giữ lại, Escape and the backdrop all end here with the task kept.
+els.dialog.addEventListener("close", () => {
+  const row = pendingDelete;
+  pendingDelete = null;
+  if (row?.isConnected) row.querySelector('[data-action="remove"]').focus();
 });
 
 setAddError(null);

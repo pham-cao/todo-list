@@ -254,7 +254,7 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
 
 /* ---------- Dialog: a sticky note ---------- */
 .dialog {
-  width: min(400px, calc(100vw - 32px)); padding: var(--space-8) var(--space-6) var(--space-6);
+  margin: auto; width: min(400px, calc(100vw - 32px)); padding: var(--space-8) var(--space-6) var(--space-6);
   border: 0; border-radius: 2px 2px 14px 2px;
   background: var(--grain), linear-gradient(to bottom, var(--color-sticky-edge), var(--color-sticky) 18px), var(--color-sticky);
   color: var(--text); box-shadow: var(--shadow-note); rotate: -1.2deg; overflow: visible;

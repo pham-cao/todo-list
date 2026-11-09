@@ -331,3 +331,95 @@ test('the editing row keeps the highlighter wash under mouse hover', async ({ pa
   expect(editing).toContain('250, 214, 72');
   expect(editing).not.toBe(hovered);
 });
+
+const removeBtn = (page, i) => rows(page).nth(i).getByRole('button', { name: 'Xóa' });
+const delDialog = (page) => page.getByRole('alertdialog', { name: 'Bạn có chắc muốn xóa việc này không?' });
+
+test('Xóa opens the sticky note with the task quoted and focus on Giữ lại', async ({ page }) => {
+  await open(page, [task('a', 'Một'), task('x', '<b>abc</b>')]);
+  await expect(delDialog(page)).toBeHidden();
+  await removeBtn(page, 1).click();
+  await expect(delDialog(page)).toBeVisible();
+  await expect(delDialog(page)).toHaveAccessibleDescription('<b>abc</b>');
+  await expect(page.locator('.dialog__quote b')).toHaveCount(0);
+  await expect(delDialog(page).getByRole('button', { name: 'Giữ lại' })).toBeFocused();
+  await expect(delDialog(page).getByRole('button', { name: 'Xóa việc' })).toBeVisible();
+});
+
+test('Giữ lại, Escape and a backdrop click keep the task and return focus to Xóa', async ({ page }) => {
+  await open(page, [task('a', 'Một'), task('b', 'Hai')]);
+  const exits = [
+    () => delDialog(page).getByRole('button', { name: 'Giữ lại' }).click(),
+    () => page.keyboard.press('Escape'),
+    () => page.mouse.click(page.viewportSize().width - 3, page.viewportSize().height - 3),
+  ];
+  for (const exit of exits) {
+    await removeBtn(page, 1).click();
+    await expect(delDialog(page)).toBeVisible();
+    await exit();
+    await expect(delDialog(page)).toBeHidden();
+    await expect(removeBtn(page, 1)).toBeFocused();
+    await expect(labels(page)).toHaveText(['Một', 'Hai']);
+  }
+  // A click on the note itself (its padding) does not close it.
+  await removeBtn(page, 0).click();
+  await page.locator('.dialog__title').click();
+  await expect(delDialog(page)).toBeVisible();
+  await page.keyboard.press('Escape');
+  expect((await stored(page)).map((t) => t.id)).toEqual(['a', 'b']);
+});
+
+test('Xóa việc removes the task, saves, updates the summary and moves focus on', async ({ page }) => {
+  await open(page, [task('a', 'Một', true), task('b', 'Hai'), task('c', 'Ba')]);
+  const confirm = () => delDialog(page).getByRole('button', { name: 'Xóa việc' }).click();
+
+  await removeBtn(page, 1).click();
+  await confirm();
+  await expect(delDialog(page)).toBeHidden();
+  await expect(labels(page)).toHaveText(['Một', 'Ba']);
+  await expect(box(page, 1)).toBeFocused();
+  await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 1/2 việc');
+  expect((await stored(page)).map((t) => t.id)).toEqual(['a', 'c']);
+
+  // Last row: focus falls back to the previous row's checkbox.
+  await removeBtn(page, 1).click();
+  await confirm();
+  await expect(labels(page)).toHaveText(['Một']);
+  await expect(box(page, 0)).toBeFocused();
+  // Only done tasks remain: the stamp shows without the celebration.
+  await expect(page.locator('.progress')).toHaveClass(/progress--complete/);
+  await expect(page.locator('.progress')).not.toHaveClass(/progress--celebrate/);
+
+  // Only row: the empty state returns and focus goes to the add input.
+  await removeBtn(page, 0).click();
+  await confirm();
+  await expect(rows(page)).toHaveCount(0);
+  await expect(page.getByText('Hôm nay chưa có việc nào. Hãy thêm việc đầu tiên nhé!')).toBeVisible();
+  await expect(page.getByRole('status')).toBeHidden();
+  await expect(input(page)).toBeFocused();
+  await page.reload();
+  await expect(rows(page)).toHaveCount(0);
+});
+
+test('deleting a row while another row is being edited keeps that edit open', async ({ page }) => {
+  await open(page, [task('a', 'Một'), task('b', 'Hai')]);
+  await editBtn(page, 0).click();
+  await editInput(page).fill('Một mới');
+  await removeBtn(page, 1).click();
+  await delDialog(page).getByRole('button', { name: 'Xóa việc' }).click();
+  await expect(rows(page)).toHaveCount(1);
+  await expect(editInput(page)).toHaveValue('Một mới');
+  await editInput(page).press('Enter');
+  await expect(labels(page)).toHaveText(['Một mới']);
+});
+
+test('the sticky note sits in the middle of the viewport', async ({ page }) => {
+  await open(page, [task('a', 'Một')]);
+  await removeBtn(page, 0).click();
+  await expect(delDialog(page)).toBeVisible();
+  await expect(page.locator('.dialog')).toHaveCSS('opacity', '1'); // note-in finished
+  const box = await page.locator('.dialog').boundingBox();
+  const vp = page.viewportSize();
+  expect(Math.abs(box.x + box.width / 2 - vp.width / 2)).toBeLessThan(4);
+  expect(Math.abs(box.y + box.height / 2 - vp.height / 2)).toBeLessThan(8);
+});
