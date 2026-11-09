@@ -27,6 +27,14 @@ const els = {
   editTemplate: $("edit-template"),
   sheetBody: document.querySelector(".sheet__body"),
   srStatus: $("sr-status"),
+  notice: $("notice"),
+  noticeText: $("notice-text"),
+  bar: $("group-bar"),
+  filter: $("group-filter"),
+  filterSwatch: $("group-filter-swatch"),
+  filterParts: [document.querySelector(".group-bar__icon"), document.querySelector(".group-bar__label"), $("group-filter").parentElement],
+  groupEmpty: $("group-empty"),
+  groupEmptyText: $("group-empty-text"),
   dialog: $("delete-dialog"),
   quote: $("del-task"),
 };
@@ -37,6 +45,8 @@ const store = createStore(getStorage());
 let groups = createGroups(getStorage());
 // The add form's group: a group id or UNGROUPED. Kept while the page is open, Chưa phân nhóm after a reload (R14, R20).
 let addGroup = UNGROUPED;
+// The filter: "all", UNGROUPED or a group id. Display only, never stored, kept across day moves, "all" after a reload (R45, R49).
+let filter = "all";
 // Section key -> ul.task-list on screen. A day with no grouped task has one plain list under UNGROUPED.
 let lists = new Map();
 // today: the last local date the page saw. viewed: the day on screen.
@@ -70,7 +80,15 @@ function renderList() {
   const buckets = new Map([...groups.list().map((g) => [g.id, []]), [UNGROUPED, []]]);
   for (const t of tasks) buckets.get(keyOf(t)).push(old.get(t.id) ?? renderRow(t));
   lists = new Map();
-  if (buckets.get(UNGROUPED).length === tasks.length) {
+  const shown = filter === "all" ? null : buckets.get(filter);
+  // Filtered to an empty section on a day with tasks: the one line filter text; a day with no tasks keeps #empty (R44).
+  show(els.groupEmpty, !!shown && !shown.length && tasks.length > 0);
+  els.groupEmptyText.textContent = filter === UNGROUPED ? "Ngày này không có việc nào chưa phân nhóm."
+    : `Ngày này chưa có việc nào trong nhóm "${groups.get(filter)?.name}".`;
+  if (shown) {
+    if (shown.length) els.list.replaceChildren(sectionOf(filter, shown, true));
+    else els.list.replaceChildren();
+  } else if (buckets.get(UNGROUPED).length === tasks.length) {
     // No task in a group: the plain list, exactly as before groups existed (R31).
     const ul = document.createElement("ul");
     ul.className = "task-list";
@@ -78,27 +96,35 @@ function renderList() {
     lists.set(UNGROUPED, ul);
     els.list.replaceChildren(ul);
   } else {
-    const sections = [];
-    for (const [key, rows] of buckets) {
-      if (!rows.length) continue;
-      const group = groups.get(key);
-      const section = els.groupTemplate.content.firstElementChild.cloneNode(true);
-      const collapsed = groups.isCollapsed(key);
-      section.dataset.key = key;
-      section.dataset.color = group ? group.color : "none";
-      section.classList.toggle("group--collapsed", collapsed);
-      section.querySelector(".group__toggle").setAttribute("aria-expanded", String(!collapsed));
-      section.querySelector(".group__name").textContent = group ? group.name : UNGROUPED_NAME;
-      const ul = section.querySelector(".task-list");
-      ul.append(...rows);
-      lists.set(key, ul);
-      sections.push(section);
-    }
-    els.list.replaceChildren(...sections);
+    els.list.replaceChildren(...[...buckets].filter(([, rows]) => rows.length).map(([key, rows]) => sectionOf(key, rows)));
   }
   if (focused?.isConnected && document.activeElement !== focused) focused.focus({ preventScroll: true });
   else if (focusKey) lists.get(focusKey)?.closest(".group")?.querySelector(".group__toggle").focus({ preventScroll: true });
   updateSummary();
+}
+
+// One section from #group-template. Under the filter it is always open and its header is a plain heading
+// with the same words, no toggle, and the stored fold left as it is (R41).
+function sectionOf(key, rows, fixed = false) {
+  const group = groups.get(key);
+  const section = els.groupTemplate.content.firstElementChild.cloneNode(true);
+  const head = section.querySelector(".group__toggle");
+  const collapsed = !fixed && groups.isCollapsed(key);
+  section.dataset.key = key;
+  section.dataset.color = group ? group.color : "none";
+  section.classList.toggle("group--collapsed", collapsed);
+  head.setAttribute("aria-expanded", String(!collapsed));
+  section.querySelector(".group__name").textContent = group ? group.name : UNGROUPED_NAME;
+  if (fixed) {
+    const stat = document.createElement("span");
+    stat.className = "group__static";
+    stat.append(...head.childNodes);
+    head.replaceWith(stat);
+  }
+  const ul = section.querySelector(".task-list");
+  ul.append(...rows);
+  lists.set(key, ul);
+  return section;
 }
 
 // Collapse is a class and aria-expanded only; rows are hidden by CSS (R39, R40).
@@ -230,17 +256,24 @@ els.form.addEventListener("submit", (e) => {
     showFieldError(els.input, els.addError, result.error);
   } else {
     const key = keyOf(result.task);
-    if (lists.has(key)) {
-      lists.get(key).append(renderRow(result.task));
-      updateSummary();
+    if (filter !== "all" && key !== filter) {
+      // Saved where chosen; the filter stays and the slip says where it went (R47).
+      notify(`Đã thêm việc vào nhóm "${groups.get(key)?.name ?? UNGROUPED_NAME}". Nhóm này đang được ẩn bởi bộ lọc.`);
+      renderList(); // the day may have gone from no tasks (#empty) to the filter empty text (R44)
     } else {
-      renderList();
+      notify(null);
+      if (lists.has(key)) {
+        lists.get(key).append(renderRow(result.task));
+        updateSummary();
+      } else {
+        renderList();
+      }
+      const row = rowOf(result.task.id);
+      row.classList.add("task--enter");
+      // A task added to a folded section opens it, so the new row is seen.
+      const section = row.closest(".group--collapsed");
+      if (section) setCollapsed(section, false);
     }
-    const row = rowOf(result.task.id);
-    row.classList.add("task--enter");
-    // A task added to a folded section opens it, so the new row is seen.
-    const section = row.closest(".group--collapsed");
-    if (section) setCollapsed(section, false);
     els.input.value = "";
     updateSlip();
     maybePeek();
@@ -279,13 +312,40 @@ const groupOptions = () => [option(UNGROUPED, UNGROUPED_NAME), ...groups.list().
 const colorOf = (key) => groups.get(key)?.color ?? "none";
 
 // Add choice: Chưa phân nhóm, every group in creation order, then Nhóm mới... (R14).
+// Filter: Tất cả nhóm, Chưa phân nhóm, every group; shown from the first group on, back to "all" if its group is gone (R42, R48).
 function renderChoices() {
   if (!groups.get(addGroup)) addGroup = UNGROUPED;
   els.addGroup.replaceChildren(...groupOptions(), option("new", "Nhóm mới..."));
   els.addGroup.value = newLine ? "new" : addGroup;
   els.addSwatch.dataset.color = colorOf(addGroup);
   els.addSwatch.hidden = !!newLine;
+  const any = groups.list().length > 0;
+  if (!any || (filter !== UNGROUPED && !groups.get(filter))) filter = "all";
+  els.filter.replaceChildren(option("all", "Tất cả nhóm"), ...groupOptions());
+  els.filter.value = filter;
+  for (const el of els.filterParts) show(el, any);
+  els.bar.classList.toggle("group-bar--filtered", filter !== "all");
+  els.filterSwatch.dataset.color = colorOf(filter);
+  show(els.filterSwatch, filter !== "all");
 }
+
+// The info slip: shown empty, then written a frame later, so a repeat of the same text is announced again.
+function notify(message) {
+  els.noticeText.textContent = "";
+  show(els.notice, !!message);
+  if (message) requestAnimationFrame(() => { els.noticeText.textContent = message; });
+}
+
+// A group or Chưa phân nhóm also becomes the add choice, so new tasks go where the owner looks (R43, R46).
+els.filter.addEventListener("change", () => {
+  notify(null); // a "hidden group" notice may no longer be true (BUG-007)
+  filter = els.filter.value;
+  if (filter !== "all") addGroup = filter;
+  renderChoices();
+  renderList();
+  if (editing && !editing.isConnected) editing = null; // an open edit on a row the filter hid is dropped
+  maybePeek();
+});
 
 // The Nhóm mới... line exists only while it is open, from #new-group-template.
 let newLine = null;
@@ -355,8 +415,11 @@ window.addEventListener("storage", (e) => {
   // A session that could not save keeps its groups in memory; another tab's list would drop them.
   if ((e.key !== GROUPS_KEY && e.key !== null) || !groups.storageOk) return;
   groups = createGroups(getStorage());
+  const onFilter = document.activeElement === els.filter;
   updateSlip();
   renderChoices();
+  // The last group went: the filter is hidden, so its focus moves to the add input.
+  if (onFilter && !groups.list().length) els.input.focus();
   // The open Nhóm mới... line previews the colour the group will get now (R10, R15, BUG-006).
   newLine?.querySelector(".swatch").setAttribute("data-color", nextColor(groups.list()));
   renderList();
@@ -438,15 +501,23 @@ els.list.addEventListener("submit", (e) => {
 // A moved row lands by creation time in its new section (renderList keeps that order), which opens if folded,
 // washes once in the new colour, keeps focus on Sửa and has its section name announced (R24, R28, R32).
 function moveRow(row, key) {
+  // A target the filter hides takes the row out of view: focus the next row, else the previous one, else the add input.
+  const all = [...els.list.querySelectorAll(".task:not(.task--exit)")];
+  const i = all.indexOf(row);
+  const near = all[i + 1] ?? all[i - 1];
   if (groups.isCollapsed(key)) groups.setCollapsed(key, false);
   renderList();
   updateSlip();
-  row.classList.remove("task--moved");
-  void row.offsetWidth; // a second move in a row replays the wash
-  row.classList.add("task--moved");
-  // On a phone the line stays closed, as in the approved screen; only the row is scrolled into view.
-  row.querySelector('[data-action="edit"]').focus({ preventScroll: true });
-  row.scrollIntoView({ block: "nearest" });
+  if (filter !== "all" && key !== filter) {
+    (near?.querySelector(".check input") ?? els.input).focus();
+  } else {
+    row.classList.remove("task--moved");
+    void row.offsetWidth; // a second move in a row replays the wash
+    row.classList.add("task--moved");
+    // On a phone the line stays closed, as in the approved screen; only the row is scrolled into view.
+    row.querySelector('[data-action="edit"]').focus({ preventScroll: true });
+    row.scrollIntoView({ block: "nearest" });
+  }
   // Cleared first and written a frame later, so a second move to the same group is announced again.
   const message = `Đã chuyển việc sang nhóm "${groups.get(key)?.name ?? UNGROUPED_NAME}".`;
   els.srStatus.textContent = "";
@@ -580,6 +651,7 @@ function resetTransient() {
   openSwipe = null;
   closeSwipes();
   setAddError(null);
+  notify(null);
 }
 
 // Page turn (R8): only a move plays it, never a load or a midnight refresh. Keys are YYYY-MM-DD, so they compare as strings.

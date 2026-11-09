@@ -685,13 +685,31 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
 .group-bar--filtered .group-bar__icon .icon { fill: currentColor; } /* filter on: the funnel is inked in */
 .group-bar--filtered .select select { border-bottom-color: var(--color-pen); font-weight: var(--fw-semibold); }
 .group-bar__manage { margin-left: auto; min-height: 36px; padding: 0 var(--space-3); position: relative; color: var(--color-pen); }
-.group-bar__manage::before { content: ""; position: absolute; inset: -4px 0; }
+.group-bar__manage::before { content: ""; position: absolute; inset: -5.5px 0; } /* 33 px padding box + 2 x 5.5 px = 44 px */
 .group-bar__manage .icon { width: 18px; height: 18px; }
 @media (max-width: 600px) {
   .group-bar__label { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .group-bar__line { gap: var(--space-2); }
   .group-bar__line .select select { max-width: 100%; }
   .group-bar__manage { padding: 0 var(--space-2); font-size: var(--fs-small); }
+}
+/* Phones below 452 px: Quản lý nhóm is the tag icon only, so the filter choice keeps its full name. 452 px is the
+   smallest width where "Chưa phân nhóm" and "Học tiếng Nhật" fit beside the text button (measured, decisions.md).
+   The text stays as the accessible name (visually hidden) and shows as a tooltip on hover and keyboard focus. */
+@media (max-width: 451px) {
+  .group-bar__manage { min-height: var(--tap); padding: 0; }
+  .group-bar__manage::before { inset: 0; }
+  .group-bar__manage-label { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .group-bar__manage::after {
+    content: attr(data-tip) / ""; position: absolute; bottom: calc(100% + 2px); right: 0; /* empty alt: the tip is not added to the name */ translate: 0 4px;
+    padding: 3px 8px; border-radius: 4px; background: var(--color-ink); color: var(--color-paper);
+    font-size: var(--fs-tiny); font-weight: var(--fw-medium); line-height: 1.4; white-space: nowrap;
+    opacity: 0; pointer-events: none; transition: opacity var(--dur-fast) ease, translate var(--dur-fast) ease;
+  }
+  .group-bar__manage:focus-visible::after { opacity: 1; translate: 0 0; }
+}
+@media (max-width: 451px) and (hover: hover) and (pointer: fine) {
+  .group-bar__manage:hover::after { opacity: 1; translate: 0 0; transition-delay: 350ms; }
 }
 
 /* Section: a header line with a highlighter swipe, then the task rows */

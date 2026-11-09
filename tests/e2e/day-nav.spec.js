@@ -923,9 +923,7 @@ test('200 rows: Tab from the add field into rows scrolled away brings the first 
   await open(page, BIG.map((t) => ({ ...t, done: false })));
   await input(page).focus();
   await page.evaluate(() => scrollTo(0, document.body.scrollHeight));
-  await page.keyboard.press('Tab');
-  await page.keyboard.press('Tab');
-  await page.keyboard.press('Tab');
+  for (let i = 0; i < 4; i++) await page.keyboard.press('Tab'); // Nhóm, Thêm, Quản lý nhóm, first row
   const focused = page.locator(':focus');
   await expect(rows(page).nth(0)).toContainText('Việc số 1');
   await expect(focused).toBeVisible();

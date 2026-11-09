@@ -1093,7 +1093,7 @@ for (const width of [390, 360]) {
 test('while an edit is open both group selects are named Nhóm; the edit one keeps its visible text in its name', async ({ page }) => {
   await open(page, DAY, '', { groups: GROUPS });
   await editOf(page, 'Tưới cây').click();
-  await expect(page.getByRole('combobox', { name: 'Nhóm' })).toHaveCount(2);
+  await expect(page.getByRole('combobox', { name: 'Nhóm', exact: true })).toHaveCount(2);
   const label = await rowOf(page, 'Tưới cây').locator('.task__edit-group label').textContent();
   expect(label.trim()).toBe('Nhóm');
 });
@@ -1114,4 +1114,432 @@ test('two moves to the same group each rewrite the live region', async ({ page }
   }
   // First move: one write. Second move: a clear, then the same text again.
   expect(await page.evaluate(() => window.__mut)).toBeGreaterThanOrEqual(3);
+});
+
+// T7: group bar and filter (R28, R41 to R50, R62, R63a)
+const filterSel = (page) => page.getByRole('combobox', { name: 'Lọc theo nhóm', exact: true });
+const manageBtn = (page) => page.getByRole('button', { name: 'Quản lý nhóm', exact: true });
+const groupEmpty = (page) => page.locator('#group-empty');
+const notice = (page) => page.locator('#notice');
+const dayEmpty = (page) => page.locator('#empty');
+const storedAll = (page) => page.evaluate((ks) => ks.map((k) => localStorage.getItem(k)), [KEY, GROUPS_KEY, UI_KEY]);
+
+test('no filter before the first group, Quản lý nhóm on every day, and the filter appears once a group is made', async ({ page }) => {
+  await open(page, [task('a', 'Một')]);
+  for (const move of ['prev-day', 'next-day', 'next-day']) {
+    await expect(manageBtn(page)).toBeVisible();
+    await expect(filterSel(page)).toBeHidden();
+    await expect(page.locator('.group-bar__icon')).toBeHidden();
+    await page.locator(`#${move}`).click();
+  }
+  await page.locator('#to-today').click();
+  await choice(page).selectOption('new');
+  await nameInput(page).fill('Công ty');
+  await nameInput(page).press('Enter');
+  await expect(filterSel(page)).toBeVisible();
+  await expect(filterSel(page)).toHaveValue('all');
+});
+
+test('the filter sits between the add form and the list and lists Tất cả nhóm, Chưa phân nhóm, then the groups', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS.slice(0, 2) });
+  await expect(filterSel(page).locator('option')).toHaveText(['Tất cả nhóm', 'Chưa phân nhóm', 'Công ty', 'Nhà']);
+  await expect(filterSel(page)).toHaveValue('all');
+  await expect(page.locator('.group-bar')).not.toHaveClass(/group-bar--filtered/);
+  await expect(page.locator('#group-filter-swatch')).toBeHidden(); // no mini label for Tất cả nhóm
+  const top = async (sel) => (await page.locator(sel).boundingBox()).y;
+  expect(await top('#add-form')).toBeLessThan(await top('.group-bar'));
+  expect(await top('.group-bar')).toBeLessThan(await top('#day-list'));
+});
+
+test('a group in the filter shows only its section, open and without a toggle; the stored fold is kept', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS, ui: { collapsed: ['cty'] } });
+  const ui = await page.evaluate((k) => localStorage.getItem(k), UI_KEY);
+  await filterSel(page).selectOption({ label: 'Công ty' });
+  await expect(names(page)).toHaveText(['Công ty']);
+  await expect(sectionLabels(page, 'Công ty')).toHaveText(['Gửi báo cáo', 'Họp nhóm', 'Trả lời email']);
+  await expect(sectionLabels(page, 'Công ty').first()).toBeVisible();
+  await expect(sections(page).locator('button.group__toggle')).toHaveCount(0);
+  await expect(page.getByRole('heading', { level: 2 })).toHaveText(['Nhóm Công ty 1/3 việc đã hoàn thành']);
+  await expect(page.locator('.group-bar')).toHaveClass(/group-bar--filtered/);
+  await expect(page.locator('#group-filter-swatch')).toHaveAttribute('data-color', 'yellow');
+  await expect(page.locator('.group-bar__icon')).toBeVisible();
+
+  await filterSel(page).selectOption('all');
+  await expect(names(page)).toHaveText(['Công ty', 'Nhà', 'Chưa phân nhóm']);
+  await expect(toggle(page, 'Công ty')).toHaveAttribute('aria-expanded', 'false');
+  await expect(page.locator('.group-bar')).not.toHaveClass(/group-bar--filtered/);
+  expect(await page.evaluate((k) => localStorage.getItem(k), UI_KEY)).toBe(ui);
+});
+
+test('Chưa phân nhóm in the filter shows ungrouped tasks and tasks of an unknown group', async ({ page }) => {
+  const lost = { ...task('x', 'Việc lạc nhóm', false, TODAY, at(9, 0)), groupId: 'gone' };
+  await open(page, [...DAY, lost], '', { groups: GROUPS });
+  await filterSel(page).selectOption({ label: 'Chưa phân nhóm' });
+  await expect(names(page)).toHaveText(['Chưa phân nhóm']);
+  await expect(sectionLabels(page, 'Chưa phân nhóm')).toHaveText(['Đọc sách', 'Việc lạc nhóm']);
+  await expect(page.locator('#group-filter-swatch')).toHaveAttribute('data-color', 'none');
+  await expect(page.locator('#group-filter-swatch')).toBeVisible();
+});
+
+test('filter empty states: a group, Chưa phân nhóm, and the usual empty state on a day with no tasks', async ({ page }) => {
+  const grouped = DAY.filter((t) => t.groupId);
+  await open(page, grouped, '', { groups: GROUPS });
+  await filterSel(page).selectOption({ label: 'Học tiếng Nhật' });
+  await expect(groupEmpty(page)).toHaveText('Ngày này chưa có việc nào trong nhóm "Học tiếng Nhật".');
+  await expect(rows(page)).toHaveCount(0);
+  await expect(dayEmpty(page)).toBeHidden();
+  await filterSel(page).selectOption({ label: 'Chưa phân nhóm' });
+  await expect(groupEmpty(page)).toHaveText('Ngày này không có việc nào chưa phân nhóm.');
+  await expect(page.locator('#summary')).toHaveText('Đã hoàn thành 2/5 việc');
+
+  // A day with no tasks at all keeps its own empty state, for each kind of day.
+  for (const [move, text] of [
+    ['next-day', 'Ngày này chưa có việc nào. Hãy thêm việc để chuẩn bị nhé!'],
+    ['prev-day', null],
+    ['prev-day', 'Ngày này chưa có việc nào được ghi lại.'],
+  ]) {
+    await page.locator(`#${move}`).click();
+    if (!text) continue;
+    await expect(dayEmpty(page)).toBeVisible();
+    await expect(page.locator('#empty-text')).toHaveText(text);
+    await expect(groupEmpty(page)).toBeHidden();
+  }
+  await page.locator('#to-today').click();
+  await page.evaluate((k) => localStorage.setItem(k, '[]'), KEY);
+  await page.reload();
+  await filterSel(page).selectOption({ label: 'Công ty' });
+  await expect(page.locator('#empty-text')).toHaveText('Hôm nay chưa có việc nào. Hãy thêm việc đầu tiên nhé!');
+  await expect(groupEmpty(page)).toBeHidden();
+});
+
+test('the filter follows previous, next, the picker, Về hôm nay, Back and Forward, and resets on reload', async ({ page }) => {
+  const other = [
+    { ...task('y1', 'Hôm qua ở công ty', false, '2026-11-08', at(8, 0)), groupId: 'cty' },
+    { ...task('y2', 'Hôm qua ở nhà', false, '2026-11-08', at(8, 1)), groupId: 'nha' },
+    { ...task('t1', 'Ngày mai ở nhà', false, '2026-11-10', at(8, 0)), groupId: 'nha' },
+  ];
+  await open(page, [...DAY, ...other], '', { groups: GROUPS });
+  await filterSel(page).selectOption({ label: 'Công ty' });
+  await page.locator('#prev-day').click();
+  await expect(labels(page)).toHaveText(['Hôm qua ở công ty']);
+  await page.locator('#next-day').click();
+  await page.locator('#next-day').click();
+  await expect(groupEmpty(page)).toHaveText('Ngày này chưa có việc nào trong nhóm "Công ty".');
+  await page.locator('#day-picker').fill('2026-11-08');
+  await expect(labels(page)).toHaveText(['Hôm qua ở công ty']);
+  await page.locator('#to-today').click();
+  await expect(labels(page)).toHaveText(['Gửi báo cáo', 'Họp nhóm', 'Trả lời email']);
+  await page.goBack();
+  await expect(labels(page)).toHaveText(['Hôm qua ở công ty']);
+  await page.goForward();
+  await expect(labels(page)).toHaveText(['Gửi báo cáo', 'Họp nhóm', 'Trả lời email']);
+  await expect(filterSel(page)).toHaveValue('cty');
+  await page.reload();
+  await expect(filterSel(page)).toHaveValue('all');
+  await expect(names(page)).toHaveText(['Công ty', 'Nhà', 'Chưa phân nhóm']);
+});
+
+test('the add choice follows a group and Chưa phân nhóm in the filter, but not Tất cả nhóm', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await choice(page).selectOption({ label: 'Nhà' });
+  await filterSel(page).selectOption({ label: 'Công ty' });
+  await expect(choice(page)).toHaveValue('cty');
+  await expect(addSwatch(page)).toHaveAttribute('data-color', 'yellow');
+  await filterSel(page).selectOption({ label: 'Chưa phân nhóm' });
+  await expect(choice(page)).toHaveValue('none');
+  await choice(page).selectOption({ label: 'Nhà' });
+  await filterSel(page).selectOption('all');
+  await expect(choice(page)).toHaveValue('nha');
+});
+
+test('an add to a group the filter hides is saved, the filter stays and a polite notice says so', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await filterSel(page).selectOption({ label: 'Công ty' });
+  await choice(page).selectOption({ label: 'Nhà' });
+  await addTask(page, 'Mua rau');
+  await expect(notice(page)).toBeVisible();
+  await expect(notice(page)).toHaveAttribute('role', 'status');
+  await expect(notice(page)).toHaveText('Đã thêm việc vào nhóm "Nhà". Nhóm này đang được ẩn bởi bộ lọc.');
+  await expect(filterSel(page)).toHaveValue('cty');
+  await expect(labels(page)).toHaveText(['Gửi báo cáo', 'Họp nhóm', 'Trả lời email']);
+  await expect(page.locator('#summary')).toHaveText('Đã hoàn thành 2/7 việc');
+  await expect(page.locator('#new-task')).toBeFocused();
+  const saved = (await storedJson(page, KEY)).find((t) => t.text === 'Mua rau');
+  expect(saved.groupId).toBe('nha');
+
+  // Ungrouped add under the filter names Chưa phân nhóm; an add the filter shows hides the notice.
+  await choice(page).selectOption({ label: 'Chưa phân nhóm' });
+  await addTask(page, 'Đọc báo');
+  await expect(notice(page)).toHaveText('Đã thêm việc vào nhóm "Chưa phân nhóm". Nhóm này đang được ẩn bởi bộ lọc.');
+  await choice(page).selectOption({ label: 'Công ty' });
+  await addTask(page, 'Gọi khách');
+  await expect(notice(page)).toBeHidden();
+  await expect(labels(page)).toHaveText(['Gửi báo cáo', 'Họp nhóm', 'Trả lời email', 'Gọi khách']);
+
+  // A day move clears the notice.
+  await choice(page).selectOption({ label: 'Nhà' });
+  await addTask(page, 'Rửa bát');
+  await expect(notice(page)).toBeVisible();
+  await page.locator('#next-day').click();
+  await expect(notice(page)).toBeHidden();
+});
+
+test('an add into an empty filtered group replaces the empty text with its section', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await filterSel(page).selectOption({ label: 'Học tiếng Nhật' });
+  await expect(groupEmpty(page)).toBeVisible();
+  await addTask(page, 'Học 10 từ mới');
+  await expect(groupEmpty(page)).toBeHidden();
+  await expect(names(page)).toHaveText(['Học tiếng Nhật']);
+  await expect(labels(page)).toHaveText(['Học 10 từ mới']);
+  await expect(notice(page)).toBeHidden();
+});
+
+test('while filtered the summary, progress and stamp count the whole day', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await filterSel(page).selectOption({ label: 'Công ty' });
+  await expect(page.locator('#summary')).toHaveText('Đã hoàn thành 2/6 việc');
+  await expect(counts(page)).toHaveText(['1/3']);
+  await tick(page, 1, true);
+  await tick(page, 2, true);
+  await expect(counts(page)).toHaveText(['3/3']);
+  await expect(page.locator('#summary')).toHaveText('Đã hoàn thành 4/6 việc');
+  await expect(progress(page)).not.toHaveClass(/progress--complete/); // no stamp for one group
+  await filterSel(page).selectOption({ label: 'Nhà' });
+  await tick(page, 0, true);
+  await filterSel(page).selectOption({ label: 'Chưa phân nhóm' });
+  await tick(page, 0, true);
+  await expect(progress(page)).toHaveClass(/progress--complete/);
+  await expect(page.locator('#summary')).toHaveText('Đã hoàn thành 6/6 việc');
+});
+
+test('a move under the filter sends focus to the next visible row, else the previous one, else the add input', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await filterSel(page).selectOption({ label: 'Công ty' });
+  const moveTo = async (text, target) => {
+    await editOf(page, text).click();
+    await editChoice(page).selectOption({ label: target });
+    await editField(page).press('Enter');
+  };
+  await moveTo('Họp nhóm', 'Nhà'); // row 2 of 3
+  await expect(labels(page)).toHaveText(['Gửi báo cáo', 'Trả lời email']);
+  await expect(rowOf(page, 'Trả lời email').getByRole('checkbox')).toBeFocused();
+  await expect(srStatus(page)).toHaveText('Đã chuyển việc sang nhóm "Nhà".');
+  await moveTo('Trả lời email', 'Nhà'); // the last row: previous one
+  await expect(rowOf(page, 'Gửi báo cáo').getByRole('checkbox')).toBeFocused();
+  await moveTo('Gửi báo cáo', 'Chưa phân nhóm'); // the only row: the add input
+  await expect(page.locator('#new-task')).toBeFocused();
+  await expect(groupEmpty(page)).toHaveText('Ngày này chưa có việc nào trong nhóm "Công ty".');
+  expect((await byId(page, 'c2')).groupId).toBe('nha');
+  expect((await byId(page, 'c1')).groupId).toBeUndefined();
+});
+
+test('filtering and moving between days never writes to storage', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS, ui: { collapsed: ['nha'] } });
+  const before = await storedAll(page);
+  for (const label of ['Công ty', 'Chưa phân nhóm', 'Học tiếng Nhật', 'Tất cả nhóm', 'Nhà']) {
+    await filterSel(page).selectOption({ label });
+    await page.locator('#next-day').click();
+    await page.locator('#prev-day').click();
+  }
+  expect(await storedAll(page)).toEqual(before);
+});
+
+test('keyboard only: the filter and Quản lý nhóm follow Thêm in the Tab order and the filter changes with the keys', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await page.locator('#new-task').focus();
+  const order = [];
+  for (let i = 0; i < 5; i++) {
+    await page.keyboard.press('Tab');
+    order.push(await page.evaluate(() => { const el = document.activeElement; return el.id || el.className || el.textContent.trim(); }));
+  }
+  expect(order).toEqual(['new-task-group', 'btn btn--primary', 'group-filter', 'manage-groups', 'group__toggle']);
+  await filterSel(page).focus();
+  await expect(filterSel(page)).toHaveAccessibleName('Lọc theo nhóm');
+  await page.keyboard.press('ArrowDown'); // Chưa phân nhóm
+  await page.keyboard.press('ArrowDown'); // Công ty
+  await expect(filterSel(page)).toHaveValue('cty');
+  await expect(names(page)).toHaveText(['Công ty']);
+  await expect(manageBtn(page)).toHaveAccessibleName('Quản lý nhóm');
+});
+
+// Below 452 px Quản lý nhóm is icon only, so the longest realistic choices fit; from 452 px it shows its text (decisions.md).
+const ICON_ONLY_BELOW = 452;
+for (const width of [360, 380, 390, 412, 452, 1440]) {
+  const iconOnly = width < ICON_ONLY_BELOW;
+  test(`${width}px: Quản lý nhóm ${iconOnly ? 'is icon only with its name and tooltip' : 'shows its text'}, targets are 44 px, the filter choice is not cut`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 780 });
+    await open(page, DAY, '', { groups: [...GROUPS, group('sk', 'Sức khỏe', 'blue', at(7, 3))] });
+    await expect(manageBtn(page)).toHaveAccessibleName('Quản lý nhóm');
+    const label = page.locator('.group-bar__manage-label');
+    const b = await manageBtn(page).boundingBox();
+    if (iconOnly) {
+      expect((await label.boundingBox()).width).toBeLessThanOrEqual(1);
+      expect(b.width).toBeGreaterThanOrEqual(44);
+      expect(b.height).toBeGreaterThanOrEqual(44);
+      await manageBtn(page).focus();
+      await page.keyboard.press('Shift+Tab');
+      await page.keyboard.press('Tab'); // keyboard focus shows the tooltip
+      expect(await manageBtn(page).evaluate((el) => getComputedStyle(el, '::after').content)).toContain('Quản lý nhóm');
+      await expect.poll(() => manageBtn(page).evaluate((el) => getComputedStyle(el, '::after').opacity)).toBe('1');
+    } else {
+      expect((await label.boundingBox()).width).toBeGreaterThan(40);
+      expect(await manageBtn(page).evaluate((el) => getComputedStyle(el, '::after').content)).toBe('none');
+      // The 36 px button gets a 44 px tall hit area from its ::before.
+      const hit = await page.evaluate(({ x, y, h }) => [y - 3, y + h + 3].map((py) => !!document.elementFromPoint(x, py)?.closest('#manage-groups')), { x: b.x + b.width / 2, y: b.y, h: b.height });
+      expect(hit).toEqual([true, true]);
+    }
+    // The chosen name fits: the select is at least as wide as a copy of it holding only the chosen option at natural width.
+    for (const label of ['Chưa phân nhóm', 'Học tiếng Nhật']) {
+      await filterSel(page).selectOption({ label });
+      const fits = await filterSel(page).evaluate((s) => {
+        const probe = s.cloneNode(true);
+        probe.value = s.value;
+        probe.style.setProperty('max-width', 'none');
+        probe.style.setProperty('width', 'auto');
+        probe.style.setProperty('position', 'absolute');
+        s.parentElement.append(probe);
+        for (const o of [...probe.options]) if (!o.selected) o.remove();
+        const need = probe.getBoundingClientRect().width;
+        probe.remove();
+        return s.getBoundingClientRect().width + 0.5 >= need;
+      });
+      expect(fits, label).toBe(true);
+    }
+    expect((await filterSel(page).boundingBox()).height).toBeGreaterThanOrEqual(44);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+  });
+}
+
+test('200 tasks in 20 groups: a filter change stays under 100 ms', async ({ page }) => {
+  const gs = Array.from({ length: 20 }, (_, i) => group(`g${i}`, `Nhóm ${i + 1}`, 'yellow', i + 1));
+  const big = Array.from({ length: 200 }, (_, i) => ({ ...task(`t${i}`, `Việc số ${i + 1}`, false, TODAY, i + 1), groupId: `g${i % 20}` }));
+  await open(page, big, '', { groups: gs });
+  const time = (value) => page.evaluate((v) => {
+    const s = document.getElementById('group-filter');
+    const t0 = performance.now();
+    s.value = v;
+    s.dispatchEvent(new Event('change', { bubbles: true }));
+    void document.body.offsetHeight;
+    return performance.now() - t0;
+  }, value);
+  expect(await time('g6')).toBeLessThan(100);
+  await expect(rows(page)).toHaveCount(10);
+  expect(await time('all')).toBeLessThan(100);
+  await expect(rows(page)).toHaveCount(200);
+});
+
+// T7 QA additions (TC-task-groups-T7-10, T7-12 to T7-14 follow ups, storage and midnight with a filter on)
+const otherTab = (page, groups) => page.evaluate(([key, value]) => {
+  localStorage.setItem(key, JSON.stringify(value));
+  window.dispatchEvent(new StorageEvent('storage', { key, storageArea: localStorage }));
+}, [GROUPS_KEY, groups]);
+
+test('a group removed in another tab while it is filtered: the filter resets, the list shows all, the add choice falls back', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await filterSel(page).selectOption({ label: 'Học tiếng Nhật' });
+  await expect(groupEmpty(page)).toBeVisible();
+  await otherTab(page, GROUPS.filter((g) => g.id !== 'jp'));
+  await expect(filterSel(page)).toHaveValue('all');
+  await expect(filterSel(page).locator('option')).toHaveText(['Tất cả nhóm', 'Chưa phân nhóm', 'Công ty', 'Nhà']);
+  await expect(groupEmpty(page)).toBeHidden();
+  await expect(rows(page)).toHaveCount(6);
+  await expect(choice(page)).toHaveValue('none');
+});
+
+test('the filtered group renamed in another tab stays selected; all groups removed hides the filter and shows every task', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await filterSel(page).selectOption({ label: 'Công ty' });
+  await otherTab(page, GROUPS.map((g) => (g.id === 'cty' ? { ...g, name: 'Việc công ty' } : g)));
+  await expect(filterSel(page)).toHaveValue('cty');
+  await expect(filterSel(page).locator('option:checked')).toHaveText('Việc công ty');
+  await expect(names(page)).toHaveText(['Việc công ty']);
+  await otherTab(page, []);
+  await expect(filterSel(page)).toBeHidden();
+  await expect(rows(page)).toHaveCount(6);
+});
+
+test('a filter change drops an open edit on a row it hides and keeps one on a row it shows', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await rowOf(page, 'Tưới cây').getByRole('button', { name: 'Sửa' }).click();
+  await editField(page).fill('Tưới cây sửa dở');
+  await filterSel(page).selectOption({ label: 'Công ty' });
+  await expect(page.locator('.task__edit')).toHaveCount(0);
+  await filterSel(page).selectOption({ label: 'Tất cả nhóm' });
+  await expect(labels(page)).toContainText(['Tưới cây']);
+  expect((await storedJson(page, KEY)).find((t) => t.id === 'n1').text).toBe('Tưới cây');
+  await rowOf(page, 'Tưới cây').getByRole('button', { name: 'Sửa' }).click(); // a new edit opens normally
+  await expect(editField(page)).toHaveValue('Tưới cây');
+  await filterSel(page).selectOption({ label: 'Nhà' });
+  await expect(editField(page)).toHaveValue('Tưới cây'); // the row stays in view: its edit stays
+});
+
+test('a filter change while Nhóm mới... is open changes the add choice but keeps the line and its text', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await choice(page).selectOption({ label: 'Nhóm mới...' });
+  await page.locator('#new-group-name').fill('Mới');
+  await filterSel(page).selectOption({ label: 'Nhà' });
+  await expect(choice(page)).toHaveValue('new');
+  await expect(page.locator('#new-group-name')).toHaveValue('Mới');
+  await page.locator('#new-group-name').press('Escape');
+  await expect(page.locator('#new-group-name')).toHaveCount(0);
+  await expect(choice(page).locator('option:checked')).toHaveText('Nhà');
+});
+
+test('midnight with a filter on keeps the filter, follows the new day and clears the notice', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await filterSel(page).selectOption({ label: 'Công ty' });
+  await choice(page).selectOption({ label: 'Nhà' });
+  await addTask(page, 'Mua rau');
+  await expect(notice(page)).toBeVisible();
+  await passMidnight(page);
+  await expect(page.locator('#date-line')).toContainText('10/11/2026');
+  await expect(filterSel(page)).toHaveValue('cty');
+  await expect(groupEmpty(page)).toHaveText('Ngày này chưa có việc nào trong nhóm "Công ty".');
+  await expect(notice(page)).toBeHidden();
+});
+
+// BUG-007: the notice said "this group is hidden by the filter" and stayed after the filter was changed to show it.
+test('the hidden group notice goes away when the filter changes', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await filterSel(page).selectOption({ label: 'Công ty' });
+  await choice(page).selectOption({ label: 'Nhà' });
+  await addTask(page, 'Mua rau');
+  await expect(notice(page)).toBeVisible();
+  await filterSel(page).selectOption({ label: 'Nhà' });
+  await expect(notice(page)).toBeHidden();
+});
+
+test('the filter empty text is a polite status, so it is announced when the filter shows no task', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await expect(groupEmpty(page)).toHaveAttribute('role', 'status');
+  await filterSel(page).selectOption({ label: 'Học tiếng Nhật' });
+  await expect(page.getByRole('status').filter({ hasText: 'Ngày này chưa có việc nào trong nhóm "Học tiếng Nhật".' })).toBeVisible();
+});
+
+test('every group removed in another tab while the filter has focus: the filter goes and focus moves to the add input', async ({ page, context }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await filterSel(page).selectOption({ label: 'Công ty' });
+  await filterSel(page).focus();
+  const other = await context.newPage();
+  await other.goto('./');
+  await other.evaluate((k) => localStorage.setItem(k, '[]'), GROUPS_KEY);
+  await other.close();
+  await expect(filterSel(page)).toBeHidden();
+  await expect(page.locator('#new-task')).toBeFocused();
+  await expect(labels(page)).toHaveCount(6); // back to the plain list of the whole day
+  await expect(sections(page)).toHaveCount(0);
+});
+
+test('an add to a hidden group on an empty day shows the filter empty text and the notice', async ({ page }) => {
+  await open(page, [], '', { groups: GROUPS });
+  await filterSel(page).selectOption({ label: 'Công ty' });
+  await expect(dayEmpty(page)).toBeVisible();
+  await choice(page).selectOption({ label: 'Nhà' });
+  await addTask(page, 'Mua rau');
+  await expect(groupEmpty(page)).toBeVisible();
+  await expect(groupEmpty(page)).toHaveText('Ngày này chưa có việc nào trong nhóm "Công ty".');
+  await expect(dayEmpty(page)).toBeHidden();
+  await expect(notice(page)).toHaveText('Đã thêm việc vào nhóm "Nhà". Nhóm này đang được ẩn bởi bộ lọc.');
+  await expect(page.locator('#new-task')).toBeFocused();
 });
