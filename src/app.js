@@ -431,12 +431,13 @@ function showGroupTasks(id) {
 // The group's tasks as stored right now: another tab may have added one since load (BUG-009).
 // Read only: it parses the tasks key and never writes; unreadable storage falls back to this tab's copy.
 // Only entries the store would load count, so a damaged one never blocks a delete or turns to a bad day.
+// ids: the stored task ids of the group; absent on the fallback, which is this tab's own copy.
 function storedUsage(id) {
   try {
     const all = JSON.parse(getStorage()?.getItem(STORAGE_KEY) ?? "null");
     if (!Array.isArray(all)) return store.groupUsage(id);
     const hit = all.filter((t) => isValid(t) && t.groupId === id);
-    return { count: hit.length, days: [...new Set(hit.map((t) => t.date))].sort() };
+    return { count: hit.length, days: [...new Set(hit.map((t) => t.date))].sort(), ids: hit.map((t) => t.id) };
   } catch {
     return store.groupUsage(id);
   }

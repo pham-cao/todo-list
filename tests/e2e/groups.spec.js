@@ -2491,3 +2491,460 @@ test('damaged stored entries in a group neither block its delete nor send Xem c�
   expect(hash(page)).toBe('#2026-11-05');
   await expect(filterSel(page)).toHaveValue('nha');
 });
+
+// T10: move every task of a group (R61, R67 to R72, NFR3)
+const moveCard = (page) => page.getByRole('dialog', { name: /^Chuyển tất cả việc của nhóm/ });
+const moveBtn = (page, name) => cardRow(page, name).getByRole('button', { name: 'Chuyển tất cả việc' });
+const target = (page) => moveCard(page).getByRole('combobox', { name: 'Chuyển đến nhóm' });
+const moveText = (n, d, to) => `Chuyển ${n} việc trong ${d} ngày sang nhóm "${to}"? Ngày, trạng thái hoàn thành và thứ tự của các việc được giữ nguyên.`;
+const moveError = (page) => moveCard(page).getByRole('alert');
+const MOVE_ERROR = 'Không thể lưu thay đổi. Chưa có việc nào được chuyển.';
+const MOVE_STALE = 'Một tab khác vừa thay đổi việc của nhóm này. Hãy tải lại trang rồi thử lại.';
+// Công ty on a past, today and a future day, done and not done; Nhà and Chưa phân nhóm as in DAY.
+const SPREAD = [
+  ...DAY,
+  inGroup('cty', 'cp', 'Việc hôm trước', true, '2026-11-05', at(6, 0)),
+  inGroup('cty', 'cf', 'Việc tuần sau', false, '2026-11-16', at(6, 1)),
+];
+const countWrites = (page) => page.evaluate((k) => {
+  window.__writes = 0;
+  const set = Storage.prototype.setItem;
+  Storage.prototype.setItem = function (key, v) { if (key === k) window.__writes++; return set.call(this, key, v); };
+}, KEY);
+const failTaskWrites = (page) => page.evaluate((k) => {
+  window.__set = Storage.prototype.setItem;
+  Storage.prototype.setItem = function (key, v) { if (key === k) throw new DOMException('Full', 'QuotaExceededError'); return window.__set.call(this, key, v); };
+}, KEY);
+
+test('the inactive move button of a group with no task does nothing, by click or Enter', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await openCard(page);
+  const idle = moveBtn(page, 'Học tiếng Nhật');
+  await idle.dispatchEvent('click'); // Playwright will not click an aria-disabled button, so fire the press itself
+  await idle.focus();
+  await page.keyboard.press('Enter');
+  await page.keyboard.press(' ');
+  await expect(idle).toBeFocused();
+  await expect(moveCard(page)).toBeHidden();
+  await expect(blockedNote(page)).toBeHidden();
+  await expect(card(page)).toBeVisible();
+});
+
+test('the move card: title, Chưa phân nhóm first and chosen, no source, the sentence follows the target; Hủy and Escape change nothing', async ({ page }) => {
+  await open(page, SPREAD, '', { groups: GROUPS });
+  const before = await storedAll(page);
+  await openCard(page);
+  await moveBtn(page, 'Công ty').click();
+  await expect(moveCard(page)).toBeVisible();
+  await expect(moveCard(page).locator('.dialog__title')).toHaveText('Chuyển tất cả việc của nhóm "Công ty"');
+  await expect(target(page).locator('option')).toHaveText(['Chưa phân nhóm', 'Nhà', 'Học tiếng Nhật']);
+  await expect(target(page)).toHaveValue('none');
+  await expect(moveCard(page).locator('.dialog__text')).toHaveText(moveText(5, 3, 'Chưa phân nhóm'));
+  await expect(moveCard(page)).toHaveAccessibleDescription(moveText(5, 3, 'Chưa phân nhóm'));
+  await expect(moveError(page)).toHaveCount(0);
+  await target(page).selectOption('nha');
+  await expect(moveCard(page).locator('.dialog__text')).toHaveText(moveText(5, 3, 'Nhà'));
+  await expect(moveCard(page).locator('.select .swatch')).toHaveAttribute('data-color', 'pink');
+  await target(page).selectOption('jp');
+  await expect(moveCard(page).locator('.dialog__text')).toHaveText(moveText(5, 3, 'Học tiếng Nhật'));
+  await moveCard(page).getByRole('button', { name: 'Hủy' }).click();
+  await expect(moveCard(page)).toBeHidden();
+  await expect(card(page)).toBeVisible();
+  await expect(moveBtn(page, 'Công ty')).toBeFocused();
+  // Keyboard: Enter opens it with Chưa phân nhóm again, Escape closes it.
+  await page.keyboard.press('Enter');
+  await expect(target(page)).toHaveValue('none');
+  await expect(moveCard(page).locator('.dialog__text')).toHaveText(moveText(5, 3, 'Chưa phân nhóm'));
+  await page.keyboard.press('Escape');
+  await expect(moveCard(page)).toBeHidden();
+  await expect(card(page)).toBeVisible();
+  await expect(moveBtn(page, 'Công ty')).toBeFocused();
+  // A group with one task on one day.
+  await moveBtn(page, 'Nhà').click();
+  await expect(target(page).locator('option')).toHaveText(['Chưa phân nhóm', 'Công ty', 'Học tiếng Nhật']);
+  await expect(moveCard(page).locator('.dialog__text')).toHaveText(moveText(2, 1, 'Chưa phân nhóm'));
+  await page.keyboard.press('Escape');
+  expect(await storedAll(page)).toEqual(before);
+});
+
+test('Chuyển việc moves every task of the group on every day with one write; only groupId changes; the source stays and can be deleted', async ({ page }) => {
+  await open(page, SPREAD, '', { groups: GROUPS, ui: { collapsed: ['nha'] } });
+  const before = await storedJson(page, KEY);
+  const groupsBefore = await storedJson(page, GROUPS_KEY);
+  await openCard(page);
+  await moveBtn(page, 'Công ty').click();
+  await target(page).selectOption('nha');
+  await countWrites(page);
+  await moveCard(page).getByRole('button', { name: 'Chuyển việc' }).click();
+  await expect(moveCard(page)).toBeHidden();
+  await expect(card(page)).toBeHidden();
+  await expect(manageBtn(page)).toBeFocused();
+  await expect(notice(page)).toHaveText('Đã chuyển 5 việc sang nhóm "Nhà".');
+  await expect(notice(page)).toHaveAttribute('role', 'status');
+  expect(await page.evaluate(() => window.__writes)).toBe(1);
+  const after = await storedJson(page, KEY);
+  expect(after).toEqual(before.map((t) => (t.groupId === 'cty' ? { ...t, groupId: 'nha' } : t)));
+  // The day shows the moved rows in Nhà by creation time, the section open again; Công ty is gone from the day.
+  await expect(names(page)).toHaveText(['Nhà', 'Chưa phân nhóm']);
+  await expect(toggle(page, 'Nhà')).toHaveAttribute('aria-expanded', 'true');
+  expect((await storedJson(page, UI_KEY)).collapsed).not.toContain('nha');
+  await expect(sectionLabels(page, 'Nhà')).toHaveText(['Tưới cây', 'Gửi báo cáo', 'Nấu cơm', 'Họp nhóm', 'Trả lời email']);
+  await expect(summary(page)).toHaveText('Đã hoàn thành 2/6 việc');
+  // The group itself is untouched, now empty: inactive move, and Xóa asks the plain question.
+  expect(await storedJson(page, GROUPS_KEY)).toEqual(groupsBefore);
+  await openCard(page);
+  await expect(moveBtn(page, 'Công ty')).toHaveAttribute('aria-disabled', 'true');
+  await xoa(page, 'Công ty').click();
+  await expect(page.getByRole('alertdialog', { name: 'Xóa nhóm "Công ty"?' })).toBeVisible();
+  await deleteNote(page).getByRole('button', { name: 'Xóa nhóm' }).click();
+  expect((await storedJson(page, GROUPS_KEY)).map((g) => g.id)).toEqual(['nha', 'jp']);
+  expect((await storedJson(page, KEY)).length).toBe(before.length);
+});
+
+test('moving to Chưa phân nhóm drops the groupId key; a filter and add choice on the source stay, with its empty state', async ({ page }) => {
+  await open(page, SPREAD, '', { groups: GROUPS });
+  await filterSel(page).selectOption('cty');
+  await expect(choice(page)).toHaveValue('cty');
+  await openCard(page);
+  await moveBtn(page, 'Công ty').click();
+  // Keyboard: focus starts on the target choice, then Hủy, then Chuyển việc.
+  await expect(target(page)).toBeFocused();
+  await page.keyboard.press('Tab');
+  await page.keyboard.press('Tab');
+  await expect(moveCard(page).getByRole('button', { name: 'Chuyển việc' })).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(card(page)).toBeHidden();
+  await expect(notice(page)).toHaveText('Đã chuyển 5 việc sang nhóm "Chưa phân nhóm".');
+  const moved = (await storedJson(page, KEY)).filter((t) => t.id[0] === 'c');
+  expect(moved).toHaveLength(5);
+  for (const t of moved) expect(Object.keys(t)).not.toContain('groupId');
+  await expect(filterSel(page)).toHaveValue('cty');
+  await expect(groupEmpty(page)).toHaveText('Ngày này chưa có việc nào trong nhóm "Công ty".');
+  await expect(choice(page)).toHaveValue('cty');
+  await addTask(page, 'Việc mới');
+  expect((await storedJson(page, KEY)).find((t) => t.text === 'Việc mới').groupId).toBe('cty');
+  await filterSel(page).selectOption('all');
+  await expect(sectionLabels(page, 'Chưa phân nhóm')).toHaveText(['Gửi báo cáo', 'Đọc sách', 'Họp nhóm', 'Trả lời email']);
+});
+
+test('a failed write keeps the card open with the error and the target; nothing moves; a retry then moves everything', async ({ page }) => {
+  await open(page, SPREAD, '', { groups: GROUPS });
+  const before = await storedRaw(page);
+  await openCard(page);
+  await moveBtn(page, 'Công ty').click();
+  await target(page).selectOption('jp');
+  await failTaskWrites(page);
+  await moveCard(page).getByRole('button', { name: 'Chuyển việc' }).click();
+  await expect(moveError(page)).toHaveText(MOVE_ERROR);
+  await expect(moveCard(page)).toBeVisible();
+  await expect(target(page)).toHaveValue('jp');
+  await expect(slip(page)).toBeHidden();
+  expect(await storedRaw(page)).toBe(before);
+  await expect(sectionLabels(page, 'Công ty')).toHaveText(['Gửi báo cáo', 'Họp nhóm', 'Trả lời email']);
+  // A second failure is announced again.
+  await moveCard(page).getByRole('button', { name: 'Chuyển việc' }).click();
+  await expect(moveError(page)).toHaveText(MOVE_ERROR);
+  expect(await storedRaw(page)).toBe(before);
+  await page.evaluate(() => { Storage.prototype.setItem = window.__set; });
+  await moveCard(page).getByRole('button', { name: 'Chuyển việc' }).click();
+  await expect(card(page)).toBeHidden();
+  await expect(notice(page)).toHaveText('Đã chuyển 5 việc sang nhóm "Học tiếng Nhật".');
+  const after = await storedJson(page, KEY);
+  expect(after.filter((t) => t.groupId === 'jp').map((t) => t.id).sort()).toEqual(['c1', 'c2', 'c3', 'cf', 'cp']);
+  expect(after.some((t) => t.groupId === 'cty')).toBe(false);
+  // Reopened, the card starts clean.
+  await openCard(page);
+  await moveBtn(page, 'Nhà').click();
+  await expect(moveError(page)).toHaveCount(0);
+});
+
+test('from the blocked note: Hủy returns to its Chuyển tất cả việc; Chuyển việc closes every dialog', async ({ page }) => {
+  await open(page, SPREAD, '', { groups: GROUPS });
+  await openCard(page);
+  await xoa(page, 'Công ty').click();
+  const noteMove = blockedNote(page).getByRole('button', { name: 'Chuyển tất cả việc' });
+  await noteMove.click();
+  await expect(moveCard(page)).toBeVisible();
+  await expect(moveCard(page).locator('.dialog__text')).toHaveText(moveText(5, 3, 'Chưa phân nhóm'));
+  await moveCard(page).getByRole('button', { name: 'Hủy' }).click();
+  await expect(moveCard(page)).toBeHidden();
+  await expect(blockedNote(page)).toBeVisible();
+  await expect(noteMove).toBeFocused();
+  await page.keyboard.press('Enter');
+  await target(page).selectOption('nha');
+  await moveCard(page).getByRole('button', { name: 'Chuyển việc' }).click();
+  await expect(moveCard(page)).toBeHidden();
+  await expect(blockedNote(page)).toBeHidden();
+  await expect(card(page)).toBeHidden();
+  await expect(manageBtn(page)).toBeFocused();
+  await expect(notice(page)).toHaveText('Đã chuyển 5 việc sang nhóm "Nhà".');
+  await expect(names(page)).toHaveText(['Nhà', 'Chưa phân nhóm']);
+});
+
+test('only one group: the target list holds Chưa phân nhóm alone and the move works', async ({ page }) => {
+  await open(page, DAY.filter((t) => t.groupId !== 'nha'), '', { groups: [GROUPS[0]] });
+  await openCard(page);
+  await moveBtn(page, 'Công ty').click();
+  await expect(target(page).locator('option')).toHaveText(['Chưa phân nhóm']);
+  await moveCard(page).getByRole('button', { name: 'Chuyển việc' }).click();
+  await expect(notice(page)).toHaveText('Đã chuyển 3 việc sang nhóm "Chưa phân nhóm".');
+  await expect(rows(page)).toHaveCount(4);
+});
+
+test('storage unavailable from load: the move happens in memory with the notice and no error, nothing written', async ({ page }) => {
+  await page.addInitScript((k) => {
+    const get = Storage.prototype.getItem;
+    Storage.prototype.getItem = function (key) { if (key === k) throw new DOMException('Blocked', 'SecurityError'); return get.call(this, key); };
+  }, KEY);
+  await open(page, null, '', { groups: GROUPS });
+  await choice(page).selectOption('cty');
+  await addTask(page, 'Gọi khách');
+  await addTask(page, 'Gửi hợp đồng');
+  await countWrites(page);
+  await openCard(page);
+  await moveBtn(page, 'Công ty').click();
+  await expect(moveCard(page).locator('.dialog__text')).toHaveText(moveText(2, 1, 'Chưa phân nhóm'));
+  await target(page).selectOption('nha');
+  await moveCard(page).getByRole('button', { name: 'Chuyển việc' }).click();
+  await expect(card(page)).toBeHidden();
+  await expect(notice(page)).toHaveText('Đã chuyển 2 việc sang nhóm "Nhà".');
+  await expect(sectionLabels(page, 'Nhà')).toHaveText(['Gọi khách', 'Gửi hợp đồng']);
+  expect(await page.evaluate(() => window.__writes)).toBe(0);
+});
+
+test('a task of the group stored by another tab: Chuyển việc writes nothing and asks for a reload, so that task is not lost (BUG-013)', async ({ page, context }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await openCard(page);
+  await moveBtn(page, 'Công ty').click();
+  const other = await context.newPage();
+  await other.goto('/');
+  await other.evaluate(([key]) => {
+    const all = JSON.parse(localStorage.getItem(key));
+    all.push({ id: 'other', text: 'Việc từ tab khác', done: false, createdAt: Date.now(), date: all[0].date, groupId: 'cty' });
+    localStorage.setItem(key, JSON.stringify(all));
+  }, [KEY]);
+  await other.close();
+  const before = await storedRaw(page);
+  await moveCard(page).getByRole('button', { name: 'Chuyển việc' }).click();
+  await expect(moveError(page)).toHaveText(MOVE_STALE);
+  expect(await storedRaw(page)).toBe(before);
+});
+
+test('a target group deleted in another tab while the card is open falls back to Chưa phân nhóm', async ({ page, context }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await openCard(page);
+  await moveBtn(page, 'Công ty').click();
+  await target(page).selectOption('jp');
+  const other = await context.newPage();
+  await other.goto('/');
+  await other.evaluate(([key]) => {
+    localStorage.setItem(key, JSON.stringify(JSON.parse(localStorage.getItem(key)).filter((g) => g.id !== 'jp')));
+  }, [GROUPS_KEY]);
+  await other.close();
+  await expect(target(page).locator('option')).toHaveText(['Chưa phân nhóm', 'Nhà']);
+  await expect(target(page)).toHaveValue('none');
+  await expect(moveCard(page).locator('.dialog__text')).toHaveText(moveText(3, 1, 'Chưa phân nhóm'));
+});
+
+test('200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms', async ({ page }) => {
+  // 59 tasks on 59 other days (Sep 11 to Nov 8), the other 141 on the viewed day.
+  const other = (i) => new Date(Date.UTC(2026, 8, 11 + i)).toISOString().slice(0, 10);
+  const many = Array.from({ length: 200 }, (_, i) => inGroup('cty', `t${i}`, `Việc số ${i + 1}`, i % 3 === 0, i < 59 ? other(i) : TODAY, NOW.getTime() + i));
+  await open(page, many, '', { groups: GROUPS });
+  await openCard(page);
+  await moveBtn(page, 'Công ty').click();
+  await target(page).selectOption('nha');
+  await countWrites(page);
+  await page.waitForTimeout(500); // let the page settle, measured as BUG-010: the move, the list rebuilt and a forced layout
+  const ms = await page.evaluate(() => {
+    const t0 = performance.now();
+    document.querySelector('#move-dialog form').requestSubmit();
+    void document.body.offsetHeight;
+    return performance.now() - t0;
+  });
+  expect(ms).toBeLessThan(100);
+  expect(await page.evaluate(() => window.__writes)).toBe(1);
+  const after = await storedJson(page, KEY);
+  expect(after).toHaveLength(200);
+  expect(after.every((t) => t.groupId === 'nha')).toBe(true);
+  expect(new Set(after.map((t) => t.date)).size).toBe(60);
+  await expect(section(page, 'Nhà').locator('.task')).toHaveCount(141);
+});
+
+// T10 QA: stacked dialogs, rapid cycles, names, size and the other tab cases (TC-task-groups-T10-18, 22, 25)
+test('Escape peels three stacked dialogs one at a time: move card, blocked note, manage card; focus returns to each opener', async ({ page }) => {
+  await open(page, SPREAD, '', { groups: GROUPS });
+  await manageBtn(page).focus();
+  await page.keyboard.press('Enter');
+  await expect(card(page)).toBeVisible();
+  await xoa(page, 'Công ty').click();
+  await expect(blockedNote(page)).toBeVisible();
+  const noteMove = blockedNote(page).getByRole('button', { name: 'Chuyển tất cả việc' });
+  await noteMove.click();
+  await expect(moveCard(page)).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(moveCard(page)).toBeHidden();
+  await expect(blockedNote(page)).toBeVisible();
+  await expect(noteMove).toBeFocused();
+  await page.keyboard.press('Escape');
+  await expect(blockedNote(page)).toBeHidden();
+  await expect(card(page)).toBeVisible();
+  await expect(xoa(page, 'Công ty')).toBeFocused();
+  await page.keyboard.press('Escape');
+  await expect(card(page)).toBeHidden();
+  await expect(manageBtn(page)).toBeFocused();
+  expect((await storedJson(page, KEY)).filter((t) => t.groupId === 'cty')).toHaveLength(5);
+});
+
+test('rapid cycles on the move card from the row and from the blocked note: it opens clean each time and the last Chuyển việc moves all', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await open(page, SPREAD, '', { groups: GROUPS });
+  await openCard(page);
+  const btn = moveBtn(page, 'Công ty');
+  await btn.focus();
+  for (let i = 0; i < 10; i++) { await page.keyboard.press('Enter'); await page.keyboard.press('Escape'); }
+  await expect(btn).toBeFocused();
+  for (let i = 0; i < 6; i++) { await page.keyboard.press('Enter'); await page.keyboard.press('Tab'); await page.keyboard.press('Enter'); } // open, Tab from the choice to Hủy, press it
+  await expect(btn).toBeFocused();
+  await xoa(page, 'Công ty').click();
+  const noteMove = blockedNote(page).getByRole('button', { name: 'Chuyển tất cả việc' });
+  await noteMove.focus();
+  for (let i = 0; i < 8; i++) { await page.keyboard.press('Enter'); await page.keyboard.press('Escape'); }
+  await expect(noteMove).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(moveCard(page)).toBeVisible();
+  await expect(moveError(page)).toHaveCount(0);
+  await expect(target(page)).toHaveValue('none');
+  await moveCard(page).getByRole('button', { name: 'Chuyển việc' }).click();
+  await expect(card(page)).toBeHidden();
+  await expect(blockedNote(page)).toBeHidden();
+  await expect(manageBtn(page)).toBeFocused();
+  await expect(notice(page)).toHaveText('Đã chuyển 5 việc sang nhóm "Chưa phân nhóm".');
+  expect((await storedJson(page, KEY)).some((t) => t.groupId === 'cty')).toBe(false);
+  expect(errors).toEqual([]);
+});
+
+test('names and sizes: every control of the move card has its visible text in its name; the dialog is modal; the buttons reach 44 px on a phone', async ({ page }, info) => {
+  await open(page, SPREAD, '', { groups: GROUPS });
+  await openCard(page);
+  await moveBtn(page, 'Công ty').click();
+  await expect(moveCard(page).getByRole('heading', { name: 'Chuyển tất cả việc của nhóm "Công ty"' })).toBeVisible();
+  await expect(moveCard(page).getByRole('button', { name: 'Hủy' })).toBeVisible();
+  await expect(moveCard(page).getByRole('button', { name: 'Chuyển việc' })).toBeVisible();
+  await expect(target(page)).toBeVisible();
+  expect(await page.evaluate(() => document.getElementById('move-dialog').matches(':modal'))).toBe(true);
+  for (const name of ['Hủy', 'Chuyển việc']) {
+    const b = await moveCard(page).getByRole('button', { name }).boundingBox();
+    expect(b.height).toBeGreaterThanOrEqual(44);
+  }
+  expect((await target(page).boundingBox()).height).toBeGreaterThanOrEqual(44);
+  await page.keyboard.press('Escape');
+  for (const name of ['Công ty', 'Nhà', 'Học tiếng Nhật']) {
+    const b = await moveBtn(page, name).boundingBox();
+    expect(b.width).toBeGreaterThanOrEqual(44);
+    expect(b.height).toBeGreaterThanOrEqual(44);
+  }
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});
+
+test('the source group removed in another tab while the move card is open closes it without a move or a script error', async ({ page, context }) => {
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await open(page, DAY, '', { groups: GROUPS });
+  await openCard(page);
+  await moveBtn(page, 'Công ty').click();
+  const before = await storedRaw(page);
+  const other = await context.newPage();
+  await other.goto('/');
+  await other.evaluate(([key]) => {
+    localStorage.setItem(key, JSON.stringify(JSON.parse(localStorage.getItem(key)).filter((g) => g.id !== 'cty')));
+  }, [GROUPS_KEY]);
+  await other.close();
+  await expect(moveCard(page)).toBeHidden();
+  expect(await storedRaw(page)).toBe(before);
+  await expect(card(page)).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
+test('another tab stored more tasks of the group: the refusal repeats, Hủy and reopening do not clear it, nothing is written', async ({ page, context }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await openCard(page);
+  await moveBtn(page, 'Công ty').click();
+  const other = await context.newPage();
+  await other.goto('/');
+  await other.evaluate(([key]) => {
+    const all = JSON.parse(localStorage.getItem(key));
+    all.push({ id: 'other', text: 'Việc từ tab khác', done: false, createdAt: Date.now(), date: all[0].date, groupId: 'cty' });
+    localStorage.setItem(key, JSON.stringify(all));
+  }, [KEY]);
+  await other.close();
+  const before = await storedRaw(page);
+  await moveCard(page).getByRole('button', { name: 'Chuyển việc' }).click();
+  await expect(moveError(page)).toHaveText(MOVE_STALE);
+  await moveCard(page).getByRole('button', { name: 'Chuyển việc' }).click();
+  await expect(moveError(page)).toHaveText(MOVE_STALE);
+  await moveCard(page).getByRole('button', { name: 'Hủy' }).click();
+  await moveBtn(page, 'Công ty').click();
+  await moveCard(page).getByRole('button', { name: 'Chuyển việc' }).click();
+  await expect(moveError(page)).toHaveText(MOVE_STALE);
+  expect(await storedRaw(page)).toBe(before);
+  await expect(card(page)).toBeVisible();
+});
+
+// BUG-012 (TC-task-groups-T10-30): the blocked note of a group removed in another tab closes with the move card over it.
+test('the blocked note and move card of a group removed in another tab both close; focus goes back to the card (Đóng)', async ({ page, context }) => {
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await open(page, DAY, '', { groups: GROUPS });
+  await openCard(page);
+  await xoa(page, 'Công ty').click();
+  await blockedNote(page).getByRole('button', { name: 'Chuyển tất cả việc' }).click();
+  await expect(moveCard(page)).toBeVisible();
+  const other = await context.newPage();
+  await other.goto('/');
+  await other.evaluate(([key]) => {
+    localStorage.setItem(key, JSON.stringify(JSON.parse(localStorage.getItem(key)).filter((g) => g.id !== 'cty')));
+  }, [GROUPS_KEY]);
+  await other.close();
+  await expect(moveCard(page)).toBeHidden();
+  await expect(blockedNote(page)).toBeHidden();
+  await expect(card(page)).toBeVisible();
+  await expect(card(page).getByRole('button', { name: 'Đóng' })).toBeFocused();
+  await expect(cardRows(page).locator('.sticker')).toHaveText(['Nhà', 'Học tiếng Nhật']);
+  // The blocked note alone, for a group still listed: another group's removal leaves it open.
+  await xoa(page, 'Nhà').click();
+  await expect(blockedNote(page)).toBeVisible();
+  const third = await context.newPage();
+  await third.goto('/');
+  await third.evaluate(([key]) => {
+    localStorage.setItem(key, JSON.stringify(JSON.parse(localStorage.getItem(key)).filter((g) => g.id !== 'jp')));
+  }, [GROUPS_KEY]);
+  await third.close();
+  await expect(cardRows(page).locator('.sticker')).toHaveText(['Nhà']);
+  await expect(blockedNote(page)).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
+// Review: equal counts are not enough. Another tab adds one task to the group and moves a different one out,
+// so the stored count matches this tab's; the move must still refuse, or its single write drops the new task.
+test('another tab adds one task to the group and moves another out: same count, the move is still refused', async ({ page, context }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await openCard(page);
+  await moveBtn(page, 'Công ty').click();
+  const other = await context.newPage();
+  await other.goto('/');
+  await other.evaluate(([key]) => {
+    const all = JSON.parse(localStorage.getItem(key));
+    all.find((t) => t.id === 'c1').groupId = 'nha';
+    all.push({ id: 'other', text: 'Việc từ tab khác', done: false, createdAt: Date.now(), date: all[0].date, groupId: 'cty' });
+    localStorage.setItem(key, JSON.stringify(all));
+  }, [KEY]);
+  await other.close();
+  const before = await storedRaw(page);
+  await moveCard(page).getByRole('button', { name: 'Chuyển việc' }).click();
+  await expect(moveError(page)).toHaveText(MOVE_STALE);
+  await expect(moveCard(page)).toBeVisible();
+  expect(await storedRaw(page)).toBe(before);
+  expect(JSON.parse(before).some((t) => t.id === 'other')).toBe(true);
+});

@@ -1,4 +1,7 @@
-import { COLORS, COLOR_NAMES } from "./groups.js?v=1.2.0";
+import { COLORS, COLOR_NAMES, UNGROUPED, UNGROUPED_NAME } from "./groups.js?v=1.2.0";
+
+const MOVE_ERROR = "Không thể lưu thay đổi. Chưa có việc nào được chuyển.";
+const MOVE_STALE = "Một tab khác vừa thay đổi việc của nhóm này. Hãy tải lại trang rồi thử lại."; // BUG-013
 
 export const GROUP_ERRORS = {
   empty: "Vui lòng nhập tên nhóm.",
@@ -150,7 +153,7 @@ export function createManage({ groups, store, button, refresh, notify, showGroup
     const action = e.target.closest("[data-action]")?.dataset.action;
     if (action === "show") showTasks();
     else if (action === "keep") blockedNote.close();
-    // move: Chuyển tất cả việc is wired in T10.
+    else if (action === "move") openMove(noteId, e.target.closest("button"));
   });
   // Giữ lại, Đã hiểu, Escape and the backdrop, as on the task note: the group stays and focus goes back to its Xóa.
   for (const note of [deleteNote, blockedNote]) {
@@ -168,6 +171,98 @@ export function createManage({ groups, store, button, refresh, notify, showGroup
       if (id) focusRow(id, "delete");
     });
   }
+
+  // Chuyển tất cả việc (R67 to R72): the move card, stacked over the card or the blocked note that opened it.
+  const moveCard = $("move-dialog");
+  const target = $("move-target");
+  const moveAlert = moveCard.querySelector(".alert");
+  let moveId = null; // the source group while the card is open; null once it has acted, so its close event does nothing
+  let moveUsage = null; // the counts the sentence states
+  let opener = null;
+  let refreshed = false; // a move has refreshed the page already: the card's close need not do it again
+
+  const colorOf = (key) => groups().get(key)?.color ?? "none";
+  const nameOf = (key) => groups().get(key)?.name ?? UNGROUPED_NAME;
+  const option = (value, text) => Object.assign(document.createElement("option"), { value, textContent: text });
+
+  // Chưa phân nhóm first, then every group but the source; the chosen target is kept if it still exists (R68).
+  function renderTargets() {
+    const keep = target.value;
+    target.replaceChildren(option(UNGROUPED, UNGROUPED_NAME),
+      ...groups().list().filter((g) => g.id !== moveId).map((g) => option(g.id, g.name)));
+    target.value = [...target.options].some((o) => o.value === keep) ? keep : UNGROUPED;
+    renderSentence();
+  }
+
+  function renderSentence() {
+    target.closest(".select").querySelector(".swatch").dataset.color = colorOf(target.value);
+    $("move-text").textContent = `Chuyển ${moveUsage.count} việc trong ${moveUsage.days.length} ngày sang nhóm "${nameOf(target.value)}"? `
+      + "Ngày, trạng thái hoàn thành và thứ tự của các việc được giữ nguyên.";
+  }
+
+  function openMove(id, from) {
+    const g = groups().get(id);
+    if (!g) return render(null); // gone in another tab
+    if (editId) { editId = null; render(id, "move"); from = document.activeElement; } // an open row edit is dropped (R36)
+    moveId = id;
+    opener = from;
+    moveUsage = store.groupUsage(id);
+    $("move-title").textContent = `Chuyển tất cả việc của nhóm "${g.name}"`;
+    const sticker = moveCard.querySelector(".sticker");
+    sticker.textContent = g.name;
+    sticker.dataset.color = g.color;
+    target.value = UNGROUPED;
+    show(moveAlert, false);
+    renderTargets();
+    moveCard.showModal();
+  }
+
+  // Shown empty, then written a frame later, so a second failure is announced again.
+  function showMoveError(message = MOVE_ERROR) {
+    const text = moveAlert.querySelector("p");
+    text.textContent = "";
+    show(moveAlert, true);
+    requestAnimationFrame(() => { text.textContent = message; });
+  }
+
+  function confirmMove() {
+    const id = moveId;
+    const to = target.value;
+    // Another tab may have stored tasks of this group that this tab does not hold: one write of this tab's
+    // list would drop them, so nothing is written and a reload is asked for (BUG-009, BUG-013). Locked storage reads this tab's copy.
+    // Ids, not counts: another tab may have added one task and moved another out (review).
+    const mine = new Set(store.groupUsage(id).days.flatMap((d) => store.tasksFor(d)).filter((t) => t.groupId === id).map((t) => t.id));
+    if (storedUsage(id).ids?.some((x) => !mine.has(x))) return showMoveError(MOVE_STALE);
+    const result = store.moveGroup(id, to === UNGROUPED ? null : to);
+    if (result.error) return showMoveError(); // all or nothing: every task is still in its group (R70)
+    if (groups().isCollapsed(to)) groups().setCollapsed(to, false); // the target section opens (R71)
+    moveId = null;
+    // The list, choices and filter follow before the dialogs go, so the page lays out once (200 tasks, NFR1).
+    refresh();
+    refreshed = true;
+    moveCard.close();
+    if (blockedNote.open) takeNote(blockedNote);
+    dialog.close(); // its close event focuses Quản lý nhóm (R71)
+    notify(`Đã chuyển ${result.moved} việc sang nhóm "${nameOf(to)}".`);
+  }
+
+  target.addEventListener("change", renderSentence);
+  moveCard.addEventListener("submit", (e) => {
+    e.preventDefault();
+    confirmMove();
+  });
+  moveCard.addEventListener("click", (e) => {
+    if (e.target.closest("[data-action]")?.dataset.action === "cancel") moveCard.close();
+  });
+  // Hủy or Escape: nothing changes, focus goes back to the button that opened the card (R68).
+  moveCard.addEventListener("close", () => {
+    if (moveCard.open) return; // queued event of a card that was opened again straight away
+    const id = moveId;
+    moveId = null;
+    if (!id) return;
+    if (opener?.isConnected) opener.focus();
+    else focusRow(id, "move");
+  });
 
   const nameInput = () => list.querySelector(".group-row--editing .input");
   const nameError = () => list.querySelector(".group-row--editing .field-error");
@@ -197,7 +292,11 @@ export function createManage({ groups, store, button, refresh, notify, showGroup
     else if (action === "rename") startEdit(e.target.closest(".group-row").dataset.id);
     else if (action === "cancel") cancelEdit();
     else if (action === "delete") askDelete(e.target.closest(".group-row").dataset.id);
-    // move comes with T10.
+    else if (action === "move") {
+      const button = e.target.closest("button");
+      // Inactive (R67): focusable with its hint, but a press does nothing.
+      if (button.getAttribute("aria-disabled") !== "true") openMove(button.closest(".group-row").dataset.id, button);
+    }
   });
 
   dialog.addEventListener("submit", (e) => {
@@ -243,7 +342,8 @@ export function createManage({ groups, store, button, refresh, notify, showGroup
   dialog.addEventListener("close", () => {
     if (dialog.open) return; // queued event of a card that was opened again straight away: keep its focus
     editId = null;
-    refresh();
+    if (!refreshed) refresh();
+    refreshed = false;
     button.focus();
   });
 
@@ -256,6 +356,15 @@ export function createManage({ groups, store, button, refresh, notify, showGroup
     // Groups changed in another tab: rows follow unless one is in edit, which keeps the typed name.
     sync() {
       if (dialog.open && !editId) render();
+      if (moveCard.open) {
+        if (groups().get(moveId)) renderTargets(); // a target removed in another tab falls back to Chưa phân nhóm
+        else {
+          if (blockedNote.open) moveId = null; // the note under it goes too: no focus on its button
+          moveCard.close();
+        }
+      }
+      // The blocked note's group went in another tab (BUG-012): its close event focuses the row's Xóa, else Đóng.
+      if (blockedNote.open && !groups().get(noteId)) blockedNote.close();
     },
   };
 }

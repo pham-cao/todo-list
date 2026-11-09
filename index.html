@@ -106,6 +106,23 @@
     </div>
   </dialog>
 
+  <dialog class="dialog dialog--card" id="move-dialog" aria-labelledby="move-title" aria-describedby="move-text">
+    <span class="sticker sticker--corner" aria-hidden="true"></span>
+    <div class="dialog__head"><h2 class="dialog__title" id="move-title"></h2></div>
+    <form novalidate>
+      <div class="move-field">
+        <label class="field-label" for="move-target">Chuyển đến nhóm</label>
+        <span class="select"><span class="swatch" data-color="none" aria-hidden="true"></span><select id="move-target"></select><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+      </div>
+      <p class="dialog__text" id="move-text"></p>
+      <div class="alert alert--warning" role="alert" hidden><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg><p></p></div>
+      <div class="dialog__actions">
+        <button class="btn btn--ghost" type="button" data-action="cancel">Hủy</button>
+        <button class="btn btn--primary" type="submit">Chuyển việc</button>
+      </div>
+    </form>
+  </dialog>
+
   <template id="group-row-template">
     <li class="group-row">
       <span class="group-row__name"><span class="sticker"></span><span class="group-row__hint">Nhóm này chưa có việc nào.</span></span>

@@ -68,6 +68,7 @@ New text is exact. Text not listed here stays as in `daily-task-log` and `day-na
 | Move all cancel button | Hủy |
 | Move all done notice | Đã chuyển {n} việc sang nhóm "{target}". |
 | Move all error, nothing saved | Không thể lưu thay đổi. Chưa có việc nào được chuyển. |
+| Move all refused, another tab changed the group's tasks (BUG-013) | Một tab khác vừa thay đổi việc của nhóm này. Hãy tải lại trang rồi thử lại. |
 | Move all, group has no tasks (button inactive hint) | Nhóm này chưa có việc nào. |
 | Section header count | {done}/{total} |
 | Section toggle accessible name | Nhóm {name} {done}/{total} việc đã hoàn thành (the visible "{name} {done}/{total}" stays one unbroken piece) |
