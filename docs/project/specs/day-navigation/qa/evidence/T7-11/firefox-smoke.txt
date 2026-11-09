@@ -1,0 +1,8 @@
+load: Hôm nay, Thứ Hai, 09/11/2026
+prev: Hôm qua, Chủ Nhật, 08/11/2026 hash #2026-11-08 to-today disabled=null
+next x2: Ngày mai, Thứ Ba, 10/11/2026
+to today: Hôm nay, Thứ Hai, 09/11/2026
+picker 05/11: Thứ Năm, 05/11/2026 hash #2026-11-05
+back: Hôm nay, Thứ Hai, 09/11/2026
+add on today (after Back): rows=1
+tab: prev-day,next-day,day-picker,day-picker,day-picker,day-picker,to-today,new-task

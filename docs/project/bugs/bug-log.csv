@@ -1,0 +1,3 @@
+bug_id,title,status,severity,priority,reported_date,owner,fix_version,verification_date,notes,links
+BUG-001,Về hôm nay tab text flashes faint for about 170 ms when opening a non today address,Closed,Low,P3,2026-11-09,fe,T7 (uncommitted),2026-11-09,"Verified and closed at T7: 40 frame samples, 4 combinations",docs/project/bugs/BUG-001.md
+BUG-002,"Moving to a day with 200 tasks takes about 150 to 190 ms to lay out once the page has settled, over the 100 ms limit of NFR1",Closed,Medium,P3,2026-11-09,fe,content-visibility on .task (design-system.css),2026-11-09,Verified then Closed. Settled moves 5 to 48 ms (was 155 to 195). Side effect: off screen wrapped rows sized as one line until scrolled in,docs/project/bugs/BUG-002.md

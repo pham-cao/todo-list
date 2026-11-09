@@ -1,0 +1,1 @@
+Subpath with moves and live region tests added in day-nav.spec.js (extra coverage for R22, R25, R8). See evidence/T4-all/day-nav-runner-output.txt

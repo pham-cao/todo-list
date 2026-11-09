@@ -1,0 +1,1 @@
+See evidence/T3-all/runner-output.txt, evidence/T3-all/runner-output-final.txt and the cases in tests/e2e/day-nav.spec.js (T3-15 manual: evidence/T3-15/manual-subpath.txt; T3-16/17 and markup checks: evidence/T3-16/manual-results.json and screenshots).

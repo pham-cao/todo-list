@@ -1,0 +1,1 @@
+BLOCKED: only headless Chromium available; native calendar popup cannot be captured, Firefox and Edge not installed. Needs a manual run in a headed Chrome, Firefox, Edge: open calendar by click, check it opens on the viewed day, Esc closes without change.

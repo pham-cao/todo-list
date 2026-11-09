@@ -1,0 +1,151 @@
+[{"l":"proto-today","w":1440,"s":"light","rows":2,"ov":false},{"l":"proto-yesterday","w":1440,"s":"light","rows":2,"ov":false},{"l":"real-today","w":1440,"s":"light","rows":2,"ov":false},{"l":"real-yesterday","w":1440,"s":"light","rows":2,"ov":false},{"l":"proto-today","w":390,"s":"light","rows":2,"ov":false},{"l":"proto-yesterday","w":390,"s":"light","rows":2,"ov":false},{"l":"real-today","w":390,"s":"light","rows":2,"ov":false},{"l":"real-yesterday","w":390,"s":"light","rows":2,"ov":false},{"l":"proto-today","w":360,"s":"light","rows":3,"ov":false},{"l":"proto-yesterday","w":360,"s":"light","rows":3,"ov":false},{"l":"real-today","w":360,"s":"light","rows":3,"ov":false},{"l":"real-yesterday","w":360,"s":"light","rows":3,"ov":false},{"l":"proto-today","w":1440,"s":"dark","rows":2,"ov":false},{"l":"proto-yesterday","w":1440,"s":"dark","rows":2,"ov":false},{"l":"real-today","w":1440,"s":"dark","rows":2,"ov":false},{"l":"real-yesterday","w":1440,"s":"dark","rows":2,"ov":false},{"l":"proto-today","w":390,"s":"dark","rows":2,"ov":false},{"l":"proto-yesterday","w":390,"s":"dark","rows":2,"ov":false},{"l":"real-today","w":390,"s":"dark","rows":2,"ov":false},{"l":"real-yesterday","w":390,"s":"dark","rows":2,"ov":false},{"l":"proto-today","w":360,"s":"dark","rows":3,"ov":false},{"l":"proto-yesterday","w":360,"s":"dark","rows":3,"ov":false},{"l":"real-today","w":360,"s":"dark","rows":3,"ov":false},{"l":"real-yesterday","w":360,"s":"dark","rows":3,"ov":false}]
+[
+ {
+  "label": "proto-today",
+  "w": 390,
+  "scheme": "light",
+  "rows": 2,
+  "overflow": false,
+  "items": [
+   [
+    "Xem ngày trước",
+    81,
+    154,
+    44,
+    44
+   ],
+   [
+    "Xem ngày sau",
+    125,
+    154,
+    44,
+    44
+   ],
+   [
+    "Chọn ngày",
+    183,
+    156,
+    39,
+    39
+   ],
+   [
+    "Về hôm nay",
+    262,
+    154,
+    108,
+    44
+   ]
+  ]
+ },
+ {
+  "label": "proto-yesterday",
+  "w": 390,
+  "scheme": "light",
+  "rows": 2,
+  "overflow": false,
+  "items": [
+   [
+    "Xem ngày trước",
+    81,
+    154,
+    44,
+    44
+   ],
+   [
+    "Xem ngày sau",
+    125,
+    154,
+    44,
+    44
+   ],
+   [
+    "Chọn ngày",
+    183,
+    156,
+    39,
+    39
+   ],
+   [
+    "Về hôm nay",
+    262,
+    154,
+    108,
+    44
+   ]
+  ]
+ },
+ {
+  "label": "real-today",
+  "w": 390,
+  "scheme": "light",
+  "rows": 2,
+  "overflow": false,
+  "items": [
+   [
+    "Xem ngày trước",
+    81,
+    83,
+    44,
+    44
+   ],
+   [
+    "Xem ngày sau",
+    125,
+    83,
+    44,
+    44
+   ],
+   [
+    "Chọn ngày",
+    183,
+    86,
+    39,
+    39
+   ],
+   [
+    "Về hôm nay",
+    262,
+    83,
+    108,
+    44
+   ]
+  ]
+ },
+ {
+  "label": "real-yesterday",
+  "w": 390,
+  "scheme": "light",
+  "rows": 2,
+  "overflow": false,
+  "items": [
+   [
+    "Xem ngày trước",
+    81,
+    83,
+    44,
+    44
+   ],
+   [
+    "Xem ngày sau",
+    125,
+    83,
+    44,
+    44
+   ],
+   [
+    "Chọn ngày",
+    183,
+    86,
+    39,
+    39
+   ],
+   [
+    "Về hôm nay",
+    262,
+    83,
+    108,
+    44
+   ]
+  ]
+ }
+]

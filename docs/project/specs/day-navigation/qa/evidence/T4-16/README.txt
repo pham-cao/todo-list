@@ -1,0 +1,1 @@
+Manual: screenshots yesterday/tomorrow/today-focus vs proto-yesterday in evidence/T4-16, manual-results.json. Focus ring and nav row match; Về hôm nay filled pen tab on non-today days (verified by computed style after transition). Full runs: evidence/T4-all/runner-output.txt

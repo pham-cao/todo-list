@@ -1,0 +1,6 @@
+npx playwright test --repeat-each=2 (desktop + mobile, chromium): 468 passed, 20 skipped (234 and 10 skipped per pass), 0 failed, 0 flaky
+
+Firefox 'desktop' (temporary config outside the repo, no new dependency; browser already installed): 111 passed, 8 skipped, 3 failed
+ - app.spec.js:869 'every button and checkbox has its Vietnamese accessible name': Page crashed in the delete dialog step. Also fails on main (checked in a throwaway worktree), so it is not from this feature.
+ - day-nav.spec.js:141 history.length is 1 in Firefox, the test expects 2 (about:blank entry is Chromium behaviour). The address is replaced as required; the test assumption is browser specific.
+ - day-nav.spec.js:534 partial year typed in the picker: Firefox date field has different segment keys, the test is written for Chromium segments. Manual Firefox smoke (T7-11) shows the picker changes the day correctly.

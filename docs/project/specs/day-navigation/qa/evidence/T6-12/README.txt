@@ -1,0 +1,1 @@
+Test: after midnight viewing today follows to 10/11, plain address. Also charter E and screenshots. Automated in tests/e2e/day-nav.spec.js (desktop and mobile projects, pass). Runner: evidence/T6-all/runner-output.txt (e2e 210 passed, 10 skipped; unit 33/33). Fresh-context browser checks at 1440 and 390, light and dark, no console errors.

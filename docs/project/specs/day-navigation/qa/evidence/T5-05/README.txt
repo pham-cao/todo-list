@@ -1,0 +1,1 @@
+day-nav.spec: same day pick adds no history entry. Runner: evidence/T5-all/runner-output.txt (npm test: 0 fail; e2e 174 passed, 10 skipped, before QA addition; new keyboard case passes on desktop and mobile). Fresh-context checks at 1440, 390, 360: evidence/T5-measure/pick-measure.txt, picked-*.png. No console errors.

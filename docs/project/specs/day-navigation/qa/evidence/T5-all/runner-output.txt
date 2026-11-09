@@ -1,0 +1,13 @@
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 71.384234
+[WebServer] 127.0.0.1 - - [09/Nov/2026 18:40:02] "GET /src/app.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 18:40:02] "GET /docs/project/design-system.css HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 18:40:02] "GET /src/date.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [09/Nov/2026 18:40:02] "GET /src/store.js HTTP/1.1" 200 -
+  ✓  184 [mobile] › tests/e2e/app.spec.js:893:1 › 200 tasks render quickly and a tick updates in under 100 ms (277ms)
+
+  10 skipped
+  174 passed (31.2s)

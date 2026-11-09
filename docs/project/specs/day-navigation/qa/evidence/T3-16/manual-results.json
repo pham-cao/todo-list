@@ -1,0 +1,1022 @@
+[
+ {
+  "scheme": "light",
+  "vn": "1440",
+  "name": "today",
+  "h1": "Việc cần làm hôm nay",
+  "line": "Hôm nay, Thứ Hai, 09/11/2026",
+  "ph": "Bạn cần làm gì hôm nay?",
+  "url": "http://localhost:4173/",
+  "sw": 1440,
+  "cw": 1440,
+  "rows": 1,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    121,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": [],
+  "errs": []
+ },
+ {
+  "scheme": "light",
+  "vn": "1440",
+  "name": "yesterday",
+  "h1": "Việc cần làm",
+  "line": "Hôm qua, Chủ Nhật, 08/11/2026",
+  "ph": "Bạn cần làm gì ngày này?",
+  "url": "http://localhost:4173/#2026-11-08",
+  "sw": 1440,
+  "cw": 1440,
+  "rows": 3,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    147,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": [],
+  "errs": []
+ },
+ {
+  "scheme": "light",
+  "vn": "1440",
+  "name": "past-empty",
+  "h1": "Việc cần làm",
+  "line": "Thứ Năm, 05/11/2026",
+  "ph": "Bạn cần làm gì ngày này?",
+  "url": "http://localhost:4173/#2026-11-05",
+  "sw": 1440,
+  "cw": 1440,
+  "rows": 0,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    147,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": [],
+  "errs": []
+ },
+ {
+  "scheme": "light",
+  "vn": "1440",
+  "name": "future-empty",
+  "h1": "Việc cần làm",
+  "line": "Ngày mai, Thứ Ba, 10/11/2026",
+  "ph": "Bạn cần làm gì ngày này?",
+  "url": "http://localhost:4173/#2026-11-10",
+  "sw": 1440,
+  "cw": 1440,
+  "rows": 0,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    147,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": [],
+  "errs": []
+ },
+ {
+  "scheme": "light",
+  "vn": "1440",
+  "name": "markup",
+  "h1": "Việc cần làm hôm nay",
+  "line": "Hôm nay, Thứ Hai, 09/11/2026",
+  "ph": "Bạn cần làm gì hôm nay?",
+  "url": "http://localhost:4173/",
+  "sw": 1440,
+  "cw": 1440,
+  "rows": 1,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    121,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": null,
+  "errs": []
+ },
+ {
+  "scheme": "light",
+  "vn": "390",
+  "name": "today",
+  "h1": "Việc cần làm hôm nay",
+  "line": "Hôm nay, Thứ Hai, 09/11/2026",
+  "ph": "Bạn cần làm gì hôm nay?",
+  "url": "http://localhost:4173/",
+  "sw": 390,
+  "cw": 390,
+  "rows": 1,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    108,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": [],
+  "errs": []
+ },
+ {
+  "scheme": "light",
+  "vn": "390",
+  "name": "yesterday",
+  "h1": "Việc cần làm",
+  "line": "Hôm qua, Chủ Nhật, 08/11/2026",
+  "ph": "Bạn cần làm gì ngày này?",
+  "url": "http://localhost:4173/#2026-11-08",
+  "sw": 390,
+  "cw": 390,
+  "rows": 3,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    108,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": [],
+  "errs": []
+ },
+ {
+  "scheme": "light",
+  "vn": "390",
+  "name": "past-empty",
+  "h1": "Việc cần làm",
+  "line": "Thứ Năm, 05/11/2026",
+  "ph": "Bạn cần làm gì ngày này?",
+  "url": "http://localhost:4173/#2026-11-05",
+  "sw": 390,
+  "cw": 390,
+  "rows": 0,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    108,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": [],
+  "errs": []
+ },
+ {
+  "scheme": "light",
+  "vn": "390",
+  "name": "future-empty",
+  "h1": "Việc cần làm",
+  "line": "Ngày mai, Thứ Ba, 10/11/2026",
+  "ph": "Bạn cần làm gì ngày này?",
+  "url": "http://localhost:4173/#2026-11-10",
+  "sw": 390,
+  "cw": 390,
+  "rows": 0,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    108,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": [],
+  "errs": []
+ },
+ {
+  "scheme": "light",
+  "vn": "390",
+  "name": "markup",
+  "h1": "Việc cần làm hôm nay",
+  "line": "Hôm nay, Thứ Hai, 09/11/2026",
+  "ph": "Bạn cần làm gì hôm nay?",
+  "url": "http://localhost:4173/",
+  "sw": 390,
+  "cw": 390,
+  "rows": 1,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    108,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": null,
+  "errs": []
+ },
+ {
+  "scheme": "light",
+  "vn": "360",
+  "name": "today",
+  "h1": "Việc cần làm hôm nay",
+  "line": "Hôm nay, Thứ Hai, 09/11/2026",
+  "ph": "Bạn cần làm gì hôm nay?",
+  "url": "http://localhost:4173/",
+  "sw": 360,
+  "cw": 360,
+  "rows": 1,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    108,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": [],
+  "errs": []
+ },
+ {
+  "scheme": "light",
+  "vn": "360",
+  "name": "yesterday",
+  "h1": "Việc cần làm",
+  "line": "Hôm qua, Chủ Nhật, 08/11/2026",
+  "ph": "Bạn cần làm gì ngày này?",
+  "url": "http://localhost:4173/#2026-11-08",
+  "sw": 360,
+  "cw": 360,
+  "rows": 3,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    108,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": [],
+  "errs": []
+ },
+ {
+  "scheme": "light",
+  "vn": "360",
+  "name": "past-empty",
+  "h1": "Việc cần làm",
+  "line": "Thứ Năm, 05/11/2026",
+  "ph": "Bạn cần làm gì ngày này?",
+  "url": "http://localhost:4173/#2026-11-05",
+  "sw": 360,
+  "cw": 360,
+  "rows": 0,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    108,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": [],
+  "errs": []
+ },
+ {
+  "scheme": "light",
+  "vn": "360",
+  "name": "future-empty",
+  "h1": "Việc cần làm",
+  "line": "Ngày mai, Thứ Ba, 10/11/2026",
+  "ph": "Bạn cần làm gì ngày này?",
+  "url": "http://localhost:4173/#2026-11-10",
+  "sw": 360,
+  "cw": 360,
+  "rows": 0,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    108,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": [],
+  "errs": []
+ },
+ {
+  "scheme": "light",
+  "vn": "360",
+  "name": "markup",
+  "h1": "Việc cần làm hôm nay",
+  "line": "Hôm nay, Thứ Hai, 09/11/2026",
+  "ph": "Bạn cần làm gì hôm nay?",
+  "url": "http://localhost:4173/",
+  "sw": 360,
+  "cw": 360,
+  "rows": 1,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    108,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": null,
+  "errs": []
+ },
+ {
+  "scheme": "dark",
+  "vn": "1440",
+  "name": "today",
+  "h1": "Việc cần làm hôm nay",
+  "line": "Hôm nay, Thứ Hai, 09/11/2026",
+  "ph": "Bạn cần làm gì hôm nay?",
+  "url": "http://localhost:4173/",
+  "sw": 1440,
+  "cw": 1440,
+  "rows": 1,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    121,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": [],
+  "errs": []
+ },
+ {
+  "scheme": "dark",
+  "vn": "1440",
+  "name": "yesterday",
+  "h1": "Việc cần làm",
+  "line": "Hôm qua, Chủ Nhật, 08/11/2026",
+  "ph": "Bạn cần làm gì ngày này?",
+  "url": "http://localhost:4173/#2026-11-08",
+  "sw": 1440,
+  "cw": 1440,
+  "rows": 3,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    147,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": [],
+  "errs": []
+ },
+ {
+  "scheme": "dark",
+  "vn": "1440",
+  "name": "past-empty",
+  "h1": "Việc cần làm",
+  "line": "Thứ Năm, 05/11/2026",
+  "ph": "Bạn cần làm gì ngày này?",
+  "url": "http://localhost:4173/#2026-11-05",
+  "sw": 1440,
+  "cw": 1440,
+  "rows": 0,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    147,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": [],
+  "errs": []
+ },
+ {
+  "scheme": "dark",
+  "vn": "1440",
+  "name": "future-empty",
+  "h1": "Việc cần làm",
+  "line": "Ngày mai, Thứ Ba, 10/11/2026",
+  "ph": "Bạn cần làm gì ngày này?",
+  "url": "http://localhost:4173/#2026-11-10",
+  "sw": 1440,
+  "cw": 1440,
+  "rows": 0,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    147,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": [],
+  "errs": []
+ },
+ {
+  "scheme": "dark",
+  "vn": "1440",
+  "name": "markup",
+  "h1": "Việc cần làm hôm nay",
+  "line": "Hôm nay, Thứ Hai, 09/11/2026",
+  "ph": "Bạn cần làm gì hôm nay?",
+  "url": "http://localhost:4173/",
+  "sw": 1440,
+  "cw": 1440,
+  "rows": 1,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    121,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": null,
+  "errs": []
+ },
+ {
+  "scheme": "dark",
+  "vn": "390",
+  "name": "today",
+  "h1": "Việc cần làm hôm nay",
+  "line": "Hôm nay, Thứ Hai, 09/11/2026",
+  "ph": "Bạn cần làm gì hôm nay?",
+  "url": "http://localhost:4173/",
+  "sw": 390,
+  "cw": 390,
+  "rows": 1,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    108,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": [],
+  "errs": []
+ },
+ {
+  "scheme": "dark",
+  "vn": "390",
+  "name": "yesterday",
+  "h1": "Việc cần làm",
+  "line": "Hôm qua, Chủ Nhật, 08/11/2026",
+  "ph": "Bạn cần làm gì ngày này?",
+  "url": "http://localhost:4173/#2026-11-08",
+  "sw": 390,
+  "cw": 390,
+  "rows": 3,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    108,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": [],
+  "errs": []
+ },
+ {
+  "scheme": "dark",
+  "vn": "390",
+  "name": "past-empty",
+  "h1": "Việc cần làm",
+  "line": "Thứ Năm, 05/11/2026",
+  "ph": "Bạn cần làm gì ngày này?",
+  "url": "http://localhost:4173/#2026-11-05",
+  "sw": 390,
+  "cw": 390,
+  "rows": 0,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    108,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": [],
+  "errs": []
+ },
+ {
+  "scheme": "dark",
+  "vn": "390",
+  "name": "future-empty",
+  "h1": "Việc cần làm",
+  "line": "Ngày mai, Thứ Ba, 10/11/2026",
+  "ph": "Bạn cần làm gì ngày này?",
+  "url": "http://localhost:4173/#2026-11-10",
+  "sw": 390,
+  "cw": 390,
+  "rows": 0,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    108,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": [],
+  "errs": []
+ },
+ {
+  "scheme": "dark",
+  "vn": "390",
+  "name": "markup",
+  "h1": "Việc cần làm hôm nay",
+  "line": "Hôm nay, Thứ Hai, 09/11/2026",
+  "ph": "Bạn cần làm gì hôm nay?",
+  "url": "http://localhost:4173/",
+  "sw": 390,
+  "cw": 390,
+  "rows": 1,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    108,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": null,
+  "errs": []
+ },
+ {
+  "scheme": "dark",
+  "vn": "360",
+  "name": "today",
+  "h1": "Việc cần làm hôm nay",
+  "line": "Hôm nay, Thứ Hai, 09/11/2026",
+  "ph": "Bạn cần làm gì hôm nay?",
+  "url": "http://localhost:4173/",
+  "sw": 360,
+  "cw": 360,
+  "rows": 1,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    108,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": [],
+  "errs": []
+ },
+ {
+  "scheme": "dark",
+  "vn": "360",
+  "name": "yesterday",
+  "h1": "Việc cần làm",
+  "line": "Hôm qua, Chủ Nhật, 08/11/2026",
+  "ph": "Bạn cần làm gì ngày này?",
+  "url": "http://localhost:4173/#2026-11-08",
+  "sw": 360,
+  "cw": 360,
+  "rows": 3,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    108,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": [],
+  "errs": []
+ },
+ {
+  "scheme": "dark",
+  "vn": "360",
+  "name": "past-empty",
+  "h1": "Việc cần làm",
+  "line": "Thứ Năm, 05/11/2026",
+  "ph": "Bạn cần làm gì ngày này?",
+  "url": "http://localhost:4173/#2026-11-05",
+  "sw": 360,
+  "cw": 360,
+  "rows": 0,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    108,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": [],
+  "errs": []
+ },
+ {
+  "scheme": "dark",
+  "vn": "360",
+  "name": "future-empty",
+  "h1": "Việc cần làm",
+  "line": "Ngày mai, Thứ Ba, 10/11/2026",
+  "ph": "Bạn cần làm gì ngày này?",
+  "url": "http://localhost:4173/#2026-11-10",
+  "sw": 360,
+  "cw": 360,
+  "rows": 0,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    108,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": [],
+  "errs": []
+ },
+ {
+  "scheme": "dark",
+  "vn": "360",
+  "name": "markup",
+  "h1": "Việc cần làm hôm nay",
+  "line": "Hôm nay, Thứ Hai, 09/11/2026",
+  "ph": "Bạn cần làm gì hôm nay?",
+  "url": "http://localhost:4173/",
+  "sw": 360,
+  "cw": 360,
+  "rows": 1,
+  "injected": 0,
+  "navBox": [
+   [
+    44,
+    44
+   ],
+   [
+    44,
+    44
+   ],
+   [
+    46,
+    46
+   ],
+   [
+    108,
+    44
+   ]
+  ],
+  "focus": "new-task",
+  "ax": null,
+  "errs": []
+ }
+]

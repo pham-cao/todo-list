@@ -125,7 +125,7 @@ features:
         title: "Nav markup, day wording and load from the address"
         owner: fe
         depends_on: [T1]
-        state: doing
+        state: done
         attempts: 0
         bugs_opened: []
         trello_card: ""
@@ -133,7 +133,7 @@ features:
         title: "Previous, next, back to today, and browser history"
         owner: fe
         depends_on: [T3]
-        state: todo
+        state: done
         attempts: 0
         bugs_opened: []
         trello_card: ""
@@ -141,7 +141,7 @@ features:
         title: "Date picker"
         owner: fe
         depends_on: [T4]
-        state: todo
+        state: done
         attempts: 0
         bugs_opened: []
         trello_card: ""
@@ -149,17 +149,17 @@ features:
         title: "Work on any day and the midnight rules"
         owner: fe
         depends_on: [T2, T4]
-        state: todo
+        state: done
         attempts: 0
-        bugs_opened: []
+        bugs_opened: [BUG-001]
         trello_card: ""
       - id: T7
         title: "Page turn motion, keyboard order, size and speed checks"
         owner: fe
         depends_on: [T5, T6]
-        state: todo
-        attempts: 0
-        bugs_opened: []
+        state: done
+        attempts: 1
+        bugs_opened: [BUG-002, BUG-001 fixed here]
         trello_card: ""
 # - slug: user-login
 #   phase: requirements   # requirements | ux | design | build | release | done

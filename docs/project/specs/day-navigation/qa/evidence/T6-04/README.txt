@@ -1,0 +1,1 @@
+Tests: tick/edit/delete test (valid edit) and 'invalid edit keeps edit mode' (QA addition, 201 chars). Automated in tests/e2e/day-nav.spec.js (desktop and mobile projects, pass). Runner: evidence/T6-all/runner-output.txt (e2e 210 passed, 10 skipped; unit 33/33). Fresh-context browser checks at 1440 and 390, light and dark, no console errors.

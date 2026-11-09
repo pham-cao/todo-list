@@ -3,7 +3,7 @@ R1,TC-day-navigation-T1-05;TC-day-navigation-T1-06;TC-day-navigation-T4-01;TC-da
 R2,TC-day-navigation-T1-05;TC-day-navigation-T1-06;TC-day-navigation-T4-02;TC-day-navigation-T4-07;TC-day-navigation-T4-08;TC-day-navigation-T4-14;TC-day-navigation-T4-16,
 R3,TC-day-navigation-T1-01;TC-day-navigation-T5-01;TC-day-navigation-T5-02;TC-day-navigation-T5-04;TC-day-navigation-T5-05;TC-day-navigation-T5-06;TC-day-navigation-T5-08;TC-day-navigation-T5-09;TC-day-navigation-T7-11,
 R4,TC-day-navigation-T4-03;TC-day-navigation-T4-14;TC-day-navigation-T4-16,
-R5,TC-day-navigation-T3-10;TC-day-navigation-T3-13;TC-day-navigation-T3-17;TC-day-navigation-T4-04;TC-day-navigation-T4-16;TC-day-navigation-T7-12,
+R5,TC-day-navigation-T3-10;TC-day-navigation-T3-13;TC-day-navigation-T3-17;TC-day-navigation-T4-04;TC-day-navigation-T4-16;TC-day-navigation-T7-12,BUG-001
 R6,TC-day-navigation-T1-10;TC-day-navigation-T3-01;TC-day-navigation-T3-03;TC-day-navigation-T3-05;TC-day-navigation-T3-10;TC-day-navigation-T3-11;TC-day-navigation-T3-12;TC-day-navigation-T3-13;TC-day-navigation-T3-16;TC-day-navigation-T3-17;TC-day-navigation-T3-18;TC-day-navigation-T4-01;TC-day-navigation-T4-02;TC-day-navigation-T7-12,
 R7,TC-day-navigation-T4-09;TC-day-navigation-T4-10;TC-day-navigation-T4-11;TC-day-navigation-T4-12,
 R8,TC-day-navigation-T4-05;TC-day-navigation-T4-16;TC-day-navigation-T7-01;TC-day-navigation-T7-02;TC-day-navigation-T7-03;TC-day-navigation-T7-08,
@@ -27,8 +27,8 @@ R25,TC-day-navigation-T4-04;TC-day-navigation-T4-06;TC-day-navigation-T4-13;TC-d
 R26,TC-day-navigation-T3-01,
 R27,TC-day-navigation-T3-12;TC-day-navigation-T3-18;TC-day-navigation-T4-14;TC-day-navigation-T5-08;TC-day-navigation-T7-04;TC-day-navigation-T7-09;TC-day-navigation-T7-12,
 R28,TC-day-navigation-T7-05;TC-day-navigation-T7-06;TC-day-navigation-T7-09;TC-day-navigation-T7-12,
-R29,TC-day-navigation-T3-01;TC-day-navigation-T3-10;TC-day-navigation-T3-11;TC-day-navigation-T3-16;TC-day-navigation-T3-17;TC-day-navigation-T6-13;TC-day-navigation-T7-09;TC-day-navigation-T7-10;TC-day-navigation-T7-12,
-NFR1,TC-day-navigation-T7-07,
+R29,TC-day-navigation-T3-01;TC-day-navigation-T3-10;TC-day-navigation-T3-11;TC-day-navigation-T3-16;TC-day-navigation-T3-17;TC-day-navigation-T6-13;TC-day-navigation-T7-09;TC-day-navigation-T7-10;TC-day-navigation-T7-12,BUG-001
+NFR1,TC-day-navigation-T7-07,BUG-002
 NFR2,TC-day-navigation-T1-01;TC-day-navigation-T1-03;TC-day-navigation-T1-11;TC-day-navigation-T3-07;TC-day-navigation-T3-09,
 NFR3,TC-day-navigation-T4-15;TC-day-navigation-T6-10;TC-day-navigation-T6-11,
 NFR4,TC-day-navigation-T5-09;TC-day-navigation-T7-11,

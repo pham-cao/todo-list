@@ -1,0 +1,1 @@
+tab flash samples (rAF, first 600 ms after load on #2026-11-08): light 1440 background transparent and text white for ~160 ms (18 to 176 ms), then filled. Same at 390 light. Dark: text turns dark navy on transparent for ~170 ms. Screenshots: evidence/T6-tab-load-*.png (settled state).

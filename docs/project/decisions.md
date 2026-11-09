@@ -290,3 +290,16 @@ Choice (by PM):
 - NFR6 subpath hosting (T3-15): check relative URLs by code reading plus a manual run; no subpath server needed.
 - Picker contradiction in design.md steps 5 and 6: the T5 owner must make the change handler ignore incomplete or out of range values while the picker has focus, and reset only on blur.
 - No qa-test-generator specialist: each FE task writes its e2e tests as before, QA executes and fills gaps.
+
+## 2026-11-09: day-navigation: Add @axe-core/playwright as a devDependency?
+Options: Add it and automate axe in T7, Keep axe as a manual QA run
+Choice: Keep axe as a manual QA run from the scratchpad (by PM)
+Reason: Avoid a new dependency for a one screen app; QA runs axe at T7 and before release.
+
+## 2026-11-09: day-navigation T5: Về hôm nay wraps at 390 px while the picker is focused
+Options: Accept (matches the approved today--focus prototype), Change layout
+Choice: Accept (by PM)
+Reason: Same as the approved prototype; unfocused layout stays on one row from about 380 px.
+
+## 2026-11-09: day-navigation T5-09 (native calendar popup in headed Chrome, Firefox, Edge)
+Choice: Owner checks it manually on the deployed site after release; logged as blocked, not holding the task (by PM)

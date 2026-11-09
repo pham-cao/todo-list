@@ -1,0 +1,222 @@
+[
+ {
+  "vp": "1440",
+  "scheme": "light",
+  "name": "today",
+  "line": "Hôm nay, Thứ Hai, 09/11/2026",
+  "violations": [],
+  "passes": 36,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "light",
+  "name": "yesterday",
+  "line": "Hôm qua, Chủ Nhật, 08/11/2026",
+  "violations": [],
+  "passes": 36,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "light",
+  "name": "tomorrow",
+  "line": "Ngày mai, Thứ Ba, 10/11/2026",
+  "violations": [],
+  "passes": 36,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "light",
+  "name": "past-empty",
+  "line": "Chủ Nhật, 01/11/2026",
+  "violations": [],
+  "passes": 32,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "light",
+  "name": "future-empty",
+  "line": "Thứ Sáu, 20/11/2026",
+  "violations": [],
+  "passes": 32,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "dark",
+  "name": "today",
+  "line": "Hôm nay, Thứ Hai, 09/11/2026",
+  "violations": [],
+  "passes": 36,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "dark",
+  "name": "yesterday",
+  "line": "Hôm qua, Chủ Nhật, 08/11/2026",
+  "violations": [],
+  "passes": 36,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "dark",
+  "name": "tomorrow",
+  "line": "Ngày mai, Thứ Ba, 10/11/2026",
+  "violations": [],
+  "passes": 36,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "dark",
+  "name": "past-empty",
+  "line": "Chủ Nhật, 01/11/2026",
+  "violations": [],
+  "passes": 32,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "dark",
+  "name": "future-empty",
+  "line": "Thứ Sáu, 20/11/2026",
+  "violations": [],
+  "passes": 32,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "light",
+  "name": "today",
+  "line": "Hôm nay, Thứ Hai, 09/11/2026",
+  "violations": [],
+  "passes": 38,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "light",
+  "name": "yesterday",
+  "line": "Hôm qua, Chủ Nhật, 08/11/2026",
+  "violations": [],
+  "passes": 38,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "light",
+  "name": "tomorrow",
+  "line": "Ngày mai, Thứ Ba, 10/11/2026",
+  "violations": [],
+  "passes": 38,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "light",
+  "name": "past-empty",
+  "line": "Chủ Nhật, 01/11/2026",
+  "violations": [],
+  "passes": 32,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "light",
+  "name": "future-empty",
+  "line": "Thứ Sáu, 20/11/2026",
+  "violations": [],
+  "passes": 32,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "dark",
+  "name": "today",
+  "line": "Hôm nay, Thứ Hai, 09/11/2026",
+  "violations": [],
+  "passes": 38,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "dark",
+  "name": "yesterday",
+  "line": "Hôm qua, Chủ Nhật, 08/11/2026",
+  "violations": [],
+  "passes": 38,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "dark",
+  "name": "tomorrow",
+  "line": "Ngày mai, Thứ Ba, 10/11/2026",
+  "violations": [],
+  "passes": 38,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "dark",
+  "name": "past-empty",
+  "line": "Chủ Nhật, 01/11/2026",
+  "violations": [],
+  "passes": 32,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "dark",
+  "name": "future-empty",
+  "line": "Thứ Sáu, 20/11/2026",
+  "violations": [],
+  "passes": 32,
+  "incomplete": [
+   "color-contrast"
+  ]
+ }
+]

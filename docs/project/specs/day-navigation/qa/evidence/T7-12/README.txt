@@ -1,0 +1,1 @@
+axe 20 pages (5 days x 2 sizes x 2 schemes), 0 violations of wcag2a, wcag2aa, wcag21aa, wcag22aa and best-practice. Contrast reported as incomplete by axe (paper texture pseudo content); computed ratios in ../T7-all/contrast-computed.txt: lowest 5.52 (muted Về hôm nay, light), others 8.48 to 19.96. Details ../T7-all/axe-summary.txt
