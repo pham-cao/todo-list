@@ -89,7 +89,9 @@ const setAddError = (code) => setFieldError(els.input, els.addError, code);
 
 els.form.addEventListener("submit", (e) => {
   e.preventDefault();
-  const result = store.add(els.input.value);
+  const now = new Date();
+  checkDay(now);
+  const result = store.add(els.input.value, now);
   if (result.error) {
     showFieldError(els.input, els.addError, result.error);
   } else {
@@ -281,6 +283,26 @@ function maybePeek() {
 const endPeek = (e) => { if (e.animationName === "peek") e.target.closest(".task")?.classList.remove("task--peek"); };
 els.list.addEventListener("animationend", endPeek);
 els.list.addEventListener("animationcancel", endPeek);
+
+// Day change (R25): a page left open past midnight moves to the new day when the
+// owner comes back or adds a task. Earlier days stay in the store untouched.
+function checkDay(now = new Date()) {
+  const today = toDateKey(now);
+  if (today === shownDate) return;
+  shownDate = today;
+  editing = null; // the unsaved edit goes with the old rows
+  pendingDelete = null;
+  els.dialog.close();
+  openSwipe = null;
+  clearTimeout(celebrateTimer);
+  els.progress.classList.remove("progress--celebrate");
+  renderAll();
+  // Focus that sat on an old row or the note is gone; start the fresh page at the add field.
+  if (!document.activeElement || document.activeElement === document.body) els.input.focus();
+}
+
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") checkDay(); });
+window.addEventListener("focus", () => checkDay());
 
 setAddError(null);
 renderAll();

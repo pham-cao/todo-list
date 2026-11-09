@@ -716,3 +716,104 @@ for (const [name, value] of [['object', '{"a":1}'], ['string', '"x"'], ['null', 
     expect(errors).toEqual([]);
   });
 }
+
+const AFTER_MIDNIGHT = new Date('2026-11-10T00:05:00+07:00');
+const becomeVisible = (page) => page.evaluate(() => document.dispatchEvent(new Event('visibilitychange')));
+
+test('after midnight, returning to the page shows the new date and an empty list; yesterday stays stored', async ({ page }) => {
+  await open(page, [task('a', 'Gửi báo cáo tuần'), task('b', 'Đi chợ mua rau', true)]);
+  await expect(rows(page)).toHaveCount(2);
+  await page.clock.setFixedTime(AFTER_MIDNIGHT);
+  await becomeVisible(page);
+  await expect(page.locator('.app-header__date')).toHaveText('Hôm nay, Thứ Ba, 10/11/2026');
+  await expect(rows(page)).toHaveCount(0);
+  await expect(page.locator('.empty')).toBeVisible();
+  await expect(page.locator('.progress')).toBeHidden();
+  await expect(page.locator('.summary')).toBeHidden();
+  const stored = await page.evaluate((k) => JSON.parse(localStorage.getItem(k)), KEY);
+  expect(stored.map((t) => [t.id, t.date])).toEqual([['a', TODAY], ['b', TODAY]]);
+});
+
+test('window focus also checks the day, and nothing changes on the same day', async ({ page }) => {
+  await open(page, [task('a', 'Gửi báo cáo tuần')]);
+  await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+  await expect(rows(page)).toHaveCount(1);
+  await page.clock.setFixedTime(AFTER_MIDNIGHT);
+  await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+  await expect(page.locator('.app-header__date')).toHaveText('Hôm nay, Thứ Ba, 10/11/2026');
+  await expect(rows(page)).toHaveCount(0);
+});
+
+test('adding right after midnight saves the task to the new day on a fresh list', async ({ page }) => {
+  await open(page, [task('a', 'Gửi báo cáo tuần')]);
+  await page.clock.setFixedTime(AFTER_MIDNIGHT);
+  await page.getByLabel('Bạn cần làm gì hôm nay?').fill('Việc ngày mới');
+  await page.getByLabel('Bạn cần làm gì hôm nay?').press('Enter');
+  await expect(page.locator('.app-header__date')).toHaveText('Hôm nay, Thứ Ba, 10/11/2026');
+  await expect(rows(page).locator('.task__label')).toHaveText(['Việc ngày mới']);
+  await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 0/1 việc');
+  const stored = await page.evaluate((k) => JSON.parse(localStorage.getItem(k)), KEY);
+  expect(stored.map((t) => [t.text, t.date])).toEqual([['Gửi báo cáo tuần', TODAY], ['Việc ngày mới', '2026-11-10']]);
+});
+
+test('a day change drops an open edit and closes the delete note without saving or deleting', async ({ page }) => {
+  await open(page, [task('a', 'Gửi báo cáo tuần'), task('b', 'Đi chợ mua rau')]);
+  await rows(page).nth(0).getByRole('button', { name: 'Sửa' }).click();
+  await page.locator('.task__edit .input').fill('Chưa lưu');
+  await rows(page).nth(1).getByRole('button', { name: 'Xóa' }).click();
+  await expect(page.locator('#delete-dialog')).toBeVisible();
+  await page.clock.setFixedTime(AFTER_MIDNIGHT);
+  await becomeVisible(page);
+  await expect(page.locator('#delete-dialog')).toBeHidden();
+  await expect(rows(page)).toHaveCount(0);
+  await expect(page.locator('.task__edit')).toHaveCount(0);
+  await expect(page.getByLabel('Bạn cần làm gì hôm nay?')).toBeFocused();
+  const stored = await page.evaluate((k) => JSON.parse(localStorage.getItem(k)), KEY);
+  expect(stored.map((t) => t.text)).toEqual(['Gửi báo cáo tuần', 'Đi chợ mua rau']);
+  // The new day works normally afterwards.
+  await page.getByLabel('Bạn cần làm gì hôm nay?').fill('Việc ngày mới');
+  await page.getByLabel('Bạn cần làm gì hôm nay?').press('Enter');
+  await expect(rows(page)).toHaveCount(1);
+});
+
+test('a day change does not replay the celebration or the swipe hint', async ({ page }) => {
+  await open(page, [task('a', 'Gửi báo cáo tuần'), task('n', 'Việc ngày mai', true, '2026-11-10')]);
+  await rows(page).first().locator('.check__box').click();
+  await expect(page.locator('.progress')).toHaveClass(/progress--celebrate/);
+  await page.clock.setFixedTime(AFTER_MIDNIGHT);
+  await becomeVisible(page);
+  await expect(rows(page).locator('.task__label')).toHaveText(['Việc ngày mai']);
+  await expect(page.locator('.progress')).toHaveClass(/progress--complete/);
+  await expect(page.locator('.progress')).not.toHaveClass(/progress--celebrate/);
+  await expect(page.locator('.task--peek')).toHaveCount(0);
+});
+
+test('the day boundary is local midnight: 23:59:59.999 stays, 00:00:00 switches (Asia/Ho_Chi_Minh)', async ({ page }) => {
+  await open(page, [task('a', 'Gửi báo cáo tuần')]);
+  await page.clock.setFixedTime(new Date('2026-11-09T23:59:59.999+07:00'));
+  await becomeVisible(page);
+  await expect(page.locator('.app-header__date')).toHaveText('Hôm nay, Thứ Hai, 09/11/2026');
+  await expect(rows(page)).toHaveCount(1);
+  await page.clock.setFixedTime(new Date('2026-11-10T00:00:00+07:00'));
+  await becomeVisible(page);
+  await expect(page.locator('.app-header__date')).toHaveText('Hôm nay, Thứ Ba, 10/11/2026');
+  await expect(rows(page)).toHaveCount(0);
+});
+
+test('a session with blocked storage still switches day, keeps the slip and accepts a new task', async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(window, 'localStorage', { get() { throw new DOMException('Blocked', 'SecurityError'); } });
+  });
+  await open(page);
+  await input(page).fill('Một');
+  await input(page).press('Enter');
+  await expect(rows(page)).toHaveCount(1);
+  await page.clock.setFixedTime(AFTER_MIDNIGHT);
+  await becomeVisible(page);
+  await expect(page.locator('.app-header__date')).toHaveText('Hôm nay, Thứ Ba, 10/11/2026');
+  await expect(rows(page)).toHaveCount(0);
+  await expect(slip(page)).toBeVisible();
+  await input(page).fill('Hai');
+  await input(page).press('Enter');
+  await expect(rows(page).locator('.task__label')).toHaveText(['Hai']);
+});
