@@ -1,5 +1,6 @@
 import { toDateKey, parseDateKey, addDays, dayKind, dateLine } from "./date.js?v=1.2.0";
 import { createStore, getStorage } from "./store.js?v=1.2.0";
+import { createGroups, UNGROUPED, UNGROUPED_NAME } from "./groups.js?v=1.2.0";
 
 const $ = (id) => document.getElementById(id);
 const els = {
@@ -17,8 +18,9 @@ const els = {
   input: $("new-task"),
   addError: $("new-task-error"),
   empty: $("empty"),
-  list: $("task-list"),
+  list: $("day-list"),
   rowTemplate: $("task-template"),
+  groupTemplate: $("group-template"),
   editTemplate: $("edit-template"),
   sheetBody: document.querySelector(".sheet__body"),
   dialog: $("delete-dialog"),
@@ -28,6 +30,9 @@ const els = {
 const show = (el, on) => { el.hidden = !on; };
 
 const store = createStore(getStorage());
+const groups = createGroups(getStorage());
+// Section key -> ul.task-list on screen. A day with no grouped task has one plain list under UNGROUPED.
+let lists = new Map();
 // today: the last local date the page saw. viewed: the day on screen.
 let today = toDateKey();
 let viewed = today;
@@ -44,10 +49,80 @@ function renderRow(task) {
   return row;
 }
 
+// A task whose group is gone (or never existed) is shown as ungrouped and never rewritten (R57, R58).
+const keyOf = (task) => (groups.get(task.groupId) ? task.groupId : UNGROUPED);
+const rowOf = (id) => [...els.list.querySelectorAll(".task")].find((r) => r.dataset.id === id);
+
+// Sections in group creation order, Chưa phân nhóm last, empty ones left out (R29, R30, R32).
+// Rows already on screen are moved, not rebuilt, so an open edit and the focus survive.
+function renderList() {
+  const tasks = store.tasksFor(viewed);
+  const focused = els.list.contains(document.activeElement) ? document.activeElement : null;
+  // Headers are cloned fresh, so a focused toggle is found again by its section key.
+  const focusKey = focused?.closest(".group__toggle")?.closest(".group").dataset.key;
+  const old = new Map([...els.list.querySelectorAll(".task")].map((r) => [r.dataset.id, r]));
+  const buckets = new Map([...groups.list().map((g) => [g.id, []]), [UNGROUPED, []]]);
+  for (const t of tasks) buckets.get(keyOf(t)).push(old.get(t.id) ?? renderRow(t));
+  lists = new Map();
+  if (buckets.get(UNGROUPED).length === tasks.length) {
+    // No task in a group: the plain list, exactly as before groups existed (R31).
+    const ul = document.createElement("ul");
+    ul.className = "task-list";
+    ul.append(...buckets.get(UNGROUPED));
+    lists.set(UNGROUPED, ul);
+    els.list.replaceChildren(ul);
+  } else {
+    const sections = [];
+    for (const [key, rows] of buckets) {
+      if (!rows.length) continue;
+      const group = groups.get(key);
+      const section = els.groupTemplate.content.firstElementChild.cloneNode(true);
+      const collapsed = groups.isCollapsed(key);
+      section.dataset.key = key;
+      section.dataset.color = group ? group.color : "none";
+      section.classList.toggle("group--collapsed", collapsed);
+      section.querySelector(".group__toggle").setAttribute("aria-expanded", String(!collapsed));
+      section.querySelector(".group__name").textContent = group ? group.name : UNGROUPED_NAME;
+      const ul = section.querySelector(".task-list");
+      ul.append(...rows);
+      lists.set(key, ul);
+      sections.push(section);
+    }
+    els.list.replaceChildren(...sections);
+  }
+  if (focused?.isConnected && document.activeElement !== focused) focused.focus({ preventScroll: true });
+  else if (focusKey) lists.get(focusKey)?.closest(".group")?.querySelector(".group__toggle").focus({ preventScroll: true });
+  updateSummary();
+}
+
+// Collapse is a class and aria-expanded only; rows are hidden by CSS (R39, R40).
+function setCollapsed(section, on) {
+  section.classList.toggle("group--collapsed", on);
+  section.querySelector(".group__toggle").setAttribute("aria-expanded", String(!on));
+  groups.setCollapsed(section.dataset.key, on);
+  updateSlip();
+}
+
 function updateSummary() {
   const tasks = store.tasksFor(viewed);
   const total = tasks.length;
   const done = tasks.filter((t) => t.done).length;
+  // Header counts are per section; the summary, progress and stamp count the whole day (R33, R50, R63).
+  const counts = new Map();
+  for (const t of tasks) {
+    const c = counts.get(keyOf(t)) ?? { done: 0, total: 0 };
+    c.total++;
+    if (t.done) c.done++;
+    counts.set(keyOf(t), c);
+  }
+  for (const [key, ul] of lists) {
+    const section = ul.closest(".group");
+    if (!section) continue;
+    const c = counts.get(key) ?? { done: 0, total: 0 };
+    // The toggle's name is "Nhóm {name} {d}/{t} việc đã hoàn thành": the visible "{name} {d}/{t}" plus hidden words
+    // from #group-template, so voice control can say what it sees (WCAG 2.5.3, BUG-005).
+    section.querySelector(".group__count").textContent = `${c.done}/${c.total}`;
+  }
   show(els.empty, total === 0);
   show(els.progress, total > 0);
   show(els.summary, total > 0);
@@ -59,7 +134,7 @@ function updateSummary() {
 }
 
 function updateSlip() {
-  show(els.slip, !store.storageOk);
+  show(els.slip, !store.storageOk || !groups.storageOk);
 }
 
 // yesterday and tomorrow use the past and future wording
@@ -90,8 +165,7 @@ function renderDay() {
   clearTimeout(celebrateTimer);
   els.progress.classList.remove("progress--celebrate");
   renderWording();
-  els.list.replaceChildren(...store.tasksFor(viewed).map(renderRow));
-  updateSummary();
+  renderList();
   updateSlip();
   maybePeek();
 }
@@ -141,11 +215,19 @@ els.form.addEventListener("submit", (e) => {
   if (result.error) {
     showFieldError(els.input, els.addError, result.error);
   } else {
-    const row = renderRow(result.task);
+    const key = keyOf(result.task);
+    if (lists.has(key)) {
+      lists.get(key).append(renderRow(result.task));
+      updateSummary();
+    } else {
+      renderList();
+    }
+    const row = rowOf(result.task.id);
     row.classList.add("task--enter");
-    els.list.append(row);
+    // A task added to a folded section opens it, so the new row is seen.
+    const section = row.closest(".group--collapsed");
+    if (section) setCollapsed(section, false);
     els.input.value = "";
-    updateSummary();
     updateSlip();
     maybePeek();
   }
@@ -205,6 +287,12 @@ function openEdit(row) {
 }
 
 els.list.addEventListener("click", (e) => {
+  const toggle = e.target.closest(".group__toggle");
+  if (toggle) {
+    const section = toggle.closest(".group");
+    setCollapsed(section, !section.classList.contains("group--collapsed"));
+    return;
+  }
   const action = e.target.closest("[data-action]")?.dataset.action;
   const row = e.target.closest(".task");
   if (action === "edit") openEdit(row);
@@ -255,11 +343,18 @@ function confirmDelete() {
   if (editing === row) closeEdit(false);
   store.remove(row.dataset.id);
   updateSlip();
-  // Skip rows still erasing from an earlier delete.
-  const live = (el, dir) => { while (el?.classList.contains("task--exit")) el = el[dir]; return el; };
-  const next = live(row.nextElementSibling, "nextElementSibling") ?? live(row.previousElementSibling, "previousElementSibling");
+  // Next row across every section, else the previous one; skip rows still erasing and rows in folded sections.
+  const all = [...els.list.querySelectorAll(".task")];
+  const i = all.indexOf(row);
+  const live = (r) => !r.classList.contains("task--exit") && !r.closest(".group--collapsed");
+  const next = all.slice(i + 1).find(live) ?? all.slice(0, i).findLast(live);
   (next?.querySelector(".check input") ?? els.input).focus();
-  const finish = () => { row.remove(); updateSummary(); };
+  // A list left without rows rebuilds the day: its section goes, or the day falls back to the plain list.
+  const finish = () => {
+    const ul = row.parentElement;
+    row.remove();
+    if (ul?.isConnected && !ul.querySelector(".task:not(.task--exit)")) renderList(); else updateSummary();
+  };
   row.classList.remove("task--enter");
   row.classList.add("task--exit");
   const anim = row.getAnimations()[0];
@@ -315,7 +410,7 @@ const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 let hintSeen = false;
 
 function maybePeek() {
-  const first = els.list.querySelector(".task");
+  const first = els.list.querySelector(":scope > .task-list > .task, .group:not(.group--collapsed) .task");
   if (hintSeen || !first || !phoneLayout.matches) return;
   hintSeen = true;
   const storage = getStorage();
@@ -326,7 +421,9 @@ function maybePeek() {
   if (!reducedMotion.matches) first.classList.add("task--peek");
 }
 
-const endPeek = (e) => { if (e.animationName === "peek") e.target.closest(".task")?.classList.remove("task--peek"); };
+// One shot classes go when their animation ends, so a row moved by renderList never replays them.
+const ONE_SHOT = { peek: "task--peek", "write-in": "task--enter", "moved-fade": "task--moved" };
+const endPeek = (e) => { if (ONE_SHOT[e.animationName]) e.target.closest(".task")?.classList.remove(ONE_SHOT[e.animationName]); };
 els.list.addEventListener("animationend", endPeek);
 els.list.addEventListener("animationcancel", endPeek);
 

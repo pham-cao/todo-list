@@ -54,7 +54,7 @@
         </svg>
         <p class="empty__text" id="empty-text">Hôm nay chưa có việc nào. Hãy thêm việc đầu tiên nhé!</p>
       </div>
-      <ul class="task-list" id="task-list"></ul>
+      <div id="day-list"></div>
     </div>
   </main>
   </div>
@@ -79,6 +79,13 @@
         </span>
       </div>
     </li>
+  </template>
+
+  <template id="group-template">
+    <section class="group">
+      <h2 class="group__head"><button class="group__toggle" type="button" aria-expanded="true"><span class="group__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span><span class="visually-hidden">Nhóm </span><span class="group__name sticker"></span> <span class="group__count"></span><span class="visually-hidden"> việc đã hoàn thành</span></button></h2>
+      <ul class="task-list"></ul>
+    </section>
   </template>
 
   <template id="edit-template">
