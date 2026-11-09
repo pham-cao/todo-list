@@ -146,3 +146,64 @@ test('over 200 characters shows the too long error; exactly 200 after trim is ad
   await expect(rows(page)).toHaveCount(1);
   await expect(addError(page)).toBeHidden();
 });
+
+const box = (page, i) => rows(page).nth(i).getByRole('checkbox', { name: 'Đánh dấu hoàn thành' });
+// The drawn box sits over the hidden input, so click it the way a user does.
+async function tick(page, i, on) {
+  await rows(page).nth(i).locator('.check__box').click();
+  await (on ? expect(box(page, i)).toBeChecked() : expect(box(page, i)).not.toBeChecked());
+}
+const stored = (page) => page.evaluate((key) => JSON.parse(localStorage.getItem(key)), KEY);
+
+test('ticking saves, keeps the row in place and updates the summary and ink circle', async ({ page }) => {
+  await open(page, [task('a', 'Một'), task('b', 'Hai'), task('c', 'Ba')]);
+  await tick(page, 0, true);
+  await expect(rows(page).locator('.task__label')).toHaveText(['Một', 'Hai', 'Ba']);
+  await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 1/3 việc');
+  await expect(page.locator('.progress')).toHaveCSS('--p', '33');
+  expect((await stored(page)).map((t) => t.done)).toEqual([true, false, false]);
+  await expect(page.locator('.progress')).not.toHaveClass(/progress--complete/);
+});
+
+test('unticking after a reload saves and keeps the order', async ({ page }) => {
+  await open(page, [task('a', 'Một'), task('b', 'Hai')]);
+  await tick(page, 1, true);
+  await page.reload();
+  await expect(box(page, 1)).toBeChecked();
+  await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 1/2 việc');
+  await tick(page, 1, false);
+  await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 0/2 việc');
+  await expect(page.locator('.progress')).toHaveCSS('--p', '0');
+  await page.reload();
+  await expect(rows(page).locator('.task__label')).toHaveText(['Một', 'Hai']);
+  await expect(box(page, 1)).not.toBeChecked();
+});
+
+test('ticking the last open task stamps the star, celebrates briefly, and unticking clears it', async ({ page }) => {
+  await open(page, [task('a', 'Một', true), task('b', 'Hai')]);
+  const progress = page.locator('.progress');
+  await tick(page, 1, true);
+  await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 2/2 việc');
+  await expect(progress).toHaveClass(/progress--complete/);
+  await expect(progress).toHaveClass(/progress--celebrate/);
+  await expect(progress).not.toHaveClass(/progress--celebrate/, { timeout: 2000 });
+  await expect(progress).toHaveClass(/progress--complete/);
+
+  await tick(page, 0, false);
+  await expect(progress).not.toHaveClass(/progress--complete/);
+  await expect(progress).not.toHaveClass(/progress--celebrate/);
+  await tick(page, 0, true);
+  await expect(progress).toHaveClass(/progress--celebrate/);
+  await tick(page, 0, false);
+  await expect(progress).not.toHaveClass(/progress--complete|progress--celebrate/);
+});
+
+test('adding a task while all are done removes the stamp', async ({ page }) => {
+  await open(page, [task('a', 'Một'), task('b', 'Hai', true)]);
+  await tick(page, 0, true);
+  await expect(page.locator('.progress')).toHaveClass(/progress--celebrate/);
+  await input(page).fill('Ba');
+  await input(page).press('Enter');
+  await expect(page.locator('.progress')).not.toHaveClass(/progress--complete|progress--celebrate/);
+  await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 2/3 việc');
+});

@@ -94,6 +94,23 @@ els.form.addEventListener("submit", (e) => {
   els.input.focus();
 });
 
+let celebrateTimer;
+
+els.list.addEventListener("change", (e) => {
+  const row = e.target.closest(".task");
+  if (!row || !e.target.matches(".check input")) return;
+  store.setDone(row.dataset.id, e.target.checked);
+  const wasComplete = els.progress.classList.contains("progress--complete");
+  updateSummary();
+  updateSlip();
+  if (!wasComplete && els.progress.classList.contains("progress--complete")) {
+    // One brief stamp and ink bloom for the tick that finishes the day.
+    els.progress.classList.add("progress--celebrate");
+    clearTimeout(celebrateTimer);
+    celebrateTimer = setTimeout(() => els.progress.classList.remove("progress--celebrate"), 1000);
+  }
+});
+
 els.input.addEventListener("input", () => {
   if (!els.addError.hidden) setAddError(null);
 });
