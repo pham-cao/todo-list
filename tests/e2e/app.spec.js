@@ -9,7 +9,12 @@ const task = (id, text, done = false, date = TODAY, createdAt = NOW.getTime()) =
 async function open(page, tasks) {
   await page.clock.setFixedTime(NOW);
   if (tasks) {
-    await page.addInitScript(([key, value]) => localStorage.setItem(key, value), [KEY, JSON.stringify(tasks)]);
+    // Seed once per tab so a reload shows what the app saved, not the seed again.
+    await page.addInitScript(([key, value]) => {
+      if (sessionStorage.getItem('seeded')) return;
+      localStorage.setItem(key, value);
+      sessionStorage.setItem('seeded', '1');
+    }, [KEY, JSON.stringify(tasks)]);
   }
   await page.goto('./');
 }
@@ -74,4 +79,70 @@ test('shows task text as plain text, never as markup', async ({ page }) => {
   await open(page, [task('x', '<b>abc</b>')]);
   await expect(rows(page).locator('.task__label')).toHaveText('<b>abc</b>');
   await expect(page.locator('.task-list b')).toHaveCount(0);
+});
+
+const input = (page) => page.getByLabel('Bạn cần làm gì hôm nay?');
+const addError = (page) => page.locator('.add-form .field-error');
+
+test('adds a task with Thêm and Enter, keeps focus, and keeps it after reload', async ({ page }) => {
+  await open(page, [task('a', 'Gửi báo cáo tuần', true)]);
+  await input(page).fill('  Đi chợ mua rau 🥬  ');
+  await page.getByRole('button', { name: 'Thêm' }).click();
+  await expect(rows(page).locator('.task__label')).toHaveText(['Gửi báo cáo tuần', 'Đi chợ mua rau 🥬']);
+  await expect(rows(page).last()).toHaveClass(/task--enter/);
+  await expect(input(page)).toHaveValue('');
+  await expect(input(page)).toBeFocused();
+  await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 1/2 việc');
+
+  await input(page).fill('Tập yoga 30 phút');
+  await input(page).press('Enter');
+  await expect(rows(page)).toHaveCount(3);
+  await expect(input(page)).toBeFocused();
+  await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 1/3 việc');
+  await expect(page.locator('.progress')).toHaveCSS('--p', '33');
+
+  await page.reload();
+  await expect(rows(page).locator('.task__label')).toHaveText(['Gửi báo cáo tuần', 'Đi chợ mua rau 🥬', 'Tập yoga 30 phút']);
+  await expect(rows(page).getByRole('checkbox').nth(1)).not.toBeChecked();
+});
+
+test('adding the first task replaces the empty state', async ({ page }) => {
+  await open(page);
+  await input(page).fill('Việc đầu tiên');
+  await input(page).press('Enter');
+  await expect(rows(page)).toHaveCount(1);
+  await expect(page.locator('.empty')).toBeHidden();
+  await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 0/1 việc');
+});
+
+test('empty or blank input shows the empty text error, and typing removes it', async ({ page }) => {
+  await open(page);
+  await input(page).fill('   ');
+  await input(page).press('Enter');
+  await expect(rows(page)).toHaveCount(0);
+  await expect(addError(page)).toBeVisible();
+  await expect(addError(page)).toHaveText('Vui lòng nhập nội dung công việc.');
+  await expect(input(page)).toHaveAttribute('aria-invalid', 'true');
+  await expect(input(page)).toHaveAccessibleDescription('Vui lòng nhập nội dung công việc.');
+  await expect(input(page)).toBeFocused();
+  await input(page).pressSequentially('a');
+  await expect(addError(page)).toBeHidden();
+  await expect(input(page)).not.toHaveAttribute('aria-invalid');
+  await expect(input(page)).not.toHaveAttribute('aria-describedby');
+});
+
+test('over 200 characters shows the too long error; exactly 200 after trim is added', async ({ page }) => {
+  await open(page);
+  await input(page).fill('a'.repeat(201));
+  await page.getByRole('button', { name: 'Thêm' }).click();
+  await expect(rows(page)).toHaveCount(0);
+  await expect(addError(page)).toHaveText('Nội dung tối đa 200 ký tự.');
+  await expect(input(page)).toHaveAttribute('aria-invalid', 'true');
+  await expect(input(page)).toHaveValue('a'.repeat(201));
+  await input(page).press('Backspace');
+  await expect(addError(page)).toBeHidden();
+  await input(page).fill(`  ${'ệ'.normalize('NFD').repeat(200)}  `);
+  await input(page).press('Enter');
+  await expect(rows(page)).toHaveCount(1);
+  await expect(addError(page)).toBeHidden();
 });

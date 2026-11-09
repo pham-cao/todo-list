@@ -8,6 +8,7 @@ const els = {
   summary: $("summary"),
   count: $("summary-count"),
   slip: $("storage-slip"),
+  form: $("add-form"),
   input: $("new-task"),
   addError: $("new-task-error"),
   empty: $("empty"),
@@ -57,6 +58,46 @@ function renderAll() {
   updateSlip();
 }
 
-show(els.addError, false);
+const ADD_ERRORS = {
+  empty: "Vui lòng nhập nội dung công việc.",
+  tooLong: "Nội dung tối đa 200 ký tự.",
+};
+
+function setAddError(code) {
+  els.addError.querySelector(".field-error__text").textContent = ADD_ERRORS[code] ?? "";
+  show(els.addError, !!code);
+  if (code) {
+    els.input.setAttribute("aria-invalid", "true");
+    els.input.setAttribute("aria-describedby", els.addError.id);
+  } else {
+    els.input.removeAttribute("aria-invalid");
+    els.input.removeAttribute("aria-describedby");
+  }
+}
+
+els.form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const result = store.add(els.input.value);
+  if (result.error) {
+    // Re-show on repeat submits so the alert is announced and the nudge replays.
+    setAddError(null);
+    void els.input.offsetWidth;
+    setAddError(result.error);
+  } else {
+    const row = renderRow(result.task);
+    row.classList.add("task--enter");
+    els.list.append(row);
+    els.input.value = "";
+    updateSummary();
+    updateSlip();
+  }
+  els.input.focus();
+});
+
+els.input.addEventListener("input", () => {
+  if (!els.addError.hidden) setAddError(null);
+});
+
+setAddError(null);
 renderAll();
 els.input.focus();
