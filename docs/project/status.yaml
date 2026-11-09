@@ -1,7 +1,7 @@
 project: "daily-todo"
 idea: "Web app todo list de ghi lai (log) cac viec can lam hang ngay (daily). Nguyen van: hien tai toi can lam todolist web log may cai toi can lam trong daily"
 state: waiting_user        # running | waiting_user | done
-waiting_for: "Release setup for daily-task-log: GitHub repo, push and Pages, follow-ups"
+waiting_for: "URL of the empty GitHub repo to push daily-task-log and open the PR"
 phase: features       # discovery | features | done
 current_feature: "daily-task-log"
 trello:               # optional mirror of this file, see "Trello sync" in the PM skill
