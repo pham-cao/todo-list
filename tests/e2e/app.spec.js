@@ -876,7 +876,7 @@ test('every button and checkbox has its Vietnamese accessible name', async ({ pa
     const controls = scope.locator('button:visible, input[type="checkbox"]');
     for (let i = 0; i < names.length; i++) await expect(controls.nth(i)).toHaveAccessibleName(names[i]);
   };
-  await expectNamed(page.locator('main'), ['Thêm', 'Đánh dấu hoàn thành', 'Sửa', 'Xóa', 'Đánh dấu hoàn thành', 'Sửa', 'Xóa']);
+  await expectNamed(page.locator('main'), ['Xem ngày trước', 'Xem ngày sau', 'Về hôm nay', 'Thêm', 'Đánh dấu hoàn thành', 'Sửa', 'Xóa', 'Đánh dấu hoàn thành', 'Sửa', 'Xóa']);
   // The row text is the description, so a screen reader hears which task each control is for.
   await expect(box(page, 0)).toHaveAccessibleDescription('Một');
   await expect(removeBtn(page, 1)).toHaveAccessibleDescription('Hai');
