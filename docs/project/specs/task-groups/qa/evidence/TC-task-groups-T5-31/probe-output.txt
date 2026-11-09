@@ -1,0 +1,6 @@
+Phone layout (isMobile, touch). Boxes x,y,w,h.
+390: input 92,194,278,44 | select 122,246,172,44 | Thêm 302,250,68,36 (same line as the choice) | swatch 93,261 | no horizontal scroll | Tạo nhóm 99 wide beside the name input
+360: input 92,298,248,44 | select 92,350,172,44 | Thêm 272,354,68,36 | swatch hidden by design (css max-width 380) | no horizontal scroll
+320: select 132 wide | Thêm 68 | no horizontal scroll
+A 30 character group name is cut with an ellipsis in the choice. Screenshots in ../TC-task-groups-T5-25/
+Observation: Thêm and Tạo nhóm are 36 px high (existing .btn style), under the 44 px of the inputs. Not a T5 regression.

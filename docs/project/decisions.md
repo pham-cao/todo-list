@@ -420,3 +420,16 @@ Choice (by PM):
 Options: Change the name so it starts with or contains the visible text, Waive the axe rule, Move the count outside the button
 Choice: Fix it: the toggle's accessible name must contain its visible text ("{name} {d}/{t}") so axe label-content-name-mismatch passes, while still telling screen reader users it is a group and its progress (for example the visible text as the name plus a description). R63 wording is amended accordingly; FE picks the simplest markup that passes axe and reads well in Vietnamese (by PM)
 Reason: Accessibility is not waived; the change is small and reused by later tasks.
+
+## 2026-11-10: task-groups T5: Safari IME Enter guard
+Options: Add `e.keyCode === 229` guard, Skip
+Choice: Add the guard (by PM)
+Reason: The owner may use an iPhone; the guard is one condition and Safari cannot be tested on this host.
+
+## 2026-11-10: task-groups T5: Enter twice quickly when creating a group
+Choice: Accepted as normal add behaviour, no change (by PM, on QA's judgement)
+
+## 2026-11-10: task-groups T5 review: split app.js now?
+Options: Move group UI to src/groups-ui.js before T7, Keep the design plan (src/manage.js from T8)
+Choice: Keep the design plan; T8 creates src/manage.js for the dialog work and may move the add choice and filter helpers there if app.js passes about 900 lines (by PM)
+Reason: Avoid an extra refactor task; the planned split already covers the biggest piece.

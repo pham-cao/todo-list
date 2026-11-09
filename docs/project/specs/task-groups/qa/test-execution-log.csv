@@ -68,3 +68,36 @@ date,task,tc,result,evidence,bug
 2026-11-10,T4,TC-task-groups-T4-18,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-18/axe-t4-retest.json,BUG-005 verified and closed; axe 18 of 18 runs clean
 2026-11-10,T4,TC-task-groups-T4-05,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-05/runner-output-retest.txt,"new name format Nhóm {name} {d}/{t} việc đã hoàn thành; tree check in keyboard-sr-retest.txt"
 2026-11-10,T4,TC-task-groups-T4-20,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-05/runner-output-retest.txt,"retest: groups.spec 45 passed 1 skipped; full e2e 287 passed 11 skipped; npm test 65 pass"
+2026-11-10,T5,TC-task-groups-T5-01,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-02,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-03,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-04,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-05,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-06,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-07,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-08,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-09,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-10,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-11,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-12,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-13,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-14,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-15,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-16,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-17,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-18,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-18/axe-t5-48-runs.txt,state read in e2e (groups.spec); axe 48 runs no violations
+2026-11-10,T5,TC-task-groups-T5-19,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-20,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-21,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-22,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-23,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-24,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-25,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-25/open-light-1440.png,"manual compare with add-new-group prototypes at 1440 and 390, light and dark; matches"
+2026-11-10,T5,TC-task-groups-T5-26,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-27,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-27/probe-output.txt,IME via CDP; automated
+2026-11-10,T5,TC-task-groups-T5-28,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-27/probe-output.txt,NFD paste; automated
+2026-11-10,T5,TC-task-groups-T5-29,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-27/probe-output.txt,one group; second Enter judged acceptable
+2026-11-10,T5,TC-task-groups-T5-30,fail,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-30/probe-output.txt,BUG-006: stale swatch
+2026-11-10,T5,TC-task-groups-T5-31,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-31/probe-output.txt,"390, 360, 320 px; automated names test"
+2026-11-10,T5,TC-task-groups-T5-30,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-30/e2e-full-run-retest.txt,retest: BUG-006 verified and closed; swatch follows the next colour
+2026-11-10,T5,TC-task-groups-T5-27,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-30/e2e-full-run-retest.txt,retest: IME Enter ignored with isComposing and with keyCode 229 (new test); automated

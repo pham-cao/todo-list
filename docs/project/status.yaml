@@ -203,15 +203,15 @@ features:
         title: "Group choice and new group in the add form"
         owner: fe
         depends_on: [T4]
-        state: doing
-        attempts: 0
-        bugs_opened: []
+        state: done
+        attempts: 1
+        bugs_opened: [BUG-006]
         trello_card: ""
       - id: T6
         title: "Move a task through the edit form"
         owner: fe
         depends_on: [T5]
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""
