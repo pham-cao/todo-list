@@ -3,7 +3,7 @@ idea: "Web app todo list de ghi lai (log) cac viec can lam hang ngay (daily). Ng
 state: running        # running | waiting_user | done
 waiting_for: ""
 phase: features       # discovery | features | done
-current_feature: "day-navigation"
+current_feature: "task-groups"
 trello:               # optional mirror of this file, see "Trello sync" in the PM skill
   enabled: false
   board_url: ""
@@ -100,9 +100,9 @@ features:
         attempts: 0
         trello_card: ""
   - slug: day-navigation
-    phase: release
+    phase: done
     has_ui: true
-    pr: ""
+    pr: "https://github.com/pham-cao/todo-list/pull/2"
     trello_card: ""
     tasks:
       - id: T1
@@ -161,6 +161,12 @@ features:
         attempts: 1
         bugs_opened: [BUG-002]
         trello_card: ""
+  - slug: task-groups
+    phase: ux
+    has_ui: true
+    pr: ""
+    trello_card: ""
+    tasks: []
 # - slug: user-login
 #   phase: requirements   # requirements | ux | design | build | release | done
 #   has_ui: true

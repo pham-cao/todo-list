@@ -303,3 +303,46 @@ Reason: Same as the approved prototype; unfocused layout stays on one row from a
 
 ## 2026-11-09: day-navigation T5-09 (native calendar popup in headed Chrome, Firefox, Edge)
 Choice: Owner checks it manually on the deployed site after release; logged as blocked, not holding the task (by PM)
+
+## 2026-11-09: Next feature after day-navigation
+Options: BA ranked list (backup-export-import, carry-over-unfinished, week-overview, search-tasks, offline-install, task-notes-and-priority), Owner's own idea
+Choice: task-groups, user created groups to organise tasks, requested by the owner (by user)
+Reason: The owner wants to split tasks into groups for easier management. The BA ranked list stays in the backlog for later.
+
+## 2026-11-09: task-groups D2: Global or per day groups?
+Options: Global, Per day
+Choice: Global, one list of groups for every day (by user)
+
+## 2026-11-09: task-groups D4: Collapsible sections and filter by group?
+Options: Neither for now, Filter only, Collapsible and filter
+Choice: Collapsible sections and a filter by group (by user)
+
+## 2026-11-09: task-groups D6: Deleting a group that has tasks
+Options: Move tasks to ungrouped after confirmation, Delete the tasks too, Block deleting a group that has tasks
+Choice: Block deleting a group that still has tasks on any day; the owner moves them first (by user)
+
+## 2026-11-09: task-groups D1: Colour per group?
+Options: Name only, Choose from about 6 colours
+Choice: Choose from about 6 colours per group (by user)
+
+## 2026-11-09: task-groups: Defaults set by PM for the remaining open questions
+Choice (by PM):
+- D3: "Chưa phân nhóm" shown last; groups with no tasks that day are hidden (unless the filter selects them).
+- D5: the add form keeps the chosen group while the page is open and resets to ungrouped on reload.
+- D7: at most 20 groups, names up to 30 characters, no duplicate names ignoring case.
+- Placement: group select next to the add input and inside the edit form; rename, colour and delete in a "Quản lý nhóm" dialog.
+- A moved task sits by its creation time in the new section (creation order kept everywhere).
+- Stamp, progress and summary stay whole day; section headers show group counts.
+- Add cache busting (version query on CSS and JS links) in this feature so stale cached CSS cannot break the page after a release.
+
+## 2026-11-09: task-groups: Bulk move before deleting a group
+Options: One by one for now, Add "move all tasks of this group to..." now
+Choice: Add the bulk move action now, in the "Quản lý nhóm" dialog (by user)
+
+## 2026-11-09: task-groups: Keep the group filter across reloads?
+Options: Reset to all groups on reload, Remember it
+Choice: Reset on reload (by user)
+
+## 2026-11-09: Approve task-groups requirements?
+Options: Approve, Request changes
+Choice: Approve, with the bulk move action added (by user)
