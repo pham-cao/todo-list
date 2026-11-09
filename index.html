@@ -35,6 +35,10 @@
         <span class="add-form__pen" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.38 3.62a1 1 0 0 1 3 3L7.37 18.64a2 2 0 0 1-.86.5l-2.87.84a.5.5 0 0 1-.62-.62l.84-2.87a2 2 0 0 1 .5-.86z"/></svg></span>
         <div class="add-form__line">
           <input class="add-form__input" id="new-task" name="text" type="text" placeholder="Bạn cần làm gì hôm nay?" autocomplete="off">
+          <span class="add-form__group">
+            <label class="field-label" for="new-task-group">Nhóm</label>
+            <span class="select"><span class="swatch" id="new-task-swatch" data-color="none" aria-hidden="true"></span><select id="new-task-group"></select><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </span>
           <button class="btn btn--primary" type="submit">Thêm</button>
         </div>
         <p class="field-error" id="new-task-error" role="alert" hidden><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg><span class="field-error__text"></span></p>
@@ -79,6 +83,17 @@
         </span>
       </div>
     </li>
+  </template>
+
+  <template id="new-group-template">
+    <div class="add-form__newgroup">
+      <span class="swatch" id="new-group-swatch" data-color="yellow" aria-hidden="true"></span>
+      <div class="add-form__newgroup-line">
+        <input class="input" id="new-group-name" type="text" placeholder="Tên nhóm mới" aria-label="Tên nhóm mới" autocomplete="off">
+        <button class="btn btn--secondary" id="create-group" type="button">Tạo nhóm</button>
+      </div>
+      <p class="field-error" id="new-group-error" role="alert" hidden><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg><span class="field-error__text"></span></p>
+    </div>
   </template>
 
   <template id="group-template">

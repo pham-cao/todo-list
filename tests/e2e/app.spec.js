@@ -769,6 +769,8 @@ test('keyboard only: add, tick with Space, edit with Enter, cancel with Escape, 
   await expect(labels(page)).toHaveText(['Gọi điện cho mẹ']);
   await expect(input(page)).toBeFocused();
 
+  await kb.press('Tab'); // Nhóm
+  await focused('Nhóm', 'combobox');
   await kb.press('Tab'); // Thêm
   await focused('Thêm');
   await kb.press('Tab');

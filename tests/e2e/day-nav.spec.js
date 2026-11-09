@@ -925,6 +925,7 @@ test('200 rows: Tab from the add field into rows scrolled away brings the first 
   await page.evaluate(() => scrollTo(0, document.body.scrollHeight));
   await page.keyboard.press('Tab');
   await page.keyboard.press('Tab');
+  await page.keyboard.press('Tab');
   const focused = page.locator(':focus');
   await expect(rows(page).nth(0)).toContainText('Việc số 1');
   await expect(focused).toBeVisible();

@@ -1,6 +1,6 @@
 import { toDateKey, parseDateKey, addDays, dayKind, dateLine } from "./date.js?v=1.2.0";
 import { createStore, getStorage } from "./store.js?v=1.2.0";
-import { createGroups, UNGROUPED, UNGROUPED_NAME } from "./groups.js?v=1.2.0";
+import { createGroups, nextColor, GROUPS_KEY, MAX_GROUPS, UNGROUPED, UNGROUPED_NAME } from "./groups.js?v=1.2.0";
 
 const $ = (id) => document.getElementById(id);
 const els = {
@@ -17,6 +17,9 @@ const els = {
   form: $("add-form"),
   input: $("new-task"),
   addError: $("new-task-error"),
+  addGroup: $("new-task-group"),
+  addSwatch: $("new-task-swatch"),
+  newGroupTemplate: $("new-group-template"),
   empty: $("empty"),
   list: $("day-list"),
   rowTemplate: $("task-template"),
@@ -30,7 +33,9 @@ const els = {
 const show = (el, on) => { el.hidden = !on; };
 
 const store = createStore(getStorage());
-const groups = createGroups(getStorage());
+let groups = createGroups(getStorage());
+// The add form's group: a group id or UNGROUPED. Kept while the page is open, Chưa phân nhóm after a reload (R14, R20).
+let addGroup = UNGROUPED;
 // Section key -> ul.task-list on screen. A day with no grouped task has one plain list under UNGROUPED.
 let lists = new Map();
 // today: the last local date the page saw. viewed: the day on screen.
@@ -186,8 +191,15 @@ const ERRORS = {
   tooLong: "Nội dung tối đa 200 ký tự.",
 };
 
-function setFieldError(input, errorEl, code) {
-  errorEl.querySelector(".field-error__text").textContent = ERRORS[code] ?? "";
+const GROUP_ERRORS = {
+  empty: "Vui lòng nhập tên nhóm.",
+  tooLong: "Tên nhóm tối đa 30 ký tự.",
+  duplicate: "Tên nhóm này đã có rồi.",
+  tooMany: "Tối đa 20 nhóm. Hãy xóa bớt một nhóm trước khi tạo thêm.",
+};
+
+function setFieldError(input, errorEl, code, messages = ERRORS) {
+  errorEl.querySelector(".field-error__text").textContent = messages[code] ?? "";
   show(errorEl, !!code);
   if (code) {
     input.setAttribute("aria-invalid", "true");
@@ -199,10 +211,10 @@ function setFieldError(input, errorEl, code) {
 }
 
 // Re-show on repeat submits so the alert is announced and the nudge replays.
-function showFieldError(input, errorEl, code) {
+function showFieldError(input, errorEl, code, messages) {
   setFieldError(input, errorEl, null);
   void input.offsetWidth;
-  setFieldError(input, errorEl, code);
+  setFieldError(input, errorEl, code, messages);
 }
 
 const setAddError = (code) => setFieldError(els.input, els.addError, code);
@@ -211,7 +223,8 @@ els.form.addEventListener("submit", (e) => {
   e.preventDefault();
   const now = new Date();
   checkDay(now);
-  const result = store.add(els.input.value, now, viewed);
+  // R21 (a chosen group removed elsewhere) is covered by the storage listener, which resets addGroup.
+  const result = store.add(els.input.value, now, viewed, addGroup === UNGROUPED ? null : addGroup);
   if (result.error) {
     showFieldError(els.input, els.addError, result.error);
   } else {
@@ -253,6 +266,96 @@ els.list.addEventListener("change", (e) => {
 
 els.input.addEventListener("input", () => {
   if (!els.addError.hidden) setAddError(null);
+});
+
+// Add choice: Chưa phân nhóm, every group in creation order, then Nhóm mới... (R14).
+// Group names only ever reach the page as option text (R65).
+function renderChoices() {
+  if (!groups.get(addGroup)) addGroup = UNGROUPED;
+  const option = (value, text) => Object.assign(document.createElement("option"), { value, textContent: text });
+  els.addGroup.replaceChildren(
+    option(UNGROUPED, UNGROUPED_NAME),
+    ...groups.list().map((g) => option(g.id, g.name)),
+    option("new", "Nhóm mới..."),
+  );
+  els.addGroup.value = newLine ? "new" : addGroup;
+  els.addSwatch.dataset.color = groups.get(addGroup)?.color ?? "none";
+  els.addSwatch.hidden = !!newLine;
+}
+
+// The Nhóm mới... line exists only while it is open, from #new-group-template.
+let newLine = null;
+const newName = () => newLine.querySelector(".input");
+const setNewError = (code) => setFieldError(newName(), newLine.querySelector(".field-error"), code, GROUP_ERRORS);
+
+function openNewGroup() {
+  newLine = els.newGroupTemplate.content.firstElementChild.cloneNode(true);
+  newLine.querySelector(".swatch").dataset.color = nextColor(groups.list());
+  els.form.append(newLine);
+  els.addSwatch.hidden = true;
+  newName().focus();
+  // At the limit the error shows at once, before any typing (decisions.md).
+  if (groups.list().length >= MAX_GROUPS) setNewError("tooMany");
+}
+
+function closeNewGroup() {
+  newLine?.remove();
+  newLine = null;
+  els.addGroup.value = addGroup;
+  els.addSwatch.hidden = false;
+}
+
+function createGroup() {
+  const result = groups.create(newName().value);
+  updateSlip();
+  if (result.error) {
+    showFieldError(newName(), newLine.querySelector(".field-error"), result.error, GROUP_ERRORS);
+    newName().focus();
+    return;
+  }
+  // The group is chosen, no task is made, and the owner goes on writing the task (R16).
+  addGroup = result.group.id;
+  closeNewGroup();
+  renderChoices();
+  els.input.focus();
+}
+
+els.addGroup.addEventListener("change", () => {
+  if (els.addGroup.value === "new") return openNewGroup();
+  addGroup = els.addGroup.value;
+  closeNewGroup();
+  renderChoices();
+});
+
+els.form.addEventListener("click", (e) => {
+  if (e.target.closest("#create-group")) createGroup();
+});
+els.form.addEventListener("input", (e) => {
+  if (newLine?.contains(e.target) && !newLine.querySelector(".field-error").hidden) setNewError(null);
+});
+els.form.addEventListener("keydown", (e) => {
+  // isComposing or keyCode 229: a key that ends an IME composition (Safari reports only 229).
+  if (!newLine?.contains(e.target) || e.isComposing || e.keyCode === 229) return;
+  if (e.key === "Escape") {
+    // Nothing is created; the choice goes back to what it was (R17).
+    closeNewGroup();
+    els.addGroup.focus();
+  } else if (e.key === "Enter" && e.target === newName()) {
+    e.preventDefault(); // the name input sits inside the add form: Enter creates the group, never a task
+    createGroup();
+  }
+});
+
+// Another tab changed the groups: take its list, so a removed group is never offered or saved (R21).
+window.addEventListener("storage", (e) => {
+  // A session that could not save keeps its groups in memory; another tab's list would drop them.
+  if ((e.key !== GROUPS_KEY && e.key !== null) || !groups.storageOk) return;
+  groups = createGroups(getStorage());
+  updateSlip();
+  renderChoices();
+  // The open Nhóm mới... line previews the colour the group will get now (R10, R15, BUG-006).
+  newLine?.querySelector(".swatch").setAttribute("data-color", nextColor(groups.list()));
+  renderList();
 });
 
 // Edit in place: one row at a time. The read-only line stays in the DOM (hidden)
@@ -530,6 +633,7 @@ viewed = readHash() ?? today;
 // A hash that is bad, out of range or today (even a bare "#") becomes the plain address, with no history entry.
 if (viewed === today && location.href.includes("#")) writeAddress(today, false);
 setAddError(null);
+renderChoices();
 // BUG-001: the markup starts muted; settle the real Về hôm nay look before any transition can run.
 els.toToday.style.transition = "none";
 renderDay();
