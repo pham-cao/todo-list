@@ -1,5 +1,5 @@
-import { toDateKey, parseDateKey, addDays, dayKind, dateLine } from "./date.js";
-import { createStore, getStorage } from "./store.js";
+import { toDateKey, parseDateKey, addDays, dayKind, dateLine } from "./date.js?v=1.2.0";
+import { createStore, getStorage } from "./store.js?v=1.2.0";
 
 const $ = (id) => document.getElementById(id);
 const els = {
