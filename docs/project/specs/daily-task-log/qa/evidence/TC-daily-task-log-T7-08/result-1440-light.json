@@ -1,0 +1,34 @@
+{
+ "o1": {
+  "mode": {
+   "editing": 1,
+   "inputs": 1
+  },
+  "editRow": "b",
+  "labels": [
+   "Gửi báo cáo tuần cho chị Lan trước 10 giờ",
+   "Đi chợ mua rau muống, trứng và sữa tươi",
+   "Gọi điện đặt lịch khám răng cho bé Na"
+  ],
+  "val": "Đi chợ mua rau muống, trứng và sữa tươi",
+  "focus": {
+   "tag": "INPUT",
+   "id": "edit-b",
+   "text": "",
+   "action": null,
+   "row": "b"
+  },
+  "store": [
+   "Gửi báo cáo tuần cho chị Lan trước 10 giờ",
+   "Đi chợ mua rau muống, trứng và sữa tươi",
+   "Gọi điện đặt lịch khám răng cho bé Na"
+  ]
+ },
+ "o2": {
+  "editing": 1,
+  "inputs": 1
+ },
+ "logs": [
+  "info: Autofocus processing was blocked because a document already has a focused element."
+ ]
+}

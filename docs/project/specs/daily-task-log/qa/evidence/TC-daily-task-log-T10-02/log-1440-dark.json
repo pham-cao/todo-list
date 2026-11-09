@@ -1,0 +1,15 @@
+{
+  "slipBefore": false,
+  "slipImmediately": true,
+  "slipAfter": true,
+  "rows": [
+    "Một",
+    "Hai",
+    "Ba"
+  ],
+  "storedUnchanged": true,
+  "focusOk": "INPUT",
+  "errs": [
+    "info: Autofocus processing was blocked because a document already has a focused element."
+  ]
+}

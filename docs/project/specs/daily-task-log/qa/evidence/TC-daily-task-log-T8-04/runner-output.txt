@@ -1,0 +1,11 @@
+PASS 1440: click on note padding keeps it open
+PASS 1440: click bottom padding keeps it open
+PASS 1440: backdrop click closes
+PASS 1440: 3 rows kept
+PASS 1440: focus on Xóa: remove|Đi chợ mua rau muống, trứng và sữa tươi
+PASS 390: click on note padding keeps it open
+PASS 390: click bottom padding keeps it open
+PASS 390: backdrop click closes
+PASS 390: 3 rows kept
+PASS 390: focus on Xóa: remove|Đi chợ mua rau muống, trứng và sữa tươi
+PASS no console errors

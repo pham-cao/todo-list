@@ -1,0 +1,596 @@
+{
+ "TC-daily-task-log-T11-01": {
+  "1440-light": {
+   "before": "Hôm nay, Thứ Hai, 09/11/2026",
+   "rowsBefore": 2,
+   "after": "Hôm nay, Thứ Ba, 10/11/2026",
+   "rowsAfter": 0,
+   "emptyVisible": true,
+   "progressHidden": true,
+   "summaryHidden": true,
+   "storedUnchanged": true,
+   "focusOnAdd": true,
+   "errs": []
+  },
+  "1440-dark": {
+   "before": "Hôm nay, Thứ Hai, 09/11/2026",
+   "rowsBefore": 2,
+   "after": "Hôm nay, Thứ Ba, 10/11/2026",
+   "rowsAfter": 0,
+   "emptyVisible": true,
+   "progressHidden": true,
+   "summaryHidden": true,
+   "storedUnchanged": true,
+   "focusOnAdd": true,
+   "errs": []
+  },
+  "390-light": {
+   "before": "Hôm nay, Thứ Hai, 09/11/2026",
+   "rowsBefore": 2,
+   "after": "Hôm nay, Thứ Ba, 10/11/2026",
+   "rowsAfter": 0,
+   "emptyVisible": true,
+   "progressHidden": true,
+   "summaryHidden": true,
+   "storedUnchanged": true,
+   "focusOnAdd": true,
+   "errs": []
+  },
+  "390-dark": {
+   "before": "Hôm nay, Thứ Hai, 09/11/2026",
+   "rowsBefore": 2,
+   "after": "Hôm nay, Thứ Ba, 10/11/2026",
+   "rowsAfter": 0,
+   "emptyVisible": true,
+   "progressHidden": true,
+   "summaryHidden": true,
+   "storedUnchanged": true,
+   "focusOnAdd": true,
+   "errs": []
+  }
+ },
+ "TC-daily-task-log-T11-02": {
+  "1440-light": {
+   "after": "Hôm nay, Thứ Ba, 10/11/2026",
+   "rowsAfter": 0,
+   "emptyVisible": true,
+   "storedUnchanged": true,
+   "errs": []
+  },
+  "1440-dark": {
+   "after": "Hôm nay, Thứ Ba, 10/11/2026",
+   "rowsAfter": 0,
+   "emptyVisible": true,
+   "storedUnchanged": true,
+   "errs": []
+  },
+  "390-light": {
+   "after": "Hôm nay, Thứ Ba, 10/11/2026",
+   "rowsAfter": 0,
+   "emptyVisible": true,
+   "storedUnchanged": true,
+   "errs": []
+  },
+  "390-dark": {
+   "after": "Hôm nay, Thứ Ba, 10/11/2026",
+   "rowsAfter": 0,
+   "emptyVisible": true,
+   "storedUnchanged": true,
+   "errs": []
+  }
+ },
+ "TC-daily-task-log-T11-03": {
+  "1440-light": {
+   "date": "Hôm nay, Thứ Ba, 10/11/2026",
+   "rows": [
+    "Việc ngày mới"
+   ],
+   "status": "Đã hoàn thành 0/1 việc",
+   "stored": [
+    [
+     "Một",
+     "2026-11-09"
+    ],
+    [
+     "Hai",
+     "2026-11-09"
+    ],
+    [
+     "Hôm qua",
+     "2026-11-08"
+    ],
+    [
+     "Việc ngày mới",
+     "2026-11-10"
+    ]
+   ],
+   "errs": []
+  },
+  "1440-dark": {
+   "date": "Hôm nay, Thứ Ba, 10/11/2026",
+   "rows": [
+    "Việc ngày mới"
+   ],
+   "status": "Đã hoàn thành 0/1 việc",
+   "stored": [
+    [
+     "Một",
+     "2026-11-09"
+    ],
+    [
+     "Hai",
+     "2026-11-09"
+    ],
+    [
+     "Hôm qua",
+     "2026-11-08"
+    ],
+    [
+     "Việc ngày mới",
+     "2026-11-10"
+    ]
+   ],
+   "errs": []
+  },
+  "390-light": {
+   "date": "Hôm nay, Thứ Ba, 10/11/2026",
+   "rows": [
+    "Việc ngày mới"
+   ],
+   "status": "Đã hoàn thành 0/1 việc",
+   "stored": [
+    [
+     "Một",
+     "2026-11-09"
+    ],
+    [
+     "Hai",
+     "2026-11-09"
+    ],
+    [
+     "Hôm qua",
+     "2026-11-08"
+    ],
+    [
+     "Việc ngày mới",
+     "2026-11-10"
+    ]
+   ],
+   "errs": []
+  },
+  "390-dark": {
+   "date": "Hôm nay, Thứ Ba, 10/11/2026",
+   "rows": [
+    "Việc ngày mới"
+   ],
+   "status": "Đã hoàn thành 0/1 việc",
+   "stored": [
+    [
+     "Một",
+     "2026-11-09"
+    ],
+    [
+     "Hai",
+     "2026-11-09"
+    ],
+    [
+     "Hôm qua",
+     "2026-11-08"
+    ],
+    [
+     "Việc ngày mới",
+     "2026-11-10"
+    ]
+   ],
+   "errs": []
+  }
+ },
+ "TC-daily-task-log-T11-04": {
+  "1440-light": {
+   "date": "Hôm nay, Thứ Hai, 09/11/2026",
+   "editOpen": 1,
+   "editValue": "Đang sửa",
+   "rows": 2,
+   "errs": []
+  },
+  "1440-dark": {
+   "date": "Hôm nay, Thứ Hai, 09/11/2026",
+   "editOpen": 1,
+   "editValue": "Đang sửa",
+   "rows": 2,
+   "errs": []
+  },
+  "390-light": {
+   "date": "Hôm nay, Thứ Hai, 09/11/2026",
+   "editOpen": 1,
+   "editValue": "Đang sửa",
+   "rows": 2,
+   "errs": []
+  },
+  "390-dark": {
+   "date": "Hôm nay, Thứ Hai, 09/11/2026",
+   "editOpen": 1,
+   "editValue": "Đang sửa",
+   "rows": 2,
+   "errs": []
+  }
+ },
+ "TC-daily-task-log-T11-05": {
+  "1440-light": {
+   "date": "Hôm nay, Thứ Ba, 10/11/2026",
+   "editCount": 0,
+   "rows": 0,
+   "storedUnchanged": true,
+   "focusOnAdd": true,
+   "errs": [],
+   "addWorks": [
+    "Sau khi bỏ sửa"
+   ]
+  },
+  "1440-dark": {
+   "date": "Hôm nay, Thứ Ba, 10/11/2026",
+   "editCount": 0,
+   "rows": 0,
+   "storedUnchanged": true,
+   "focusOnAdd": true,
+   "errs": [],
+   "addWorks": [
+    "Sau khi bỏ sửa"
+   ]
+  },
+  "390-light": {
+   "date": "Hôm nay, Thứ Ba, 10/11/2026",
+   "editCount": 0,
+   "rows": 0,
+   "storedUnchanged": true,
+   "focusOnAdd": true,
+   "errs": [],
+   "addWorks": [
+    "Sau khi bỏ sửa"
+   ]
+  },
+  "390-dark": {
+   "date": "Hôm nay, Thứ Ba, 10/11/2026",
+   "editCount": 0,
+   "rows": 0,
+   "storedUnchanged": true,
+   "focusOnAdd": true,
+   "errs": [],
+   "addWorks": [
+    "Sau khi bỏ sửa"
+   ]
+  }
+ },
+ "TC-daily-task-log-T11-06": {
+  "1440-light": {
+   "noteBefore": true,
+   "noteAfter": false,
+   "date": "Hôm nay, Thứ Ba, 10/11/2026",
+   "rows": 0,
+   "storedUnchanged": true,
+   "focusOnAdd": true,
+   "errs": [],
+   "noInertTrap": true
+  },
+  "1440-dark": {
+   "noteBefore": true,
+   "noteAfter": false,
+   "date": "Hôm nay, Thứ Ba, 10/11/2026",
+   "rows": 0,
+   "storedUnchanged": true,
+   "focusOnAdd": true,
+   "errs": [],
+   "noInertTrap": true
+  },
+  "390-light": {
+   "noteBefore": true,
+   "noteAfter": false,
+   "date": "Hôm nay, Thứ Ba, 10/11/2026",
+   "rows": 0,
+   "storedUnchanged": true,
+   "focusOnAdd": true,
+   "errs": [],
+   "noInertTrap": true
+  },
+  "390-dark": {
+   "noteBefore": true,
+   "noteAfter": false,
+   "date": "Hôm nay, Thứ Ba, 10/11/2026",
+   "rows": 0,
+   "storedUnchanged": true,
+   "focusOnAdd": true,
+   "errs": [],
+   "noInertTrap": true
+  }
+ },
+ "TC-daily-task-log-T11-07": {
+  "1440-light": {
+   "mondayAndOlderIntact": true,
+   "total": 4,
+   "errs": [],
+   "backToMonday": [
+    "Một",
+    "Hai"
+   ],
+   "dateMon": "Hôm nay, Thứ Hai, 09/11/2026"
+  },
+  "1440-dark": {
+   "mondayAndOlderIntact": true,
+   "total": 4,
+   "errs": [],
+   "backToMonday": [
+    "Một",
+    "Hai"
+   ],
+   "dateMon": "Hôm nay, Thứ Hai, 09/11/2026"
+  },
+  "390-light": {
+   "mondayAndOlderIntact": true,
+   "total": 4,
+   "errs": [],
+   "backToMonday": [
+    "Một",
+    "Hai"
+   ],
+   "dateMon": "Hôm nay, Thứ Hai, 09/11/2026"
+  },
+  "390-dark": {
+   "mondayAndOlderIntact": true,
+   "total": 4,
+   "errs": [],
+   "backToMonday": [
+    "Một",
+    "Hai"
+   ],
+   "dateMon": "Hôm nay, Thứ Hai, 09/11/2026"
+  }
+ },
+ "TC-daily-task-log-T11-08": {
+  "1440-light": {
+   "slipBefore": true,
+   "rowsBefore": 1,
+   "date": "Hôm nay, Thứ Ba, 10/11/2026",
+   "rowsAfter": 0,
+   "emptyVisible": true,
+   "slipAfter": true,
+   "rowsAfterAdd": [
+    "Hai"
+   ],
+   "errs": []
+  },
+  "1440-dark": {
+   "slipBefore": true,
+   "rowsBefore": 1,
+   "date": "Hôm nay, Thứ Ba, 10/11/2026",
+   "rowsAfter": 0,
+   "emptyVisible": true,
+   "slipAfter": true,
+   "rowsAfterAdd": [
+    "Hai"
+   ],
+   "errs": []
+  },
+  "390-light": {
+   "slipBefore": true,
+   "rowsBefore": 1,
+   "date": "Hôm nay, Thứ Ba, 10/11/2026",
+   "rowsAfter": 0,
+   "emptyVisible": true,
+   "slipAfter": true,
+   "rowsAfterAdd": [
+    "Hai"
+   ],
+   "errs": []
+  },
+  "390-dark": {
+   "slipBefore": true,
+   "rowsBefore": 1,
+   "date": "Hôm nay, Thứ Ba, 10/11/2026",
+   "rowsAfter": 0,
+   "emptyVisible": true,
+   "slipAfter": true,
+   "rowsAfterAdd": [
+    "Hai"
+   ],
+   "errs": []
+  }
+ },
+ "TC-daily-task-log-T11-09": {
+  "1440-light": {
+   "at235959": "Hôm nay, Thứ Hai, 09/11/2026",
+   "at235959_999": "Hôm nay, Thứ Hai, 09/11/2026",
+   "at000000": "Hôm nay, Thứ Ba, 10/11/2026",
+   "rows": 0,
+   "utc165959Back": "Hôm nay, Thứ Hai, 09/11/2026",
+   "utc170000": "Hôm nay, Thứ Ba, 10/11/2026",
+   "tz": "Asia/Saigon",
+   "errs": []
+  },
+  "1440-dark": {
+   "at235959": "Hôm nay, Thứ Hai, 09/11/2026",
+   "at235959_999": "Hôm nay, Thứ Hai, 09/11/2026",
+   "at000000": "Hôm nay, Thứ Ba, 10/11/2026",
+   "rows": 0,
+   "utc165959Back": "Hôm nay, Thứ Hai, 09/11/2026",
+   "utc170000": "Hôm nay, Thứ Ba, 10/11/2026",
+   "tz": "Asia/Saigon",
+   "errs": []
+  },
+  "390-light": {
+   "at235959": "Hôm nay, Thứ Hai, 09/11/2026",
+   "at235959_999": "Hôm nay, Thứ Hai, 09/11/2026",
+   "at000000": "Hôm nay, Thứ Ba, 10/11/2026",
+   "rows": 0,
+   "utc165959Back": "Hôm nay, Thứ Hai, 09/11/2026",
+   "utc170000": "Hôm nay, Thứ Ba, 10/11/2026",
+   "tz": "Asia/Saigon",
+   "errs": []
+  },
+  "390-dark": {
+   "at235959": "Hôm nay, Thứ Hai, 09/11/2026",
+   "at235959_999": "Hôm nay, Thứ Hai, 09/11/2026",
+   "at000000": "Hôm nay, Thứ Ba, 10/11/2026",
+   "rows": 0,
+   "utc165959Back": "Hôm nay, Thứ Hai, 09/11/2026",
+   "utc170000": "Hôm nay, Thứ Ba, 10/11/2026",
+   "tz": "Asia/Saigon",
+   "errs": []
+  }
+ },
+ "TC-daily-task-log-T11-10": {
+  "1440-light": {
+   "celebrateBefore": 1,
+   "celebrateAfter": 0,
+   "peek": 0,
+   "rows": [
+    "Mai"
+   ],
+   "errs": []
+  },
+  "1440-dark": {
+   "celebrateBefore": 1,
+   "celebrateAfter": 0,
+   "peek": 0,
+   "rows": [
+    "Mai"
+   ],
+   "errs": []
+  },
+  "390-light": {
+   "celebrateBefore": 1,
+   "celebrateAfter": 0,
+   "peek": 0,
+   "rows": [
+    "Mai"
+   ],
+   "errs": []
+  },
+  "390-dark": {
+   "celebrateBefore": 1,
+   "celebrateAfter": 0,
+   "peek": 0,
+   "rows": [
+    "Mai"
+   ],
+   "errs": []
+  }
+ },
+ "TC-daily-task-log-T11-11": {
+  "1440-light": {
+   "match": false,
+   "diffs": [
+    {
+     "k": "sheet",
+     "app": {
+      "text": "Việc cần làm hôm nay Hôm nay, Thứ Ba, 10/11/2026 Đã hoàn thành 0/0 việc Không thể lưu dữ liệu trên trình duyệt này. Công việc có thể bị mất khi bạn tải lại trang. Bạn cần làm gì hôm nay? Thêm Hôm nay chưa có việc nào. Hãy thêm việc đầu tiên nhé!",
+      "color": "rgb(0, 0, 0)",
+      "bg": "rgb(252, 249, 241)",
+      "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", \"Noto Sans\", Roboto, Arial, sans-serif",
+      "size": "17px",
+      "weight": "400",
+      "w": 800,
+      "h": 880
+     },
+     "proto": {
+      "text": "Việc cần làm hôm nay Hôm nay, Thứ Ba, 10/11/2026 Bạn cần làm gì hôm nay? Thêm Hôm nay chưa có việc nào. Hãy thêm việc đầu tiên nhé!",
+      "color": "rgb(0, 0, 0)",
+      "bg": "rgb(252, 249, 241)",
+      "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", \"Noto Sans\", Roboto, Arial, sans-serif",
+      "size": "17px",
+      "weight": "400",
+      "w": 800,
+      "h": 880
+     }
+    }
+   ],
+   "errs": []
+  },
+  "1440-dark": {
+   "match": false,
+   "diffs": [
+    {
+     "k": "sheet",
+     "app": {
+      "text": "Việc cần làm hôm nay Hôm nay, Thứ Ba, 10/11/2026 Đã hoàn thành 0/0 việc Không thể lưu dữ liệu trên trình duyệt này. Công việc có thể bị mất khi bạn tải lại trang. Bạn cần làm gì hôm nay? Thêm Hôm nay chưa có việc nào. Hãy thêm việc đầu tiên nhé!",
+      "color": "rgb(241, 237, 228)",
+      "bg": "rgb(34, 38, 45)",
+      "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", \"Noto Sans\", Roboto, Arial, sans-serif",
+      "size": "17px",
+      "weight": "400",
+      "w": 800,
+      "h": 880
+     },
+     "proto": {
+      "text": "Việc cần làm hôm nay Hôm nay, Thứ Ba, 10/11/2026 Bạn cần làm gì hôm nay? Thêm Hôm nay chưa có việc nào. Hãy thêm việc đầu tiên nhé!",
+      "color": "rgb(241, 237, 228)",
+      "bg": "rgb(34, 38, 45)",
+      "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", \"Noto Sans\", Roboto, Arial, sans-serif",
+      "size": "17px",
+      "weight": "400",
+      "w": 800,
+      "h": 880
+     }
+    }
+   ],
+   "errs": []
+  },
+  "390-light": {
+   "match": false,
+   "diffs": [
+    {
+     "k": "sheet",
+     "app": {
+      "text": "Việc cần làm hôm nay Hôm nay, Thứ Ba, 10/11/2026 Đã hoàn thành 0/0 việc Không thể lưu dữ liệu trên trình duyệt này. Công việc có thể bị mất khi bạn tải lại trang. Bạn cần làm gì hôm nay? Thêm Hôm nay chưa có việc nào. Hãy thêm việc đầu tiên nhé!",
+      "color": "rgb(0, 0, 0)",
+      "bg": "rgb(252, 249, 241)",
+      "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", \"Noto Sans\", Roboto, Arial, sans-serif",
+      "size": "17px",
+      "weight": "400",
+      "w": 374,
+      "h": 828
+     },
+     "proto": {
+      "text": "Việc cần làm hôm nay Hôm nay, Thứ Ba, 10/11/2026 Bạn cần làm gì hôm nay? Thêm Hôm nay chưa có việc nào. Hãy thêm việc đầu tiên nhé!",
+      "color": "rgb(0, 0, 0)",
+      "bg": "rgb(252, 249, 241)",
+      "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", \"Noto Sans\", Roboto, Arial, sans-serif",
+      "size": "17px",
+      "weight": "400",
+      "w": 374,
+      "h": 828
+     }
+    }
+   ],
+   "errs": []
+  },
+  "390-dark": {
+   "match": false,
+   "diffs": [
+    {
+     "k": "sheet",
+     "app": {
+      "text": "Việc cần làm hôm nay Hôm nay, Thứ Ba, 10/11/2026 Đã hoàn thành 0/0 việc Không thể lưu dữ liệu trên trình duyệt này. Công việc có thể bị mất khi bạn tải lại trang. Bạn cần làm gì hôm nay? Thêm Hôm nay chưa có việc nào. Hãy thêm việc đầu tiên nhé!",
+      "color": "rgb(241, 237, 228)",
+      "bg": "rgb(34, 38, 45)",
+      "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", \"Noto Sans\", Roboto, Arial, sans-serif",
+      "size": "17px",
+      "weight": "400",
+      "w": 374,
+      "h": 828
+     },
+     "proto": {
+      "text": "Việc cần làm hôm nay Hôm nay, Thứ Ba, 10/11/2026 Bạn cần làm gì hôm nay? Thêm Hôm nay chưa có việc nào. Hãy thêm việc đầu tiên nhé!",
+      "color": "rgb(241, 237, 228)",
+      "bg": "rgb(34, 38, 45)",
+      "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", \"Noto Sans\", Roboto, Arial, sans-serif",
+      "size": "17px",
+      "weight": "400",
+      "w": 374,
+      "h": 828
+     }
+    }
+   ],
+   "errs": []
+  }
+ }
+}

@@ -50,3 +50,8 @@ Success measures:
 2. No login.
 3. All screen text is in Vietnamese.
 4. The day boundary follows the browser's local timezone.
+
+## Follow ups after daily-task-log
+
+1. Give each row checkbox an accessible name that includes the task text (aria-labelledby), so VoiceOver users hear which task they tick.
+2. Run the e2e suite on WebKit (Safari) on a machine with the WebKit system libraries.

@@ -1,0 +1,266 @@
+{
+ "01-light-desktop": {
+  "m": {
+   "sw": 1440,
+   "cw": 1440,
+   "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", \"Noto Sans\", Roboto, Arial, sans-serif",
+   "vis": {
+    "empty": false,
+    "prog": true,
+    "sum": true,
+    "slip": false,
+    "err": false
+   },
+   "rows": 3
+  },
+  "logs": []
+ },
+ "01-dark-desktop": {
+  "m": {
+   "sw": 1440,
+   "cw": 1440,
+   "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", \"Noto Sans\", Roboto, Arial, sans-serif",
+   "vis": {
+    "empty": false,
+    "prog": true,
+    "sum": true,
+    "slip": false,
+    "err": false
+   },
+   "rows": 3
+  },
+  "logs": []
+ },
+ "01-light-mobile": {
+  "m": {
+   "sw": 390,
+   "cw": 390,
+   "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", \"Noto Sans\", Roboto, Arial, sans-serif",
+   "vis": {
+    "empty": false,
+    "prog": true,
+    "sum": true,
+    "slip": false,
+    "err": false
+   },
+   "rows": 3
+  },
+  "logs": []
+ },
+ "01-dark-mobile": {
+  "m": {
+   "sw": 390,
+   "cw": 390,
+   "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", \"Noto Sans\", Roboto, Arial, sans-serif",
+   "vis": {
+    "empty": false,
+    "prog": true,
+    "sum": true,
+    "slip": false,
+    "err": false
+   },
+   "rows": 3
+  },
+  "logs": []
+ },
+ "02-light-desktop": {
+  "m": {
+   "sw": 1440,
+   "cw": 1440,
+   "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", \"Noto Sans\", Roboto, Arial, sans-serif",
+   "vis": {
+    "empty": true,
+    "prog": false,
+    "sum": false,
+    "slip": false,
+    "err": false
+   },
+   "rows": 0
+  },
+  "logs": []
+ },
+ "02-dark-desktop": {
+  "m": {
+   "sw": 1440,
+   "cw": 1440,
+   "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", \"Noto Sans\", Roboto, Arial, sans-serif",
+   "vis": {
+    "empty": true,
+    "prog": false,
+    "sum": false,
+    "slip": false,
+    "err": false
+   },
+   "rows": 0
+  },
+  "logs": [
+   "info: Autofocus processing was blocked because a document already has a focused element."
+  ]
+ },
+ "02-light-mobile": {
+  "m": {
+   "sw": 390,
+   "cw": 390,
+   "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", \"Noto Sans\", Roboto, Arial, sans-serif",
+   "vis": {
+    "empty": true,
+    "prog": false,
+    "sum": false,
+    "slip": false,
+    "err": false
+   },
+   "rows": 0
+  },
+  "logs": []
+ },
+ "02-dark-mobile": {
+  "m": {
+   "sw": 390,
+   "cw": 390,
+   "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", \"Noto Sans\", Roboto, Arial, sans-serif",
+   "vis": {
+    "empty": true,
+    "prog": false,
+    "sum": false,
+    "slip": false,
+    "err": false
+   },
+   "rows": 0
+  },
+  "logs": []
+ },
+ "03-light-desktop": {
+  "m": {
+   "sw": 1440,
+   "cw": 1440,
+   "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", \"Noto Sans\", Roboto, Arial, sans-serif",
+   "vis": {
+    "empty": false,
+    "prog": true,
+    "sum": true,
+    "slip": false,
+    "err": false
+   },
+   "rows": 2
+  },
+  "logs": []
+ },
+ "03-dark-desktop": {
+  "m": {
+   "sw": 1440,
+   "cw": 1440,
+   "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", \"Noto Sans\", Roboto, Arial, sans-serif",
+   "vis": {
+    "empty": false,
+    "prog": true,
+    "sum": true,
+    "slip": false,
+    "err": false
+   },
+   "rows": 2
+  },
+  "logs": []
+ },
+ "03-light-mobile": {
+  "m": {
+   "sw": 390,
+   "cw": 390,
+   "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", \"Noto Sans\", Roboto, Arial, sans-serif",
+   "vis": {
+    "empty": false,
+    "prog": true,
+    "sum": true,
+    "slip": false,
+    "err": false
+   },
+   "rows": 2
+  },
+  "logs": []
+ },
+ "03-dark-mobile": {
+  "m": {
+   "sw": 390,
+   "cw": 390,
+   "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", \"Noto Sans\", Roboto, Arial, sans-serif",
+   "vis": {
+    "empty": false,
+    "prog": true,
+    "sum": true,
+    "slip": false,
+    "err": false
+   },
+   "rows": 2
+  },
+  "logs": []
+ },
+ "04-light-desktop": {
+  "m": {
+   "sw": 1440,
+   "cw": 1440,
+   "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", \"Noto Sans\", Roboto, Arial, sans-serif",
+   "vis": {
+    "empty": false,
+    "prog": true,
+    "sum": true,
+    "slip": false,
+    "err": false
+   },
+   "rows": 1
+  },
+  "logs": []
+ },
+ "04-dark-desktop": {
+  "m": {
+   "sw": 1440,
+   "cw": 1440,
+   "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", \"Noto Sans\", Roboto, Arial, sans-serif",
+   "vis": {
+    "empty": false,
+    "prog": true,
+    "sum": true,
+    "slip": false,
+    "err": false
+   },
+   "rows": 1
+  },
+  "logs": [
+   "info: Autofocus processing was blocked because a document already has a focused element."
+  ]
+ },
+ "04-light-mobile": {
+  "m": {
+   "sw": 390,
+   "cw": 390,
+   "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", \"Noto Sans\", Roboto, Arial, sans-serif",
+   "vis": {
+    "empty": false,
+    "prog": true,
+    "sum": true,
+    "slip": false,
+    "err": false
+   },
+   "rows": 1
+  },
+  "logs": [
+   "info: Autofocus processing was blocked because a document already has a focused element."
+  ]
+ },
+ "04-dark-mobile": {
+  "m": {
+   "sw": 390,
+   "cw": 390,
+   "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", \"Noto Sans\", Roboto, Arial, sans-serif",
+   "vis": {
+    "empty": false,
+    "prog": true,
+    "sum": true,
+    "slip": false,
+    "err": false
+   },
+   "rows": 1
+  },
+  "logs": [
+   "info: Autofocus processing was blocked because a document already has a focused element."
+  ]
+ }
+}

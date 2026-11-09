@@ -1,0 +1,53 @@
+{
+ "c2": {
+  "labels": [
+   "Gửi báo cáo tuần cho chị Lan trước 10 giờ",
+   "Đi chợ mua rau muống, trứng và sữa tươi",
+   "Gọi điện đặt lịch khám răng cho bé Na"
+  ],
+  "mode": {
+   "editing": 0,
+   "inputs": 0
+  },
+  "focus": {
+   "tag": "BUTTON",
+   "id": "",
+   "text": "Sửa",
+   "action": "edit",
+   "row": "c"
+  }
+ },
+ "escapeFromError": {
+  "labels": [
+   "Gửi báo cáo tuần cho chị Lan trước 10 giờ",
+   "Đi chợ mua rau muống, trứng và sữa tươi",
+   "Gọi điện đặt lịch khám răng cho bé Na"
+  ],
+  "mode": {
+   "editing": 0,
+   "inputs": 0
+  },
+  "focus": {
+   "tag": "BUTTON",
+   "id": "",
+   "text": "Sửa",
+   "action": "edit",
+   "row": "a"
+  },
+  "errGone": 0
+ },
+ "reopenClean": {
+  "val": "Gửi báo cáo tuần cho chị Lan trước 10 giờ",
+  "err": {
+   "hidden": true,
+   "display": "none",
+   "text": "",
+   "role": "alert",
+   "invalid": null,
+   "desc": null,
+   "errId": "edit-a-error",
+   "color": "rgb(242, 149, 155)",
+   "focus": true
+  }
+ }
+}

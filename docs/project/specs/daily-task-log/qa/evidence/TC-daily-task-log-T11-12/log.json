@@ -1,0 +1,30 @@
+{
+  "1440-light": {
+    "focusOnAdd_after_change": true,
+    "focusOnAdd_after_edit_drop": true,
+    "focusOnAdd_after_note_close": true,
+    "noOpenDialogTrap": true,
+    "consoleErrors": []
+  },
+  "1440-dark": {
+    "focusOnAdd_after_change": true,
+    "focusOnAdd_after_edit_drop": true,
+    "focusOnAdd_after_note_close": true,
+    "noOpenDialogTrap": true,
+    "consoleErrors": []
+  },
+  "390-light": {
+    "focusOnAdd_after_change": true,
+    "focusOnAdd_after_edit_drop": true,
+    "focusOnAdd_after_note_close": true,
+    "noOpenDialogTrap": true,
+    "consoleErrors": []
+  },
+  "390-dark": {
+    "focusOnAdd_after_change": true,
+    "focusOnAdd_after_edit_drop": true,
+    "focusOnAdd_after_note_close": true,
+    "noOpenDialogTrap": true,
+    "consoleErrors": []
+  }
+}

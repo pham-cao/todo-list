@@ -1,0 +1,5 @@
+PASS 1440 light: note centred (720,460)
+PASS 1440 dark: note centred (720,460)
+PASS 390 light: note centred (195,432)
+PASS 390 dark: note centred (195,432)
+PASS no console errors

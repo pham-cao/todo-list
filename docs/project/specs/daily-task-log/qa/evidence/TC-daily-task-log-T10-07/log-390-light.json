@@ -1,0 +1,12 @@
+{
+  "slipOnLoad": true,
+  "emptyShown": true,
+  "setItemKeys": [
+    "daily-todo:swipe-hint-seen"
+  ],
+  "storedEqualsSeed": true,
+  "slipAfter": true,
+  "errs": [
+    "info: Autofocus processing was blocked because a document already has a focused element."
+  ]
+}

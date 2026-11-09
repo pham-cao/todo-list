@@ -1,0 +1,48 @@
+{
+  "app": {
+    "role": "alert",
+    "ariaLive": null,
+    "hidden": false,
+    "iconHidden": "true",
+    "inHeader": true,
+    "color": "rgb(242, 217, 166)",
+    "bg": "rgb(59, 49, 34)",
+    "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe ",
+    "size": "15px",
+    "w": 515,
+    "h": 71,
+    "border": "rgb(242, 217, 166)",
+    "aria": "- alert:\n  - paragraph: Không thể lưu dữ liệu trên trình duyệt này. Công việc có thể bị mất khi bạn tải lại trang.",
+    "focusOnInput": "new-task",
+    "hScroll": false,
+    "toggle": {
+      "domPresentWhenHidden": 1,
+      "displayWhenHidden": "none",
+      "mutations": [
+        "hidden:false"
+      ],
+      "displayWhenShown": "flex",
+      "focusKept": "INPUT:"
+    },
+    "proto": {
+      "color": "rgb(242, 217, 166)",
+      "bg": "rgb(59, 49, 34)",
+      "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe ",
+      "size": "15px",
+      "w": 515,
+      "h": 71,
+      "border": "rgb(242, 217, 166)",
+      "text": "Không thể lưu dữ liệu trên trình duyệt này. Công việc có thể bị mất khi bạn tải lại trang."
+    }
+  },
+  "proto": {
+    "color": "rgb(242, 217, 166)",
+    "bg": "rgb(59, 49, 34)",
+    "font": "Aptos, \"Segoe UI Variable Text\", \"Segoe ",
+    "size": "15px",
+    "w": 515,
+    "h": 71,
+    "border": "rgb(242, 217, 166)",
+    "text": "Không thể lưu dữ liệu trên trình duyệt này. Công việc có thể bị mất khi bạn tải lại trang."
+  }
+}

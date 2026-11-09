@@ -1,0 +1,4 @@
+Running 62 tests using 2 workers
+·
+  8 skipped
+  54 passed (24.7s)

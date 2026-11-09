@@ -1,0 +1,10 @@
+{
+  "slipOnLoad": true,
+  "emptyShown": true,
+  "setItemKeys": [
+    "daily-todo:swipe-hint-seen"
+  ],
+  "storedEqualsSeed": true,
+  "slipAfter": true,
+  "errs": []
+}

@@ -1,0 +1,108 @@
+{
+ "e1": {
+  "hidden": false,
+  "display": "flex",
+  "text": "Vui lòng nhập nội dung công việc.",
+  "role": "alert",
+  "invalid": "true",
+  "desc": "new-task-error",
+  "errColor": "rgb(242, 149, 155)",
+  "focus": true
+ },
+ "e2": {
+  "hidden": false,
+  "display": "flex",
+  "text": "Vui lòng nhập nội dung công việc.",
+  "role": "alert",
+  "invalid": "true",
+  "desc": "new-task-error",
+  "errColor": "rgb(242, 149, 155)",
+  "focus": true
+ },
+ "afterEmpty": {
+  "rows": 3,
+  "stored": 3,
+  "before": 3,
+  "val": "     "
+ },
+ "e3": {
+  "hidden": true,
+  "display": "none",
+  "text": "",
+  "role": "alert",
+  "invalid": null,
+  "desc": null,
+  "errColor": "rgb(242, 149, 155)",
+  "focus": true
+ },
+ "e4": {
+  "hidden": false,
+  "display": "flex",
+  "text": "Nội dung tối đa 200 ký tự.",
+  "role": "alert",
+  "invalid": "true",
+  "desc": "new-task-error",
+  "errColor": "rgb(242, 149, 155)",
+  "focus": true
+ },
+ "tooLongKept": 201,
+ "e5": {
+  "hidden": true,
+  "display": "none",
+  "text": "",
+  "role": "alert",
+  "invalid": null,
+  "desc": null,
+  "errColor": "rgb(242, 149, 155)",
+  "focus": true
+ },
+ "e6": {
+  "rows": 4,
+  "err": {
+   "hidden": true,
+   "display": "none",
+   "text": "",
+   "role": "alert",
+   "invalid": null,
+   "desc": null,
+   "errColor": "rgb(242, 149, 155)",
+   "focus": true
+  }
+ },
+ "e7": 5,
+ "e8": {
+  "hidden": false,
+  "display": "flex",
+  "text": "Nội dung tối đa 200 ký tự.",
+  "role": "alert",
+  "invalid": "true",
+  "desc": "new-task-error",
+  "errColor": "rgb(242, 149, 155)",
+  "focus": true
+ },
+ "e8rows": 5,
+ "nfc200": 6,
+ "nfc201": {
+  "hidden": false,
+  "display": "flex",
+  "text": "Nội dung tối đa 200 ký tự.",
+  "role": "alert",
+  "invalid": "true",
+  "desc": "new-task-error",
+  "errColor": "rgb(242, 149, 155)",
+  "focus": true
+ },
+ "nfcRows": 6,
+ "lastDecomp": true,
+ "rep": {
+  "hidden": false,
+  "display": "flex",
+  "text": "Vui lòng nhập nội dung công việc.",
+  "role": "alert",
+  "invalid": "true",
+  "desc": "new-task-error",
+  "errColor": "rgb(242, 149, 155)",
+  "focus": true
+ },
+ "logs": []
+}

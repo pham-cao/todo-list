@@ -1,0 +1,23 @@
+- main "Việc cần làm hôm nay":
+  - heading "Việc cần làm hôm nay" [level=1]
+  - paragraph: Hôm nay, Thứ Hai, 09/11/2026
+  - status:
+    - text: Đã hoàn thành
+    - strong: 1/2
+    - text: việc
+  - text: Bạn cần làm gì hôm nay?
+  - textbox "Bạn cần làm gì hôm nay?"
+  - button "Thêm"
+  - list:
+    - listitem:
+      - checkbox "Đánh dấu hoàn thành" [checked]
+      - text: Một
+      - button "Sửa"
+      - button "Xóa"
+    - listitem:
+      - checkbox "Đánh dấu hoàn thành"
+      - text: Hai
+      - button "Sửa"
+      - button "Xóa"
+tab order BUTTON:Thêm | INPUT:Đánh dấu hoàn thành | BUTTON:Sửa | BUTTON:Xóa | INPUT:Đánh dấu hoàn thành | BUTTON:Sửa | BUTTON:Xóa | BODY:Việc cần làm
+lang vi h1 count 1

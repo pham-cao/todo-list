@@ -154,3 +154,65 @@ Reason: Celebration belongs to the tick that finishes the day.
 ## 2026-11-09: Approve daily-task-log design and tasks?
 Options: Approve, Request changes
 Choice: Approve, start coding (by user)
+
+## 2026-11-09: daily-task-log T3: How to count task length for the 200 limit?
+Options: Code points as is, Code points after NFC normalisation, Grapheme clusters (Intl.Segmenter)
+Choice: Code points after NFC normalisation, store the trimmed original unchanged (by PM)
+Reason: Pasted decomposed Vietnamese text would otherwise hit the limit early; one line fix. Grapheme counting for ZWJ emoji skipped as an edge case.
+
+## 2026-11-09: daily-task-log T4: Handle QA low findings (favicon 404, missing [hidden] rule)?
+Options: Fix now in T4, Defer to later FE tasks, Ignore
+Choice: Fix now in T4: add `[hidden]{display:none !important}` to design-system.css and drop the inline workaround; add `<link rel="icon" href="data:,">` (by PM)
+Reason: The [hidden] gap would silently break T5 and T7 error lines; both fixes are one line.
+
+## 2026-11-09: QA plan mode pass before T5?
+Options: Yes, No
+Choice: No (by PM)
+Reason: Each task's Done when plus per task QA is enough for a one screen app.
+
+## 2026-11-09: daily-task-log T4 review note carried to T7
+Options: Fix in T7, Fix now
+Choice: Fix in T7: give each cloned edit input an id and set the label's htmlFor so the edit field has an accessible name (by PM)
+Reason: The edit template is only used from T7.
+
+## 2026-11-09: daily-task-log T6: Add `.check__box { pointer-events: none; }` to design-system.css?
+Options: Add it (e.g. in T9), Skip
+Choice: Skip (by PM)
+Reason: QA found no user impact (mouse, touch, keyboard, screen reader); only Playwright's check() is affected, and clicking the box like a real user is a valid test.
+
+## 2026-11-09: daily-task-log T7: Editing row shows hover grey instead of highlighter on desktop
+Options: Fix now in design-system.css, Defer
+Choice: Fix now: make `.task--editing` win over `.task:hover` (by PM)
+Reason: Visible bug right after clicking Sửa; one selector change.
+
+## 2026-11-09: daily-task-log T8: Delete dialog stuck at top left (global margin reset beats dialog margin:auto)
+Options: Fix now in T8 via design-system.css, Move to another task
+Choice: Fix now in T8: add `margin: auto` to the `.dialog` rule, keeping the mobile bottom sheet position (by PM)
+Reason: Visible layout bug; one line.
+
+## 2026-11-09: daily-task-log T9: Close a swiped row when focus moves back to its own tick box?
+Options: Keep it open, Close it
+Choice: Keep it open (by PM)
+Reason: Focus stays on the same line and everything is usable; matches the "outside the open line closes" rule.
+
+## 2026-11-09: daily-task-log T12: Thêm button is 36 px tall with a 44 px hit area
+Options: Accept hit area for R29, Make the button 44 px tall
+Choice: Accept the 44 px hit area (by PM)
+Reason: Matches the approved prototype and meets the tap target size.
+
+## 2026-11-09: daily-task-log release: How to push and deploy?
+Options: User creates the repo and sends the URL, Install gh CLI, Local merge only
+Choice: User creates an empty GitHub repo and sends the URL; PM adds the remote and pushes (by user)
+
+## 2026-11-09: daily-task-log release: Test on Safari (WebKit) first?
+Options: Release and note the risk, Install libs and test
+Choice: Release and note the risk in the PR (by user)
+Reason: Chrome and Firefox pass; WebKit cannot launch on this host.
+
+## 2026-11-09: Checkbox accessible name including task text (aria-labelledby)?
+Options: Later, Now
+Choice: Later, add to backlog (by user)
+
+## 2026-11-09: Continue with day-navigation after release?
+Options: Yes, Stop here
+Choice: Stop here for now (by user)

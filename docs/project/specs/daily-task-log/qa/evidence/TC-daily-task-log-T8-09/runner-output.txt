@@ -1,0 +1,10 @@
+PASS reached Xóa on row 2 by Tab
+PASS Enter opens
+PASS focus Giữ lại
+PASS Tab to Xóa việc
+PASS focus stays in the note (browser UI hop then Giữ lại): BODY| then keep|
+PASS Shift+Tab reaches Xóa việc: delete|
+PASS Space on Xóa việc deletes
+PASS focus next row checkbox
+PASS Space ticks the focused checkbox (focus usable)
+PASS no console errors

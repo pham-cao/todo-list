@@ -1,0 +1,50 @@
+{
+ "r3": {
+  "labels": [
+   "Gửi báo cáo tuần cho chị Hoa",
+   "Đi chợ mua rau muống, trứng và sữa tươi",
+   "Gọi bác sĩ"
+  ],
+  "mode": {
+   "editing": 0,
+   "inputs": 0
+  },
+  "focus": {
+   "tag": "BUTTON",
+   "id": "",
+   "text": "Sửa",
+   "action": "edit",
+   "row": "c"
+  },
+  "store": [
+   "Gửi báo cáo tuần cho chị Hoa",
+   "Đi chợ mua rau muống, trứng và sữa tươi",
+   "Gọi bác sĩ"
+  ]
+ },
+ "reloaded": [
+  "Gửi báo cáo tuần cho chị Hoa",
+  "Đi chợ mua rau muống, trứng và sữa tươi",
+  "Gọi bác sĩ"
+ ],
+ "unchangedSave": [
+  "Gửi báo cáo tuần cho chị Hoa",
+  "Đi chợ mua rau muống, trứng và sữa tươi",
+  "Gọi bác sĩ"
+ ],
+ "markup": {
+  "labels": [
+   "Gửi báo cáo tuần cho chị Hoa",
+   "<b>x</b> & \"q\" 🥬",
+   "Gọi bác sĩ"
+  ],
+  "b": 0
+ },
+ "exact200": {
+  "len": 200,
+  "mode": {
+   "editing": 0,
+   "inputs": 0
+  }
+ }
+}

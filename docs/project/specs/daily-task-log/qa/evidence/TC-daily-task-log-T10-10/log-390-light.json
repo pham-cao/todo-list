@@ -1,0 +1,9 @@
+{
+  "slipBefore": false,
+  "slip": true,
+  "rows": 3,
+  "previousIntact": true,
+  "errs": [
+    "info: Autofocus processing was blocked because a document already has a focused element."
+  ]
+}

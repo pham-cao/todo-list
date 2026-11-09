@@ -1,0 +1,5 @@
+- listitem:
+  - checkbox "Đánh dấu hoàn thành"
+  - text: Hai
+  - button "Sửa"
+  - button "Xóa"

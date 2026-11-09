@@ -1,0 +1,14 @@
+# tests 21
+# suites 0
+# pass 21
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 72.808488
+  ✓  23 [mobile] › tests/e2e/app.spec.js:182:1 › ticking the last open task stamps the star, celebrates briefly, and unticking clears it (1.2s)
+  ✓  24 [desktop] › tests/e2e/app.spec.js:182:1 › ticking the last open task stamps the star, celebrates briefly, and unticking clears it (1.2s)
+  ✓  26 [desktop] › tests/e2e/app.spec.js:201:1 › adding a task while all are done removes the stamp (145ms)
+  ✓  25 [mobile] › tests/e2e/app.spec.js:201:1 › adding a task while all are done removes the stamp (170ms)
+
+  26 passed (4.0s)

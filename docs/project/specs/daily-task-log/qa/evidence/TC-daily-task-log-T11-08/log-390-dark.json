@@ -1,0 +1,12 @@
+{
+  "slipBefore": true,
+  "rowsBefore": 1,
+  "date": "Hôm nay, Thứ Ba, 10/11/2026",
+  "rowsAfter": 0,
+  "emptyVisible": true,
+  "slipAfter": true,
+  "rowsAfterAdd": [
+    "Hai"
+  ],
+  "errs": []
+}

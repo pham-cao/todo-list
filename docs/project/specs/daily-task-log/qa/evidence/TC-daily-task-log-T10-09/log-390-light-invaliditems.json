@@ -1,0 +1,12 @@
+{
+  "val": "[{\"bad\":1},5]",
+  "empty": true,
+  "rows": 0,
+  "slip": false,
+  "backup": null,
+  "errs": [],
+  "afterAddSlip": false,
+  "mainKeyAfterAdd": [
+    "Một"
+  ]
+}

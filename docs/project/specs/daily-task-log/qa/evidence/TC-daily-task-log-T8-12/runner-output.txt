@@ -1,0 +1,5 @@
+PASS done task removed exactly once (2 rows left) with reduced motion + double click
+PASS store 2
+PASS summary after deleting the only done task: Đã hoàn thành 0/2 việc
+PASS progress state noted
+PASS no console errors

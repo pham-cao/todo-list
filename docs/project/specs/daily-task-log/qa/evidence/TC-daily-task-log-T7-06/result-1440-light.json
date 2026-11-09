@@ -1,0 +1,28 @@
+{
+ "c1": {
+  "labels": [
+   "Gửi báo cáo tuần cho chị Lan trước 10 giờ",
+   "Đi chợ mua rau muống, trứng và sữa tươi",
+   "Gọi điện đặt lịch khám răng cho bé Na"
+  ],
+  "mode": {
+   "editing": 0,
+   "inputs": 0
+  },
+  "focus": {
+   "tag": "BUTTON",
+   "id": "",
+   "text": "Sửa",
+   "action": "edit",
+   "row": "b"
+  },
+  "store": [
+   "Gửi báo cáo tuần cho chị Lan trước 10 giờ",
+   "Đi chợ mua rau muống, trứng và sữa tươi",
+   "Gọi điện đặt lịch khám răng cho bé Na"
+  ]
+ },
+ "logs": [
+  "info: Autofocus processing was blocked because a document already has a focused element."
+ ]
+}

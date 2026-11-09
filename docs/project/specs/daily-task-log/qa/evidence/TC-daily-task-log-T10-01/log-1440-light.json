@@ -1,0 +1,9 @@
+{
+  "slipOnLoad": true,
+  "text": "Không thể lưu dữ liệu trên trình duyệt này. Công việc có thể bị mất khi bạn tải lại trang.",
+  "empty": true,
+  "rows": 2,
+  "status": "Đã hoàn thành 1/2 việc",
+  "slipAfterWork": true,
+  "errs": []
+}

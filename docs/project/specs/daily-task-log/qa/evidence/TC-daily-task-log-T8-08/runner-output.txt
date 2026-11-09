@@ -1,0 +1,4 @@
+PASS progress visible: app-header__mark progress progress--complete
+PASS no celebrate class
+PASS summary: Đã hoàn thành 2/2 việc
+PASS no console errors
