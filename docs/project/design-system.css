@@ -430,6 +430,8 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
   .task__actions .icon-btn:focus-visible { outline-offset: -4px; outline-color: var(--color-on-pen); }
   .task__actions .icon-btn--danger:focus-visible { outline-color: var(--color-on-danger); }
   .task--revealed .task__swipe > * { transform: translateX(-130px); } /* prototype only: the swiped position */
+  /* One time hint: the first line slides open far enough to show Sửa, then settles back */
+  .task--peek .task__swipe > * { animation: peek 1100ms var(--ease-out) 400ms; }
 }
 
 /* Edit mode: the line gets a highlighter wash, Hủy and Lưu sit on the next line */
@@ -456,9 +458,11 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
 @keyframes erase-out { to { opacity: 0; translate: -8px 0; } }
 @keyframes note-in { from { opacity: 0; translate: 0 10px; rotate: -3deg; } }
 @keyframes stamp-in { 0% { opacity: 0; scale: 1.6; } 60% { opacity: 0.95; scale: 0.94; } 100% { opacity: 0.92; scale: 1; } }
+@keyframes peek { 30%, 65% { translate: -64px 0; } }
 @keyframes bloom { 0% { opacity: 0; scale: 0.6; } 35% { opacity: 1; } 100% { opacity: 0; scale: 1.5; } }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; }
   .progress--celebrate::after { display: none; }
+  .task--peek .task__swipe > * { animation: none; }
 }

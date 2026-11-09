@@ -423,3 +423,148 @@ test('the sticky note sits in the middle of the viewport', async ({ page }) => {
   expect(Math.abs(box.x + box.width / 2 - vp.width / 2)).toBeLessThan(4);
   expect(Math.abs(box.y + box.height / 2 - vp.height / 2)).toBeLessThan(8);
 });
+
+// Phone row actions (T9)
+const HINT = 'daily-todo:swipe-hint-seen';
+const swipe = (page, i) => rows(page).nth(i).locator('.task__swipe');
+const scrollLeft = (page, i) => swipe(page, i).evaluate((el) => el.scrollLeft);
+const countPeeks = (page) => page.addInitScript(() => {
+  window.__peeks = 0;
+  document.addEventListener('animationstart', (e) => { if (e.animationName === 'peek') window.__peeks++; });
+});
+
+test('the first row peeks once on a phone, and not again after a reload', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'phone layout only');
+  await countPeeks(page);
+  await open(page, [task('a', 'Một'), task('b', 'Hai')]);
+  await expect(rows(page).nth(0)).toHaveClass(/task--peek/);
+  await expect(rows(page).nth(1)).not.toHaveClass(/task--peek/);
+  await expect.poll(() => page.evaluate(() => window.__peeks)).toBeGreaterThan(0);
+  await expect(rows(page).nth(0)).not.toHaveClass(/task--peek/, { timeout: 4000 });
+  expect(await page.evaluate((k) => localStorage.getItem(k), HINT)).toBe('1');
+  expect(await scrollLeft(page, 0)).toBe(0);
+
+  await page.reload();
+  await expect(rows(page)).toHaveCount(2);
+  await expect(rows(page).nth(0)).not.toHaveClass(/task--peek/);
+  await page.waitForTimeout(1800);
+  expect(await page.evaluate(() => window.__peeks)).toBe(0);
+});
+
+test('the peek waits for the first task, and only plays once', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'phone layout only');
+  await open(page);
+  expect(await page.evaluate((k) => localStorage.getItem(k), HINT)).toBeNull();
+  await input(page).fill('Một');
+  await input(page).press('Enter');
+  await expect(rows(page).nth(0)).toHaveClass(/task--peek/);
+  await expect(rows(page).nth(0)).not.toHaveClass(/task--peek/, { timeout: 4000 });
+  await input(page).fill('Hai');
+  await input(page).press('Enter');
+  await expect(rows(page)).toHaveCount(2);
+  await expect(rows(page).nth(0)).not.toHaveClass(/task--peek/);
+});
+
+test('under reduced motion the peek is skipped but remembered', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'phone layout only');
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await countPeeks(page);
+  await open(page, [task('a', 'Một')]);
+  await expect(rows(page)).toHaveCount(1);
+  await expect(rows(page).nth(0)).not.toHaveClass(/task--peek/);
+  expect(await page.evaluate((k) => localStorage.getItem(k), HINT)).toBe('1');
+  expect(await page.evaluate(() => window.__peeks)).toBe(0);
+});
+
+test('the desktop layout never peeks', async ({ page, isMobile }) => {
+  test.skip(isMobile, 'desktop layout only');
+  await open(page, [task('a', 'Một')]);
+  await expect(rows(page).nth(0)).not.toHaveClass(/task--peek/);
+  expect(await page.evaluate((k) => localStorage.getItem(k), HINT)).toBeNull();
+});
+
+test('only one row stays swiped open; a tap elsewhere closes it', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'phone layout only');
+  await page.addInitScript((k) => localStorage.setItem(k, '1'), HINT);
+  await open(page, [task('a', 'Một'), task('b', 'Hai'), task('c', 'Ba')]);
+  await swipe(page, 0).evaluate((el) => { el.scrollLeft = el.scrollWidth; });
+  await expect.poll(() => scrollLeft(page, 0)).toBeGreaterThan(100);
+  expect(await swipe(page, 0).evaluate((el) => el.scrollWidth - el.clientWidth)).toBe(130);
+  await expect(editBtn(page, 0)).toBeInViewport();
+
+  await swipe(page, 1).evaluate((el) => { el.scrollLeft = el.scrollWidth; });
+  await expect.poll(() => scrollLeft(page, 0)).toBe(0);
+  expect(await scrollLeft(page, 1)).toBeGreaterThan(100);
+
+  await page.locator('.app-header__title').tap();
+  await expect.poll(() => scrollLeft(page, 1)).toBe(0);
+});
+
+test('Tab to Sửa scrolls the row open; Giữ lại leaves only that row open', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'phone layout only');
+  await page.addInitScript((k) => localStorage.setItem(k, '1'), HINT);
+  await open(page, [task('a', 'Một'), task('b', 'Hai')]);
+  await box(page, 0).focus();
+  await page.keyboard.press('Tab');
+  await expect(editBtn(page, 0)).toBeFocused();
+  await expect.poll(() => scrollLeft(page, 0)).toBeGreaterThan(0);
+  await expect(editBtn(page, 0)).toBeInViewport({ ratio: 1 });
+
+  // Moving on to the next row closes this one.
+  await page.keyboard.press('Tab');
+  await page.keyboard.press('Tab');
+  await expect(box(page, 1)).toBeFocused();
+  await expect.poll(() => scrollLeft(page, 0)).toBe(0);
+
+  // Delete, then keep: the dialog closes the row behind it, and focus returning to Xóa reopens only that row.
+  await removeBtn(page, 1).click();
+  await expect(delDialog(page)).toBeVisible();
+  await expect.poll(() => scrollLeft(page, 1)).toBe(0);
+  await delDialog(page).getByRole('button', { name: 'Giữ lại' }).click();
+  await expect(removeBtn(page, 1)).toBeFocused();
+  await expect(removeBtn(page, 1)).toBeInViewport({ ratio: 1 });
+  expect(await scrollLeft(page, 0)).toBe(0);
+  await page.locator('.app-header__title').tap();
+  await expect.poll(() => scrollLeft(page, 1)).toBe(0);
+});
+
+test('no horizontal page scroll at 360 px with a long task', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'phone layout only');
+  await page.setViewportSize({ width: 360, height: 780 });
+  await open(page, [task('a', 'Chuẩn bị slide cho buổi họp dự án sáng thứ Tư: tổng hợp số liệu tháng 10, cập nhật tiến độ và danh sách rủi ro'), task('b', 'x'.repeat(200))]);
+  await expect(rows(page)).toHaveCount(2);
+  await expect(rows(page).nth(0)).not.toHaveClass(/task--peek/, { timeout: 4000 });
+  const { scroll, client } = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }));
+  expect(scroll).toBeLessThanOrEqual(client);
+  for (const btn of [editBtn(page, 0), removeBtn(page, 0)]) {
+    const b = await btn.boundingBox();
+    expect(b.width).toBeGreaterThanOrEqual(44);
+    expect(b.height).toBeGreaterThanOrEqual(44);
+  }
+});
+
+// Real touch drag (CDP) so the browser's own scroller and snap logic run, not a scrollLeft assignment.
+async function touchDrag(page, locator, dx) {
+  const b = await locator.boundingBox();
+  const y = b.y + b.height / 2, x0 = b.x + b.width - 30;
+  const cdp = await page.context().newCDPSession(page);
+  const send = (type, x) => cdp.send('Input.dispatchTouchEvent', { type, touchPoints: type === 'touchEnd' ? [] : [{ x, y }] });
+  await send('touchStart', x0);
+  for (let i = 1; i <= 10; i++) { await send('touchMove', x0 + (dx * i) / 10); await page.waitForTimeout(16); }
+  await send('touchEnd', x0 + dx);
+  await cdp.detach();
+}
+
+test('a real swipe opens one row; swiping another closes it; a tap outside closes all', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'phone layout only');
+  await page.addInitScript((k) => localStorage.setItem(k, '1'), HINT);
+  await open(page, [task('a', 'Một'), task('b', 'Hai'), task('c', 'Ba')]);
+  await touchDrag(page, swipe(page, 0), -200);
+  await expect.poll(() => scrollLeft(page, 0)).toBeGreaterThan(100);
+  await touchDrag(page, swipe(page, 1), -200);
+  await expect.poll(() => scrollLeft(page, 1)).toBeGreaterThan(100);
+  await expect.poll(() => scrollLeft(page, 0)).toBe(0);
+  expect(await scrollLeft(page, 2)).toBe(0);
+  await page.locator('.app-header__title').tap();
+  await expect.poll(() => scrollLeft(page, 1)).toBe(0);
+});

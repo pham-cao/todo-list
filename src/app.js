@@ -99,6 +99,7 @@ els.form.addEventListener("submit", (e) => {
     els.input.value = "";
     updateSummary();
     updateSlip();
+    maybePeek();
   }
   els.input.focus();
 });
@@ -205,7 +206,9 @@ function confirmDelete() {
   if (!row?.isConnected) return;
   if (editing === row) closeEdit(false);
   store.remove(row.dataset.id);
-  const next = row.nextElementSibling ?? row.previousElementSibling;
+  // Skip rows still erasing from an earlier delete.
+  const live = (el, dir) => { while (el?.classList.contains("task--exit")) el = el[dir]; return el; };
+  const next = live(row.nextElementSibling, "nextElementSibling") ?? live(row.previousElementSibling, "previousElementSibling");
   (next?.querySelector(".check input") ?? els.input).focus();
   const finish = () => { row.remove(); updateSummary(); updateSlip(); };
   row.classList.remove("task--enter");
@@ -229,9 +232,56 @@ els.dialog.addEventListener("click", (e) => {
 els.dialog.addEventListener("close", () => {
   const row = pendingDelete;
   pendingDelete = null;
-  if (row?.isConnected) row.querySelector('[data-action="remove"]').focus();
+  if (!row?.isConnected) return;
+  // The dialog may have restored focus already, without scrolling the phone row open.
+  const btn = row.querySelector('[data-action="remove"]');
+  btn.focus();
+  btn.scrollIntoView({ block: "nearest", inline: "nearest" });
 });
+
+// Phones: CSS scroll snap does the swipe. Script only keeps one line open:
+// opening another line, or a tap or focus anywhere outside the open line, closes it.
+let openSwipe = null;
+
+// Reads scrollLeft rather than trusting scroll events, which arrive a frame late.
+function closeSwipes(keep) {
+  for (const s of els.list.querySelectorAll(".task__swipe")) if (s.scrollLeft > 0 && !keep?.contains(s)) s.scrollLeft = 0;
+}
+
+els.list.addEventListener("scroll", (e) => {
+  const swipe = e.target;
+  if (!swipe.classList?.contains("task__swipe") || swipe.scrollLeft <= 0 || swipe === openSwipe) return;
+  openSwipe = swipe;
+  closeSwipes(swipe);
+}, true);
+
+const closeOutside = (e) => { openSwipe = null; closeSwipes(e.target.closest?.(".task")); };
+document.addEventListener("pointerdown", closeOutside);
+document.addEventListener("focusin", closeOutside);
+
+// One time swipe hint: the first line peeks open once, the first time tasks exist on a phone.
+const HINT_KEY = "daily-todo:swipe-hint-seen";
+const phoneLayout = matchMedia("(hover: none), (max-width: 600px)");
+const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+let hintSeen = false;
+
+function maybePeek() {
+  const first = els.list.querySelector(".task");
+  if (hintSeen || !first || !phoneLayout.matches) return;
+  hintSeen = true;
+  const storage = getStorage();
+  try {
+    if (storage?.getItem(HINT_KEY)) return;
+    storage?.setItem(HINT_KEY, "1");
+  } catch { /* storage blocked: the hint may replay next load, which is fine */ }
+  if (!reducedMotion.matches) first.classList.add("task--peek");
+}
+
+const endPeek = (e) => { if (e.animationName === "peek") e.target.closest(".task")?.classList.remove("task--peek"); };
+els.list.addEventListener("animationend", endPeek);
+els.list.addEventListener("animationcancel", endPeek);
 
 setAddError(null);
 renderAll();
 els.input.focus();
+maybePeek();

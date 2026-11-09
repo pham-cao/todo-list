@@ -88,7 +88,7 @@ Rules:
 
 ## Motion
 
-Motion answers something the owner did, with one exception that is still a response (the stamp):
+Motion answers something the owner did. The stamp is still a response, and the swipe hint plays only once, when the first line appears on a phone:
 
 | Moment | Motion | Duration |
 | --- | --- | --- |
@@ -99,8 +99,9 @@ Motion answers something the owner did, with one exception that is still a respo
 | Progress | Pen arc eases to the new share | 360 ms |
 | All done | Star stamp presses in with one ink bloom (`.progress--celebrate`) | 520 to 900 ms |
 | Delete note | Note drops in with a small rotation | 360 ms |
+| Swipe hint (phones, once) | First line slides left to show Sửa, holds, then settles back (`.task--peek`), after a 400 ms pause | 1100 ms |
 
-Everything is reduced to an instant change under `prefers-reduced-motion`, and the bloom is removed.
+Everything is reduced to an instant change under `prefers-reduced-motion`; the bloom and the swipe hint are removed.
 
 ## Accessibility
 
