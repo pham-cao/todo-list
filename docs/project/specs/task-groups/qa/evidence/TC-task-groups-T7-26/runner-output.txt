@@ -1,0 +1,7 @@
+
+Running 2 tests using 2 workers
+
+  ✓  1 [desktop] › tests/e2e/groups.spec.js:1489:1 › midnight with a filter on keeps the filter, follows the new day and clears the notice (211ms)
+  ✓  2 [mobile] › tests/e2e/groups.spec.js:1489:1 › midnight with a filter on keeps the filter, follows the new day and clears the notice (228ms)
+
+  2 passed (1.3s)

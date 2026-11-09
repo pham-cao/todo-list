@@ -219,15 +219,15 @@ features:
         title: "Group bar and filter"
         owner: fe
         depends_on: [T6]
-        state: doing
-        attempts: 0
-        bugs_opened: []
+        state: done
+        attempts: 2
+        bugs_opened: [BUG-007]
         trello_card: ""
       - id: T8
         title: "Manage dialog with rename and colour"
         owner: fe
         depends_on: [T7]
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""

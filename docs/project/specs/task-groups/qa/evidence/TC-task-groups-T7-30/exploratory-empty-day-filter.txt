@@ -1,0 +1,19 @@
+A filter cty on empty day          {"rows":0,"groupEmpty":false,"dayEmpty":true,"notice":false,"summary":false}
+A add hidden(nha)                  {"rows":0,"groupEmpty":"Ngày này chưa có việc nào trong nhóm \"Công ty\".","dayEmpty":false,"notice":true,"summary":true}
+A filter all                       {"rows":1,"groupEmpty":false,"dayEmpty":false,"notice":false,"summary":true}
+A filter cty                       {"rows":0,"groupEmpty":"Ngày này chưa có việc nào trong nhóm \"Công ty\".","dayEmpty":false,"notice":false,"summary":true}
+A add visible(cty)                 {"rows":1,"groupEmpty":false,"dayEmpty":false,"notice":false,"summary":true}
+A move last visible out            {"rows":0,"groupEmpty":"Ngày này chưa có việc nào trong nhóm \"Công ty\".","dayEmpty":false,"notice":false,"summary":true}
+A move last out of nha             {"rows":1,"groupEmpty":false,"dayEmpty":false,"notice":false,"summary":true}
+A delete last visible (cty)        {"rows":0,"groupEmpty":"Ngày này chưa có việc nào trong nhóm \"Công ty\".","dayEmpty":false,"notice":false,"summary":true}
+B filter none empty day            {"rows":0,"groupEmpty":false,"dayEmpty":true,"notice":false,"summary":false}
+B add hidden(cty)                  {"rows":0,"groupEmpty":"Ngày này không có việc nào chưa phân nhóm.","dayEmpty":false,"notice":true,"summary":true}
+B add visible(none)                {"rows":1,"groupEmpty":false,"dayEmpty":false,"notice":false,"summary":true}
+C midnight empty+filter            {"rows":0,"groupEmpty":false,"dayEmpty":true,"notice":false,"summary":false}
+C add hidden after midnight        {"rows":0,"groupEmpty":"Ngày này chưa có việc nào trong nhóm \"Công ty\".","dayEmpty":false,"notice":true,"summary":true}
+D today empty, filter cty          {"rows":0,"groupEmpty":false,"dayEmpty":true,"notice":false,"summary":false}
+D prev day (nha only)              {"rows":0,"groupEmpty":"Ngày này chưa có việc nào trong nhóm \"Công ty\".","dayEmpty":false,"notice":false,"summary":true}
+D back today                       {"rows":0,"groupEmpty":false,"dayEmpty":true,"notice":false,"summary":false}
+E past empty filter                {"rows":0,"groupEmpty":false,"dayEmpty":true,"notice":false,"summary":false}
+E add hidden past day              {"rows":0,"groupEmpty":"Ngày này chưa có việc nào trong nhóm \"Công ty\".","dayEmpty":false,"notice":true,"summary":true}
+F mobile add hidden                {"rows":0,"groupEmpty":"Ngày này chưa có việc nào trong nhóm \"Công ty\".","dayEmpty":false,"notice":true,"summary":true}

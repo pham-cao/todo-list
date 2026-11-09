@@ -1,0 +1,17 @@
+
+Running 12 tests using 2 workers
+
+  ✓   1 [desktop] › tests/e2e/groups.spec.js:1370:3 › 360px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut (659ms)
+  ✓   2 [mobile] › tests/e2e/groups.spec.js:1370:3 › 360px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut (660ms)
+  ✓   4 [mobile] › tests/e2e/groups.spec.js:1370:3 › 380px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut (574ms)
+  ✓   3 [desktop] › tests/e2e/groups.spec.js:1370:3 › 380px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut (575ms)
+  ✓   6 [desktop] › tests/e2e/groups.spec.js:1370:3 › 390px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut (577ms)
+  ✓   5 [mobile] › tests/e2e/groups.spec.js:1370:3 › 390px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut (579ms)
+  ✓   7 [desktop] › tests/e2e/groups.spec.js:1370:3 › 412px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut (560ms)
+  ✓   8 [mobile] › tests/e2e/groups.spec.js:1370:3 › 412px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut (561ms)
+  ✓  10 [mobile] › tests/e2e/groups.spec.js:1370:3 › 452px: Quản lý nhóm shows its text, targets are 44 px, the filter choice is not cut (167ms)
+  ✓   9 [desktop] › tests/e2e/groups.spec.js:1370:3 › 452px: Quản lý nhóm shows its text, targets are 44 px, the filter choice is not cut (170ms)
+  ✓  12 [desktop] › tests/e2e/groups.spec.js:1370:3 › 1440px: Quản lý nhóm shows its text, targets are 44 px, the filter choice is not cut (177ms)
+  ✓  11 [mobile] › tests/e2e/groups.spec.js:1370:3 › 1440px: Quản lý nhóm shows its text, targets are 44 px, the filter choice is not cut (179ms)
+
+  12 passed (3.7s)

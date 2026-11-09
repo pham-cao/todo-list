@@ -438,3 +438,16 @@ Reason: Avoid an extra refactor task; the planned split already covers the bigge
 Choice (by PM):
 - Edit select named "Nhóm" (same as the add select): keep as is, consistent with the edit textbox "Sửa"; no extra aria-label.
 - Repeated live region message for two moves to the same group: make it reliably announced by clearing the text and setting it again on the next frame (small change, done with the T6 review fixes).
+
+## 2026-11-10: task-groups T7: filter choice truncated from 381 to about 412 px
+Options: Raise the icon only breakpoint for "Quản lý nhóm" to about 413 px, Accept the ellipsis
+Choice: Raise the breakpoint so the full filter choice fits on common phones (390 to 412 px); the button keeps its accessible name and tooltip (by PM)
+Reason: The owner already asked to avoid truncated group names on phones (add line, 360 px filter).
+Follow up (2026-11-10): measured breakpoint is 452 px, not 413 px; "Quản lý nhóm" is icon only below 452 px so "Chưa phân nhóm" and "Học tiếng Nhật" fit in full on phones up to 451 px (by PM, from FE measurement).
+
+## 2026-11-10: task-groups T7 QA observations
+Choice (by PM):
+- Open edit dropped when the filter hides its row, and the new group line kept open on a filter change: accepted.
+- Announce the filter empty state: yes, give #group-empty role="status" so screen readers hear the empty text when the filter shows nothing.
+- If the focused filter disappears because all groups were removed in another tab, move focus to the add input.
+- A move into a hidden collapsed group still expands and stores it (R28): accepted.

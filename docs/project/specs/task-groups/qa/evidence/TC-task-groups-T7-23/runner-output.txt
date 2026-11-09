@@ -1,0 +1,11 @@
+
+Running 6 tests using 2 workers
+
+  ✓  1 [desktop] › tests/e2e/groups.spec.js:564:1 › a group removed in another tab: the add saves ungrouped and the choice goes back to Chưa phân nhóm (281ms)
+  ✓  2 [mobile] › tests/e2e/groups.spec.js:564:1 › a group removed in another tab: the add saves ungrouped and the choice goes back to Chưa phân nhóm (277ms)
+  ✓  3 [desktop] › tests/e2e/groups.spec.js:1438:1 › a group removed in another tab while it is filtered: the filter resets, the list shows all, the add choice falls back (140ms)
+  ✓  4 [mobile] › tests/e2e/groups.spec.js:1438:1 › a group removed in another tab while it is filtered: the filter resets, the list shows all, the add choice falls back (139ms)
+  ✓  5 [desktop] › tests/e2e/groups.spec.js:1450:1 › the filtered group renamed in another tab stays selected; all groups removed hides the filter and shows every task (137ms)
+  ✓  6 [mobile] › tests/e2e/groups.spec.js:1450:1 › the filtered group renamed in another tab stays selected; all groups removed hides the filter and shows every task (131ms)
+
+  6 passed (1.3s)
