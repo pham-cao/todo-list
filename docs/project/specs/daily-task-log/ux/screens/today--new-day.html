@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Việc cần làm hôm nay</title>
+  <link rel="stylesheet" href="../../../../design-system.css">
+  <style>
+    /* Prototype only: the note strip and labelled variants are not part of the product. */
+    .proto { max-width: var(--sheet-max); margin: 0 auto var(--space-3); padding: 0 var(--space-2); font-size: var(--fs-tiny); color: var(--text-muted); text-align: center; line-height: 1.5; }
+    .proto a { font-weight: var(--fw-semibold); }
+    .proto-variant { max-width: var(--sheet-max); margin: var(--space-10) auto 0; }
+    .proto-variant > h2 { font-size: var(--fs-tiny); font-weight: var(--fw-semibold); color: var(--text-muted); margin: 0 0 var(--space-3); text-align: center; }
+    .proto-variant .sheet { min-height: 0; }
+    .proto-variant .sheet__body { padding-bottom: var(--rule); }
+    .backdrop { position: fixed; inset: 0; display: grid; place-items: center; padding: var(--space-4); z-index: 10; }
+    .backdrop .dialog { position: static; margin: 0; }
+    /* Prototype only: CSS stands in for the app script that toggles progress--complete and progress--celebrate. */
+    .sheet:has(.task):not(:has(.task .check input:not(:checked))) .progress > svg { opacity: 0; transition: opacity var(--dur-base) ease 260ms; }
+    .sheet:has(.task):not(:has(.task .check input:not(:checked))) .progress .progress__stamp { animation: stamp-in 520ms var(--ease-stamp) both; }
+    .sheet:has(.task .check input:not(:checked)) .progress--complete .progress__stamp { opacity: 0; animation: none; }
+    .sheet:has(.task .check input:not(:checked)) .progress--complete > svg { opacity: 1; }
+  </style>
+</head>
+<body>
+  <div class="desk">
+  <p class="proto" lang="en">Prototype: <strong>New day after midnight</strong>. The owner came back to the tab on Tuesday: a fresh page with the new date. Monday's tasks stay stored. <a href="../index.html">All screens</a></p>
+  <main class="sheet" aria-labelledby="page-title">
+      <header class="app-header">
+        <div class="app-header__top">
+          <h1 class="app-header__title" id="page-title">Việc cần làm hôm nay</h1>
+          <div class="app-header__nav"><!-- Reserved for day-navigation (page turning). Empty in this feature. --></div>
+        </div>
+        <p class="app-header__date washi">Hôm nay, Thứ Ba, 10/11/2026</p>
+        
+      </header>
+    <div class="sheet__body">
+      <form class="add-form" action="today.html">
+        <label class="visually-hidden" for="new-task">Bạn cần làm gì hôm nay?</label>
+        <span class="add-form__pen" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.38 3.62a1 1 0 0 1 3 3L7.37 18.64a2 2 0 0 1-.86.5l-2.87.84a.5.5 0 0 1-.62-.62l.84-2.87a2 2 0 0 1 .5-.86z"/></svg></span>
+        <div class="add-form__line">
+          <input class="add-form__input" id="new-task" name="text" type="text" placeholder="Bạn cần làm gì hôm nay?" autocomplete="off" value="">
+          <button class="btn btn--primary" type="submit">Thêm</button>
+        </div>
+      </form>
+      <div class="empty">
+        <svg class="empty__art" viewBox="0 0 132 132" aria-hidden="true">
+          <path class="doodle doodle--pen" d="M58 30c-4-6 4-9 0-16M70 30c-4-6 4-9 0-16M82 30c-4-6 4-9 0-16"/>
+          <path class="doodle" d="M48 40h46l-3 6H51z"/>
+          <path class="doodle" d="M52 46l2 22h34l2-22"/>
+          <path class="doodle" d="M64 40v-4c0-2 2-3 3.5-3h7c1.5 0 3.5 1 3.5 3v4"/>
+          <path class="doodle" d="M40 70h62"/>
+          <path class="doodle" d="M50 74c0 22 6 34 21 34s21-12 21-34z"/>
+          <path class="doodle" d="M92 80c9 0 11 12 1 14"/>
+          <path class="doodle" d="M58 92c4 3 22 3 26 0" stroke-dasharray="2 4"/>
+          <path class="doodle" d="M71 68v3M71 75v2" />
+          <path class="doodle" d="M28 118c22-3 58-3 82 0"/>
+        </svg>
+        <p class="empty__text">Hôm nay chưa có việc nào. Hãy thêm việc đầu tiên nhé!</p>
+      </div>
+    </div>
+  </main>
+  </div>
+</body>
+</html>

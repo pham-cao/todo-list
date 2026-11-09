@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Daily task log prototype</title>
+  <link rel="stylesheet" href="../../../design-system.css">
+  <style>
+    .doc { padding: var(--space-12) var(--sheet-pad-end) var(--space-16) calc(var(--holes-w) + var(--margin-w) + var(--margin-gap)); }
+    .doc h1 { font-size: var(--fs-display); line-height: 1.2; letter-spacing: -0.015em; }
+    .doc h2 { font-size: var(--fs-title); margin: var(--space-10) 0 var(--space-3); }
+    .doc p, .doc li { max-width: 68ch; }
+    .doc .washi { margin-top: var(--space-3); }
+    .lead { margin-top: var(--space-5); }
+    .screens { list-style: none; padding: 0; }
+    .screens li { border-bottom: 1px solid var(--color-rule); }
+    .screens a { display: block; padding: var(--space-3) var(--space-2); text-decoration: none; color: var(--text); }
+    .screens a:hover { background: var(--color-pen-wash); }
+    .screens strong { color: var(--color-pen); font-weight: var(--fw-semibold); }
+    .screens span { display: block; color: var(--text-muted); font-size: var(--fs-meta); }
+    .notes { padding-left: var(--space-5); }
+    .notes li + li { margin-top: var(--space-3); }
+  </style>
+</head>
+<body>
+  <div class="desk">
+  <main class="sheet doc">
+    <h1>Daily task log</h1>
+    <p class="washi">Prototype, version 3: paper notebook</p>
+    <p class="lead">A clickable prototype of the one screen where the owner adds, views, completes, edits, and deletes today's tasks. This version turns the whole app into a sheet of ruled notebook paper, as the owner asked. Flows, states and requirement coverage (R1 to R30) are unchanged, and all interface text is Vietnamese, word for word from the requirements. Dark mode follows your system setting, so switch your OS to dark to see the notebook at night.</p>
+
+    <h2>Start here</h2>
+    <p>Open <a href="screens/today.html">today with tasks</a>, tick a box to see the pen tick and the strike line, hover a line or press Tab for Sửa and Xóa, and tick every box to see the star stamp. On a phone, swipe a line left. The flows and the screen inventory are in <a href="flows.md">flows.md</a>, the visual rules in <a href="../../../design-system.md">design-system.md</a>, and the review notes in <a href="critique.md">critique.md</a>.</p>
+
+    <h2>Screens and states</h2>
+    <ul class="screens">
+      <li><a href="screens/today.html"><strong>Today, default</strong><span>Seven tasks on the ruled sheet, two done. Checkboxes really toggle.</span></a></li>
+      <li><a href="screens/today--swipe.html"><strong>Row actions revealed</strong><span>A line swiped left on a phone, or hovered and focused on desktop.</span></a></li>
+      <li><a href="screens/today--all-done.html"><strong>All done</strong><span>The progress circle closes and a red star stamp presses into the margin once.</span></a></li>
+      <li><a href="screens/today--empty.html"><strong>Today, empty</strong><span>First visit, or stored data missing or unreadable. A doodled cà phê phin.</span></a></li>
+      <li><a href="screens/today--add-error.html"><strong>Add error</strong><span>Empty text, with the too long variant below it.</span></a></li>
+      <li><a href="screens/today--edit.html"><strong>Edit mode</strong><span>The line is highlighted with Hủy and Lưu on the next line, and the edit error variant below.</span></a></li>
+      <li><a href="screens/today--delete.html"><strong>Delete confirmation</strong><span>A sticky note taped over the page.</span></a></li>
+      <li><a href="screens/today--storage-error.html"><strong>Storage unavailable</strong><span>A warning slip clipped into the header while the app keeps working in memory.</span></a></li>
+      <li><a href="screens/today--new-day.html"><strong>New day after midnight</strong><span>A fresh page dated Tuesday, empty list.</span></a></li>
+    </ul>
+
+    <h2>Key design decisions</h2>
+    <ul class="notes">
+      <li>The ruling is the system. The line pitch is 44 px, which is also the row height and the tap target, so task text, inputs, errors and buttons all sit exactly on the lines, and long tasks wrap onto the next line like real handwriting.</li>
+      <li>Marks live in the margin, words live on the lines. The checkbox, the pen that starts a new line, and the progress circle all sit left of the pink margin line.</li>
+      <li>Ink, not widgets: a blue-black pen tick that overshoots the box, a pen strike through done tasks, and a red star stamp when every task is done. The stamp is the only celebration, with no new text.</li>
+      <li>Small paper details carry the theme: punched holes, washi tape on the date, a sticky note for the delete question, a clipped slip for the storage warning, and a doodle for the empty page. Type stays Aptos with black ink so it reads calmly and renders Vietnamese well.</li>
+      <li>Sửa and Xóa appear on hover or keyboard focus on desktop, and by swiping the line left on phones. The swipe uses native scroll snap, so keyboard focus opens the row by itself and screen readers reach both buttons without a gesture.</li>
+      <li>Dark mode is a notebook at night: charcoal paper, warm white ink and a pale blue pen, following the system setting.</li>
+      <li>The top right of the header stays empty for the later day navigation, which will feel like turning pages.</li>
+    </ul>
+  </main>
+  </div>
+</body>
+</html>
