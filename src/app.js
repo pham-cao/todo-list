@@ -1,6 +1,7 @@
 import { toDateKey, parseDateKey, addDays, dayKind, dateLine } from "./date.js?v=1.2.0";
 import { createStore, getStorage } from "./store.js?v=1.2.0";
 import { createGroups, nextColor, GROUPS_KEY, MAX_GROUPS, UNGROUPED, UNGROUPED_NAME } from "./groups.js?v=1.2.0";
+import { createManage, setFieldError, showFieldError, GROUP_ERRORS } from "./manage.js?v=1.2.0";
 
 const $ = (id) => document.getElementById(id);
 const els = {
@@ -218,32 +219,6 @@ const ERRORS = {
   tooLong: "Nội dung tối đa 200 ký tự.",
 };
 
-const GROUP_ERRORS = {
-  empty: "Vui lòng nhập tên nhóm.",
-  tooLong: "Tên nhóm tối đa 30 ký tự.",
-  duplicate: "Tên nhóm này đã có rồi.",
-  tooMany: "Tối đa 20 nhóm. Hãy xóa bớt một nhóm trước khi tạo thêm.",
-};
-
-function setFieldError(input, errorEl, code, messages = ERRORS) {
-  errorEl.querySelector(".field-error__text").textContent = messages[code] ?? "";
-  show(errorEl, !!code);
-  if (code) {
-    input.setAttribute("aria-invalid", "true");
-    input.setAttribute("aria-describedby", errorEl.id);
-  } else {
-    input.removeAttribute("aria-invalid");
-    input.removeAttribute("aria-describedby");
-  }
-}
-
-// Re-show on repeat submits so the alert is announced and the nudge replays.
-function showFieldError(input, errorEl, code, messages) {
-  setFieldError(input, errorEl, null);
-  void input.offsetWidth;
-  setFieldError(input, errorEl, code, messages);
-}
-
 const setAddError = (code) => setFieldError(els.input, els.addError, code);
 
 els.form.addEventListener("submit", (e) => {
@@ -253,7 +228,7 @@ els.form.addEventListener("submit", (e) => {
   // R21 (a chosen group removed elsewhere) is covered by the storage listener, which resets addGroup.
   const result = store.add(els.input.value, now, viewed, addGroup === UNGROUPED ? null : addGroup);
   if (result.error) {
-    showFieldError(els.input, els.addError, result.error);
+    showFieldError(els.input, els.addError, result.error, ERRORS);
   } else {
     const key = keyOf(result.task);
     if (filter !== "all" && key !== filter) {
@@ -416,14 +391,30 @@ window.addEventListener("storage", (e) => {
   if ((e.key !== GROUPS_KEY && e.key !== null) || !groups.storageOk) return;
   groups = createGroups(getStorage());
   const onFilter = document.activeElement === els.filter;
-  updateSlip();
-  renderChoices();
+  refresh();
   // The last group went: the filter is hidden, so its focus moves to the add input.
   if (onFilter && !groups.list().length) els.input.focus();
+  manage.sync();
+});
+
+// Groups changed here or in another tab: the choices, the filter and the list follow (R37, R38, R48).
+// Typed text, an open edit and the focus are kept; an open edit's group choice gets the new names.
+function refresh() {
+  updateSlip();
+  renderChoices();
   // The open Nhóm mới... line previews the colour the group will get now (R10, R15, BUG-006).
   newLine?.querySelector(".swatch").setAttribute("data-color", nextColor(groups.list()));
+  for (const select of els.list.querySelectorAll(".task__edit select")) {
+    const value = groups.get(select.value) ? select.value : UNGROUPED;
+    select.replaceChildren(...groupOptions());
+    select.value = value;
+    select.closest(".select").querySelector(".swatch").dataset.color = colorOf(value);
+  }
   renderList();
-});
+}
+
+const manage = createManage({ groups: () => groups, store, button: $("manage-groups"), refresh });
+$("manage-groups").addEventListener("click", () => manage.open());
 
 // Edit in place: one row at a time. The read-only line stays in the DOM (hidden)
 // so the checkbox description and the Sửa button survive the round trip.
@@ -488,7 +479,7 @@ els.list.addEventListener("submit", (e) => {
   const result = store.updateText(row.dataset.id, field.value, moved ? (groups.get(select.value) ? select.value : null) : undefined);
   updateSlip();
   if (result.error && result.error !== "notFound") {
-    showFieldError(field, e.target.querySelector(".field-error"), result.error);
+    showFieldError(field, e.target.querySelector(".field-error"), result.error, ERRORS);
     field.focus();
     return;
   }

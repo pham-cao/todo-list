@@ -328,7 +328,7 @@ test('Giữ lại, Escape and a backdrop click keep the task and return focus to
   }
   // A click on the note itself (its padding) does not close it.
   await removeBtn(page, 0).click();
-  await page.locator('.dialog__title').click();
+  await page.locator('#delete-dialog .dialog__title').click();
   await expect(delDialog(page)).toBeVisible();
   await page.keyboard.press('Escape');
   expect((await stored(page)).map((t) => t.id)).toEqual(['a', 'b']);
@@ -382,8 +382,8 @@ test('the sticky note sits in the middle of the viewport', async ({ page }) => {
   await open(page, [task('a', 'Một')]);
   await removeBtn(page, 0).click();
   await expect(delDialog(page)).toBeVisible();
-  await expect(page.locator('.dialog')).toHaveCSS('opacity', '1'); // note-in finished
-  const box = await page.locator('.dialog').boundingBox();
+  await expect(page.locator('#delete-dialog')).toHaveCSS('opacity', '1'); // note-in finished
+  const box = await page.locator('#delete-dialog').boundingBox();
   const vp = page.viewportSize();
   expect(Math.abs(box.x + box.width / 2 - vp.width / 2)).toBeLessThan(4);
   expect(Math.abs(box.y + box.height / 2 - vp.height / 2)).toBeLessThan(8);

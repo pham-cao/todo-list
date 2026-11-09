@@ -83,6 +83,43 @@
     </div>
   </dialog>
 
+  <dialog class="dialog dialog--card" id="manage-dialog" aria-labelledby="manage-title">
+    <div class="dialog__head"><h2 class="dialog__title" id="manage-title">Nhóm việc</h2><button class="btn btn--ghost" type="button" data-action="close">Đóng</button></div>
+    <ul class="group-rows" id="group-rows"></ul>
+    <p class="dialog__empty" id="group-rows-empty" hidden>Bạn chưa có nhóm nào.</p>
+  </dialog>
+
+  <template id="group-row-template">
+    <li class="group-row">
+      <span class="group-row__name"><span class="sticker"></span><span class="group-row__hint">Nhóm này chưa có việc nào.</span></span>
+      <span class="group-row__actions">
+        <button class="icon-btn" type="button" data-action="rename" aria-label="Sửa"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.17 6.81a1 1 0 0 0-3.99-3.99L3.84 16.17a2 2 0 0 0-.5.83l-1.32 4.35a.5.5 0 0 0 .62.62l4.35-1.32a2 2 0 0 0 .83-.5z"/><path d="m15 5 4 4"/></svg></button>
+        <button class="icon-btn group-row__move" type="button" data-action="move" aria-label="Chuyển tất cả việc" data-hint="Nhóm này chưa có việc nào."><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9V5a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v1"/><path d="M2 13v6a2 2 0 0 0 2 2h7"/><path d="M14 17h8m-3-3 3 3-3 3"/></svg><span class="group-row__move-label" aria-hidden="true">Chuyển tất cả việc</span></button>
+        <button class="icon-btn icon-btn--danger" type="button" data-action="delete" aria-label="Xóa"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><path d="M10 11v6M14 11v6"/></svg></button>
+      </span>
+    </li>
+  </template>
+
+  <template id="group-edit-template">
+    <li class="group-row group-row--editing">
+      <form novalidate>
+        <label class="visually-hidden" for="group-name-edit">Tên nhóm</label>
+        <input class="input" id="group-name-edit" type="text" autocomplete="off">
+        <p class="field-error" id="group-name-edit-error" role="alert" hidden><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg><span class="field-error__text"></span></p>
+        <fieldset class="colour-pick">
+          <legend>Màu nhóm</legend>
+          <div class="colour-pick__list">
+            <label><input type="radio" name="group-colour"><span class="swatch" aria-hidden="true"></span><svg class="icon colour-pick__tick" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span class="visually-hidden"></span></label>
+          </div>
+        </fieldset>
+        <div class="group-row__edit-actions">
+          <button class="btn btn--ghost" type="button" data-action="cancel">Hủy</button>
+          <button class="btn btn--primary" type="submit">Lưu</button>
+        </div>
+      </form>
+    </li>
+  </template>
+
   <template id="task-template">
     <li class="task">
       <label class="check"><input type="checkbox" aria-label="Đánh dấu hoàn thành"><span class="check__box" aria-hidden="true"><svg viewBox="0 0 28 28"><path pathLength="100" d="M5 15.5c2.2 1.6 3.9 3.6 5.2 6.2C13.4 13.6 18 7.4 25 2.5"/></svg></span></label>

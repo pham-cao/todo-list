@@ -1543,3 +1543,381 @@ test('an add to a hidden group on an empty day shows the filter empty text and t
   await expect(notice(page)).toHaveText('Đã thêm việc vào nhóm "Nhà". Nhóm này đang được ẩn bởi bộ lọc.');
   await expect(page.locator('#new-task')).toBeFocused();
 });
+
+// T8: the "Nhóm việc" card with rename and colour (R4 to R6, R8, R11 to R13, R35 to R38, R48, R55, R62, R63a, R65, R67)
+const card = (page) => page.getByRole('dialog', { name: 'Nhóm việc' });
+const cardRows = (page) => card(page).locator('.group-row');
+const cardRow = (page, name) => cardRows(page).filter({ has: page.locator('.sticker').getByText(name, { exact: true }) });
+const renameInput = (page) => card(page).getByRole('textbox', { name: 'Tên nhóm', exact: true });
+const colours = (page) => card(page).getByRole('group', { name: 'Màu nhóm' }).getByRole('radio');
+const renameError = (page) => card(page).locator('.group-row--editing .field-error');
+// The drawn swatch sits over the hidden radio, so click it the way a user does.
+const pickColour = (page, name) => card(page).getByRole('radio', { name }).locator('..').click();
+const openCard = async (page) => { await manageBtn(page).click(); await expect(card(page)).toBeVisible(); };
+const startRename = async (page, name) => { await cardRow(page, name).getByRole('button', { name: 'Sửa', exact: true }).click(); await expect(renameInput(page)).toBeFocused(); };
+
+test('Quản lý nhóm opens Nhóm việc with a row per group in creation order and Đóng', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await openCard(page);
+  await expect(card(page).locator('.dialog__title')).toHaveText('Nhóm việc');
+  await expect(card(page).getByRole('button', { name: 'Đóng', exact: true })).toBeVisible();
+  await expect(cardRows(page).locator('.sticker')).toHaveText(['Công ty', 'Nhà', 'Học tiếng Nhật']);
+  expect(await cardRows(page).locator('.sticker').evaluateAll((s) => s.map((el) => el.dataset.color))).toEqual(['yellow', 'pink', 'green']);
+  for (const name of ['Công ty', 'Nhà', 'Học tiếng Nhật']) {
+    const buttons = cardRow(page, name).getByRole('button');
+    await expect(buttons).toHaveCount(3);
+    await expect(buttons.nth(0)).toHaveAccessibleName('Sửa');
+    await expect(buttons.nth(1)).toHaveAccessibleName('Chuyển tất cả việc');
+    await expect(buttons.nth(2)).toHaveAccessibleName('Xóa');
+    await expect(buttons.nth(0)).toHaveAccessibleDescription(name === 'Học tiếng Nhật' ? `${name} Nhóm này chưa có việc nào.` : name);
+  }
+  // A group with no task: the move button stays focusable but inactive, with the hint shown and linked.
+  const idle = cardRow(page, 'Học tiếng Nhật').getByRole('button', { name: 'Chuyển tất cả việc' });
+  await expect(idle).toHaveAttribute('aria-disabled', 'true');
+  await expect(idle).toHaveAccessibleDescription(/Nhóm này chưa có việc nào\./);
+  await expect(cardRow(page, 'Học tiếng Nhật').locator('.group-row__hint')).toHaveText('Nhóm này chưa có việc nào.');
+  await expect(cardRow(page, 'Công ty').getByRole('button', { name: 'Chuyển tất cả việc' })).not.toHaveAttribute('aria-disabled', 'true');
+  await expect(cardRow(page, 'Công ty').locator('.group-row__hint')).toHaveCount(0);
+  await expect(card(page).locator('.dialog__empty')).toBeHidden();
+});
+
+test('with no groups the card says Bạn chưa có nhóm nào. on a past day, today and a future day', async ({ page }) => {
+  for (const hash of ['#2026-11-01', '', '#2026-11-20']) {
+    await open(page, [], hash);
+    await openCard(page);
+    await expect(card(page).locator('.dialog__empty')).toHaveText('Bạn chưa có nhóm nào.');
+    await expect(cardRows(page)).toHaveCount(0);
+    await page.keyboard.press('Escape');
+    await expect(card(page)).toBeHidden();
+  }
+});
+
+test('Sửa shows the name in "Tên nhóm", six named colours with the current one checked, arrow keys, Hủy and Lưu', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await openCard(page);
+  await startRename(page, 'Nhà');
+  await expect(renameInput(page)).toHaveValue('Nhà');
+  await expect(colours(page)).toHaveCount(6);
+  for (const [i, n] of ['Vàng', 'Hồng', 'Xanh lá', 'Xanh dương', 'Cam', 'Tím'].entries()) await expect(colours(page).nth(i)).toHaveAccessibleName(n);
+  await expect(card(page).getByRole('radio', { name: 'Hồng' })).toBeChecked();
+  await expect(card(page).getByRole('button', { name: 'Hủy' })).toBeVisible();
+  await expect(card(page).getByRole('button', { name: 'Lưu' })).toBeVisible();
+  await page.keyboard.press('Tab');
+  await expect(card(page).getByRole('radio', { name: 'Hồng' })).toBeFocused();
+  await page.keyboard.press('ArrowRight');
+  await expect(card(page).getByRole('radio', { name: 'Xanh lá' })).toBeChecked();
+  await page.keyboard.press('ArrowLeft');
+  await page.keyboard.press('ArrowLeft');
+  await expect(card(page).getByRole('radio', { name: 'Vàng' })).toBeChecked();
+});
+
+test('Lưu and Enter save the name and colour at once; headers, choices, filter and toggle names follow; tasks untouched', async ({ page }) => {
+  const days = [...DAY, { ...task('c0', 'Hôm qua', false, '2026-11-08', at(6, 0)), groupId: 'cty' }];
+  await open(page, days, '', { groups: GROUPS });
+  const tasksBefore = await storedRaw(page);
+  await openCard(page);
+  await startRename(page, 'Công ty');
+  await renameInput(page).fill('Việc công ty');
+  await pickColour(page, 'Cam');
+  await card(page).getByRole('button', { name: 'Lưu' }).click();
+  // Saved at once (R55), the row is back in view with focus on its Sửa.
+  expect((await storedJson(page, GROUPS_KEY))[0]).toMatchObject({ id: 'cty', name: 'Việc công ty', color: 'orange' });
+  await expect(cardRow(page, 'Việc công ty').getByRole('button', { name: 'Sửa' })).toBeFocused();
+  await expect(cardRow(page, 'Việc công ty').locator('.sticker')).toHaveAttribute('data-color', 'orange');
+  await startRename(page, 'Nhà');
+  await renameInput(page).fill('Gia đình');
+  await renameInput(page).press('Enter');
+  await expect(cardRow(page, 'Gia đình').getByRole('button', { name: 'Sửa' })).toBeFocused();
+  await card(page).getByRole('button', { name: 'Đóng' }).click();
+  await expect(card(page)).toBeHidden();
+  await expect(manageBtn(page)).toBeFocused();
+  await expect(names(page)).toHaveText(['Việc công ty', 'Gia đình', 'Chưa phân nhóm']);
+  expect(await sections(page).evaluateAll((s) => s.map((el) => el.dataset.color))).toEqual(['orange', 'pink', 'none']);
+  await expect(toggle(page, 'Việc công ty')).toHaveAccessibleName('Nhóm Việc công ty 1/3 việc đã hoàn thành');
+  await expect(choice(page).locator('option')).toHaveText(['Chưa phân nhóm', 'Việc công ty', 'Gia đình', 'Học tiếng Nhật', 'Nhóm mới...']);
+  await expect(filterSel(page).locator('option')).toHaveText(['Tất cả nhóm', 'Chưa phân nhóm', 'Việc công ty', 'Gia đình', 'Học tiếng Nhật']);
+  await page.getByRole('button', { name: 'Xem ngày trước' }).click();
+  await expect(names(page)).toHaveText(['Việc công ty']);
+  expect(await storedRaw(page)).toBe(tasksBefore);
+});
+
+test('rename errors: empty, too long, a duplicate and Chưa phân nhóm; typing clears; own name in another case is fine', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await openCard(page);
+  await startRename(page, 'Công ty');
+  const save = card(page).getByRole('button', { name: 'Lưu' });
+  for (const [value, message] of [
+    ['   ', 'Vui lòng nhập tên nhóm.'],
+    ['x'.repeat(31), 'Tên nhóm tối đa 30 ký tự.'],
+    ['nhà', 'Tên nhóm này đã có rồi.'],
+    ['chưa phân nhóm', 'Tên nhóm này đã có rồi.'],
+  ]) {
+    await renameInput(page).fill(value);
+    await save.click();
+    await expect(renameError(page)).toHaveText(message);
+    await expect(renameInput(page)).toHaveAttribute('aria-invalid', 'true');
+    await expect(renameInput(page)).toBeFocused();
+    await expect(renameInput(page)).toHaveAccessibleDescription(message);
+    await page.keyboard.type('a');
+    await expect(renameError(page)).toBeHidden();
+    await expect(renameInput(page)).not.toHaveAttribute('aria-invalid', 'true');
+  }
+  expect((await storedJson(page, GROUPS_KEY))[0].name).toBe('Công ty');
+  await renameInput(page).fill('CÔNG TY');
+  await renameInput(page).press('Enter');
+  await expect(cardRows(page).locator('.sticker')).toHaveText(['CÔNG TY', 'Nhà', 'Học tiếng Nhật']);
+});
+
+test('Hủy and Escape cancel the row edit and keep the card open; a second Escape closes it', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  const before = await storedAll(page);
+  await openCard(page);
+  await startRename(page, 'Nhà');
+  await renameInput(page).fill('Đổi tên');
+  await pickColour(page, 'Tím');
+  await card(page).getByRole('button', { name: 'Hủy' }).click();
+  await expect(renameInput(page)).toHaveCount(0);
+  await expect(cardRow(page, 'Nhà').getByRole('button', { name: 'Sửa' })).toBeFocused();
+  await expect(cardRow(page, 'Nhà').locator('.sticker')).toHaveAttribute('data-color', 'pink');
+  await startRename(page, 'Nhà');
+  await renameInput(page).fill('Đổi tên');
+  await page.keyboard.press('Escape');
+  await expect(card(page)).toBeVisible();
+  await expect(renameInput(page)).toHaveCount(0);
+  await expect(cardRow(page, 'Nhà').getByRole('button', { name: 'Sửa' })).toBeFocused();
+  expect(await storedAll(page)).toEqual(before);
+  await page.keyboard.press('Escape');
+  await expect(card(page)).toBeHidden();
+  await expect(manageBtn(page)).toBeFocused();
+});
+
+test('only one row is in edit: Sửa on another row drops the first edit unsaved', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await openCard(page);
+  await startRename(page, 'Công ty');
+  await renameInput(page).fill('Không lưu');
+  await startRename(page, 'Nhà');
+  await expect(card(page).locator('.group-row--editing')).toHaveCount(1);
+  await expect(renameInput(page)).toHaveValue('Nhà');
+  await expect(cardRows(page).locator('.sticker')).toHaveText(['Công ty', 'Học tiếng Nhật']);
+  expect((await storedJson(page, GROUPS_KEY))[0].name).toBe('Công ty');
+});
+
+test('the card does not close on a backdrop click; Đóng closes it and refreshes the page behind', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await openCard(page);
+  await page.mouse.click(4, 4);
+  await expect(card(page)).toBeVisible();
+  await card(page).getByRole('button', { name: 'Đóng' }).click();
+  await expect(card(page)).toBeHidden();
+  await expect(manageBtn(page)).toBeFocused();
+});
+
+test('a filtered group renamed in the card stays selected with its new name (T7-14)', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await filterSel(page).selectOption({ label: 'Công ty' });
+  await openCard(page);
+  await startRename(page, 'Công ty');
+  await renameInput(page).fill('Việc công ty');
+  await renameInput(page).press('Enter');
+  await page.keyboard.press('Escape');
+  await expect(filterSel(page)).toHaveValue('cty');
+  await expect(filterSel(page).locator('option:checked')).toHaveText('Việc công ty');
+  await expect(choice(page).locator('option:checked')).toHaveText('Việc công ty');
+  await expect(names(page)).toHaveText(['Việc công ty']);
+});
+
+test('a rename keeps typed add text and an open task edit, whose group choice shows the new name', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await page.locator('#new-task').fill('Đang gõ');
+  await editOf(page, 'Họp nhóm').click();
+  await editField(page).fill('Họp nhóm lớn');
+  await openCard(page);
+  await startRename(page, 'Công ty');
+  await renameInput(page).fill('Việc công ty');
+  await pickColour(page, 'Xanh dương');
+  await renameInput(page).press('Enter');
+  // Saved names show behind the card at once, not only after it closes.
+  await expect(names(page).first()).toHaveText('Việc công ty');
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#new-task')).toHaveValue('Đang gõ');
+  await expect(editField(page)).toHaveValue('Họp nhóm lớn');
+  await expect(editChoice(page).locator('option:checked')).toHaveText('Việc công ty');
+  await expect(editSwatch(page)).toHaveAttribute('data-color', 'blue');
+});
+
+test('a group named <b>abc</b> is plain text in the row and in the rename input', async ({ page }) => {
+  await open(page, [], '', { groups: [group('x', '<b>abc</b>')] });
+  await openCard(page);
+  await expect(cardRow(page, '<b>abc</b>').locator('b')).toHaveCount(0);
+  await startRename(page, '<b>abc</b>');
+  await expect(renameInput(page)).toHaveValue('<b>abc</b>');
+});
+
+test('keyboard only: open, Tab to a row, rename, Lưu, close', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await manageBtn(page).focus();
+  await page.keyboard.press('Enter');
+  await expect(card(page)).toBeVisible();
+  const sua = cardRow(page, 'Công ty').getByRole('button', { name: 'Sửa' });
+  for (let i = 0; i < 5 && !(await sua.evaluate((el) => el === document.activeElement)); i++) await page.keyboard.press('Tab');
+  await expect(sua).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(renameInput(page)).toBeFocused();
+  await page.keyboard.press('End');
+  await page.keyboard.type(' mới');
+  await page.keyboard.press('Tab'); // the chosen colour
+  await page.keyboard.press('Tab'); // Hủy
+  await page.keyboard.press('Tab'); // Lưu
+  await expect(card(page).getByRole('button', { name: 'Lưu' })).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(cardRow(page, 'Công ty mới').getByRole('button', { name: 'Sửa' })).toBeFocused();
+  await page.keyboard.press('Escape');
+  await expect(manageBtn(page)).toBeFocused();
+});
+
+test('phones: Chuyển tất cả việc in a row is icon only and keeps its name; 20 long names fit at 360 px', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'phone layout');
+  await page.setViewportSize({ width: 360, height: 740 });
+  const many = Array.from({ length: 20 }, (_, i) => group(`g${i}`, `${String(i).padStart(2, '0')} ${'n'.repeat(27)}`, 'blue', NOW.getTime() + i));
+  await open(page, [], '', { groups: many });
+  await openCard(page);
+  const move = cardRows(page).first().getByRole('button', { name: 'Chuyển tất cả việc' });
+  await expect(move).toHaveAccessibleName('Chuyển tất cả việc');
+  await expect(move.locator('.group-row__move-label')).toBeHidden();
+  expect(await card(page).evaluate((d) => d.scrollWidth <= d.clientWidth)).toBe(true);
+  // The rows scroll inside the card, which stays on screen, and the last row can be reached.
+  const list = card(page).locator('.group-rows');
+  expect(await list.evaluate((l) => l.scrollHeight > l.clientHeight && l.scrollWidth <= l.clientWidth)).toBe(true);
+  expect(await card(page).evaluate((d) => d.getBoundingClientRect().bottom <= innerHeight)).toBe(true);
+  await cardRows(page).last().getByRole('button', { name: 'Xóa' }).scrollIntoViewIfNeeded();
+  await expect(cardRows(page).last().getByRole('button', { name: 'Xóa' })).toBeInViewport();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});
+
+// T8 QA additions: focus trap, colour by keyboard, storage failure, another tab, IME (R36 to R38, R55, R62)
+test('focus stays inside the card: Tab and Shift+Tab never reach the page behind', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await openCard(page);
+  // A modal dialog may hand focus to the browser itself (body), never to a control of the page behind.
+  const behind = () => page.evaluate(() => { const a = document.activeElement; return a !== document.body && !a?.closest('#manage-dialog'); });
+  await expect(card(page).getByRole('button', { name: 'Đóng' })).toBeFocused();
+  for (let i = 0; i < 14; i++) { await page.keyboard.press('Tab'); expect(await behind()).toBe(false); }
+  for (let i = 0; i < 14; i++) { await page.keyboard.press('Shift+Tab'); expect(await behind()).toBe(false); }
+  await startRename(page, 'Nhà');
+  for (let i = 0; i < 14; i++) { await page.keyboard.press('Tab'); expect(await behind()).toBe(false); }
+});
+
+test('a colour chosen with arrow keys and saved with Lưu is stored (Hồng to Cam)', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await openCard(page);
+  await startRename(page, 'Nhà');
+  await page.keyboard.press('Tab');
+  for (let i = 0; i < 3; i++) await page.keyboard.press('ArrowRight');
+  await page.keyboard.press('Space');
+  await expect(card(page).getByRole('radio', { name: 'Cam' })).toBeChecked();
+  await page.keyboard.press('Tab');
+  await page.keyboard.press('Tab');
+  await page.keyboard.press('Enter');
+  expect((await storedJson(page, GROUPS_KEY))[1]).toMatchObject({ name: 'Nhà', color: 'orange' });
+  await expect(cardRow(page, 'Nhà').locator('.sticker')).toHaveAttribute('data-color', 'orange');
+});
+
+test('a failing write on rename keeps working in memory, shows the slip and keeps the card usable', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await openCard(page);
+  await page.evaluate((k) => {
+    const set = Storage.prototype.setItem;
+    Storage.prototype.setItem = function (key, v) { if (key === k) throw new DOMException('Full', 'QuotaExceededError'); return set.call(this, key, v); };
+  }, GROUPS_KEY);
+  await startRename(page, 'Công ty');
+  await renameInput(page).fill('Việc công ty');
+  await pickColour(page, 'Tím');
+  await renameInput(page).press('Enter');
+  await expect(cardRow(page, 'Việc công ty').getByRole('button', { name: 'Sửa' })).toBeFocused();
+  await expect(page.locator('#storage-slip, .slip').first()).toBeVisible();
+  expect((await storedJson(page, GROUPS_KEY))[0].name).toBe('Công ty');
+  await page.keyboard.press('Escape');
+  await expect(names(page).first()).toHaveText('Việc công ty');
+});
+
+test('another tab renames a group while the card is open: rows follow; a row in edit keeps the typed name', async ({ page, context }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await openCard(page);
+  const other = await context.newPage();
+  await other.goto('./');
+  await other.evaluate(([k, list]) => localStorage.setItem(k, JSON.stringify(list)), [GROUPS_KEY, [{ ...GROUPS[0], name: 'Công ty A' }, ...GROUPS.slice(1)]]);
+  await expect(cardRows(page).locator('.sticker')).toHaveText(['Công ty A', 'Nhà', 'Học tiếng Nhật']);
+  await expect(names(page).first()).toHaveText('Công ty A');
+  await startRename(page, 'Nhà');
+  await renameInput(page).fill('Nhà mới');
+  await other.evaluate(([k, list]) => localStorage.setItem(k, JSON.stringify(list)), [GROUPS_KEY, [{ ...GROUPS[0], name: 'Công ty B' }, ...GROUPS.slice(1)]]);
+  await expect(names(page).first()).toHaveText('Công ty B');
+  await expect(renameInput(page)).toHaveValue('Nhà mới');
+  await expect(renameInput(page)).toBeFocused();
+  await renameInput(page).press('Enter');
+  expect((await storedJson(page, GROUPS_KEY)).map((g) => g.name)).toEqual(['Công ty B', 'Nhà mới', 'Học tiếng Nhật']);
+  await other.close();
+});
+
+test('IME in the rename input: Escape and the committing Enter neither cancel nor save', async ({ page, browserName }) => {
+  test.skip(browserName !== 'chromium', 'CDP IME is Chromium only');
+  await open(page, DAY, '', { groups: GROUPS });
+  await openCard(page);
+  await startRename(page, 'Nhà');
+  await renameInput(page).fill('');
+  const cdp = await page.context().newCDPSession(page);
+  await cdp.send('Input.imeSetComposition', { text: 'Nhaf', selectionStart: 4, selectionEnd: 4 });
+  await cdp.send('Input.dispatchKeyEvent', { type: 'rawKeyDown', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 229 });
+  await expect(renameInput(page)).toBeVisible();
+  await cdp.send('Input.dispatchKeyEvent', { type: 'rawKeyDown', key: 'Process', code: 'Enter', windowsVirtualKeyCode: 229 });
+  await cdp.send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13 });
+  expect((await storedJson(page, GROUPS_KEY))[1].name).toBe('Nhà');
+  await expect(renameInput(page)).toBeVisible();
+  await cdp.send('Input.insertText', { text: 'Nhà ở' });
+  await expect(renameInput(page)).toHaveValue('Nhà ở');
+  await renameInput(page).press('Enter');
+  expect((await storedJson(page, GROUPS_KEY))[1].name).toBe('Nhà ở');
+});
+
+test('the group in edit is deleted in another tab: Lưu drops the edit quietly and focus goes to Đóng', async ({ page, context }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await openCard(page);
+  await startRename(page, 'Nhà');
+  await renameInput(page).fill('Nhà mới');
+  const other = await context.newPage();
+  await other.goto('./');
+  await other.evaluate(([k, list]) => localStorage.setItem(k, JSON.stringify(list)), [GROUPS_KEY, [GROUPS[0], GROUPS[2]]]);
+  await other.close();
+  await expect(names(page)).not.toContainText(['Nhà']);
+  await renameInput(page).press('Enter');
+  await expect(renameInput(page)).toHaveCount(0);
+  await expect(cardRows(page).locator('.sticker')).toHaveText(['Công ty', 'Học tiếng Nhật']);
+  await expect(card(page).getByRole('button', { name: 'Đóng' })).toBeFocused();
+  expect((await storedJson(page, GROUPS_KEY)).map((g) => g.name)).toEqual(['Công ty', 'Học tiếng Nhật']);
+});
+
+// BUG-008: Sửa on a lower row of the scrolling list brings Lưu and Hủy into view.
+test('Sửa on the last of 20 groups brings the whole edit block, with Lưu, into view', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'phone layout');
+  await page.setViewportSize({ width: 390, height: 700 });
+  const many = Array.from({ length: 20 }, (_, i) => group(`g${i}`, `${String(i).padStart(2, '0')} Nhóm`, 'yellow', NOW.getTime() + i));
+  await open(page, [], '', { groups: many });
+  await openCard(page);
+  await cardRows(page).last().getByRole('button', { name: 'Sửa' }).click();
+  await expect(card(page).getByRole('button', { name: 'Lưu' })).toBeInViewport({ ratio: 1 });
+});
+
+test('Sửa on a row whose group went in another tab while another row was in edit: no error, the row goes, focus on Đóng', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await open(page, DAY, '', { groups: GROUPS });
+  await openCard(page);
+  await startRename(page, 'Công ty'); // a row in edit, so the card keeps its rows when another tab writes
+  await otherTab(page, GROUPS.filter((g) => g.id !== 'nha'));
+  await cardRow(page, 'Nhà').getByRole('button', { name: 'Sửa' }).click();
+  await expect(card(page).getByRole('button', { name: 'Đóng' })).toBeFocused();
+  await expect(cardRows(page).locator('.sticker')).toHaveText(['Công ty', 'Học tiếng Nhật']);
+  await expect(renameInput(page)).toHaveCount(0);
+  expect(errors).toEqual([]);
+});
