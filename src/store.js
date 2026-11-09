@@ -67,10 +67,10 @@ export function createStore(storage) {
 
   store.tasksFor = (dateKey) => all.filter((t) => t.date === dateKey).map((t) => ({ ...t }));
 
-  store.add = (raw, now = new Date()) => {
+  store.add = (raw, now = new Date(), dateKey = toDateKey(now)) => {
     const v = validateText(raw);
     if (v.error) return v;
-    const task = { id: newId(), text: v.text, done: false, createdAt: now.getTime(), date: toDateKey(now) };
+    const task = { id: newId(), text: v.text, done: false, createdAt: now.getTime(), date: dateKey };
     all.push(task);
     save();
     return { task: { ...task } };

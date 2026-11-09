@@ -175,3 +175,36 @@ test("corrupt backup failing does not throw or lock the store", () => {
   assert.equal(s.tasksFor("2026-11-09").length, 0);
   assert.equal(s.add("x", day).task.text, "x");
 });
+
+test("add with a dateKey uses it as date, keeps real createdAt, persists", () => {
+  const mem = new Map();
+  const storage = { getItem: (k) => mem.get(k) ?? null, setItem: (k, v) => mem.set(k, v) };
+  const s = createStore(storage);
+  const now = new Date(2026, 10, 9, 9, 0);
+  s.add("first", new Date(2026, 10, 8, 8, 0), "2026-11-08");
+  const t = s.add("Việc A", now, "2026-11-08").task;
+  assert.equal(t.date, "2026-11-08");
+  assert.equal(t.createdAt, now.getTime());
+  const list = createStore(storage).tasksFor("2026-11-08");
+  assert.equal(list.at(-1).id, t.id);
+  assert.equal(s.tasksFor("2026-11-09").length, 0);
+  assert.equal(s.add("x", now).task.date, "2026-11-09");
+  assert.equal(s.add(" ", now, "2026-11-08").error, "empty");
+});
+
+test("add with a dateKey: too long saves nothing; failing write keeps task in memory and old stored value", () => {
+  const mem = new Map();
+  let fail = false;
+  const storage = { getItem: (k) => mem.get(k) ?? null, setItem: (k, v) => { if (fail) throw new Error("full"); mem.set(k, v); } };
+  const s = createStore(storage);
+  const now = new Date(2026, 10, 9, 9, 0);
+  s.add("keep", now, "2026-11-08");
+  const stored = mem.get(STORAGE_KEY);
+  assert.equal(s.add("a".repeat(201), now, "2026-11-08").error, "tooLong");
+  assert.equal(mem.get(STORAGE_KEY), stored);
+  fail = true;
+  const t = s.add("lost write", now, "2026-11-08").task;
+  assert.equal(s.storageOk, false);
+  assert.equal(s.tasksFor("2026-11-08").at(-1).id, t.id);
+  assert.equal(mem.get(STORAGE_KEY), stored);
+});

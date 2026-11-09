@@ -1,0 +1,6 @@
+[220/220] [mobile] › tests/e2e/app.spec.js:893:1 › 200 tasks render quickly and a tick updates in under 100 ms
+  10 skipped
+  210 passed (30.0s)
+# tests 33
+# pass 33
+# fail 0

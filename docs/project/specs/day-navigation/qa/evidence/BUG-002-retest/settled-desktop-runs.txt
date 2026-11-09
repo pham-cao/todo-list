@@ -1,0 +1,15 @@
+wait 0 click+layout ms: 9+5  7+3  6+2  10+4
+wait 100 click+layout ms: 25+13  5+3  24+12  7+2
+wait 300 click+layout ms: 24+4  24+13  26+12  25+12
+wait 1000 click+layout ms: 10+2  8+3  26+3  25+12
+wait 3000 click+layout ms: 33+13  6+3  24+12  24+3
+wait 0 click+layout ms: 6+2  6+2  6+3  5+3
+wait 100 click+layout ms: 5+3  24+12  25+12  25+13
+wait 300 click+layout ms: 30+15  26+13  25+13  24+2
+wait 1000 click+layout ms: 25+12  24+13  24+12  25+13
+wait 3000 click+layout ms: 25+13  6+3  26+12  5+2
+wait 0 click+layout ms: 6+2  5+3  6+3  6+3
+wait 100 click+layout ms: 26+12  25+12  26+13  26+12
+wait 300 click+layout ms: 26+13  26+13  30+13  25+13
+wait 1000 click+layout ms: 5+3  26+14  24+12  13+2
+wait 3000 click+layout ms: 29+15  5+2  7+3  5+3

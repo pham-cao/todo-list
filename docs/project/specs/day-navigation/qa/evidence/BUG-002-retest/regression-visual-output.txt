@@ -1,0 +1,8 @@
+light-390 first row class at load task task--peek
+light-390 swipe scrollLeft 130
+light-390 row150 swipe 130 row1 closed 0
+dark-390 first row class at load task task--peek
+dark-390 swipe scrollLeft 130
+dark-390 row150 swipe 130 row1 closed 0
+1440 settled 600ms move ms 38,38,27,12,37,38,39,39 max 39
+390 settled 600ms move ms 38,35,8,21,37,37,12,38 max 38

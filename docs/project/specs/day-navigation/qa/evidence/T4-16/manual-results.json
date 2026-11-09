@@ -1,0 +1,222 @@
+{
+ "1440-light": {
+  "tabForward": [
+   "prev-day",
+   "next-day",
+   "day-picker",
+   "day-picker",
+   "day-picker",
+   "day-picker",
+   "to-today",
+   "new-task",
+   "BUTTON:submit"
+  ],
+  "shiftTab": [
+   "BODY:",
+   "BUTTON:button",
+   "BUTTON:button"
+  ],
+  "pickerTab": [
+   "day-picker",
+   "day-picker",
+   "day-picker",
+   "to-today",
+   "new-task",
+   "BUTTON:submit"
+  ],
+  "afterEnter": [
+   "Hôm qua, Chủ Nhật, 08/11/2026",
+   "prev-day"
+  ],
+  "afterSpace": "Thứ Bảy, 07/11/2026",
+  "toToday": [
+   "Hôm nay, Thứ Hai, 09/11/2026",
+   "http://localhost:4173/",
+   "to-today"
+  ],
+  "typed": "Mua sữa",
+  "max": [
+   "Thứ Năm, 31/12/2099",
+   "http://localhost:4173/#2099-12-31"
+  ],
+  "min": [
+   "Thứ Bảy, 01/01/2000",
+   "http://localhost:4173/#2000-01-01"
+  ],
+  "history": [
+   "#2026-11-06",
+   "#2026-11-07",
+   "#2026-11-08",
+   "",
+   "#2026-11-08",
+   "#2026-11-07",
+   "#2026-11-06",
+   "#2026-11-05"
+  ]
+ },
+ "1440-dark": {
+  "tabForward": [
+   "prev-day",
+   "next-day",
+   "day-picker",
+   "day-picker",
+   "day-picker",
+   "day-picker",
+   "to-today",
+   "new-task",
+   "BUTTON:submit"
+  ],
+  "shiftTab": [
+   "BODY:",
+   "BUTTON:button",
+   "BUTTON:button"
+  ],
+  "pickerTab": [
+   "day-picker",
+   "day-picker",
+   "day-picker",
+   "to-today",
+   "new-task",
+   "BUTTON:submit"
+  ],
+  "afterEnter": [
+   "Hôm qua, Chủ Nhật, 08/11/2026",
+   "prev-day"
+  ],
+  "afterSpace": "Thứ Bảy, 07/11/2026",
+  "toToday": [
+   "Hôm nay, Thứ Hai, 09/11/2026",
+   "http://localhost:4173/",
+   "to-today"
+  ],
+  "typed": "Mua sữa",
+  "max": [
+   "Thứ Năm, 31/12/2099",
+   "http://localhost:4173/#2099-12-31"
+  ],
+  "min": [
+   "Thứ Bảy, 01/01/2000",
+   "http://localhost:4173/#2000-01-01"
+  ],
+  "history": [
+   "#2026-11-06",
+   "#2026-11-07",
+   "#2026-11-08",
+   "",
+   "#2026-11-08",
+   "#2026-11-07",
+   "#2026-11-06",
+   "#2026-11-05"
+  ]
+ },
+ "390-light": {
+  "tabForward": [
+   "prev-day",
+   "next-day",
+   "day-picker",
+   "day-picker",
+   "day-picker",
+   "day-picker",
+   "to-today",
+   "new-task",
+   "BUTTON:submit"
+  ],
+  "shiftTab": [
+   "BODY:",
+   "BUTTON:button",
+   "BUTTON:button"
+  ],
+  "pickerTab": [
+   "day-picker",
+   "day-picker",
+   "day-picker",
+   "to-today",
+   "new-task",
+   "BUTTON:submit"
+  ],
+  "afterEnter": [
+   "Hôm qua, Chủ Nhật, 08/11/2026",
+   "prev-day"
+  ],
+  "afterSpace": "Thứ Bảy, 07/11/2026",
+  "toToday": [
+   "Hôm nay, Thứ Hai, 09/11/2026",
+   "http://localhost:4173/",
+   "to-today"
+  ],
+  "typed": "Mua sữa",
+  "max": [
+   "Thứ Năm, 31/12/2099",
+   "http://localhost:4173/#2099-12-31"
+  ],
+  "min": [
+   "Thứ Bảy, 01/01/2000",
+   "http://localhost:4173/#2000-01-01"
+  ],
+  "history": [
+   "#2026-11-06",
+   "#2026-11-07",
+   "#2026-11-08",
+   "",
+   "#2026-11-08",
+   "#2026-11-07",
+   "#2026-11-06",
+   "#2026-11-05"
+  ]
+ },
+ "390-dark": {
+  "tabForward": [
+   "prev-day",
+   "next-day",
+   "day-picker",
+   "day-picker",
+   "day-picker",
+   "day-picker",
+   "to-today",
+   "new-task",
+   "BUTTON:submit"
+  ],
+  "shiftTab": [
+   "BODY:",
+   "BUTTON:button",
+   "BUTTON:button"
+  ],
+  "pickerTab": [
+   "day-picker",
+   "day-picker",
+   "day-picker",
+   "to-today",
+   "new-task",
+   "BUTTON:submit"
+  ],
+  "afterEnter": [
+   "Hôm qua, Chủ Nhật, 08/11/2026",
+   "prev-day"
+  ],
+  "afterSpace": "Thứ Bảy, 07/11/2026",
+  "toToday": [
+   "Hôm nay, Thứ Hai, 09/11/2026",
+   "http://localhost:4173/",
+   "to-today"
+  ],
+  "typed": "Mua sữa",
+  "max": [
+   "Thứ Năm, 31/12/2099",
+   "http://localhost:4173/#2099-12-31"
+  ],
+  "min": [
+   "Thứ Bảy, 01/01/2000",
+   "http://localhost:4173/#2000-01-01"
+  ],
+  "history": [
+   "#2026-11-06",
+   "#2026-11-07",
+   "#2026-11-08",
+   "",
+   "#2026-11-08",
+   "#2026-11-07",
+   "#2026-11-06",
+   "#2026-11-05"
+  ]
+ }
+}

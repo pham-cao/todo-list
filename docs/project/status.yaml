@@ -1,18 +1,18 @@
 project: "daily-todo"
 idea: "Web app todo list de ghi lai (log) cac viec can lam hang ngay (daily). Nguyen van: hien tai toi can lam todolist web log may cai toi can lam trong daily"
-state: waiting_user        # running | waiting_user | done
-waiting_for: "URL of the empty GitHub repo to push daily-task-log and open the PR"
+state: running        # running | waiting_user | done
+waiting_for: ""
 phase: features       # discovery | features | done
-current_feature: "daily-task-log"
+current_feature: "day-navigation"
 trello:               # optional mirror of this file, see "Trello sync" in the PM skill
   enabled: false
   board_url: ""
   lists: {}           # state name -> Trello list id
 features:
   - slug: daily-task-log
-    phase: release
+    phase: done
     has_ui: true
-    pr: ""
+    pr: "https://github.com/pham-cao/todo-list/pull/1"
     trello_card: ""
     tasks:
       - id: T1
@@ -100,11 +100,67 @@ features:
         attempts: 0
         trello_card: ""
   - slug: day-navigation
-    phase: requirements
+    phase: release
     has_ui: true
     pr: ""
     trello_card: ""
-    tasks: []
+    tasks:
+      - id: T1
+        title: "Date rules for any day"
+        owner: be
+        depends_on: []
+        state: done
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T2
+        title: "New task takes a given date"
+        owner: be
+        depends_on: []
+        state: done
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T3
+        title: "Nav markup, day wording and load from the address"
+        owner: fe
+        depends_on: [T1]
+        state: done
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T4
+        title: "Previous, next, back to today, and browser history"
+        owner: fe
+        depends_on: [T3]
+        state: done
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T5
+        title: "Date picker"
+        owner: fe
+        depends_on: [T4]
+        state: done
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T6
+        title: "Work on any day and the midnight rules"
+        owner: fe
+        depends_on: [T2, T4]
+        state: done
+        attempts: 0
+        bugs_opened: [BUG-001]
+        trello_card: ""
+      - id: T7
+        title: "Page turn motion, keyboard order, size and speed checks"
+        owner: fe
+        depends_on: [T5, T6]
+        state: done
+        attempts: 1
+        bugs_opened: [BUG-002]
+        trello_card: ""
 # - slug: user-login
 #   phase: requirements   # requirements | ux | design | build | release | done
 #   has_ui: true

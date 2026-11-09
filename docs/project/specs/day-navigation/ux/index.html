@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Day navigation prototype</title>
+  <link rel="stylesheet" href="../../../design-system.css">
+  <style>
+    .doc { padding: var(--space-12) var(--sheet-pad-end) var(--space-16) calc(var(--holes-w) + var(--margin-w) + var(--margin-gap)); }
+    .doc h1 { font-size: var(--fs-display); line-height: 1.2; letter-spacing: -0.015em; }
+    .doc h2 { font-size: var(--fs-title); margin: var(--space-10) 0 var(--space-3); }
+    .doc p, .doc li { max-width: 68ch; }
+    .doc .washi { margin-top: var(--space-3); }
+    .lead { margin-top: var(--space-5); }
+    .screens { list-style: none; padding: 0; }
+    .screens li { border-bottom: 1px solid var(--color-rule); }
+    .screens a { display: block; padding: var(--space-3) var(--space-2); text-decoration: none; color: var(--text); }
+    .screens a:hover { background: var(--color-pen-wash); }
+    .screens strong { color: var(--color-pen); font-weight: var(--fw-semibold); }
+    .screens span { display: block; color: var(--text-muted); font-size: var(--fs-meta); }
+    .notes { padding-left: var(--space-5); }
+    .notes li + li { margin-top: var(--space-3); }
+  </style>
+</head>
+<body>
+  <div class="desk">
+  <main class="sheet doc">
+    <h1>Day navigation</h1>
+    <p class="washi">Prototype on the paper notebook design, version 3</p>
+    <p class="lead">A clickable prototype for moving between days: turn one page back or forward, pick any date from a stamp, and go back to today with one tab. Every day works like today, so the owner can fill in yesterday or plan tomorrow. All interface text is Vietnamese, word for word from the requirements, and dark mode follows your system setting.</p>
+
+    <h2>Start here</h2>
+    <p>Open <a href="screens/today.html">today</a> and press the left arrow to reach yesterday, then the right arrow twice for tomorrow. Notice how the heading, the tape and Về hôm nay change. The flows and screen inventory are in <a href="flows.md">flows.md</a>, the new components in <a href="../../../design-system.md">design-system.md</a> (section "Day navigation"), and the review notes in <a href="critique.md">critique.md</a>.</p>
+
+    <h2>Screens and states</h2>
+    <ul class="screens">
+      <li><a href="screens/today.html"><strong>Today with navigation</strong><span>Seven tasks. Về hôm nay is visible but inactive, drawn as a dashed outline.</span></a></li>
+      <li><a href="screens/yesterday.html"><strong>Yesterday</strong><span>Hôm qua on the tape, every task done, so the star stamp shows without animation. Về hôm nay is an active pen tab.</span></a></li>
+      <li><a href="screens/tomorrow.html"><strong>Tomorrow</strong><span>Ngày mai on the tape, three planned tasks, ready to add more.</span></a></li>
+      <li><a href="screens/past-day.html"><strong>A far past day</strong><span>Friday 16/10/2026, reached with the picker. The tape shows only the weekday and date.</span></a></li>
+      <li><a href="screens/past-empty.html"><strong>Past day, empty</strong><span>"Ngày này chưa có việc nào được ghi lại."</span></a></li>
+      <li><a href="screens/future-empty.html"><strong>Future day, empty</strong><span>"Ngày này chưa có việc nào. Hãy thêm việc để chuẩn bị nhé!"</span></a></li>
+      <li><a href="screens/picker-open.html"><strong>Date picker open</strong><span>The browser's own calendar, opened on the viewed day. The drawing stands in for it.</span></a></li>
+      <li><a href="screens/today--focus.html"><strong>Keyboard focus</strong><span>Tab order and the focus ring on every control, including the inactive tab.</span></a></li>
+    </ul>
+
+    <h2>Key design decisions</h2>
+    <ul class="notes">
+      <li>The navigation gets its own row under the title instead of the top right slot. The title, the arrows, the stamp and the tab do not fit on one line, and a squeezed title would wrap badly on phones.</li>
+      <li>Turning pages: two pen chevrons sit together as a pair. When the day changes, the lines slide in from the side you turned towards and the washi tape is pressed down again. This is the feature's one piece of motion, and reduced motion turns it off.</li>
+      <li>The date picker is a rubber date stamp around the native date input. At rest it shows only a calendar mark, because the native field prints the date in the browser's own order (often month first) and the date is already on the tape. With a keyboard, the stamp widens into the native field so the date can be typed.</li>
+      <li>Về hôm nay is an index tab that answers "am I on today?" at a glance. It is pen filled on any other day and a quiet dashed outline on today, while staying focusable (aria-disabled), as R5 asks.</li>
+      <li>Three more cues guard against adding a task to the wrong day: the heading drops "hôm nay", the tape names the day (Hôm qua, Ngày mai, or the plain date), and the placeholder says "ngày này".</li>
+      <li>Nothing else on the page changes. Rows, the star stamp, editing, deleting and the storage slip are the approved daily-task-log components, so Sửa, Xóa and the add errors link to those screens.</li>
+    </ul>
+  </main>
+  </div>
+</body>
+</html>

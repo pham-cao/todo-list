@@ -1,0 +1,12 @@
+1440 light frames 40 distinct states 2
+    rgb(239, 239, 239) | rgb(0, 0, 0) | true
+    rgb(31, 58, 104) | rgb(255, 255, 255) | 
+1440 dark frames 40 distinct states 2
+    rgba(0, 0, 0, 0) | rgb(163, 157, 143) | true
+    rgb(169, 195, 238) | rgb(15, 27, 48) | 
+390 light frames 40 distinct states 2
+    rgba(0, 0, 0, 0) | rgb(107, 101, 85) | true
+    rgb(31, 58, 104) | rgb(255, 255, 255) | 
+390 dark frames 40 distinct states 2
+    rgba(0, 0, 0, 0) | rgb(163, 157, 143) | true
+    rgb(169, 195, 238) | rgb(15, 27, 48) | 

@@ -56,6 +56,7 @@ Rules:
 - Every row uses one two column grid: the margin column (`--margin-w`, 64 px desktop, 48 px mobile) and the writing column, after a hole strip (`--holes-w`, 56 px or 24 px). The checkbox, the add pen and the progress circle centre in the margin column; the title, date, summary, add input and task text all start right of the margin line. Keep this in later features.
 - The header band is unruled and holds the title, the day navigation slot (`.app-header__nav`, top right, empty for now), the date on washi tape, the progress and summary, and the storage slip when needed. Day navigation will read as turning pages.
 - The sheet body is ruled. Everything in it is a multiple of the 44 px rule: the add line, an error line, task rows, the edit row (input line plus a button line), and the empty state doodle (three lines).
+- Task rows that are off screen skip rendering with `content-visibility: auto`, so a day with 200 tasks still updates within the 100 ms of NFR1. A hovered or focused row always renders in full, so its tooltips and focus ring are never clipped. A wrapped row that has not been on screen yet is sized as one 44 px line until it scrolls into view, and we accept the small scroll jump this can cause.
 - Below 600 px the desk gutter is 8 px and the margins tighten. Verified with no horizontal scroll at 1440, 390 and 360 px.
 
 ## Spacing, size, radius, shadow
@@ -108,3 +109,14 @@ Everything is reduced to an instant change under `prefers-reduced-motion`; the b
 - Focus: 2 px pen outline with a 2 px offset on everything interactive; the checkbox square gets the same ring. Inside swipe blocks the outline sits inset in the button text colour.
 - Contrast: all text meets 4.5:1 in both modes (see the tables above); non text controls meet 3:1.
 - The progress circle and stamp are `aria-hidden`; the summary in `role="status"` is the real status.
+
+## Day navigation (added for day-navigation)
+
+This section only adds to the system; no existing token or component changed. The CSS lives at the end of `design-system.css` under "Day navigation".
+
+- Placement: `.app-header__nav` becomes `<nav class="app-header__nav day-nav">` in its own header row, after the h1 and before the date tape, instead of sitting beside the title. The order is Xem ngày trước, Xem ngày sau, Chọn ngày, then Về hôm nay. On desktop the tab sits at the far right; at 360 px it wraps under the arrows, and from about 380 px everything fits on one row.
+- Page turning arrows (`.day-nav__turn` on `.icon-btn`): pen chevrons, 44 px, tooltip from `aria-label`. Tooltips in the nav open below the controls so the heading stays readable. The arrow pair is pulled left 11 px so the chevron lines up with the title.
+- Date stamp (`.date-stamp`): a 3 px double pen border rotated 2 degrees, like a rubber date stamp, wrapping a calendar icon and a native `<input type="date">`. At rest the input text is hidden, because the native format follows the browser locale and the date is already on the tape; mouse or touch anywhere on the stamp opens the browser's calendar. With a fine pointer and focus, the stamp widens to show the native field for typing. Tooltip text comes from `data-tip`.
+- Back to today (`.today-tab`): an index tab with a return mark. It is pen filled on other days and drawn as a dashed pencil outline in done ink (5.5:1 light, 5.9:1 dark) when `aria-disabled="true"` on today. On phones it drops the icon and uses 14 px text so it fits beside the arrows. When it changes state, its background and text colour fade together, so the label stays readable throughout. The fade is skipped on first render, so a page opened on another day shows the filled tab straight away.
+- Page turn motion: `.turn--back` or `.turn--forward` on the sheet body (lines slide 18 px in from the side turned towards, 240 ms, new token `--dur-turn`) and `.washi--restick` on the date tape (360 ms). These are added once per day change and removed on reduced motion.
+- Narrow phones: below 381 px the add line placeholder is 14 px, so "Bạn cần làm gì ngày này?" stays whole.

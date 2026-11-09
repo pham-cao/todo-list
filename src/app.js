@@ -1,9 +1,14 @@
-import { toDateKey, formatDate } from "./date.js";
+import { toDateKey, parseDateKey, addDays, dayKind, dateLine } from "./date.js";
 import { createStore, getStorage } from "./store.js";
 
 const $ = (id) => document.getElementById(id);
 const els = {
+  title: $("page-title"),
   date: $("date-line"),
+  picker: $("day-picker"),
+  toToday: $("to-today"),
+  addLabel: $("new-task-label"),
+  emptyText: $("empty-text"),
   progress: $("progress"),
   summary: $("summary"),
   count: $("summary-count"),
@@ -15,6 +20,7 @@ const els = {
   list: $("task-list"),
   rowTemplate: $("task-template"),
   editTemplate: $("edit-template"),
+  sheetBody: document.querySelector(".sheet__body"),
   dialog: $("delete-dialog"),
   quote: $("del-task"),
 };
@@ -22,8 +28,9 @@ const els = {
 const show = (el, on) => { el.hidden = !on; };
 
 const store = createStore(getStorage());
-const startedAt = new Date();
-let shownDate = toDateKey(startedAt);
+// today: the last local date the page saw. viewed: the day on screen.
+let today = toDateKey();
+let viewed = today;
 
 function renderRow(task) {
   const row = els.rowTemplate.content.firstElementChild.cloneNode(true);
@@ -38,7 +45,7 @@ function renderRow(task) {
 }
 
 function updateSummary() {
-  const tasks = store.tasksFor(shownDate);
+  const tasks = store.tasksFor(viewed);
   const total = tasks.length;
   const done = tasks.filter((t) => t.done).length;
   show(els.empty, total === 0);
@@ -55,11 +62,49 @@ function updateSlip() {
   show(els.slip, !store.storageOk);
 }
 
-function renderAll(now) {
-  els.date.textContent = `Hôm nay, ${formatDate(now)}`;
-  els.list.replaceChildren(...store.tasksFor(shownDate).map(renderRow));
+// yesterday and tomorrow use the past and future wording
+const WORDING = {
+  today: { title: "Việc cần làm hôm nay", ask: "Bạn cần làm gì hôm nay?", empty: "Hôm nay chưa có việc nào. Hãy thêm việc đầu tiên nhé!" },
+  past: { title: "Việc cần làm", ask: "Bạn cần làm gì ngày này?", empty: "Ngày này chưa có việc nào được ghi lại." },
+  future: { title: "Việc cần làm", ask: "Bạn cần làm gì ngày này?", empty: "Ngày này chưa có việc nào. Hãy thêm việc để chuẩn bị nhé!" },
+};
+const KIND = { yesterday: "past", tomorrow: "future" };
+
+function renderWording() {
+  const kind = dayKind(viewed, today);
+  const w = WORDING[KIND[kind] ?? kind];
+  els.title.textContent = w.title;
+  document.title = w.title;
+  els.date.textContent = dateLine(viewed, today);
+  els.input.placeholder = w.ask;
+  els.addLabel.textContent = w.ask;
+  els.emptyText.textContent = w.empty;
+  // Rewriting an equal value would cut off a date the owner is typing in the picker.
+  if (els.picker.value !== viewed) els.picker.value = viewed;
+  if (viewed === today) els.toToday.setAttribute("aria-disabled", "true");
+  else els.toToday.removeAttribute("aria-disabled");
+}
+
+// Arriving on a day shows its stamp still; only the tick that finishes a day celebrates (R14).
+function renderDay() {
+  clearTimeout(celebrateTimer);
+  els.progress.classList.remove("progress--celebrate");
+  renderWording();
+  els.list.replaceChildren(...store.tasksFor(viewed).map(renderRow));
   updateSummary();
   updateSlip();
+  maybePeek();
+}
+
+// The address names the viewed day; a plain address means today. The hash only ever goes through parseDateKey.
+function readHash() {
+  const key = location.hash.slice(1);
+  return parseDateKey(key) ? key : null;
+}
+
+function writeAddress(key, push) {
+  const url = location.pathname + location.search + (key === today ? "" : `#${key}`);
+  history[push ? "pushState" : "replaceState"](null, "", url);
 }
 
 const ERRORS = {
@@ -92,7 +137,7 @@ els.form.addEventListener("submit", (e) => {
   e.preventDefault();
   const now = new Date();
   checkDay(now);
-  const result = store.add(els.input.value, now);
+  const result = store.add(els.input.value, now, viewed);
   if (result.error) {
     showFieldError(els.input, els.addError, result.error);
   } else {
@@ -285,19 +330,98 @@ const endPeek = (e) => { if (e.animationName === "peek") e.target.closest(".task
 els.list.addEventListener("animationend", endPeek);
 els.list.addEventListener("animationcancel", endPeek);
 
-// Day change (R25): a page left open past midnight moves to the new day when the
-// owner comes back or adds a task. Earlier days stay in the store untouched.
-function checkDay(now = new Date()) {
-  const today = toDateKey(now);
-  if (today === shownDate) return;
-  shownDate = today;
-  editing = null; // the unsaved edit goes with the old rows
+// Leaving the viewed day (R7): the unsaved edit and any open swipe go with the old rows,
+// the delete note closes with nothing deleted, the add error clears, typed add text stays.
+function resetTransient() {
+  editing = null;
   pendingDelete = null;
   els.dialog.close();
   openSwipe = null;
-  clearTimeout(celebrateTimer);
-  els.progress.classList.remove("progress--celebrate");
-  renderAll(now);
+  closeSwipes();
+  setAddError(null);
+}
+
+// Page turn (R8): only a move plays it, never a load or a midnight refresh. Keys are YYYY-MM-DD, so they compare as strings.
+const TURNS = ["turn--back", "turn--forward", "washi--restick"];
+function turnPage(from, to) {
+  if (reducedMotion.matches) return; // the CSS drops the animation, so animationend would never clear the class
+  els.sheetBody.classList.remove(...TURNS);
+  els.date.classList.remove(...TURNS);
+  void els.sheetBody.offsetWidth; // restart the animation on quick repeated moves
+  els.sheetBody.classList.add(to < from ? "turn--back" : "turn--forward");
+  els.date.classList.add("washi--restick");
+}
+// Row animations bubble up to the sheet body; only its own turn ends here.
+const endTurn = (e) => { if (e.target === e.currentTarget) e.target.classList.remove(...TURNS); };
+for (const el of [els.sheetBody, els.date]) {
+  el.addEventListener("animationend", endTurn);
+  el.addEventListener("animationcancel", endTurn);
+}
+
+// One move is one history entry (R22, R25). Focus is left on the control used (R8).
+function go(key) {
+  if (!key || key === viewed) { if (els.picker.value !== viewed) els.picker.value = viewed; return; }
+  resetTransient();
+  writeAddress(key, true);
+  turnPage(viewed, key);
+  viewed = key;
+  renderDay();
+}
+
+// Back, Forward or an edited hash on a loaded page (R24). popstate and hashchange both
+// arrive for a hash entry; the second call finds nothing to do.
+function syncFromAddress() {
+  checkDay();
+  const key = readHash() ?? today;
+  if (key === today && location.href.includes("#")) writeAddress(today, false);
+  if (key === viewed) return;
+  resetTransient();
+  turnPage(viewed, key);
+  viewed = key;
+  renderDay();
+}
+
+// Targets come from the day on screen, before the midnight check.
+for (const [id, n] of [["prev-day", -1], ["next-day", 1]]) {
+  $(id).addEventListener("click", () => { const key = addDays(viewed, n); checkDay(); go(key); });
+}
+// checkDay first: after a silent midnight the muted tab still means "show the new today".
+els.toToday.addEventListener("click", () => {
+  checkDay();
+  if (els.toToday.getAttribute("aria-disabled") === "true") return;
+  go(today);
+});
+// Picker (R3, R9): Chromium reports partial years such as 0202-11-08 while the owner types,
+// so a bad value is ignored while the field has focus and put back to the viewed day on blur.
+els.picker.addEventListener("change", () => {
+  const key = els.picker.value;
+  if (!parseDateKey(key)) {
+    if (document.activeElement !== els.picker) els.picker.value = viewed;
+    return;
+  }
+  checkDay();
+  go(key);
+});
+els.picker.addEventListener("blur", () => { if (els.picker.value !== viewed) els.picker.value = viewed; });
+window.addEventListener("popstate", syncFromAddress);
+window.addEventListener("hashchange", syncFromAddress);
+
+// Day change (R25): a page left open past midnight moves to the new day when the
+// owner comes back or adds a task. Earlier days stay in the store untouched.
+function checkDay(now = new Date()) {
+  const key = toDateKey(now);
+  if (key === today) return;
+  const wasToday = viewed === today;
+  today = key;
+  if (!wasToday) {
+    // Another day stays on screen with its rows; only the wording against the new today changes.
+    renderWording();
+    if (viewed === today) writeAddress(today, false);
+    return;
+  }
+  resetTransient();
+  viewed = today;
+  renderDay();
   // Focus that sat on an old row or the note is gone; start the fresh page at the add field.
   if (!document.activeElement || document.activeElement === document.body) els.input.focus();
 }
@@ -305,7 +429,13 @@ function checkDay(now = new Date()) {
 document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") checkDay(); });
 window.addEventListener("focus", () => checkDay());
 
+viewed = readHash() ?? today;
+// A hash that is bad, out of range or today (even a bare "#") becomes the plain address, with no history entry.
+if (viewed === today && location.href.includes("#")) writeAddress(today, false);
 setAddError(null);
-renderAll(startedAt);
+// BUG-001: the markup starts muted; settle the real Về hôm nay look before any transition can run.
+els.toToday.style.transition = "none";
+renderDay();
+void els.toToday.offsetWidth;
+els.toToday.style.transition = "";
 els.input.focus();
-maybePeek();

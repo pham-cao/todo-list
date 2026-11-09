@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Việc cần làm hôm nay</title>
+  <link rel="stylesheet" href="../../../../design-system.css">
+  <style>
+    /* Prototype only: the note strip and labelled variants are not part of the product. */
+    .proto { max-width: var(--sheet-max); margin: 0 auto var(--space-3); padding: 0 var(--space-2); font-size: var(--fs-tiny); color: var(--text-muted); text-align: center; line-height: 1.5; }
+    .proto a { font-weight: var(--fw-semibold); }
+    .proto-variant { max-width: var(--sheet-max); margin: var(--space-10) auto 0; }
+    .proto-variant > h2 { font-size: var(--fs-tiny); font-weight: var(--fw-semibold); color: var(--text-muted); margin: 0 0 var(--space-3); text-align: center; }
+    .proto-variant .sheet { min-height: 0; }
+
+    /* Prototype only: a stand in for the browser's native calendar, which Playwright cannot capture. */
+    .day-nav { position: relative; }
+    .date-stamp { outline: 2px solid var(--color-pen); outline-offset: 3px; }
+    @media (min-width: 601px) { /* desktop with a mouse: the focused stamp widens; touch phones keep the small stamp */
+      .date-stamp input { width: auto; padding: 0 var(--space-3) 0 36px; color: var(--color-pen); }
+      .date-stamp input::-webkit-datetime-edit { opacity: 1; } }
+    .proto-cal { position: absolute; z-index: 5; top: calc(100% + 6px); left: 92px; width: 252px; padding: 10px;
+      background: Canvas; color: CanvasText; border: 1px solid GrayText; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,.25);
+      font: 13px/1 system-ui, sans-serif; }
+    .proto-cal__head { display: flex; justify-content: space-between; padding: 4px 4px 10px; font-weight: 600; }
+    .proto-cal__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; }
+    .proto-cal__grid b { font-weight: 500; padding: 6px 0; opacity: .7; }
+    .proto-cal__grid a, .proto-cal__grid span { display: grid; place-items: center; height: 30px; border-radius: 4px; color: inherit; text-decoration: none; }
+    .proto-cal__grid a { font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+    .proto-cal__grid .sel { background: #1F3A68; color: #fff; text-decoration: none; }
+    @media (max-width: 600px) { .proto-cal { left: 0; right: 0; width: auto; } }
+  </style>
+</head>
+<body>
+  <div class="desk">
+  <p class="proto" lang="en">Prototype: <strong>Date picker open</strong>. The calendar is the browser's own and looks different in each browser; this drawing only stands in for it. It opens on the viewed day. On phones the browser shows its own sheet or wheel instead. Underlined days are clickable. <a href="../index.html">All screens</a></p>
+  <main class="sheet">
+    <header class="app-header">
+      <div class="app-header__top">
+        <h1 class="app-header__title">Việc cần làm hôm nay</h1>
+      </div>
+      <nav class="app-header__nav day-nav">
+        <div class="day-nav__step">
+          <a class="icon-btn day-nav__turn" href="yesterday.html" aria-label="Xem ngày trước"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></a>
+          <a class="icon-btn day-nav__turn" href="tomorrow.html" aria-label="Xem ngày sau"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></a>
+        </div>
+        <span class="date-stamp" data-tip="Chọn ngày"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M8 3v4M16 3v4M3.5 10h17"/><path d="M8 14h2M14 14h2M8 17h2"/></svg><input type="date" aria-label="Chọn ngày" value="2026-11-09" min="2000-01-01" max="2099-12-31"></span>
+          <div class="proto-cal" aria-hidden="true">
+            <div class="proto-cal__head"><span>tháng 11 năm 2026</span><span class="proto-cal__arrows">&#8249;&nbsp;&nbsp;&#8250;</span></div>
+            <div class="proto-cal__grid"><b>T2</b><b>T3</b><b>T4</b><b>T5</b><b>T6</b><b>T7</b><b>CN</b><span></span><span></span><span></span><span></span><span></span><span></span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><a href="past-empty.html">7</a><a href="yesterday.html">8</a><a href="today.html" class="sel">9</a><a href="tomorrow.html">10</a><a href="future-empty.html">11</a><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span></div>
+          </div>
+        <button class="today-tab" type="button" aria-disabled="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg>Về hôm nay</button>
+      </nav>
+      <p class="app-header__date washi" aria-live="polite">Hôm nay, Thứ Hai, 09/11/2026</p>
+      <div class="app-header__mark progress" style="--p: 29" aria-hidden="true"><svg viewBox="0 0 36 36"><circle class="progress__track" cx="18" cy="18" r="15"/><circle class="progress__ink" cx="18" cy="18" r="15" pathLength="100"/></svg><span class="progress__stamp" aria-hidden="true"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-dasharray="58 3 30 2 70"/><circle cx="30" cy="30" r="21.5" fill="none" stroke="currentColor" stroke-width="1"/><path d="M30 13.5l4.6 10 10.9 1.1-8.2 7.3 2.4 10.7L30 37.1l-9.7 5.5 2.4-10.7-8.2-7.3 10.9-1.1z" fill="currentColor"/></svg></span></div>
+      <p class="app-header__summary" role="status">Đã hoàn thành <strong>2/7</strong> việc</p>
+    </header>
+    <div class="sheet__body">
+      <form class="add-form" action="../../../daily-task-log/ux/screens/today--add-error.html">
+        <label class="visually-hidden" for="new-task">Bạn cần làm gì hôm nay?</label>
+        <span class="add-form__pen" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.38 3.62a1 1 0 0 1 3 3L7.37 18.64a2 2 0 0 1-.86.5l-2.87.84a.5.5 0 0 1-.62-.62l.84-2.87a2 2 0 0 1 .5-.86z"/></svg></span>
+        <div class="add-form__line">
+          <input class="add-form__input" id="new-task" name="text" type="text" placeholder="Bạn cần làm gì hôm nay?" autocomplete="off">
+          <button class="btn btn--primary" type="submit">Thêm</button>
+        </div>
+      </form>
+      <ul class="task-list">
+        <li class="task">
+          <label class="check"><input type="checkbox" aria-label="Đánh dấu hoàn thành" aria-describedby="t-0-text" checked><span class="check__box" aria-hidden="true"><svg viewBox="0 0 28 28"><path pathLength="100" d="M5 15.5c2.2 1.6 3.9 3.6 5.2 6.2C13.4 13.6 18 7.4 25 2.5"/></svg></span></label>
+          <div class="task__swipe">
+            <span class="task__text" id="t-0-text"><span class="task__label">Gửi báo cáo tuần cho chị Lan trước 10 giờ</span></span>
+            <span class="task__actions">
+              <a class="icon-btn" href="../../../daily-task-log/ux/screens/today--edit.html" aria-label="Sửa" aria-describedby="t-0-text"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.17 6.81a1 1 0 0 0-3.99-3.99L3.84 16.17a2 2 0 0 0-.5.83l-1.32 4.35a.5.5 0 0 0 .62.62l4.35-1.32a2 2 0 0 0 .83-.5z"/><path d="m15 5 4 4"/></svg><span class="icon-btn__label" aria-hidden="true">Sửa</span></a>
+              <a class="icon-btn icon-btn--danger" href="../../../daily-task-log/ux/screens/today--delete.html" aria-label="Xóa" aria-describedby="t-0-text"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><path d="M10 11v6M14 11v6"/></svg><span class="icon-btn__label" aria-hidden="true">Xóa</span></a>
+            </span>
+          </div>
+        </li>
+        <li class="task">
+          <label class="check"><input type="checkbox" aria-label="Đánh dấu hoàn thành" aria-describedby="t-1-text" checked><span class="check__box" aria-hidden="true"><svg viewBox="0 0 28 28"><path pathLength="100" d="M5 15.5c2.2 1.6 3.9 3.6 5.2 6.2C13.4 13.6 18 7.4 25 2.5"/></svg></span></label>
+          <div class="task__swipe">
+            <span class="task__text" id="t-1-text"><span class="task__label">Đi chợ mua rau muống, trứng và sữa tươi</span></span>
+            <span class="task__actions">
+              <a class="icon-btn" href="../../../daily-task-log/ux/screens/today--edit.html" aria-label="Sửa" aria-describedby="t-1-text"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.17 6.81a1 1 0 0 0-3.99-3.99L3.84 16.17a2 2 0 0 0-.5.83l-1.32 4.35a.5.5 0 0 0 .62.62l4.35-1.32a2 2 0 0 0 .83-.5z"/><path d="m15 5 4 4"/></svg><span class="icon-btn__label" aria-hidden="true">Sửa</span></a>
+              <a class="icon-btn icon-btn--danger" href="../../../daily-task-log/ux/screens/today--delete.html" aria-label="Xóa" aria-describedby="t-1-text"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><path d="M10 11v6M14 11v6"/></svg><span class="icon-btn__label" aria-hidden="true">Xóa</span></a>
+            </span>
+          </div>
+        </li>
+        <li class="task">
+          <label class="check"><input type="checkbox" aria-label="Đánh dấu hoàn thành" aria-describedby="t-2-text"><span class="check__box" aria-hidden="true"><svg viewBox="0 0 28 28"><path pathLength="100" d="M5 15.5c2.2 1.6 3.9 3.6 5.2 6.2C13.4 13.6 18 7.4 25 2.5"/></svg></span></label>
+          <div class="task__swipe">
+            <span class="task__text" id="t-2-text"><span class="task__label">Gọi điện đặt lịch khám răng cho bé Na</span></span>
+            <span class="task__actions">
+              <a class="icon-btn" href="../../../daily-task-log/ux/screens/today--edit.html" aria-label="Sửa" aria-describedby="t-2-text"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.17 6.81a1 1 0 0 0-3.99-3.99L3.84 16.17a2 2 0 0 0-.5.83l-1.32 4.35a.5.5 0 0 0 .62.62l4.35-1.32a2 2 0 0 0 .83-.5z"/><path d="m15 5 4 4"/></svg><span class="icon-btn__label" aria-hidden="true">Sửa</span></a>
+              <a class="icon-btn icon-btn--danger" href="../../../daily-task-log/ux/screens/today--delete.html" aria-label="Xóa" aria-describedby="t-2-text"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><path d="M10 11v6M14 11v6"/></svg><span class="icon-btn__label" aria-hidden="true">Xóa</span></a>
+            </span>
+          </div>
+        </li>
+        <li class="task">
+          <label class="check"><input type="checkbox" aria-label="Đánh dấu hoàn thành" aria-describedby="t-3-text"><span class="check__box" aria-hidden="true"><svg viewBox="0 0 28 28"><path pathLength="100" d="M5 15.5c2.2 1.6 3.9 3.6 5.2 6.2C13.4 13.6 18 7.4 25 2.5"/></svg></span></label>
+          <div class="task__swipe">
+            <span class="task__text" id="t-3-text"><span class="task__label">Chuyển khoản tiền điện tháng 11</span></span>
+            <span class="task__actions">
+              <a class="icon-btn" href="../../../daily-task-log/ux/screens/today--edit.html" aria-label="Sửa" aria-describedby="t-3-text"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.17 6.81a1 1 0 0 0-3.99-3.99L3.84 16.17a2 2 0 0 0-.5.83l-1.32 4.35a.5.5 0 0 0 .62.62l4.35-1.32a2 2 0 0 0 .83-.5z"/><path d="m15 5 4 4"/></svg><span class="icon-btn__label" aria-hidden="true">Sửa</span></a>
+              <a class="icon-btn icon-btn--danger" href="../../../daily-task-log/ux/screens/today--delete.html" aria-label="Xóa" aria-describedby="t-3-text"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><path d="M10 11v6M14 11v6"/></svg><span class="icon-btn__label" aria-hidden="true">Xóa</span></a>
+            </span>
+          </div>
+        </li>
+        <li class="task">
+          <label class="check"><input type="checkbox" aria-label="Đánh dấu hoàn thành" aria-describedby="t-4-text"><span class="check__box" aria-hidden="true"><svg viewBox="0 0 28 28"><path pathLength="100" d="M5 15.5c2.2 1.6 3.9 3.6 5.2 6.2C13.4 13.6 18 7.4 25 2.5"/></svg></span></label>
+          <div class="task__swipe">
+            <span class="task__text" id="t-4-text"><span class="task__label">Chuẩn bị slide cho buổi họp dự án sáng thứ Tư: tổng hợp số liệu tháng 10, cập nhật tiến độ và danh sách rủi ro</span></span>
+            <span class="task__actions">
+              <a class="icon-btn" href="../../../daily-task-log/ux/screens/today--edit.html" aria-label="Sửa" aria-describedby="t-4-text"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.17 6.81a1 1 0 0 0-3.99-3.99L3.84 16.17a2 2 0 0 0-.5.83l-1.32 4.35a.5.5 0 0 0 .62.62l4.35-1.32a2 2 0 0 0 .83-.5z"/><path d="m15 5 4 4"/></svg><span class="icon-btn__label" aria-hidden="true">Sửa</span></a>
+              <a class="icon-btn icon-btn--danger" href="../../../daily-task-log/ux/screens/today--delete.html" aria-label="Xóa" aria-describedby="t-4-text"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><path d="M10 11v6M14 11v6"/></svg><span class="icon-btn__label" aria-hidden="true">Xóa</span></a>
+            </span>
+          </div>
+        </li>
+        <li class="task">
+          <label class="check"><input type="checkbox" aria-label="Đánh dấu hoàn thành" aria-describedby="t-5-text"><span class="check__box" aria-hidden="true"><svg viewBox="0 0 28 28"><path pathLength="100" d="M5 15.5c2.2 1.6 3.9 3.6 5.2 6.2C13.4 13.6 18 7.4 25 2.5"/></svg></span></label>
+          <div class="task__swipe">
+            <span class="task__text" id="t-5-text"><span class="task__label">Đọc 20 trang sách &quot;Nhà giả kim&quot; trước khi ngủ</span></span>
+            <span class="task__actions">
+              <a class="icon-btn" href="../../../daily-task-log/ux/screens/today--edit.html" aria-label="Sửa" aria-describedby="t-5-text"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.17 6.81a1 1 0 0 0-3.99-3.99L3.84 16.17a2 2 0 0 0-.5.83l-1.32 4.35a.5.5 0 0 0 .62.62l4.35-1.32a2 2 0 0 0 .83-.5z"/><path d="m15 5 4 4"/></svg><span class="icon-btn__label" aria-hidden="true">Sửa</span></a>
+              <a class="icon-btn icon-btn--danger" href="../../../daily-task-log/ux/screens/today--delete.html" aria-label="Xóa" aria-describedby="t-5-text"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><path d="M10 11v6M14 11v6"/></svg><span class="icon-btn__label" aria-hidden="true">Xóa</span></a>
+            </span>
+          </div>
+        </li>
+        <li class="task">
+          <label class="check"><input type="checkbox" aria-label="Đánh dấu hoàn thành" aria-describedby="t-6-text"><span class="check__box" aria-hidden="true"><svg viewBox="0 0 28 28"><path pathLength="100" d="M5 15.5c2.2 1.6 3.9 3.6 5.2 6.2C13.4 13.6 18 7.4 25 2.5"/></svg></span></label>
+          <div class="task__swipe">
+            <span class="task__text" id="t-6-text"><span class="task__label">Tập yoga 30 phút lúc 6 giờ chiều</span></span>
+            <span class="task__actions">
+              <a class="icon-btn" href="../../../daily-task-log/ux/screens/today--edit.html" aria-label="Sửa" aria-describedby="t-6-text"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.17 6.81a1 1 0 0 0-3.99-3.99L3.84 16.17a2 2 0 0 0-.5.83l-1.32 4.35a.5.5 0 0 0 .62.62l4.35-1.32a2 2 0 0 0 .83-.5z"/><path d="m15 5 4 4"/></svg><span class="icon-btn__label" aria-hidden="true">Sửa</span></a>
+              <a class="icon-btn icon-btn--danger" href="../../../daily-task-log/ux/screens/today--delete.html" aria-label="Xóa" aria-describedby="t-6-text"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><path d="M10 11v6M14 11v6"/></svg><span class="icon-btn__label" aria-hidden="true">Xóa</span></a>
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </main>
+
+  </div>
+</body>
+</html>

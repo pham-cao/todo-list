@@ -1,0 +1,1 @@
+e2e: 'loading a day plays no page turn' and midnight case in 'after midnight on an all done day nothing celebrates again and no page turn plays' pass desktop and mobile, 2 repeats. See ../T7-all/runner-output.txt
