@@ -27,6 +27,7 @@
       <p class="app-header__date washi" id="date-line" aria-live="polite"></p>
       <div class="app-header__mark progress" id="progress" aria-hidden="true" hidden><svg viewBox="0 0 36 36"><circle class="progress__track" cx="18" cy="18" r="15"/><circle class="progress__ink" cx="18" cy="18" r="15" pathLength="100"/></svg><span class="progress__stamp" aria-hidden="true"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-dasharray="58 3 30 2 70"/><circle cx="30" cy="30" r="21.5" fill="none" stroke="currentColor" stroke-width="1"/><path d="M30 13.5l4.6 10 10.9 1.1-8.2 7.3 2.4 10.7L30 37.1l-9.7 5.5 2.4-10.7-8.2-7.3 10.9-1.1z" fill="currentColor"/></svg></span></div>
       <p class="app-header__summary" id="summary" role="status" hidden>Đã hoàn thành <strong id="summary-count"></strong> việc</p>
+      <p class="visually-hidden" id="sr-status" aria-live="polite"></p>
       <div class="alert alert--warning" id="storage-slip" role="alert" hidden><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg><p>Không thể lưu dữ liệu trên trình duyệt này. Công việc có thể bị mất khi bạn tải lại trang.</p></div>
     </header>
     <div class="sheet__body">
@@ -109,6 +110,10 @@
       <input class="input" type="text" autocomplete="off">
       <p class="field-error" role="alert" hidden><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg><span class="field-error__text"></span></p>
       <div class="task__edit-actions">
+        <span class="task__edit-group">
+          <label class="field-label">Nhóm</label>
+          <span class="select"><span class="swatch" data-color="none" aria-hidden="true"></span><select></select><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+        </span>
         <button class="btn btn--ghost" type="button" data-action="cancel">Hủy</button>
         <button class="btn btn--primary" type="submit">Lưu</button>
       </div>

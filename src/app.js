@@ -26,6 +26,7 @@ const els = {
   groupTemplate: $("group-template"),
   editTemplate: $("edit-template"),
   sheetBody: document.querySelector(".sheet__body"),
+  srStatus: $("sr-status"),
   dialog: $("delete-dialog"),
   quote: $("del-task"),
 };
@@ -250,6 +251,10 @@ els.form.addEventListener("submit", (e) => {
 let celebrateTimer;
 
 els.list.addEventListener("change", (e) => {
+  if (e.target.matches(".task__edit select")) {
+    e.target.closest(".select").querySelector(".swatch").dataset.color = colorOf(e.target.value);
+    return;
+  }
   const row = e.target.closest(".task");
   if (!row || !e.target.matches(".check input")) return;
   store.setDone(row.dataset.id, e.target.checked);
@@ -268,18 +273,17 @@ els.input.addEventListener("input", () => {
   if (!els.addError.hidden) setAddError(null);
 });
 
-// Add choice: Chưa phân nhóm, every group in creation order, then Nhóm mới... (R14).
 // Group names only ever reach the page as option text (R65).
+const option = (value, text) => Object.assign(document.createElement("option"), { value, textContent: text });
+const groupOptions = () => [option(UNGROUPED, UNGROUPED_NAME), ...groups.list().map((g) => option(g.id, g.name))];
+const colorOf = (key) => groups.get(key)?.color ?? "none";
+
+// Add choice: Chưa phân nhóm, every group in creation order, then Nhóm mới... (R14).
 function renderChoices() {
   if (!groups.get(addGroup)) addGroup = UNGROUPED;
-  const option = (value, text) => Object.assign(document.createElement("option"), { value, textContent: text });
-  els.addGroup.replaceChildren(
-    option(UNGROUPED, UNGROUPED_NAME),
-    ...groups.list().map((g) => option(g.id, g.name)),
-    option("new", "Nhóm mới..."),
-  );
+  els.addGroup.replaceChildren(...groupOptions(), option("new", "Nhóm mới..."));
   els.addGroup.value = newLine ? "new" : addGroup;
-  els.addSwatch.dataset.color = groups.get(addGroup)?.color ?? "none";
+  els.addSwatch.dataset.color = colorOf(addGroup);
   els.addSwatch.hidden = !!newLine;
 }
 
@@ -381,6 +385,14 @@ function openEdit(row) {
   form.querySelector("label").htmlFor = field.id;
   form.querySelector(".field-error").id = `edit-${id}-error`;
   field.value = row.querySelector(".task__label").textContent;
+  // The task's current section is preselected and remembered, so an unchanged choice never rewrites groupId (R23, R58).
+  const select = form.querySelector("select");
+  const task = store.tasksFor(viewed).find((t) => t.id === id);
+  select.id = `edit-${id}-group`;
+  form.querySelector(".task__edit-group label").htmlFor = select.id;
+  select.replaceChildren(...groupOptions());
+  select.value = select.dataset.from = task ? keyOf(task) : UNGROUPED;
+  form.querySelector(".swatch").dataset.color = colorOf(select.value);
   show(row.querySelector(".task__swipe"), false);
   row.classList.add("task--editing");
   row.append(form);
@@ -407,7 +419,10 @@ els.list.addEventListener("submit", (e) => {
   e.preventDefault();
   const row = e.target.closest(".task");
   const field = e.target.querySelector(".input");
-  const result = store.updateText(row.dataset.id, field.value);
+  const select = e.target.querySelector("select");
+  const moved = select.value !== select.dataset.from;
+  // Text and group are saved together; invalid text changes neither (R24, R26). A group removed meanwhile saves ungrouped.
+  const result = store.updateText(row.dataset.id, field.value, moved ? (groups.get(select.value) ? select.value : null) : undefined);
   updateSlip();
   if (result.error && result.error !== "notFound") {
     showFieldError(field, e.target.querySelector(".field-error"), result.error);
@@ -415,11 +430,37 @@ els.list.addEventListener("submit", (e) => {
     return;
   }
   if (result.task) row.querySelector(".task__label").textContent = result.task.text;
-  closeEdit(true);
+  if (!moved || !result.task) return closeEdit(true);
+  closeEdit(false);
+  moveRow(row, keyOf(result.task));
 });
 
+// A moved row lands by creation time in its new section (renderList keeps that order), which opens if folded,
+// washes once in the new colour, keeps focus on Sửa and has its section name announced (R24, R28, R32).
+function moveRow(row, key) {
+  if (groups.isCollapsed(key)) groups.setCollapsed(key, false);
+  renderList();
+  updateSlip();
+  row.classList.remove("task--moved");
+  void row.offsetWidth; // a second move in a row replays the wash
+  row.classList.add("task--moved");
+  // On a phone the line stays closed, as in the approved screen; only the row is scrolled into view.
+  row.querySelector('[data-action="edit"]').focus({ preventScroll: true });
+  row.scrollIntoView({ block: "nearest" });
+  // Cleared first and written a frame later, so a second move to the same group is announced again.
+  const message = `Đã chuyển việc sang nhóm "${groups.get(key)?.name ?? UNGROUPED_NAME}".`;
+  els.srStatus.textContent = "";
+  requestAnimationFrame(() => { els.srStatus.textContent = message; });
+}
+
 els.list.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && e.target.closest(".task__edit")) closeEdit(true);
+  // isComposing or keyCode 229: a key that ends an IME composition (Safari reports only 229).
+  if (!e.target.closest(".task__edit")) return;
+  if (e.isComposing || e.keyCode === 229) {
+    if (e.key === "Enter" && !e.isComposing) e.preventDefault(); // Safari: no implicit submit on the commit Enter
+    return;
+  }
+  if (e.key === "Escape") closeEdit(true);
 });
 
 els.list.addEventListener("input", (e) => {

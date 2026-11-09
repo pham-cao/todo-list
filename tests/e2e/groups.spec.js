@@ -789,3 +789,329 @@ test('a session whose groups could not be saved keeps its memory groups when ano
   expect(await chosenText(page)).toBe('Công ty');
   await expect(page.locator('#storage-slip')).toBeVisible();
 });
+
+// T6: move a task through the edit form (R23 to R28, R32, R64)
+const rowOf = (page, text) => rows(page).filter({ has: page.locator('.task__label').getByText(text, { exact: true }) });
+const editOf = (page, text) => rowOf(page, text).getByRole('button', { name: 'Sửa' });
+const editField = (page) => page.locator('.task__edit .input');
+const editChoice = (page) => page.locator('.task__edit').getByRole('combobox', { name: 'Nhóm', exact: true });
+const editSwatch = (page) => page.locator('.task__edit .swatch');
+const srStatus = (page) => page.locator('#sr-status');
+const byId = async (page, id) => (await storedJson(page, KEY)).find((t) => t.id === id);
+
+test('Sửa shows the group choice with the current group selected, Chưa phân nhóm for ungrouped and unknown groups', async ({ page }) => {
+  const tasks = [...DAY, { ...task('x', 'Nhóm đã mất', false, TODAY, at(9, 0)), groupId: 'gone' }];
+  await open(page, tasks, '', { groups: GROUPS });
+  await editOf(page, 'Gửi báo cáo').click();
+  await expect(editChoice(page)).toHaveValue('cty');
+  expect(await editChoice(page).locator('option').allTextContents()).toEqual(['Chưa phân nhóm', 'Công ty', 'Nhà', 'Học tiếng Nhật']);
+  await expect(editSwatch(page)).toHaveAttribute('data-color', 'yellow');
+  await expect(editSwatch(page)).toHaveAttribute('aria-hidden', 'true');
+  await expect(rowOf(page, 'Gửi báo cáo').locator('.task__edit-group')).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Lưu', exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Hủy', exact: true })).toBeVisible();
+  await editChoice(page).selectOption({ label: 'Nhà' });
+  await expect(editSwatch(page)).toHaveAttribute('data-color', 'pink');
+  await editField(page).press('Escape');
+  for (const text of ['Đọc sách', 'Nhóm đã mất']) {
+    await editOf(page, text).click();
+    await expect(editChoice(page)).toHaveValue('none');
+    await expect(editSwatch(page)).toHaveAttribute('data-color', 'none');
+    await editField(page).press('Escape');
+  }
+});
+
+test('Lưu saves text and group together: the row lands by creation time, the folded section opens, focus on Sửa, name announced', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS, ui: { collapsed: ['cty'] } });
+  await editOf(page, 'Đọc sách').click(); // 08:20, between Gửi báo cáo 08:10 and Họp nhóm 08:40
+  await editField(page).fill('Đọc tài liệu');
+  await editChoice(page).selectOption({ label: 'Công ty' });
+  await page.getByRole('button', { name: 'Lưu', exact: true }).click();
+  await expect(sectionLabels(page, 'Công ty')).toHaveText(['Gửi báo cáo', 'Đọc tài liệu', 'Họp nhóm', 'Trả lời email']);
+  await expect(toggle(page, 'Công ty')).toHaveAttribute('aria-expanded', 'true');
+  expect((await storedJson(page, UI_KEY)).collapsed).toEqual([]);
+  await expect(names(page)).toHaveText(['Công ty', 'Nhà']); // Chưa phân nhóm is empty now
+  await expect(counts(page)).toHaveText(['1/4', '1/2']);
+  await expect(editOf(page, 'Đọc tài liệu')).toBeFocused();
+  await expect(rowOf(page, 'Đọc tài liệu')).toHaveClass(/task--moved/);
+  await expect(srStatus(page)).toHaveText('Đã chuyển việc sang nhóm "Công ty".');
+  await expect(srStatus(page)).toHaveAttribute('aria-live', 'polite');
+  expect(await byId(page, 'u1')).toEqual({ ...DAY[2], text: 'Đọc tài liệu', groupId: 'cty' });
+  await expect(rowOf(page, 'Đọc tài liệu')).not.toHaveClass(/task--moved/, { timeout: 4000 }); // the wash plays once
+
+  // Enter does the same, and a done task stays done on its day.
+  await editOf(page, 'Nấu cơm').click();
+  await editChoice(page).selectOption({ label: 'Học tiếng Nhật' });
+  await editField(page).press('Enter');
+  await expect(names(page)).toHaveText(['Công ty', 'Nhà', 'Học tiếng Nhật']);
+  await expect(rowOf(page, 'Nấu cơm').getByRole('checkbox')).toBeChecked();
+  await expect(editOf(page, 'Nấu cơm')).toBeFocused();
+  await expect(srStatus(page)).toHaveText('Đã chuyển việc sang nhóm "Học tiếng Nhật".');
+  expect(await byId(page, 'n2')).toEqual({ ...DAY[3], groupId: 'jp' });
+  await expect(summary(page)).toHaveText('Đã hoàn thành 2/6 việc');
+
+  await page.reload(); // the move is saved
+  await expect(sectionLabels(page, 'Công ty')).toHaveText(['Gửi báo cáo', 'Đọc tài liệu', 'Họp nhóm', 'Trả lời email']);
+  await expect(sectionLabels(page, 'Học tiếng Nhật')).toHaveText(['Nấu cơm']);
+});
+
+test('Hủy and Escape keep the old text and the old group', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  const before = await storedRaw(page);
+  await editOf(page, 'Tưới cây').click();
+  await editField(page).fill('Đổi');
+  await editChoice(page).selectOption({ label: 'Công ty' });
+  await page.getByRole('button', { name: 'Hủy', exact: true }).click();
+  await expect(editOf(page, 'Tưới cây')).toBeFocused();
+  await editOf(page, 'Tưới cây').click();
+  await expect(editChoice(page)).toHaveValue('nha');
+  await editChoice(page).selectOption({ label: 'Công ty' });
+  await editChoice(page).press('Escape');
+  await expect(editOf(page, 'Tưới cây')).toBeFocused();
+  await expect(sectionLabels(page, 'Nhà')).toHaveText(['Tưới cây', 'Nấu cơm']);
+  expect(await storedRaw(page)).toBe(before);
+});
+
+test('invalid text keeps the edit open and changes neither text nor group', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  const before = await storedRaw(page);
+  await editOf(page, 'Tưới cây').click();
+  await editChoice(page).selectOption({ label: 'Công ty' });
+  for (const text of ['   ', 'a'.repeat(201)]) {
+    await editField(page).fill(text);
+    await page.getByRole('button', { name: 'Lưu', exact: true }).click();
+    await expect(page.locator('.task__edit .field-error')).toBeVisible();
+    await expect(editField(page)).toBeFocused();
+    await expect(editChoice(page)).toHaveValue('cty');
+    expect(await storedRaw(page)).toBe(before);
+  }
+  await expect(sectionLabels(page, 'Nhà')).toHaveText(['Tưới cây', 'Nấu cơm']);
+  await expect(srStatus(page)).toHaveText('');
+});
+
+test('a move works on a past and a future day', async ({ page }) => {
+  const past = { ...task('p', 'Việc hôm trước', true, '2026-11-05', at(8, 0)), groupId: 'nha' };
+  const future = task('f', 'Việc tuần sau', false, '2026-11-12', at(8, 0));
+  await open(page, [past, future], '#2026-11-05', { groups: GROUPS });
+  await editOf(page, 'Việc hôm trước').click();
+  await editChoice(page).selectOption({ label: 'Công ty' });
+  await editField(page).press('Enter');
+  await expect(names(page)).toHaveText(['Công ty']);
+  expect(await byId(page, 'p')).toEqual({ ...past, groupId: 'cty' });
+  await page.goto('./#2026-11-12');
+  await editOf(page, 'Việc tuần sau').click();
+  await editChoice(page).selectOption({ label: 'Nhà' });
+  await editField(page).press('Enter');
+  await expect(names(page)).toHaveText(['Nhà']);
+  expect(await byId(page, 'f')).toEqual({ ...future, groupId: 'nha' });
+});
+
+test('plain list to sections and back: a move to Chưa phân nhóm removes groupId', async ({ page }) => {
+  const plain = [task('a', 'Một', false, TODAY, at(8, 0)), task('b', 'Hai', false, TODAY, at(8, 10)), task('c', 'Ba', false, TODAY, at(8, 20))];
+  await open(page, plain, '', { groups: GROUPS });
+  await expect(sections(page)).toHaveCount(0);
+  await editOf(page, 'Hai').click();
+  await editChoice(page).selectOption({ label: 'Công ty' });
+  await editField(page).press('Enter');
+  await expect(names(page)).toHaveText(['Công ty', 'Chưa phân nhóm']);
+  await expect(counts(page)).toHaveText(['0/1', '0/2']);
+  await expect(editOf(page, 'Hai')).toBeFocused();
+  await editOf(page, 'Hai').click();
+  await editChoice(page).selectOption({ label: 'Chưa phân nhóm' });
+  await editField(page).press('Enter');
+  await expect(sections(page)).toHaveCount(0);
+  await expect(labels(page)).toHaveText(['Một', 'Hai', 'Ba']);
+  await expect(editOf(page, 'Hai')).toBeFocused();
+  await expect(srStatus(page)).toHaveText('Đã chuyển việc sang nhóm "Chưa phân nhóm".');
+  expect(await storedRaw(page)).toBe(JSON.stringify(plain));
+});
+
+test('text only, group only and no change: an unchanged choice never rewrites the group', async ({ page }) => {
+  const tasks = [...DAY, { ...task('x', 'Nhóm đã mất', false, TODAY, at(9, 0)), groupId: 'gone' }];
+  await open(page, tasks, '', { groups: GROUPS });
+  await editOf(page, 'Nhóm đã mất').click();
+  await editField(page).fill('Nhóm cũ');
+  await editField(page).press('Enter');
+  expect(await byId(page, 'x')).toEqual({ ...tasks[6], text: 'Nhóm cũ' }); // unknown group kept (R58)
+  await expect(srStatus(page)).toHaveText('');
+  await editOf(page, 'Họp nhóm').click();
+  await editChoice(page).selectOption({ label: 'Nhà' });
+  await editField(page).press('Enter');
+  expect(await byId(page, 'c2')).toEqual({ ...DAY[4], groupId: 'nha' });
+  const before = await storedRaw(page);
+  await editOf(page, 'Họp nhóm').click();
+  await editField(page).press('Enter');
+  await expect(page.locator('.task__edit')).toHaveCount(0);
+  await expect(page.locator('.field-error:visible')).toHaveCount(0);
+  expect(await storedRaw(page)).toBe(before);
+});
+
+test('a group removed in another page while the edit is open: the task saves ungrouped', async ({ page, context }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await editOf(page, 'Đọc sách').click();
+  await editChoice(page).selectOption({ label: 'Học tiếng Nhật' });
+  const other = await context.newPage();
+  await other.goto('./');
+  await other.evaluate(([k, list]) => localStorage.setItem(k, JSON.stringify(list)), [GROUPS_KEY, GROUPS.slice(0, 2)]);
+  await other.close();
+  await page.waitForTimeout(100);
+  await editField(page).press('Enter');
+  expect(await byId(page, 'u1')).toEqual(DAY[2]);
+  await expect(sectionLabels(page, 'Chưa phân nhóm')).toHaveText(['Đọc sách']);
+});
+
+test('keyboard only: text, group choice, Hủy, Lưu; Enter saves and Escape cancels', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await editOf(page, 'Tưới cây').focus();
+  await page.keyboard.press('Enter');
+  await expect(editField(page)).toBeFocused();
+  await page.keyboard.press('Tab');
+  await expect(editChoice(page)).toBeFocused();
+  await page.keyboard.press('Tab');
+  await expect(page.getByRole('button', { name: 'Hủy', exact: true })).toBeFocused();
+  await page.keyboard.press('Tab');
+  await expect(page.getByRole('button', { name: 'Lưu', exact: true })).toBeFocused();
+  await page.keyboard.press('Shift+Tab');
+  await page.keyboard.press('Shift+Tab');
+  await page.keyboard.press('Escape');
+  await expect(editOf(page, 'Tưới cây')).toBeFocused();
+  await expect(page.locator('.task__edit')).toHaveCount(0);
+  await page.keyboard.press('Enter');
+  await editChoice(page).focus();
+  await page.keyboard.press('ArrowUp'); // Nhà -> Công ty
+  await expect(editChoice(page)).toHaveValue('cty');
+  await page.keyboard.press('Shift+Tab');
+  await page.keyboard.press('Enter');
+  await expect(sectionLabels(page, 'Công ty')).toHaveText(['Tưới cây', 'Gửi báo cáo', 'Họp nhóm', 'Trả lời email']);
+  await expect(editOf(page, 'Tưới cây')).toBeFocused();
+});
+
+test('an Enter or Escape that ends an IME composition (Safari keyCode 229) neither saves nor cancels the edit', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  const before = await storedRaw(page);
+  await editOf(page, 'Tưới cây').click();
+  await editChoice(page).selectOption({ label: 'Công ty' });
+  await editField(page).fill('Tưới cây cảnh');
+  await editField(page).evaluate((el) => {
+    for (const key of ['Enter', 'Escape']) el.dispatchEvent(new KeyboardEvent('keydown', { key, keyCode: 229, bubbles: true, cancelable: true }));
+    el.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', isComposing: true, bubbles: true, cancelable: true }));
+  });
+  await expect(editField(page)).toBeVisible();
+  await expect(editField(page)).toHaveValue('Tưới cây cảnh');
+  expect(await storedRaw(page)).toBe(before);
+  await editField(page).press('Enter');
+  await expect(sectionLabels(page, 'Công ty')).toHaveText(['Tưới cây cảnh', 'Gửi báo cáo', 'Họp nhóm', 'Trả lời email']);
+});
+
+test('on a phone the swipe and Sửa reach the edit form inside a section; the form fits 360 px', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'phone layout only');
+  await page.setViewportSize({ width: 360, height: 780 });
+  await open(page, DAY, '', { groups: GROUPS });
+  await page.evaluate((k) => localStorage.setItem(k, '1'), HINT);
+  const swipe = rowOf(page, 'Tưới cây').locator('.task__swipe');
+  await touchDrag(page, swipe, -200);
+  await expect.poll(() => swipe.evaluate((el) => el.scrollLeft)).toBeGreaterThan(100);
+  await editOf(page, 'Tưới cây').click();
+  await expect(editChoice(page)).toHaveValue('nha');
+  for (const el of [editChoice(page), page.getByRole('button', { name: 'Lưu', exact: true })]) {
+    const b = await el.boundingBox();
+    expect(b.x + b.width).toBeLessThanOrEqual(360);
+  }
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(360);
+  await editChoice(page).selectOption({ label: 'Công ty' });
+  await page.getByRole('button', { name: 'Lưu', exact: true }).click();
+  await expect(sectionLabels(page, 'Công ty').first()).toHaveText('Tưới cây');
+  await expect(editOf(page, 'Tưới cây')).toBeFocused();
+});
+
+test('200 tasks in 20 groups: a move stays under 100 ms', async ({ page }) => {
+  const gs = Array.from({ length: 20 }, (_, i) => group(`g${i}`, `Nhóm ${i + 1}`, 'yellow', i + 1));
+  const big = Array.from({ length: 200 }, (_, i) => ({ ...task(`t${i}`, `Việc số ${i + 1}`, false, TODAY, i + 1), groupId: `g${i % 20}` }));
+  await open(page, big, '', { groups: gs });
+  await editOf(page, 'Việc số 1').click();
+  await editChoice(page).selectOption({ label: 'Nhóm 7' });
+  const ms = await page.evaluate(() => {
+    const t0 = performance.now();
+    document.querySelector('.task__edit').requestSubmit();
+    void document.body.offsetHeight;
+    return performance.now() - t0;
+  });
+  expect(ms).toBeLessThan(100);
+  await expect(section(page, 'Nhóm 7').locator('.task__label').first()).toHaveText('Việc số 1');
+  await expect(rows(page)).toHaveCount(200);
+});
+
+// T6 QA additions: storage failure, equal creation times, phone focus, names and repeated announcements
+test('a failing write during a move: slip shown, the move still shows, focus on Sửa, name announced', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await editOf(page, 'Tưới cây').click();
+  await editChoice(page).selectOption({ label: 'Công ty' });
+  await page.evaluate((k) => {
+    const set = Storage.prototype.setItem;
+    Storage.prototype.setItem = function (key, v) { if (key === k) throw new DOMException('Full', 'QuotaExceededError'); return set.call(this, key, v); };
+  }, KEY);
+  await editField(page).press('Enter');
+  await expect(slip(page)).toBeVisible();
+  await expect(sectionLabels(page, 'Công ty').first()).toHaveText('Tưới cây');
+  await expect(editOf(page, 'Tưới cây')).toBeFocused();
+  await expect(srStatus(page)).toHaveText('Đã chuyển việc sang nhóm "Công ty".');
+  expect((await byId(page, 'n1')).groupId).toBe('nha'); // storage kept the old value
+});
+
+test('equal creation times in different groups keep a stable order after a move and a reload', async ({ page }) => {
+  const same = [{ ...task('a', 'Việc A', false, TODAY, at(8, 0)), groupId: 'cty' }, { ...task('b', 'Việc B', false, TODAY, at(8, 0)), groupId: 'nha' }];
+  await open(page, same, '', { groups: GROUPS });
+  await editOf(page, 'Việc B').click();
+  await editChoice(page).selectOption({ label: 'Công ty' });
+  await editField(page).press('Enter');
+  const order = await sectionLabels(page, 'Công ty').allTextContents();
+  expect(order.sort()).toEqual(['Việc A', 'Việc B']);
+  const first = await sectionLabels(page, 'Công ty').allTextContents();
+  await page.reload();
+  expect(await sectionLabels(page, 'Công ty').allTextContents()).toEqual(first);
+});
+
+for (const width of [390, 360]) {
+  test(`phone ${width}px: after a move focus is on Sửa and the swipe strip stays closed`, async ({ page, isMobile }) => {
+    test.skip(!isMobile, 'phone layout only');
+    await page.setViewportSize({ width, height: 780 });
+    await open(page, DAY, '', { groups: GROUPS });
+    await page.evaluate((k) => localStorage.setItem(k, '1'), HINT);
+    const swipe = () => rowOf(page, 'Tưới cây').locator('.task__swipe');
+    await touchDrag(page, swipe(), -200);
+    await editOf(page, 'Tưới cây').click();
+    await editChoice(page).selectOption({ label: 'Công ty' });
+    await page.getByRole('button', { name: 'Lưu', exact: true }).click();
+    await expect(editOf(page, 'Tưới cây')).toBeFocused();
+    expect(await swipe().evaluate((el) => el.scrollLeft)).toBe(0);
+    await page.waitForTimeout(400);
+    expect(await swipe().evaluate((el) => el.scrollLeft)).toBe(0);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+  });
+}
+
+test('while an edit is open both group selects are named Nhóm; the edit one keeps its visible text in its name', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await editOf(page, 'Tưới cây').click();
+  await expect(page.getByRole('combobox', { name: 'Nhóm' })).toHaveCount(2);
+  const label = await rowOf(page, 'Tưới cây').locator('.task__edit-group label').textContent();
+  expect(label.trim()).toBe('Nhóm');
+});
+
+test('two moves to the same group each rewrite the live region', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await page.evaluate(() => {
+    window.__mut = 0;
+    new MutationObserver((l) => { window.__mut += l.length; }).observe(document.getElementById('sr-status'), { childList: true, characterData: true, subtree: true });
+  });
+  for (const text of ['Tưới cây', 'Nấu cơm']) {
+    await editOf(page, text).click();
+    await editChoice(page).selectOption({ label: 'Học tiếng Nhật' });
+    await editField(page).press('Enter');
+    await expect(editOf(page, text)).toBeFocused();
+    // The message is written a frame after the region is cleared.
+    await expect(srStatus(page)).toHaveText('Đã chuyển việc sang nhóm "Học tiếng Nhật".');
+  }
+  // First move: one write. Second move: a clear, then the same text again.
+  expect(await page.evaluate(() => window.__mut)).toBeGreaterThanOrEqual(3);
+});
