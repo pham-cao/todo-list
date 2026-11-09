@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Việc cần làm hôm nay</title>
+  <link rel="stylesheet" href="../../../../design-system.css">
+  <style>
+    /* Prototype only: the note strip, labelled variants and static dialogs are not part of the product. */
+    .proto { max-width: var(--sheet-max); margin: 0 auto var(--space-3); padding: 0 var(--space-2); font-size: var(--fs-tiny); color: var(--text-muted); text-align: center; line-height: 1.5; }
+    .proto a { font-weight: var(--fw-semibold); }
+    .proto-variant { max-width: var(--sheet-max); margin: var(--space-10) auto 0; }
+    .proto-variant > h2 { font-size: var(--fs-tiny); font-weight: var(--fw-semibold); color: var(--text-muted); margin: 0 0 var(--space-3); text-align: center; }
+    .proto-variant .sheet { min-height: 0; }
+    .proto-variant .sheet__body { padding-bottom: var(--rule); }
+    .backdrop { position: fixed; inset: 0; display: grid; place-items: center; padding: var(--space-4) var(--space-2); z-index: 10; overflow-y: auto; }
+    .backdrop--stack { z-index: 20; }
+    .backdrop .dialog { position: static; margin: 0; }
+    .task--moved::before { animation: none; }
+    .task { content-visibility: visible; } /* full page captures: render rows below the fold */
+    [data-proto-focus] { outline: 2px solid var(--color-pen); outline-offset: 2px; }
+    .input[data-proto-focus] { outline: none; border-bottom-color: var(--color-pen); }
+    .task--moved [data-proto-focus] { opacity: 1; }
+    @media (hover: hover) and (pointer: fine) and (min-width: 601px) { .task--moved .task__actions { opacity: 1; } }
+  </style>
+</head>
+<body>
+  <div class="desk">
+  <p class="proto" lang="en">Prototype: <strong>Filter on Công ty</strong>. Only that section shows, always open and without a fold toggle (a funnel replaces the chevron). The add line follows the filter, so new tasks go to Công ty. The summary still counts the whole day (3/7). Variants below: a group with no task today, Chưa phân nhóm with nothing in it, and a task added to a group the filter hides. <a href="../index.html">All screens</a></p>
+  <main class="sheet">
+    <header class="app-header">
+      <div class="app-header__top"><h1 class="app-header__title">Việc cần làm hôm nay</h1></div>
+      <nav class="app-header__nav day-nav">
+        <div class="day-nav__step">
+          <a class="icon-btn day-nav__turn" href="../../../day-navigation/ux/screens/yesterday.html" aria-label="Xem ngày trước"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></a>
+          <a class="icon-btn day-nav__turn" href="../../../day-navigation/ux/screens/tomorrow.html" aria-label="Xem ngày sau"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></a>
+        </div>
+        <span class="date-stamp" data-tip="Chọn ngày"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M8 3v4M16 3v4M3.5 10h17"/><path d="M8 14h2M14 14h2M8 17h2"/></svg><input type="date" aria-label="Chọn ngày" value="2026-11-09" min="2000-01-01" max="2099-12-31"></span>
+        <button class="today-tab" type="button" aria-disabled="true">Về hôm nay</button>
+      </nav>
+      <p class="app-header__date washi" aria-live="polite">Hôm nay, Thứ Hai, 09/11/2026</p>
+      <div class="app-header__mark progress" style="--p: 43" aria-hidden="true"><svg viewBox="0 0 36 36"><circle class="progress__track" cx="18" cy="18" r="15"/><circle class="progress__ink" cx="18" cy="18" r="15" pathLength="100"/></svg><span class="progress__stamp" aria-hidden="true"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-dasharray="58 3 30 2 70"/><circle cx="30" cy="30" r="21.5" fill="none" stroke="currentColor" stroke-width="1"/><path d="M30 13.5l4.6 10 10.9 1.1-8.2 7.3 2.4 10.7L30 37.1l-9.7 5.5 2.4-10.7-8.2-7.3 10.9-1.1z" fill="currentColor"/></svg></span></div>
+      <p class="app-header__summary" role="status">Đã hoàn thành <strong>3/7</strong> việc</p>
+      
+    </header>
+    <div class="sheet__body">
+      <form class="add-form" action="sections.html">
+        <label class="visually-hidden" for="new-task">Bạn cần làm gì hôm nay?</label>
+        <span class="add-form__pen" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.38 3.62a1 1 0 0 1 3 3L7.37 18.64a2 2 0 0 1-.86.5l-2.87.84a.5.5 0 0 1-.62-.62l.84-2.87a2 2 0 0 1 .5-.86z"/></svg></span>
+        <div class="add-form__line">
+          <input class="add-form__input" id="new-task" name="text" type="text" placeholder="Bạn cần làm gì hôm nay?" autocomplete="off" value="">
+          <span class="add-form__group">
+            <label class="field-label" for="new-task-group">Nhóm</label>
+            <span class="select"><span class="swatch" data-color="yellow" aria-hidden="true"></span><select id="new-task-group"><option value="">Chưa phân nhóm</option><option value="cty" selected>Công ty</option><option value="nha">Nhà</option><option value="jp">Học tiếng Nhật</option><option value="sk">Sức khỏe</option><option value="new">Nhóm mới...</option></select><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </span>
+          <button class="btn btn--primary" type="submit">Thêm</button>
+        </div>
+      </form>
+      <div class="group-bar group-bar--filtered">
+        <span class="group-bar__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18l-7 8.5V19l-4 2v-8.5z"/></svg></span>
+        <div class="group-bar__line">
+          <label class="field-label group-bar__label" for="group-filter">Lọc theo nhóm</label>
+          <span class="select"><span class="swatch" data-color="yellow" aria-hidden="true"></span><select id="group-filter"><option value="all">Tất cả nhóm</option><option value="">Chưa phân nhóm</option><option value="cty" selected>Công ty</option><option value="nha">Nhà</option><option value="jp">Học tiếng Nhật</option><option value="sk">Sức khỏe</option></select><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          <a class="btn btn--ghost group-bar__manage" href="manage.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.17 3H5a2 2 0 0 0-2 2v8.17a2 2 0 0 0 .59 1.42l6.82 6.82a2 2 0 0 0 2.83 0l7.17-7.17a2 2 0 0 0 0-2.83l-6.82-6.82A2 2 0 0 0 13.17 3z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg>Quản lý nhóm</a>
+        </div>
+      </div>
+      <section class="group" data-color="yellow">
+      <h2 class="group__head"><span class="group__static" aria-label="Nhóm Công ty, đã hoàn thành 1/3 việc"><span class="group__chev"></span><span class="group__name">Công ty</span><span class="group__count">1/3</span></span></h2>
+      <ul class="task-list">
+        <li class="task">
+          <label class="check"><input type="checkbox" aria-label="Đánh dấu hoàn thành" aria-describedby="t-1-text" checked><span class="check__box" aria-hidden="true"><svg viewBox="0 0 28 28"><path pathLength="100" d="M5 15.5c2.2 1.6 3.9 3.6 5.2 6.2C13.4 13.6 18 7.4 25 2.5"/></svg></span></label>
+          <div class="task__swipe">
+            <span class="task__text" id="t-1-text"><span class="task__label">Gửi báo cáo doanh thu tháng 10 cho chị Lan</span></span>
+            <span class="task__actions">
+              <a class="icon-btn" href="edit-move.html" aria-label="Sửa" aria-describedby="t-1-text"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.17 6.81a1 1 0 0 0-3.99-3.99L3.84 16.17a2 2 0 0 0-.5.83l-1.32 4.35a.5.5 0 0 0 .62.62l4.35-1.32a2 2 0 0 0 .83-.5z"/><path d="m15 5 4 4"/></svg><span class="icon-btn__label" aria-hidden="true">Sửa</span></a>
+              <a class="icon-btn icon-btn--danger" href="../../../daily-task-log/ux/screens/today--delete.html" aria-label="Xóa" aria-describedby="t-1-text"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><path d="M10 11v6M14 11v6"/></svg><span class="icon-btn__label" aria-hidden="true">Xóa</span></a>
+            </span>
+          </div>
+        </li>
+        <li class="task">
+          <label class="check"><input type="checkbox" aria-label="Đánh dấu hoàn thành" aria-describedby="t-3-text"><span class="check__box" aria-hidden="true"><svg viewBox="0 0 28 28"><path pathLength="100" d="M5 15.5c2.2 1.6 3.9 3.6 5.2 6.2C13.4 13.6 18 7.4 25 2.5"/></svg></span></label>
+          <div class="task__swipe">
+            <span class="task__text" id="t-3-text"><span class="task__label">Họp với nhóm thiết kế lúc 14:00</span></span>
+            <span class="task__actions">
+              <a class="icon-btn" href="edit-move.html" aria-label="Sửa" aria-describedby="t-3-text"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.17 6.81a1 1 0 0 0-3.99-3.99L3.84 16.17a2 2 0 0 0-.5.83l-1.32 4.35a.5.5 0 0 0 .62.62l4.35-1.32a2 2 0 0 0 .83-.5z"/><path d="m15 5 4 4"/></svg><span class="icon-btn__label" aria-hidden="true">Sửa</span></a>
+              <a class="icon-btn icon-btn--danger" href="../../../daily-task-log/ux/screens/today--delete.html" aria-label="Xóa" aria-describedby="t-3-text"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><path d="M10 11v6M14 11v6"/></svg><span class="icon-btn__label" aria-hidden="true">Xóa</span></a>
+            </span>
+          </div>
+        </li>
+        <li class="task">
+          <label class="check"><input type="checkbox" aria-label="Đánh dấu hoàn thành" aria-describedby="t-7-text"><span class="check__box" aria-hidden="true"><svg viewBox="0 0 28 28"><path pathLength="100" d="M5 15.5c2.2 1.6 3.9 3.6 5.2 6.2C13.4 13.6 18 7.4 25 2.5"/></svg></span></label>
+          <div class="task__swipe">
+            <span class="task__text" id="t-7-text"><span class="task__label">Trả lời email của khách hàng Nhật Bản</span></span>
+            <span class="task__actions">
+              <a class="icon-btn" href="edit-move.html" aria-label="Sửa" aria-describedby="t-7-text"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.17 6.81a1 1 0 0 0-3.99-3.99L3.84 16.17a2 2 0 0 0-.5.83l-1.32 4.35a.5.5 0 0 0 .62.62l4.35-1.32a2 2 0 0 0 .83-.5z"/><path d="m15 5 4 4"/></svg><span class="icon-btn__label" aria-hidden="true">Sửa</span></a>
+              <a class="icon-btn icon-btn--danger" href="../../../daily-task-log/ux/screens/today--delete.html" aria-label="Xóa" aria-describedby="t-7-text"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><path d="M10 11v6M14 11v6"/></svg><span class="icon-btn__label" aria-hidden="true">Xóa</span></a>
+            </span>
+          </div>
+        </li>
+      </ul>
+    </section>
+    </div>
+  </main><section class="proto-variant" lang="vi"><h2 lang="en">Filter on Sức khỏe, which has no task on this day</h2><main class="sheet">
+    <header class="app-header">
+      <div class="app-header__top"><h1 class="app-header__title">Việc cần làm hôm nay</h1></div>
+      <nav class="app-header__nav day-nav">
+        <div class="day-nav__step">
+          <a class="icon-btn day-nav__turn" href="../../../day-navigation/ux/screens/yesterday.html" aria-label="Xem ngày trước"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></a>
+          <a class="icon-btn day-nav__turn" href="../../../day-navigation/ux/screens/tomorrow.html" aria-label="Xem ngày sau"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></a>
+        </div>
+        <span class="date-stamp" data-tip="Chọn ngày"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M8 3v4M16 3v4M3.5 10h17"/><path d="M8 14h2M14 14h2M8 17h2"/></svg><input type="date" aria-label="Chọn ngày" value="2026-11-09" min="2000-01-01" max="2099-12-31"></span>
+        <button class="today-tab" type="button" aria-disabled="true">Về hôm nay</button>
+      </nav>
+      <p class="app-header__date washi" aria-live="polite">Hôm nay, Thứ Hai, 09/11/2026</p>
+      <div class="app-header__mark progress" style="--p: 43" aria-hidden="true"><svg viewBox="0 0 36 36"><circle class="progress__track" cx="18" cy="18" r="15"/><circle class="progress__ink" cx="18" cy="18" r="15" pathLength="100"/></svg><span class="progress__stamp" aria-hidden="true"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-dasharray="58 3 30 2 70"/><circle cx="30" cy="30" r="21.5" fill="none" stroke="currentColor" stroke-width="1"/><path d="M30 13.5l4.6 10 10.9 1.1-8.2 7.3 2.4 10.7L30 37.1l-9.7 5.5 2.4-10.7-8.2-7.3 10.9-1.1z" fill="currentColor"/></svg></span></div>
+      <p class="app-header__summary" role="status">Đã hoàn thành <strong>3/7</strong> việc</p>
+      
+    </header>
+    <div class="sheet__body">
+      <form class="add-form" action="sections.html">
+        <label class="visually-hidden" for="new-task">Bạn cần làm gì hôm nay?</label>
+        <span class="add-form__pen" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.38 3.62a1 1 0 0 1 3 3L7.37 18.64a2 2 0 0 1-.86.5l-2.87.84a.5.5 0 0 1-.62-.62l.84-2.87a2 2 0 0 1 .5-.86z"/></svg></span>
+        <div class="add-form__line">
+          <input class="add-form__input" id="new-task" name="text" type="text" placeholder="Bạn cần làm gì hôm nay?" autocomplete="off" value="">
+          <span class="add-form__group">
+            <label class="field-label" for="new-task-group">Nhóm</label>
+            <span class="select"><span class="swatch" data-color="blue" aria-hidden="true"></span><select id="new-task-group"><option value="">Chưa phân nhóm</option><option value="cty">Công ty</option><option value="nha">Nhà</option><option value="jp">Học tiếng Nhật</option><option value="sk" selected>Sức khỏe</option><option value="new">Nhóm mới...</option></select><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </span>
+          <button class="btn btn--primary" type="submit">Thêm</button>
+        </div>
+      </form>
+      <div class="group-bar group-bar--filtered">
+        <span class="group-bar__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18l-7 8.5V19l-4 2v-8.5z"/></svg></span>
+        <div class="group-bar__line">
+          <label class="field-label group-bar__label" for="group-filter">Lọc theo nhóm</label>
+          <span class="select"><span class="swatch" data-color="blue" aria-hidden="true"></span><select id="group-filter"><option value="all">Tất cả nhóm</option><option value="">Chưa phân nhóm</option><option value="cty">Công ty</option><option value="nha">Nhà</option><option value="jp">Học tiếng Nhật</option><option value="sk" selected>Sức khỏe</option></select><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          <a class="btn btn--ghost group-bar__manage" href="manage.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.17 3H5a2 2 0 0 0-2 2v8.17a2 2 0 0 0 .59 1.42l6.82 6.82a2 2 0 0 0 2.83 0l7.17-7.17a2 2 0 0 0 0-2.83l-6.82-6.82A2 2 0 0 0 13.17 3z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg>Quản lý nhóm</a>
+        </div>
+      </div>
+      <div class="group-empty"><p>Ngày này chưa có việc nào trong nhóm "Sức khỏe".</p></div>
+    </div>
+  </main></section><section class="proto-variant" lang="vi"><h2 lang="en">Filter on Chưa phân nhóm, on a day where every task has a group</h2><main class="sheet">
+    <header class="app-header">
+      <div class="app-header__top"><h1 class="app-header__title">Việc cần làm hôm nay</h1></div>
+      <nav class="app-header__nav day-nav">
+        <div class="day-nav__step">
+          <a class="icon-btn day-nav__turn" href="../../../day-navigation/ux/screens/yesterday.html" aria-label="Xem ngày trước"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></a>
+          <a class="icon-btn day-nav__turn" href="../../../day-navigation/ux/screens/tomorrow.html" aria-label="Xem ngày sau"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></a>
+        </div>
+        <span class="date-stamp" data-tip="Chọn ngày"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M8 3v4M16 3v4M3.5 10h17"/><path d="M8 14h2M14 14h2M8 17h2"/></svg><input type="date" aria-label="Chọn ngày" value="2026-11-09" min="2000-01-01" max="2099-12-31"></span>
+        <button class="today-tab" type="button" aria-disabled="true">Về hôm nay</button>
+      </nav>
+      <p class="app-header__date washi" aria-live="polite">Hôm nay, Thứ Hai, 09/11/2026</p>
+      <div class="app-header__mark progress" style="--p: 50" aria-hidden="true"><svg viewBox="0 0 36 36"><circle class="progress__track" cx="18" cy="18" r="15"/><circle class="progress__ink" cx="18" cy="18" r="15" pathLength="100"/></svg><span class="progress__stamp" aria-hidden="true"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-dasharray="58 3 30 2 70"/><circle cx="30" cy="30" r="21.5" fill="none" stroke="currentColor" stroke-width="1"/><path d="M30 13.5l4.6 10 10.9 1.1-8.2 7.3 2.4 10.7L30 37.1l-9.7 5.5 2.4-10.7-8.2-7.3 10.9-1.1z" fill="currentColor"/></svg></span></div>
+      <p class="app-header__summary" role="status">Đã hoàn thành <strong>3/6</strong> việc</p>
+      
+    </header>
+    <div class="sheet__body">
+      <form class="add-form" action="sections.html">
+        <label class="visually-hidden" for="new-task">Bạn cần làm gì hôm nay?</label>
+        <span class="add-form__pen" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.38 3.62a1 1 0 0 1 3 3L7.37 18.64a2 2 0 0 1-.86.5l-2.87.84a.5.5 0 0 1-.62-.62l.84-2.87a2 2 0 0 1 .5-.86z"/></svg></span>
+        <div class="add-form__line">
+          <input class="add-form__input" id="new-task" name="text" type="text" placeholder="Bạn cần làm gì hôm nay?" autocomplete="off" value="">
+          <span class="add-form__group">
+            <label class="field-label" for="new-task-group">Nhóm</label>
+            <span class="select"><select id="new-task-group"><option value="" selected>Chưa phân nhóm</option><option value="cty">Công ty</option><option value="nha">Nhà</option><option value="jp">Học tiếng Nhật</option><option value="sk">Sức khỏe</option><option value="new">Nhóm mới...</option></select><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </span>
+          <button class="btn btn--primary" type="submit">Thêm</button>
+        </div>
+      </form>
+      <div class="group-bar group-bar--filtered">
+        <span class="group-bar__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18l-7 8.5V19l-4 2v-8.5z"/></svg></span>
+        <div class="group-bar__line">
+          <label class="field-label group-bar__label" for="group-filter">Lọc theo nhóm</label>
+          <span class="select"><select id="group-filter"><option value="all">Tất cả nhóm</option><option value="" selected>Chưa phân nhóm</option><option value="cty">Công ty</option><option value="nha">Nhà</option><option value="jp">Học tiếng Nhật</option><option value="sk">Sức khỏe</option></select><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          <a class="btn btn--ghost group-bar__manage" href="manage.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.17 3H5a2 2 0 0 0-2 2v8.17a2 2 0 0 0 .59 1.42l6.82 6.82a2 2 0 0 0 2.83 0l7.17-7.17a2 2 0 0 0 0-2.83l-6.82-6.82A2 2 0 0 0 13.17 3z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg>Quản lý nhóm</a>
+        </div>
+      </div>
+      <div class="group-empty"><p>Ngày này không có việc nào chưa phân nhóm.</p></div>
+    </div>
+  </main></section><section class="proto-variant" lang="vi"><h2 lang="en">Filter on Công ty, then a task was added with Nhóm set to Nhà: saved, filter kept, a polite notice in the header</h2><main class="sheet">
+    <header class="app-header">
+      <div class="app-header__top"><h1 class="app-header__title">Việc cần làm hôm nay</h1></div>
+      <nav class="app-header__nav day-nav">
+        <div class="day-nav__step">
+          <a class="icon-btn day-nav__turn" href="../../../day-navigation/ux/screens/yesterday.html" aria-label="Xem ngày trước"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></a>
+          <a class="icon-btn day-nav__turn" href="../../../day-navigation/ux/screens/tomorrow.html" aria-label="Xem ngày sau"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></a>
+        </div>
+        <span class="date-stamp" data-tip="Chọn ngày"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M8 3v4M16 3v4M3.5 10h17"/><path d="M8 14h2M14 14h2M8 17h2"/></svg><input type="date" aria-label="Chọn ngày" value="2026-11-09" min="2000-01-01" max="2099-12-31"></span>
+        <button class="today-tab" type="button" aria-disabled="true">Về hôm nay</button>
+      </nav>
+      <p class="app-header__date washi" aria-live="polite">Hôm nay, Thứ Hai, 09/11/2026</p>
+      <div class="app-header__mark progress" style="--p: 38" aria-hidden="true"><svg viewBox="0 0 36 36"><circle class="progress__track" cx="18" cy="18" r="15"/><circle class="progress__ink" cx="18" cy="18" r="15" pathLength="100"/></svg><span class="progress__stamp" aria-hidden="true"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-dasharray="58 3 30 2 70"/><circle cx="30" cy="30" r="21.5" fill="none" stroke="currentColor" stroke-width="1"/><path d="M30 13.5l4.6 10 10.9 1.1-8.2 7.3 2.4 10.7L30 37.1l-9.7 5.5 2.4-10.7-8.2-7.3 10.9-1.1z" fill="currentColor"/></svg></span></div>
+      <p class="app-header__summary" role="status">Đã hoàn thành <strong>3/8</strong> việc</p>
+      <div class="alert alert--info" role="status"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg><p>Đã thêm việc vào nhóm &quot;Nhà&quot;. Nhóm này đang được ẩn bởi bộ lọc.</p></div>
+    </header>
+    <div class="sheet__body">
+      <form class="add-form" action="sections.html">
+        <label class="visually-hidden" for="new-task">Bạn cần làm gì hôm nay?</label>
+        <span class="add-form__pen" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.38 3.62a1 1 0 0 1 3 3L7.37 18.64a2 2 0 0 1-.86.5l-2.87.84a.5.5 0 0 1-.62-.62l.84-2.87a2 2 0 0 1 .5-.86z"/></svg></span>
+        <div class="add-form__line">
+          <input class="add-form__input" id="new-task" name="text" type="text" placeholder="Bạn cần làm gì hôm nay?" autocomplete="off" value="">
+          <span class="add-form__group">
+            <label class="field-label" for="new-task-group">Nhóm</label>
+            <span class="select"><span class="swatch" data-color="pink" aria-hidden="true"></span><select id="new-task-group"><option value="">Chưa phân nhóm</option><option value="cty">Công ty</option><option value="nha" selected>Nhà</option><option value="jp">Học tiếng Nhật</option><option value="sk">Sức khỏe</option><option value="new">Nhóm mới...</option></select><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </span>
+          <button class="btn btn--primary" type="submit">Thêm</button>
+        </div>
+      </form>
+      <div class="group-bar group-bar--filtered">
+        <span class="group-bar__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18l-7 8.5V19l-4 2v-8.5z"/></svg></span>
+        <div class="group-bar__line">
+          <label class="field-label group-bar__label" for="group-filter">Lọc theo nhóm</label>
+          <span class="select"><span class="swatch" data-color="yellow" aria-hidden="true"></span><select id="group-filter"><option value="all">Tất cả nhóm</option><option value="">Chưa phân nhóm</option><option value="cty" selected>Công ty</option><option value="nha">Nhà</option><option value="jp">Học tiếng Nhật</option><option value="sk">Sức khỏe</option></select><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          <a class="btn btn--ghost group-bar__manage" href="manage.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.17 3H5a2 2 0 0 0-2 2v8.17a2 2 0 0 0 .59 1.42l6.82 6.82a2 2 0 0 0 2.83 0l7.17-7.17a2 2 0 0 0 0-2.83l-6.82-6.82A2 2 0 0 0 13.17 3z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg>Quản lý nhóm</a>
+        </div>
+      </div>
+      <section class="group" data-color="yellow">
+      <h2 class="group__head"><span class="group__static" aria-label="Nhóm Công ty, đã hoàn thành 1/3 việc"><span class="group__chev"></span><span class="group__name">Công ty</span><span class="group__count">1/3</span></span></h2>
+      <ul class="task-list">
+        <li class="task">
+          <label class="check"><input type="checkbox" aria-label="Đánh dấu hoàn thành" aria-describedby="t-1-text" checked><span class="check__box" aria-hidden="true"><svg viewBox="0 0 28 28"><path pathLength="100" d="M5 15.5c2.2 1.6 3.9 3.6 5.2 6.2C13.4 13.6 18 7.4 25 2.5"/></svg></span></label>
+          <div class="task__swipe">
+            <span class="task__text" id="t-1-text"><span class="task__label">Gửi báo cáo doanh thu tháng 10 cho chị Lan</span></span>
+            <span class="task__actions">
+              <a class="icon-btn" href="edit-move.html" aria-label="Sửa" aria-describedby="t-1-text"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.17 6.81a1 1 0 0 0-3.99-3.99L3.84 16.17a2 2 0 0 0-.5.83l-1.32 4.35a.5.5 0 0 0 .62.62l4.35-1.32a2 2 0 0 0 .83-.5z"/><path d="m15 5 4 4"/></svg><span class="icon-btn__label" aria-hidden="true">Sửa</span></a>
+              <a class="icon-btn icon-btn--danger" href="../../../daily-task-log/ux/screens/today--delete.html" aria-label="Xóa" aria-describedby="t-1-text"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><path d="M10 11v6M14 11v6"/></svg><span class="icon-btn__label" aria-hidden="true">Xóa</span></a>
+            </span>
+          </div>
+        </li>
+        <li class="task">
+          <label class="check"><input type="checkbox" aria-label="Đánh dấu hoàn thành" aria-describedby="t-3-text"><span class="check__box" aria-hidden="true"><svg viewBox="0 0 28 28"><path pathLength="100" d="M5 15.5c2.2 1.6 3.9 3.6 5.2 6.2C13.4 13.6 18 7.4 25 2.5"/></svg></span></label>
+          <div class="task__swipe">
+            <span class="task__text" id="t-3-text"><span class="task__label">Họp với nhóm thiết kế lúc 14:00</span></span>
+            <span class="task__actions">
+              <a class="icon-btn" href="edit-move.html" aria-label="Sửa" aria-describedby="t-3-text"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.17 6.81a1 1 0 0 0-3.99-3.99L3.84 16.17a2 2 0 0 0-.5.83l-1.32 4.35a.5.5 0 0 0 .62.62l4.35-1.32a2 2 0 0 0 .83-.5z"/><path d="m15 5 4 4"/></svg><span class="icon-btn__label" aria-hidden="true">Sửa</span></a>
+              <a class="icon-btn icon-btn--danger" href="../../../daily-task-log/ux/screens/today--delete.html" aria-label="Xóa" aria-describedby="t-3-text"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><path d="M10 11v6M14 11v6"/></svg><span class="icon-btn__label" aria-hidden="true">Xóa</span></a>
+            </span>
+          </div>
+        </li>
+        <li class="task">
+          <label class="check"><input type="checkbox" aria-label="Đánh dấu hoàn thành" aria-describedby="t-7-text"><span class="check__box" aria-hidden="true"><svg viewBox="0 0 28 28"><path pathLength="100" d="M5 15.5c2.2 1.6 3.9 3.6 5.2 6.2C13.4 13.6 18 7.4 25 2.5"/></svg></span></label>
+          <div class="task__swipe">
+            <span class="task__text" id="t-7-text"><span class="task__label">Trả lời email của khách hàng Nhật Bản</span></span>
+            <span class="task__actions">
+              <a class="icon-btn" href="edit-move.html" aria-label="Sửa" aria-describedby="t-7-text"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.17 6.81a1 1 0 0 0-3.99-3.99L3.84 16.17a2 2 0 0 0-.5.83l-1.32 4.35a.5.5 0 0 0 .62.62l4.35-1.32a2 2 0 0 0 .83-.5z"/><path d="m15 5 4 4"/></svg><span class="icon-btn__label" aria-hidden="true">Sửa</span></a>
+              <a class="icon-btn icon-btn--danger" href="../../../daily-task-log/ux/screens/today--delete.html" aria-label="Xóa" aria-describedby="t-7-text"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><path d="M10 11v6M14 11v6"/></svg><span class="icon-btn__label" aria-hidden="true">Xóa</span></a>
+            </span>
+          </div>
+        </li>
+      </ul>
+    </section>
+    </div>
+  </main></section>
+  </div>
+
+</body>
+</html>

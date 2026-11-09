@@ -346,3 +346,18 @@ Choice: Reset on reload (by user)
 ## 2026-11-09: Approve task-groups requirements?
 Options: Approve, Request changes
 Choice: Approve, with the bulk move action added (by user)
+
+## 2026-11-09: task-groups UX: Keep the group bar line on days with no groups?
+Options: Keep it, Move "Quản lý nhóm" next to the title
+Choice: Keep it (by user)
+
+## 2026-11-09: task-groups UX: Accessible name of the rename input
+Options: "Tên nhóm" (add to the text table), "Sửa"
+Choice: "Tên nhóm" (by user)
+
+## 2026-11-09: task-groups UX: defaults by PM
+Choice: At 20 groups the limit error shows as soon as "Nhóm mới..." is chosen; on phones "Chuyển tất cả việc" in a manage row is icon only with tooltip and accessible name (by PM)
+
+## 2026-11-09: Approve task-groups UX?
+Options: Approve, Request changes
+Choice: Approve (by user)

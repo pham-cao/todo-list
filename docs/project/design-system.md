@@ -120,3 +120,60 @@ This section only adds to the system; no existing token or component changed. Th
 - Back to today (`.today-tab`): an index tab with a return mark. It is pen filled on other days and drawn as a dashed pencil outline in done ink (5.5:1 light, 5.9:1 dark) when `aria-disabled="true"` on today. On phones it drops the icon and uses 14 px text so it fits beside the arrows. When it changes state, its background and text colour fade together, so the label stays readable throughout. The fade is skipped on first render, so a page opened on another day shows the filled tab straight away.
 - Page turn motion: `.turn--back` or `.turn--forward` on the sheet body (lines slide 18 px in from the side turned towards, 240 ms, new token `--dur-turn`) and `.washi--restick` on the date tape (360 ms). These are added once per day change and removed on reduced motion.
 - Narrow phones: below 381 px the add line placeholder is 14 px, so "Bạn cần làm gì ngày này?" stays whole.
+
+## Task groups (added for task-groups)
+
+This section only adds to the system; no existing token or component changed. The CSS lives at the end of `design-system.css` under "Task groups". The ui-ux-pro-max search again pointed to Minimalism with strict contrast, keyboard and colour-not-alone rules, so the groups are written into the existing sheet rather than drawn as cards.
+
+### Direction
+
+Groups are written with a highlighter. A section header is one ruled line: the fold chevron sits in the margin column (where the checkboxes are), the group name has a highlighter swipe behind it with slightly uneven ends and a hair of tilt, and the done and total count sits at the end of the line. One blank line separates sections, as you would skip a line on paper. "Chưa phân nhóm" has no colour: its name is muted ink with a dashed pencil underline.
+
+### Highlighter colours
+
+Pick a colour with `data-color` on any element (`yellow`, `pink`, `green`, `blue`, `orange`, `purple`); it sets `--hl` (the band behind text) and `--hl-mark` (the ring of a swatch). An unknown or missing code falls back to the neutral pencil style, so a raw value from storage is never used as a style.
+
+| Name | Code | Light band, black text | Light mark on paper | Dark band, ink #F1EDE4 | Dark mark on night paper |
+| --- | --- | --- | --- | --- | --- |
+| Vàng | yellow | #FCE57E, 16.7:1 | #9C7A00, 3.8:1 | #5A4A12, 7.4:1 | #E8C64A, 9.1:1 |
+| Hồng | pink | #F9C0D3, 13.5:1 | #C2457A, 4.5:1 | #6B2C45, 8.7:1 | #F09AB9, 7.3:1 |
+| Xanh lá | green | #C6E7A8, 15.4:1 | #4E8A2E, 4.0:1 | #2E4F2A, 7.9:1 | #9DD07A, 8.5:1 |
+| Xanh dương | blue | #BCDCF5, 14.7:1 | #2F74B5, 4.7:1 | #23466B, 8.3:1 | #8EC0EE, 7.9:1 |
+| Cam | orange | #FBCB96, 14.1:1 | #C26516, 3.9:1 | #6A3A16, 8.1:1 | #F2A766, 7.6:1 |
+| Tím | purple | #DCCBF3, 13.9:1 | #7C55C2, 5.1:1 | #4B3570, 8.8:1 | #BBA2EE, 6.9:1 |
+
+Rules: only the group name sits on a band, always in main ink; counts and hints sit on paper in muted ink. Marks are non text and meet 3:1. Other new tokens: `--color-notice` and `--color-notice-ink` (info slip, 9.6:1 light, 8.7:1 dark), `--color-card` and `--color-card-rule` (index card dialog), `--dur-fold` (200 ms chevron turn).
+
+### Components
+
+- Swatch (`.swatch`): a 16 px circle filled with the band and ringed with the mark, so it is visible on paper in both modes. Used in the filter, the group choices, the manage rows, the colour choice (28 px) and the margin of the Nhóm mới... line (a preview of the next colour). Never used for Chưa phân nhóm.
+- Line select (`.select`): a native `<select>` written on the line like the inputs (pencil underline, pen on hover and focus, pen chevron), with an optional swatch before it showing the chosen group's colour. Native lists cannot show colour, so the options are names only.
+- Add line group choice (`.add-form__group`): "Nhóm" label plus the line select, between the input and Thêm on desktop. On phones the input takes line one and Nhóm with Thêm share line two. `.add-form__newgroup` adds one line under it with the swatch preview, the "Tên nhóm mới" input and a secondary "Tạo nhóm" button; errors use the existing `.field-error` line.
+- Group bar (`.group-bar`): one ruled line directly above the list, with the funnel in the margin, "Lọc theo nhóm" and its select on the left (shown from the first group on) and "Quản lý nhóm" (ghost pen button with a tag icon) on the right, present on every day. On phones the filter label is visually hidden and the funnel stands for it. `.group-bar--filtered` inks the funnel and the select underline while a filter is on.
+- Section (`.group[data-color]` with `.group__head`, `.group__toggle`, `.group__chev`, `.group__name`, `.group__count`): an `h2` holding a full width `button` with `aria-expanded` and the accessible name "Nhóm {name}, đã hoàn thành {done}/{total} việc". The whole line is the 44 px target. `.group--collapsed` hides the rows and turns the chevron to point right. When the filter shows one group, use `.group__static` instead of the button (no toggle, the margin stays empty).
+- Filter empty state (`.group-empty`): the one line message on the ruling, in muted ink, without the doodle (the doodle stays for a day with no tasks at all).
+- Edit line group choice (`.task__edit-group`): "Nhóm" and the line select at the start of the Hủy and Lưu line; on phones it takes its own line above the buttons.
+- Moved row (`.task--moved`): a wash in the new group's band colour behind the row that fades once (1.8 s after a 0.6 s hold). Removed under reduced motion; focus on Sửa still marks the row.
+- Info slip (`.alert--info`): the clipped slip of the storage warning in pen blue with a check icon, placed in the header band, `role="status"`, for "Đã chuyển ..." and "Đã thêm việc vào nhóm ... đang được ẩn bởi bộ lọc."
+- Index card dialog (`.dialog--card` with `.dialog__head`): native `<dialog>` like the sticky note, but a white ruled card with a red head line and only 0.4 degrees of tilt, because it holds a form. Used for "Nhóm việc" (close with "Đóng") and "Chuyển tất cả việc của nhóm ...". Up to 520 px wide; 8 px from the screen edges on phones.
+- Group rows (`.group-rows`, `.group-row`): swatch, name (with the "Nhóm này chưa có việc nào." hint when empty), then Sửa, Chuyển tất cả việc and Xóa as 44 px icon buttons. On desktop Chuyển tất cả việc also shows its words. With no tasks it is `aria-disabled="true"`, pencil grey, and stays focusable.
+- Group edit (`.group-row--editing`, `.colour-pick`): the row gets the highlighter wash used for task editing, the name becomes a line input, then the "Màu nhóm" fieldset with six 44 px radio choices named Vàng, Hồng, Xanh lá, Xanh dương, Cam, Tím. The chosen one gets an ink ring and a tick, so colour is not the only cue. Then Hủy and Lưu.
+- Notes on top of the card: the delete question and the blocked message use the approved sticky note. `.dialog__title--message` sets a full sentence heading at 17 px semibold; `.dialog__actions--stack` gives one button per line (primary first).
+- Move form (`.move-field`): "Chuyển đến nhóm" label and a line select, then the confirmation sentence (`.dialog__text`) that updates with the chosen target. A failed write shows the warning slip inside the card.
+
+### Motion
+
+| Moment | Motion | Duration |
+| --- | --- | --- |
+| Fold or open a section | Chevron turns 90 degrees; rows appear or hide at once | 200 ms |
+| Task moved to another group | Highlighter wash in the new colour fades | 1.8 s after 0.6 s |
+| Dialogs | Same drop in as the sticky note | 360 ms |
+
+All of it is removed under `prefers-reduced-motion`.
+
+### Accessibility
+
+- Every section header is a heading with a toggle button (R63); Enter and Space work natively.
+- Every new control is at least 44 by 44 px; the drawn 36 px buttons extend their hit area like Thêm.
+- Group names are text in every place they appear; colour is supporting only.
+- Verified without horizontal scroll at 1440, 390 and 360 px in both modes.

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Task groups prototype</title>
+  <link rel="stylesheet" href="../../../design-system.css">
+  <style>
+    .doc { padding: var(--space-12) var(--sheet-pad-end) var(--space-16) calc(var(--holes-w) + var(--margin-w) + var(--margin-gap)); }
+    .doc h1 { font-size: var(--fs-display); line-height: 1.2; letter-spacing: -0.015em; }
+    .doc h2 { font-size: var(--fs-title); margin: var(--space-10) 0 var(--space-3); }
+    .doc p, .doc li { max-width: 68ch; }
+    .doc .washi { margin-top: var(--space-3); }
+    .lead { margin-top: var(--space-5); }
+    .screens { list-style: none; padding: 0; }
+    .screens li { border-bottom: 1px solid var(--color-rule); }
+    .screens a { display: block; padding: var(--space-3) var(--space-2); text-decoration: none; color: var(--text); }
+    .screens a:hover { background: var(--color-pen-wash); }
+    .screens strong { color: var(--color-pen); font-weight: var(--fw-semibold); }
+    .screens span { display: block; color: var(--text-muted); font-size: var(--fs-meta); }
+    .notes { padding-left: var(--space-5); }
+    .notes li + li { margin-top: var(--space-3); }
+    .chips { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-3); list-style: none; padding: 0; }
+    .chips li { display: flex; align-items: center; gap: var(--space-2); font-size: var(--fs-meta); }
+    .chips .name { padding: 2px 10px; background: var(--hl); border-radius: 4px 12px 5px 14px / 9px 4px 10px 5px; font-weight: var(--fw-bold); }
+  </style>
+</head>
+<body>
+  <div class="desk">
+  <main class="sheet doc">
+    <h1>Task groups</h1>
+    <p class="washi">Prototype on the paper notebook design, version 3</p>
+    <p class="lead">A clickable prototype for putting tasks into the owner's own groups, such as Công ty, Nhà and Học tiếng Nhật. Each group is a highlighted heading in the day's list, sections fold away, one group can be shown on its own, and a small index card manages names, colours, deleting and moving all tasks of a group. All interface text is Vietnamese, word for word from the requirements, and dark mode follows your system setting.</p>
+
+    <h2>Start here</h2>
+    <p>Open <a href="screens/no-groups.html">a day before any group exists</a>, choose Nhóm mới... and follow the links to create Gia đình and add a task to it. Then open <a href="screens/sections.html">a day with groups</a> and try folding, the filter, Sửa and Quản lý nhóm. The flows, screen inventory and requirement coverage are in <a href="flows.md">flows.md</a>, the new components in <a href="../../../design-system.md">design-system.md</a> (section "Task groups"), and the review notes in <a href="critique.md">critique.md</a>.</p>
+
+    <h2>The six highlighter colours</h2>
+    <ul class="chips" lang="vi">
+      <li data-color="yellow"><span class="swatch" aria-hidden="true"></span><span class="name">Vàng</span></li>
+      <li data-color="pink"><span class="swatch" aria-hidden="true"></span><span class="name">Hồng</span></li>
+      <li data-color="green"><span class="swatch" aria-hidden="true"></span><span class="name">Xanh lá</span></li>
+      <li data-color="blue"><span class="swatch" aria-hidden="true"></span><span class="name">Xanh dương</span></li>
+      <li data-color="orange"><span class="swatch" aria-hidden="true"></span><span class="name">Cam</span></li>
+      <li data-color="purple"><span class="swatch" aria-hidden="true"></span><span class="name">Tím</span></li>
+    </ul>
+
+    <h2>Screens and states</h2>
+    <ul class="screens">
+      <li><a href="screens/no-groups.html"><strong>No groups yet</strong><span>Looks like today's app. New: the Nhóm choice in the add line and Quản lý nhóm.</span></a></li>
+      <li><a href="screens/sections.html"><strong>A day with groups</strong><span>Công ty, Nhà, Học tiếng Nhật and Chưa phân nhóm, each with its count.</span></a></li>
+      <li><a href="screens/sections--collapsed.html"><strong>A folded section</strong><span>Nhà folded; the header and count stay.</span></a></li>
+      <li><a href="screens/filter.html"><strong>Filter on one group</strong><span>Plus the two filter empty states and the notice for a task added to a hidden group.</span></a></li>
+      <li><a href="screens/add-new-group.html"><strong>Create a group while adding</strong><span>Nhóm mới... opens a name line. Variants: empty, too long, duplicate, 20 groups.</span></a></li>
+      <li><a href="screens/add-new-group--created.html"><strong>Group created</strong><span>Chosen in the add line, ready for the task.</span></a></li>
+      <li><a href="screens/add-new-group--added.html"><strong>Task added to the new group</strong><span>The new section appears.</span></a></li>
+      <li><a href="screens/edit-move.html"><strong>Move a task while editing</strong><span>Nhóm choice on the edit line.</span></a></li>
+      <li><a href="screens/edit-move--saved.html"><strong>Task moved</strong><span>Placed by creation time, short highlighter wash, focus on Sửa.</span></a></li>
+      <li><a href="screens/swipe.html"><strong>Phone swipe inside a section</strong><span>The approved swipe rows, unchanged.</span></a></li>
+      <li><a href="screens/manage--empty.html"><strong>Quản lý nhóm, empty</strong><span>Bạn chưa có nhóm nào.</span></a></li>
+      <li><a href="screens/manage.html"><strong>Quản lý nhóm</strong><span>Every group with Sửa, Chuyển tất cả việc and Xóa; an inactive move for an empty group.</span></a></li>
+      <li><a href="screens/manage--edit.html"><strong>Rename and recolour</strong><span>Màu nhóm with six named choices.</span></a></li>
+      <li><a href="screens/manage--edit-error.html"><strong>Rename error</strong><span>Tên nhóm này đã có rồi.</span></a></li>
+      <li><a href="screens/manage--delete.html"><strong>Delete an empty group</strong><span>Sticky note with Giữ lại and Xóa nhóm.</span></a></li>
+      <li><a href="screens/manage--blocked.html"><strong>Delete blocked</strong><span>Counts of tasks and days, with Chuyển tất cả việc, Xem các việc này and Đã hiểu.</span></a></li>
+      <li><a href="screens/show-tasks.html"><strong>Xem các việc này</strong><span>Jumps to the nearest day with the group's tasks, filter on.</span></a></li>
+      <li><a href="screens/move-all.html"><strong>Move all tasks of a group</strong><span>Target choice and the confirmation sentence.</span></a></li>
+      <li><a href="screens/move-all--error.html"><strong>Move all failed</strong><span>Nothing moved; try again or Hủy.</span></a></li>
+      <li><a href="screens/move-all--done.html"><strong>Move all done</strong><span>Notice in the header; the empty group can now be deleted.</span></a></li>
+    </ul>
+
+    <h2>Key design decisions</h2>
+    <ul class="notes">
+      <li>Groups are written with a highlighter. A section header is one ruled line: the fold chevron sits in the margin where the checkboxes are, the group name has a highlighter swipe behind it, and the done and total count sits at the end of the line. A blank line separates sections, as on paper. Chưa phân nhóm has no colour, only a dashed pencil underline.</li>
+      <li>Colour is never the only cue: the name is always written, swatches carry a darker ring so they stay visible on paper, and the chosen colour in the dialog also gets an ink ring and a tick. Black text on the light highlighters is 13.5:1 or better, and warm white on the deep night highlighters is 7.4:1 or better.</li>
+      <li>The group choice lives on the add line on desktop and on a second line on phones, so a group can be picked or created without leaving the add flow. Nhóm mới... opens one extra line with the name and Tạo nhóm, and the margin previews the colour the new group will get.</li>
+      <li>One group bar sits directly above the list: Lọc theo nhóm on the left (from the first group on) and Quản lý nhóm on the right (always, on every day). When a filter is on, the funnel is inked in so the owner knows part of the day is hidden.</li>
+      <li>Quản lý nhóm opens an index card rather than the sticky note, because it is a small form and needs a straighter, calmer surface. Questions that need an answer (delete, delete blocked) keep the approved sticky note, stacked on top of the card.</li>
+      <li>A day where no task has a group looks exactly as it does today: no headers, the same rows, swipe and stamp.</li>
+    </ul>
+  </main>
+  </div>
+</body>
+</html>

@@ -162,7 +162,7 @@ features:
         bugs_opened: [BUG-002]
         trello_card: ""
   - slug: task-groups
-    phase: ux
+    phase: design
     has_ui: true
     pr: ""
     trello_card: ""
