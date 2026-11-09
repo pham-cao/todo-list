@@ -470,3 +470,11 @@ Choice (by PM):
 
 ## 2026-11-10: task-groups: carry to T11
 Choice (by PM): T11 checks that a stored task with a well formed but impossible date (e.g. 2026-13-45) in a group cannot make "Xem các việc này" move to an invalid day (go() or showGroupTasks must use parseDateKey).
+
+## 2026-11-10: task-groups T10 bugs
+Choice (by PM):
+- BUG-013: keep refusing the move when another tab stored more tasks of the group (no data loss), but show a distinct message instead of the write failure text: "Một tab khác vừa thay đổi việc của nhóm này. Hãy tải lại trang rồi thử lại." Added to the Vietnamese label table. Full cross tab task reload stays out of scope.
+- BUG-012: when the blocked note's group is removed in another tab, sync closes the blocked note and returns focus to the card's row or "Đóng".
+
+## 2026-11-10: task-groups T10: stale check by task id
+Choice: The move is refused (other tab message) when any valid stored task of the group has an id this tab does not hold. Accepted rare case: after a failed delete save in this tab, the move is also refused until reload; nothing is lost (by PM)

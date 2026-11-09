@@ -243,15 +243,15 @@ features:
         title: "Move all tasks of a group"
         owner: fe
         depends_on: [T9]
-        state: doing
-        attempts: 0
-        bugs_opened: []
+        state: done
+        attempts: 1
+        bugs_opened: [BUG-012, BUG-013]
         trello_card: ""
       - id: T11
         title: "Keyboard, size, safety and speed checks"
         owner: fe
         depends_on: [T1, T10]
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""

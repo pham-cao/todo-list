@@ -27,7 +27,7 @@ Out of scope: items listed in requirements "Out of scope" (full colour picker, c
 | Accessibility | axe scan, names, tab order, live regions | Playwright with the a11y skill | inside the e2e count |
 | Manual and exploratory | Prototype comparison (1440 and 390 px, light and dark), cache busting by hand, release step rehearsal, older app copy, Firefox or Edge smoke, exploratory charter for multi tab and rapid actions | Playwright MCP and hand testing | 14 manual and 5 mixed |
 
-Total 241 cases. By priority: Critical 90, High 117, Medium 30, Low 4. Counts per task (test-cases.csv ID prefix): T1 10, T2 20, T3 24, T4 21, T5 26, T6 18, T7 22, T8 23, T9 20, T10 25, T11 32.
+Total 246 cases. By priority: Critical 90, High 117, Medium 30, Low 4. Counts per task (test-cases.csv ID prefix): T1 10, T2 20, T3 24, T4 21, T5 26, T6 18, T7 22, T8 23, T9 20, T10 30, T11 32.
 
 Techniques: equivalence partitioning and boundary value analysis for group names (0, 1, 29, 30, 31 code points, NFD input), the 20 group limit, colour wrap at 7, width 380 and 381 px, and 44 px targets; decision tables for the delete outcome, the day chosen by "Xem các việc này", the filter empty texts and the add choice following the filter; state transitions for collapse, filter across days, the add choice, row edit and the move card (success and failure); use cases for each user story; error guessing for markup in names, stale ids, double Enter, two tabs, failing `setItem`, corrupt values and an older app copy; checklist for Vietnamese text (exact strings) and for control sizes.
 

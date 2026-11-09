@@ -1,0 +1,3 @@
+Probe (scratchpad t10/probe.mjs), tab A with blocked note and move card open, tab B removes group cty from the groups key:
+A after source removed: BUTTON# Chuyển tất cả việc open:manage-dialog,group-blocked-dialog   (move card closed, blocked note stays)
+A2 after Enter on stale Chuyển tất cả việc: BUTTON# Chuyển tất cả việc open:manage-dialog,group-blocked-dialog   (nothing happens)
