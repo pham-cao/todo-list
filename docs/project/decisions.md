@@ -451,3 +451,9 @@ Choice (by PM):
 - Announce the filter empty state: yes, give #group-empty role="status" so screen readers hear the empty text when the filter shows nothing.
 - If the focused filter disappears because all groups were removed in another tab, move focus to the add input.
 - A move into a hidden collapsed group still expands and stores it (R28): accepted.
+
+## 2026-11-10: task-groups T8: design system changes outside the boundary
+Choice: Accept the three design-system.css changes (card dialog full prototype width, scrolling group rows inside the card, row tooltips anchored to stay unclipped) and the app.spec.js selector change to #delete-dialog; FE adds the matching line to design-system.md with the review fixes (by PM)
+
+## 2026-11-10: task-groups T8: storage failure slip hidden behind the modal card
+Choice: Accept for now; T11 (safety checks) decides whether the card should also announce a failed write, reusing the existing storage message text (by PM)

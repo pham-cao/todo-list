@@ -155,3 +155,35 @@ date,task,tc,result,evidence,bug
 2026-11-10,T7,TC-task-groups-T7-28,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-27/mutation-check-without-fixes.txt,"fails without role status; passes with"
 2026-11-10,T7,TC-task-groups-T7-29,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-27/mutation-check-without-fixes.txt,"fails without focus fix; passes with"
 2026-11-10,T7,TC-task-groups-T7-30,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-30/runner-output.txt,"e2e 426 passed 14 skipped; exploratory 14 combinations consistent; test fails without the fix"
+2026-11-10,T8,TC-task-groups-T8-01,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-02,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-03,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-04,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-05,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-06,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-07,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-08,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-09,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-10,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-11,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-12,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-13,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-14,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-15,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-16,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-17,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-18,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-19,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-20,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-20/axe-24-states.txt,"axe wcag2a/aa/21/22 + best practice: 0 violations on empty, list, edit, error x 1440/390/360 x light/dark"
+2026-11-10,T8,TC-task-groups-T8-21,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-21/,"Compared with ux/screenshots at 1440, 390, 360, light and dark; differences: error state input underline is red (prototype static blue), accepted"
+2026-11-10,T8,TC-task-groups-T8-22,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-22/,"20 groups at 360x640, 640x360, 390x844: rows scroll inside the card, no horizontal scroll, tooltips unclipped"
+2026-11-10,T8,TC-task-groups-T8-23,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-23-full-suite.txt,e2e 464 passed 16 skipped; unit 65
+2026-11-10,T7,TC-task-groups-T7-14,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,Rename part executed with T8-15; delete part waits for T9
+2026-11-10,T8,TC-task-groups-T8-24,fail,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-24/,BUG-008 BUG-008 Low; test.fail guards it
+2026-11-10,T8,TC-task-groups-T8-25,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-26,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,"slip shown, storage keeps old value"
+2026-11-10,T8,TC-task-groups-T8-27,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-28,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-29,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-30,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-24,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-24/retest-short-screens.txt,"BUG-008 Verified then Closed; 12 probes (640x360, 360x640, 390x700, 360x500; first, middle, last row): input and Lưu both inside the visible list"

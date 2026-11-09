@@ -227,15 +227,15 @@ features:
         title: "Manage dialog with rename and colour"
         owner: fe
         depends_on: [T7]
-        state: doing
-        attempts: 0
-        bugs_opened: []
+        state: done
+        attempts: 1
+        bugs_opened: [BUG-008]
         trello_card: ""
       - id: T9
         title: "Delete a group, blocked delete and show its tasks"
         owner: fe
         depends_on: [T8]
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""

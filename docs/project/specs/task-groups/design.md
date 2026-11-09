@@ -144,10 +144,17 @@ Load and save follow `createStore`: one `locked` flag for the instance, set when
 ### `src/manage.js` (owner `fe`)
 
 ```js
-import { COLORS, COLOR_NAMES, UNGROUPED, UNGROUPED_NAME } from "./groups.js?v=1.2.0";
+import { COLORS, COLOR_NAMES } from "./groups.js?v=1.2.0";
+
+export const GROUP_ERRORS = { empty, tooLong, duplicate, tooMany }; // also used by the add form in app.js
+export function setFieldError(input, errorEl, code, messages) {}    // shared field error helpers, used by app.js too
+export function showFieldError(input, errorEl, code, messages) {}
 
 export function createManage({ groups, store, button, refresh, notify, showGroupTasks }) {}
-// returns { open() }
+// returns { open(), sync() }
+// groups: a getter, () => groups, because the storage listener in app.js replaces the groups instance
+// store: the task store, read with groupUsage(id) for the inactive move button (R67)
+// sync(): another tab changed the groups; the open card re-renders its rows unless a row is in edit
 // button: the "Quản lý nhóm" button, focus target when the card closes (R38, R71)
 // refresh(): app rebuilds the add choice, the filter and the day list and updates the storage slip;
 //            called every time the "Nhóm việc" card closes (R37, R38, R48)
