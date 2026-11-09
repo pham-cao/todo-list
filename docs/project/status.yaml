@@ -100,7 +100,7 @@ features:
         attempts: 0
         trello_card: ""
   - slug: day-navigation
-    phase: build
+    phase: release
     has_ui: true
     pr: ""
     trello_card: ""
@@ -159,7 +159,7 @@ features:
         depends_on: [T5, T6]
         state: done
         attempts: 1
-        bugs_opened: [BUG-002, BUG-001 fixed here]
+        bugs_opened: [BUG-002]
         trello_card: ""
 # - slug: user-login
 #   phase: requirements   # requirements | ux | design | build | release | done

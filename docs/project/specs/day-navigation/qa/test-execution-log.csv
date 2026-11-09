@@ -92,4 +92,4 @@ date,task,tc_id,result,evidence,bug_id
 2026-11-09,T7,BUG-001 retest,pass,evidence/BUG-001-retest/samples-after-fix.txt,BUG-001
 2026-11-09,T7,TC-day-navigation-T7-07,pass,evidence/BUG-002-retest/full-suite-repeat2.txt,BUG-002
 2026-11-09,T7,BUG-002 retest,pass,evidence/BUG-002-retest/settled-desktop-runs.txt,BUG-002
-2026-11-09,T7,BUG-002 regression 200 rows (tooltips light/dark; swipe, peek; edit, delete, tick; Tab; find; long row),pass,evidence/BUG-002-retest/regression-visual-output.txt,
+2026-11-09,T7,BUG-002 regression 200 rows,pass,evidence/BUG-002-retest/regression-visual-output.txt,
