@@ -90,6 +90,15 @@ export function createStore(storage) {
     return { task: { ...task } };
   };
 
+  store.setGroup = (id, groupId) => {
+    const task = find(id);
+    if (!task) return { error: "notFound" };
+    if (typeof groupId === "string" && groupId) task.groupId = groupId;
+    else if (groupId === null) delete task.groupId;
+    save();
+    return { task: { ...task } };
+  };
+
   store.setDone = (id, done) => {
     const task = find(id);
     if (!task) return undefined;

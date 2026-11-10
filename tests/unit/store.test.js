@@ -338,3 +338,53 @@ test("a successful moveGroup write restores storageOk", () => {
   assert.deepEqual(s.moveGroup("g", "h"), { moved: 3 });
   assert.equal(s.storageOk, true);
 });
+
+test("setGroup sets, replaces and removes groupId and touches nothing else, one write", () => {
+  const odd = "  " + "x".repeat(250) + "  ";
+  const mem = fake({ [STORAGE_KEY]: JSON.stringify([good({ text: odd, done: true, groupId: "g1" })]) });
+  let writes = 0;
+  const s = createStore({ getItem: mem.getItem, setItem: (k, v) => { writes++; mem.setItem(k, v); } });
+  const before = s.tasksFor("2026-11-09")[0];
+  const r = s.setGroup("a", "g2");
+  assert.equal(writes, 1);
+  assert.deepEqual(r.task, { ...before, groupId: "g2" });
+  assert.equal(r.task.text, odd);
+  assert.equal(JSON.parse(mem.getItem(STORAGE_KEY))[0].text, odd);
+  assert.equal(s.setGroup("a", "g3").task.groupId, "g3");
+  const { task } = s.setGroup("a", null);
+  assert.ok(!("groupId" in task));
+  assert.ok(!("groupId" in JSON.parse(mem.getItem(STORAGE_KEY))[0]));
+  assert.deepEqual(task, { id: "a", text: odd, done: true, createdAt: 1, date: "2026-11-09" });
+});
+
+test("setGroup on an unknown id returns notFound and does not write", () => {
+  let writes = 0;
+  const s = createStore({ getItem: () => null, setItem: () => { writes++; } });
+  assert.deepEqual(s.setGroup("nope", "g"), { error: "notFound" });
+  assert.equal(writes, 0);
+});
+
+test("setGroup keeps the change in memory when setItem throws or the store is locked", () => {
+  const mem = fake({ [STORAGE_KEY]: JSON.stringify([good()]) });
+  let fail = false;
+  const s = createStore({ getItem: mem.getItem, setItem: (k, v) => { if (fail) throw new Error("full"); mem.setItem(k, v); } });
+  fail = true;
+  assert.equal(s.setGroup("a", "g").task.groupId, "g");
+  assert.equal(s.storageOk, false);
+  assert.equal(s.tasksFor("2026-11-09")[0].groupId, "g");
+  const locked = createStore({ getItem: () => { throw new Error("denied"); }, setItem: () => { throw new Error("no"); } });
+  assert.equal(locked.add("t", day, "2026-11-09").task.text, "t");
+  const id = locked.tasksFor("2026-11-09")[0].id;
+  assert.equal(locked.setGroup(id, "g").task.groupId, "g");
+  assert.equal(locked.tasksFor("2026-11-09")[0].groupId, "g");
+  assert.equal(locked.storageOk, false);
+});
+
+test("setGroup keeps groupId for an empty or non string value and returns notFound for a bad id", () => {
+  const mem = fake({ [STORAGE_KEY]: JSON.stringify([good({ groupId: "g1" })]) });
+  const s = createStore(mem);
+  for (const bad of ["", undefined, 5, {}, [], false]) assert.equal(s.setGroup("a", bad).task.groupId, "g1");
+  for (const id of ["", undefined, null, 5, {}]) assert.deepEqual(s.setGroup(id, "g"), { error: "notFound" });
+  assert.equal(s.setGroup("a", "gone").task.groupId, "gone"); // a group that no longer exists is stored as is; app.js shows it as ungrouped
+  assert.equal(s.setGroup("a", "none").task.groupId, "none"); // the store does not know the reserved key; app.js passes null for it
+});
