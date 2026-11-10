@@ -264,11 +264,83 @@ features:
         bugs_opened: [BUG-014 fixed]
         trello_card: ""
   - slug: drag-drop
-    phase: design
+    phase: build
     has_ui: true
     pr: ""
     trello_card: ""
-    tasks: []
+    tasks:
+      - id: T1
+        title: "Store change that only moves a task to another group"
+        owner: be
+        depends_on: []
+        state: doing
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T2
+        title: "Info slip for a move into a group the filter hides"
+        owner: fe
+        depends_on: []
+        state: doing
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T3
+        title: "Mouse pick up, slip, strip and cancel"
+        owner: fe
+        depends_on: [T2]
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T4
+        title: "Drop targets and the drop"
+        owner: fe
+        depends_on: [T1, T2, T3]
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T5
+        title: "Long press on phones next to the swipe"
+        owner: fe
+        depends_on: [T4]
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T6
+        title: "Auto scroll on long lists"
+        owner: fe
+        depends_on: [T5]
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T7
+        title: "Interruptions never leave the page stuck"
+        owner: fe
+        depends_on: [T6]
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T8
+        title: "Speed, accessibility and regression checks"
+        owner: fe
+        depends_on: [T7]
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T9
+        title: "Release version 1.3.0"
+        owner: be
+        depends_on: [T8]
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
 # - slug: user-login
 #   phase: requirements   # requirements | ux | design | build | release | done
 #   has_ui: true

@@ -537,3 +537,13 @@ Choice (by PM): the bottom auto scroll zone is the 64 px above the strip's top e
 ## 2026-11-10: Approve drag-drop UX?
 Options: Approve, Request changes
 Choice: Approve (by user)
+
+## 2026-11-10: drag-drop design: open points
+Choice (by PM):
+- Move into a group hidden by the filter: write only the info slip (role="status"), not #sr-status too, so screen readers hear it once.
+- Use the same live text "Đã chuyển việc "{text}" sang nhóm "{name}"." for drop and edit form moves; the five affected groups.spec.js assertions are updated in the task that changes it.
+- Accepted design choices: new store.setGroup(id, groupId) (never touches text); one passive:false touchmove listener on #day-list instead of a late touch-action change; drag never calls renderList or reads all rows.
+
+## 2026-11-10: Approve drag-drop design and 9 tasks?
+Options: Approve, Request changes
+Choice: Approve (by user)
