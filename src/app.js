@@ -536,7 +536,8 @@ els.list.addEventListener("submit", (e) => {
 
 // A moved row lands by creation time in its new section (renderList keeps that order), which opens if folded,
 // washes once in the new colour, keeps focus on Sửa and has its section name announced (R24, R28, R32).
-function moveRow(row, key) {
+// A target the filter hides is told in the info slip only, so screen readers hear it once (decisions.md).
+function moveRow(row, key, message = `Đã chuyển việc "${row.querySelector(".task__label").textContent}" sang nhóm "${groups.get(key)?.name ?? UNGROUPED_NAME}".`) {
   // A target the filter hides takes the row out of view: focus the next row, else the previous one, else the add input.
   const all = [...els.list.querySelectorAll(".task:not(.task--exit)")];
   const i = all.indexOf(row);
@@ -546,16 +547,17 @@ function moveRow(row, key) {
   updateSlip();
   if (filter !== "all" && key !== filter) {
     (near?.querySelector(".check input") ?? els.input).focus();
-  } else {
-    row.classList.remove("task--moved");
-    void row.offsetWidth; // a second move in a row replays the wash
-    row.classList.add("task--moved");
-    // On a phone the line stays closed, as in the approved screen; only the row is scrolled into view.
-    row.querySelector('[data-action="edit"]').focus({ preventScroll: true });
-    row.scrollIntoView({ block: "nearest" });
+    els.srStatus.textContent = ""; // the slip alone speaks; no stale move text stays in the live region
+    return notify(message);
   }
+  notify(null); // an older slip would describe an earlier move (decisions.md)
+  row.classList.remove("task--moved");
+  void row.offsetWidth; // a second move in a row replays the wash
+  row.classList.add("task--moved");
+  // On a phone the line stays closed, as in the approved screen; only the row is scrolled into view.
+  row.querySelector('[data-action="edit"]').focus({ preventScroll: true });
+  row.scrollIntoView({ block: "nearest" });
   // Cleared first and written a frame later, so a second move to the same group is announced again.
-  const message = `Đã chuyển việc sang nhóm "${groups.get(key)?.name ?? UNGROUPED_NAME}".`;
   els.srStatus.textContent = "";
   requestAnimationFrame(() => { els.srStatus.textContent = message; });
 }

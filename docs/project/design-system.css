@@ -255,6 +255,7 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
   rotate: -0.4deg;
 }
 .alert .icon { margin-top: 1px; }
+.alert p { min-width: 0; overflow-wrap: anywhere; } /* a long unbroken word (a pasted link) wraps inside the slip (BUG-015) */
 .alert--warning { color: var(--color-slip-ink); }
 
 /* ---------- Dialog: a sticky note ---------- */
