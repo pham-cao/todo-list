@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { open, task, group, rows, tick, section, toggle, mouseDrag, KEY, GROUPS_KEY, UI_KEY } from './helpers.js';
+import { open, task, group, rows, tick, section, toggle, mouseDrag, storedJson, KEY, GROUPS_KEY, UI_KEY } from './helpers.js';
 
-// drag-drop T3: mouse pick up, slip, strip and cancel. Every release is a cancel until T4 adds the drop.
+// drag-drop T3: mouse pick up, slip, strip and cancel. T4 (below): drop targets and the drop.
 const GROUPS = [group('cty', 'Công ty', 'yellow', 1), group('nha', 'Nhà', 'pink', 2), group('sk', 'Sức khỏe', 'blue', 3)];
 const TASKS = [
   { ...task('a', 'Gửi báo cáo', true, undefined, 10), groupId: 'cty' },
@@ -230,6 +230,10 @@ test.describe('mouse', () => {
     const r = row(page, 'Cắt tóc');
     await mouseDrag(page, r, 40, -150);
     expect(await dragging(page)).toBe(true);
+    // Over no target (T4): the strip's own label is fixed on screen during a drag; the title may be scrolled off,
+    // and Firefox delivers no release outside the window (BUG-017).
+    const h = await strip(page).locator('.drop-strip__label').boundingBox();
+    await page.mouse.move(h.x + 20, h.y + h.height / 2, { steps: 4 });
     await page.mouse.up();
     await expect(leftovers(page)).toHaveCount(0);
     await expect(page.locator('#sr-status')).toHaveText('Đã hủy. Việc vẫn ở nhóm "Chưa phân nhóm".');
@@ -289,13 +293,14 @@ test.describe('mouse edge cases', () => {
   test('the grab point stays under the pointer wherever the pointer goes (R27, BUG-016)', async ({ page }) => {
     await seed(page);
     const r = row(page, 'Tiền điện');
-    const { x, y } = await mouseDrag(page, r, 0, 12);
+    await mouseDrag(page, r, 0, 12);
     const text = slip(page).locator('.drag-slip__text');
     await expect(slip(page)).toBeVisible();
+    await page.mouse.move(400, 200, { steps: 4 }); // the reference point is clear of the strip (T4: the slip rides above it)
     await page.waitForTimeout(300); // the pick-up animation is done
     const t1 = await text.boundingBox();
-    const off = { x: t1.x - x, y: t1.y - (y + 12) };
-    for (const [px, py] of [[500, 300], [600, 500], [300, 650]]) {
+    const off = { x: t1.x - 400, y: t1.y - 200 };
+    for (const [px, py] of [[500, 300], [600, 500], [300, 560]]) { // above the strip: the slip never covers it (T4)
       await page.mouse.move(px, py, { steps: 4 });
       await page.waitForTimeout(100);
       const t = await text.boundingBox();
@@ -421,4 +426,200 @@ test('phone: an open swipe strip closes when its row is picked up', async ({ pag
   await page.keyboard.press('Escape');
   await page.mouse.up();
   await expect(leftovers(page)).toHaveCount(0);
+});
+
+// drag-drop T4: drop targets and the drop.
+test.describe('drop', () => {
+  test.skip(({ isMobile }) => isMobile, 'mouse and pen: desktop project');
+  test.use({ viewport: { width: 1440, height: 900 } }); // the strip sits clear of the rows used as targets
+  const target = (page, name) => strip(page).locator('.drop-target').filter({ hasText: name });
+  const marked = (page) => page.locator('#day-list > .group.group--drop, .drop-target--over');
+  const to = (page) => slip(page).locator('.drag-slip__to');
+  const centre = async (loc) => { const b = await loc.boundingBox(); return [b.x + b.width / 2, b.y + b.height / 2]; };
+  const over = async (page, loc) => page.mouse.move(...(await centre(loc)), { steps: 6 });
+  const labelsOf = (page, name) => section(page, name).locator('.task__label');
+  // Counts every setItem by key from the first script on, so the drop's writes can be told apart.
+  const spy = (page) => page.addInitScript(() => {
+    const set = Storage.prototype.setItem;
+    window.writes = [];
+    Storage.prototype.setItem = function (k, v) {
+      window.writes.push(k);
+      if (window.failTasks && k === 'daily-todo:tasks:v1') throw new DOMException('Quota exceeded', 'QuotaExceededError');
+      return set.call(this, k, v);
+    };
+  });
+  const writes = (page) => page.evaluate(() => window.writes.splice(0));
+
+  test('a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28)', async ({ page }) => {
+    await seed(page);
+    await mouseDrag(page, row(page, 'Trả lời email'), 0, 20);
+    const nha = section(page, 'Nhà');
+    await over(page, toggle(page, 'Nhà'));
+    await expect(nha).toHaveClass(/group--drop/);
+    await expect(marked(page)).toHaveCount(1);
+    await expect(to(page)).toHaveText('Nhà');
+    await expect(to(page)).toHaveAttribute('data-color', 'pink');
+    expect(await to(page).locator('*').count()).toBe(0);
+    await over(page, row(page, 'Tiền điện'));
+    await expect(nha).toHaveClass(/group--drop/);
+    const b = await nha.boundingBox(); // the right end of the line, clear of the text: the section's own space
+    await page.mouse.move(b.x + b.width - 40, b.y + b.height - 6, { steps: 3 });
+    await expect(nha).toHaveClass(/group--drop/);
+    await over(page, row(page, 'Cắt tóc'));
+    await expect(section(page, 'Chưa phân nhóm')).toHaveClass(/group--drop/);
+    await expect(nha).not.toHaveClass(/group--drop/);
+    await expect(to(page)).toHaveText('Chưa phân nhóm');
+    // The ink frame is drawn (R28).
+    const frame = await section(page, 'Chưa phân nhóm').evaluate((el) => getComputedStyle(el, '::before').borderTopWidth);
+    expect(frame).toBe('2px');
+    await page.keyboard.press('Escape');
+    await page.mouse.up();
+  });
+
+  test('a strip label for a group with no task today is a target; the own section and the faded label are not', async ({ page }) => {
+    await seed(page);
+    const before = await rawAll(page);
+    const r = row(page, 'Trả lời email');
+    await mouseDrag(page, r, 0, 20);
+    await over(page, target(page, 'Sức khỏe'));
+    await expect(target(page, 'Sức khỏe')).toHaveClass(/drop-target--over/);
+    await expect(marked(page)).toHaveCount(1);
+    await expect(to(page)).toHaveText('Sức khỏe');
+    // The slip rests on the strip's top edge, so the label under the pointer stays in sight (hover-strip.html).
+    const sb = await slip(page).boundingBox(), tb = await target(page, 'Sức khỏe').boundingBox();
+    expect(sb.y + sb.height).toBeLessThanOrEqual(tb.y + 4);
+    await over(page, target(page, 'Công ty')); // faded: the task is there already
+    await expect(marked(page)).toHaveCount(0);
+    await expect(to(page)).toHaveCount(0);
+    await page.mouse.up();
+    await expect(page.locator('#sr-status')).toHaveText('Đã hủy. Việc vẫn ở nhóm "Công ty".');
+    await mouseDrag(page, r, 0, 20);
+    await over(page, row(page, 'Gửi báo cáo')); // own section
+    await expect(marked(page)).toHaveCount(0);
+    await expect(to(page)).toHaveCount(0);
+    await page.mouse.up();
+    await mouseDrag(page, r, 0, 20);
+    await over(page, page.locator('#page-title')); // nothing
+    await expect(marked(page)).toHaveCount(0);
+    await page.mouse.up();
+    await expect(leftovers(page)).toHaveCount(0);
+    expect(await rawAll(page)).toEqual(before);
+    await expect(rows(page).locator('.task__label')).toHaveText(['Gửi báo cáo', 'Trả lời email', 'Tiền điện', 'Cắt tóc']);
+  });
+
+  test('a drop moves the task by creation time, one tasks write, counts updated, focus on Sửa, announced (R13, R23, R33, R36)', async ({ page }) => {
+    await spy(page);
+    await seed(page);
+    const was = (await storedJson(page, KEY)).find((t) => t.id === 'b');
+    await writes(page);
+    const r = row(page, 'Trả lời email');
+    await mouseDrag(page, r, 0, 20);
+    await over(page, row(page, 'Tiền điện')); // released below Tiền điện, lands above it: created earlier
+    await page.mouse.up();
+    await expect(leftovers(page)).toHaveCount(0);
+    await expect(labelsOf(page, 'Nhà')).toHaveText(['Trả lời email', 'Tiền điện']);
+    await expect(labelsOf(page, 'Công ty')).toHaveText(['Gửi báo cáo']);
+    expect(await writes(page)).toEqual([KEY]);
+    const now = (await storedJson(page, KEY)).find((t) => t.id === 'b');
+    expect(now).toEqual({ ...was, groupId: 'nha' });
+    await expect(section(page, 'Công ty').locator('.group__count')).toHaveText('1/1');
+    await expect(section(page, 'Nhà').locator('.group__count')).toHaveText('0/2');
+    await expect(page.locator('#summary')).toHaveText('Đã hoàn thành 1/4 việc');
+    await expect(r.getByRole('button', { name: 'Sửa' })).toBeFocused();
+    await expect(page.locator('#sr-status')).toHaveText('Đã chuyển việc "Trả lời email" sang nhóm "Nhà".');
+    await expect(r).toHaveClass(/task--moved/);
+    // The click after the drop ticked nothing (R7).
+    await expect(rows(page).locator('input:checked')).toHaveCount(1);
+  });
+
+  test('a drop on a strip label of a group with no section creates the section', async ({ page }) => {
+    await seed(page);
+    await mouseDrag(page, row(page, 'Cắt tóc'), 0, -20);
+    await over(page, target(page, 'Sức khỏe'));
+    await page.mouse.up();
+    await expect(labelsOf(page, 'Sức khỏe')).toHaveText(['Cắt tóc']);
+    await expect(page.locator('#day-list > .group .group__name')).toHaveText(['Công ty', 'Nhà', 'Sức khỏe']);
+    expect((await storedJson(page, KEY)).find((t) => t.id === 'd').groupId).toBe('sk');
+    await expect(page.locator('#sr-status')).toHaveText('Đã chuyển việc "Cắt tóc" sang nhóm "Sức khỏe".');
+  });
+
+  test('a hovered folded section stays folded and opens on the drop, with the fold stored (R14)', async ({ page }) => {
+    await spy(page);
+    await seed(page);
+    await toggle(page, 'Nhà').click();
+    await expect(section(page, 'Nhà')).toHaveClass(/group--collapsed/);
+    await writes(page);
+    await mouseDrag(page, row(page, 'Cắt tóc'), 0, -20);
+    await over(page, toggle(page, 'Nhà'));
+    await expect(section(page, 'Nhà')).toHaveClass(/group--drop/);
+    await page.waitForTimeout(300);
+    await expect(section(page, 'Nhà')).toHaveClass(/group--collapsed/);
+    await page.mouse.up();
+    await expect(section(page, 'Nhà')).not.toHaveClass(/group--collapsed/);
+    await expect(labelsOf(page, 'Nhà')).toHaveText(['Tiền điện', 'Cắt tóc']);
+    expect((await storedJson(page, UI_KEY)).collapsed).toEqual([]);
+    expect((await writes(page)).sort()).toEqual([KEY, UI_KEY].sort());
+  });
+
+  test('under the filter, a drop into a hidden group keeps the filter, shows the info slip and focuses the next row (R15)', async ({ page }) => {
+    await seed(page);
+    await page.locator('#group-filter').selectOption('cty');
+    await mouseDrag(page, row(page, 'Gửi báo cáo'), 0, 20);
+    await over(page, target(page, 'Nhà'));
+    await page.mouse.up();
+    await expect(page.locator('#group-filter')).toHaveValue('cty');
+    await expect(rows(page).locator('.task__label')).toHaveText(['Trả lời email']);
+    await expect(page.locator('#notice-text')).toHaveText('Đã chuyển việc "Gửi báo cáo" sang nhóm "Nhà".');
+    await expect(row(page, 'Trả lời email').getByRole('checkbox')).toBeFocused();
+    expect((await storedJson(page, KEY)).find((t) => t.id === 'a').groupId).toBe('nha');
+  });
+
+  for (const day of ['2026-11-08', '2026-11-12']) {
+    test(`a drop works on another day (${day}) and keeps the date (R16)`, async ({ page }) => {
+      await open(page, TASKS.map((t) => ({ ...t, date: day })), `#${day}`, { groups: GROUPS });
+      await mouseDrag(page, row(page, 'Tiền điện'), 0, -20);
+      await over(page, toggle(page, 'Công ty'));
+      await page.mouse.up();
+      await expect(labelsOf(page, 'Công ty')).toHaveText(['Gửi báo cáo', 'Trả lời email', 'Tiền điện']);
+      expect((await storedJson(page, KEY)).find((t) => t.id === 'c')).toMatchObject({ groupId: 'cty', date: day });
+    });
+  }
+
+  test('a drop on Chưa phân nhóm removes groupId', async ({ page }) => {
+    await seed(page);
+    await mouseDrag(page, row(page, 'Tiền điện'), 0, 20);
+    await over(page, target(page, 'Chưa phân nhóm'));
+    await page.mouse.up();
+    await expect(labelsOf(page, 'Chưa phân nhóm')).toHaveText(['Tiền điện', 'Cắt tóc']);
+    expect((await storedJson(page, KEY)).find((t) => t.id === 'c')).not.toHaveProperty('groupId');
+    await expect(page.locator('#sr-status')).toHaveText('Đã chuyển việc "Tiền điện" sang nhóm "Chưa phân nhóm".');
+  });
+
+  test('a target group removed in storage before the release is a cancel (R21)', async ({ page }) => {
+    await seed(page);
+    const tasks = await page.evaluate((k) => localStorage.getItem(k), KEY);
+    await mouseDrag(page, row(page, 'Cắt tóc'), 0, -20);
+    await over(page, target(page, 'Sức khỏe'));
+    await page.evaluate(([k, list]) => { // another tab removes Sức khỏe
+      localStorage.setItem(k, list);
+      window.dispatchEvent(new StorageEvent('storage', { key: k }));
+    }, [GROUPS_KEY, JSON.stringify(GROUPS.slice(0, 2))]);
+    await page.mouse.up();
+    await expect(leftovers(page)).toHaveCount(0);
+    expect(await page.evaluate((k) => localStorage.getItem(k), KEY)).toBe(tasks);
+    await expect(page.locator('#day-list > .group .group__name')).toHaveText(['Công ty', 'Nhà', 'Chưa phân nhóm']);
+  });
+
+  test('a failing tasks write keeps the move on screen and shows the storage slip (R34)', async ({ page }) => {
+    await spy(page);
+    await seed(page);
+    const tasks = await page.evaluate((k) => localStorage.getItem(k), KEY);
+    await page.evaluate(() => { window.failTasks = true; });
+    await mouseDrag(page, row(page, 'Trả lời email'), 0, 20);
+    await over(page, toggle(page, 'Nhà'));
+    await page.mouse.up();
+    await expect(labelsOf(page, 'Nhà')).toHaveText(['Trả lời email', 'Tiền điện']);
+    await expect(page.getByRole('alert').filter({ hasText: 'Không thể lưu dữ liệu' })).toBeVisible();
+    expect(await page.evaluate((k) => localStorage.getItem(k), KEY)).toBe(tasks);
+  });
 });

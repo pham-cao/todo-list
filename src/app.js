@@ -678,10 +678,16 @@ const drag = createDrag({
   onEnd: dropOrCancel,
 });
 
-// T4 adds the drop; for now every release is a cancel: nothing is written, the list stays as it was, focus returns
-// to the row's Sửa when it was in the list, and the task's current group is announced (R22, R36).
+// A release on another group that still exists moves the task the same way as the edit form: one write of groupId
+// only, then moveRow (creation order, unfold, filter, focus, the moved text) (R13 to R15, R23, R33, R34, R36).
+// Anything else is a cancel: nothing is written, the list stays as it was, focus returns to the row's Sửa when it was
+// in the list, and the task's current group is announced (R12, R21, R22).
 function dropOrCancel(row, key, hadFocus) {
   const own = row.closest(".group")?.dataset.key ?? UNGROUPED;
+  const exists = key === UNGROUPED || !!groups.get(key);
+  if (key && key !== own && exists && row.isConnected && store.setGroup(row.dataset.id, key === UNGROUPED ? null : key).task) {
+    return moveRow(row, key);
+  }
   if (hadFocus && row.isConnected) row.querySelector('[data-action="edit"]').focus({ preventScroll: true });
   els.srStatus.textContent = "";
   requestAnimationFrame(() => { els.srStatus.textContent = `Đã hủy. Việc vẫn ở nhóm "${groups.get(own)?.name ?? UNGROUPED_NAME}".`; });

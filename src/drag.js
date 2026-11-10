@@ -5,9 +5,8 @@ const SKIP = ".check, button, a, input, select, textarea, .task__edit, .group__t
 const SLOP = 6; // mouse and pen: px of movement before a press becomes a drag (R1)
 
 // Picks a task up with a mouse or pen and floats it as a slip over the drop strip. Knows nothing about storage:
-// the outcome goes to onEnd(row, key, hadFocus), key null for a cancel. Touch (T5), hit testing and the drop (T4)
-// and auto scroll (T6) come later; for now every release is a cancel.
-// Following the pointer never rebuilds the list or reads all rows: one transform per frame (NFR1, BUG-010).
+// the outcome goes to onEnd(row, key, hadFocus), key null for a cancel. Touch (T5) and auto scroll (T6) come later.
+// Following the pointer never rebuilds the list or reads all rows: one position and one hit test per frame (NFR1, BUG-010).
 export function createDrag({ list, template, groups, canStart, onStart, onEnd }) {
   const part = (sel) => template.content.querySelector(sel).cloneNode(true);
   const html = document.documentElement;
@@ -23,7 +22,7 @@ export function createDrag({ list, template, groups, canStart, onStart, onEnd })
       hadFocus: list.contains(document.activeElement), dragging: false }; // focus read before the browser moves it (R22)
     const on = (target, type, fn) => target.addEventListener(type, fn, { capture: true, signal: ac.signal });
     on(window, "pointermove", move);
-    on(window, "pointerup", (e) => { if (e.pointerId === s.id) release(); });
+    on(window, "pointerup", (e) => { if (e.pointerId === s.id) release(e); });
     on(window, "pointercancel", (e) => { if (e.pointerId === s.id) end(null); });
     on(window, "blur", (e) => { if (e.target === window) end(null); }); // capture also sees every element blur
     on(document, "visibilitychange", () => { if (document.hidden) end(null); });
@@ -76,6 +75,8 @@ export function createDrag({ list, template, groups, canStart, onStart, onEnd })
     list.closest("main").append(strip);
     s.slip = slip;
     s.strip = strip;
+    s.to = document.createElement("span"); // the target's name on the slip's corner, never colour alone (R28)
+    s.to.className = "drag-slip__to sticker";
     getSelection()?.removeAllRanges();
     // Captured on the slip, not the row: the browser keeps :hover on the capturing element, and the placeholder
     // must not show the row hover wash.
@@ -86,7 +87,9 @@ export function createDrag({ list, template, groups, canStart, onStart, onEnd })
     s.dx = r.left - text.offsetLeft - s.x0;
     s.dy = row.getBoundingClientRect().top - s.y0;
     s.maxX = html.clientWidth - slip.offsetWidth - 8;
-    s.maxY = html.clientHeight - slip.offsetHeight;
+    // The slip rides on the strip's top edge, never over it, so the label under the pointer stays readable
+    // (hover-strip.html). offsetTop: the strip's place without its entry animation.
+    s.maxY = Math.min(html.clientHeight, strip.offsetTop) - slip.offsetHeight;
     follow();
   }
 
@@ -99,27 +102,49 @@ export function createDrag({ list, template, groups, canStart, onStart, onEnd })
     // pick-up keyframes animate translate. The slip is fixed and out of flow, so this lays out the slip only.
     s.slip.style.left = `${x}px`;
     s.slip.style.top = `${y}px`;
+    hit();
   }
 
-  function release() {
+  // The target under the pointer: a strip label, else a visible section (header, rows or its space, open or folded).
+  // The own group is no target (R12). Classes change only when the target does; hovering never unfolds (R14).
+  function hit() {
+    const el = document.elementFromPoint(s.x, s.y); // the slip is pointer-events: none
+    let over = el?.closest(".drop-target[data-key]") ?? el?.closest("#day-list > .group");
+    if (over?.dataset.key === s.key) over = null;
+    if (over === s.over) return;
+    s.over?.classList.remove("group--drop", "drop-target--over");
+    s.over = over;
+    if (!over) return s.to.remove();
+    over.classList.add(over.matches(".group") ? "group--drop" : "drop-target--over");
+    const g = groups().get(over.dataset.key);
+    s.to.dataset.color = g?.color ?? "none";
+    s.to.textContent = g?.name ?? UNGROUPED_NAME;
+    s.slip.append(s.to);
+  }
+
+  function release(e) {
     if (!s.dragging) return end(null);
+    s.x = e.clientX;
+    s.y = e.clientY;
     // The click that follows the release never ticks, opens or follows anything (R7).
     const swallow = (e) => { e.preventDefault(); e.stopImmediatePropagation(); };
     window.addEventListener("click", swallow, { capture: true, once: true });
     setTimeout(() => window.removeEventListener("click", swallow, true));
-    end(null); // T4: the target under the pointer
+    hit(); // at the release point itself, not the last frame's
+    end(s.over?.dataset.key ?? null);
   }
 
   // Every exit runs this; each step is safe to repeat, so nothing is ever left on the page (NFR4).
   function end(key) {
     if (!s) return;
-    const { row, ac, dragging, hadFocus, slip, strip } = s;
+    const { row, ac, dragging, hadFocus, slip, strip, over } = s;
     s = null;
     cancelAnimationFrame(frame);
     frame = 0;
     ac.abort();
     html.classList.remove("is-dragging");
     row.classList.remove("task--placeholder");
+    over?.classList.remove("group--drop", "drop-target--over");
     slip?.remove();
     strip?.remove();
     if (dragging) onEnd(row, key, hadFocus);
