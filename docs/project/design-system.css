@@ -203,6 +203,11 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
   .icon-btn:hover::after { opacity: 1; translate: -50% 0; transition-delay: 350ms; }
 }
 .icon-btn:focus-visible::after { opacity: 1; translate: -50% 0; }
+/* NFR1 (BUG-014): Firefox builds every tooltip box and its transitions, even in rows content-visibility skips, which
+   doubled the cost of showing 200 rows. A row's tooltips exist only while it is hovered or holds focus, and
+   @starting-style keeps the fade in for a tooltip created by that same hover or focus. */
+.task:not(:hover, :focus-within) .icon-btn::after { content: none; }
+@starting-style { .task .icon-btn:is(:hover, :focus-visible)::after { opacity: 0; translate: -50% 4px; } }
 
 /* ---------- Inputs: written on the line ---------- */
 .input {

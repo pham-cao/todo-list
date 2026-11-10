@@ -3400,7 +3400,14 @@ test('200 tasks in 20 groups on a settled page: add, move, collapse and filter e
   await expect(rows(page)).toHaveCount(201);
   await editOf(page, 'Việc số 1').click();
   await editChoice(page).selectOption('g6');
+  // BUG-014: Firefox restyles every node put back into the page, so a move puts back only the moved row, no section.
+  await page.evaluate(() => {
+    window.__back = [];
+    window.__backObserver = new MutationObserver((ms) => ms.forEach((m) => window.__back.push(...[...m.addedNodes].map((n) => ['group', 'task'].find((c) => n.classList?.contains(c))).filter(Boolean))));
+    window.__backObserver.observe(document.getElementById('day-list'), { childList: true, subtree: true });
+  });
   expect(await timed("document.querySelector('.task__edit').requestSubmit()"), 'move').toBeLessThan(100);
+  expect(await page.evaluate(() => { window.__backObserver.disconnect(); return window.__back; }), 'put back').toEqual(['task']);
   await expect(sectionLabels(page, 'Nhóm 7').first()).toHaveText('Việc số 1');
   expect(await timed("document.querySelector('.group__toggle').click()"), 'collapse').toBeLessThan(100);
   await expect(sections(page).first()).toHaveClass(/group--collapsed/);
@@ -3519,4 +3526,29 @@ test('360 px: swipe, peek and Sửa work on rows with long text in sections and 
   await rowOf(page, 'Họp nhóm').getByRole('button', { name: 'Sửa' }).tap();
   await expect(editField(page)).toBeFocused();
   await noScroll();
+});
+
+// T12 (BUG-014): sections and lists on screen are reused, so nothing of the old day or the old header may linger.
+test('reused sections across a day change and the filter: rows, fold and header kind stay right', async ({ page }) => {
+  const other = { ...task('o1', 'Việc hôm qua', false, '2026-11-08', at(6, 0)), groupId: 'cty' };
+  await open(page, [...DAY, other], '', { groups: GROUPS });
+  await toggle(page, 'Nhà').click();
+  await page.locator('#prev-day').click();
+  await expect(names(page)).toHaveText(['Công ty']);
+  await expect(rows(page)).toHaveCount(1);
+  await expect(labels(page)).toHaveText(['Việc hôm qua']);
+  await page.locator('#next-day').click();
+  await expect(names(page)).toHaveText(['Công ty', 'Nhà', 'Chưa phân nhóm']);
+  await expect(rows(page)).toHaveCount(6);
+  await expect(sectionLabels(page, 'Công ty')).toHaveText(['Gửi báo cáo', 'Họp nhóm', 'Trả lời email']);
+  await expect(toggle(page, 'Nhà')).toHaveAttribute('aria-expanded', 'false');
+  await page.locator('#group-filter').selectOption('nha');
+  await expect(sections(page)).toHaveCount(1);
+  await expect(page.locator('.group__toggle')).toHaveCount(0);
+  await expect(sectionLabels(page, 'Nhà')).toHaveText(['Tưới cây', 'Nấu cơm']);
+  await expect(sectionLabels(page, 'Nhà').first()).toBeVisible();
+  await page.locator('#group-filter').selectOption('all');
+  await expect(names(page)).toHaveText(['Công ty', 'Nhà', 'Chưa phân nhóm']);
+  await expect(toggle(page, 'Nhà')).toHaveAttribute('aria-expanded', 'false');
+  await expect(rows(page)).toHaveCount(6);
 });

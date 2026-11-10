@@ -879,6 +879,8 @@ for (const count of [0, 1, 200]) {
     });
     await expect(rows(page)).toHaveCount(count);
     expect(ms).toBeLessThan(100);
+    // BUG-014: Firefox builds every tooltip box, even in rows it skips, so a row nobody points at or focuses has none.
+    if (count) expect(await rows(page).last().locator('[data-action="edit"]').evaluate((el) => getComputedStyle(el, '::after').content)).toBe('none');
   });
 }
 

@@ -71,13 +71,15 @@ const keyOf = (task) => (groups.get(task.groupId) ? task.groupId : UNGROUPED);
 const rowOf = (id) => [...els.list.querySelectorAll(".task")].find((r) => r.dataset.id === id);
 
 // Sections in group creation order, Chưa phân nhóm last, empty ones left out (R29, R30, R32).
-// Rows already on screen are moved, not rebuilt, so an open edit and the focus survive.
+// Rows, lists and sections already on screen are kept and only what changed is moved, so an open edit and the focus
+// survive, and Firefox, which restyles every node put back into the page, only does so for the changed ones (BUG-014).
 function renderList() {
   const tasks = store.tasksFor(viewed);
   const focused = els.list.contains(document.activeElement) ? document.activeElement : null;
-  // Headers are cloned fresh, so a focused toggle is found again by its section key.
+  // A section changes its header between toggle and plain heading, so a focused toggle is found again by its key.
   const focusKey = focused?.closest(".group__toggle")?.closest(".group").dataset.key;
   const old = new Map([...els.list.querySelectorAll(".task")].map((r) => [r.dataset.id, r]));
+  const oldSections = new Map([...els.list.querySelectorAll(":scope > .group")].map((s) => [s.dataset.key, s]));
   const buckets = new Map([...groups.list().map((g) => [g.id, []]), [UNGROUPED, []]]);
   for (const t of tasks) buckets.get(keyOf(t)).push(old.get(t.id) ?? renderRow(t));
   lists = new Map();
@@ -86,44 +88,56 @@ function renderList() {
   show(els.groupEmpty, !!shown && !shown.length && tasks.length > 0);
   els.groupEmptyText.textContent = filter === UNGROUPED ? "Ngày này không có việc nào chưa phân nhóm."
     : `Ngày này chưa có việc nào trong nhóm "${groups.get(filter)?.name}".`;
+  const section = (key, rows, fixed) => sectionOf(key, rows, fixed, oldSections.get(key));
   if (shown) {
-    if (shown.length) els.list.replaceChildren(sectionOf(filter, shown, true));
-    else els.list.replaceChildren();
+    syncChildren(els.list, shown.length ? [section(filter, shown, true)] : []);
   } else if (buckets.get(UNGROUPED).length === tasks.length) {
     // No task in a group: the plain list, exactly as before groups existed (R31).
-    const ul = document.createElement("ul");
-    ul.className = "task-list";
-    ul.append(...buckets.get(UNGROUPED));
+    let ul = els.list.querySelector(":scope > .task-list");
+    if (!ul) {
+      ul = document.createElement("ul");
+      ul.className = "task-list";
+    }
+    syncChildren(ul, buckets.get(UNGROUPED));
     lists.set(UNGROUPED, ul);
-    els.list.replaceChildren(ul);
+    syncChildren(els.list, [ul]);
   } else {
-    els.list.replaceChildren(...[...buckets].filter(([, rows]) => rows.length).map(([key, rows]) => sectionOf(key, rows)));
+    syncChildren(els.list, [...buckets].filter(([, rows]) => rows.length).map(([key, rows]) => section(key, rows, false)));
   }
   if (focused?.isConnected && document.activeElement !== focused) focused.focus({ preventScroll: true });
-  else if (focusKey) lists.get(focusKey)?.closest(".group")?.querySelector(".group__toggle").focus({ preventScroll: true });
+  else if (focusKey && !focused?.isConnected) lists.get(focusKey)?.closest(".group")?.querySelector(".group__toggle")?.focus({ preventScroll: true });
   updateSummary();
 }
 
-// One section from #group-template. Under the filter it is always open and its header is a plain heading
-// with the same words, no toggle, and the stored fold left as it is (R41).
-function sectionOf(key, rows, fixed = false) {
+// Puts nodes into parent in this order, moving only the ones out of place.
+function syncChildren(parent, nodes) {
+  const keep = new Set(nodes);
+  for (const child of [...parent.children]) if (!keep.has(child)) child.remove();
+  nodes.forEach((node, i) => { if (parent.children[i] !== node) parent.insertBefore(node, parent.children[i] ?? null); });
+}
+
+// One section from #group-template, or the one on screen when it has the same kind of header. Under the filter it is
+// always open and its header is a plain heading with the same words, no toggle, and the stored fold left as it is (R41).
+function sectionOf(key, rows, fixed, reuse) {
   const group = groups.get(key);
-  const section = els.groupTemplate.content.firstElementChild.cloneNode(true);
-  const head = section.querySelector(".group__toggle");
+  const keep = reuse && !!reuse.querySelector(".group__static") === fixed;
+  const section = keep ? reuse : els.groupTemplate.content.firstElementChild.cloneNode(true);
   const collapsed = !fixed && groups.isCollapsed(key);
+  const name = section.querySelector(".group__name");
   section.dataset.key = key;
-  section.dataset.color = group ? group.color : "none";
+  if (section.dataset.color !== (group?.color ?? "none")) section.dataset.color = group?.color ?? "none";
   section.classList.toggle("group--collapsed", collapsed);
-  head.setAttribute("aria-expanded", String(!collapsed));
-  section.querySelector(".group__name").textContent = group ? group.name : UNGROUPED_NAME;
-  if (fixed) {
+  section.querySelector(".group__toggle")?.setAttribute("aria-expanded", String(!collapsed));
+  if (name.textContent !== (group?.name ?? UNGROUPED_NAME)) name.textContent = group?.name ?? UNGROUPED_NAME;
+  if (fixed && !keep) {
+    const head = section.querySelector(".group__toggle");
     const stat = document.createElement("span");
     stat.className = "group__static";
     stat.append(...head.childNodes);
     head.replaceWith(stat);
   }
   const ul = section.querySelector(".task-list");
-  ul.append(...rows);
+  syncChildren(ul, rows);
   lists.set(key, ul);
   return section;
 }
