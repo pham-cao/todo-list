@@ -255,6 +255,14 @@ features:
         attempts: 0
         bugs_opened: [BUG-014]
         trello_card: ""
+      - id: T12
+        title: "Firefox speed for 200 tasks (BUG-014)"
+        owner: fe
+        depends_on: [T11]
+        state: done
+        attempts: 0
+        bugs_opened: [BUG-014 fixed]
+        trello_card: ""
 # - slug: user-login
 #   phase: requirements   # requirements | ux | design | build | release | done
 #   has_ui: true

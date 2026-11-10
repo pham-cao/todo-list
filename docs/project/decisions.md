@@ -484,3 +484,15 @@ Choice (by PM):
 - Carry over (b): yes, a failed write while the "Nhóm việc" card is open is announced inside the card, reusing the storage slip text.
 - Move card title overflow with a 30 character name without spaces at 360 px: approve `.dialog__title { overflow-wrap: anywhere; }` in design-system.css and turn the fixme into a normal test.
 - Corner sticker on the move card extending past the screen edge on phones: accepted, same as the approved prototype, causes no scroll.
+
+## 2026-11-10: task-groups: BUG-014 before release?
+Options: Release and record the risk, Fix before release
+Choice: Fix before release (by user). New task T12 "Firefox speed for 200 tasks" (owner fe); it also covers the same slow class in day navigation if the cause is shared.
+
+## 2026-11-10: task-groups T12: Firefox speed test residual on a loaded host
+Options: Accept, Retry once or median of three in Firefox
+Choice: Accept (by PM)
+Reason: The suite runs Chromium only; Firefox medians are 7 to 30 ms; about 5 percent of loaded host Firefox runs land at 111 to 158 ms, down from about 32 percent.
+
+## 2026-11-10: task-groups T12 review: tooltip differences accepted
+Choice: Accepted (by PM): leaving a row straight from Sửa or Xóa hides its tooltip at once (no fade out); browsers without @starting-style (Safari before 17.5, Firefox before 129) show the tooltip at once when the pointer lands straight on a button. design-system.md wording corrected.

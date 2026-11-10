@@ -1,0 +1,467 @@
+
+Running 309 tests using 3 workers
+
+[1/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:26:1 › nav row has the named buttons, the date stamp and a live date line
+[2/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:4:1 › page has the expected title and the date line for today
+[3/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:28:1 › sections follow group creation order, Chưa phân nhóm last, empty groups hidden, rows oldest first
+[4/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:44:1 › loading yesterday from the address shows its wording, tasks and summary
+[5/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:16:1 › shows only today's tasks, oldest first, with their done state and summary
+[6/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:57:1 › an empty future day and an empty past day show their own empty text
+[7/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:41:1 › shows the empty state with no rows, progress or summary
+[8/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:76:1 › today keeps its own wording on the plain address
+[9/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:41:1 › each header is an h2 holding the toggle named with the group and its count
+[10/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:51:1 › shows the star stamp without the celebration when every task is done
+[11/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:84:1 › arriving on an all done day shows the stamp without the celebration
+[12/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:53:1 › a day with only ungrouped tasks, and a task with an unknown group, show the plain list
+[13/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:58:1 › shows task text as plain text, never as markup
+[14/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:94:1 › ticking the last task on the viewed day still celebrates
+[15/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:66:1 › a tick and an untick update the header count and the summary, keep the row in place, and persist
+[16/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:67:1 › adds a task with Thêm and Enter, keeps focus, and keeps it after reload
+[17/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:102:3 › hash #2026-02-30 shows today and cleans the address without a history entry
+[18/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:88:1 › adding the first task replaces the empty state
+[19/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:81:1 › a section collapses with a click, Enter and Space, and the fold is remembered across reload and days
+[20/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:102:3 › hash #1999-12-31 shows today and cleans the address without a history entry
+[21/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:96:1 › empty or blank input shows the empty text error, and typing removes it
+[22/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:102:3 › hash #2100-01-01 shows today and cleans the address without a history entry
+[23/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:111:1 › Chưa phân nhóm can be folded when another section is shown, and the plain list has no toggle
+[24/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:111:1 › over 200 characters shows the too long error; exactly 200 after trim is added
+[25/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:102:3 › hash #abc shows today and cleans the address without a history entry
+[26/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:124:1 › a collapsed section still counts in the summary, the progress mark and the stamp
+[27/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:127:1 › ticking saves, keeps the row in place and updates the summary and ink circle
+[28/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:137:1 › group names are shown as text, never as markup
+[29/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:149:1 › six colours give six coloured headers; an unknown colour shows as yellow
+[30/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:102:3 › hash #2026-1-5 shows today and cleans the address without a history entry
+[31/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:137:1 › unticking after a reload saves and keeps the order
+[32/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:161:1 › deleting the last task of a section removes it; the last grouped task turns the day into the plain list
+[33/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:102:3 › hash #2026-13-01 shows today and cleans the address without a history entry
+[34/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:151:1 › ticking the last open task stamps the star, celebrates briefly, and unticking clears it
+[35/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:102:3 › hash # shows today and cleans the address without a history entry
+[36/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:102:3 › hash #2026-11-09 shows today and cleans the address without a history entry
+[37/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:102:3 › hash #<img src=x onerror=alert(1)> shows today and cleans the address without a history entry
+[38/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:102:3 › hash #2026-11-08%3Cb%3E shows today and cleans the address without a history entry
+[39/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:169:1 › adding a task while all are done removes the stamp
+[40/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:123:1 › a hash equal to today on first load is replaced, not pushed
+[41/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:182:1 › Sửa opens a prefilled, focused edit line; Lưu saves and keeps done state and position
+  1) [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:123:1 › a hash equal to today on first load is replaced, not pushed 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 2
+    Received: 1
+
+      125 |   await expect(heading(page)).toHaveText('Việc cần làm hôm nay');
+      126 |   expect(hash(page)).toBe('');
+    > 127 |   expect(await page.evaluate(() => history.length)).toBe(2); // about:blank, then this page
+          |                                                     ^
+      128 | });
+      129 |
+      130 | test('Về hôm nay is muted on today and filled on other days', async ({ page }) => {
+        at /home/gem/src/todo_list/tests/e2e/day-nav.spec.js:127:53
+
+    Error Context: ff-results/day-nav-a-hash-equal-to-to-d64d7-load-is-replaced-not-pushed-firefox/error-context.md
+
+
+[42/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:182:1 › delete focus skips rows in a folded section and falls back to the previous row
+[43/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:212:1 › invalid edit text keeps edit mode with the matching error and the old saved text
+[44/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:130:1 › Về hôm nay is muted on today and filled on other days
+[45/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:234:1 › Hủy and Escape leave edit mode and keep the old text
+[46/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:199:1 › an open edit stays open with its text when a row in another section is ticked
+[47/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:253:1 › only one row edits at a time, and adding and ticking still work while editing
+[48/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:211:1 › a rebuild keeps an open edit with its text and focus
+[49/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:275:1 › edit accepts exactly 200 characters (trimmed) and rejects 201
+[50/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:142:1 › the app works under a subpath: relative assets, address keeps path and query
+[51/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:287:1 › the editing row keeps the highlighter wash under mouse hover
+[52/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:162:1 › new nav controls and day wording are Vietnamese with diacritics
+[53/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:303:1 › Xóa opens the sticky note with the task quoted and focus on Giữ lại
+[54/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:175:1 › previous and next move one day, write the address and never reload
+[55/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:201:1 › Về hôm nay returns to today, removes the hash and keeps focus
+[56/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:226:1 › a rebuild keeps the focus on a section toggle
+[57/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:314:1 › Giữ lại, Escape and a backdrop click keep the task and return focus to Xóa
+[58/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:213:1 › Về hôm nay on today does nothing with click, Enter or Space
+[59/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:226:1 › Enter and Space on the nav buttons move and keep focus
+[60/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:243:1 › browser Back and Forward retrace three moves day by day
+[61/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:337:1 › Xóa việc removes the task, saves, updates the summary and moves focus on
+[62/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:266:3 › pressing past the year bound on #2099-12-31 changes nothing
+[63/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:236:1 › an ungrouped task added to a day of sections lands in Chưa phân nhóm and opens it when folded
+[64/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:266:3 › pressing past the year bound on #2000-01-01 changes nothing
+[65/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:253:1 › each day builds only its own sections with the same rules
+[66/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:268:1 › groups and UI state that cannot be read leave the plain list and no error
+[67/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:280:1 › moves cross year end and the leap day
+[68/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:291:1 › on a phone the peek skips a folded section, and swipe, tick and delete work inside sections
+[69/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:369:1 › deleting a row while another row is being edited keeps that edit open
+[70/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:313:1 › 200 tasks in 5 groups: render, collapse and tick each under 100 ms
+[71/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:294:1 › a move drops an open edit without saving it
+[72/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:338:1 › local midnight with sections on screen: the new day starts empty, folds stay, the old day keeps its sections
+[73/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:306:1 › a move closes an open delete note without deleting
+[74/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:381:1 › the sticky note sits in the middle of the viewport
+[75/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:319:1 › a move clears the add error and keeps the typed add text
+[76/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:351:1 › Back and Forward between days rebuild the right sections
+[77/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:401:1 › the first row peeks once on a phone, and not again after a reload
+[78/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:336:1 › a move leaves no row swiped open on a phone
+[79/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:419:1 › the peek waits for the first task, and only plays once
+[80/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:350:1 › changing the hash on a loaded page shows that day, then today
+[81/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:362:1 › older data without groups or UI keys is shown as before and never rewritten by viewing, folding or ticking
+[82/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:431:1 › under reduced motion the peek is skipped but remembered
+[83/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:442:1 › the desktop layout never peeks
+[84/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:365:1 › moving around never writes the tasks
+[85/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:374:1 › ticking keeps the groupId of every task and writes nothing to the groups key
+[86/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:449:1 › only one row stays swiped open; a tap elsewhere closes it
+[87/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:466:1 › Tab to Sửa scrolls the row open; Giữ lại leaves only that row open
+[88/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:383:1 › groups storage that cannot be read: slip shown, tasks still listed, day still usable
+[89/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:396:1 › a failing write of the fold shows the slip, and the section still folds in memory
+[90/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:382:1 › under a subpath, moves keep the path and query and Về hôm nay restores the plain address
+[91/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:419:1 › the add choice lists Chưa phân nhóm, the groups and Nhóm mới..., and starts on Chưa phân nhóm after load and reload
+[92/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:494:1 › no horizontal page scroll at 360 px with a long task
+[93/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:402:1 › the date line is one live region that changes once per move
+[94/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:521:1 › a real swipe opens one row; swiping another closes it; a tap outside closes all
+[95/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:538:1 › a blocked save shows the slip, the app keeps working in memory, and the next good save hides it
+[96/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:434:1 › Nhóm mới... opens the name line with the next colour; Enter and Tạo nhóm create and choose the group without a task
+[97/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:417:1 › Về hôm nay after a silent midnight moves to the new today and keeps focus
+[98/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:565:1 › a throwing localStorage shows the slip on load for the whole session; add, tick, edit and delete still work
+[99/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:464:1 › seven groups made on the fly take the colours in order and wrap
+[100/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:475:1 › name errors keep the line open and create nothing; typing clears them
+[101/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:433:1 › picking a date shows that day, writes the hash and keeps focus on the picker
+[102/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:445:1 › the picker follows the viewed day after every move, load, Back and midnight
+[103/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:590:1 › corrupt stored data starts an empty list with no slip and no console error, and keeps a backup
+[104/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:502:1 › at 20 groups the limit error shows as soon as Nhóm mới... is chosen, and nothing is created
+[105/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:610:1 › after a failed first read nothing is written to the tasks key, so earlier days are never overwritten
+[106/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:463:1 › an empty or out of range pick changes nothing and the picker shows the viewed day after blur
+[107/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:631:1 › the slip shows at once when a save fails on edit and on delete, and quota errors keep the stored value
+[108/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:477:1 › the first and last allowed days can be picked
+[109/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:516:1 › Escape closes the line, puts the choice back and focuses it; an add while it is open uses the previous choice
+[110/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:487:1 › picking the viewed day adds no history entry; picking today removes the hash
+[111/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:499:1 › typing a date digit by digit ends on that day without jumping back
+[112/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:539:1 › an add saves the group on the viewed day at the end of its section, keeps the choice and the focus
+[113/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:660:1 › a stored non array value starts an empty list with no slip and no error
+[114/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:512:1 › a partial year typed into the picker is kept while focused and reset on blur
+[115/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:675:1 › after midnight, returning to the page shows the new date and an empty list; yesterday stays stored
+[116/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:564:1 › a group removed in another tab: the add saves ungrouped and the choice goes back to Chưa phân nhóm
+[117/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:687:1 › window focus also checks the day, and nothing changes on the same day
+[118/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:578:1 › an add to a folded section opens it and stores that
+[119/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:589:1 › keyboard only: input, group choice, Thêm; Nhóm mới..., name, Tạo nhóm
+[120/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:614:1 › storage blocked: a group made on the fly works in memory and the slip shows
+[121/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:696:1 › adding right after midnight saves the task to the new day on a fresh list
+[122/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:706:1 › a day change drops an open edit and closes the delete note without saving or deleting
+[123/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:632:1 › a failing groups write keeps the new group in memory and shows the slip
+[124/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:723:1 › a day change does not replay the celebration or the swipe hint
+[125/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[126/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:734:1 › the day boundary is local midnight: 23:59:59.999 stays, 00:00:00 switches (Asia/Ho_Chi_Minh)
+[127/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:662:1 › IME: Enter that commits a composition does not create the group; Enter after it does
+[128/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:679:1 › pasted decomposed diacritics: a duplicate of a composed name is found, 30 visible characters are accepted
+[129/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:744:1 › a session with blocked storage still switches day, keeps the slip and accepts a new task
+[130/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:760:1 › keyboard only: add, tick with Space, edit with Enter, cancel with Escape, save and delete
+[131/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:814:1 › every button and checkbox has its Vietnamese accessible name
+[132/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:691:1 › Enter twice and a double click on Tạo nhóm make one group
+[133/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:705:1 › another page adds a group: the choice lists it, an open line keeps its text, and the same name is now a duplicate
+  2) [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:512:1 › a partial year typed into the picker is kept while focused and reset on blur 
+
+    Error: expect(locator).toHaveValue(expected) failed
+
+    Locator:  getByLabel('Chọn ngày')
+    Expected: "0020-11-08"
+    Received: "2026-11-08"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveValue" getByLabel('Chọn ngày') with timeout 5000ms
+      - waiting for getByLabel('Chọn ngày')
+        14 × locator resolved to <input type="date" id="day-picker" min="2000-01-01" max="2099-12-31" aria-label="Chọn ngày"/>
+           - unexpected value "2026-11-08"
+
+
+      519 |   await page.keyboard.press('2');
+      520 |   await page.keyboard.press('0');
+    > 521 |   await expect(picker(page)).toHaveValue('0020-11-08');
+          |                              ^
+      522 |   await expect(dateLine(page)).toHaveText('Hôm qua, Chủ Nhật, 08/11/2026');
+      523 |   await picker(page).blur();
+      524 |   await expect(picker(page)).toHaveValue('2026-11-08');
+        at /home/gem/src/todo_list/tests/e2e/day-nav.spec.js:521:30
+
+    Error Context: ff-results/day-nav-a-partial-year-typ-60771-e-focused-and-reset-on-blur-firefox/error-context.md
+
+
+  3) [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:814:1 › every button and checkbox has its Vietnamese accessible name 
+
+    Error: expect(locator).toHaveAccessibleName(expected) failed
+
+    Locator: getByRole('alertdialog', { name: 'Bạn có chắc muốn xóa việc này không?' }).locator('button:visible, input[type="checkbox"]').first()
+    Expected: "Giữ lại"
+    Error: Page crashed
+
+    Call log:
+      - Expect "toHaveAccessibleName" getByRole('alertdialog', { name: 'Bạn có chắc muốn xóa việc này không?' }).locator('button:visible, input[type="checkbox"]').first() with timeout 5000ms
+      - waiting for getByRole('alertdialog', { name: 'Bạn có chắc muốn xóa việc này không?' }).locator('button:visible, input[type="checkbox"]').first()
+      - Page crashed
+
+
+      820 |     expect(names).toEqual(expected);
+      821 |     const controls = scope.locator('button:visible, input[type="checkbox"]');
+    > 822 |     for (let i = 0; i < names.length; i++) await expect(controls.nth(i)).toHaveAccessibleName(names[i]);
+          |                                                                          ^
+      823 |   };
+      824 |   await expectNamed(page.locator('main'), ['Xem ngày trước', 'Xem ngày sau', 'Về hôm nay', 'Thêm', 'Quản lý nhóm', 'Đánh dấu hoàn thành', 'Sửa', 'Xóa', 'Đánh dấu hoàn thành', 'Sửa', 'Xóa']);
+      825 |   // The row text is the description, so a screen reader hears which task each control is for.
+        at expectNamed (/home/gem/src/todo_list/tests/e2e/app.spec.js:822:74)
+        at /home/gem/src/todo_list/tests/e2e/app.spec.js:835:3
+
+    Error Context: ff-results/app-every-button-and-check-12175--Vietnamese-accessible-name-firefox/error-context.md
+
+
+[134/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:720:1 › another page adds a group: the open line swatch shows the new next colour (BUG-006)
+[135/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:528:1 › keyboard: Tab reaches the picker and arrow keys change the day while focus stays
+[136/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:838:1 › 200 tasks render quickly and a tick updates in under 100 ms
+[137/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:731:1 › accessible names of the add form keep their visible text (R63a)
+[138/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:745:1 › an Enter that ends an IME composition (Safari keyCode 229) does not create the group
+[139/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:758:1 › an Escape that ends an IME composition (Safari keyCode 229) keeps the name line open
+[140/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:546:1 › adding on yesterday saves that date at the end of its list with the real creation time
+[141/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:773:1 › a session whose groups could not be saved keeps its memory groups when another page changes them
+[142/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:560:1 › adding on an empty future day replaces the empty text and saves that date
+[143/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:802:1 › Sửa shows the group choice with the current group selected, Chưa phân nhóm for ungrouped and unknown groups
+[144/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:569:1 › tick, edit and delete on another day keep date and order and save
+[145/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:824:1 › Lưu saves text and group together: the row lands by creation time, the folded section opens, focus on Sửa, name announced
+[146/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:599:1 › ticking the last task on a future day celebrates
+[147/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:606:1 › after midnight, viewing today follows to the new today with a plain address
+[148/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:616:1 › after midnight, viewing tomorrow stays and becomes today with a muted Về hôm nay and a plain address
+[149/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:627:1 › after midnight, an older day stays with its open edit and plain wording
+[150/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:646:3 › after midnight, the wording of 2026-11-08 follows the new today
+[151/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:646:3 › after midnight, the wording of 2026-11-11 follows the new today
+[152/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:858:1 › Hủy and Escape keep the old text and the old group
+[153/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:657:1 › an add right after a silent midnight on another day saves to the viewed day
+[154/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:671:1 › on a past day an empty, blank or 201 character add shows the usual errors and stores nothing
+[155/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:875:1 › invalid text keeps the edit open and changes neither text nor group
+[156/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:682:1 › on a past day an invalid edit keeps edit mode and the stored task
+[157/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:892:1 › a move works on a past and a future day
+[158/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:694:1 › on another day the stamp follows tick, untick, add and delete; reload shows it without the celebration
+[159/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:909:1 › plain list to sections and back: a move to Chưa phân nhóm removes groupId
+[160/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:929:1 › text only, group only and no change: an unchanged choice never rewrites the group
+[161/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:713:1 › each day lists and counts only its own tasks after adding on three days
+[162/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:949:1 › a group removed in another page while the edit is open: the task saves ungrouped
+[163/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:727:1 › storage that refuses writes on another day shows the slip, keeps memory and the old stored value
+[164/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:743:1 › data saved by the daily task log in its exact shape shows on its days without conversion
+[165/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:963:1 › keyboard only: text, group choice, Hủy, Lưu; Enter saves and Escape cancels
+[166/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:756:1 › after midnight on an all done day nothing celebrates again and no page turn plays
+[167/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:785:1 › a move turns the page by direction and the classes go after the animation
+[168/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:989:1 › an Enter or Escape that ends an IME composition (Safari keyCode 229) neither saves nor cancels the edit
+[169/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1006:1 › on a phone the swipe and Sửa reach the edit form inside a section; the form fits 360 px
+[170/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[171/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:807:1 › loading a day plays no page turn
+[172/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1048:1 › a failing write during a move: slip shown, the move still shows, focus on Sửa, name announced
+[173/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:816:1 › with reduced motion a move changes the day and plays no page turn
+[174/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1064:1 › equal creation times in different groups keep a stable order after a move and a reload
+[175/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:828:1 › Tab from the page start reaches previous, next, Chọn ngày, Về hôm nay, then the add field
+[176/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1078:3 › phone 390px: after a move focus is on Sửa and the swipe strip stays closed
+[177/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:843:3 › each nav control is at least 44 by 44 px on today
+[178/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1078:3 › phone 360px: after a move focus is on Sửa and the swipe strip stays closed
+[179/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1096:1 › while an edit is open both group selects are named Nhóm; the edit one keeps its visible text in its name
+[180/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:843:3 › each nav control is at least 44 by 44 px on #2026-11-08
+[181/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:854:1 › no horizontal scroll at 360 px on today and on a past day, with a long unbroken task
+[182/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1104:1 › two moves to the same group each rewrite the live region
+[183/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1130:1 › no filter before the first group, Quản lý nhóm on every day, and the filter appears once a group is made
+[184/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 0 tasks renders in under 100 ms
+[185/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1146:1 › the filter sits between the add form and the list and lists Tất cả nhóm, Chưa phân nhóm, then the groups
+[186/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 1 tasks renders in under 100 ms
+[187/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1157:1 › a group in the filter shows only its section, open and without a toggle; the stored fold is kept
+[188/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1177:1 › Chưa phân nhóm in the filter shows ungrouped tasks and tasks of an unknown group
+[189/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[190/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1187:1 › filter empty states: a group, Chưa phân nhóm, and the usual empty state on a day with no tasks
+[191/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:888:1 › Về hôm nay is filled from the first frame after load on another day
+[192/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1218:1 › the filter follows previous, next, the picker, Về hôm nay, Back and Forward, and resets on reload
+[193/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:909:1 › on a move, the label colour changes together with the Về hôm nay fill
+[194/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1245:1 › the add choice follows a group and Chưa phân nhóm in the filter, but not Tất cả nhóm
+[195/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:924:1 › 200 rows: Tab from the add field into rows scrolled away brings the first row back into view
+[196/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1258:1 › an add to a group the filter hides is saved, the filter stays and a polite notice says so
+[197/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen
+[198/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1290:1 › an add into an empty filtered group replaces the empty text with its section
+[199/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1301:1 › while filtered the summary, progress and stamp count the whole day
+[200/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1319:1 › a move under the filter sends focus to the next visible row, else the previous one, else the add input
+  4) [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "Việc số 150"
+    Received: ""
+
+      938 |   expect(await page.evaluate(() => window.find('Việc số 150'))).toBe(true);
+      939 |   expect(await page.evaluate(() => scrollY)).toBeGreaterThan(1000);
+    > 940 |   expect(await page.evaluate(() => getSelection().toString())).toBe('Việc số 150');
+          |                                                                ^
+      941 | });
+      942 |
+      943 | test('200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted', async ({ page }) => {
+        at /home/gem/src/todo_list/tests/e2e/day-nav.spec.js:940:64
+
+    Error Context: ff-results/day-nav-200-rows-browser-f-6a39d-of-a-row-that-is-off-screen-firefox/error-context.md
+
+
+[201/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:943:1 › 200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted
+[202/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1340:1 › filtering and moving between days never writes to storage
+[203/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1351:1 › keyboard only: the filter and Quản lý nhóm follow Thêm in the Tab order and the filter changes with the keys
+[204/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1373:3 › 360px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut
+[205/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1373:3 › 380px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut
+[206/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:966:1 › 200 rows: a hovered or focused row renders in full so the Sửa and Xóa tooltips are not clipped
+[207/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1373:3 › 390px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut
+[208/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1373:3 › 412px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut
+[209/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1373:3 › 452px: Quản lý nhóm shows its text, targets are 44 px, the filter choice is not cut
+[210/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1373:3 › 1440px: Quản lý nhóm shows its text, targets are 44 px, the filter choice is not cut
+[211/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[212/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1441:1 › a group removed in another tab while it is filtered: the filter resets, the list shows all, the add choice falls back
+[213/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1453:1 › the filtered group renamed in another tab stays selected; all groups removed hides the filter and shows every task
+[214/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1465:1 › a filter change drops an open edit on a row it hides and keeps one on a row it shows
+[215/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1480:1 › a filter change while Nhóm mới... is open changes the add choice but keeps the line and its text
+[216/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1492:1 › midnight with a filter on keeps the filter, follows the new day and clears the notice
+[217/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1506:1 › the hidden group notice goes away when the filter changes
+[218/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1516:1 › the filter empty text is a polite status, so it is announced when the filter shows no task
+[219/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1523:1 › every group removed in another tab while the filter has focus: the filter goes and focus moves to the add input
+[220/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1537:1 › an add to a hidden group on an empty day shows the filter empty text and the notice
+[221/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1562:1 › Quản lý nhóm opens Nhóm việc with a row per group in creation order and Đóng
+  5) [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1562:1 › Quản lý nhóm opens Nhóm việc with a row per group in creation order and Đóng 
+
+    Error: locator.evaluateAll: Page crashed
+
+      1566 |   await expect(card(page).getByRole('button', { name: 'Đóng', exact: true })).toBeVisible();
+      1567 |   await expect(cardRows(page).locator('.sticker')).toHaveText(['Công ty', 'Nhà', 'Học tiếng Nhật']);
+    > 1568 |   expect(await cardRows(page).locator('.sticker').evaluateAll((s) => s.map((el) => el.dataset.color))).toEqual(['yellow', 'pink', 'green']);
+           |                                                   ^
+      1569 |   for (const name of ['Công ty', 'Nhà', 'Học tiếng Nhật']) {
+      1570 |     const buttons = cardRow(page, name).getByRole('button');
+      1571 |     await expect(buttons).toHaveCount(3);
+        at /home/gem/src/todo_list/tests/e2e/groups.spec.js:1568:51
+
+    Error Context: ff-results/groups-Quản-lý-nhóm-opens--2ba58--in-creation-order-and-Đóng-firefox/error-context.md
+
+
+[222/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1587:1 › with no groups the card says Bạn chưa có nhóm nào. on a past day, today and a future day
+[223/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1598:1 › Sửa shows the name in "Tên nhóm", six named colours with the current one checked, arrow keys, Hủy and Lưu
+[224/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1617:1 › Lưu and Enter save the name and colour at once; headers, choices, filter and toggle names follow; tasks untouched
+[225/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1647:1 › rename errors: empty, too long, a duplicate and Chưa phân nhóm; typing clears; own name in another case is fine
+[226/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1674:1 › Hủy and Escape cancel the row edit and keep the card open; a second Escape closes it
+[227/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1697:1 › only one row is in edit: Sửa on another row drops the first edit unsaved
+[228/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1709:1 › the card does not close on a backdrop click; Đóng closes it and refreshes the page behind
+[229/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1719:1 › a filtered group renamed in the card stays selected with its new name (T7-14)
+[230/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1733:1 › a rename keeps typed add text and an open task edit, whose group choice shows the new name
+[231/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1752:1 › a group named <b>abc</b> is plain text in the row and in the rename input
+[232/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1760:1 › keyboard only: open, Tab to a row, rename, Lưu, close
+[233/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1782:1 › phones: Chuyển tất cả việc in a row is icon only and keeps its name; 20 long names fit at 360 px
+[234/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1802:1 › focus stays inside the card: Tab and Shift+Tab never reach the page behind
+[235/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1814:1 › a colour chosen with arrow keys and saved with Lưu is stored (Hồng to Cam)
+[236/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1829:1 › a failing write on rename keeps working in memory, shows the slip and keeps the card usable
+[237/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1847:1 › another tab renames a group while the card is open: rows follow; a row in edit keeps the typed name
+[238/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1866:1 › IME in the rename input: Escape and the committing Enter neither cancel nor save
+[239/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1886:1 › the group in edit is deleted in another tab: Lưu drops the edit quietly and focus goes to Đóng
+[240/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1904:1 › Sửa on the last of 20 groups brings the whole edit block, with Lưu, into view
+[241/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1914:1 › Sửa on a row whose group went in another tab while another row was in edit: no error, the row goes, focus on Đóng
+[242/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1937:1 › Xóa on a group with no task asks first, with the name, Giữ lại focused and Xóa nhóm
+[243/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1950:1 › Xóa nhóm removes the group from storage and the card, tasks untouched; focus on the next Sửa, else the previous, else Đóng
+[244/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1968:1 › deleting the only group leaves Bạn chưa có nhóm nào. with focus on Đóng
+[245/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1979:1 › Giữ lại, Escape and a backdrop click keep the group, the card stays open and focus returns to Xóa
+[246/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2000:1 › deleting the filtered group that is also the add choice resets both; the last group returns the plain list (T7-14)
+[247/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2020:1 › deleting the filtered group among others: filter Tất cả nhóm, add choice Chưa phân nhóm, all sections back
+[248/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2032:1 › a deleted group leaves the collapsed list; the others keep order and colour; a new group continues from the latest
+[249/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2047:1 › a group with tasks on any day is never deleted: the blocked note gives n and d, three buttons, and Xóa stays usable
+[250/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2082:1 › a group emptied by moving its tasks out one by one, or by deleting them, can then be deleted; no task goes with it
+[251/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2125:3 › Xem các việc này, past only: the latest day up to today; filter and add choice on the group, hash written, Back returns, focus on Quản lý nhóm
+[252/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2125:3 › Xem các việc này, future only: the earliest later day; filter and add choice on the group, hash written, Back returns, focus on Quản lý nhóm
+[253/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2125:3 › Xem các việc này, today included: today; filter and add choice on the group, hash written, Back returns, focus on Quản lý nhóm
+[254/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2147:1 › Xem các việc này on the day already shown stays there, filters the list and adds no history entry
+[255/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2162:1 › names with markup and quotes are plain text in both notes
+[256/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2175:1 › keyboard only: Xóa, Giữ lại, Escape, Xóa nhóm; then the blocked note with Đã hiểu and Xem các việc này
+[257/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2213:1 › a group deleted in another tab while its note is open: Escape ends it quietly with focus on Đóng
+[258/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2227:1 › a failing write on Xóa nhóm: no error, the slip shows, the group goes in the page and the stored list is untouched
+[259/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2249:1 › a task added to the group in another tab while Xóa nhóm? is open: the group must not be deleted (BUG-009)
+[260/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2273:1 › BUG-009: after a task arrives from another tab, Xem các việc này on the blocked note sets the filter, the add choice and the day
+[261/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2298:3 › phone 390px: both notes fit, buttons at least 44 px, no horizontal scroll
+[262/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2298:3 › phone 360px: both notes fit, buttons at least 44 px, no horizontal scroll
+[263/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2323:1 › phone swipes in sections: one strip open, another swipe closes it, a tap outside closes all, Tab into Sửa opens that strip, Giữ lại leaves only it open
+[264/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2352:1 › task delete note: Giữ lại, then Enter on Xóa straight away, then Xóa việc still deletes that task
+[265/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2377:1 › rapid keyboard cycles on the task delete note: after the last reopen, Xóa việc still deletes (BUG-011)
+[266/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2397:1 › rapid keyboard cycles on the group delete question and blocked note: the last note always acts, never a stale one
+[267/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2437:1 › rapid mouse cycles: card, delete question and blocked note opened and closed in a row; the last one acts
+[268/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2459:1 › rapid card cycles: Enter on Quản lý nhóm, Escape, Enter again; the card opens and closes cleanly with focus back
+[269/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2471:1 › damaged stored entries in a group neither block its delete nor send Xem các việc này to a bad day
+[270/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2519:1 › the inactive move button of a group with no task does nothing, by click or Enter
+  6) [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2519:1 › the inactive move button of a group with no task does nothing, by click or Enter 
+
+    Error: locator.dispatchEvent: Page crashed
+    Call log:
+      - waiting for getByRole('dialog', { name: 'Nhóm việc' }).locator('.group-row').filter({ has: locator('.sticker').getByText('Học tiếng Nhật', { exact: true }) }).getByRole('button', { name: 'Chuyển tất cả việc' })
+
+
+      2521 |   await openCard(page);
+      2522 |   const idle = moveBtn(page, 'Học tiếng Nhật');
+    > 2523 |   await idle.dispatchEvent('click'); // Playwright will not click an aria-disabled button, so fire the press itself
+           |              ^
+      2524 |   await idle.focus();
+      2525 |   await page.keyboard.press('Enter');
+      2526 |   await page.keyboard.press(' ');
+        at /home/gem/src/todo_list/tests/e2e/groups.spec.js:2523:14
+
+    Error Context: ff-results/groups-the-inactive-move-b-f5d45-s-nothing-by-click-or-Enter-firefox/error-context.md
+
+
+[271/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2533:1 › the move card: title, Chưa phân nhóm first and chosen, no source, the sentence follows the target; Hủy and Escape change nothing
+[272/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2570:1 › Chuyển việc moves every task of the group on every day with one write; only groupId changes; the source stays and can be deleted
+[273/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2604:1 › moving to Chưa phân nhóm drops the groupId key; a filter and add choice on the source stay, with its empty state
+[274/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2630:1 › a failed write keeps the card open with the error and the target; nothing moves; a retry then moves everything
+[275/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2661:1 › from the blocked note: Hủy returns to its Chuyển tất cả việc; Chuyển việc closes every dialog
+[276/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2684:1 › only one group: the target list holds Chưa phân nhóm alone and the move works
+[277/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2694:1 › storage unavailable from load: the move happens in memory with the notice and no error, nothing written
+[278/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2715:1 › a task of the group stored by another tab: Chuyển việc writes nothing and asks for a reload, so that task is not lost (BUG-013)
+[279/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2733:1 › a target group deleted in another tab while the card is open falls back to Chưa phân nhóm
+[280/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[281/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2775:1 › Escape peels three stacked dialogs one at a time: move card, blocked note, manage card; focus returns to each opener
+[282/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2799:1 › rapid cycles on the move card from the row and from the blocked note: it opens clean each time and the last Chuyển việc moves all
+[283/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2828:1 › names and sizes: every control of the move card has its visible text in its name; the dialog is modal; the buttons reach 44 px on a phone
+[284/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2851:1 › the source group removed in another tab while the move card is open closes it without a move or a script error
+[285/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2870:1 › another tab stored more tasks of the group: the refusal repeats, Hủy and reopening do not clear it, nothing is written
+[286/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2896:1 › the blocked note and move card of a group removed in another tab both close; focus goes back to the card (Đóng)
+[287/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2931:1 › another tab adds one task to the group and moves another out: same count, the move is still refused
+[288/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3005:1 › keyboard only: create a group on the fly, add, collapse, filter, move a task, rename and recolour, move all, delete
+[289/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3089:1 › every new control is at least 44 by 44 px
+  7) [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3089:1 › every new control is at least 44 by 44 px 
+
+    Error: locator.evaluateAll: Page crashed
+
+      2981 | // ::before that sticks out of it (inset -4px 0), so that overhang is added to its box.
+      2982 | const atLeast44 = async (locator, label) => {
+    > 2983 |   const sizes = await locator.evaluateAll((els) => els.filter((el) => el.getClientRects().length).map((el) => {
+           |                               ^
+      2984 |     let w = el.offsetWidth, h = el.offsetHeight;
+      2985 |     for (const pseudo of ['::before', '::after']) {
+      2986 |       const c = getComputedStyle(el, pseudo);
+        at atLeast44 (/home/gem/src/todo_list/tests/e2e/groups.spec.js:2983:31)
+        at /home/gem/src/todo_list/tests/e2e/groups.spec.js:3099:9
+
+    Error Context: ff-results/groups-every-new-control-is-at-least-44-by-44-px-firefox/error-context.md
+
+
+[290/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3112:1 › 360 px with 20 long names: no horizontal scroll with the new group line, the edit choice and each dialog open
+[291/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3149:1 › 360 px: the move card title wraps a 30 character name with no space
+[292/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3157:1 › reduced motion: collapse, expand and a move run no animation
+[293/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3175:1 › data saved before the feature: every task shown ungrouped, the tasks string unchanged; the first group keeps old shapes
+[294/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3207:3 › corrupt groups and a UI value of garbage: no message, no error, every task shown, the corrupt copy written
+[295/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3207:3 › corrupt groups and a UI value of {"collapsed":["gone","x\"]"]}: no message, no error, every task shown, the corrupt copy written
+[296/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3225:1 › storage blocked: create, add, move and collapse work in memory with the slip, and nothing is written
+[297/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3249:1 › a stored colour "red; x" shows as yellow, with no inline style and no unknown data-color
+[298/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3261:1 › markup and quotes in stored names and ids: no script, no injected element, selectors still work
+[299/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3280:1 › every request stays on the same origin and the CSP meta is unchanged
+[300/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3297:1 › failing writes on every action never change or shrink the stored strings, and no task is lost
+[301/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3324:1 › a failed write in the card is announced inside it with the slip text; a good save hides it
+[302/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3353:3 › Xem các việc này: an impossible earlier date is skipped for the real one
+[303/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3353:3 › Xem các việc này: only an impossible date: the filter applies and the day stays
+[304/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3367:1 › midnight with the filter on, a folded section and the card open: no error; the filter and fold stay; the new day shows
+[305/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[306/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3427:3 › light: the six colours keep the name at 4.5 to 1 on its label and the label mark at 3 to 1 on the paper; the name stays text
+[307/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3427:3 › dark: the six colours keep the name at 4.5 to 1 on its label and the label mark at 3 to 1 on the paper; the name stays text
+[308/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3451:1 › every shown string is Vietnamese: the listed texts are present and no dash or English word appears on the page, the dialogs or the errors
+[309/309] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3504:1 › 360 px: swipe, peek and Sửa work on rows with long text in sections and in the filtered view, with no sideways scroll
+  7 failed
+    [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:814:1 › every button and checkbox has its Vietnamese accessible name 
+    [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:123:1 › a hash equal to today on first load is replaced, not pushed 
+    [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:512:1 › a partial year typed into the picker is kept while focused and reset on blur 
+    [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen 
+    [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1562:1 › Quản lý nhóm opens Nhóm việc with a row per group in creation order and Đóng 
+    [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2519:1 › the inactive move button of a group with no task does nothing, by click or Enter 
+    [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3089:1 › every new control is at least 44 by 44 px 
+  20 skipped
+  282 passed (3.6m)

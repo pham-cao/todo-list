@@ -1,0 +1,64 @@
+chromium 1440 light sections | serious/critical: 0 | other: 
+chromium 1440 light collapsed | serious/critical: 0 | other: 
+chromium 1440 light filter | serious/critical: 0 | other: 
+chromium 1440 light tooltip-hover | serious/critical: 0 | other: 
+chromium 1440 light tooltip-focus | serious/critical: 0 | other: 
+chromium 1440 light edit-move | serious/critical: 0 | other: 
+chromium 1440 light delete | serious/critical: 0 | other: 
+chromium 1440 light manage | serious/critical: 0 | other: 
+chromium 1440 dark sections | serious/critical: 0 | other: 
+chromium 1440 dark collapsed | serious/critical: 0 | other: 
+chromium 1440 dark filter | serious/critical: 0 | other: 
+chromium 1440 dark tooltip-hover | serious/critical: 0 | other: 
+chromium 1440 dark tooltip-focus | serious/critical: 0 | other: 
+chromium 1440 dark edit-move | serious/critical: 0 | other: 
+chromium 1440 dark delete | serious/critical: 0 | other: 
+chromium 1440 dark manage | serious/critical: 0 | other: 
+chromium 390 light sections | serious/critical: 0 | other: 
+chromium 390 light collapsed | serious/critical: 0 | other: 
+chromium 390 light filter | serious/critical: 0 | other: 
+chromium 390 light tooltip-hover | skipped on touch
+chromium 390 light tooltip-focus | skipped on touch
+chromium 390 light edit-move | serious/critical: 0 | other: 
+chromium 390 light delete | serious/critical: 0 | other: 
+chromium 390 light manage | serious/critical: 0 | other: 
+chromium 390 dark sections | serious/critical: 0 | other: 
+chromium 390 dark collapsed | serious/critical: 0 | other: 
+chromium 390 dark filter | serious/critical: 0 | other: 
+chromium 390 dark tooltip-hover | skipped on touch
+chromium 390 dark tooltip-focus | skipped on touch
+chromium 390 dark edit-move | serious/critical: 0 | other: 
+chromium 390 dark delete | serious/critical: 0 | other: 
+chromium 390 dark manage | serious/critical: 0 | other: 
+firefox 1440 light sections | serious/critical: 0 | other: 
+firefox 1440 light collapsed | serious/critical: 0 | other: 
+firefox 1440 light filter | serious/critical: 0 | other: 
+firefox 1440 light tooltip-hover | serious/critical: 0 | other: 
+firefox 1440 light tooltip-focus | serious/critical: 0 | other: 
+firefox 1440 light edit-move | serious/critical: 0 | other: 
+firefox 1440 light delete | serious/critical: 0 | other: 
+firefox 1440 light manage | serious/critical: 0 | other: 
+firefox 1440 dark sections | serious/critical: 0 | other: 
+firefox 1440 dark collapsed | serious/critical: 0 | other: 
+firefox 1440 dark filter | serious/critical: 0 | other: 
+firefox 1440 dark tooltip-hover | serious/critical: 0 | other: 
+firefox 1440 dark tooltip-focus | serious/critical: 0 | other: 
+firefox 1440 dark edit-move | serious/critical: 0 | other: 
+firefox 1440 dark delete | serious/critical: 0 | other: 
+firefox 1440 dark manage | serious/critical: 0 | other: 
+firefox 390 light sections | serious/critical: 0 | other: 
+firefox 390 light collapsed | serious/critical: 0 | other: 
+firefox 390 light filter | serious/critical: 0 | other: 
+firefox 390 light tooltip-hover | skipped on touch
+firefox 390 light tooltip-focus | skipped on touch
+firefox 390 light edit-move | serious/critical: 0 | other: 
+firefox 390 light delete | serious/critical: 0 | other: 
+firefox 390 light manage | serious/critical: 0 | other: 
+firefox 390 dark sections | serious/critical: 0 | other: 
+firefox 390 dark collapsed | serious/critical: 0 | other: 
+firefox 390 dark filter | serious/critical: 0 | other: 
+firefox 390 dark tooltip-hover | skipped on touch
+firefox 390 dark tooltip-focus | skipped on touch
+firefox 390 dark edit-move | serious/critical: 0 | other: 
+firefox 390 dark delete | serious/critical: 0 | other: 
+firefox 390 dark manage | serious/critical: 0 | other: 

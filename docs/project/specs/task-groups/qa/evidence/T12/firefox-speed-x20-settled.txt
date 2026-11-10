@@ -1,0 +1,249 @@
+
+Running 120 tests using 1 worker
+
+[1/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[2/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[3/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[4/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[5/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[6/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[7/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+  1) [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   156
+
+      879 |     });
+      880 |     await expect(rows(page)).toHaveCount(count);
+    > 881 |     expect(ms).toBeLessThan(100);
+          |                ^
+      882 |     // BUG-014: Firefox builds every tooltip box, even in rows it skips, so a row nobody points at or focuses has none.
+      883 |     if (count) expect(await rows(page).last().locator('[data-action="edit"]').evaluate((el) => getComputedStyle(el, '::after').content)).toBe('none');
+      884 |   });
+        at /home/gem/src/todo_list/tests/e2e/day-nav.spec.js:881:16
+
+    Error Context: ff-results/day-nav-moving-to-a-day-wi-c58d5-sks-renders-in-under-100-ms-firefox-repeat1/error-context.md
+
+
+[8/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[9/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[10/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[11/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[12/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[13/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[14/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[15/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[16/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[17/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[18/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[19/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[20/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[21/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[22/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[23/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[24/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[25/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+  2) [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   144
+
+      879 |     });
+      880 |     await expect(rows(page)).toHaveCount(count);
+    > 881 |     expect(ms).toBeLessThan(100);
+          |                ^
+      882 |     // BUG-014: Firefox builds every tooltip box, even in rows it skips, so a row nobody points at or focuses has none.
+      883 |     if (count) expect(await rows(page).last().locator('[data-action="edit"]').evaluate((el) => getComputedStyle(el, '::after').content)).toBe('none');
+      884 |   });
+        at /home/gem/src/todo_list/tests/e2e/day-nav.spec.js:881:16
+
+    Error Context: ff-results/day-nav-moving-to-a-day-wi-c58d5-sks-renders-in-under-100-ms-firefox-repeat4/error-context.md
+
+
+[26/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[27/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[28/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[29/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[30/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[31/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[32/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[33/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[34/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[35/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+  3) [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   111
+
+      2763 |     return performance.now() - t0;
+      2764 |   });
+    > 2765 |   expect(ms).toBeLessThan(100);
+           |              ^
+      2766 |   expect(await page.evaluate(() => window.__writes)).toBe(1);
+      2767 |   const after = await storedJson(page, KEY);
+      2768 |   expect(after).toHaveLength(200);
+        at /home/gem/src/todo_list/tests/e2e/groups.spec.js:2765:14
+
+    Error Context: ff-results/groups-200-tasks-of-one-gr-23f0e--one-write-and-under-100-ms-firefox-repeat5/error-context.md
+
+
+[36/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[37/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[38/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[39/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[40/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[41/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[42/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[43/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[44/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[45/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[46/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[47/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[48/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[49/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[50/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[51/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[52/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[53/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[54/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[55/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[56/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[57/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[58/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[59/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[60/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+  4) [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+
+    Error: filter off
+
+    expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   158
+
+      3416 |   expect(await timed(filterTo('g6')), 'filter').toBeLessThan(100);
+      3417 |   await expect(rows(page)).toHaveCount(12);
+    > 3418 |   expect(await timed(filterTo('all')), 'filter off').toBeLessThan(100);
+           |                                                      ^
+      3419 |   await expect(rows(page)).toHaveCount(201);
+      3420 | });
+      3421 |
+        at /home/gem/src/todo_list/tests/e2e/groups.spec.js:3418:54
+
+    Error Context: ff-results/groups-200-tasks-in-20-gro-b46b4-nd-filter-each-under-100-ms-firefox-repeat9/error-context.md
+
+
+[61/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[62/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[63/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[64/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[65/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[66/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+  5) [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+
+    Error: filter off
+
+    expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   137
+
+      3416 |   expect(await timed(filterTo('g6')), 'filter').toBeLessThan(100);
+      3417 |   await expect(rows(page)).toHaveCount(12);
+    > 3418 |   expect(await timed(filterTo('all')), 'filter off').toBeLessThan(100);
+           |                                                      ^
+      3419 |   await expect(rows(page)).toHaveCount(201);
+      3420 | });
+      3421 |
+        at /home/gem/src/todo_list/tests/e2e/groups.spec.js:3418:54
+
+    Error Context: ff-results/groups-200-tasks-in-20-gro-b46b4-nd-filter-each-under-100-ms-firefox-repeat10/error-context.md
+
+
+[67/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[68/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[69/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[70/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[71/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[72/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[73/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[74/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[75/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[76/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[77/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[78/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[79/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[80/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[81/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[82/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[83/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[84/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[85/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[86/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[87/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[88/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[89/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[90/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[91/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[92/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[93/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[94/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[95/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[96/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[97/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[98/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[99/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[100/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[101/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+  6) [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   119
+
+      2763 |     return performance.now() - t0;
+      2764 |   });
+    > 2765 |   expect(ms).toBeLessThan(100);
+           |              ^
+      2766 |   expect(await page.evaluate(() => window.__writes)).toBe(1);
+      2767 |   const after = await storedJson(page, KEY);
+      2768 |   expect(after).toHaveLength(200);
+        at /home/gem/src/todo_list/tests/e2e/groups.spec.js:2765:14
+
+    Error Context: ff-results/groups-200-tasks-of-one-gr-23f0e--one-write-and-under-100-ms-firefox-repeat16/error-context.md
+
+
+[102/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[103/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[104/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[105/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[106/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[107/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[108/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[109/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[110/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[111/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[112/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[113/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[114/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[115/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[116/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[117/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[118/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[119/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[120/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+  6 failed
+    [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms 
+    [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms 
+    [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms 
+    [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+    [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+    [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms 
+  114 passed (3.5m)
