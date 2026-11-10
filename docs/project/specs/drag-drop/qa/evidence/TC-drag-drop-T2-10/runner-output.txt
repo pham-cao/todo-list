@@ -1,0 +1,15 @@
+  ✓  624 [desktop] › tests/e2e/groups.spec.js:3544:1 › every shown string is Vietnamese: the listed texts are present and no dash or English word appears on the page, the dialogs or the errors (786ms)
+  -  625 [desktop] › tests/e2e/groups.spec.js:3597:1 › 360 px: swipe, peek and Sửa work on rows with long text in sections and in the filtered view, with no sideways scroll
+  ✓  621 [mobile] › tests/e2e/groups.spec.js:3446:3 › Xem các việc này: an impossible earlier date is skipped for the real one (1.5s)
+  ✓  626 [desktop] › tests/e2e/groups.spec.js:3625:1 › reused sections across a day change and the filter: rows, fold and header kind stay right (251ms)
+  ✓  627 [mobile] › tests/e2e/groups.spec.js:3446:3 › Xem các việc này: only an impossible date: the filter applies and the day stays (1.5s)
+  ✓  628 [mobile] › tests/e2e/groups.spec.js:3460:1 › midnight with the filter on, a folded section and the card open: no error; the filter and fold stay; the new day shows (209ms)
+  ✓  629 [mobile] › tests/e2e/groups.spec.js:3480:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms (4.0s)
+  ✓  630 [mobile] › tests/e2e/groups.spec.js:3520:3 › light: the six colours keep the name at 4.5 to 1 on its label and the label mark at 3 to 1 on the paper; the name stays text (104ms)
+  ✓  631 [mobile] › tests/e2e/groups.spec.js:3520:3 › dark: the six colours keep the name at 4.5 to 1 on its label and the label mark at 3 to 1 on the paper; the name stays text (99ms)
+  ✓  632 [mobile] › tests/e2e/groups.spec.js:3544:1 › every shown string is Vietnamese: the listed texts are present and no dash or English word appears on the page, the dialogs or the errors (1.2s)
+  ✓  633 [mobile] › tests/e2e/groups.spec.js:3597:1 › 360 px: swipe, peek and Sửa work on rows with long text in sections and in the filtered view, with no sideways scroll (1.0s)
+  ✓  634 [mobile] › tests/e2e/groups.spec.js:3625:1 › reused sections across a day change and the filter: rows, fold and header kind stay right (242ms)
+
+  20 skipped
+  614 passed (2.9m)

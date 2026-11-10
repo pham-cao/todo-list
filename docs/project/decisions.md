@@ -555,3 +555,8 @@ Choice (by PM):
 - R3 reading confirmed: up to 10 px of movement during the 400 ms hold still starts a drag; more than 10 px gives way to swipe or scroll.
 - Firefox spot check uses a temporary config or a hand run; no Firefox project is added to playwright.config.js.
 - No qa-test-generator: each FE task writes its e2e tests in tests/e2e/drag.spec.js; QA executes and fills gaps.
+
+## 2026-11-10: drag-drop T2 QA findings
+Choice (by PM):
+- BUG-015 (info slip does not wrap long unbroken text at 360 px): fix in T2 with `.alert p { min-width: 0; overflow-wrap: anywhere; }` in design-system.css (authorised); covers the older add notice too.
+- Stale slip after a later visible move: clear it (notify(null)) on a visible move, so the slip never describes an older move.

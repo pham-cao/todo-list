@@ -1,0 +1,9 @@
+
+Running 4 tests using 2 workers
+
+  ✓  1 [desktop] › tests/e2e/groups.spec.js:1399:48 › a 200 character task text with spaces wraps in the info slip at 360 px with no sideways scroll (265ms)
+  ✓  2 [mobile] › tests/e2e/groups.spec.js:1399:48 › a 200 character task text with spaces wraps in the info slip at 360 px with no sideways scroll (271ms)
+  ✘  3 [desktop] › tests/e2e/groups.spec.js:1399:48 › a 200 character task text without spaces wraps in the info slip at 360 px with no sideways scroll (239ms)
+  ✘  4 [mobile] › tests/e2e/groups.spec.js:1399:48 › a 200 character task text without spaces wraps in the info slip at 360 px with no sideways scroll (233ms)
+
+  4 passed (1.8s)

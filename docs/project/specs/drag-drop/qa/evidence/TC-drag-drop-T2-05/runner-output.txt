@@ -1,0 +1,7 @@
+
+Running 2 tests using 2 workers
+
+  ✓  1 [desktop] › tests/e2e/groups.spec.js:1374:1 › a move into Chưa phân nhóm under a filter names Chưa phân nhóm in the slip (266ms)
+  ✓  2 [mobile] › tests/e2e/groups.spec.js:1374:1 › a move into Chưa phân nhóm under a filter names Chưa phân nhóm in the slip (268ms)
+
+  2 passed (1.1s)

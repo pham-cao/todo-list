@@ -1,0 +1,13 @@
+
+Running 8 tests using 2 workers
+
+  ✓  2 [desktop] › tests/e2e/groups.spec.js:824:1 › Lưu saves text and group together: the row lands by creation time, the folded section opens, focus on Sửa, name announced (3.3s)
+  ✓  1 [mobile] › tests/e2e/groups.spec.js:824:1 › Lưu saves text and group together: the row lands by creation time, the folded section opens, focus on Sửa, name announced (3.3s)
+  ✓  3 [desktop] › tests/e2e/groups.spec.js:909:1 › plain list to sections and back: a move to Chưa phân nhóm removes groupId (233ms)
+  ✓  4 [mobile] › tests/e2e/groups.spec.js:909:1 › plain list to sections and back: a move to Chưa phân nhóm removes groupId (248ms)
+  ✓  5 [desktop] › tests/e2e/groups.spec.js:1048:1 › a failing write during a move: slip shown, the move still shows, focus on Sửa, name announced (189ms)
+  ✓  6 [mobile] › tests/e2e/groups.spec.js:1048:1 › a failing write during a move: slip shown, the move still shows, focus on Sửa, name announced (187ms)
+  ✓  7 [desktop] › tests/e2e/groups.spec.js:1104:1 › two moves to the same group each rewrite the live region (262ms)
+  ✓  8 [mobile] › tests/e2e/groups.spec.js:1104:1 › two moves to the same group each rewrite the live region (275ms)
+
+  8 passed (4.8s)

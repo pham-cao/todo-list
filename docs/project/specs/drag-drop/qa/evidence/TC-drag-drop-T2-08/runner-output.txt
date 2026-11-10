@@ -1,0 +1,9 @@
+
+Running 4 tests using 2 workers
+
+  ✓  2 [mobile] › tests/e2e/groups.spec.js:1319:1 › a move under the filter sends focus to the next visible row, else the previous one, else the add input (366ms)
+  ✓  1 [desktop] › tests/e2e/groups.spec.js:1319:1 › a move under the filter sends focus to the next visible row, else the previous one, else the add input (406ms)
+  ✓  3 [mobile] › tests/e2e/groups.spec.js:1341:1 › an edit form move into a group the filter hides shows the info slip, keeps the filter and focuses the next row (245ms)
+  ✓  4 [desktop] › tests/e2e/groups.spec.js:1341:1 › an edit form move into a group the filter hides shows the info slip, keeps the filter and focuses the next row (240ms)
+
+  4 passed (1.4s)

@@ -75,9 +75,11 @@ The task's current key is read from the row: `row.closest(".group")?.dataset.key
 ### `src/app.js` (owner `fe`)
 
 ```js
-function moveRow(row, key, message = `Đã chuyển việc sang nhóm "${name(key)}".`) {}
-// Unchanged behaviour, plus: when the filter hides the target, notify(`Đã chuyển việc "${text}" sang nhóm "${name(key)}".`)
-// (decisions.md: info slip also for the edit form move). The drop passes the drop message from the requirements.
+function moveRow(row, key, message = `Đã chuyển việc "${text}" sang nhóm "${name(key)}".`) {}
+// text is the row label after the save. The same message is used for drop and edit form moves (decisions.md).
+// Filter hides the target: focus the next row, else the previous one, else the add input; clear #sr-status and
+// write the message only to the info slip, notify(message), so screen readers hear it once.
+// Target visible: notify(null) clears an older slip, then the wash, focus on Sửa, and the message in #sr-status.
 
 const drag = createDrag({
   list: els.list, template: $("drag-template"), groups: () => groups,

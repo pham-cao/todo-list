@@ -281,15 +281,15 @@ features:
         title: "Info slip for a move into a group the filter hides"
         owner: fe
         depends_on: []
-        state: doing
-        attempts: 0
-        bugs_opened: []
+        state: done
+        attempts: 1
+        bugs_opened: [BUG-015]
         trello_card: ""
       - id: T3
         title: "Mouse pick up, slip, strip and cancel"
         owner: fe
         depends_on: [T2]
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""
