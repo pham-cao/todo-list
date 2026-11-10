@@ -1,0 +1,3 @@
+TC-drag-drop-EXP-ungrouped: PASS
+home label opacity 0.45 state= drop-target drop-target--home
+sections ["Công ty","Chưa phân nhóm"]

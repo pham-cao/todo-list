@@ -1,0 +1,4 @@
+TC-drag-drop-T4-22: PASS
+Trả lời email Nhà -> Công ty stored equal to original: true
+Cắt tóc Sức khỏe -> Chưa phân nhóm stored equal to original: true
+Tiền điện Chưa phân nhóm -> Nhà stored equal to original: true

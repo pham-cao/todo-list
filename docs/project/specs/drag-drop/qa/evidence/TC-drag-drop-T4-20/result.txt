@@ -1,0 +1,9 @@
+TC-drag-drop-T4-20: PASS
+options now ["Chưa phân nhóm","Nhà","Công ty","Nhóm mới..."]
+sections ["Công ty"]
+body groups ["Tất cả nhóm","Chưa phân nhóm","Nhà","Công ty"]
+dragging true
+after sections ["7b77776d-2a96-429f-ab70-8c0e8d8ae3d8:Nhóm Nhà 0/1 việc đã hoàn thành Việc một","25f32c4b-0e7b-404e-a980-f0983ab48703:Nhóm Công ty 0/1 việc đã hoàn thành Việc hai"]
+status Đã chuyển việc "Việc một" sang nhóm "Nhà".
+alert true
+stored tasks getter throws: page.evaluate: SecurityError: denied

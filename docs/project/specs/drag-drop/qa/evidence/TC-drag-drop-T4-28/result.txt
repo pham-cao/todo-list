@@ -1,0 +1,5 @@
+TC-drag-drop-T4-28: PASS
+edit has select 1
+stored equal true
+visible equal true
+announce drop Đã chuyển việc "Trả lời email" sang nhóm "Nhà". | edit Đã chuyển việc "Trả lời email" sang nhóm "Nhà". | focus drop edit edit edit

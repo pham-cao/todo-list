@@ -1,0 +1,3 @@
+TC-drag-drop-T4-04: PASS
+slip bottom 826.9976806640625 label top 831.8800659179688
+label lift 0px

@@ -297,15 +297,15 @@ features:
         title: "Drop targets and the drop"
         owner: fe
         depends_on: [T1, T2, T3]
-        state: doing
-        attempts: 0
-        bugs_opened: []
+        state: done
+        attempts: 1
+        bugs_opened: [BUG-017]
         trello_card: ""
       - id: T5
         title: "Long press on phones next to the swipe"
         owner: fe
         depends_on: [T4]
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""

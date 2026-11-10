@@ -569,3 +569,8 @@ Also accepted: strip appended inside <main>; pointer captured on the slip, not t
 ## 2026-11-10 drag-drop T3: review minor findings deferred
 - The cancel announcement reads the group from `row.closest(".group")` at drag end, so a row removed mid-drag would announce "Chưa phân nhóm". Fix it in T7 by passing the group key from pick up to `onEnd`, together with `drag.cancel()` in resetTransient.
 - The slip's screen bounds are measured once at pick up, so a resize mid-drag can let the slip go past the new edge. This is accepted as cosmetic; re-measure on resize only if T6 or T7 touch it.
+
+## 2026-11-10 drag-drop T4: the slip never covers the strip
+- This follows the approved hover-strip screens: the slip rests on the strip's top edge, so the hovered label stays readable. The cap is measured once at pick up. A row picked up where the strip appears jumps above the strip; this is accepted.
+- The T4 drop tests run at 1440x900 because at 1280x720 the fixed strip covers the lower rows. That is correct behaviour, and only the test viewport changes.
+- Review minor finding: the target-name sticker hangs about 16 px over the strip's top edge. QA's visual check matched hover-strip at 1440 and 390, so this is accepted. It will be re-checked in the T8 visual pass.

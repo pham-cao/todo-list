@@ -1,0 +1,4 @@
+TC-drag-drop-EXP-quick-release: PASS
+strip present after first move true
+is-dragging after same-task events false
+writes ["daily-todo:tasks:v1","daily-todo:tasks:v1"]

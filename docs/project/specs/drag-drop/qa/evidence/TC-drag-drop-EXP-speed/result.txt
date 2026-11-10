@@ -1,0 +1,5 @@
+TC-drag-drop-EXP-speed: PASS
+counters while moving (80 moves) {"qsa":0,"gbcr":0,"eFP":80,"childList":0,"attrMutations":0}
+frame ms median 16.0 p95 21.0 max 23.0 frames 88
+rows in DOM 200
+release to painted ms (wall, incl. protocol) 27

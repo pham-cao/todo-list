@@ -1,0 +1,11 @@
+TC-drag-drop-EXP-20-groups-1440: PASS
+strip box {"x":318.7601013183594,"y":534.8720092773438,"width":802.4797668457031,"height":363.5762939453125} viewport {"width":1440,"height":900}
+strip scrollHeight/clientHeight/overflowY [356,356,"visible","none"]
+labels 21
+last label box {"x":699.3904418945312,"y":836.2174682617188,"width":126.06976318359375,"height":44.87689208984375}
+last label fully in viewport true
+slip {"x":403.3742370605469,"y":475.9398193359375,"width":521.2515563964844,"height":63.057861328125} slip bottom <= strip top false
+hover name Nhóm số 20
+slip after hover last {"x":677.4210815429688,"y":475.9398193359375,"width":521.2515258789062,"height":63.057861328125}
+moved to Đã chuyển việc "Việc ba" sang nhóm "Nhóm số 20".
+doc scrollWidth vs clientWidth [1440,1440]
