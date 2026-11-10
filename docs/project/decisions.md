@@ -547,3 +547,11 @@ Choice (by PM):
 ## 2026-11-10: Approve drag-drop design and 9 tasks?
 Options: Approve, Request changes
 Choice: Approve (by user)
+
+## 2026-11-10: drag-drop QA plan open points
+Choice (by PM):
+- store.setGroup with the task's current group: no data change and no error is enough; a redundant write is acceptable.
+- A storage event for the tasks or ui key during a drag: cancel the drag through the same end step as the groups key, so the page is never stuck.
+- R3 reading confirmed: up to 10 px of movement during the 400 ms hold still starts a drag; more than 10 px gives way to swipe or scroll.
+- Firefox spot check uses a temporary config or a hand run; no Firefox project is added to playwright.config.js.
+- No qa-test-generator: each FE task writes its e2e tests in tests/e2e/drag.spec.js; QA executes and fills gaps.

@@ -273,7 +273,7 @@ features:
         title: "Store change that only moves a task to another group"
         owner: be
         depends_on: []
-        state: doing
+        state: done
         attempts: 0
         bugs_opened: []
         trello_card: ""
