@@ -1,0 +1,353 @@
+date,task,tc,result,evidence,bug
+2026-11-09,T2,T2-ungrouped-no-groupid,pass,docs/project/specs/task-groups/qa/evidence/T2-unit/npm-test.txt,
+2026-11-09,T2,T2-updatetext-set-keep-remove,pass,docs/project/specs/task-groups/qa/evidence/T2-unit/npm-test.txt,
+2026-11-09,T2,T2-invalid-text-unchanged,pass,docs/project/specs/task-groups/qa/evidence/T2-unit/npm-test.txt,
+2026-11-09,T2,T2-groupusage-count-days,pass,docs/project/specs/task-groups/qa/evidence/T2-unit/npm-test.txt,
+2026-11-09,T2,T2-movegroup-only-groupid-one-write,pass,docs/project/specs/task-groups/qa/evidence/T2-unit/npm-test.txt,
+2026-11-09,T2,T2-movegroup-empty-no-write,pass,docs/project/specs/task-groups/qa/evidence/T2-unit/npm-test.txt,
+2026-11-09,T2,T2-movegroup-save-fail-unchanged,pass,docs/project/specs/task-groups/qa/evidence/T2-unit/npm-test.txt,
+2026-11-09,T2,T2-locked-store-moves-in-memory,pass,docs/project/specs/task-groups/qa/evidence/T2-unit/npm-test.txt,
+2026-11-09,T2,T2-load-missing-null-unknown-no-rewrite,pass,docs/project/specs/task-groups/qa/evidence/T2-unit/npm-test.txt,
+2026-11-09,T2,T2-existing-store-tests-unchanged,pass,docs/project/specs/task-groups/qa/evidence/T2-unit/npm-test.txt,
+2026-11-09,T2,T2-non-string-ids-ignored,pass,docs/project/specs/task-groups/qa/evidence/T2-unit/npm-test.txt,
+2026-11-09,T2,T2-movegroup-undefined-from-probe,fail,docs/project/specs/task-groups/qa/evidence/T2-unit/probe-undefined-from.txt,BUG-003
+2026-11-09,T3,T3-name-trim-as-typed,pass,docs/project/specs/task-groups/qa/evidence/T3-unit/npm-test-final.txt,
+2026-11-09,T3,T3-name-30-codepoints-nfc,pass,docs/project/specs/task-groups/qa/evidence/T3-unit/npm-test-final.txt,
+2026-11-09,T3,T3-name-duplicates-nfc-case,pass,docs/project/specs/task-groups/qa/evidence/T3-unit/npm-test-final.txt,
+2026-11-09,T3,T3-limit-before-name-errors,pass,docs/project/specs/task-groups/qa/evidence/T3-unit/npm-test-final.txt,
+2026-11-09,T3,T3-colour-order-wrap-continuation,pass,docs/project/specs/task-groups/qa/evidence/T3-unit/npm-test-final.txt,
+2026-11-09,T3,T3-create-update-save,pass,docs/project/specs/task-groups/qa/evidence/T3-unit/npm-test-final.txt,
+2026-11-09,T3,T3-load-missing-empty-corrupt-copy,pass,docs/project/specs/task-groups/qa/evidence/T3-unit/npm-test-final.txt,
+2026-11-09,T3,T3-load-bad-items-reserved-colour,pass,docs/project/specs/task-groups/qa/evidence/T3-unit/npm-test-final.txt,
+2026-11-09,T3,T3-getitem-throw-locks,pass,docs/project/specs/task-groups/qa/evidence/T3-unit/npm-test-final.txt,
+2026-11-09,T3,T3-setitem-throw-memory,pass,docs/project/specs/task-groups/qa/evidence/T3-unit/npm-test-final.txt,
+2026-11-09,T3,T3-collapsed-roundtrip-garbage-remove,pass,docs/project/specs/task-groups/qa/evidence/T3-unit/npm-test-final.txt,
+2026-11-09,T3,T3-update-nonstring-reserved-ids,pass,docs/project/specs/task-groups/qa/evidence/T3-unit/npm-test-final.txt,
+2026-11-09,T3,T3-update-colour-values,pass,docs/project/specs/task-groups/qa/evidence/T3-unit/npm-test-final.txt,
+2026-11-09,T3,T3-create-nfc-duplicate,pass,docs/project/specs/task-groups/qa/evidence/T3-unit/npm-test-final.txt,
+2026-11-09,T3,T3-collapsed-none-key,pass,docs/project/specs/task-groups/qa/evidence/T3-unit/npm-test-final.txt,
+2026-11-09,T3,T3-load-duplicate-ids-probe,fail,docs/project/specs/task-groups/qa/evidence/T3-unit/probe.txt,BUG-004
+2026-11-09,T1,T1-version-test-passes-npm-test,pass,docs/project/specs/task-groups/qa/evidence/T1-unit/npm-test.txt,
+2026-11-09,T1,T1-version-test-detects-wrong-or-missing-query,pass,docs/project/specs/task-groups/qa/evidence/T1-unit/mutation-checks.txt,
+2026-11-09,T1,T1-browser-every-asset-has-v-1.2.0,pass,docs/project/specs/task-groups/qa/evidence/T1-browser/network-log.txt,
+2026-11-09,T1,T1-browser-no-duplicate-module-instances,pass,docs/project/specs/task-groups/qa/evidence/T1-browser/network-log.txt,
+2026-11-09,T1,T1-browser-page-works,pass,docs/project/specs/task-groups/qa/evidence/T1-browser/page-1440.png,
+2026-11-09,T2,T2-movegroup-undefined-from-probe,pass,docs/project/specs/task-groups/qa/evidence/T2-unit/probe-undefined-from-retest.txt,BUG-003 verified
+2026-11-09,T1,T1-e2e-suite-unchanged,pass,docs/project/specs/task-groups/qa/evidence/T1-unit/e2e.txt,
+2026-11-09,T3,T3-retest-BUG-004-duplicate-ids,pass,docs/project/specs/task-groups/qa/evidence/T3-unit/retest-probe.txt,
+2026-11-09,T3,T3-retest-setCollapsed-bad-keys-ignored,pass,docs/project/specs/task-groups/qa/evidence/T3-unit/retest-probe.txt,
+2026-11-09,T3,T3-retest-create-nonstring-empty,pass,docs/project/specs/task-groups/qa/evidence/T3-unit/retest-probe.txt,
+2026-11-09,T4,TC-task-groups-T4-01,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-01/runner-output.txt,
+2026-11-09,T4,TC-task-groups-T4-02,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-02/runner-output.txt,
+2026-11-09,T4,TC-task-groups-T4-03,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-03/runner-output.txt,
+2026-11-09,T4,TC-task-groups-T4-04,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-04/runner-output.txt,
+2026-11-09,T4,TC-task-groups-T4-05,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-05/runner-output.txt,plus keyboard and accessibility tree check in keyboard-sr.txt
+2026-11-09,T4,TC-task-groups-T4-06,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-06/runner-output.txt,
+2026-11-09,T4,TC-task-groups-T4-07,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-07/runner-output.txt,
+2026-11-09,T4,TC-task-groups-T4-08,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-08/runner-output.txt,
+2026-11-09,T4,TC-task-groups-T4-09,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-09/runner-output.txt,new group starts expanded: only the stored state is checked here; creating a group needs T5 and is covered by T5 cases
+2026-11-09,T4,TC-task-groups-T4-10,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-10/runner-output.txt,
+2026-11-09,T4,TC-task-groups-T4-11,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-11/runner-output.txt,
+2026-11-09,T4,TC-task-groups-T4-12,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-12/runner-output.txt,
+2026-11-09,T4,TC-task-groups-T4-13,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-13/runner-output.txt,
+2026-11-09,T4,TC-task-groups-T4-14,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-14/runner-output.txt,
+2026-11-09,T4,TC-task-groups-T4-15,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-15/runner-output.txt,
+2026-11-09,T4,TC-task-groups-T4-16,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-16/runner-output.txt,
+2026-11-09,T4,TC-task-groups-T4-17,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-17/runner-output.txt,
+2026-11-09,T4,TC-task-groups-T4-21,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-21/runner-output.txt,
+2026-11-09,T4,TC-task-groups-T4-18,fail,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-18/axe-t4.json,BUG-005
+2026-11-09,T4,TC-task-groups-T4-19,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-19/computed-style-compare.json,"1440 390 360 px light and dark: 0 computed style or geometry differences vs prototype for sections, collapsed and the plain list; screenshots in the same folder"
+2026-11-09,T4,TC-task-groups-T4-20,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-20/e2e-full-run.txt,"e2e 287 passed 11 skipped, npm test 65 pass; no linter configured in package.json"
+2026-11-09,T4,T4-regression-midnight-with-sections,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-20/e2e-full-run.txt,added to tests/e2e/groups.spec.js
+2026-11-09,T4,T4-regression-back-forward-with-sections,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-20/e2e-full-run.txt,added to tests/e2e/groups.spec.js
+2026-11-09,T4,T4-regression-old-data-not-rewritten,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-20/e2e-full-run.txt,added to tests/e2e/groups.spec.js
+2026-11-09,T4,T4-regression-tick-keeps-groupid,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-20/e2e-full-run.txt,added to tests/e2e/groups.spec.js
+2026-11-09,T4,T4-regression-groups-getitem-throws-slip,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-20/e2e-full-run.txt,added to tests/e2e/groups.spec.js
+2026-11-09,T4,T4-regression-groups-ui-write-fails-slip,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-20/e2e-full-run.txt,added to tests/e2e/groups.spec.js
+2026-11-09,T4,T4-probe-hostile-groupids,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-04/runner-output.txt,"groupId __proto__ constructor toString numeric object none and a quote in the id all show as ungrouped, no error, storage unchanged (manual probe)"
+2026-11-10,T4,TC-task-groups-T4-18,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-18/axe-t4-retest.json,BUG-005 verified and closed; axe 18 of 18 runs clean
+2026-11-10,T4,TC-task-groups-T4-05,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-05/runner-output-retest.txt,"new name format Nhóm {name} {d}/{t} việc đã hoàn thành; tree check in keyboard-sr-retest.txt"
+2026-11-10,T4,TC-task-groups-T4-20,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T4-05/runner-output-retest.txt,"retest: groups.spec 45 passed 1 skipped; full e2e 287 passed 11 skipped; npm test 65 pass"
+2026-11-10,T5,TC-task-groups-T5-01,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-02,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-03,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-04,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-05,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-06,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-07,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-08,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-09,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-10,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-11,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-12,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-13,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-14,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-15,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-16,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-17,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-18,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-18/axe-t5-48-runs.txt,state read in e2e (groups.spec); axe 48 runs no violations
+2026-11-10,T5,TC-task-groups-T5-19,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-20,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-21,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-22,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-23,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-24,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-25,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-25/open-light-1440.png,"manual compare with add-new-group prototypes at 1440 and 390, light and dark; matches"
+2026-11-10,T5,TC-task-groups-T5-26,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-26/e2e-full-run.txt,groups.spec T5 tests
+2026-11-10,T5,TC-task-groups-T5-27,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-27/probe-output.txt,IME via CDP; automated
+2026-11-10,T5,TC-task-groups-T5-28,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-27/probe-output.txt,NFD paste; automated
+2026-11-10,T5,TC-task-groups-T5-29,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-27/probe-output.txt,one group; second Enter judged acceptable
+2026-11-10,T5,TC-task-groups-T5-30,fail,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-30/probe-output.txt,BUG-006: stale swatch
+2026-11-10,T5,TC-task-groups-T5-31,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-31/probe-output.txt,"390, 360, 320 px; automated names test"
+2026-11-10,T5,TC-task-groups-T5-30,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-30/e2e-full-run-retest.txt,retest: BUG-006 verified and closed; swatch follows the next colour
+2026-11-10,T5,TC-task-groups-T5-27,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T5-30/e2e-full-run-retest.txt,retest: IME Enter ignored with isComposing and with keyCode 229 (new test); automated
+2026-11-10,T6,TC-task-groups-T6-01,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-01/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-02,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-02/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-03,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-03/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-04,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-04/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-05,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-05/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-06,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-06/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-07,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-07/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-08,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-08/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-09,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-09/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-10,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-10/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-11,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-11/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-12,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-12/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-13,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-13/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-14,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-14/runner-output.txt,live region text and polite checked by e2e; accessibility tree read
+2026-11-10,T6,TC-task-groups-T6-15,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-15/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-16,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-16/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-17,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-17/edit-light-1440.png,compared with edit-move and edit-move--saved at 1440 and 390; manual
+2026-11-10,T6,TC-task-groups-T6-18,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-18/e2e-full-run.txt,full e2e 368 passed 14 skipped; unit 65
+2026-11-10,T6,TC-task-groups-T6-19,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-19/runner-output.txt,automated
+2026-11-10,T6,TC-task-groups-T6-20,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-20/edit-light-360.png,390 and 360
+2026-11-10,T6,TC-task-groups-T6-21,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-21/accessibility-tree-and-edit-markup.txt,"observation O-T6-1 raised, no bug"
+2026-11-10,T6,TC-task-groups-T6-22,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-22/runner-output.txt,"observation: identical text on repeat, node rewritten"
+2026-11-10,T6,TC-task-groups-T6-23,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T6-23/axe-run.txt,axe 12 runs clean
+2026-11-10,T7,TC-task-groups-T7-01,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-01/runner-output.txt,""
+2026-11-10,T7,TC-task-groups-T7-02,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-02/runner-output.txt,""
+2026-11-10,T7,TC-task-groups-T7-03,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-03/runner-output.txt,""
+2026-11-10,T7,TC-task-groups-T7-04,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-04/runner-output.txt,""
+2026-11-10,T7,TC-task-groups-T7-05,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-05/runner-output.txt,""
+2026-11-10,T7,TC-task-groups-T7-06,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-06/runner-output.txt,""
+2026-11-10,T7,TC-task-groups-T7-07,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-07/runner-output.txt,""
+2026-11-10,T7,TC-task-groups-T7-08,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-08/runner-output.txt,""
+2026-11-10,T7,TC-task-groups-T7-09,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-09/runner-output.txt,""
+2026-11-10,T7,TC-task-groups-T7-10,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-10/runner-output.txt,""
+2026-11-10,T7,TC-task-groups-T7-11,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-11/runner-output.txt,""
+2026-11-10,T7,TC-task-groups-T7-12,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-12/runner-output.txt,""
+2026-11-10,T7,TC-task-groups-T7-13,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-13/runner-output.txt,"wording confirmed by PM"
+2026-11-10,T7,TC-task-groups-T7-14,blocked,,"blocked until T8 and T9 exist"
+2026-11-10,T7,TC-task-groups-T7-15,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-15/runner-output.txt,""
+2026-11-10,T7,TC-task-groups-T7-16,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-16/runner-output.txt,""
+2026-11-10,T7,TC-task-groups-T7-17,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-17/runner-output.txt,""
+2026-11-10,T7,TC-task-groups-T7-18,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-18/accessibility-tree-and-tab-order.txt,""
+2026-11-10,T7,TC-task-groups-T7-19,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-19/measurements.txt,"icon only 360 to 412, text at 452 and 1440; axe 0 in 48 states"
+2026-11-10,T7,TC-task-groups-T7-20,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-20/runner-output.txt,""
+2026-11-10,T7,TC-task-groups-T7-21,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-21/runner-output.txt,"e2e 420 passed 14 skipped 1 expected fail; unit 65"
+2026-11-10,T7,TC-task-groups-T7-22,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-22/jp-light-390.png,"matches prototype; axe 0"
+2026-11-10,T7,TC-task-groups-T7-23,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-23/runner-output.txt,""
+2026-11-10,T7,TC-task-groups-T7-24,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-24/runner-output.txt,""
+2026-11-10,T7,TC-task-groups-T7-25,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-25/runner-output.txt,""
+2026-11-10,T7,TC-task-groups-T7-26,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-26/runner-output.txt,""
+2026-11-10,T7,TC-task-groups-T7-27,fail,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-27/runner-output.txt,"BUG-007"
+2026-11-10,T7,TC-task-groups-T7-27,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-27/runner-output-retest.txt,"BUG-007 Verified then Closed; fails without fix"
+2026-11-10,T7,TC-task-groups-T7-28,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-27/mutation-check-without-fixes.txt,"fails without role status; passes with"
+2026-11-10,T7,TC-task-groups-T7-29,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-27/mutation-check-without-fixes.txt,"fails without focus fix; passes with"
+2026-11-10,T7,TC-task-groups-T7-30,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T7-30/runner-output.txt,"e2e 426 passed 14 skipped; exploratory 14 combinations consistent; test fails without the fix"
+2026-11-10,T8,TC-task-groups-T8-01,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-02,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-03,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-04,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-05,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-06,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-07,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-08,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-09,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-10,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-11,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-12,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-13,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-14,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-15,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-16,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-17,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-18,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-19,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-20,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-20/axe-24-states.txt,"axe wcag2a/aa/21/22 + best practice: 0 violations on empty, list, edit, error x 1440/390/360 x light/dark"
+2026-11-10,T8,TC-task-groups-T8-21,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-21/,"Compared with ux/screenshots at 1440, 390, 360, light and dark; differences: error state input underline is red (prototype static blue), accepted"
+2026-11-10,T8,TC-task-groups-T8-22,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-22/,"20 groups at 360x640, 640x360, 390x844: rows scroll inside the card, no horizontal scroll, tooltips unclipped"
+2026-11-10,T8,TC-task-groups-T8-23,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-23-full-suite.txt,e2e 464 passed 16 skipped; unit 65
+2026-11-10,T7,TC-task-groups-T7-14,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,Rename part executed with T8-15; delete part waits for T9
+2026-11-10,T8,TC-task-groups-T8-24,fail,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-24/,BUG-008 BUG-008 Low; test.fail guards it
+2026-11-10,T8,TC-task-groups-T8-25,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-26,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,"slip shown, storage keeps old value"
+2026-11-10,T8,TC-task-groups-T8-27,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-28,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-29,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-30,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-01/runner-output.txt,
+2026-11-10,T8,TC-task-groups-T8-24,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T8-24/retest-short-screens.txt,"BUG-008 Verified then Closed; 12 probes (640x360, 360x640, 390x700, 360x500; first, middle, last row): input and Lưu both inside the visible list"
+2026-11-10,T9,TC-task-groups-T9-01,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,"Xóa asks first, Giữ lại focused (desktop and mobile)"
+2026-11-10,T9,TC-task-groups-T9-02,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,"Xóa nhóm removes, tasks key unchanged, focus next Sửa / previous / Đóng (desktop and mobile)"
+2026-11-10,T9,TC-task-groups-T9-03,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,"Giữ lại, Escape and backdrop keep the group, focus on Xóa (desktop and mobile)"
+2026-11-10,T9,TC-task-groups-T9-04,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,filter and add choice reset (two tests) (desktop and mobile)
+2026-11-10,T9,TC-task-groups-T9-05,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,n and d for 1/1 and 5/3 (desktop and mobile)
+2026-11-10,T9,TC-task-groups-T9-06,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,"Đã hiểu and Escape, Xóa focusable and not disabled, storage unchanged (desktop and mobile)"
+2026-11-10,T9,TC-task-groups-T9-07,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,emptied one by one then deletable (desktop and mobile)
+2026-11-10,T9,TC-task-groups-T9-08,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,"past only: 08/11, hash (desktop and mobile)"
+2026-11-10,T9,TC-task-groups-T9-09,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,future only: earliest later day (desktop and mobile)
+2026-11-10,T9,TC-task-groups-T9-10,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,today included (desktop and mobile)
+2026-11-10,T9,TC-task-groups-T9-11,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,same day: no new history entry (desktop and mobile)
+2026-11-10,T9,TC-task-groups-T9-12,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,"Back returns, filter kept (desktop and mobile)"
+2026-11-10,T9,TC-task-groups-T9-13,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,focus on Quản lý nhóm (desktop and mobile)
+2026-11-10,T9,TC-task-groups-T9-14,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,collapsed entry removed (desktop and mobile)
+2026-11-10,T9,TC-task-groups-T9-15,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,"colours and order kept, next colour continues (desktop and mobile)"
+2026-11-10,T9,TC-task-groups-T9-16,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,markup and quotes plain text (desktop and mobile)
+2026-11-10,T9,TC-task-groups-T9-17,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,normal task delete empties the group (desktop and mobile)
+2026-11-10,T9,TC-task-groups-T9-18,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,keyboard only flow (desktop and mobile)
+2026-11-10,T9,TC-task-groups-T9-19,pass,docs/project/specs/task-groups/qa/evidence/T9/shots/,"Compared delete, blocked and show-tasks with ux/screenshots at 1440 and 390 light and dark: layout, sticker corner, button stack and colours match"
+2026-11-10,T9,TC-task-groups-T9-20,pass,docs/project/specs/task-groups/qa/evidence/T9/full-suite.txt,"502 passed, 20 skipped, 0 failed; npm test 65 pass"
+2026-11-10,T9,TC-task-groups-T7-14,pass,docs/project/specs/task-groups/qa/evidence/T9/t9-run-1.txt,"Delete half executed with T9-04: filter resets to Tất cả nhóm, add choice to Chưa phân nhóm, no error; rename half passed with T8-15"
+2026-11-10,T9,TC-task-groups-T9-21,pass,docs/project/specs/task-groups/qa/evidence/T9/full-suite.txt,"Written by QA; groups key setItem throws on Xóa nhóm: slip shown, row removed in page, storage untouched, no page error"
+2026-11-10,T9,TC-task-groups-T9-22,fail,docs/project/specs/task-groups/qa/evidence/T9/full-suite.txt,BUG-009: second tab adds a task to the group while the delete question is open; Xóa nhóm still deletes the group and the stored task keeps a missing group id. Test is test.fail until fixed
+2026-11-10,T9,TC-task-groups-T9-23,pass,docs/project/specs/task-groups/qa/evidence/T9/full-suite.txt,"Written by QA; 390 and 360 px: notes inside the screen, buttons at least 44 px, no horizontal scroll"
+2026-11-10,T9,TC-task-groups-T9-24,pass,docs/project/specs/task-groups/qa/evidence/T9/axe-18-runs.txt,"Alertdialog names checked in e2e (role name equals message text); Escape closes note then card; axe 0 violations in 18 runs, no horizontal scroll at 1440, 390, 360"
+2026-11-10,T9,TC-task-groups-T9-25,pass,docs/project/specs/task-groups/qa/evidence/T9/shots/blocked-light-390.png,"Chuyển tất cả việc visible and focusable, inert until T10 as agreed"
+2026-11-10,T9,TC-task-groups-T9-26,fail,docs/project/specs/task-groups/qa/evidence/T9/speed-investigation.txt,"BUG-010: settled move of a task with 200 tasks in 20 groups takes 250 to 300 ms (70 to 90 ms with a warm CPU); same at T6 commit a1ac08f, so not a regression. Test set to test.fixme"
+2026-11-10,T9,TC-task-groups-T9-22,pass,docs/project/specs/task-groups/qa/evidence/T9/full-suite-retry2-repeat2.txt,"BUG-009 Verified then Closed. Test no longer test.fail; second tab adds a task, Xóa nhóm now shows the blocked note with fresh n and d and the group stays"
+2026-11-10,T9,TC-task-groups-T9-26,pass,docs/project/specs/task-groups/qa/evidence/T9/speed-retest.txt,"BUG-010 Verified then Closed. Settled 500 ms and 2000 ms, 8 runs each, desktop and mobile: move 10 to 50 ms"
+2026-11-10,T9,TC-task-groups-T9-20,pass,docs/project/specs/task-groups/qa/evidence/T9/full-suite-retry2-repeat2.txt,"Retry 2: full suite --repeat-each=2, 1008 passed, 36 skipped, 0 failed; swipe regression test added and passed 3 times (evidence swipe-regression.txt)"
+2026-11-10,T9,TC-task-groups-T9-27,pass,docs/project/specs/task-groups/qa/evidence/T9/rapid-probes.txt,"Keyboard bursts on all four dialogs, 8 cycles, 5 repeats per project, desktop and mobile: last note acts"
+2026-11-10,T9,TC-task-groups-T9-28,pass,docs/project/specs/task-groups/qa/evidence/T9/rapid-probes.txt,"Mouse cycles, 5 repeats per project"
+2026-11-10,T9,TC-task-groups-T9-29,pass,docs/project/specs/task-groups/qa/evidence/T9/rapid-probes.txt,"Card cycles, 5 repeats per project"
+2026-11-10,T9,TC-task-groups-T9-30,pass,docs/project/specs/task-groups/qa/evidence/T9/full-suite-attempt3-repeat2.txt,BUG-009 path end to end with the FE test that failed without the guard; Xem các việc này works after the re-read
+2026-11-10,T9,TC-task-groups-T9-20,pass,docs/project/specs/task-groups/qa/evidence/T9/full-suite-attempt3-repeat2.txt,"Attempt 3: full suite --repeat-each=2, 1018 passed, 38 skipped, 0 failed (run started before the 4 rapid probes were appended; probes then ran 40 of 40 passed). BUG-011 Verified then Closed"
+2026-11-10,T10,TC-task-groups-T10-01,pass,docs/project/specs/task-groups/qa/evidence/T10/full-suite-repeat2.txt,"Inactive button: click, Enter and Space do nothing; focusable (e2e, both projects)"
+2026-11-10,T10,TC-task-groups-T10-02,pass,docs/project/specs/task-groups/qa/evidence/T10/full-suite-repeat2.txt,"Source row inactive after the move, Xóa asks the plain question"
+2026-11-10,T10,TC-task-groups-T10-03,pass,docs/project/specs/task-groups/qa/evidence/T10/full-suite-repeat2.txt,"Title, target list Chưa phân nhóm first and chosen, source not listed"
+2026-11-10,T10,TC-task-groups-T10-04,pass,docs/project/specs/task-groups/qa/evidence/T10/full-suite-repeat2.txt,"Sentence for 5 tasks on 3 days and 2 on 1 day, follows the target"
+2026-11-10,T10,TC-task-groups-T10-05,pass,docs/project/specs/task-groups/qa/evidence/T10/full-suite-repeat2.txt,"Hủy and Escape change nothing; focus on the opening button; storage unchanged"
+2026-11-10,T10,TC-task-groups-T10-06,pass,docs/project/specs/task-groups/qa/evidence/T10/full-suite-repeat2.txt,"All 5 moved on every day; only groupId changed; one write"
+2026-11-10,T10,TC-task-groups-T10-07,pass,docs/project/specs/task-groups/qa/evidence/T10/full-suite-repeat2.txt,"groupId key absent after a move to Chưa phân nhóm"
+2026-11-10,T10,TC-task-groups-T10-08,pass,docs/project/specs/task-groups/qa/evidence/T10/full-suite-repeat2.txt,"Moved rows sit in creation order in the target section"
+2026-11-10,T10,TC-task-groups-T10-09,pass,docs/project/specs/task-groups/qa/evidence/T10/full-suite-repeat2.txt,"Dialogs close, notice in a status region, collapsed target expanded, focus on Quản lý nhóm"
+2026-11-10,T10,TC-task-groups-T10-10,pass,docs/project/specs/task-groups/qa/evidence/T10/full-suite-repeat2.txt,"Source kept in name, colour, place; deletable with the plain question"
+2026-11-10,T10,TC-task-groups-T10-11,pass,docs/project/specs/task-groups/qa/evidence/T10/full-suite-repeat2.txt,"Filter stays on the source and shows its empty text"
+2026-11-10,T10,TC-task-groups-T10-12,pass,docs/project/specs/task-groups/qa/evidence/T10/full-suite-repeat2.txt,"Add choice stays on the source; new task saved to it"
+2026-11-10,T10,TC-task-groups-T10-13,pass,docs/project/specs/task-groups/qa/evidence/T10/full-suite-repeat2.txt,"setItem throws: error in the card, target kept, stored string unchanged, tasks in source"
+2026-11-10,T10,TC-task-groups-T10-14,pass,docs/project/specs/task-groups/qa/evidence/T10/full-suite-repeat2.txt,"Retry after the stub is removed moves everything"
+2026-11-10,T10,TC-task-groups-T10-15,pass,docs/project/specs/task-groups/qa/evidence/T10/full-suite-repeat2.txt,"200 tasks on 60 days: exactly one write, under 100 ms settled"
+2026-11-10,T10,TC-task-groups-T10-16,pass,docs/project/specs/task-groups/qa/evidence/T10/full-suite-repeat2.txt,"Error shows in the card only; storage slip hidden"
+2026-11-10,T10,TC-task-groups-T10-17,pass,docs/project/specs/task-groups/qa/evidence/T10/full-suite-repeat2.txt,"Storage unavailable from load: moves in memory with the notice, no error, 0 writes"
+2026-11-10,T10,TC-task-groups-T10-18,pass,docs/project/specs/task-groups/qa/evidence/T10/full-suite-repeat2.txt,"From the blocked note: Hủy returns to its button; after the move all dialogs close"
+2026-11-10,T10,TC-task-groups-T10-19,pass,docs/project/specs/task-groups/qa/evidence/T10/full-suite-repeat2.txt,"Only one group: target list holds Chưa phân nhóm alone; move works"
+2026-11-10,T10,TC-task-groups-T10-20,pass,docs/project/specs/task-groups/qa/evidence/T10/full-suite-repeat2.txt,"Day list refreshes at once (names and sections asserted after the move)"
+2026-11-10,T10,TC-task-groups-T10-21,pass,docs/project/specs/task-groups/qa/evidence/T10/full-suite-repeat2.txt,"Task count equal before and after in the move, retry and 200 task tests"
+2026-11-10,T10,TC-task-groups-T10-22,pass,docs/project/specs/task-groups/qa/evidence/T10/qa-new-tests.txt,"Names: heading, Hủy, Chuyển việc, Chuyển đến nhóm; row buttons at least 44 by 44 on desktop and phone; no horizontal scroll; 5 repeats"
+2026-11-10,T10,TC-task-groups-T10-23,pass,docs/project/specs/task-groups/qa/evidence/T10/shots/move-light-1440.png,"Compared with ux/screenshots move-all, move-all--error, move-all--done at 1440 and 390, light and dark: same layout, sticker, tape, alert colours"
+2026-11-10,T10,TC-task-groups-T10-24,pass,docs/project/specs/task-groups/qa/evidence/T10/axe-18-runs.txt,"axe 0 violations on move, error, done at 1440, 390, 360, light and dark (18 runs), no horizontal scroll"
+2026-11-10,T10,TC-task-groups-T10-25,pass,docs/project/specs/task-groups/qa/evidence/T10/full-suite-repeat2.txt,"Keyboard only: focus on the choice, Tab to Hủy then Chuyển việc, Enter moves; Escape closes"
+2026-11-10,T10,TC-task-groups-T10-26,pass,docs/project/specs/task-groups/qa/evidence/T10/qa-new-tests.txt,"Escape peels three dialogs one by one with the right focus; 5 repeats both projects"
+2026-11-10,T10,TC-task-groups-T10-27,pass,docs/project/specs/task-groups/qa/evidence/T10/qa-new-tests.txt,"Rapid Enter/Escape and Enter/Tab/Enter cycles from row and note: 5 of 5 per project, no script error"
+2026-11-10,T10,TC-task-groups-T10-28,pass,docs/project/specs/task-groups/qa/evidence/T10/qa-new-tests.txt,"Other tab holds one more task: nothing written, no loss; refusal repeats on every try; UX gap logged BUG-013"
+2026-11-10,T10,TC-task-groups-T10-29,pass,docs/project/specs/task-groups/qa/evidence/T10/qa-new-tests.txt,"Source removed in another tab: move card closes, nothing written, no script error"
+2026-11-10,T10,TC-task-groups-T10-30,fail,docs/project/specs/task-groups/qa/evidence/T10/probe-other-tab.txt,"Blocked note stays open for the removed group and Chuyển tất cả việc does nothing: BUG-012 (Low)"
+2026-11-10,T10,TC-task-groups-T10-30,pass,docs/project/specs/task-groups/qa/evidence/T10/full-suite-retry2-repeat2.txt,"Retest after fix: blocked note and move card both close, focus on Đóng. BUG-012 Verified then Closed; mutation check fails the test without the fix"
+2026-11-10,T10,TC-task-groups-T10-29,pass,docs/project/specs/task-groups/qa/evidence/T10/full-suite-retry2-repeat2.txt,"Retest: source removed in another tab, move card closes, nothing written"
+2026-11-10,T10,TC-task-groups-T10-28,pass,docs/project/specs/task-groups/qa/evidence/T10/full-suite-retry2-repeat2.txt,"Retest: distinct reload message, nothing written, no loss. BUG-013 Verified then Closed; mutation check fails the test without the fix. Full suite --repeat-each=2: 1106 passed, 38 skipped, 0 failed"
+2026-11-10,T11,TC-task-groups-T11-01,pass,docs/project/specs/task-groups/qa/evidence/T11/final-suite.txt,"Keyboard only path: create group on the fly, add, collapse, filter, move, rename and recolour, move all, delete"
+2026-11-10,T11,TC-task-groups-T11-02,pass,docs/project/specs/task-groups/qa/evidence/T11/final-suite.txt,Every new control at least 44 by 44 px on both projects
+2026-11-10,T11,TC-task-groups-T11-03,pass,docs/project/specs/task-groups/qa/evidence/T11/final-suite.txt,"360 px, 20 long names, each dialog: no horizontal scroll; move card title wraps a long name"
+2026-11-10,T11,TC-task-groups-T11-04,pass,docs/project/specs/task-groups/qa/evidence/T11/final-suite.txt,"Reduced motion: no animation for collapse, expand, moved wash"
+2026-11-10,T11,TC-task-groups-T11-05,pass,docs/project/specs/task-groups/qa/evidence/T11/final-suite.txt;docs/project/specs/task-groups/qa/evidence/T11/axe-t11.txt,"New test: 6 colours x light and dark, text on label at least 4.5 to 1, mark on paper at least 3 to 1, name stays text; mutation check fails with a dark fill. axe contrast marked incomplete on grain backgrounds, covered by the computed ratios"
+2026-11-10,T11,TC-task-groups-T11-06,pass,.playwright-mcp/t11/*.png,"Manual: soft highlighter tones distinguishable, fit the notebook, ungrouped neutral (46 FE screenshots reviewed, sample re-viewed)"
+2026-11-10,T11,TC-task-groups-T11-07,pass,docs/project/specs/task-groups/qa/evidence/T11/final-suite.txt,"Legacy data: all tasks ungrouped, tasks string byte identical, no groups or ui key written"
+2026-11-10,T11,TC-task-groups-T11-08,pass,docs/project/specs/task-groups/qa/evidence/T11/final-suite.txt,Old tasks keep shape except the moved one
+2026-11-10,T11,TC-task-groups-T11-09,pass,docs/project/specs/task-groups/qa/evidence/T11/final-suite.txt,"Corrupt groups: no message, corrupt copy written"
+2026-11-10,T11,TC-task-groups-T11-10,pass,docs/project/specs/task-groups/qa/evidence/T11/final-suite.txt,"Garbage UI value and unknown collapsed ids: all expanded, no message"
+2026-11-10,T11,TC-task-groups-T11-11,pass,docs/project/specs/task-groups/qa/evidence/T11/final-suite.txt,"Storage blocked: slip shown, works in memory, nothing stored"
+2026-11-10,T11,TC-task-groups-T11-12,pass,docs/project/specs/task-groups/qa/evidence/T11/final-suite.txt,"Groups key write fails: slip, memory only, next good save hides slip; card announces the failure inside itself"
+2026-11-10,T11,TC-task-groups-T11-13,pass,docs/project/specs/task-groups/qa/evidence/T11/final-suite.txt,"Colour ""red; x"" shown yellow, no inline style"
+2026-11-10,T11,TC-task-groups-T11-14,pass,docs/project/specs/task-groups/qa/evidence/T11/final-suite.txt,"Requests same origin only, CSP unchanged"
+2026-11-10,T11,TC-task-groups-T11-15,pass,docs/project/specs/task-groups/qa/evidence/T11/final-suite.txt,"Markup and quotes in names and ids: no script, no injected element"
+2026-11-10,T11,TC-task-groups-T11-16,pass,docs/project/specs/task-groups/qa/evidence/T11/final-suite.txt,"200 tasks in 20 groups settled: add, move, collapse, expand, filter each under 100 ms in Chromium (Firefox: see BUG-014)"
+2026-11-10,T11,TC-task-groups-T11-17,pass,docs/project/specs/task-groups/qa/evidence/T11/final-suite.txt,Failing writes never change or shrink stored strings; no task lost
+2026-11-10,T11,TC-task-groups-T11-18,pass,docs/project/specs/task-groups/qa/evidence/T11/older-app.txt,"Older app (main) on data with groupId: no crash, no console error, groupId and groups key survive its save"
+2026-11-10,T11,TC-task-groups-T11-19,pass,docs/project/specs/task-groups/qa/evidence/T11/axe-t11.txt;docs/project/specs/task-groups/qa/evidence/T11/axe-t11.json,"axe wcag2a/2aa/21/22aa and best practice: 15 states x 1440 and 390 x light and dark = 60 scans, 0 violations"
+2026-11-10,T11,TC-task-groups-T11-20,pass,docs/project/specs/task-groups/qa/evidence/T11/final-suite.txt,Both Chromium projects green; npm test 65 of 65
+2026-11-10,T11,TC-task-groups-T11-21,pass,docs/project/specs/task-groups/qa/evidence/T11/firefox-suite.txt,"Firefox: 277 passed, 9 failed. 4 fail identically on main (day-nav 123, 512, 934; app 814 content process crash). Other 5: 3 groups tests hit the same Firefox content process crash on role locators in an open dialog (SIGSEGV, not reproduced by plain scripts or by users paths), 2 are the 200 task speed tests (190 ms; main fails its own 200 task speed test the same way). Keyboard only path passes in Firefox. WebKit not run. See BUG-014 and residual risks (BUG-014)"
+2026-11-10,T11,TC-task-groups-T11-22,pass,docs/project/specs/task-groups/qa/evidence/T11/final-suite.txt,"New test sweeps page, option lists, card, edit, move card, delete note, blocked note and the three name errors: listed strings present, no en or em dash, no English word"
+2026-11-10,T11,TC-task-groups-T11-23,pass,.playwright-mcp/t11/*.png,"FE compared 46 screenshots (app vs prototype, light and dark, 1440 and 390); QA re-viewed manage 390 dark: matches"
+2026-11-10,T11,TC-task-groups-T11-24,pass,docs/project/specs/task-groups/qa/evidence/T11/final-suite.txt,day-nav.spec.js unchanged passes in both projects (repeat-each=2 as well)
+2026-11-10,T11,TC-task-groups-T11-25,pass,docs/project/specs/task-groups/qa/evidence/T11/final-suite.txt,"Midnight tests pass; new run with filter, folded section and card open: no error"
+2026-11-10,T11,TC-task-groups-T11-26,pass,docs/project/specs/task-groups/qa/evidence/T11/final-suite.txt,Existing storage failure tests pass unchanged
+2026-11-10,T11,TC-task-groups-T11-27,pass,docs/project/specs/task-groups/qa/evidence/T11/final-suite.txt,Existing 200 task speed test passes in Chromium
+2026-11-10,T11,TC-task-groups-T11-28,pass,docs/project/specs/task-groups/qa/evidence/TC-task-groups-T11-28/,"Pixel diff against main: list rows and ruled paper identical; only change is the new group choice in the add line and the Quản lý nhóm bar (design intent), rows shift down by that bar"
+2026-11-10,T11,TC-task-groups-T11-29,pass,docs/project/specs/task-groups/qa/evidence/T11/final-suite.txt,"New 360 px test: swipe, peek, Sửa on a long row in a section and in the filtered view, no sideways scroll"
+2026-11-10,T11,TC-task-groups-T11-30,pass,docs/project/specs/task-groups/qa/evidence/T11/exploratory-two-tabs.txt,"Exploratory with two tabs: groups merge between tabs, task of a stale group kept, delete asks again from stored tasks (BUG-009 fix). No task lost or hidden. Overwrite of groups between tabs remains a recorded residual risk (low)"
+2026-11-10,T11,TC-task-groups-T11-31,pass,docs/project/specs/task-groups/qa/evidence/T11/stale-cache.txt,"version.test.js passes; T1-08 manual: old 1.1.0 style build then 1.2.0 on the same URL, normal reload fetches css, app.js and every module with ?v=1.2.0 (200), new markup with new styles, no mix"
+2026-11-10,T11,TC-task-groups-T11-32,pass,docs/project/specs/task-groups/qa/evidence/T11/final-suite.txt,"npm test 65, e2e all green in both projects; no linter is configured in package.json"
+2026-11-10,T11,TC-task-groups-T9-26,pass,docs/project/specs/task-groups/qa/evidence/T11/final-suite.txt,"200 tasks in 20 groups, move on a settled page under 100 ms in Chromium"
+2026-11-10,T1,TC-task-groups-T1-01,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T1,TC-task-groups-T1-02,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T1,TC-task-groups-T1-03,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T1,TC-task-groups-T1-04,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T1,TC-task-groups-T1-05,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T1,TC-task-groups-T1-06,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T1,TC-task-groups-T1-07,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T1,TC-task-groups-T1-08,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T1,TC-task-groups-T1-09,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T1,TC-task-groups-T1-10,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T2,TC-task-groups-T2-01,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T2,TC-task-groups-T2-02,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T2,TC-task-groups-T2-03,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T2,TC-task-groups-T2-04,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T2,TC-task-groups-T2-05,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T2,TC-task-groups-T2-06,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T2,TC-task-groups-T2-07,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T2,TC-task-groups-T2-08,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T2,TC-task-groups-T2-09,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T2,TC-task-groups-T2-10,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T2,TC-task-groups-T2-11,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T2,TC-task-groups-T2-12,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T2,TC-task-groups-T2-13,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T2,TC-task-groups-T2-14,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T2,TC-task-groups-T2-15,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T2,TC-task-groups-T2-16,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T2,TC-task-groups-T2-17,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T2,TC-task-groups-T2-18,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T2,TC-task-groups-T2-19,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T2,TC-task-groups-T2-20,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T3,TC-task-groups-T3-01,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T3,TC-task-groups-T3-02,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T3,TC-task-groups-T3-03,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T3,TC-task-groups-T3-04,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T3,TC-task-groups-T3-05,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T3,TC-task-groups-T3-06,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T3,TC-task-groups-T3-07,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T3,TC-task-groups-T3-08,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T3,TC-task-groups-T3-09,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T3,TC-task-groups-T3-10,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T3,TC-task-groups-T3-11,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T3,TC-task-groups-T3-12,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T3,TC-task-groups-T3-13,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T3,TC-task-groups-T3-14,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T3,TC-task-groups-T3-15,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T3,TC-task-groups-T3-16,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T3,TC-task-groups-T3-17,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T3,TC-task-groups-T3-18,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T3,TC-task-groups-T3-19,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T3,TC-task-groups-T3-20,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T3,TC-task-groups-T3-21,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T3,TC-task-groups-T3-22,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T3,TC-task-groups-T3-23,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T3,TC-task-groups-T3-24,pass,docs/project/specs/task-groups/qa/evidence/T11/final-head-run.txt,Originally run on 2026-11-09 under task level rows (T1 to T3 unit and browser checks); confirmed again by final npm test 65 of 65 on HEAD
+2026-11-10,T12,TC-task-groups-T12-01,pass,specs/task-groups/qa/evidence/T12/firefox-suite.txt;specs/task-groups/qa/evidence/T12/firefox-speed-x20-settled.txt,Speed tests pass in the full Firefox run; settled loaded repeats 114 of 120 pass versus 81 of 120 on HEAD (host load 3 to 4); remaining misses are 100 to 160 ms
+2026-11-10,T12,TC-task-groups-T12-02,pass,specs/task-groups/qa/evidence/T12/firefox-suite.txt;specs/task-groups/qa/evidence/T12/firefox-speed-x20-settled.txt,Speed tests pass in the full Firefox run; settled loaded repeats 114 of 120 pass versus 81 of 120 on HEAD (host load 3 to 4); remaining misses are 100 to 160 ms
+2026-11-10,T12,TC-task-groups-T12-04,pass,specs/task-groups/qa/evidence/T12/firefox-suite.txt;specs/task-groups/qa/evidence/T12/firefox-speed-x20-settled.txt,Speed tests pass in the full Firefox run; settled loaded repeats 114 of 120 pass versus 81 of 120 on HEAD (host load 3 to 4); remaining misses are 100 to 160 ms
+2026-11-10,T12,TC-task-groups-T12-03,pass,specs/task-groups/qa/evidence/T12/chromium-repeat2.txt,Chromium desktop and mobile 1196 passed 40 skipped with --repeat-each=2
+2026-11-10,T12,TC-task-groups-T12-05,pass,specs/task-groups/qa/evidence/T12/tooltip-check.txt;specs/task-groups/qa/evidence/T12/firefox-tip-hover.png;specs/task-groups/qa/evidence/T12/chromium-tip-hover.png,Hover (also straight onto Sửa and Xóa): 0.00 at 250 ms then 0.95 at 450 ms in both browsers; focus fades in at once; idle rows have no box
+2026-11-10,T12,TC-task-groups-T12-06,pass,specs/task-groups/qa/evidence/T12/tooltip-check.txt;specs/task-groups/qa/evidence/T12/firefox-tip-hover.png;specs/task-groups/qa/evidence/T12/chromium-tip-hover.png,Hover (also straight onto Sửa and Xóa): 0.00 at 250 ms then 0.95 at 450 ms in both browsers; focus fades in at once; idle rows have no box
+2026-11-10,T12,TC-task-groups-T12-07,pass,specs/task-groups/qa/evidence/T12/chromium-repeat2.txt;specs/task-groups/qa/evidence/T12/firefox-suite.txt,New test in groups.spec.js passes 2 times per Chromium project and in Firefox
+2026-11-10,T12,TC-task-groups-T12-08,pass,specs/task-groups/qa/evidence/T12/axe-t12.txt,56 of 56 states with 0 violations (phones skip the tooltip states: tooltips are off on touch)
+2026-11-10,T12,TC-task-groups-T12-09,pass,specs/task-groups/qa/evidence/T12/chromium-repeat2.txt;specs/task-groups/qa/evidence/T12/firefox-suite.txt,Unit 65 of 65; Chromium 1196 passed; Firefox 282 passed and the same 7 non speed failures as T11 (not caused by T12)

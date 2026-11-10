@@ -1,0 +1,48 @@
+360	light	all	btn 44,44	sel 153,44	text "Tất cả nhóm" 86px of 123px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+360	light	jp	btn 44,44	sel 160,44	text "Học tiếng Nhật" 113px of 130px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+360	light	none	btn 44,44	sel 160,44	text "Chưa phân nhóm" 130px of 130px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+360	light	nogroups	btn 44,44	sel null	text "Tất cả nhóm" 86px of -30px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+360	dark	all	btn 44,44	sel 153,44	text "Tất cả nhóm" 86px of 123px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+360	dark	jp	btn 44,44	sel 160,44	text "Học tiếng Nhật" 113px of 130px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+360	dark	none	btn 44,44	sel 160,44	text "Chưa phân nhóm" 130px of 130px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+360	dark	nogroups	btn 44,44	sel null	text "Tất cả nhóm" 86px of -30px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+380	light	all	btn 44,44	sel 153,44	text "Tất cả nhóm" 86px of 123px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+380	light	jp	btn 44,44	sel 160,44	text "Học tiếng Nhật" 113px of 130px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+380	light	none	btn 44,44	sel 160,44	text "Chưa phân nhóm" 130px of 130px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+380	light	nogroups	btn 44,44	sel null	text "Tất cả nhóm" 86px of -30px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+380	dark	all	btn 44,44	sel 153,44	text "Tất cả nhóm" 86px of 123px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+380	dark	jp	btn 44,44	sel 160,44	text "Học tiếng Nhật" 113px of 130px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+380	dark	none	btn 44,44	sel 160,44	text "Chưa phân nhóm" 130px of 130px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+380	dark	nogroups	btn 44,44	sel null	text "Tất cả nhóm" 86px of -30px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+390	light	all	btn 44,44	sel 153,44	text "Tất cả nhóm" 86px of 123px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+390	light	jp	btn 44,44	sel 160,44	text "Học tiếng Nhật" 113px of 130px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+390	light	none	btn 44,44	sel 160,44	text "Chưa phân nhóm" 130px of 130px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+390	light	nogroups	btn 44,44	sel null	text "Tất cả nhóm" 86px of -30px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+390	dark	all	btn 44,44	sel 153,44	text "Tất cả nhóm" 86px of 123px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+390	dark	jp	btn 44,44	sel 160,44	text "Học tiếng Nhật" 113px of 130px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+390	dark	none	btn 44,44	sel 160,44	text "Chưa phân nhóm" 130px of 130px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+390	dark	nogroups	btn 44,44	sel null	text "Tất cả nhóm" 86px of -30px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+412	light	all	btn 44,44	sel 153,44	text "Tất cả nhóm" 86px of 123px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+412	light	jp	btn 44,44	sel 160,44	text "Học tiếng Nhật" 113px of 130px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+412	light	none	btn 44,44	sel 160,44	text "Chưa phân nhóm" 130px of 130px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+412	light	nogroups	btn 44,44	sel null	text "Tất cả nhóm" 86px of -30px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+412	dark	all	btn 44,44	sel 153,44	text "Tất cả nhóm" 86px of 123px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+412	dark	jp	btn 44,44	sel 160,44	text "Học tiếng Nhật" 113px of 130px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+412	dark	none	btn 44,44	sel 160,44	text "Chưa phân nhóm" 130px of 130px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+412	dark	nogroups	btn 44,44	sel null	text "Tất cả nhóm" 86px of -30px inner	textShown false	tip "Quản lý nhóm" / ""	hscroll 0	axe 0
+452	light	all	btn 142.3,36	sel 153,44	text "Tất cả nhóm" 86px of 123px inner	textShown true	tip none	hscroll 0	axe 0
+452	light	jp	btn 142.2,36	sel 159.8,44	text "Học tiếng Nhật" 113px of 130px inner	textShown true	tip none	hscroll 0	axe 0
+452	light	none	btn 142.2,36	sel 159.8,44	text "Chưa phân nhóm" 130px of 130px inner	textShown true	tip none	hscroll 0	axe 0
+452	light	nogroups	btn 142.3,36	sel null	text "Tất cả nhóm" 86px of -30px inner	textShown true	tip none	hscroll 0	axe 0
+452	dark	all	btn 142.3,36	sel 153,44	text "Tất cả nhóm" 86px of 123px inner	textShown true	tip none	hscroll 0	axe 0
+452	dark	jp	btn 142.2,36	sel 159.8,44	text "Học tiếng Nhật" 113px of 130px inner	textShown true	tip none	hscroll 0	axe 0
+452	dark	none	btn 142.2,36	sel 159.8,44	text "Chưa phân nhóm" 130px of 130px inner	textShown true	tip none	hscroll 0	axe 0
+452	dark	nogroups	btn 142.3,36	sel null	text "Tất cả nhóm" 86px of -30px inner	textShown true	tip none	hscroll 0	axe 0
+1440	light	all	btn 157.4,36	sel 153,44	text "Tất cả nhóm" 86px of 123px inner	textShown true	tip none	hscroll 0	axe 0
+1440	light	jp	btn 157.4,36	sel 160,44	text "Học tiếng Nhật" 113px of 130px inner	textShown true	tip none	hscroll 0	axe 0
+1440	light	none	btn 157.4,36	sel 160,44	text "Chưa phân nhóm" 130px of 130px inner	textShown true	tip none	hscroll 0	axe 0
+1440	light	nogroups	btn 157.4,36	sel null	text "Tất cả nhóm" 86px of -30px inner	textShown true	tip none	hscroll 0	axe 0
+1440	dark	all	btn 157.4,36	sel 153,44	text "Tất cả nhóm" 86px of 123px inner	textShown true	tip none	hscroll 0	axe 0
+1440	dark	jp	btn 157.4,36	sel 160,44	text "Học tiếng Nhật" 113px of 130px inner	textShown true	tip none	hscroll 0	axe 0
+1440	dark	none	btn 157.4,36	sel 160,44	text "Chưa phân nhóm" 130px of 130px inner	textShown true	tip none	hscroll 0	axe 0
+1440	dark	nogroups	btn 157.4,36	sel null	text "Tất cả nhóm" 86px of -30px inner	textShown true	tip none	hscroll 0	axe 0

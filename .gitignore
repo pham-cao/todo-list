@@ -27,3 +27,6 @@ lerna-debug.log*
 # temp directory
 .temp
 .tmp
+
+# LibreOffice lock files
+.~lock.*#

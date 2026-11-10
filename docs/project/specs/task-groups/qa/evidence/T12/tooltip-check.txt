@@ -1,0 +1,14 @@
+chromium 
+  idle edit: none/0.00 remove: none/0.00
+  hover-straight-edit 60ms=box/0.00 250ms=box/0.00 450ms=box/0.95 800ms=box/1.00
+  hover-straight-remove 60ms=box/0.00 250ms=box/0.00 450ms=box/0.95 800ms=box/1.00
+  after leave: none/0.00
+  keyboard-focus(Sửa) 60ms=box/0.62 250ms=box/1.00 450ms=box/1.00 800ms=box/1.00
+  next row idle edit(row2): none/0.00
+firefox  
+  idle edit: none/0.00 remove: none/0.00
+  hover-straight-edit 60ms=box/0.00 250ms=box/0.00 450ms=box/0.94 800ms=box/1.00
+  hover-straight-remove 60ms=box/0.00 250ms=box/0.00 450ms=box/0.95 800ms=box/1.00
+  after leave: none/0.00
+  keyboard-focus(Sửa) 60ms=box/0.62 250ms=box/1.00 450ms=box/1.00 800ms=box/1.00
+  next row idle edit(row2): none/0.00

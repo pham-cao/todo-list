@@ -1,0 +1,4 @@
+Two pages, page A: groups [A yellow]; line open, swatch pink, typed "Công ty". Page B writes groups [A, Công ty pink].
+A: options [Chưa phân nhóm, A, Công ty, Nhóm mới...], select stays on "new", line open, text kept, focus kept. Enter shows "Tên nhóm này đã có rồi." (pass).
+A: #new-group-swatch still pink although the next colour is now blue. FAIL (BUG-006). test.fixme in groups.spec.js.
+Group removed in B while chosen in A: options and choice reset to Chưa phân nhóm (pass). Edit form open in A stays open when B changes groups (pass). localStorage.clear() in B: A offers only Chưa phân nhóm and Nhóm mới... (pass).

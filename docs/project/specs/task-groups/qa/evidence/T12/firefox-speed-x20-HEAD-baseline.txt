@@ -1,0 +1,2605 @@
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:03] "GET / HTTP/1.1" 200 -
+
+
+Running 120 tests using 1 worker
+
+[1/120] [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:06] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:06] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:06] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:06] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:06] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:06] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:06] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[2/120] [firefox] › tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:07] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:07] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:07] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:07] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:07] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:07] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:07] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[3/120] [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:07] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:07] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:07] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:07] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:07] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:07] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:07] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[4/120] [firefox] › tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:08] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:08] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:08] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:08] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:08] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:08] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:08] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[5/120] [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:09] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:09] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:09] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:09] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:09] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:09] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:09] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  1) [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   218
+
+      2763 |     return performance.now() - t0;
+      2764 |   });
+    > 2765 |   expect(ms).toBeLessThan(100);
+           |              ^
+      2766 |   expect(await page.evaluate(() => window.__writes)).toBe(1);
+      2767 |   const after = await storedJson(page, KEY);
+      2768 |   expect(after).toHaveLength(200);
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:2765:14
+
+    Error Context: test-results/groups-200-tasks-of-one-gr-23f0e--one-write-and-under-100-ms-firefox/error-context.md
+
+
+[6/120] [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:13] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:13] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:13] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:13] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:13] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:13] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:13] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  2) [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+
+    Error: move
+
+    expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   138
+
+      3401 |   await editOf(page, 'Việc số 1').click();
+      3402 |   await editChoice(page).selectOption('g6');
+    > 3403 |   expect(await timed("document.querySelector('.task__edit').requestSubmit()"), 'move').toBeLessThan(100);
+           |                                                                                        ^
+      3404 |   await expect(sectionLabels(page, 'Nhóm 7').first()).toHaveText('Việc số 1');
+      3405 |   expect(await timed("document.querySelector('.group__toggle').click()"), 'collapse').toBeLessThan(100);
+      3406 |   await expect(sections(page).first()).toHaveClass(/group--collapsed/);
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:3403:88
+
+    Error Context: test-results/groups-200-tasks-in-20-gro-b46b4-nd-filter-each-under-100-ms-firefox/error-context.md
+
+
+[7/120] [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:18] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:18] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:18] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:18] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:18] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:18] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:18] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[8/120] [firefox] › tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:19] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:19] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:19] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:19] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:19] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:19] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:19] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[9/120] [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:20] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:20] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:20] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:20] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:20] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:20] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:20] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[10/120] [firefox] › tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:21] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:21] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:21] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:21] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:21] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:21] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:21] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[11/120] [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:21] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:21] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:21] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:21] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:21] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:21] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:21] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[12/120] [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:23] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:23] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:23] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:23] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:23] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:23] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:23] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[13/120] [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:29] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:29] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:29] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:29] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:29] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:29] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:29] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[14/120] [firefox] › tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:30] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:30] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:30] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:30] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:30] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:30] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:30] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[15/120] [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:30] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:30] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:30] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:31] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:31] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:31] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:31] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  3) [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010) 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   135
+
+      1040 |     return performance.now() - t0;
+      1041 |   });
+    > 1042 |   expect(ms).toBeLessThan(100);
+           |              ^
+      1043 |   await expect(section(page, 'Nhóm 7').locator('.task__label').first()).toHaveText('Việc số 1');
+      1044 |   await expect(rows(page)).toHaveCount(200);
+      1045 | });
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:1042:14
+
+    Error Context: test-results/groups-200-tasks-in-20-gro-ec204-stays-under-100-ms-BUG-010--firefox-repeat2/error-context.md
+
+
+[16/120] [firefox] › tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:35] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:35] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:35] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:35] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:35] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:35] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:35] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[17/120] [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:36] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:36] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:36] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:36] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:36] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:36] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:36] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[18/120] [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:37] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:37] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:37] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:37] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:37] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:37] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:37] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[19/120] [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:43] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:43] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:43] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:43] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:43] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:43] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:43] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[20/120] [firefox] › tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:44] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:44] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:44] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:44] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:44] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:44] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:44] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[21/120] [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:45] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:45] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:45] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:45] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:45] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:45] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:45] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[22/120] [firefox] › tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:46] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:46] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:46] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:46] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:46] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:46] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:46] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[23/120] [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:46] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:46] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:46] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:46] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:46] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:46] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:46] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  4) [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   191
+
+      2763 |     return performance.now() - t0;
+      2764 |   });
+    > 2765 |   expect(ms).toBeLessThan(100);
+           |              ^
+      2766 |   expect(await page.evaluate(() => window.__writes)).toBe(1);
+      2767 |   const after = await storedJson(page, KEY);
+      2768 |   expect(after).toHaveLength(200);
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:2765:14
+
+    Error Context: test-results/groups-200-tasks-of-one-gr-23f0e--one-write-and-under-100-ms-firefox-repeat3/error-context.md
+
+
+[24/120] [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:51] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:51] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:51] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:51] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:51] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:51] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:51] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[25/120] [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:57] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:57] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:57] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:57] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:57] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:57] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:57] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[26/120] [firefox] › tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:58] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:58] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:58] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:58] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:58] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:58] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:58] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[27/120] [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:58] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:58] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:58] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:58] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:58] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:58] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:58] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[28/120] [firefox] › tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:59] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:59] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:59] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:59] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:59] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:59] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:46:59] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[29/120] [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:00] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:00] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:00] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:00] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:00] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:00] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:00] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[30/120] [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:01] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:01] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:01] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:01] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:01] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:01] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:01] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[31/120] [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:07] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:07] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:07] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:07] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:07] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:07] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:07] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[32/120] [firefox] › tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:08] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:08] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:08] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:08] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:08] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:08] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:08] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[33/120] [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:09] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:09] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:09] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:09] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:09] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:09] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:09] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[34/120] [firefox] › tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:10] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:10] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:10] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:10] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:10] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:10] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:10] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[35/120] [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:10] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:10] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:10] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:10] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:10] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:10] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:10] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[36/120] [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:12] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:12] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:12] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:12] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:12] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:12] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:12] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  5) [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+
+    Error: move
+
+    expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   116
+
+      3401 |   await editOf(page, 'Việc số 1').click();
+      3402 |   await editChoice(page).selectOption('g6');
+    > 3403 |   expect(await timed("document.querySelector('.task__edit').requestSubmit()"), 'move').toBeLessThan(100);
+           |                                                                                        ^
+      3404 |   await expect(sectionLabels(page, 'Nhóm 7').first()).toHaveText('Việc số 1');
+      3405 |   expect(await timed("document.querySelector('.group__toggle').click()"), 'collapse').toBeLessThan(100);
+      3406 |   await expect(sections(page).first()).toHaveClass(/group--collapsed/);
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:3403:88
+
+    Error Context: test-results/groups-200-tasks-in-20-gro-b46b4-nd-filter-each-under-100-ms-firefox-repeat5/error-context.md
+
+
+[37/120] [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:16] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:16] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:16] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:16] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:16] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:16] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:16] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[38/120] [firefox] › tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:17] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:17] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:17] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:17] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:17] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:17] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:17] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[39/120] [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:18] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:18] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:18] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:18] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:18] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:18] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:18] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[40/120] [firefox] › tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:19] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:19] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:19] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:19] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:19] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:19] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:19] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[41/120] [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:19] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:19] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:19] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:19] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:19] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:19] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:19] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  6) [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   223
+
+      2763 |     return performance.now() - t0;
+      2764 |   });
+    > 2765 |   expect(ms).toBeLessThan(100);
+           |              ^
+      2766 |   expect(await page.evaluate(() => window.__writes)).toBe(1);
+      2767 |   const after = await storedJson(page, KEY);
+      2768 |   expect(after).toHaveLength(200);
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:2765:14
+
+    Error Context: test-results/groups-200-tasks-of-one-gr-23f0e--one-write-and-under-100-ms-firefox-repeat6/error-context.md
+
+
+[42/120] [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:23] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:23] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:23] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:23] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:23] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:23] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:23] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+  7) [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+
+    Error: move
+
+    expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   189
+
+      3401 |   await editOf(page, 'Việc số 1').click();
+      3402 |   await editChoice(page).selectOption('g6');
+    > 3403 |   expect(await timed("document.querySelector('.task__edit').requestSubmit()"), 'move').toBeLessThan(100);
+           |                                                                                        ^
+      3404 |   await expect(sectionLabels(page, 'Nhóm 7').first()).toHaveText('Việc số 1');
+      3405 |   expect(await timed("document.querySelector('.group__toggle').click()"), 'collapse').toBeLessThan(100);
+      3406 |   await expect(sections(page).first()).toHaveClass(/group--collapsed/);
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:3403:88
+
+    Error Context: test-results/groups-200-tasks-in-20-gro-b46b4-nd-filter-each-under-100-ms-firefox-repeat6/error-context.md
+
+
+[43/120] [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:28] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:28] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:28] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:28] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:28] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:28] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:28] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  8) [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   135
+
+      879 |     });
+      880 |     await expect(rows(page)).toHaveCount(count);
+    > 881 |     expect(ms).toBeLessThan(100);
+          |                ^
+      882 |   });
+      883 | }
+      884 |
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/day-nav.spec.js:881:16
+
+    Error Context: test-results/day-nav-moving-to-a-day-wi-c58d5-sks-renders-in-under-100-ms-firefox-repeat7/error-context.md
+
+
+[44/120] [firefox] › tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:32] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:32] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:32] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:32] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:32] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:32] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:32] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[45/120] [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:33] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:33] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:33] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:33] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:33] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:33] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:33] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  9) [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010) 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   205
+
+      1040 |     return performance.now() - t0;
+      1041 |   });
+    > 1042 |   expect(ms).toBeLessThan(100);
+           |              ^
+      1043 |   await expect(section(page, 'Nhóm 7').locator('.task__label').first()).toHaveText('Việc số 1');
+      1044 |   await expect(rows(page)).toHaveCount(200);
+      1045 | });
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:1042:14
+
+    Error Context: test-results/groups-200-tasks-in-20-gro-ec204-stays-under-100-ms-BUG-010--firefox-repeat7/error-context.md
+
+
+[46/120] [firefox] › tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:37] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:37] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:37] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:37] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:37] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:37] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:37] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[47/120] [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:38] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:38] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:38] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:38] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:38] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:38] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:38] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[48/120] [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:39] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:39] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:39] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:39] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:39] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:39] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:39] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  10) [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+
+    Error: move
+
+    expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   190
+
+      3401 |   await editOf(page, 'Việc số 1').click();
+      3402 |   await editChoice(page).selectOption('g6');
+    > 3403 |   expect(await timed("document.querySelector('.task__edit').requestSubmit()"), 'move').toBeLessThan(100);
+           |                                                                                        ^
+      3404 |   await expect(sectionLabels(page, 'Nhóm 7').first()).toHaveText('Việc số 1');
+      3405 |   expect(await timed("document.querySelector('.group__toggle').click()"), 'collapse').toBeLessThan(100);
+      3406 |   await expect(sections(page).first()).toHaveClass(/group--collapsed/);
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:3403:88
+
+    Error Context: test-results/groups-200-tasks-in-20-gro-b46b4-nd-filter-each-under-100-ms-firefox-repeat7/error-context.md
+
+
+[49/120] [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:44] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:44] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:44] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:44] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:44] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:44] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:44] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  11) [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   196
+
+      879 |     });
+      880 |     await expect(rows(page)).toHaveCount(count);
+    > 881 |     expect(ms).toBeLessThan(100);
+          |                ^
+      882 |   });
+      883 | }
+      884 |
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/day-nav.spec.js:881:16
+
+    Error Context: test-results/day-nav-moving-to-a-day-wi-c58d5-sks-renders-in-under-100-ms-firefox-repeat8/error-context.md
+
+
+[50/120] [firefox] › tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:48] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:48] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:48] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:48] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:48] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:48] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:48] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[51/120] [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:49] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:49] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:49] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:49] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:49] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:49] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:49] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[52/120] [firefox] › tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:50] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:50] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:50] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:50] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:50] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:50] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:50] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[53/120] [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:51] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:51] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:51] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:51] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:51] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:51] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:51] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[54/120] [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:52] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:52] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:52] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:52] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:52] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:52] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:52] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  12) [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+
+    Error: move
+
+    expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   153
+
+      3401 |   await editOf(page, 'Việc số 1').click();
+      3402 |   await editChoice(page).selectOption('g6');
+    > 3403 |   expect(await timed("document.querySelector('.task__edit').requestSubmit()"), 'move').toBeLessThan(100);
+           |                                                                                        ^
+      3404 |   await expect(sectionLabels(page, 'Nhóm 7').first()).toHaveText('Việc số 1');
+      3405 |   expect(await timed("document.querySelector('.group__toggle').click()"), 'collapse').toBeLessThan(100);
+      3406 |   await expect(sections(page).first()).toHaveClass(/group--collapsed/);
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:3403:88
+
+    Error Context: test-results/groups-200-tasks-in-20-gro-b46b4-nd-filter-each-under-100-ms-firefox-repeat8/error-context.md
+
+
+[55/120] [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:57] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:57] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:57] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:58] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:58] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:58] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:47:58] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  13) [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   103
+
+      879 |     });
+      880 |     await expect(rows(page)).toHaveCount(count);
+    > 881 |     expect(ms).toBeLessThan(100);
+          |                ^
+      882 |   });
+      883 | }
+      884 |
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/day-nav.spec.js:881:16
+
+    Error Context: test-results/day-nav-moving-to-a-day-wi-c58d5-sks-renders-in-under-100-ms-firefox-repeat9/error-context.md
+
+
+[56/120] [firefox] › tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:02] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:02] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:02] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:02] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:02] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:02] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:02] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[57/120] [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:02] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:02] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:02] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:03] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:03] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:03] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:03] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[58/120] [firefox] › tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:04] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:04] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:04] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:04] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:04] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:04] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:04] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[59/120] [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:04] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:04] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:04] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:04] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:04] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:04] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:04] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  14) [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   193
+
+      2763 |     return performance.now() - t0;
+      2764 |   });
+    > 2765 |   expect(ms).toBeLessThan(100);
+           |              ^
+      2766 |   expect(await page.evaluate(() => window.__writes)).toBe(1);
+      2767 |   const after = await storedJson(page, KEY);
+      2768 |   expect(after).toHaveLength(200);
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:2765:14
+
+    Error Context: test-results/groups-200-tasks-of-one-gr-23f0e--one-write-and-under-100-ms-firefox-repeat9/error-context.md
+
+
+[60/120] [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:08] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:08] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:08] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:08] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:08] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:08] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:08] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  15) [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+
+    Error: move
+
+    expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   193
+
+      3401 |   await editOf(page, 'Việc số 1').click();
+      3402 |   await editChoice(page).selectOption('g6');
+    > 3403 |   expect(await timed("document.querySelector('.task__edit').requestSubmit()"), 'move').toBeLessThan(100);
+           |                                                                                        ^
+      3404 |   await expect(sectionLabels(page, 'Nhóm 7').first()).toHaveText('Việc số 1');
+      3405 |   expect(await timed("document.querySelector('.group__toggle').click()"), 'collapse').toBeLessThan(100);
+      3406 |   await expect(sections(page).first()).toHaveClass(/group--collapsed/);
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:3403:88
+
+    Error Context: test-results/groups-200-tasks-in-20-gro-b46b4-nd-filter-each-under-100-ms-firefox-repeat9/error-context.md
+
+
+[61/120] [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:14] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:14] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:14] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:14] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:14] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:14] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:14] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  16) [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   208
+
+      879 |     });
+      880 |     await expect(rows(page)).toHaveCount(count);
+    > 881 |     expect(ms).toBeLessThan(100);
+          |                ^
+      882 |   });
+      883 | }
+      884 |
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/day-nav.spec.js:881:16
+
+    Error Context: test-results/day-nav-moving-to-a-day-wi-c58d5-sks-renders-in-under-100-ms-firefox-repeat10/error-context.md
+
+
+[62/120] [firefox] › tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:18] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:18] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:18] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:18] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:18] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:18] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:18] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[63/120] [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:18] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:18] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:18] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:18] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:18] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:18] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:18] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[64/120] [firefox] › tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:19] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:20] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:20] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:20] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:20] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:20] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:20] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[65/120] [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:20] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:20] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:20] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:20] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:20] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:20] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:20] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[66/120] [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:21] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:21] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:21] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:21] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:21] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:21] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:21] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[67/120] [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:27] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:27] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:27] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:27] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:27] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:27] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:27] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[68/120] [firefox] › tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:28] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:28] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:28] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:28] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:28] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:28] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:28] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[69/120] [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:29] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:29] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:29] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:29] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:29] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:29] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:29] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[70/120] [firefox] › tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:30] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:30] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:30] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:30] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:30] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:30] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:30] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[71/120] [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:30] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:30] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:30] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:30] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:30] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:30] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:30] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[72/120] [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:32] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:32] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:32] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:32] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:32] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:32] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:32] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[73/120] [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:38] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:38] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:38] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:38] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:38] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:38] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:38] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[74/120] [firefox] › tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:39] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:39] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:39] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:39] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:39] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:39] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:39] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[75/120] [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:39] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:39] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:39] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:39] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:39] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:39] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:39] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  17) [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010) 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   192
+
+      1040 |     return performance.now() - t0;
+      1041 |   });
+    > 1042 |   expect(ms).toBeLessThan(100);
+           |              ^
+      1043 |   await expect(section(page, 'Nhóm 7').locator('.task__label').first()).toHaveText('Việc số 1');
+      1044 |   await expect(rows(page)).toHaveCount(200);
+      1045 | });
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:1042:14
+
+    Error Context: test-results/groups-200-tasks-in-20-gro-ec204-stays-under-100-ms-BUG-010--firefox-repeat12/error-context.md
+
+
+[76/120] [firefox] › tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:43] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:43] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:43] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:43] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:43] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:43] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:43] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[77/120] [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:44] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:44] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:44] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:44] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:44] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:44] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:44] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[78/120] [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:46] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:46] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:46] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:46] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:46] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:46] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:46] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  18) [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+
+    Error: filter off
+
+    expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   141
+
+      3409 |   expect(await timed(filterTo('g6')), 'filter').toBeLessThan(100);
+      3410 |   await expect(rows(page)).toHaveCount(12);
+    > 3411 |   expect(await timed(filterTo('all')), 'filter off').toBeLessThan(100);
+           |                                                      ^
+      3412 |   await expect(rows(page)).toHaveCount(201);
+      3413 | });
+      3414 |
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:3411:54
+
+    Error Context: test-results/groups-200-tasks-in-20-gro-b46b4-nd-filter-each-under-100-ms-firefox-repeat12/error-context.md
+
+
+[79/120] [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:53] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:53] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:53] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:53] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:53] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:53] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:53] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  19) [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   174
+
+      879 |     });
+      880 |     await expect(rows(page)).toHaveCount(count);
+    > 881 |     expect(ms).toBeLessThan(100);
+          |                ^
+      882 |   });
+      883 | }
+      884 |
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/day-nav.spec.js:881:16
+
+    Error Context: test-results/day-nav-moving-to-a-day-wi-c58d5-sks-renders-in-under-100-ms-firefox-repeat13/error-context.md
+
+
+[80/120] [firefox] › tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:57] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:57] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:57] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:57] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:57] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:57] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:57] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[81/120] [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:57] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:57] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:57] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:57] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:57] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:57] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:48:57] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  20) [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010) 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   188
+
+      1040 |     return performance.now() - t0;
+      1041 |   });
+    > 1042 |   expect(ms).toBeLessThan(100);
+           |              ^
+      1043 |   await expect(section(page, 'Nhóm 7').locator('.task__label').first()).toHaveText('Việc số 1');
+      1044 |   await expect(rows(page)).toHaveCount(200);
+      1045 | });
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:1042:14
+
+    Error Context: test-results/groups-200-tasks-in-20-gro-ec204-stays-under-100-ms-BUG-010--firefox-repeat13/error-context.md
+
+
+[82/120] [firefox] › tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:02] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:02] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:02] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:02] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:02] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:02] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:02] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[83/120] [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:03] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:03] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:03] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:03] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:03] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:03] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:03] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  21) [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   193
+
+      2763 |     return performance.now() - t0;
+      2764 |   });
+    > 2765 |   expect(ms).toBeLessThan(100);
+           |              ^
+      2766 |   expect(await page.evaluate(() => window.__writes)).toBe(1);
+      2767 |   const after = await storedJson(page, KEY);
+      2768 |   expect(after).toHaveLength(200);
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:2765:14
+
+    Error Context: test-results/groups-200-tasks-of-one-gr-23f0e--one-write-and-under-100-ms-firefox-repeat13/error-context.md
+
+
+[84/120] [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:07] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:07] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:07] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:07] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:07] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:07] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:07] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  22) [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+
+    Error: move
+
+    expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   188
+
+      3401 |   await editOf(page, 'Việc số 1').click();
+      3402 |   await editChoice(page).selectOption('g6');
+    > 3403 |   expect(await timed("document.querySelector('.task__edit').requestSubmit()"), 'move').toBeLessThan(100);
+           |                                                                                        ^
+      3404 |   await expect(sectionLabels(page, 'Nhóm 7').first()).toHaveText('Việc số 1');
+      3405 |   expect(await timed("document.querySelector('.group__toggle').click()"), 'collapse').toBeLessThan(100);
+      3406 |   await expect(sections(page).first()).toHaveClass(/group--collapsed/);
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:3403:88
+
+    Error Context: test-results/groups-200-tasks-in-20-gro-b46b4-nd-filter-each-under-100-ms-firefox-repeat13/error-context.md
+
+
+[85/120] [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:12] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:12] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:12] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:12] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:12] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:12] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:12] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  23) [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   151
+
+      879 |     });
+      880 |     await expect(rows(page)).toHaveCount(count);
+    > 881 |     expect(ms).toBeLessThan(100);
+          |                ^
+      882 |   });
+      883 | }
+      884 |
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/day-nav.spec.js:881:16
+
+    Error Context: test-results/day-nav-moving-to-a-day-wi-c58d5-sks-renders-in-under-100-ms-firefox-repeat14/error-context.md
+
+
+[86/120] [firefox] › tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:16] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:16] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:16] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:16] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:16] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:16] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:16] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[87/120] [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:17] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:17] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:17] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:17] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:17] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:17] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:17] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  24) [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010) 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   187
+
+      1040 |     return performance.now() - t0;
+      1041 |   });
+    > 1042 |   expect(ms).toBeLessThan(100);
+           |              ^
+      1043 |   await expect(section(page, 'Nhóm 7').locator('.task__label').first()).toHaveText('Việc số 1');
+      1044 |   await expect(rows(page)).toHaveCount(200);
+      1045 | });
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:1042:14
+
+    Error Context: test-results/groups-200-tasks-in-20-gro-ec204-stays-under-100-ms-BUG-010--firefox-repeat14/error-context.md
+
+
+[88/120] [firefox] › tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:22] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:22] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:22] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:22] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:22] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:22] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:22] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[89/120] [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:22] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:22] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:22] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:22] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:22] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:22] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:22] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[90/120] [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:24] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:24] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:24] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:24] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:24] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:24] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:24] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  25) [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+
+    Error: filter off
+
+    expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   206
+
+      3409 |   expect(await timed(filterTo('g6')), 'filter').toBeLessThan(100);
+      3410 |   await expect(rows(page)).toHaveCount(12);
+    > 3411 |   expect(await timed(filterTo('all')), 'filter off').toBeLessThan(100);
+           |                                                      ^
+      3412 |   await expect(rows(page)).toHaveCount(201);
+      3413 | });
+      3414 |
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:3411:54
+
+    Error Context: test-results/groups-200-tasks-in-20-gro-b46b4-nd-filter-each-under-100-ms-firefox-repeat14/error-context.md
+
+
+[91/120] [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:31] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:31] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:31] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:31] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:31] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:31] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:31] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[92/120] [firefox] › tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:32] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:32] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:32] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:32] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:32] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:32] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:32] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[93/120] [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:33] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:33] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:33] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:33] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:33] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:33] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:33] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[94/120] [firefox] › tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:34] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:34] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:34] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:34] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:34] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:34] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:34] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[95/120] [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:34] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:34] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:34] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:34] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:34] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:34] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:34] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  26) [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   177
+
+      2763 |     return performance.now() - t0;
+      2764 |   });
+    > 2765 |   expect(ms).toBeLessThan(100);
+           |              ^
+      2766 |   expect(await page.evaluate(() => window.__writes)).toBe(1);
+      2767 |   const after = await storedJson(page, KEY);
+      2768 |   expect(after).toHaveLength(200);
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:2765:14
+
+    Error Context: test-results/groups-200-tasks-of-one-gr-23f0e--one-write-and-under-100-ms-firefox-repeat15/error-context.md
+
+
+[96/120] [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:39] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:39] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:39] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:39] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:39] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:39] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:39] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+  27) [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+
+    Error: move
+
+    expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   188
+
+      3401 |   await editOf(page, 'Việc số 1').click();
+      3402 |   await editChoice(page).selectOption('g6');
+    > 3403 |   expect(await timed("document.querySelector('.task__edit').requestSubmit()"), 'move').toBeLessThan(100);
+           |                                                                                        ^
+      3404 |   await expect(sectionLabels(page, 'Nhóm 7').first()).toHaveText('Việc số 1');
+      3405 |   expect(await timed("document.querySelector('.group__toggle').click()"), 'collapse').toBeLessThan(100);
+      3406 |   await expect(sections(page).first()).toHaveClass(/group--collapsed/);
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:3403:88
+
+    Error Context: test-results/groups-200-tasks-in-20-gro-b46b4-nd-filter-each-under-100-ms-firefox-repeat15/error-context.md
+
+
+[97/120] [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:44] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:44] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:44] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:44] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:44] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:44] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:44] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  28) [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   187
+
+      879 |     });
+      880 |     await expect(rows(page)).toHaveCount(count);
+    > 881 |     expect(ms).toBeLessThan(100);
+          |                ^
+      882 |   });
+      883 | }
+      884 |
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/day-nav.spec.js:881:16
+
+    Error Context: test-results/day-nav-moving-to-a-day-wi-c58d5-sks-renders-in-under-100-ms-firefox-repeat16/error-context.md
+
+
+[98/120] [firefox] › tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:48] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:48] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:48] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:48] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:48] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:48] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:48] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[99/120] [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:49] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:49] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:49] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:49] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:49] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:49] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:49] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  29) [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010) 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   193
+
+      1040 |     return performance.now() - t0;
+      1041 |   });
+    > 1042 |   expect(ms).toBeLessThan(100);
+           |              ^
+      1043 |   await expect(section(page, 'Nhóm 7').locator('.task__label').first()).toHaveText('Việc số 1');
+      1044 |   await expect(rows(page)).toHaveCount(200);
+      1045 | });
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:1042:14
+
+    Error Context: test-results/groups-200-tasks-in-20-gro-ec204-stays-under-100-ms-BUG-010--firefox-repeat16/error-context.md
+
+
+[100/120] [firefox] › tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:53] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:53] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:53] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:53] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:53] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:53] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:53] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[101/120] [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:54] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:54] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:54] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:54] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:54] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:54] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:54] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  30) [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   185
+
+      2763 |     return performance.now() - t0;
+      2764 |   });
+    > 2765 |   expect(ms).toBeLessThan(100);
+           |              ^
+      2766 |   expect(await page.evaluate(() => window.__writes)).toBe(1);
+      2767 |   const after = await storedJson(page, KEY);
+      2768 |   expect(after).toHaveLength(200);
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:2765:14
+
+    Error Context: test-results/groups-200-tasks-of-one-gr-23f0e--one-write-and-under-100-ms-firefox-repeat16/error-context.md
+
+
+[102/120] [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:59] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:59] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:59] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:59] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:59] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:59] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:49:59] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  31) [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+
+    Error: move
+
+    expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   193
+
+      3401 |   await editOf(page, 'Việc số 1').click();
+      3402 |   await editChoice(page).selectOption('g6');
+    > 3403 |   expect(await timed("document.querySelector('.task__edit').requestSubmit()"), 'move').toBeLessThan(100);
+           |                                                                                        ^
+      3404 |   await expect(sectionLabels(page, 'Nhóm 7').first()).toHaveText('Việc số 1');
+      3405 |   expect(await timed("document.querySelector('.group__toggle').click()"), 'collapse').toBeLessThan(100);
+      3406 |   await expect(sections(page).first()).toHaveClass(/group--collapsed/);
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:3403:88
+
+    Error Context: test-results/groups-200-tasks-in-20-gro-b46b4-nd-filter-each-under-100-ms-firefox-repeat16/error-context.md
+
+
+[103/120] [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:05] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:05] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:05] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:05] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:05] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:05] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:05] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  32) [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   255
+
+      879 |     });
+      880 |     await expect(rows(page)).toHaveCount(count);
+    > 881 |     expect(ms).toBeLessThan(100);
+          |                ^
+      882 |   });
+      883 | }
+      884 |
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/day-nav.spec.js:881:16
+
+    Error Context: test-results/day-nav-moving-to-a-day-wi-c58d5-sks-renders-in-under-100-ms-firefox-repeat17/error-context.md
+
+
+[104/120] [firefox] › tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:09] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:09] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:09] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:09] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:09] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:09] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:09] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[105/120] [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:10] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:10] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:10] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:10] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:10] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:10] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:10] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  33) [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010) 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   197
+
+      1040 |     return performance.now() - t0;
+      1041 |   });
+    > 1042 |   expect(ms).toBeLessThan(100);
+           |              ^
+      1043 |   await expect(section(page, 'Nhóm 7').locator('.task__label').first()).toHaveText('Việc số 1');
+      1044 |   await expect(rows(page)).toHaveCount(200);
+      1045 | });
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:1042:14
+
+    Error Context: test-results/groups-200-tasks-in-20-gro-ec204-stays-under-100-ms-BUG-010--firefox-repeat17/error-context.md
+
+
+[106/120] [firefox] › tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:14] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:14] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:14] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:14] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:14] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:14] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:14] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[107/120] [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:15] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:15] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:15] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:15] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:15] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:15] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:15] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  34) [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   196
+
+      2763 |     return performance.now() - t0;
+      2764 |   });
+    > 2765 |   expect(ms).toBeLessThan(100);
+           |              ^
+      2766 |   expect(await page.evaluate(() => window.__writes)).toBe(1);
+      2767 |   const after = await storedJson(page, KEY);
+      2768 |   expect(after).toHaveLength(200);
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:2765:14
+
+    Error Context: test-results/groups-200-tasks-of-one-gr-23f0e--one-write-and-under-100-ms-firefox-repeat17/error-context.md
+
+
+[108/120] [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:19] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:20] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:20] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:20] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:20] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:20] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:20] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+  35) [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+
+    Error: move
+
+    expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   197
+
+      3401 |   await editOf(page, 'Việc số 1').click();
+      3402 |   await editChoice(page).selectOption('g6');
+    > 3403 |   expect(await timed("document.querySelector('.task__edit').requestSubmit()"), 'move').toBeLessThan(100);
+           |                                                                                        ^
+      3404 |   await expect(sectionLabels(page, 'Nhóm 7').first()).toHaveText('Việc số 1');
+      3405 |   expect(await timed("document.querySelector('.group__toggle').click()"), 'collapse').toBeLessThan(100);
+      3406 |   await expect(sections(page).first()).toHaveClass(/group--collapsed/);
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:3403:88
+
+    Error Context: test-results/groups-200-tasks-in-20-gro-b46b4-nd-filter-each-under-100-ms-firefox-repeat17/error-context.md
+
+
+[109/120] [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:25] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:25] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:25] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:25] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:25] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:25] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:25] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  36) [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   262
+
+      879 |     });
+      880 |     await expect(rows(page)).toHaveCount(count);
+    > 881 |     expect(ms).toBeLessThan(100);
+          |                ^
+      882 |   });
+      883 | }
+      884 |
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/day-nav.spec.js:881:16
+
+    Error Context: test-results/day-nav-moving-to-a-day-wi-c58d5-sks-renders-in-under-100-ms-firefox-repeat18/error-context.md
+
+
+[110/120] [firefox] › tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:29] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:29] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:29] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:29] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:29] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:29] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:29] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[111/120] [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:30] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:30] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:30] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:30] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:30] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:30] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:30] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[112/120] [firefox] › tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:31] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:31] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:31] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:31] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:31] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:31] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:31] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[113/120] [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:32] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:32] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:32] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:32] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:32] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:32] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:32] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  37) [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   176
+
+      2763 |     return performance.now() - t0;
+      2764 |   });
+    > 2765 |   expect(ms).toBeLessThan(100);
+           |              ^
+      2766 |   expect(await page.evaluate(() => window.__writes)).toBe(1);
+      2767 |   const after = await storedJson(page, KEY);
+      2768 |   expect(after).toHaveLength(200);
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:2765:14
+
+    Error Context: test-results/groups-200-tasks-of-one-gr-23f0e--one-write-and-under-100-ms-firefox-repeat18/error-context.md
+
+
+[114/120] [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:36] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:36] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:36] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:36] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:36] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:36] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:36] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  38) [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+
+    Error: move
+
+    expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   152
+
+      3401 |   await editOf(page, 'Việc số 1').click();
+      3402 |   await editChoice(page).selectOption('g6');
+    > 3403 |   expect(await timed("document.querySelector('.task__edit').requestSubmit()"), 'move').toBeLessThan(100);
+           |                                                                                        ^
+      3404 |   await expect(sectionLabels(page, 'Nhóm 7').first()).toHaveText('Việc số 1');
+      3405 |   expect(await timed("document.querySelector('.group__toggle').click()"), 'collapse').toBeLessThan(100);
+      3406 |   await expect(sections(page).first()).toHaveClass(/group--collapsed/);
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:3403:88
+
+    Error Context: test-results/groups-200-tasks-in-20-gro-b46b4-nd-filter-each-under-100-ms-firefox-repeat18/error-context.md
+
+
+[115/120] [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:41] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:41] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:41] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:41] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:41] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:41] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:41] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[116/120] [firefox] › tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:42] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:42] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:42] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:42] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:42] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:42] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:42] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[117/120] [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:43] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:43] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:43] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:43] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:43] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:43] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:43] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+  39) [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010) 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 100
+    Received:   185
+
+      1040 |     return performance.now() - t0;
+      1041 |   });
+    > 1042 |   expect(ms).toBeLessThan(100);
+           |              ^
+      1043 |   await expect(section(page, 'Nhóm 7').locator('.task__label').first()).toHaveText('Việc số 1');
+      1044 |   await expect(rows(page)).toHaveCount(200);
+      1045 | });
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t12/head/tests/e2e/groups.spec.js:1042:14
+
+    Error Context: test-results/groups-200-tasks-in-20-gro-ec204-stays-under-100-ms-BUG-010--firefox-repeat19/error-context.md
+
+
+[118/120] [firefox] › tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:47] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:47] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:47] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:47] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:47] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:47] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:47] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[119/120] [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:48] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:48] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:48] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:48] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:48] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:48] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:48] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[120/120] [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:49] "GET / HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:49] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:49] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:49] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:49] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:49] "GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 09:50:49] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+
+  39 failed
+    [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms 
+    [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms 
+    [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms 
+    [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms 
+    [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms 
+    [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms 
+    [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms 
+    [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms 
+    [firefox] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms 
+    [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms 
+    [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+    [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010) 
+    [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms 
+    [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+    [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms 
+    [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+    [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010) 
+    [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+    [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+    [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms 
+    [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+    [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010) 
+    [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+    [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010) 
+    [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms 
+    [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+    [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010) 
+    [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+    [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms 
+    [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+    [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010) 
+    [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms 
+    [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+    [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010) 
+    [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms 
+    [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+    [firefox] › tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms 
+    [firefox] › tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+    [firefox] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010) 
+  81 passed (4.8m)

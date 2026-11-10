@@ -1,0 +1,1061 @@
+
+Running 1056 tests using 6 workers
+
+[1/1056] [desktop] › tests/e2e/app.spec.js:4:1 › page has the expected title and the date line for today
+[2/1056] [desktop] › tests/e2e/day-nav.spec.js:26:1 › nav row has the named buttons, the date stamp and a live date line
+[3/1056] [desktop] › tests/e2e/day-nav.spec.js:26:1 › nav row has the named buttons, the date stamp and a live date line
+[4/1056] [desktop] › tests/e2e/groups.spec.js:28:1 › sections follow group creation order, Chưa phân nhóm last, empty groups hidden, rows oldest first
+[5/1056] [desktop] › tests/e2e/app.spec.js:4:1 › page has the expected title and the date line for today
+[6/1056] [desktop] › tests/e2e/groups.spec.js:28:1 › sections follow group creation order, Chưa phân nhóm last, empty groups hidden, rows oldest first
+[7/1056] [desktop] › tests/e2e/day-nav.spec.js:44:1 › loading yesterday from the address shows its wording, tasks and summary
+[8/1056] [desktop] › tests/e2e/app.spec.js:16:1 › shows only today's tasks, oldest first, with their done state and summary
+[9/1056] [desktop] › tests/e2e/groups.spec.js:41:1 › each header is an h2 holding the toggle named with the group and its count
+[10/1056] [desktop] › tests/e2e/app.spec.js:16:1 › shows only today's tasks, oldest first, with their done state and summary
+[11/1056] [desktop] › tests/e2e/day-nav.spec.js:44:1 › loading yesterday from the address shows its wording, tasks and summary
+[12/1056] [desktop] › tests/e2e/groups.spec.js:41:1 › each header is an h2 holding the toggle named with the group and its count
+[13/1056] [desktop] › tests/e2e/day-nav.spec.js:57:1 › an empty future day and an empty past day show their own empty text
+[14/1056] [desktop] › tests/e2e/groups.spec.js:53:1 › a day with only ungrouped tasks, and a task with an unknown group, show the plain list
+[15/1056] [desktop] › tests/e2e/day-nav.spec.js:57:1 › an empty future day and an empty past day show their own empty text
+[16/1056] [desktop] › tests/e2e/app.spec.js:41:1 › shows the empty state with no rows, progress or summary
+[17/1056] [desktop] › tests/e2e/app.spec.js:41:1 › shows the empty state with no rows, progress or summary
+[18/1056] [desktop] › tests/e2e/groups.spec.js:53:1 › a day with only ungrouped tasks, and a task with an unknown group, show the plain list
+[19/1056] [desktop] › tests/e2e/groups.spec.js:66:1 › a tick and an untick update the header count and the summary, keep the row in place, and persist
+[20/1056] [desktop] › tests/e2e/app.spec.js:51:1 › shows the star stamp without the celebration when every task is done
+[21/1056] [desktop] › tests/e2e/day-nav.spec.js:76:1 › today keeps its own wording on the plain address
+[22/1056] [desktop] › tests/e2e/app.spec.js:51:1 › shows the star stamp without the celebration when every task is done
+[23/1056] [desktop] › tests/e2e/groups.spec.js:66:1 › a tick and an untick update the header count and the summary, keep the row in place, and persist
+[24/1056] [desktop] › tests/e2e/day-nav.spec.js:76:1 › today keeps its own wording on the plain address
+[25/1056] [desktop] › tests/e2e/app.spec.js:58:1 › shows task text as plain text, never as markup
+[26/1056] [desktop] › tests/e2e/app.spec.js:58:1 › shows task text as plain text, never as markup
+[27/1056] [desktop] › tests/e2e/day-nav.spec.js:84:1 › arriving on an all done day shows the stamp without the celebration
+[28/1056] [desktop] › tests/e2e/day-nav.spec.js:84:1 › arriving on an all done day shows the stamp without the celebration
+[29/1056] [desktop] › tests/e2e/app.spec.js:67:1 › adds a task with Thêm and Enter, keeps focus, and keeps it after reload
+[30/1056] [desktop] › tests/e2e/app.spec.js:67:1 › adds a task with Thêm and Enter, keeps focus, and keeps it after reload
+[31/1056] [desktop] › tests/e2e/groups.spec.js:81:1 › a section collapses with a click, Enter and Space, and the fold is remembered across reload and days
+[32/1056] [desktop] › tests/e2e/day-nav.spec.js:94:1 › ticking the last task on the viewed day still celebrates
+[33/1056] [desktop] › tests/e2e/day-nav.spec.js:94:1 › ticking the last task on the viewed day still celebrates
+[34/1056] [desktop] › tests/e2e/groups.spec.js:81:1 › a section collapses with a click, Enter and Space, and the fold is remembered across reload and days
+[35/1056] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-02-30 shows today and cleans the address without a history entry
+[36/1056] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-02-30 shows today and cleans the address without a history entry
+[37/1056] [desktop] › tests/e2e/app.spec.js:88:1 › adding the first task replaces the empty state
+[38/1056] [desktop] › tests/e2e/app.spec.js:88:1 › adding the first task replaces the empty state
+[39/1056] [desktop] › tests/e2e/groups.spec.js:111:1 › Chưa phân nhóm can be folded when another section is shown, and the plain list has no toggle
+[40/1056] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash #1999-12-31 shows today and cleans the address without a history entry
+[41/1056] [desktop] › tests/e2e/app.spec.js:96:1 › empty or blank input shows the empty text error, and typing removes it
+[42/1056] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash #1999-12-31 shows today and cleans the address without a history entry
+[43/1056] [desktop] › tests/e2e/app.spec.js:96:1 › empty or blank input shows the empty text error, and typing removes it
+[44/1056] [desktop] › tests/e2e/groups.spec.js:111:1 › Chưa phân nhóm can be folded when another section is shown, and the plain list has no toggle
+[45/1056] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash #2100-01-01 shows today and cleans the address without a history entry
+[46/1056] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash #2100-01-01 shows today and cleans the address without a history entry
+[47/1056] [desktop] › tests/e2e/app.spec.js:111:1 › over 200 characters shows the too long error; exactly 200 after trim is added
+[48/1056] [desktop] › tests/e2e/groups.spec.js:124:1 › a collapsed section still counts in the summary, the progress mark and the stamp
+[49/1056] [desktop] › tests/e2e/app.spec.js:111:1 › over 200 characters shows the too long error; exactly 200 after trim is added
+[50/1056] [desktop] › tests/e2e/groups.spec.js:124:1 › a collapsed section still counts in the summary, the progress mark and the stamp
+[51/1056] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash #abc shows today and cleans the address without a history entry
+[52/1056] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash #abc shows today and cleans the address without a history entry
+[53/1056] [desktop] › tests/e2e/app.spec.js:127:1 › ticking saves, keeps the row in place and updates the summary and ink circle
+[54/1056] [desktop] › tests/e2e/app.spec.js:127:1 › ticking saves, keeps the row in place and updates the summary and ink circle
+[55/1056] [desktop] › tests/e2e/groups.spec.js:137:1 › group names are shown as text, never as markup
+[56/1056] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-1-5 shows today and cleans the address without a history entry
+[57/1056] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-1-5 shows today and cleans the address without a history entry
+[58/1056] [desktop] › tests/e2e/groups.spec.js:137:1 › group names are shown as text, never as markup
+[59/1056] [desktop] › tests/e2e/app.spec.js:137:1 › unticking after a reload saves and keeps the order
+[60/1056] [desktop] › tests/e2e/app.spec.js:137:1 › unticking after a reload saves and keeps the order
+[61/1056] [desktop] › tests/e2e/groups.spec.js:149:1 › six colours give six coloured headers; an unknown colour shows as yellow
+[62/1056] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-13-01 shows today and cleans the address without a history entry
+[63/1056] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-13-01 shows today and cleans the address without a history entry
+[64/1056] [desktop] › tests/e2e/groups.spec.js:149:1 › six colours give six coloured headers; an unknown colour shows as yellow
+[65/1056] [desktop] › tests/e2e/groups.spec.js:161:1 › deleting the last task of a section removes it; the last grouped task turns the day into the plain list
+[66/1056] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash # shows today and cleans the address without a history entry
+[67/1056] [desktop] › tests/e2e/app.spec.js:151:1 › ticking the last open task stamps the star, celebrates briefly, and unticking clears it
+[68/1056] [desktop] › tests/e2e/groups.spec.js:161:1 › deleting the last task of a section removes it; the last grouped task turns the day into the plain list
+[69/1056] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash # shows today and cleans the address without a history entry
+[70/1056] [desktop] › tests/e2e/app.spec.js:151:1 › ticking the last open task stamps the star, celebrates briefly, and unticking clears it
+[71/1056] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-11-09 shows today and cleans the address without a history entry
+[72/1056] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-11-09 shows today and cleans the address without a history entry
+[73/1056] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash #<img src=x onerror=alert(1)> shows today and cleans the address without a history entry
+[74/1056] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash #<img src=x onerror=alert(1)> shows today and cleans the address without a history entry
+[75/1056] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-11-08%3Cb%3E shows today and cleans the address without a history entry
+[76/1056] [desktop] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-11-08%3Cb%3E shows today and cleans the address without a history entry
+[77/1056] [desktop] › tests/e2e/day-nav.spec.js:123:1 › a hash equal to today on first load is replaced, not pushed
+[78/1056] [desktop] › tests/e2e/day-nav.spec.js:123:1 › a hash equal to today on first load is replaced, not pushed
+[79/1056] [desktop] › tests/e2e/day-nav.spec.js:130:1 › Về hôm nay is muted on today and filled on other days
+[80/1056] [desktop] › tests/e2e/day-nav.spec.js:130:1 › Về hôm nay is muted on today and filled on other days
+[81/1056] [desktop] › tests/e2e/day-nav.spec.js:142:1 › the app works under a subpath: relative assets, address keeps path and query
+[82/1056] [desktop] › tests/e2e/day-nav.spec.js:142:1 › the app works under a subpath: relative assets, address keeps path and query
+[83/1056] [desktop] › tests/e2e/app.spec.js:169:1 › adding a task while all are done removes the stamp
+[84/1056] [desktop] › tests/e2e/day-nav.spec.js:162:1 › new nav controls and day wording are Vietnamese with diacritics
+[85/1056] [desktop] › tests/e2e/day-nav.spec.js:162:1 › new nav controls and day wording are Vietnamese with diacritics
+[86/1056] [desktop] › tests/e2e/app.spec.js:169:1 › adding a task while all are done removes the stamp
+[87/1056] [desktop] › tests/e2e/day-nav.spec.js:175:1 › previous and next move one day, write the address and never reload
+[88/1056] [desktop] › tests/e2e/day-nav.spec.js:175:1 › previous and next move one day, write the address and never reload
+[89/1056] [desktop] › tests/e2e/app.spec.js:182:1 › Sửa opens a prefilled, focused edit line; Lưu saves and keeps done state and position
+[90/1056] [desktop] › tests/e2e/app.spec.js:182:1 › Sửa opens a prefilled, focused edit line; Lưu saves and keeps done state and position
+[91/1056] [desktop] › tests/e2e/day-nav.spec.js:201:1 › Về hôm nay returns to today, removes the hash and keeps focus
+[92/1056] [desktop] › tests/e2e/day-nav.spec.js:201:1 › Về hôm nay returns to today, removes the hash and keeps focus
+[93/1056] [desktop] › tests/e2e/app.spec.js:212:1 › invalid edit text keeps edit mode with the matching error and the old saved text
+[94/1056] [desktop] › tests/e2e/app.spec.js:212:1 › invalid edit text keeps edit mode with the matching error and the old saved text
+[95/1056] [desktop] › tests/e2e/day-nav.spec.js:213:1 › Về hôm nay on today does nothing with click, Enter or Space
+[96/1056] [desktop] › tests/e2e/day-nav.spec.js:213:1 › Về hôm nay on today does nothing with click, Enter or Space
+[97/1056] [desktop] › tests/e2e/app.spec.js:234:1 › Hủy and Escape leave edit mode and keep the old text
+[98/1056] [desktop] › tests/e2e/day-nav.spec.js:226:1 › Enter and Space on the nav buttons move and keep focus
+[99/1056] [desktop] › tests/e2e/day-nav.spec.js:226:1 › Enter and Space on the nav buttons move and keep focus
+[100/1056] [desktop] › tests/e2e/app.spec.js:234:1 › Hủy and Escape leave edit mode and keep the old text
+[101/1056] [desktop] › tests/e2e/day-nav.spec.js:243:1 › browser Back and Forward retrace three moves day by day
+[102/1056] [desktop] › tests/e2e/day-nav.spec.js:243:1 › browser Back and Forward retrace three moves day by day
+[103/1056] [desktop] › tests/e2e/app.spec.js:253:1 › only one row edits at a time, and adding and ticking still work while editing
+[104/1056] [desktop] › tests/e2e/app.spec.js:253:1 › only one row edits at a time, and adding and ticking still work while editing
+[105/1056] [desktop] › tests/e2e/groups.spec.js:182:1 › delete focus skips rows in a folded section and falls back to the previous row
+[106/1056] [desktop] › tests/e2e/groups.spec.js:182:1 › delete focus skips rows in a folded section and falls back to the previous row
+[107/1056] [desktop] › tests/e2e/day-nav.spec.js:266:3 › pressing past the year bound on #2099-12-31 changes nothing
+[108/1056] [desktop] › tests/e2e/day-nav.spec.js:266:3 › pressing past the year bound on #2099-12-31 changes nothing
+[109/1056] [desktop] › tests/e2e/app.spec.js:275:1 › edit accepts exactly 200 characters (trimmed) and rejects 201
+[110/1056] [desktop] › tests/e2e/day-nav.spec.js:266:3 › pressing past the year bound on #2000-01-01 changes nothing
+[111/1056] [desktop] › tests/e2e/app.spec.js:275:1 › edit accepts exactly 200 characters (trimmed) and rejects 201
+[112/1056] [desktop] › tests/e2e/day-nav.spec.js:266:3 › pressing past the year bound on #2000-01-01 changes nothing
+[113/1056] [desktop] › tests/e2e/app.spec.js:287:1 › the editing row keeps the highlighter wash under mouse hover
+[114/1056] [desktop] › tests/e2e/day-nav.spec.js:280:1 › moves cross year end and the leap day
+[115/1056] [desktop] › tests/e2e/day-nav.spec.js:280:1 › moves cross year end and the leap day
+[116/1056] [desktop] › tests/e2e/app.spec.js:287:1 › the editing row keeps the highlighter wash under mouse hover
+[117/1056] [desktop] › tests/e2e/day-nav.spec.js:294:1 › a move drops an open edit without saving it
+[118/1056] [desktop] › tests/e2e/app.spec.js:303:1 › Xóa opens the sticky note with the task quoted and focus on Giữ lại
+[119/1056] [desktop] › tests/e2e/day-nav.spec.js:294:1 › a move drops an open edit without saving it
+[120/1056] [desktop] › tests/e2e/app.spec.js:303:1 › Xóa opens the sticky note with the task quoted and focus on Giữ lại
+[121/1056] [desktop] › tests/e2e/groups.spec.js:199:1 › an open edit stays open with its text when a row in another section is ticked
+[122/1056] [desktop] › tests/e2e/app.spec.js:314:1 › Giữ lại, Escape and a backdrop click keep the task and return focus to Xóa
+[123/1056] [desktop] › tests/e2e/groups.spec.js:199:1 › an open edit stays open with its text when a row in another section is ticked
+[124/1056] [desktop] › tests/e2e/day-nav.spec.js:306:1 › a move closes an open delete note without deleting
+[125/1056] [desktop] › tests/e2e/app.spec.js:314:1 › Giữ lại, Escape and a backdrop click keep the task and return focus to Xóa
+[126/1056] [desktop] › tests/e2e/day-nav.spec.js:306:1 › a move closes an open delete note without deleting
+[127/1056] [desktop] › tests/e2e/groups.spec.js:211:1 › a rebuild keeps an open edit with its text and focus
+[128/1056] [desktop] › tests/e2e/groups.spec.js:211:1 › a rebuild keeps an open edit with its text and focus
+[129/1056] [desktop] › tests/e2e/day-nav.spec.js:319:1 › a move clears the add error and keeps the typed add text
+[130/1056] [desktop] › tests/e2e/day-nav.spec.js:319:1 › a move clears the add error and keeps the typed add text
+[131/1056] [desktop] › tests/e2e/app.spec.js:337:1 › Xóa việc removes the task, saves, updates the summary and moves focus on
+[132/1056] [desktop] › tests/e2e/day-nav.spec.js:336:1 › a move leaves no row swiped open on a phone
+[133/1056] [desktop] › tests/e2e/day-nav.spec.js:336:1 › a move leaves no row swiped open on a phone
+[134/1056] [desktop] › tests/e2e/day-nav.spec.js:350:1 › changing the hash on a loaded page shows that day, then today
+[135/1056] [desktop] › tests/e2e/day-nav.spec.js:350:1 › changing the hash on a loaded page shows that day, then today
+[136/1056] [desktop] › tests/e2e/day-nav.spec.js:365:1 › moving around never writes the tasks
+[137/1056] [desktop] › tests/e2e/day-nav.spec.js:365:1 › moving around never writes the tasks
+[138/1056] [desktop] › tests/e2e/day-nav.spec.js:382:1 › under a subpath, moves keep the path and query and Về hôm nay restores the plain address
+[139/1056] [desktop] › tests/e2e/day-nav.spec.js:382:1 › under a subpath, moves keep the path and query and Về hôm nay restores the plain address
+[140/1056] [desktop] › tests/e2e/app.spec.js:337:1 › Xóa việc removes the task, saves, updates the summary and moves focus on
+[141/1056] [desktop] › tests/e2e/day-nav.spec.js:402:1 › the date line is one live region that changes once per move
+[142/1056] [desktop] › tests/e2e/day-nav.spec.js:402:1 › the date line is one live region that changes once per move
+[143/1056] [desktop] › tests/e2e/day-nav.spec.js:417:1 › Về hôm nay after a silent midnight moves to the new today and keeps focus
+[144/1056] [desktop] › tests/e2e/day-nav.spec.js:417:1 › Về hôm nay after a silent midnight moves to the new today and keeps focus
+[145/1056] [desktop] › tests/e2e/day-nav.spec.js:433:1 › picking a date shows that day, writes the hash and keeps focus on the picker
+[146/1056] [desktop] › tests/e2e/day-nav.spec.js:433:1 › picking a date shows that day, writes the hash and keeps focus on the picker
+[147/1056] [desktop] › tests/e2e/day-nav.spec.js:445:1 › the picker follows the viewed day after every move, load, Back and midnight
+[148/1056] [desktop] › tests/e2e/day-nav.spec.js:445:1 › the picker follows the viewed day after every move, load, Back and midnight
+[149/1056] [desktop] › tests/e2e/groups.spec.js:226:1 › a rebuild keeps the focus on a section toggle
+[150/1056] [desktop] › tests/e2e/groups.spec.js:226:1 › a rebuild keeps the focus on a section toggle
+[151/1056] [desktop] › tests/e2e/day-nav.spec.js:463:1 › an empty or out of range pick changes nothing and the picker shows the viewed day after blur
+[152/1056] [desktop] › tests/e2e/day-nav.spec.js:463:1 › an empty or out of range pick changes nothing and the picker shows the viewed day after blur
+[153/1056] [desktop] › tests/e2e/day-nav.spec.js:477:1 › the first and last allowed days can be picked
+[154/1056] [desktop] › tests/e2e/day-nav.spec.js:477:1 › the first and last allowed days can be picked
+[155/1056] [desktop] › tests/e2e/day-nav.spec.js:487:1 › picking the viewed day adds no history entry; picking today removes the hash
+[156/1056] [desktop] › tests/e2e/day-nav.spec.js:487:1 › picking the viewed day adds no history entry; picking today removes the hash
+[157/1056] [desktop] › tests/e2e/day-nav.spec.js:499:1 › typing a date digit by digit ends on that day without jumping back
+[158/1056] [desktop] › tests/e2e/day-nav.spec.js:499:1 › typing a date digit by digit ends on that day without jumping back
+[159/1056] [desktop] › tests/e2e/day-nav.spec.js:512:1 › a partial year typed into the picker is kept while focused and reset on blur
+[160/1056] [desktop] › tests/e2e/day-nav.spec.js:512:1 › a partial year typed into the picker is kept while focused and reset on blur
+[161/1056] [desktop] › tests/e2e/day-nav.spec.js:528:1 › keyboard: Tab reaches the picker and arrow keys change the day while focus stays
+[162/1056] [desktop] › tests/e2e/day-nav.spec.js:528:1 › keyboard: Tab reaches the picker and arrow keys change the day while focus stays
+[163/1056] [desktop] › tests/e2e/day-nav.spec.js:546:1 › adding on yesterday saves that date at the end of its list with the real creation time
+[164/1056] [desktop] › tests/e2e/day-nav.spec.js:546:1 › adding on yesterday saves that date at the end of its list with the real creation time
+[165/1056] [desktop] › tests/e2e/day-nav.spec.js:560:1 › adding on an empty future day replaces the empty text and saves that date
+[166/1056] [desktop] › tests/e2e/day-nav.spec.js:560:1 › adding on an empty future day replaces the empty text and saves that date
+[167/1056] [desktop] › tests/e2e/day-nav.spec.js:569:1 › tick, edit and delete on another day keep date and order and save
+[168/1056] [desktop] › tests/e2e/day-nav.spec.js:569:1 › tick, edit and delete on another day keep date and order and save
+[169/1056] [desktop] › tests/e2e/app.spec.js:369:1 › deleting a row while another row is being edited keeps that edit open
+[170/1056] [desktop] › tests/e2e/app.spec.js:369:1 › deleting a row while another row is being edited keeps that edit open
+[171/1056] [desktop] › tests/e2e/groups.spec.js:236:1 › an ungrouped task added to a day of sections lands in Chưa phân nhóm and opens it when folded
+[172/1056] [desktop] › tests/e2e/groups.spec.js:236:1 › an ungrouped task added to a day of sections lands in Chưa phân nhóm and opens it when folded
+[173/1056] [desktop] › tests/e2e/groups.spec.js:253:1 › each day builds only its own sections with the same rules
+[174/1056] [desktop] › tests/e2e/groups.spec.js:253:1 › each day builds only its own sections with the same rules
+[175/1056] [desktop] › tests/e2e/day-nav.spec.js:599:1 › ticking the last task on a future day celebrates
+[176/1056] [desktop] › tests/e2e/app.spec.js:381:1 › the sticky note sits in the middle of the viewport
+[177/1056] [desktop] › tests/e2e/groups.spec.js:268:1 › groups and UI state that cannot be read leave the plain list and no error
+[178/1056] [desktop] › tests/e2e/groups.spec.js:268:1 › groups and UI state that cannot be read leave the plain list and no error
+[179/1056] [desktop] › tests/e2e/day-nav.spec.js:606:1 › after midnight, viewing today follows to the new today with a plain address
+[180/1056] [desktop] › tests/e2e/groups.spec.js:291:1 › on a phone the peek skips a folded section, and swipe, tick and delete work inside sections
+[181/1056] [desktop] › tests/e2e/groups.spec.js:291:1 › on a phone the peek skips a folded section, and swipe, tick and delete work inside sections
+[182/1056] [desktop] › tests/e2e/groups.spec.js:313:1 › 200 tasks in 5 groups: render, collapse and tick each under 100 ms
+[183/1056] [desktop] › tests/e2e/day-nav.spec.js:616:1 › after midnight, viewing tomorrow stays and becomes today with a muted Về hôm nay and a plain address
+[184/1056] [desktop] › tests/e2e/groups.spec.js:313:1 › 200 tasks in 5 groups: render, collapse and tick each under 100 ms
+[185/1056] [desktop] › tests/e2e/app.spec.js:381:1 › the sticky note sits in the middle of the viewport
+[186/1056] [desktop] › tests/e2e/day-nav.spec.js:627:1 › after midnight, an older day stays with its open edit and plain wording
+[187/1056] [desktop] › tests/e2e/groups.spec.js:338:1 › local midnight with sections on screen: the new day starts empty, folds stay, the old day keeps its sections
+[188/1056] [desktop] › tests/e2e/day-nav.spec.js:599:1 › ticking the last task on a future day celebrates
+[189/1056] [desktop] › tests/e2e/groups.spec.js:338:1 › local midnight with sections on screen: the new day starts empty, folds stay, the old day keeps its sections
+[190/1056] [desktop] › tests/e2e/day-nav.spec.js:646:3 › after midnight, the wording of 2026-11-08 follows the new today
+[191/1056] [desktop] › tests/e2e/day-nav.spec.js:606:1 › after midnight, viewing today follows to the new today with a plain address
+[192/1056] [desktop] › tests/e2e/groups.spec.js:351:1 › Back and Forward between days rebuild the right sections
+[193/1056] [desktop] › tests/e2e/groups.spec.js:351:1 › Back and Forward between days rebuild the right sections
+[194/1056] [desktop] › tests/e2e/day-nav.spec.js:646:3 › after midnight, the wording of 2026-11-11 follows the new today
+[195/1056] [desktop] › tests/e2e/day-nav.spec.js:616:1 › after midnight, viewing tomorrow stays and becomes today with a muted Về hôm nay and a plain address
+[196/1056] [desktop] › tests/e2e/groups.spec.js:362:1 › older data without groups or UI keys is shown as before and never rewritten by viewing, folding or ticking
+[197/1056] [desktop] › tests/e2e/app.spec.js:401:1 › the first row peeks once on a phone, and not again after a reload
+[198/1056] [desktop] › tests/e2e/day-nav.spec.js:657:1 › an add right after a silent midnight on another day saves to the viewed day
+[199/1056] [desktop] › tests/e2e/groups.spec.js:362:1 › older data without groups or UI keys is shown as before and never rewritten by viewing, folding or ticking
+[200/1056] [desktop] › tests/e2e/app.spec.js:419:1 › the peek waits for the first task, and only plays once
+[201/1056] [desktop] › tests/e2e/day-nav.spec.js:627:1 › after midnight, an older day stays with its open edit and plain wording
+[202/1056] [desktop] › tests/e2e/app.spec.js:431:1 › under reduced motion the peek is skipped but remembered
+[203/1056] [desktop] › tests/e2e/app.spec.js:442:1 › the desktop layout never peeks
+[204/1056] [desktop] › tests/e2e/groups.spec.js:374:1 › ticking keeps the groupId of every task and writes nothing to the groups key
+[205/1056] [desktop] › tests/e2e/day-nav.spec.js:671:1 › on a past day an empty, blank or 201 character add shows the usual errors and stores nothing
+[206/1056] [desktop] › tests/e2e/groups.spec.js:374:1 › ticking keeps the groupId of every task and writes nothing to the groups key
+[207/1056] [desktop] › tests/e2e/app.spec.js:449:1 › only one row stays swiped open; a tap elsewhere closes it
+[208/1056] [desktop] › tests/e2e/day-nav.spec.js:646:3 › after midnight, the wording of 2026-11-08 follows the new today
+[209/1056] [desktop] › tests/e2e/app.spec.js:401:1 › the first row peeks once on a phone, and not again after a reload
+[210/1056] [desktop] › tests/e2e/groups.spec.js:383:1 › groups storage that cannot be read: slip shown, tasks still listed, day still usable
+[211/1056] [desktop] › tests/e2e/app.spec.js:466:1 › Tab to Sửa scrolls the row open; Giữ lại leaves only that row open
+[212/1056] [desktop] › tests/e2e/app.spec.js:419:1 › the peek waits for the first task, and only plays once
+[213/1056] [desktop] › tests/e2e/app.spec.js:494:1 › no horizontal page scroll at 360 px with a long task
+[214/1056] [desktop] › tests/e2e/groups.spec.js:383:1 › groups storage that cannot be read: slip shown, tasks still listed, day still usable
+[215/1056] [desktop] › tests/e2e/app.spec.js:431:1 › under reduced motion the peek is skipped but remembered
+[216/1056] [desktop] › tests/e2e/day-nav.spec.js:682:1 › on a past day an invalid edit keeps edit mode and the stored task
+[217/1056] [desktop] › tests/e2e/app.spec.js:521:1 › a real swipe opens one row; swiping another closes it; a tap outside closes all
+[218/1056] [desktop] › tests/e2e/day-nav.spec.js:646:3 › after midnight, the wording of 2026-11-11 follows the new today
+[219/1056] [desktop] › tests/e2e/app.spec.js:442:1 › the desktop layout never peeks
+[220/1056] [desktop] › tests/e2e/app.spec.js:538:1 › a blocked save shows the slip, the app keeps working in memory, and the next good save hides it
+[221/1056] [desktop] › tests/e2e/groups.spec.js:396:1 › a failing write of the fold shows the slip, and the section still folds in memory
+[222/1056] [desktop] › tests/e2e/groups.spec.js:396:1 › a failing write of the fold shows the slip, and the section still folds in memory
+[223/1056] [desktop] › tests/e2e/app.spec.js:449:1 › only one row stays swiped open; a tap elsewhere closes it
+[224/1056] [desktop] › tests/e2e/day-nav.spec.js:657:1 › an add right after a silent midnight on another day saves to the viewed day
+[225/1056] [desktop] › tests/e2e/day-nav.spec.js:694:1 › on another day the stamp follows tick, untick, add and delete; reload shows it without the celebration
+[226/1056] [desktop] › tests/e2e/app.spec.js:466:1 › Tab to Sửa scrolls the row open; Giữ lại leaves only that row open
+[227/1056] [desktop] › tests/e2e/app.spec.js:494:1 › no horizontal page scroll at 360 px with a long task
+[228/1056] [desktop] › tests/e2e/groups.spec.js:419:1 › the add choice lists Chưa phân nhóm, the groups and Nhóm mới..., and starts on Chưa phân nhóm after load and reload
+[229/1056] [desktop] › tests/e2e/app.spec.js:521:1 › a real swipe opens one row; swiping another closes it; a tap outside closes all
+[230/1056] [desktop] › tests/e2e/day-nav.spec.js:671:1 › on a past day an empty, blank or 201 character add shows the usual errors and stores nothing
+[231/1056] [desktop] › tests/e2e/app.spec.js:565:1 › a throwing localStorage shows the slip on load for the whole session; add, tick, edit and delete still work
+[232/1056] [desktop] › tests/e2e/app.spec.js:538:1 › a blocked save shows the slip, the app keeps working in memory, and the next good save hides it
+[233/1056] [desktop] › tests/e2e/groups.spec.js:419:1 › the add choice lists Chưa phân nhóm, the groups and Nhóm mới..., and starts on Chưa phân nhóm after load and reload
+[234/1056] [desktop] › tests/e2e/day-nav.spec.js:682:1 › on a past day an invalid edit keeps edit mode and the stored task
+[235/1056] [desktop] › tests/e2e/groups.spec.js:434:1 › Nhóm mới... opens the name line with the next colour; Enter and Tạo nhóm create and choose the group without a task
+[236/1056] [desktop] › tests/e2e/app.spec.js:565:1 › a throwing localStorage shows the slip on load for the whole session; add, tick, edit and delete still work
+[237/1056] [desktop] › tests/e2e/groups.spec.js:434:1 › Nhóm mới... opens the name line with the next colour; Enter and Tạo nhóm create and choose the group without a task
+[238/1056] [desktop] › tests/e2e/day-nav.spec.js:694:1 › on another day the stamp follows tick, untick, add and delete; reload shows it without the celebration
+[239/1056] [desktop] › tests/e2e/groups.spec.js:464:1 › seven groups made on the fly take the colours in order and wrap
+[240/1056] [desktop] › tests/e2e/groups.spec.js:464:1 › seven groups made on the fly take the colours in order and wrap
+[241/1056] [desktop] › tests/e2e/groups.spec.js:475:1 › name errors keep the line open and create nothing; typing clears them
+[242/1056] [desktop] › tests/e2e/groups.spec.js:475:1 › name errors keep the line open and create nothing; typing clears them
+[243/1056] [desktop] › tests/e2e/day-nav.spec.js:713:1 › each day lists and counts only its own tasks after adding on three days
+[244/1056] [desktop] › tests/e2e/groups.spec.js:502:1 › at 20 groups the limit error shows as soon as Nhóm mới... is chosen, and nothing is created
+[245/1056] [desktop] › tests/e2e/day-nav.spec.js:727:1 › storage that refuses writes on another day shows the slip, keeps memory and the old stored value
+[246/1056] [desktop] › tests/e2e/groups.spec.js:502:1 › at 20 groups the limit error shows as soon as Nhóm mới... is chosen, and nothing is created
+[247/1056] [desktop] › tests/e2e/groups.spec.js:516:1 › Escape closes the line, puts the choice back and focuses it; an add while it is open uses the previous choice
+[248/1056] [desktop] › tests/e2e/app.spec.js:590:1 › corrupt stored data starts an empty list with no slip and no console error, and keeps a backup
+[249/1056] [desktop] › tests/e2e/groups.spec.js:516:1 › Escape closes the line, puts the choice back and focuses it; an add while it is open uses the previous choice
+[250/1056] [desktop] › tests/e2e/day-nav.spec.js:743:1 › data saved by the daily task log in its exact shape shows on its days without conversion
+[251/1056] [desktop] › tests/e2e/app.spec.js:590:1 › corrupt stored data starts an empty list with no slip and no console error, and keeps a backup
+[252/1056] [desktop] › tests/e2e/app.spec.js:610:1 › after a failed first read nothing is written to the tasks key, so earlier days are never overwritten
+[253/1056] [desktop] › tests/e2e/groups.spec.js:539:1 › an add saves the group on the viewed day at the end of its section, keeps the choice and the focus
+[254/1056] [desktop] › tests/e2e/day-nav.spec.js:756:1 › after midnight on an all done day nothing celebrates again and no page turn plays
+[255/1056] [desktop] › tests/e2e/day-nav.spec.js:713:1 › each day lists and counts only its own tasks after adding on three days
+[256/1056] [desktop] › tests/e2e/app.spec.js:610:1 › after a failed first read nothing is written to the tasks key, so earlier days are never overwritten
+[257/1056] [desktop] › tests/e2e/app.spec.js:631:1 › the slip shows at once when a save fails on edit and on delete, and quota errors keep the stored value
+[258/1056] [desktop] › tests/e2e/groups.spec.js:539:1 › an add saves the group on the viewed day at the end of its section, keeps the choice and the focus
+[259/1056] [desktop] › tests/e2e/day-nav.spec.js:785:1 › a move turns the page by direction and the classes go after the animation
+[260/1056] [desktop] › tests/e2e/app.spec.js:631:1 › the slip shows at once when a save fails on edit and on delete, and quota errors keep the stored value
+[261/1056] [desktop] › tests/e2e/day-nav.spec.js:727:1 › storage that refuses writes on another day shows the slip, keeps memory and the old stored value
+[262/1056] [desktop] › tests/e2e/groups.spec.js:564:1 › a group removed in another tab: the add saves ungrouped and the choice goes back to Chưa phân nhóm
+[263/1056] [desktop] › tests/e2e/groups.spec.js:564:1 › a group removed in another tab: the add saves ungrouped and the choice goes back to Chưa phân nhóm
+[264/1056] [desktop] › tests/e2e/day-nav.spec.js:743:1 › data saved by the daily task log in its exact shape shows on its days without conversion
+[265/1056] [desktop] › tests/e2e/groups.spec.js:578:1 › an add to a folded section opens it and stores that
+[266/1056] [desktop] › tests/e2e/day-nav.spec.js:756:1 › after midnight on an all done day nothing celebrates again and no page turn plays
+[267/1056] [desktop] › tests/e2e/groups.spec.js:578:1 › an add to a folded section opens it and stores that
+[268/1056] [desktop] › tests/e2e/groups.spec.js:589:1 › keyboard only: input, group choice, Thêm; Nhóm mới..., name, Tạo nhóm
+[269/1056] [desktop] › tests/e2e/day-nav.spec.js:785:1 › a move turns the page by direction and the classes go after the animation
+[270/1056] [desktop] › tests/e2e/groups.spec.js:589:1 › keyboard only: input, group choice, Thêm; Nhóm mới..., name, Tạo nhóm
+[271/1056] [desktop] › tests/e2e/groups.spec.js:614:1 › storage blocked: a group made on the fly works in memory and the slip shows
+[272/1056] [desktop] › tests/e2e/groups.spec.js:614:1 › storage blocked: a group made on the fly works in memory and the slip shows
+[273/1056] [desktop] › tests/e2e/groups.spec.js:632:1 › a failing groups write keeps the new group in memory and shows the slip
+[274/1056] [desktop] › tests/e2e/groups.spec.js:632:1 › a failing groups write keeps the new group in memory and shows the slip
+[275/1056] [desktop] › tests/e2e/day-nav.spec.js:807:1 › loading a day plays no page turn
+[276/1056] [desktop] › tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[277/1056] [desktop] › tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[278/1056] [desktop] › tests/e2e/app.spec.js:660:1 › a stored non array value starts an empty list with no slip and no error
+[279/1056] [desktop] › tests/e2e/day-nav.spec.js:816:1 › with reduced motion a move changes the day and plays no page turn
+[280/1056] [desktop] › tests/e2e/groups.spec.js:662:1 › IME: Enter that commits a composition does not create the group; Enter after it does
+[281/1056] [desktop] › tests/e2e/app.spec.js:675:1 › after midnight, returning to the page shows the new date and an empty list; yesterday stays stored
+[282/1056] [desktop] › tests/e2e/app.spec.js:660:1 › a stored non array value starts an empty list with no slip and no error
+[283/1056] [desktop] › tests/e2e/groups.spec.js:662:1 › IME: Enter that commits a composition does not create the group; Enter after it does
+[284/1056] [desktop] › tests/e2e/day-nav.spec.js:828:1 › Tab from the page start reaches previous, next, Chọn ngày, Về hôm nay, then the add field
+[285/1056] [desktop] › tests/e2e/groups.spec.js:679:1 › pasted decomposed diacritics: a duplicate of a composed name is found, 30 visible characters are accepted
+[286/1056] [desktop] › tests/e2e/app.spec.js:675:1 › after midnight, returning to the page shows the new date and an empty list; yesterday stays stored
+[287/1056] [desktop] › tests/e2e/app.spec.js:687:1 › window focus also checks the day, and nothing changes on the same day
+[288/1056] [desktop] › tests/e2e/day-nav.spec.js:807:1 › loading a day plays no page turn
+[289/1056] [desktop] › tests/e2e/groups.spec.js:679:1 › pasted decomposed diacritics: a duplicate of a composed name is found, 30 visible characters are accepted
+[290/1056] [desktop] › tests/e2e/day-nav.spec.js:843:3 › each nav control is at least 44 by 44 px on today
+[291/1056] [desktop] › tests/e2e/app.spec.js:687:1 › window focus also checks the day, and nothing changes on the same day
+[292/1056] [desktop] › tests/e2e/app.spec.js:696:1 › adding right after midnight saves the task to the new day on a fresh list
+[293/1056] [desktop] › tests/e2e/groups.spec.js:691:1 › Enter twice and a double click on Tạo nhóm make one group
+[294/1056] [desktop] › tests/e2e/day-nav.spec.js:816:1 › with reduced motion a move changes the day and plays no page turn
+[295/1056] [desktop] › tests/e2e/day-nav.spec.js:843:3 › each nav control is at least 44 by 44 px on #2026-11-08
+[296/1056] [desktop] › tests/e2e/app.spec.js:696:1 › adding right after midnight saves the task to the new day on a fresh list
+[297/1056] [desktop] › tests/e2e/groups.spec.js:691:1 › Enter twice and a double click on Tạo nhóm make one group
+[298/1056] [desktop] › tests/e2e/app.spec.js:706:1 › a day change drops an open edit and closes the delete note without saving or deleting
+[299/1056] [desktop] › tests/e2e/groups.spec.js:705:1 › another page adds a group: the choice lists it, an open line keeps its text, and the same name is now a duplicate
+[300/1056] [desktop] › tests/e2e/day-nav.spec.js:854:1 › no horizontal scroll at 360 px on today and on a past day, with a long unbroken task
+[301/1056] [desktop] › tests/e2e/day-nav.spec.js:828:1 › Tab from the page start reaches previous, next, Chọn ngày, Về hôm nay, then the add field
+[302/1056] [desktop] › tests/e2e/app.spec.js:706:1 › a day change drops an open edit and closes the delete note without saving or deleting
+[303/1056] [desktop] › tests/e2e/groups.spec.js:705:1 › another page adds a group: the choice lists it, an open line keeps its text, and the same name is now a duplicate
+[304/1056] [desktop] › tests/e2e/app.spec.js:723:1 › a day change does not replay the celebration or the swipe hint
+[305/1056] [desktop] › tests/e2e/groups.spec.js:720:1 › another page adds a group: the open line swatch shows the new next colour (BUG-006)
+[306/1056] [desktop] › tests/e2e/day-nav.spec.js:843:3 › each nav control is at least 44 by 44 px on today
+[307/1056] [desktop] › tests/e2e/app.spec.js:723:1 › a day change does not replay the celebration or the swipe hint
+[308/1056] [desktop] › tests/e2e/groups.spec.js:720:1 › another page adds a group: the open line swatch shows the new next colour (BUG-006)
+[309/1056] [desktop] › tests/e2e/app.spec.js:734:1 › the day boundary is local midnight: 23:59:59.999 stays, 00:00:00 switches (Asia/Ho_Chi_Minh)
+[310/1056] [desktop] › tests/e2e/day-nav.spec.js:843:3 › each nav control is at least 44 by 44 px on #2026-11-08
+[311/1056] [desktop] › tests/e2e/groups.spec.js:731:1 › accessible names of the add form keep their visible text (R63a)
+[312/1056] [desktop] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 0 tasks renders in under 100 ms
+[313/1056] [desktop] › tests/e2e/app.spec.js:734:1 › the day boundary is local midnight: 23:59:59.999 stays, 00:00:00 switches (Asia/Ho_Chi_Minh)
+[314/1056] [desktop] › tests/e2e/app.spec.js:744:1 › a session with blocked storage still switches day, keeps the slip and accepts a new task
+[315/1056] [desktop] › tests/e2e/groups.spec.js:731:1 › accessible names of the add form keep their visible text (R63a)
+[316/1056] [desktop] › tests/e2e/day-nav.spec.js:854:1 › no horizontal scroll at 360 px on today and on a past day, with a long unbroken task
+[317/1056] [desktop] › tests/e2e/groups.spec.js:745:1 › an Enter that ends an IME composition (Safari keyCode 229) does not create the group
+[318/1056] [desktop] › tests/e2e/app.spec.js:744:1 › a session with blocked storage still switches day, keeps the slip and accepts a new task
+[319/1056] [desktop] › tests/e2e/app.spec.js:760:1 › keyboard only: add, tick with Space, edit with Enter, cancel with Escape, save and delete
+[320/1056] [desktop] › tests/e2e/groups.spec.js:745:1 › an Enter that ends an IME composition (Safari keyCode 229) does not create the group
+[321/1056] [desktop] › tests/e2e/groups.spec.js:758:1 › an Escape that ends an IME composition (Safari keyCode 229) keeps the name line open
+[322/1056] [desktop] › tests/e2e/app.spec.js:760:1 › keyboard only: add, tick with Space, edit with Enter, cancel with Escape, save and delete
+[323/1056] [desktop] › tests/e2e/groups.spec.js:758:1 › an Escape that ends an IME composition (Safari keyCode 229) keeps the name line open
+[324/1056] [desktop] › tests/e2e/groups.spec.js:773:1 › a session whose groups could not be saved keeps its memory groups when another page changes them
+[325/1056] [desktop] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 1 tasks renders in under 100 ms
+[326/1056] [desktop] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 0 tasks renders in under 100 ms
+[327/1056] [desktop] › tests/e2e/groups.spec.js:773:1 › a session whose groups could not be saved keeps its memory groups when another page changes them
+[328/1056] [desktop] › tests/e2e/app.spec.js:814:1 › every button and checkbox has its Vietnamese accessible name
+[329/1056] [desktop] › tests/e2e/groups.spec.js:802:1 › Sửa shows the group choice with the current group selected, Chưa phân nhóm for ungrouped and unknown groups
+[330/1056] [desktop] › tests/e2e/app.spec.js:814:1 › every button and checkbox has its Vietnamese accessible name
+[331/1056] [desktop] › tests/e2e/groups.spec.js:802:1 › Sửa shows the group choice with the current group selected, Chưa phân nhóm for ungrouped and unknown groups
+[332/1056] [desktop] › tests/e2e/app.spec.js:838:1 › 200 tasks render quickly and a tick updates in under 100 ms
+[333/1056] [desktop] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[334/1056] [desktop] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 1 tasks renders in under 100 ms
+[335/1056] [desktop] › tests/e2e/groups.spec.js:824:1 › Lưu saves text and group together: the row lands by creation time, the folded section opens, focus on Sửa, name announced
+[336/1056] [desktop] › tests/e2e/app.spec.js:838:1 › 200 tasks render quickly and a tick updates in under 100 ms
+[337/1056] [desktop] › tests/e2e/groups.spec.js:824:1 › Lưu saves text and group together: the row lands by creation time, the folded section opens, focus on Sửa, name announced
+[338/1056] [desktop] › tests/e2e/day-nav.spec.js:886:1 › Về hôm nay is filled from the first frame after load on another day
+[339/1056] [desktop] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[340/1056] [mobile] › tests/e2e/app.spec.js:4:1 › page has the expected title and the date line for today
+[341/1056] [mobile] › tests/e2e/day-nav.spec.js:26:1 › nav row has the named buttons, the date stamp and a live date line
+[342/1056] [mobile] › tests/e2e/app.spec.js:16:1 › shows only today's tasks, oldest first, with their done state and summary
+[343/1056] [mobile] › tests/e2e/app.spec.js:41:1 › shows the empty state with no rows, progress or summary
+[344/1056] [mobile] › tests/e2e/day-nav.spec.js:44:1 › loading yesterday from the address shows its wording, tasks and summary
+[345/1056] [desktop] › tests/e2e/day-nav.spec.js:907:1 › on a move, the label colour changes together with the Về hôm nay fill
+[346/1056] [mobile] › tests/e2e/app.spec.js:51:1 › shows the star stamp without the celebration when every task is done
+[347/1056] [desktop] › tests/e2e/day-nav.spec.js:886:1 › Về hôm nay is filled from the first frame after load on another day
+[348/1056] [desktop] › tests/e2e/day-nav.spec.js:922:1 › 200 rows: Tab from the add field into rows scrolled away brings the first row back into view
+[349/1056] [mobile] › tests/e2e/day-nav.spec.js:57:1 › an empty future day and an empty past day show their own empty text
+[350/1056] [mobile] › tests/e2e/app.spec.js:58:1 › shows task text as plain text, never as markup
+[351/1056] [mobile] › tests/e2e/app.spec.js:67:1 › adds a task with Thêm and Enter, keeps focus, and keeps it after reload
+[352/1056] [desktop] › tests/e2e/day-nav.spec.js:934:1 › 200 rows: browser find reaches text of a row that is off screen
+[353/1056] [mobile] › tests/e2e/day-nav.spec.js:76:1 › today keeps its own wording on the plain address
+[354/1056] [mobile] › tests/e2e/day-nav.spec.js:84:1 › arriving on an all done day shows the stamp without the celebration
+[355/1056] [desktop] › tests/e2e/day-nav.spec.js:941:1 › 200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted
+[356/1056] [mobile] › tests/e2e/app.spec.js:88:1 › adding the first task replaces the empty state
+[357/1056] [mobile] › tests/e2e/day-nav.spec.js:94:1 › ticking the last task on the viewed day still celebrates
+[358/1056] [desktop] › tests/e2e/day-nav.spec.js:907:1 › on a move, the label colour changes together with the Về hôm nay fill
+[359/1056] [mobile] › tests/e2e/app.spec.js:96:1 › empty or blank input shows the empty text error, and typing removes it
+[360/1056] [desktop] › tests/e2e/day-nav.spec.js:922:1 › 200 rows: Tab from the add field into rows scrolled away brings the first row back into view
+[361/1056] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-02-30 shows today and cleans the address without a history entry
+[362/1056] [mobile] › tests/e2e/app.spec.js:111:1 › over 200 characters shows the too long error; exactly 200 after trim is added
+[363/1056] [desktop] › tests/e2e/day-nav.spec.js:934:1 › 200 rows: browser find reaches text of a row that is off screen
+[364/1056] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash #1999-12-31 shows today and cleans the address without a history entry
+[365/1056] [mobile] › tests/e2e/app.spec.js:127:1 › ticking saves, keeps the row in place and updates the summary and ink circle
+[366/1056] [desktop] › tests/e2e/day-nav.spec.js:941:1 › 200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted
+[367/1056] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash #2100-01-01 shows today and cleans the address without a history entry
+[368/1056] [mobile] › tests/e2e/app.spec.js:137:1 › unticking after a reload saves and keeps the order
+[369/1056] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash #abc shows today and cleans the address without a history entry
+[370/1056] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-1-5 shows today and cleans the address without a history entry
+[371/1056] [mobile] › tests/e2e/app.spec.js:151:1 › ticking the last open task stamps the star, celebrates briefly, and unticking clears it
+[372/1056] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-13-01 shows today and cleans the address without a history entry
+[373/1056] [desktop] › tests/e2e/day-nav.spec.js:964:1 › 200 rows: a hovered or focused row renders in full so the Sửa and Xóa tooltips are not clipped
+[374/1056] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash # shows today and cleans the address without a history entry
+[375/1056] [desktop] › tests/e2e/groups.spec.js:858:1 › Hủy and Escape keep the old text and the old group
+[376/1056] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-11-09 shows today and cleans the address without a history entry
+[377/1056] [desktop] › tests/e2e/groups.spec.js:858:1 › Hủy and Escape keep the old text and the old group
+[378/1056] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash #<img src=x onerror=alert(1)> shows today and cleans the address without a history entry
+[379/1056] [desktop] › tests/e2e/groups.spec.js:875:1 › invalid text keeps the edit open and changes neither text nor group
+[380/1056] [desktop] › tests/e2e/groups.spec.js:875:1 › invalid text keeps the edit open and changes neither text nor group
+[381/1056] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-11-08%3Cb%3E shows today and cleans the address without a history entry
+[382/1056] [desktop] › tests/e2e/day-nav.spec.js:964:1 › 200 rows: a hovered or focused row renders in full so the Sửa and Xóa tooltips are not clipped
+[383/1056] [mobile] › tests/e2e/day-nav.spec.js:123:1 › a hash equal to today on first load is replaced, not pushed
+[384/1056] [desktop] › tests/e2e/groups.spec.js:892:1 › a move works on a past and a future day
+[385/1056] [desktop] › tests/e2e/groups.spec.js:892:1 › a move works on a past and a future day
+[386/1056] [mobile] › tests/e2e/day-nav.spec.js:130:1 › Về hôm nay is muted on today and filled on other days
+[387/1056] [mobile] › tests/e2e/day-nav.spec.js:142:1 › the app works under a subpath: relative assets, address keeps path and query
+[388/1056] [mobile] › tests/e2e/app.spec.js:169:1 › adding a task while all are done removes the stamp
+[389/1056] [mobile] › tests/e2e/app.spec.js:182:1 › Sửa opens a prefilled, focused edit line; Lưu saves and keeps done state and position
+[390/1056] [mobile] › tests/e2e/day-nav.spec.js:162:1 › new nav controls and day wording are Vietnamese with diacritics
+[391/1056] [desktop] › tests/e2e/groups.spec.js:909:1 › plain list to sections and back: a move to Chưa phân nhóm removes groupId
+[392/1056] [mobile] › tests/e2e/day-nav.spec.js:175:1 › previous and next move one day, write the address and never reload
+[393/1056] [desktop] › tests/e2e/groups.spec.js:909:1 › plain list to sections and back: a move to Chưa phân nhóm removes groupId
+[394/1056] [desktop] › tests/e2e/groups.spec.js:929:1 › text only, group only and no change: an unchanged choice never rewrites the group
+[395/1056] [mobile] › tests/e2e/app.spec.js:212:1 › invalid edit text keeps edit mode with the matching error and the old saved text
+[396/1056] [desktop] › tests/e2e/groups.spec.js:929:1 › text only, group only and no change: an unchanged choice never rewrites the group
+[397/1056] [mobile] › tests/e2e/groups.spec.js:28:1 › sections follow group creation order, Chưa phân nhóm last, empty groups hidden, rows oldest first
+[398/1056] [mobile] › tests/e2e/day-nav.spec.js:201:1 › Về hôm nay returns to today, removes the hash and keeps focus
+[399/1056] [desktop] › tests/e2e/groups.spec.js:949:1 › a group removed in another page while the edit is open: the task saves ungrouped
+[400/1056] [mobile] › tests/e2e/app.spec.js:234:1 › Hủy and Escape leave edit mode and keep the old text
+[401/1056] [mobile] › tests/e2e/day-nav.spec.js:213:1 › Về hôm nay on today does nothing with click, Enter or Space
+[402/1056] [desktop] › tests/e2e/groups.spec.js:949:1 › a group removed in another page while the edit is open: the task saves ungrouped
+[403/1056] [mobile] › tests/e2e/groups.spec.js:41:1 › each header is an h2 holding the toggle named with the group and its count
+[404/1056] [mobile] › tests/e2e/day-nav.spec.js:226:1 › Enter and Space on the nav buttons move and keep focus
+[405/1056] [mobile] › tests/e2e/app.spec.js:253:1 › only one row edits at a time, and adding and ticking still work while editing
+[406/1056] [mobile] › tests/e2e/groups.spec.js:53:1 › a day with only ungrouped tasks, and a task with an unknown group, show the plain list
+[407/1056] [desktop] › tests/e2e/groups.spec.js:963:1 › keyboard only: text, group choice, Hủy, Lưu; Enter saves and Escape cancels
+[408/1056] [mobile] › tests/e2e/app.spec.js:4:1 › page has the expected title and the date line for today
+[409/1056] [mobile] › tests/e2e/day-nav.spec.js:243:1 › browser Back and Forward retrace three moves day by day
+[410/1056] [desktop] › tests/e2e/groups.spec.js:963:1 › keyboard only: text, group choice, Hủy, Lưu; Enter saves and Escape cancels
+[411/1056] [mobile] › tests/e2e/groups.spec.js:66:1 › a tick and an untick update the header count and the summary, keep the row in place, and persist
+[412/1056] [desktop] › tests/e2e/groups.spec.js:989:1 › an Enter or Escape that ends an IME composition (Safari keyCode 229) neither saves nor cancels the edit
+[413/1056] [mobile] › tests/e2e/app.spec.js:275:1 › edit accepts exactly 200 characters (trimmed) and rejects 201
+[414/1056] [mobile] › tests/e2e/app.spec.js:16:1 › shows only today's tasks, oldest first, with their done state and summary
+[415/1056] [desktop] › tests/e2e/groups.spec.js:989:1 › an Enter or Escape that ends an IME composition (Safari keyCode 229) neither saves nor cancels the edit
+[416/1056] [mobile] › tests/e2e/day-nav.spec.js:266:3 › pressing past the year bound on #2099-12-31 changes nothing
+[417/1056] [desktop] › tests/e2e/groups.spec.js:1006:1 › on a phone the swipe and Sửa reach the edit form inside a section; the form fits 360 px
+[418/1056] [mobile] › tests/e2e/groups.spec.js:81:1 › a section collapses with a click, Enter and Space, and the fold is remembered across reload and days
+[419/1056] [desktop] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[420/1056] [mobile] › tests/e2e/app.spec.js:287:1 › the editing row keeps the highlighter wash under mouse hover
+[421/1056] [mobile] › tests/e2e/app.spec.js:41:1 › shows the empty state with no rows, progress or summary
+[422/1056] [mobile] › tests/e2e/day-nav.spec.js:266:3 › pressing past the year bound on #2000-01-01 changes nothing
+[423/1056] [mobile] › tests/e2e/app.spec.js:303:1 › Xóa opens the sticky note with the task quoted and focus on Giữ lại
+[424/1056] [desktop] › tests/e2e/groups.spec.js:1006:1 › on a phone the swipe and Sửa reach the edit form inside a section; the form fits 360 px
+[425/1056] [desktop] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[426/1056] [mobile] › tests/e2e/app.spec.js:51:1 › shows the star stamp without the celebration when every task is done
+[427/1056] [mobile] › tests/e2e/day-nav.spec.js:280:1 › moves cross year end and the leap day
+[428/1056] [mobile] › tests/e2e/app.spec.js:314:1 › Giữ lại, Escape and a backdrop click keep the task and return focus to Xóa
+[429/1056] [mobile] › tests/e2e/app.spec.js:58:1 › shows task text as plain text, never as markup
+[430/1056] [mobile] › tests/e2e/groups.spec.js:111:1 › Chưa phân nhóm can be folded when another section is shown, and the plain list has no toggle
+[431/1056] [mobile] › tests/e2e/app.spec.js:67:1 › adds a task with Thêm and Enter, keeps focus, and keeps it after reload
+[432/1056] [mobile] › tests/e2e/day-nav.spec.js:294:1 › a move drops an open edit without saving it
+[433/1056] [mobile] › tests/e2e/groups.spec.js:124:1 › a collapsed section still counts in the summary, the progress mark and the stamp
+[434/1056] [mobile] › tests/e2e/app.spec.js:88:1 › adding the first task replaces the empty state
+[435/1056] [mobile] › tests/e2e/day-nav.spec.js:306:1 › a move closes an open delete note without deleting
+[436/1056] [desktop] › tests/e2e/groups.spec.js:1048:1 › a failing write during a move: slip shown, the move still shows, focus on Sửa, name announced
+[437/1056] [mobile] › tests/e2e/app.spec.js:96:1 › empty or blank input shows the empty text error, and typing removes it
+[438/1056] [mobile] › tests/e2e/groups.spec.js:137:1 › group names are shown as text, never as markup
+[439/1056] [desktop] › tests/e2e/groups.spec.js:1048:1 › a failing write during a move: slip shown, the move still shows, focus on Sửa, name announced
+[440/1056] [desktop] › tests/e2e/groups.spec.js:1064:1 › equal creation times in different groups keep a stable order after a move and a reload
+[441/1056] [mobile] › tests/e2e/app.spec.js:111:1 › over 200 characters shows the too long error; exactly 200 after trim is added
+[442/1056] [mobile] › tests/e2e/groups.spec.js:149:1 › six colours give six coloured headers; an unknown colour shows as yellow
+[443/1056] [desktop] › tests/e2e/groups.spec.js:1064:1 › equal creation times in different groups keep a stable order after a move and a reload
+[444/1056] [mobile] › tests/e2e/day-nav.spec.js:319:1 › a move clears the add error and keeps the typed add text
+[445/1056] [mobile] › tests/e2e/groups.spec.js:161:1 › deleting the last task of a section removes it; the last grouped task turns the day into the plain list
+[446/1056] [desktop] › tests/e2e/groups.spec.js:1078:3 › phone 390px: after a move focus is on Sửa and the swipe strip stays closed
+[447/1056] [mobile] › tests/e2e/app.spec.js:127:1 › ticking saves, keeps the row in place and updates the summary and ink circle
+[448/1056] [desktop] › tests/e2e/groups.spec.js:1078:3 › phone 360px: after a move focus is on Sửa and the swipe strip stays closed
+[449/1056] [desktop] › tests/e2e/groups.spec.js:1096:1 › while an edit is open both group selects are named Nhóm; the edit one keeps its visible text in its name
+[450/1056] [mobile] › tests/e2e/app.spec.js:337:1 › Xóa việc removes the task, saves, updates the summary and moves focus on
+[451/1056] [desktop] › tests/e2e/groups.spec.js:1078:3 › phone 390px: after a move focus is on Sửa and the swipe strip stays closed
+[452/1056] [desktop] › tests/e2e/groups.spec.js:1078:3 › phone 360px: after a move focus is on Sửa and the swipe strip stays closed
+[453/1056] [mobile] › tests/e2e/app.spec.js:137:1 › unticking after a reload saves and keeps the order
+[454/1056] [mobile] › tests/e2e/day-nav.spec.js:336:1 › a move leaves no row swiped open on a phone
+[455/1056] [desktop] › tests/e2e/groups.spec.js:1096:1 › while an edit is open both group selects are named Nhóm; the edit one keeps its visible text in its name
+[456/1056] [desktop] › tests/e2e/groups.spec.js:1104:1 › two moves to the same group each rewrite the live region
+[457/1056] [desktop] › tests/e2e/groups.spec.js:1104:1 › two moves to the same group each rewrite the live region
+[458/1056] [mobile] › tests/e2e/day-nav.spec.js:350:1 › changing the hash on a loaded page shows that day, then today
+[459/1056] [mobile] › tests/e2e/app.spec.js:151:1 › ticking the last open task stamps the star, celebrates briefly, and unticking clears it
+[460/1056] [desktop] › tests/e2e/groups.spec.js:1130:1 › no filter before the first group, Quản lý nhóm on every day, and the filter appears once a group is made
+[461/1056] [mobile] › tests/e2e/day-nav.spec.js:365:1 › moving around never writes the tasks
+[462/1056] [desktop] › tests/e2e/groups.spec.js:1130:1 › no filter before the first group, Quản lý nhóm on every day, and the filter appears once a group is made
+[463/1056] [desktop] › tests/e2e/groups.spec.js:1146:1 › the filter sits between the add form and the list and lists Tất cả nhóm, Chưa phân nhóm, then the groups
+[464/1056] [desktop] › tests/e2e/groups.spec.js:1146:1 › the filter sits between the add form and the list and lists Tất cả nhóm, Chưa phân nhóm, then the groups
+[465/1056] [desktop] › tests/e2e/groups.spec.js:1157:1 › a group in the filter shows only its section, open and without a toggle; the stored fold is kept
+[466/1056] [mobile] › tests/e2e/day-nav.spec.js:382:1 › under a subpath, moves keep the path and query and Về hôm nay restores the plain address
+[467/1056] [desktop] › tests/e2e/groups.spec.js:1157:1 › a group in the filter shows only its section, open and without a toggle; the stored fold is kept
+[468/1056] [desktop] › tests/e2e/groups.spec.js:1177:1 › Chưa phân nhóm in the filter shows ungrouped tasks and tasks of an unknown group
+[469/1056] [mobile] › tests/e2e/day-nav.spec.js:402:1 › the date line is one live region that changes once per move
+[470/1056] [desktop] › tests/e2e/groups.spec.js:1187:1 › filter empty states: a group, Chưa phân nhóm, and the usual empty state on a day with no tasks
+[471/1056] [desktop] › tests/e2e/groups.spec.js:1177:1 › Chưa phân nhóm in the filter shows ungrouped tasks and tasks of an unknown group
+[472/1056] [mobile] › tests/e2e/day-nav.spec.js:417:1 › Về hôm nay after a silent midnight moves to the new today and keeps focus
+[473/1056] [desktop] › tests/e2e/groups.spec.js:1187:1 › filter empty states: a group, Chưa phân nhóm, and the usual empty state on a day with no tasks
+[474/1056] [mobile] › tests/e2e/day-nav.spec.js:433:1 › picking a date shows that day, writes the hash and keeps focus on the picker
+[475/1056] [desktop] › tests/e2e/groups.spec.js:1218:1 › the filter follows previous, next, the picker, Về hôm nay, Back and Forward, and resets on reload
+[476/1056] [mobile] › tests/e2e/day-nav.spec.js:445:1 › the picker follows the viewed day after every move, load, Back and midnight
+[477/1056] [mobile] › tests/e2e/app.spec.js:169:1 › adding a task while all are done removes the stamp
+[478/1056] [desktop] › tests/e2e/groups.spec.js:1218:1 › the filter follows previous, next, the picker, Về hôm nay, Back and Forward, and resets on reload
+[479/1056] [mobile] › tests/e2e/app.spec.js:182:1 › Sửa opens a prefilled, focused edit line; Lưu saves and keeps done state and position
+[480/1056] [desktop] › tests/e2e/groups.spec.js:1245:1 › the add choice follows a group and Chưa phân nhóm in the filter, but not Tất cả nhóm
+[481/1056] [mobile] › tests/e2e/day-nav.spec.js:463:1 › an empty or out of range pick changes nothing and the picker shows the viewed day after blur
+[482/1056] [desktop] › tests/e2e/groups.spec.js:1245:1 › the add choice follows a group and Chưa phân nhóm in the filter, but not Tất cả nhóm
+[483/1056] [desktop] › tests/e2e/groups.spec.js:1258:1 › an add to a group the filter hides is saved, the filter stays and a polite notice says so
+[484/1056] [mobile] › tests/e2e/day-nav.spec.js:477:1 › the first and last allowed days can be picked
+[485/1056] [mobile] › tests/e2e/app.spec.js:212:1 › invalid edit text keeps edit mode with the matching error and the old saved text
+[486/1056] [mobile] › tests/e2e/day-nav.spec.js:487:1 › picking the viewed day adds no history entry; picking today removes the hash
+[487/1056] [desktop] › tests/e2e/groups.spec.js:1258:1 › an add to a group the filter hides is saved, the filter stays and a polite notice says so
+[488/1056] [mobile] › tests/e2e/day-nav.spec.js:499:1 › typing a date digit by digit ends on that day without jumping back
+[489/1056] [mobile] › tests/e2e/app.spec.js:234:1 › Hủy and Escape leave edit mode and keep the old text
+[490/1056] [desktop] › tests/e2e/groups.spec.js:1290:1 › an add into an empty filtered group replaces the empty text with its section
+[491/1056] [mobile] › tests/e2e/app.spec.js:369:1 › deleting a row while another row is being edited keeps that edit open
+[492/1056] [mobile] › tests/e2e/day-nav.spec.js:512:1 › a partial year typed into the picker is kept while focused and reset on blur
+[493/1056] [desktop] › tests/e2e/groups.spec.js:1290:1 › an add into an empty filtered group replaces the empty text with its section
+[494/1056] [desktop] › tests/e2e/groups.spec.js:1301:1 › while filtered the summary, progress and stamp count the whole day
+[495/1056] [mobile] › tests/e2e/app.spec.js:253:1 › only one row edits at a time, and adding and ticking still work while editing
+[496/1056] [mobile] › tests/e2e/day-nav.spec.js:528:1 › keyboard: Tab reaches the picker and arrow keys change the day while focus stays
+[497/1056] [mobile] › tests/e2e/groups.spec.js:182:1 › delete focus skips rows in a folded section and falls back to the previous row
+[498/1056] [desktop] › tests/e2e/groups.spec.js:1301:1 › while filtered the summary, progress and stamp count the whole day
+[499/1056] [mobile] › tests/e2e/day-nav.spec.js:546:1 › adding on yesterday saves that date at the end of its list with the real creation time
+[500/1056] [desktop] › tests/e2e/groups.spec.js:1319:1 › a move under the filter sends focus to the next visible row, else the previous one, else the add input
+[501/1056] [mobile] › tests/e2e/app.spec.js:275:1 › edit accepts exactly 200 characters (trimmed) and rejects 201
+[502/1056] [desktop] › tests/e2e/groups.spec.js:1319:1 › a move under the filter sends focus to the next visible row, else the previous one, else the add input
+[503/1056] [mobile] › tests/e2e/day-nav.spec.js:560:1 › adding on an empty future day replaces the empty text and saves that date
+[504/1056] [mobile] › tests/e2e/app.spec.js:287:1 › the editing row keeps the highlighter wash under mouse hover
+[505/1056] [desktop] › tests/e2e/groups.spec.js:1340:1 › filtering and moving between days never writes to storage
+[506/1056] [mobile] › tests/e2e/app.spec.js:303:1 › Xóa opens the sticky note with the task quoted and focus on Giữ lại
+[507/1056] [mobile] › tests/e2e/app.spec.js:381:1 › the sticky note sits in the middle of the viewport
+[508/1056] [mobile] › tests/e2e/day-nav.spec.js:569:1 › tick, edit and delete on another day keep date and order and save
+[509/1056] [mobile] › tests/e2e/groups.spec.js:199:1 › an open edit stays open with its text when a row in another section is ticked
+[510/1056] [mobile] › tests/e2e/app.spec.js:314:1 › Giữ lại, Escape and a backdrop click keep the task and return focus to Xóa
+[511/1056] [desktop] › tests/e2e/groups.spec.js:1340:1 › filtering and moving between days never writes to storage
+[512/1056] [mobile] › tests/e2e/groups.spec.js:211:1 › a rebuild keeps an open edit with its text and focus
+[513/1056] [desktop] › tests/e2e/groups.spec.js:1351:1 › keyboard only: the filter and Quản lý nhóm follow Thêm in the Tab order and the filter changes with the keys
+[514/1056] [desktop] › tests/e2e/groups.spec.js:1373:3 › 360px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut
+[515/1056] [desktop] › tests/e2e/groups.spec.js:1351:1 › keyboard only: the filter and Quản lý nhóm follow Thêm in the Tab order and the filter changes with the keys
+[516/1056] [desktop] › tests/e2e/groups.spec.js:1373:3 › 360px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut
+[517/1056] [mobile] › tests/e2e/app.spec.js:401:1 › the first row peeks once on a phone, and not again after a reload
+[518/1056] [desktop] › tests/e2e/groups.spec.js:1373:3 › 380px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut
+[519/1056] [desktop] › tests/e2e/groups.spec.js:1373:3 › 380px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut
+[520/1056] [desktop] › tests/e2e/groups.spec.js:1373:3 › 390px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut
+[521/1056] [desktop] › tests/e2e/groups.spec.js:1373:3 › 390px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut
+[522/1056] [mobile] › tests/e2e/app.spec.js:337:1 › Xóa việc removes the task, saves, updates the summary and moves focus on
+[523/1056] [desktop] › tests/e2e/groups.spec.js:1373:3 › 412px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut
+[524/1056] [desktop] › tests/e2e/groups.spec.js:1373:3 › 412px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut
+[525/1056] [mobile] › tests/e2e/day-nav.spec.js:599:1 › ticking the last task on a future day celebrates
+[526/1056] [mobile] › tests/e2e/groups.spec.js:226:1 › a rebuild keeps the focus on a section toggle
+[527/1056] [mobile] › tests/e2e/day-nav.spec.js:606:1 › after midnight, viewing today follows to the new today with a plain address
+[528/1056] [mobile] › tests/e2e/day-nav.spec.js:616:1 › after midnight, viewing tomorrow stays and becomes today with a muted Về hôm nay and a plain address
+[529/1056] [mobile] › tests/e2e/day-nav.spec.js:627:1 › after midnight, an older day stays with its open edit and plain wording
+[530/1056] [desktop] › tests/e2e/groups.spec.js:1373:3 › 452px: Quản lý nhóm shows its text, targets are 44 px, the filter choice is not cut
+[531/1056] [desktop] › tests/e2e/groups.spec.js:1373:3 › 452px: Quản lý nhóm shows its text, targets are 44 px, the filter choice is not cut
+[532/1056] [mobile] › tests/e2e/day-nav.spec.js:646:3 › after midnight, the wording of 2026-11-08 follows the new today
+[533/1056] [mobile] › tests/e2e/day-nav.spec.js:646:3 › after midnight, the wording of 2026-11-11 follows the new today
+[534/1056] [desktop] › tests/e2e/groups.spec.js:1373:3 › 1440px: Quản lý nhóm shows its text, targets are 44 px, the filter choice is not cut
+[535/1056] [desktop] › tests/e2e/groups.spec.js:1373:3 › 1440px: Quản lý nhóm shows its text, targets are 44 px, the filter choice is not cut
+[536/1056] [mobile] › tests/e2e/day-nav.spec.js:657:1 › an add right after a silent midnight on another day saves to the viewed day
+[537/1056] [desktop] › tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[538/1056] [desktop] › tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[539/1056] [mobile] › tests/e2e/day-nav.spec.js:671:1 › on a past day an empty, blank or 201 character add shows the usual errors and stores nothing
+[540/1056] [desktop] › tests/e2e/groups.spec.js:1441:1 › a group removed in another tab while it is filtered: the filter resets, the list shows all, the add choice falls back
+[541/1056] [mobile] › tests/e2e/day-nav.spec.js:682:1 › on a past day an invalid edit keeps edit mode and the stored task
+[542/1056] [desktop] › tests/e2e/groups.spec.js:1441:1 › a group removed in another tab while it is filtered: the filter resets, the list shows all, the add choice falls back
+[543/1056] [desktop] › tests/e2e/groups.spec.js:1453:1 › the filtered group renamed in another tab stays selected; all groups removed hides the filter and shows every task
+[544/1056] [desktop] › tests/e2e/groups.spec.js:1453:1 › the filtered group renamed in another tab stays selected; all groups removed hides the filter and shows every task
+[545/1056] [mobile] › tests/e2e/day-nav.spec.js:694:1 › on another day the stamp follows tick, untick, add and delete; reload shows it without the celebration
+[546/1056] [desktop] › tests/e2e/groups.spec.js:1465:1 › a filter change drops an open edit on a row it hides and keeps one on a row it shows
+[547/1056] [desktop] › tests/e2e/groups.spec.js:1465:1 › a filter change drops an open edit on a row it hides and keeps one on a row it shows
+[548/1056] [desktop] › tests/e2e/groups.spec.js:1480:1 › a filter change while Nhóm mới... is open changes the add choice but keeps the line and its text
+[549/1056] [desktop] › tests/e2e/groups.spec.js:1480:1 › a filter change while Nhóm mới... is open changes the add choice but keeps the line and its text
+[550/1056] [desktop] › tests/e2e/groups.spec.js:1492:1 › midnight with a filter on keeps the filter, follows the new day and clears the notice
+[551/1056] [mobile] › tests/e2e/app.spec.js:419:1 › the peek waits for the first task, and only plays once
+[552/1056] [desktop] › tests/e2e/groups.spec.js:1492:1 › midnight with a filter on keeps the filter, follows the new day and clears the notice
+[553/1056] [desktop] › tests/e2e/groups.spec.js:1506:1 › the hidden group notice goes away when the filter changes
+[554/1056] [desktop] › tests/e2e/groups.spec.js:1506:1 › the hidden group notice goes away when the filter changes
+[555/1056] [desktop] › tests/e2e/groups.spec.js:1516:1 › the filter empty text is a polite status, so it is announced when the filter shows no task
+[556/1056] [desktop] › tests/e2e/groups.spec.js:1516:1 › the filter empty text is a polite status, so it is announced when the filter shows no task
+[557/1056] [desktop] › tests/e2e/groups.spec.js:1523:1 › every group removed in another tab while the filter has focus: the filter goes and focus moves to the add input
+[558/1056] [desktop] › tests/e2e/groups.spec.js:1523:1 › every group removed in another tab while the filter has focus: the filter goes and focus moves to the add input
+[559/1056] [mobile] › tests/e2e/groups.spec.js:236:1 › an ungrouped task added to a day of sections lands in Chưa phân nhóm and opens it when folded
+[560/1056] [desktop] › tests/e2e/groups.spec.js:1537:1 › an add to a hidden group on an empty day shows the filter empty text and the notice
+[561/1056] [mobile] › tests/e2e/day-nav.spec.js:713:1 › each day lists and counts only its own tasks after adding on three days
+[562/1056] [desktop] › tests/e2e/groups.spec.js:1537:1 › an add to a hidden group on an empty day shows the filter empty text and the notice
+[563/1056] [desktop] › tests/e2e/groups.spec.js:1562:1 › Quản lý nhóm opens Nhóm việc with a row per group in creation order and Đóng
+[564/1056] [desktop] › tests/e2e/groups.spec.js:1562:1 › Quản lý nhóm opens Nhóm việc with a row per group in creation order and Đóng
+[565/1056] [mobile] › tests/e2e/day-nav.spec.js:727:1 › storage that refuses writes on another day shows the slip, keeps memory and the old stored value
+[566/1056] [desktop] › tests/e2e/groups.spec.js:1587:1 › with no groups the card says Bạn chưa có nhóm nào. on a past day, today and a future day
+[567/1056] [mobile] › tests/e2e/groups.spec.js:253:1 › each day builds only its own sections with the same rules
+[568/1056] [mobile] › tests/e2e/day-nav.spec.js:743:1 › data saved by the daily task log in its exact shape shows on its days without conversion
+[569/1056] [mobile] › tests/e2e/app.spec.js:369:1 › deleting a row while another row is being edited keeps that edit open
+[570/1056] [desktop] › tests/e2e/groups.spec.js:1587:1 › with no groups the card says Bạn chưa có nhóm nào. on a past day, today and a future day
+[571/1056] [mobile] › tests/e2e/day-nav.spec.js:756:1 › after midnight on an all done day nothing celebrates again and no page turn plays
+[572/1056] [mobile] › tests/e2e/groups.spec.js:268:1 › groups and UI state that cannot be read leave the plain list and no error
+[573/1056] [mobile] › tests/e2e/groups.spec.js:291:1 › on a phone the peek skips a folded section, and swipe, tick and delete work inside sections
+[574/1056] [mobile] › tests/e2e/day-nav.spec.js:785:1 › a move turns the page by direction and the classes go after the animation
+[575/1056] [desktop] › tests/e2e/groups.spec.js:1598:1 › Sửa shows the name in "Tên nhóm", six named colours with the current one checked, arrow keys, Hủy and Lưu
+[576/1056] [mobile] › tests/e2e/app.spec.js:431:1 › under reduced motion the peek is skipped but remembered
+[577/1056] [desktop] › tests/e2e/groups.spec.js:1598:1 › Sửa shows the name in "Tên nhóm", six named colours with the current one checked, arrow keys, Hủy and Lưu
+[578/1056] [mobile] › tests/e2e/app.spec.js:381:1 › the sticky note sits in the middle of the viewport
+[579/1056] [mobile] › tests/e2e/app.spec.js:442:1 › the desktop layout never peeks
+[580/1056] [mobile] › tests/e2e/app.spec.js:449:1 › only one row stays swiped open; a tap elsewhere closes it
+[581/1056] [mobile] › tests/e2e/app.spec.js:466:1 › Tab to Sửa scrolls the row open; Giữ lại leaves only that row open
+[582/1056] [desktop] › tests/e2e/groups.spec.js:1617:1 › Lưu and Enter save the name and colour at once; headers, choices, filter and toggle names follow; tasks untouched
+[583/1056] [mobile] › tests/e2e/day-nav.spec.js:807:1 › loading a day plays no page turn
+[584/1056] [desktop] › tests/e2e/groups.spec.js:1617:1 › Lưu and Enter save the name and colour at once; headers, choices, filter and toggle names follow; tasks untouched
+[585/1056] [mobile] › tests/e2e/day-nav.spec.js:816:1 › with reduced motion a move changes the day and plays no page turn
+[586/1056] [mobile] › tests/e2e/day-nav.spec.js:828:1 › Tab from the page start reaches previous, next, Chọn ngày, Về hôm nay, then the add field
+[587/1056] [mobile] › tests/e2e/app.spec.js:401:1 › the first row peeks once on a phone, and not again after a reload
+[588/1056] [mobile] › tests/e2e/app.spec.js:494:1 › no horizontal page scroll at 360 px with a long task
+[589/1056] [mobile] › tests/e2e/day-nav.spec.js:843:3 › each nav control is at least 44 by 44 px on today
+[590/1056] [mobile] › tests/e2e/day-nav.spec.js:843:3 › each nav control is at least 44 by 44 px on #2026-11-08
+[591/1056] [mobile] › tests/e2e/day-nav.spec.js:854:1 › no horizontal scroll at 360 px on today and on a past day, with a long unbroken task
+[592/1056] [desktop] › tests/e2e/groups.spec.js:1647:1 › rename errors: empty, too long, a duplicate and Chưa phân nhóm; typing clears; own name in another case is fine
+[593/1056] [desktop] › tests/e2e/groups.spec.js:1647:1 › rename errors: empty, too long, a duplicate and Chưa phân nhóm; typing clears; own name in another case is fine
+[594/1056] [mobile] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 0 tasks renders in under 100 ms
+[595/1056] [desktop] › tests/e2e/groups.spec.js:1674:1 › Hủy and Escape cancel the row edit and keep the card open; a second Escape closes it
+[596/1056] [desktop] › tests/e2e/groups.spec.js:1674:1 › Hủy and Escape cancel the row edit and keep the card open; a second Escape closes it
+[597/1056] [mobile] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 1 tasks renders in under 100 ms
+[598/1056] [mobile] › tests/e2e/app.spec.js:521:1 › a real swipe opens one row; swiping another closes it; a tap outside closes all
+[599/1056] [desktop] › tests/e2e/groups.spec.js:1697:1 › only one row is in edit: Sửa on another row drops the first edit unsaved
+[600/1056] [mobile] › tests/e2e/groups.spec.js:313:1 › 200 tasks in 5 groups: render, collapse and tick each under 100 ms
+[601/1056] [desktop] › tests/e2e/groups.spec.js:1697:1 › only one row is in edit: Sửa on another row drops the first edit unsaved
+[602/1056] [mobile] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[603/1056] [mobile] › tests/e2e/groups.spec.js:338:1 › local midnight with sections on screen: the new day starts empty, folds stay, the old day keeps its sections
+[604/1056] [mobile] › tests/e2e/groups.spec.js:351:1 › Back and Forward between days rebuild the right sections
+[605/1056] [desktop] › tests/e2e/groups.spec.js:1709:1 › the card does not close on a backdrop click; Đóng closes it and refreshes the page behind
+[606/1056] [mobile] › tests/e2e/groups.spec.js:362:1 › older data without groups or UI keys is shown as before and never rewritten by viewing, folding or ticking
+[607/1056] [desktop] › tests/e2e/groups.spec.js:1709:1 › the card does not close on a backdrop click; Đóng closes it and refreshes the page behind
+[608/1056] [mobile] › tests/e2e/groups.spec.js:374:1 › ticking keeps the groupId of every task and writes nothing to the groups key
+[609/1056] [mobile] › tests/e2e/day-nav.spec.js:886:1 › Về hôm nay is filled from the first frame after load on another day
+[610/1056] [mobile] › tests/e2e/app.spec.js:538:1 › a blocked save shows the slip, the app keeps working in memory, and the next good save hides it
+[611/1056] [mobile] › tests/e2e/groups.spec.js:383:1 › groups storage that cannot be read: slip shown, tasks still listed, day still usable
+[612/1056] [mobile] › tests/e2e/app.spec.js:565:1 › a throwing localStorage shows the slip on load for the whole session; add, tick, edit and delete still work
+[613/1056] [desktop] › tests/e2e/groups.spec.js:1719:1 › a filtered group renamed in the card stays selected with its new name (T7-14)
+[614/1056] [mobile] › tests/e2e/groups.spec.js:396:1 › a failing write of the fold shows the slip, and the section still folds in memory
+[615/1056] [desktop] › tests/e2e/groups.spec.js:1719:1 › a filtered group renamed in the card stays selected with its new name (T7-14)
+[616/1056] [mobile] › tests/e2e/groups.spec.js:419:1 › the add choice lists Chưa phân nhóm, the groups and Nhóm mới..., and starts on Chưa phân nhóm after load and reload
+[617/1056] [mobile] › tests/e2e/day-nav.spec.js:907:1 › on a move, the label colour changes together with the Về hôm nay fill
+[618/1056] [mobile] › tests/e2e/day-nav.spec.js:922:1 › 200 rows: Tab from the add field into rows scrolled away brings the first row back into view
+[619/1056] [mobile] › tests/e2e/app.spec.js:419:1 › the peek waits for the first task, and only plays once
+[620/1056] [mobile] › tests/e2e/groups.spec.js:434:1 › Nhóm mới... opens the name line with the next colour; Enter and Tạo nhóm create and choose the group without a task
+[621/1056] [desktop] › tests/e2e/groups.spec.js:1733:1 › a rename keeps typed add text and an open task edit, whose group choice shows the new name
+[622/1056] [mobile] › tests/e2e/day-nav.spec.js:934:1 › 200 rows: browser find reaches text of a row that is off screen
+[623/1056] [mobile] › tests/e2e/groups.spec.js:464:1 › seven groups made on the fly take the colours in order and wrap
+[624/1056] [desktop] › tests/e2e/groups.spec.js:1733:1 › a rename keeps typed add text and an open task edit, whose group choice shows the new name
+[625/1056] [mobile] › tests/e2e/day-nav.spec.js:941:1 › 200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted
+[626/1056] [mobile] › tests/e2e/groups.spec.js:475:1 › name errors keep the line open and create nothing; typing clears them
+[627/1056] [desktop] › tests/e2e/groups.spec.js:1752:1 › a group named <b>abc</b> is plain text in the row and in the rename input
+[628/1056] [mobile] › tests/e2e/groups.spec.js:502:1 › at 20 groups the limit error shows as soon as Nhóm mới... is chosen, and nothing is created
+[629/1056] [mobile] › tests/e2e/app.spec.js:590:1 › corrupt stored data starts an empty list with no slip and no console error, and keeps a backup
+[630/1056] [desktop] › tests/e2e/groups.spec.js:1752:1 › a group named <b>abc</b> is plain text in the row and in the rename input
+[631/1056] [mobile] › tests/e2e/groups.spec.js:516:1 › Escape closes the line, puts the choice back and focuses it; an add while it is open uses the previous choice
+[632/1056] [mobile] › tests/e2e/app.spec.js:610:1 › after a failed first read nothing is written to the tasks key, so earlier days are never overwritten
+[633/1056] [mobile] › tests/e2e/groups.spec.js:539:1 › an add saves the group on the viewed day at the end of its section, keeps the choice and the focus
+[634/1056] [mobile] › tests/e2e/app.spec.js:631:1 › the slip shows at once when a save fails on edit and on delete, and quota errors keep the stored value
+[635/1056] [desktop] › tests/e2e/groups.spec.js:1760:1 › keyboard only: open, Tab to a row, rename, Lưu, close
+[636/1056] [desktop] › tests/e2e/groups.spec.js:1782:1 › phones: Chuyển tất cả việc in a row is icon only and keeps its name; 20 long names fit at 360 px
+[637/1056] [desktop] › tests/e2e/groups.spec.js:1760:1 › keyboard only: open, Tab to a row, rename, Lưu, close
+[638/1056] [mobile] › tests/e2e/day-nav.spec.js:964:1 › 200 rows: a hovered or focused row renders in full so the Sửa and Xóa tooltips are not clipped
+[639/1056] [desktop] › tests/e2e/groups.spec.js:1802:1 › focus stays inside the card: Tab and Shift+Tab never reach the page behind
+[640/1056] [mobile] › tests/e2e/groups.spec.js:564:1 › a group removed in another tab: the add saves ungrouped and the choice goes back to Chưa phân nhóm
+[641/1056] [desktop] › tests/e2e/groups.spec.js:1782:1 › phones: Chuyển tất cả việc in a row is icon only and keeps its name; 20 long names fit at 360 px
+[642/1056] [desktop] › tests/e2e/groups.spec.js:1802:1 › focus stays inside the card: Tab and Shift+Tab never reach the page behind
+[643/1056] [mobile] › tests/e2e/app.spec.js:431:1 › under reduced motion the peek is skipped but remembered
+[644/1056] [mobile] › tests/e2e/app.spec.js:442:1 › the desktop layout never peeks
+[645/1056] [mobile] › tests/e2e/groups.spec.js:578:1 › an add to a folded section opens it and stores that
+[646/1056] [mobile] › tests/e2e/app.spec.js:449:1 › only one row stays swiped open; a tap elsewhere closes it
+[647/1056] [mobile] › tests/e2e/groups.spec.js:589:1 › keyboard only: input, group choice, Thêm; Nhóm mới..., name, Tạo nhóm
+[648/1056] [desktop] › tests/e2e/groups.spec.js:1814:1 › a colour chosen with arrow keys and saved with Lưu is stored (Hồng to Cam)
+[649/1056] [mobile] › tests/e2e/app.spec.js:466:1 › Tab to Sửa scrolls the row open; Giữ lại leaves only that row open
+[650/1056] [mobile] › tests/e2e/groups.spec.js:614:1 › storage blocked: a group made on the fly works in memory and the slip shows
+[651/1056] [mobile] › tests/e2e/day-nav.spec.js:26:1 › nav row has the named buttons, the date stamp and a live date line
+[652/1056] [desktop] › tests/e2e/groups.spec.js:1814:1 › a colour chosen with arrow keys and saved with Lưu is stored (Hồng to Cam)
+[653/1056] [mobile] › tests/e2e/app.spec.js:660:1 › a stored non array value starts an empty list with no slip and no error
+[654/1056] [mobile] › tests/e2e/groups.spec.js:632:1 › a failing groups write keeps the new group in memory and shows the slip
+[655/1056] [mobile] › tests/e2e/app.spec.js:675:1 › after midnight, returning to the page shows the new date and an empty list; yesterday stays stored
+[656/1056] [desktop] › tests/e2e/groups.spec.js:1829:1 › a failing write on rename keeps working in memory, shows the slip and keeps the card usable
+[657/1056] [mobile] › tests/e2e/day-nav.spec.js:44:1 › loading yesterday from the address shows its wording, tasks and summary
+[658/1056] [mobile] › tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[659/1056] [mobile] › tests/e2e/app.spec.js:687:1 › window focus also checks the day, and nothing changes on the same day
+[660/1056] [mobile] › tests/e2e/app.spec.js:494:1 › no horizontal page scroll at 360 px with a long task
+[661/1056] [mobile] › tests/e2e/day-nav.spec.js:57:1 › an empty future day and an empty past day show their own empty text
+[662/1056] [mobile] › tests/e2e/app.spec.js:696:1 › adding right after midnight saves the task to the new day on a fresh list
+[663/1056] [desktop] › tests/e2e/groups.spec.js:1829:1 › a failing write on rename keeps working in memory, shows the slip and keeps the card usable
+[664/1056] [mobile] › tests/e2e/groups.spec.js:662:1 › IME: Enter that commits a composition does not create the group; Enter after it does
+[665/1056] [mobile] › tests/e2e/app.spec.js:706:1 › a day change drops an open edit and closes the delete note without saving or deleting
+[666/1056] [mobile] › tests/e2e/day-nav.spec.js:76:1 › today keeps its own wording on the plain address
+[667/1056] [mobile] › tests/e2e/groups.spec.js:679:1 › pasted decomposed diacritics: a duplicate of a composed name is found, 30 visible characters are accepted
+[668/1056] [mobile] › tests/e2e/day-nav.spec.js:84:1 › arriving on an all done day shows the stamp without the celebration
+[669/1056] [desktop] › tests/e2e/groups.spec.js:1847:1 › another tab renames a group while the card is open: rows follow; a row in edit keeps the typed name
+[670/1056] [mobile] › tests/e2e/app.spec.js:723:1 › a day change does not replay the celebration or the swipe hint
+[671/1056] [mobile] › tests/e2e/groups.spec.js:691:1 › Enter twice and a double click on Tạo nhóm make one group
+[672/1056] [mobile] › tests/e2e/day-nav.spec.js:94:1 › ticking the last task on the viewed day still celebrates
+[673/1056] [mobile] › tests/e2e/app.spec.js:734:1 › the day boundary is local midnight: 23:59:59.999 stays, 00:00:00 switches (Asia/Ho_Chi_Minh)
+[674/1056] [mobile] › tests/e2e/groups.spec.js:705:1 › another page adds a group: the choice lists it, an open line keeps its text, and the same name is now a duplicate
+[675/1056] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-02-30 shows today and cleans the address without a history entry
+[676/1056] [desktop] › tests/e2e/groups.spec.js:1847:1 › another tab renames a group while the card is open: rows follow; a row in edit keeps the typed name
+[677/1056] [mobile] › tests/e2e/app.spec.js:744:1 › a session with blocked storage still switches day, keeps the slip and accepts a new task
+[678/1056] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash #1999-12-31 shows today and cleans the address without a history entry
+[679/1056] [mobile] › tests/e2e/groups.spec.js:720:1 › another page adds a group: the open line swatch shows the new next colour (BUG-006)
+[680/1056] [desktop] › tests/e2e/groups.spec.js:1866:1 › IME in the rename input: Escape and the committing Enter neither cancel nor save
+[681/1056] [mobile] › tests/e2e/app.spec.js:760:1 › keyboard only: add, tick with Space, edit with Enter, cancel with Escape, save and delete
+[682/1056] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash #2100-01-01 shows today and cleans the address without a history entry
+[683/1056] [mobile] › tests/e2e/groups.spec.js:731:1 › accessible names of the add form keep their visible text (R63a)
+[684/1056] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash #abc shows today and cleans the address without a history entry
+[685/1056] [desktop] › tests/e2e/groups.spec.js:1866:1 › IME in the rename input: Escape and the committing Enter neither cancel nor save
+[686/1056] [mobile] › tests/e2e/groups.spec.js:745:1 › an Enter that ends an IME composition (Safari keyCode 229) does not create the group
+[687/1056] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-1-5 shows today and cleans the address without a history entry
+[688/1056] [mobile] › tests/e2e/groups.spec.js:758:1 › an Escape that ends an IME composition (Safari keyCode 229) keeps the name line open
+[689/1056] [mobile] › tests/e2e/app.spec.js:814:1 › every button and checkbox has its Vietnamese accessible name
+[690/1056] [desktop] › tests/e2e/groups.spec.js:1886:1 › the group in edit is deleted in another tab: Lưu drops the edit quietly and focus goes to Đóng
+[691/1056] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-13-01 shows today and cleans the address without a history entry
+[692/1056] [mobile] › tests/e2e/groups.spec.js:773:1 › a session whose groups could not be saved keeps its memory groups when another page changes them
+[693/1056] [mobile] › tests/e2e/app.spec.js:521:1 › a real swipe opens one row; swiping another closes it; a tap outside closes all
+[694/1056] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash # shows today and cleans the address without a history entry
+[695/1056] [mobile] › tests/e2e/app.spec.js:838:1 › 200 tasks render quickly and a tick updates in under 100 ms
+[696/1056] [desktop] › tests/e2e/groups.spec.js:1886:1 › the group in edit is deleted in another tab: Lưu drops the edit quietly and focus goes to Đóng
+[697/1056] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-11-09 shows today and cleans the address without a history entry
+[698/1056] [mobile] › tests/e2e/groups.spec.js:802:1 › Sửa shows the group choice with the current group selected, Chưa phân nhóm for ungrouped and unknown groups
+[699/1056] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash #<img src=x onerror=alert(1)> shows today and cleans the address without a history entry
+[700/1056] [desktop] › tests/e2e/groups.spec.js:1904:1 › Sửa on the last of 20 groups brings the whole edit block, with Lưu, into view
+[701/1056] [desktop] › tests/e2e/groups.spec.js:1914:1 › Sửa on a row whose group went in another tab while another row was in edit: no error, the row goes, focus on Đóng
+[702/1056] [mobile] › tests/e2e/day-nav.spec.js:102:3 › hash #2026-11-08%3Cb%3E shows today and cleans the address without a history entry
+[703/1056] [mobile] › tests/e2e/groups.spec.js:824:1 › Lưu saves text and group together: the row lands by creation time, the folded section opens, focus on Sửa, name announced
+[704/1056] [mobile] › tests/e2e/day-nav.spec.js:123:1 › a hash equal to today on first load is replaced, not pushed
+[705/1056] [desktop] › tests/e2e/groups.spec.js:1904:1 › Sửa on the last of 20 groups brings the whole edit block, with Lưu, into view
+[706/1056] [desktop] › tests/e2e/groups.spec.js:1914:1 › Sửa on a row whose group went in another tab while another row was in edit: no error, the row goes, focus on Đóng
+[707/1056] [mobile] › tests/e2e/day-nav.spec.js:130:1 › Về hôm nay is muted on today and filled on other days
+[708/1056] [mobile] › tests/e2e/app.spec.js:538:1 › a blocked save shows the slip, the app keeps working in memory, and the next good save hides it
+[709/1056] [mobile] › tests/e2e/groups.spec.js:28:1 › sections follow group creation order, Chưa phân nhóm last, empty groups hidden, rows oldest first
+[710/1056] [mobile] › tests/e2e/day-nav.spec.js:142:1 › the app works under a subpath: relative assets, address keeps path and query
+[711/1056] [desktop] › tests/e2e/groups.spec.js:1937:1 › Xóa on a group with no task asks first, with the name, Giữ lại focused and Xóa nhóm
+[712/1056] [mobile] › tests/e2e/app.spec.js:565:1 › a throwing localStorage shows the slip on load for the whole session; add, tick, edit and delete still work
+[713/1056] [mobile] › tests/e2e/groups.spec.js:41:1 › each header is an h2 holding the toggle named with the group and its count
+[714/1056] [mobile] › tests/e2e/day-nav.spec.js:162:1 › new nav controls and day wording are Vietnamese with diacritics
+[715/1056] [mobile] › tests/e2e/groups.spec.js:53:1 › a day with only ungrouped tasks, and a task with an unknown group, show the plain list
+[716/1056] [mobile] › tests/e2e/day-nav.spec.js:175:1 › previous and next move one day, write the address and never reload
+[717/1056] [desktop] › tests/e2e/groups.spec.js:1937:1 › Xóa on a group with no task asks first, with the name, Giữ lại focused and Xóa nhóm
+[718/1056] [mobile] › tests/e2e/groups.spec.js:66:1 › a tick and an untick update the header count and the summary, keep the row in place, and persist
+[719/1056] [desktop] › tests/e2e/groups.spec.js:1950:1 › Xóa nhóm removes the group from storage and the card, tasks untouched; focus on the next Sửa, else the previous, else Đóng
+[720/1056] [mobile] › tests/e2e/day-nav.spec.js:201:1 › Về hôm nay returns to today, removes the hash and keeps focus
+[721/1056] [mobile] › tests/e2e/groups.spec.js:81:1 › a section collapses with a click, Enter and Space, and the fold is remembered across reload and days
+[722/1056] [mobile] › tests/e2e/day-nav.spec.js:213:1 › Về hôm nay on today does nothing with click, Enter or Space
+[723/1056] [desktop] › tests/e2e/groups.spec.js:1950:1 › Xóa nhóm removes the group from storage and the card, tasks untouched; focus on the next Sửa, else the previous, else Đóng
+[724/1056] [mobile] › tests/e2e/day-nav.spec.js:226:1 › Enter and Space on the nav buttons move and keep focus
+[725/1056] [mobile] › tests/e2e/app.spec.js:590:1 › corrupt stored data starts an empty list with no slip and no console error, and keeps a backup
+[726/1056] [mobile] › tests/e2e/groups.spec.js:111:1 › Chưa phân nhóm can be folded when another section is shown, and the plain list has no toggle
+[727/1056] [mobile] › tests/e2e/day-nav.spec.js:243:1 › browser Back and Forward retrace three moves day by day
+[728/1056] [mobile] › tests/e2e/app.spec.js:610:1 › after a failed first read nothing is written to the tasks key, so earlier days are never overwritten
+[729/1056] [mobile] › tests/e2e/groups.spec.js:124:1 › a collapsed section still counts in the summary, the progress mark and the stamp
+[730/1056] [mobile] › tests/e2e/app.spec.js:631:1 › the slip shows at once when a save fails on edit and on delete, and quota errors keep the stored value
+[731/1056] [mobile] › tests/e2e/day-nav.spec.js:266:3 › pressing past the year bound on #2099-12-31 changes nothing
+[732/1056] [mobile] › tests/e2e/groups.spec.js:137:1 › group names are shown as text, never as markup
+[733/1056] [mobile] › tests/e2e/day-nav.spec.js:266:3 › pressing past the year bound on #2000-01-01 changes nothing
+[734/1056] [mobile] › tests/e2e/groups.spec.js:149:1 › six colours give six coloured headers; an unknown colour shows as yellow
+[735/1056] [mobile] › tests/e2e/day-nav.spec.js:280:1 › moves cross year end and the leap day
+[736/1056] [mobile] › tests/e2e/groups.spec.js:161:1 › deleting the last task of a section removes it; the last grouped task turns the day into the plain list
+[737/1056] [mobile] › tests/e2e/day-nav.spec.js:294:1 › a move drops an open edit without saving it
+[738/1056] [mobile] › tests/e2e/day-nav.spec.js:306:1 › a move closes an open delete note without deleting
+[739/1056] [desktop] › tests/e2e/groups.spec.js:1968:1 › deleting the only group leaves Bạn chưa có nhóm nào. with focus on Đóng
+[740/1056] [mobile] › tests/e2e/groups.spec.js:858:1 › Hủy and Escape keep the old text and the old group
+[741/1056] [mobile] › tests/e2e/app.spec.js:660:1 › a stored non array value starts an empty list with no slip and no error
+[742/1056] [mobile] › tests/e2e/day-nav.spec.js:319:1 › a move clears the add error and keeps the typed add text
+[743/1056] [mobile] › tests/e2e/groups.spec.js:875:1 › invalid text keeps the edit open and changes neither text nor group
+[744/1056] [mobile] › tests/e2e/app.spec.js:675:1 › after midnight, returning to the page shows the new date and an empty list; yesterday stays stored
+[745/1056] [desktop] › tests/e2e/groups.spec.js:1968:1 › deleting the only group leaves Bạn chưa có nhóm nào. with focus on Đóng
+[746/1056] [mobile] › tests/e2e/app.spec.js:687:1 › window focus also checks the day, and nothing changes on the same day
+[747/1056] [mobile] › tests/e2e/day-nav.spec.js:336:1 › a move leaves no row swiped open on a phone
+[748/1056] [mobile] › tests/e2e/groups.spec.js:892:1 › a move works on a past and a future day
+[749/1056] [mobile] › tests/e2e/app.spec.js:696:1 › adding right after midnight saves the task to the new day on a fresh list
+[750/1056] [mobile] › tests/e2e/day-nav.spec.js:350:1 › changing the hash on a loaded page shows that day, then today
+[751/1056] [mobile] › tests/e2e/app.spec.js:706:1 › a day change drops an open edit and closes the delete note without saving or deleting
+[752/1056] [mobile] › tests/e2e/day-nav.spec.js:365:1 › moving around never writes the tasks
+[753/1056] [mobile] › tests/e2e/app.spec.js:723:1 › a day change does not replay the celebration or the swipe hint
+[754/1056] [desktop] › tests/e2e/groups.spec.js:1979:1 › Giữ lại, Escape and a backdrop click keep the group, the card stays open and focus returns to Xóa
+[755/1056] [mobile] › tests/e2e/groups.spec.js:909:1 › plain list to sections and back: a move to Chưa phân nhóm removes groupId
+[756/1056] [mobile] › tests/e2e/app.spec.js:734:1 › the day boundary is local midnight: 23:59:59.999 stays, 00:00:00 switches (Asia/Ho_Chi_Minh)
+[757/1056] [mobile] › tests/e2e/day-nav.spec.js:382:1 › under a subpath, moves keep the path and query and Về hôm nay restores the plain address
+[758/1056] [mobile] › tests/e2e/app.spec.js:744:1 › a session with blocked storage still switches day, keeps the slip and accepts a new task
+[759/1056] [mobile] › tests/e2e/groups.spec.js:182:1 › delete focus skips rows in a folded section and falls back to the previous row
+[760/1056] [mobile] › tests/e2e/groups.spec.js:929:1 › text only, group only and no change: an unchanged choice never rewrites the group
+[761/1056] [mobile] › tests/e2e/app.spec.js:760:1 › keyboard only: add, tick with Space, edit with Enter, cancel with Escape, save and delete
+[762/1056] [mobile] › tests/e2e/day-nav.spec.js:402:1 › the date line is one live region that changes once per move
+[763/1056] [mobile] › tests/e2e/day-nav.spec.js:417:1 › Về hôm nay after a silent midnight moves to the new today and keeps focus
+[764/1056] [mobile] › tests/e2e/groups.spec.js:949:1 › a group removed in another page while the edit is open: the task saves ungrouped
+[765/1056] [mobile] › tests/e2e/day-nav.spec.js:433:1 › picking a date shows that day, writes the hash and keeps focus on the picker
+[766/1056] [desktop] › tests/e2e/groups.spec.js:1979:1 › Giữ lại, Escape and a backdrop click keep the group, the card stays open and focus returns to Xóa
+[767/1056] [mobile] › tests/e2e/day-nav.spec.js:445:1 › the picker follows the viewed day after every move, load, Back and midnight
+[768/1056] [mobile] › tests/e2e/app.spec.js:814:1 › every button and checkbox has its Vietnamese accessible name
+[769/1056] [mobile] › tests/e2e/groups.spec.js:963:1 › keyboard only: text, group choice, Hủy, Lưu; Enter saves and Escape cancels
+[770/1056] [mobile] › tests/e2e/groups.spec.js:199:1 › an open edit stays open with its text when a row in another section is ticked
+[771/1056] [mobile] › tests/e2e/groups.spec.js:989:1 › an Enter or Escape that ends an IME composition (Safari keyCode 229) neither saves nor cancels the edit
+[772/1056] [mobile] › tests/e2e/app.spec.js:838:1 › 200 tasks render quickly and a tick updates in under 100 ms
+[773/1056] [mobile] › tests/e2e/day-nav.spec.js:463:1 › an empty or out of range pick changes nothing and the picker shows the viewed day after blur
+[774/1056] [mobile] › tests/e2e/groups.spec.js:211:1 › a rebuild keeps an open edit with its text and focus
+[775/1056] [mobile] › tests/e2e/groups.spec.js:1006:1 › on a phone the swipe and Sửa reach the edit form inside a section; the form fits 360 px
+[776/1056] [mobile] › tests/e2e/day-nav.spec.js:477:1 › the first and last allowed days can be picked
+[777/1056] [desktop] › tests/e2e/groups.spec.js:2000:1 › deleting the filtered group that is also the add choice resets both; the last group returns the plain list (T7-14)
+[778/1056] [mobile] › tests/e2e/day-nav.spec.js:487:1 › picking the viewed day adds no history entry; picking today removes the hash
+[779/1056] [mobile] › tests/e2e/day-nav.spec.js:499:1 › typing a date digit by digit ends on that day without jumping back
+[780/1056] [mobile] › tests/e2e/day-nav.spec.js:512:1 › a partial year typed into the picker is kept while focused and reset on blur
+[781/1056] [mobile] › tests/e2e/day-nav.spec.js:528:1 › keyboard: Tab reaches the picker and arrow keys change the day while focus stays
+[782/1056] [mobile] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[783/1056] [mobile] › tests/e2e/day-nav.spec.js:546:1 › adding on yesterday saves that date at the end of its list with the real creation time
+[784/1056] [desktop] › tests/e2e/groups.spec.js:2000:1 › deleting the filtered group that is also the add choice resets both; the last group returns the plain list (T7-14)
+[785/1056] [mobile] › tests/e2e/day-nav.spec.js:560:1 › adding on an empty future day replaces the empty text and saves that date
+[786/1056] [mobile] › tests/e2e/day-nav.spec.js:569:1 › tick, edit and delete on another day keep date and order and save
+[787/1056] [mobile] › tests/e2e/groups.spec.js:1048:1 › a failing write during a move: slip shown, the move still shows, focus on Sửa, name announced
+[788/1056] [mobile] › tests/e2e/groups.spec.js:1064:1 › equal creation times in different groups keep a stable order after a move and a reload
+[789/1056] [desktop] › tests/e2e/groups.spec.js:2020:1 › deleting the filtered group among others: filter Tất cả nhóm, add choice Chưa phân nhóm, all sections back
+[790/1056] [mobile] › tests/e2e/groups.spec.js:1078:3 › phone 390px: after a move focus is on Sửa and the swipe strip stays closed
+[791/1056] [mobile] › tests/e2e/groups.spec.js:226:1 › a rebuild keeps the focus on a section toggle
+[792/1056] [desktop] › tests/e2e/groups.spec.js:2020:1 › deleting the filtered group among others: filter Tất cả nhóm, add choice Chưa phân nhóm, all sections back
+[793/1056] [mobile] › tests/e2e/groups.spec.js:1078:3 › phone 360px: after a move focus is on Sửa and the swipe strip stays closed
+[794/1056] [desktop] › tests/e2e/groups.spec.js:2032:1 › a deleted group leaves the collapsed list; the others keep order and colour; a new group continues from the latest
+[795/1056] [mobile] › tests/e2e/day-nav.spec.js:599:1 › ticking the last task on a future day celebrates
+[796/1056] [mobile] › tests/e2e/day-nav.spec.js:606:1 › after midnight, viewing today follows to the new today with a plain address
+[797/1056] [mobile] › tests/e2e/groups.spec.js:1096:1 › while an edit is open both group selects are named Nhóm; the edit one keeps its visible text in its name
+[798/1056] [mobile] › tests/e2e/day-nav.spec.js:616:1 › after midnight, viewing tomorrow stays and becomes today with a muted Về hôm nay and a plain address
+[799/1056] [mobile] › tests/e2e/groups.spec.js:1104:1 › two moves to the same group each rewrite the live region
+[800/1056] [mobile] › tests/e2e/day-nav.spec.js:627:1 › after midnight, an older day stays with its open edit and plain wording
+[801/1056] [mobile] › tests/e2e/day-nav.spec.js:646:3 › after midnight, the wording of 2026-11-08 follows the new today
+[802/1056] [desktop] › tests/e2e/groups.spec.js:2032:1 › a deleted group leaves the collapsed list; the others keep order and colour; a new group continues from the latest
+[803/1056] [mobile] › tests/e2e/groups.spec.js:1130:1 › no filter before the first group, Quản lý nhóm on every day, and the filter appears once a group is made
+[804/1056] [mobile] › tests/e2e/day-nav.spec.js:646:3 › after midnight, the wording of 2026-11-11 follows the new today
+[805/1056] [desktop] › tests/e2e/groups.spec.js:2047:1 › a group with tasks on any day is never deleted: the blocked note gives n and d, three buttons, and Xóa stays usable
+[806/1056] [mobile] › tests/e2e/day-nav.spec.js:657:1 › an add right after a silent midnight on another day saves to the viewed day
+[807/1056] [mobile] › tests/e2e/groups.spec.js:1146:1 › the filter sits between the add form and the list and lists Tất cả nhóm, Chưa phân nhóm, then the groups
+[808/1056] [mobile] › tests/e2e/groups.spec.js:236:1 › an ungrouped task added to a day of sections lands in Chưa phân nhóm and opens it when folded
+[809/1056] [mobile] › tests/e2e/day-nav.spec.js:671:1 › on a past day an empty, blank or 201 character add shows the usual errors and stores nothing
+[810/1056] [mobile] › tests/e2e/groups.spec.js:1157:1 › a group in the filter shows only its section, open and without a toggle; the stored fold is kept
+[811/1056] [mobile] › tests/e2e/day-nav.spec.js:682:1 › on a past day an invalid edit keeps edit mode and the stored task
+[812/1056] [mobile] › tests/e2e/groups.spec.js:1177:1 › Chưa phân nhóm in the filter shows ungrouped tasks and tasks of an unknown group
+[813/1056] [mobile] › tests/e2e/day-nav.spec.js:694:1 › on another day the stamp follows tick, untick, add and delete; reload shows it without the celebration
+[814/1056] [mobile] › tests/e2e/groups.spec.js:1187:1 › filter empty states: a group, Chưa phân nhóm, and the usual empty state on a day with no tasks
+[815/1056] [mobile] › tests/e2e/groups.spec.js:253:1 › each day builds only its own sections with the same rules
+[816/1056] [mobile] › tests/e2e/groups.spec.js:268:1 › groups and UI state that cannot be read leave the plain list and no error
+[817/1056] [mobile] › tests/e2e/groups.spec.js:291:1 › on a phone the peek skips a folded section, and swipe, tick and delete work inside sections
+[818/1056] [mobile] › tests/e2e/groups.spec.js:1218:1 › the filter follows previous, next, the picker, Về hôm nay, Back and Forward, and resets on reload
+[819/1056] [desktop] › tests/e2e/groups.spec.js:2047:1 › a group with tasks on any day is never deleted: the blocked note gives n and d, three buttons, and Xóa stays usable
+[820/1056] [desktop] › tests/e2e/groups.spec.js:2082:1 › a group emptied by moving its tasks out one by one, or by deleting them, can then be deleted; no task goes with it
+[821/1056] [mobile] › tests/e2e/groups.spec.js:1245:1 › the add choice follows a group and Chưa phân nhóm in the filter, but not Tất cả nhóm
+[822/1056] [mobile] › tests/e2e/groups.spec.js:1258:1 › an add to a group the filter hides is saved, the filter stays and a polite notice says so
+[823/1056] [mobile] › tests/e2e/groups.spec.js:1290:1 › an add into an empty filtered group replaces the empty text with its section
+[824/1056] [mobile] › tests/e2e/day-nav.spec.js:713:1 › each day lists and counts only its own tasks after adding on three days
+[825/1056] [mobile] › tests/e2e/groups.spec.js:1301:1 › while filtered the summary, progress and stamp count the whole day
+[826/1056] [mobile] › tests/e2e/day-nav.spec.js:727:1 › storage that refuses writes on another day shows the slip, keeps memory and the old stored value
+[827/1056] [mobile] › tests/e2e/groups.spec.js:1319:1 › a move under the filter sends focus to the next visible row, else the previous one, else the add input
+[828/1056] [mobile] › tests/e2e/day-nav.spec.js:743:1 › data saved by the daily task log in its exact shape shows on its days without conversion
+[829/1056] [mobile] › tests/e2e/day-nav.spec.js:756:1 › after midnight on an all done day nothing celebrates again and no page turn plays
+[830/1056] [mobile] › tests/e2e/groups.spec.js:1340:1 › filtering and moving between days never writes to storage
+[831/1056] [mobile] › tests/e2e/day-nav.spec.js:785:1 › a move turns the page by direction and the classes go after the animation
+[832/1056] [desktop] › tests/e2e/groups.spec.js:2082:1 › a group emptied by moving its tasks out one by one, or by deleting them, can then be deleted; no task goes with it
+[833/1056] [mobile] › tests/e2e/groups.spec.js:1351:1 › keyboard only: the filter and Quản lý nhóm follow Thêm in the Tab order and the filter changes with the keys
+[834/1056] [mobile] › tests/e2e/groups.spec.js:1373:3 › 360px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut
+[835/1056] [mobile] › tests/e2e/day-nav.spec.js:807:1 › loading a day plays no page turn
+[836/1056] [mobile] › tests/e2e/groups.spec.js:1373:3 › 380px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut
+[837/1056] [mobile] › tests/e2e/day-nav.spec.js:816:1 › with reduced motion a move changes the day and plays no page turn
+[838/1056] [mobile] › tests/e2e/day-nav.spec.js:828:1 › Tab from the page start reaches previous, next, Chọn ngày, Về hôm nay, then the add field
+[839/1056] [mobile] › tests/e2e/day-nav.spec.js:843:3 › each nav control is at least 44 by 44 px on today
+[840/1056] [mobile] › tests/e2e/groups.spec.js:1373:3 › 390px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut
+[841/1056] [mobile] › tests/e2e/day-nav.spec.js:843:3 › each nav control is at least 44 by 44 px on #2026-11-08
+[842/1056] [mobile] › tests/e2e/groups.spec.js:313:1 › 200 tasks in 5 groups: render, collapse and tick each under 100 ms
+[843/1056] [mobile] › tests/e2e/day-nav.spec.js:854:1 › no horizontal scroll at 360 px on today and on a past day, with a long unbroken task
+[844/1056] [mobile] › tests/e2e/groups.spec.js:338:1 › local midnight with sections on screen: the new day starts empty, folds stay, the old day keeps its sections
+[845/1056] [mobile] › tests/e2e/groups.spec.js:351:1 › Back and Forward between days rebuild the right sections
+[846/1056] [mobile] › tests/e2e/groups.spec.js:1373:3 › 412px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut
+[847/1056] [mobile] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 0 tasks renders in under 100 ms
+[848/1056] [mobile] › tests/e2e/groups.spec.js:362:1 › older data without groups or UI keys is shown as before and never rewritten by viewing, folding or ticking
+[849/1056] [mobile] › tests/e2e/groups.spec.js:374:1 › ticking keeps the groupId of every task and writes nothing to the groups key
+[850/1056] [mobile] › tests/e2e/groups.spec.js:383:1 › groups storage that cannot be read: slip shown, tasks still listed, day still usable
+[851/1056] [mobile] › tests/e2e/groups.spec.js:1373:3 › 452px: Quản lý nhóm shows its text, targets are 44 px, the filter choice is not cut
+[852/1056] [mobile] › tests/e2e/groups.spec.js:396:1 › a failing write of the fold shows the slip, and the section still folds in memory
+[853/1056] [mobile] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 1 tasks renders in under 100 ms
+[854/1056] [mobile] › tests/e2e/groups.spec.js:1373:3 › 1440px: Quản lý nhóm shows its text, targets are 44 px, the filter choice is not cut
+[855/1056] [mobile] › tests/e2e/groups.spec.js:419:1 › the add choice lists Chưa phân nhóm, the groups and Nhóm mới..., and starts on Chưa phân nhóm after load and reload
+[856/1056] [mobile] › tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[857/1056] [mobile] › tests/e2e/groups.spec.js:434:1 › Nhóm mới... opens the name line with the next colour; Enter and Tạo nhóm create and choose the group without a task
+[858/1056] [mobile] › tests/e2e/groups.spec.js:1441:1 › a group removed in another tab while it is filtered: the filter resets, the list shows all, the add choice falls back
+[859/1056] [mobile] › tests/e2e/groups.spec.js:1453:1 › the filtered group renamed in another tab stays selected; all groups removed hides the filter and shows every task
+[860/1056] [mobile] › tests/e2e/groups.spec.js:464:1 › seven groups made on the fly take the colours in order and wrap
+[861/1056] [mobile] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[862/1056] [mobile] › tests/e2e/groups.spec.js:1465:1 › a filter change drops an open edit on a row it hides and keeps one on a row it shows
+[863/1056] [mobile] › tests/e2e/groups.spec.js:475:1 › name errors keep the line open and create nothing; typing clears them
+[864/1056] [mobile] › tests/e2e/groups.spec.js:1480:1 › a filter change while Nhóm mới... is open changes the add choice but keeps the line and its text
+[865/1056] [mobile] › tests/e2e/groups.spec.js:1492:1 › midnight with a filter on keeps the filter, follows the new day and clears the notice
+[866/1056] [mobile] › tests/e2e/groups.spec.js:502:1 › at 20 groups the limit error shows as soon as Nhóm mới... is chosen, and nothing is created
+[867/1056] [mobile] › tests/e2e/groups.spec.js:1506:1 › the hidden group notice goes away when the filter changes
+[868/1056] [mobile] › tests/e2e/day-nav.spec.js:886:1 › Về hôm nay is filled from the first frame after load on another day
+[869/1056] [mobile] › tests/e2e/groups.spec.js:516:1 › Escape closes the line, puts the choice back and focuses it; an add while it is open uses the previous choice
+[870/1056] [mobile] › tests/e2e/groups.spec.js:1516:1 › the filter empty text is a polite status, so it is announced when the filter shows no task
+[871/1056] [mobile] › tests/e2e/groups.spec.js:539:1 › an add saves the group on the viewed day at the end of its section, keeps the choice and the focus
+[872/1056] [mobile] › tests/e2e/groups.spec.js:1523:1 › every group removed in another tab while the filter has focus: the filter goes and focus moves to the add input
+[873/1056] [mobile] › tests/e2e/groups.spec.js:1537:1 › an add to a hidden group on an empty day shows the filter empty text and the notice
+[874/1056] [mobile] › tests/e2e/groups.spec.js:564:1 › a group removed in another tab: the add saves ungrouped and the choice goes back to Chưa phân nhóm
+[875/1056] [mobile] › tests/e2e/groups.spec.js:1562:1 › Quản lý nhóm opens Nhóm việc with a row per group in creation order and Đóng
+[876/1056] [mobile] › tests/e2e/day-nav.spec.js:907:1 › on a move, the label colour changes together with the Về hôm nay fill
+[877/1056] [mobile] › tests/e2e/groups.spec.js:578:1 › an add to a folded section opens it and stores that
+[878/1056] [mobile] › tests/e2e/day-nav.spec.js:922:1 › 200 rows: Tab from the add field into rows scrolled away brings the first row back into view
+[879/1056] [mobile] › tests/e2e/groups.spec.js:589:1 › keyboard only: input, group choice, Thêm; Nhóm mới..., name, Tạo nhóm
+[880/1056] [mobile] › tests/e2e/groups.spec.js:1587:1 › with no groups the card says Bạn chưa có nhóm nào. on a past day, today and a future day
+[881/1056] [mobile] › tests/e2e/day-nav.spec.js:934:1 › 200 rows: browser find reaches text of a row that is off screen
+[882/1056] [mobile] › tests/e2e/groups.spec.js:614:1 › storage blocked: a group made on the fly works in memory and the slip shows
+[883/1056] [mobile] › tests/e2e/day-nav.spec.js:941:1 › 200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted
+[884/1056] [mobile] › tests/e2e/groups.spec.js:632:1 › a failing groups write keeps the new group in memory and shows the slip
+[885/1056] [mobile] › tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[886/1056] [mobile] › tests/e2e/groups.spec.js:1598:1 › Sửa shows the name in "Tên nhóm", six named colours with the current one checked, arrow keys, Hủy and Lưu
+[887/1056] [mobile] › tests/e2e/groups.spec.js:662:1 › IME: Enter that commits a composition does not create the group; Enter after it does
+[888/1056] [mobile] › tests/e2e/groups.spec.js:679:1 › pasted decomposed diacritics: a duplicate of a composed name is found, 30 visible characters are accepted
+[889/1056] [mobile] › tests/e2e/groups.spec.js:691:1 › Enter twice and a double click on Tạo nhóm make one group
+[890/1056] [mobile] › tests/e2e/groups.spec.js:705:1 › another page adds a group: the choice lists it, an open line keeps its text, and the same name is now a duplicate
+[891/1056] [mobile] › tests/e2e/groups.spec.js:1617:1 › Lưu and Enter save the name and colour at once; headers, choices, filter and toggle names follow; tasks untouched
+[892/1056] [mobile] › tests/e2e/groups.spec.js:720:1 › another page adds a group: the open line swatch shows the new next colour (BUG-006)
+[893/1056] [desktop] › tests/e2e/groups.spec.js:2125:3 › Xem các việc này, past only: the latest day up to today; filter and add choice on the group, hash written, Back returns, focus on Quản lý nhóm
+[894/1056] [mobile] › tests/e2e/groups.spec.js:731:1 › accessible names of the add form keep their visible text (R63a)
+[895/1056] [mobile] › tests/e2e/day-nav.spec.js:964:1 › 200 rows: a hovered or focused row renders in full so the Sửa and Xóa tooltips are not clipped
+[896/1056] [mobile] › tests/e2e/groups.spec.js:745:1 › an Enter that ends an IME composition (Safari keyCode 229) does not create the group
+[897/1056] [mobile] › tests/e2e/groups.spec.js:758:1 › an Escape that ends an IME composition (Safari keyCode 229) keeps the name line open
+[898/1056] [desktop] › tests/e2e/groups.spec.js:2125:3 › Xem các việc này, past only: the latest day up to today; filter and add choice on the group, hash written, Back returns, focus on Quản lý nhóm
+[899/1056] [mobile] › tests/e2e/groups.spec.js:773:1 › a session whose groups could not be saved keeps its memory groups when another page changes them
+[900/1056] [mobile] › tests/e2e/groups.spec.js:1647:1 › rename errors: empty, too long, a duplicate and Chưa phân nhóm; typing clears; own name in another case is fine
+[901/1056] [mobile] › tests/e2e/groups.spec.js:802:1 › Sửa shows the group choice with the current group selected, Chưa phân nhóm for ungrouped and unknown groups
+[902/1056] [desktop] › tests/e2e/groups.spec.js:2125:3 › Xem các việc này, future only: the earliest later day; filter and add choice on the group, hash written, Back returns, focus on Quản lý nhóm
+[903/1056] [mobile] › tests/e2e/groups.spec.js:824:1 › Lưu saves text and group together: the row lands by creation time, the folded section opens, focus on Sửa, name announced
+[904/1056] [desktop] › tests/e2e/groups.spec.js:2125:3 › Xem các việc này, future only: the earliest later day; filter and add choice on the group, hash written, Back returns, focus on Quản lý nhóm
+[905/1056] [mobile] › tests/e2e/groups.spec.js:1674:1 › Hủy and Escape cancel the row edit and keep the card open; a second Escape closes it
+[906/1056] [desktop] › tests/e2e/groups.spec.js:2125:3 › Xem các việc này, today included: today; filter and add choice on the group, hash written, Back returns, focus on Quản lý nhóm
+[907/1056] [mobile] › tests/e2e/groups.spec.js:1697:1 › only one row is in edit: Sửa on another row drops the first edit unsaved
+[908/1056] [desktop] › tests/e2e/groups.spec.js:2125:3 › Xem các việc này, today included: today; filter and add choice on the group, hash written, Back returns, focus on Quản lý nhóm
+[909/1056] [mobile] › tests/e2e/groups.spec.js:1709:1 › the card does not close on a backdrop click; Đóng closes it and refreshes the page behind
+[910/1056] [desktop] › tests/e2e/groups.spec.js:2147:1 › Xem các việc này on the day already shown stays there, filters the list and adds no history entry
+[911/1056] [mobile] › tests/e2e/groups.spec.js:1719:1 › a filtered group renamed in the card stays selected with its new name (T7-14)
+[912/1056] [mobile] › tests/e2e/groups.spec.js:858:1 › Hủy and Escape keep the old text and the old group
+[913/1056] [mobile] › tests/e2e/groups.spec.js:1733:1 › a rename keeps typed add text and an open task edit, whose group choice shows the new name
+[914/1056] [mobile] › tests/e2e/groups.spec.js:875:1 › invalid text keeps the edit open and changes neither text nor group
+[915/1056] [desktop] › tests/e2e/groups.spec.js:2147:1 › Xem các việc này on the day already shown stays there, filters the list and adds no history entry
+[916/1056] [mobile] › tests/e2e/groups.spec.js:892:1 › a move works on a past and a future day
+[917/1056] [mobile] › tests/e2e/groups.spec.js:1752:1 › a group named <b>abc</b> is plain text in the row and in the rename input
+[918/1056] [desktop] › tests/e2e/groups.spec.js:2162:1 › names with markup and quotes are plain text in both notes
+[919/1056] [mobile] › tests/e2e/groups.spec.js:909:1 › plain list to sections and back: a move to Chưa phân nhóm removes groupId
+[920/1056] [mobile] › tests/e2e/groups.spec.js:929:1 › text only, group only and no change: an unchanged choice never rewrites the group
+[921/1056] [mobile] › tests/e2e/groups.spec.js:949:1 › a group removed in another page while the edit is open: the task saves ungrouped
+[922/1056] [mobile] › tests/e2e/groups.spec.js:1760:1 › keyboard only: open, Tab to a row, rename, Lưu, close
+[923/1056] [desktop] › tests/e2e/groups.spec.js:2175:1 › keyboard only: Xóa, Giữ lại, Escape, Xóa nhóm; then the blocked note with Đã hiểu and Xem các việc này
+[924/1056] [mobile] › tests/e2e/groups.spec.js:1782:1 › phones: Chuyển tất cả việc in a row is icon only and keeps its name; 20 long names fit at 360 px
+[925/1056] [mobile] › tests/e2e/groups.spec.js:963:1 › keyboard only: text, group choice, Hủy, Lưu; Enter saves and Escape cancels
+[926/1056] [desktop] › tests/e2e/groups.spec.js:2213:1 › a group deleted in another tab while its note is open: Escape ends it quietly with focus on Đóng
+[927/1056] [mobile] › tests/e2e/groups.spec.js:989:1 › an Enter or Escape that ends an IME composition (Safari keyCode 229) neither saves nor cancels the edit
+[928/1056] [desktop] › tests/e2e/groups.spec.js:2162:1 › names with markup and quotes are plain text in both notes
+[929/1056] [mobile] › tests/e2e/groups.spec.js:1006:1 › on a phone the swipe and Sửa reach the edit form inside a section; the form fits 360 px
+[930/1056] [mobile] › tests/e2e/groups.spec.js:1802:1 › focus stays inside the card: Tab and Shift+Tab never reach the page behind
+[931/1056] [desktop] › tests/e2e/groups.spec.js:2227:1 › a failing write on Xóa nhóm: no error, the slip shows, the group goes in the page and the stored list is untouched
+[932/1056] [desktop] › tests/e2e/groups.spec.js:2175:1 › keyboard only: Xóa, Giữ lại, Escape, Xóa nhóm; then the blocked note with Đã hiểu and Xem các việc này
+[933/1056] [mobile] › tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[934/1056] [desktop] › tests/e2e/groups.spec.js:2213:1 › a group deleted in another tab while its note is open: Escape ends it quietly with focus on Đóng
+[935/1056] [mobile] › tests/e2e/groups.spec.js:1814:1 › a colour chosen with arrow keys and saved with Lưu is stored (Hồng to Cam)
+[936/1056] [desktop] › tests/e2e/groups.spec.js:2227:1 › a failing write on Xóa nhóm: no error, the slip shows, the group goes in the page and the stored list is untouched
+[937/1056] [mobile] › tests/e2e/groups.spec.js:1829:1 › a failing write on rename keeps working in memory, shows the slip and keeps the card usable
+[938/1056] [mobile] › tests/e2e/groups.spec.js:1048:1 › a failing write during a move: slip shown, the move still shows, focus on Sửa, name announced
+[939/1056] [mobile] › tests/e2e/groups.spec.js:1064:1 › equal creation times in different groups keep a stable order after a move and a reload
+[940/1056] [desktop] › tests/e2e/groups.spec.js:2249:1 › a task added to the group in another tab while Xóa nhóm? is open: the group must not be deleted (BUG-009)
+[941/1056] [mobile] › tests/e2e/groups.spec.js:1078:3 › phone 390px: after a move focus is on Sửa and the swipe strip stays closed
+[942/1056] [mobile] › tests/e2e/groups.spec.js:1847:1 › another tab renames a group while the card is open: rows follow; a row in edit keeps the typed name
+[943/1056] [desktop] › tests/e2e/groups.spec.js:2273:1 › BUG-009: after a task arrives from another tab, Xem các việc này on the blocked note sets the filter, the add choice and the day
+[944/1056] [mobile] › tests/e2e/groups.spec.js:1078:3 › phone 360px: after a move focus is on Sửa and the swipe strip stays closed
+[945/1056] [desktop] › tests/e2e/groups.spec.js:2249:1 › a task added to the group in another tab while Xóa nhóm? is open: the group must not be deleted (BUG-009)
+[946/1056] [mobile] › tests/e2e/groups.spec.js:1866:1 › IME in the rename input: Escape and the committing Enter neither cancel nor save
+[947/1056] [mobile] › tests/e2e/groups.spec.js:1886:1 › the group in edit is deleted in another tab: Lưu drops the edit quietly and focus goes to Đóng
+[948/1056] [desktop] › tests/e2e/groups.spec.js:2273:1 › BUG-009: after a task arrives from another tab, Xem các việc này on the blocked note sets the filter, the add choice and the day
+[949/1056] [mobile] › tests/e2e/groups.spec.js:1096:1 › while an edit is open both group selects are named Nhóm; the edit one keeps its visible text in its name
+[950/1056] [mobile] › tests/e2e/groups.spec.js:1104:1 › two moves to the same group each rewrite the live region
+[951/1056] [mobile] › tests/e2e/groups.spec.js:1904:1 › Sửa on the last of 20 groups brings the whole edit block, with Lưu, into view
+[952/1056] [mobile] › tests/e2e/groups.spec.js:1130:1 › no filter before the first group, Quản lý nhóm on every day, and the filter appears once a group is made
+[953/1056] [mobile] › tests/e2e/groups.spec.js:1146:1 › the filter sits between the add form and the list and lists Tất cả nhóm, Chưa phân nhóm, then the groups
+[954/1056] [desktop] › tests/e2e/groups.spec.js:2298:3 › phone 390px: both notes fit, buttons at least 44 px, no horizontal scroll
+[955/1056] [desktop] › tests/e2e/groups.spec.js:2298:3 › phone 360px: both notes fit, buttons at least 44 px, no horizontal scroll
+[956/1056] [desktop] › tests/e2e/groups.spec.js:2323:1 › phone swipes in sections: one strip open, another swipe closes it, a tap outside closes all, Tab into Sửa opens that strip, Giữ lại leaves only it open
+[957/1056] [desktop] › tests/e2e/groups.spec.js:2352:1 › task delete note: Giữ lại, then Enter on Xóa straight away, then Xóa việc still deletes that task
+[958/1056] [mobile] › tests/e2e/groups.spec.js:1157:1 › a group in the filter shows only its section, open and without a toggle; the stored fold is kept
+[959/1056] [mobile] › tests/e2e/groups.spec.js:1914:1 › Sửa on a row whose group went in another tab while another row was in edit: no error, the row goes, focus on Đóng
+[960/1056] [mobile] › tests/e2e/groups.spec.js:1177:1 › Chưa phân nhóm in the filter shows ungrouped tasks and tasks of an unknown group
+[961/1056] [mobile] › tests/e2e/groups.spec.js:1187:1 › filter empty states: a group, Chưa phân nhóm, and the usual empty state on a day with no tasks
+[962/1056] [desktop] › tests/e2e/groups.spec.js:2298:3 › phone 390px: both notes fit, buttons at least 44 px, no horizontal scroll
+[963/1056] [desktop] › tests/e2e/groups.spec.js:2298:3 › phone 360px: both notes fit, buttons at least 44 px, no horizontal scroll
+[964/1056] [desktop] › tests/e2e/groups.spec.js:2323:1 › phone swipes in sections: one strip open, another swipe closes it, a tap outside closes all, Tab into Sửa opens that strip, Giữ lại leaves only it open
+[965/1056] [mobile] › tests/e2e/groups.spec.js:1218:1 › the filter follows previous, next, the picker, Về hôm nay, Back and Forward, and resets on reload
+[966/1056] [mobile] › tests/e2e/groups.spec.js:1937:1 › Xóa on a group with no task asks first, with the name, Giữ lại focused and Xóa nhóm
+[967/1056] [desktop] › tests/e2e/groups.spec.js:2352:1 › task delete note: Giữ lại, then Enter on Xóa straight away, then Xóa việc still deletes that task
+[968/1056] [mobile] › tests/e2e/groups.spec.js:1245:1 › the add choice follows a group and Chưa phân nhóm in the filter, but not Tất cả nhóm
+[969/1056] [mobile] › tests/e2e/groups.spec.js:1258:1 › an add to a group the filter hides is saved, the filter stays and a polite notice says so
+[970/1056] [mobile] › tests/e2e/groups.spec.js:1950:1 › Xóa nhóm removes the group from storage and the card, tasks untouched; focus on the next Sửa, else the previous, else Đóng
+[971/1056] [mobile] › tests/e2e/groups.spec.js:1290:1 › an add into an empty filtered group replaces the empty text with its section
+[972/1056] [mobile] › tests/e2e/groups.spec.js:1301:1 › while filtered the summary, progress and stamp count the whole day
+[973/1056] [mobile] › tests/e2e/groups.spec.js:1319:1 › a move under the filter sends focus to the next visible row, else the previous one, else the add input
+[974/1056] [mobile] › tests/e2e/groups.spec.js:1340:1 › filtering and moving between days never writes to storage
+[975/1056] [mobile] › tests/e2e/groups.spec.js:1351:1 › keyboard only: the filter and Quản lý nhóm follow Thêm in the Tab order and the filter changes with the keys
+[976/1056] [mobile] › tests/e2e/groups.spec.js:1373:3 › 360px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut
+[977/1056] [mobile] › tests/e2e/groups.spec.js:1373:3 › 380px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut
+[978/1056] [mobile] › tests/e2e/groups.spec.js:1968:1 › deleting the only group leaves Bạn chưa có nhóm nào. with focus on Đóng
+[979/1056] [mobile] › tests/e2e/groups.spec.js:1373:3 › 390px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut
+[980/1056] [mobile] › tests/e2e/groups.spec.js:1373:3 › 412px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut
+[981/1056] [mobile] › tests/e2e/groups.spec.js:1979:1 › Giữ lại, Escape and a backdrop click keep the group, the card stays open and focus returns to Xóa
+[982/1056] [mobile] › tests/e2e/groups.spec.js:1373:3 › 452px: Quản lý nhóm shows its text, targets are 44 px, the filter choice is not cut
+[983/1056] [mobile] › tests/e2e/groups.spec.js:1373:3 › 1440px: Quản lý nhóm shows its text, targets are 44 px, the filter choice is not cut
+[984/1056] [mobile] › tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[985/1056] [mobile] › tests/e2e/groups.spec.js:1441:1 › a group removed in another tab while it is filtered: the filter resets, the list shows all, the add choice falls back
+[986/1056] [mobile] › tests/e2e/groups.spec.js:1453:1 › the filtered group renamed in another tab stays selected; all groups removed hides the filter and shows every task
+[987/1056] [mobile] › tests/e2e/groups.spec.js:1465:1 › a filter change drops an open edit on a row it hides and keeps one on a row it shows
+[988/1056] [mobile] › tests/e2e/groups.spec.js:1480:1 › a filter change while Nhóm mới... is open changes the add choice but keeps the line and its text
+[989/1056] [mobile] › tests/e2e/groups.spec.js:1492:1 › midnight with a filter on keeps the filter, follows the new day and clears the notice
+[990/1056] [mobile] › tests/e2e/groups.spec.js:1506:1 › the hidden group notice goes away when the filter changes
+[991/1056] [mobile] › tests/e2e/groups.spec.js:1516:1 › the filter empty text is a polite status, so it is announced when the filter shows no task
+[992/1056] [mobile] › tests/e2e/groups.spec.js:1523:1 › every group removed in another tab while the filter has focus: the filter goes and focus moves to the add input
+[993/1056] [mobile] › tests/e2e/groups.spec.js:2000:1 › deleting the filtered group that is also the add choice resets both; the last group returns the plain list (T7-14)
+[994/1056] [mobile] › tests/e2e/groups.spec.js:1537:1 › an add to a hidden group on an empty day shows the filter empty text and the notice
+[995/1056] [mobile] › tests/e2e/groups.spec.js:1562:1 › Quản lý nhóm opens Nhóm việc with a row per group in creation order and Đóng
+[996/1056] [mobile] › tests/e2e/groups.spec.js:1587:1 › with no groups the card says Bạn chưa có nhóm nào. on a past day, today and a future day
+[997/1056] [mobile] › tests/e2e/groups.spec.js:1598:1 › Sửa shows the name in "Tên nhóm", six named colours with the current one checked, arrow keys, Hủy and Lưu
+[998/1056] [mobile] › tests/e2e/groups.spec.js:2020:1 › deleting the filtered group among others: filter Tất cả nhóm, add choice Chưa phân nhóm, all sections back
+[999/1056] [mobile] › tests/e2e/groups.spec.js:1617:1 › Lưu and Enter save the name and colour at once; headers, choices, filter and toggle names follow; tasks untouched
+[1000/1056] [mobile] › tests/e2e/groups.spec.js:1647:1 › rename errors: empty, too long, a duplicate and Chưa phân nhóm; typing clears; own name in another case is fine
+[1001/1056] [mobile] › tests/e2e/groups.spec.js:2032:1 › a deleted group leaves the collapsed list; the others keep order and colour; a new group continues from the latest
+[1002/1056] [mobile] › tests/e2e/groups.spec.js:1674:1 › Hủy and Escape cancel the row edit and keep the card open; a second Escape closes it
+[1003/1056] [mobile] › tests/e2e/groups.spec.js:2047:1 › a group with tasks on any day is never deleted: the blocked note gives n and d, three buttons, and Xóa stays usable
+[1004/1056] [mobile] › tests/e2e/groups.spec.js:1697:1 › only one row is in edit: Sửa on another row drops the first edit unsaved
+[1005/1056] [mobile] › tests/e2e/groups.spec.js:1709:1 › the card does not close on a backdrop click; Đóng closes it and refreshes the page behind
+[1006/1056] [mobile] › tests/e2e/groups.spec.js:2082:1 › a group emptied by moving its tasks out one by one, or by deleting them, can then be deleted; no task goes with it
+[1007/1056] [mobile] › tests/e2e/groups.spec.js:1719:1 › a filtered group renamed in the card stays selected with its new name (T7-14)
+[1008/1056] [mobile] › tests/e2e/groups.spec.js:1733:1 › a rename keeps typed add text and an open task edit, whose group choice shows the new name
+[1009/1056] [mobile] › tests/e2e/groups.spec.js:1752:1 › a group named <b>abc</b> is plain text in the row and in the rename input
+[1010/1056] [mobile] › tests/e2e/groups.spec.js:1760:1 › keyboard only: open, Tab to a row, rename, Lưu, close
+[1011/1056] [mobile] › tests/e2e/groups.spec.js:1782:1 › phones: Chuyển tất cả việc in a row is icon only and keeps its name; 20 long names fit at 360 px
+[1012/1056] [mobile] › tests/e2e/groups.spec.js:1802:1 › focus stays inside the card: Tab and Shift+Tab never reach the page behind
+[1013/1056] [mobile] › tests/e2e/groups.spec.js:1814:1 › a colour chosen with arrow keys and saved with Lưu is stored (Hồng to Cam)
+[1014/1056] [mobile] › tests/e2e/groups.spec.js:1829:1 › a failing write on rename keeps working in memory, shows the slip and keeps the card usable
+[1015/1056] [mobile] › tests/e2e/groups.spec.js:1847:1 › another tab renames a group while the card is open: rows follow; a row in edit keeps the typed name
+[1016/1056] [mobile] › tests/e2e/groups.spec.js:1866:1 › IME in the rename input: Escape and the committing Enter neither cancel nor save
+[1017/1056] [mobile] › tests/e2e/groups.spec.js:1886:1 › the group in edit is deleted in another tab: Lưu drops the edit quietly and focus goes to Đóng
+[1018/1056] [mobile] › tests/e2e/groups.spec.js:1904:1 › Sửa on the last of 20 groups brings the whole edit block, with Lưu, into view
+[1019/1056] [mobile] › tests/e2e/groups.spec.js:1914:1 › Sửa on a row whose group went in another tab while another row was in edit: no error, the row goes, focus on Đóng
+[1020/1056] [mobile] › tests/e2e/groups.spec.js:2125:3 › Xem các việc này, past only: the latest day up to today; filter and add choice on the group, hash written, Back returns, focus on Quản lý nhóm
+[1021/1056] [mobile] › tests/e2e/groups.spec.js:1937:1 › Xóa on a group with no task asks first, with the name, Giữ lại focused and Xóa nhóm
+[1022/1056] [mobile] › tests/e2e/groups.spec.js:1950:1 › Xóa nhóm removes the group from storage and the card, tasks untouched; focus on the next Sửa, else the previous, else Đóng
+[1023/1056] [mobile] › tests/e2e/groups.spec.js:2125:3 › Xem các việc này, future only: the earliest later day; filter and add choice on the group, hash written, Back returns, focus on Quản lý nhóm
+[1024/1056] [mobile] › tests/e2e/groups.spec.js:1968:1 › deleting the only group leaves Bạn chưa có nhóm nào. with focus on Đóng
+[1025/1056] [mobile] › tests/e2e/groups.spec.js:2125:3 › Xem các việc này, today included: today; filter and add choice on the group, hash written, Back returns, focus on Quản lý nhóm
+[1026/1056] [mobile] › tests/e2e/groups.spec.js:1979:1 › Giữ lại, Escape and a backdrop click keep the group, the card stays open and focus returns to Xóa
+[1027/1056] [mobile] › tests/e2e/groups.spec.js:2147:1 › Xem các việc này on the day already shown stays there, filters the list and adds no history entry
+[1028/1056] [mobile] › tests/e2e/groups.spec.js:2000:1 › deleting the filtered group that is also the add choice resets both; the last group returns the plain list (T7-14)
+[1029/1056] [mobile] › tests/e2e/groups.spec.js:2162:1 › names with markup and quotes are plain text in both notes
+[1030/1056] [mobile] › tests/e2e/groups.spec.js:2175:1 › keyboard only: Xóa, Giữ lại, Escape, Xóa nhóm; then the blocked note with Đã hiểu and Xem các việc này
+[1031/1056] [mobile] › tests/e2e/groups.spec.js:2213:1 › a group deleted in another tab while its note is open: Escape ends it quietly with focus on Đóng
+[1032/1056] [mobile] › tests/e2e/groups.spec.js:2020:1 › deleting the filtered group among others: filter Tất cả nhóm, add choice Chưa phân nhóm, all sections back
+[1033/1056] [mobile] › tests/e2e/groups.spec.js:2227:1 › a failing write on Xóa nhóm: no error, the slip shows, the group goes in the page and the stored list is untouched
+[1034/1056] [mobile] › tests/e2e/groups.spec.js:2032:1 › a deleted group leaves the collapsed list; the others keep order and colour; a new group continues from the latest
+[1035/1056] [mobile] › tests/e2e/groups.spec.js:2249:1 › a task added to the group in another tab while Xóa nhóm? is open: the group must not be deleted (BUG-009)
+[1036/1056] [mobile] › tests/e2e/groups.spec.js:2273:1 › BUG-009: after a task arrives from another tab, Xem các việc này on the blocked note sets the filter, the add choice and the day
+[1037/1056] [mobile] › tests/e2e/groups.spec.js:2047:1 › a group with tasks on any day is never deleted: the blocked note gives n and d, three buttons, and Xóa stays usable
+[1038/1056] [mobile] › tests/e2e/groups.spec.js:2298:3 › phone 390px: both notes fit, buttons at least 44 px, no horizontal scroll
+[1039/1056] [mobile] › tests/e2e/groups.spec.js:2082:1 › a group emptied by moving its tasks out one by one, or by deleting them, can then be deleted; no task goes with it
+[1040/1056] [mobile] › tests/e2e/groups.spec.js:2298:3 › phone 360px: both notes fit, buttons at least 44 px, no horizontal scroll
+[1041/1056] [mobile] › tests/e2e/groups.spec.js:2323:1 › phone swipes in sections: one strip open, another swipe closes it, a tap outside closes all, Tab into Sửa opens that strip, Giữ lại leaves only it open
+[1042/1056] [mobile] › tests/e2e/groups.spec.js:2352:1 › task delete note: Giữ lại, then Enter on Xóa straight away, then Xóa việc still deletes that task
+[1043/1056] [mobile] › tests/e2e/groups.spec.js:2125:3 › Xem các việc này, past only: the latest day up to today; filter and add choice on the group, hash written, Back returns, focus on Quản lý nhóm
+[1044/1056] [mobile] › tests/e2e/groups.spec.js:2125:3 › Xem các việc này, future only: the earliest later day; filter and add choice on the group, hash written, Back returns, focus on Quản lý nhóm
+[1045/1056] [mobile] › tests/e2e/groups.spec.js:2125:3 › Xem các việc này, today included: today; filter and add choice on the group, hash written, Back returns, focus on Quản lý nhóm
+[1046/1056] [mobile] › tests/e2e/groups.spec.js:2147:1 › Xem các việc này on the day already shown stays there, filters the list and adds no history entry
+[1047/1056] [mobile] › tests/e2e/groups.spec.js:2162:1 › names with markup and quotes are plain text in both notes
+[1048/1056] [mobile] › tests/e2e/groups.spec.js:2175:1 › keyboard only: Xóa, Giữ lại, Escape, Xóa nhóm; then the blocked note with Đã hiểu and Xem các việc này
+[1049/1056] [mobile] › tests/e2e/groups.spec.js:2213:1 › a group deleted in another tab while its note is open: Escape ends it quietly with focus on Đóng
+[1050/1056] [mobile] › tests/e2e/groups.spec.js:2227:1 › a failing write on Xóa nhóm: no error, the slip shows, the group goes in the page and the stored list is untouched
+[1051/1056] [mobile] › tests/e2e/groups.spec.js:2249:1 › a task added to the group in another tab while Xóa nhóm? is open: the group must not be deleted (BUG-009)
+[1052/1056] [mobile] › tests/e2e/groups.spec.js:2273:1 › BUG-009: after a task arrives from another tab, Xem các việc này on the blocked note sets the filter, the add choice and the day
+[1053/1056] [mobile] › tests/e2e/groups.spec.js:2298:3 › phone 390px: both notes fit, buttons at least 44 px, no horizontal scroll
+[1054/1056] [mobile] › tests/e2e/groups.spec.js:2298:3 › phone 360px: both notes fit, buttons at least 44 px, no horizontal scroll
+[1055/1056] [mobile] › tests/e2e/groups.spec.js:2323:1 › phone swipes in sections: one strip open, another swipe closes it, a tap outside closes all, Tab into Sửa opens that strip, Giữ lại leaves only it open
+[1056/1056] [mobile] › tests/e2e/groups.spec.js:2352:1 › task delete note: Giữ lại, then Enter on Xóa straight away, then Xóa việc still deletes that task
+  38 skipped
+  1018 passed (2.3m)

@@ -1,0 +1,6 @@
+OLD build first load {"groupsUi":0,"css":["/docs/project/design-system.css"],"script":["/src/app.js"]}
+ server saw: GET /docs/project/design-system.css HTTP/1.1" 200 - | GET /src/app.js HTTP/1.1" 200 - | GET /src/date.js HTTP/1.1" 200 - | GET /src/store.js HTTP/1.1" 200 -
+NEW build after normal reload {"groupsUi":1,"css":["/docs/project/design-system.css?v=1.2.0"],"script":["/src/app.js?v=1.2.0"]}
+ server saw: GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 - | GET /src/app.js?v=1.2.0 HTTP/1.1" 200 - | GET /src/date.js?v=1.2.0 HTTP/1.1" 200 - | GET /src/store.js?v=1.2.0 HTTP/1.1" 200 - | GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 - | GET /src/manage.js?v=1.2.0 HTTP/1.1" 200 -
+ new markup + styles: { display: 'flex', h: 36 }
+NEW build, revisit via address 1 server saw: 

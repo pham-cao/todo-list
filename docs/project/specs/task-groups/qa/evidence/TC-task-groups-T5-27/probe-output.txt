@@ -1,0 +1,6 @@
+Manual probes 2026-11-10 (Chromium, CDP). Now automated in groups.spec.js (T5 QA additions).
+IME: imeSetComposition "Cong tyj" then Enter keydown key=Process (229): groups unchanged, line open, value kept. insertText "Công ty" then Enter: one group "Công ty", no task.
+Pasted NFD: "CÔNG TY" (NFD) rejected as duplicate of stored NFC "Công ty". 28 visible characters in NFD accepted (length counted on NFC). Name is stored as pasted (NFD stays NFD); the duplicate check folds to NFC.
+Double Enter with empty add input: one group, second Enter shows "Vui lòng nhập nội dung công việc." in the add input, no task.
+Double Enter with "Mua" in the add input: group made, then second Enter adds task "Mua" into the new group.
+Double click Tạo nhóm: one group per name, no error.

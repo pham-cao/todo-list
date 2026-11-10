@@ -1,0 +1,182 @@
+[
+ {
+  "w": 1440,
+  "scheme": "light",
+  "view": "sections",
+  "v": [],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 36
+ },
+ {
+  "w": 1440,
+  "scheme": "light",
+  "view": "collapsed",
+  "v": [],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 36
+ },
+ {
+  "w": 1440,
+  "scheme": "light",
+  "view": "plain",
+  "v": [],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 36
+ },
+ {
+  "w": 1440,
+  "scheme": "dark",
+  "view": "sections",
+  "v": [],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 36
+ },
+ {
+  "w": 1440,
+  "scheme": "dark",
+  "view": "collapsed",
+  "v": [],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 36
+ },
+ {
+  "w": 1440,
+  "scheme": "dark",
+  "view": "plain",
+  "v": [],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 36
+ },
+ {
+  "w": 390,
+  "scheme": "light",
+  "view": "sections",
+  "v": [],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 38
+ },
+ {
+  "w": 390,
+  "scheme": "light",
+  "view": "collapsed",
+  "v": [],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 38
+ },
+ {
+  "w": 390,
+  "scheme": "light",
+  "view": "plain",
+  "v": [],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 38
+ },
+ {
+  "w": 390,
+  "scheme": "dark",
+  "view": "sections",
+  "v": [],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 38
+ },
+ {
+  "w": 390,
+  "scheme": "dark",
+  "view": "collapsed",
+  "v": [],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 38
+ },
+ {
+  "w": 390,
+  "scheme": "dark",
+  "view": "plain",
+  "v": [],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 38
+ },
+ {
+  "w": 360,
+  "scheme": "light",
+  "view": "sections",
+  "v": [],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 38
+ },
+ {
+  "w": 360,
+  "scheme": "light",
+  "view": "collapsed",
+  "v": [],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 38
+ },
+ {
+  "w": 360,
+  "scheme": "light",
+  "view": "plain",
+  "v": [],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 38
+ },
+ {
+  "w": 360,
+  "scheme": "dark",
+  "view": "sections",
+  "v": [],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 38
+ },
+ {
+  "w": 360,
+  "scheme": "dark",
+  "view": "collapsed",
+  "v": [],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 38
+ },
+ {
+  "w": 360,
+  "scheme": "dark",
+  "view": "plain",
+  "v": [],
+  "inc": [
+   "color-contrast"
+  ],
+  "passes": 38
+ }
+]

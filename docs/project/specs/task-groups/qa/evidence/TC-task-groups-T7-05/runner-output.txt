@@ -1,0 +1,7 @@
+
+Running 2 tests using 2 workers
+
+  ✓  2 [desktop] › tests/e2e/groups.spec.js:1174:1 › Chưa phân nhóm in the filter shows ungrouped tasks and tasks of an unknown group (177ms)
+  ✓  1 [mobile] › tests/e2e/groups.spec.js:1174:1 › Chưa phân nhóm in the filter shows ungrouped tasks and tasks of an unknown group (187ms)
+
+  2 passed (1.0s)

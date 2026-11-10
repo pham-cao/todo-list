@@ -879,6 +879,8 @@ for (const count of [0, 1, 200]) {
     });
     await expect(rows(page)).toHaveCount(count);
     expect(ms).toBeLessThan(100);
+    // BUG-014: Firefox builds every tooltip box, even in rows it skips, so a row nobody points at or focuses has none.
+    if (count) expect(await rows(page).last().locator('[data-action="edit"]').evaluate((el) => getComputedStyle(el, '::after').content)).toBe('none');
   });
 }
 
@@ -923,8 +925,7 @@ test('200 rows: Tab from the add field into rows scrolled away brings the first 
   await open(page, BIG.map((t) => ({ ...t, done: false })));
   await input(page).focus();
   await page.evaluate(() => scrollTo(0, document.body.scrollHeight));
-  await page.keyboard.press('Tab');
-  await page.keyboard.press('Tab');
+  for (let i = 0; i < 4; i++) await page.keyboard.press('Tab'); // Nhóm, Thêm, Quản lý nhóm, first row
   const focused = page.locator(':focus');
   await expect(rows(page).nth(0)).toContainText('Việc số 1');
   await expect(focused).toBeVisible();

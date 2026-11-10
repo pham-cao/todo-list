@@ -303,3 +303,196 @@ Reason: Same as the approved prototype; unfocused layout stays on one row from a
 
 ## 2026-11-09: day-navigation T5-09 (native calendar popup in headed Chrome, Firefox, Edge)
 Choice: Owner checks it manually on the deployed site after release; logged as blocked, not holding the task (by PM)
+
+## 2026-11-09: Next feature after day-navigation
+Options: BA ranked list (backup-export-import, carry-over-unfinished, week-overview, search-tasks, offline-install, task-notes-and-priority), Owner's own idea
+Choice: task-groups, user created groups to organise tasks, requested by the owner (by user)
+Reason: The owner wants to split tasks into groups for easier management. The BA ranked list stays in the backlog for later.
+
+## 2026-11-09: task-groups D2: Global or per day groups?
+Options: Global, Per day
+Choice: Global, one list of groups for every day (by user)
+
+## 2026-11-09: task-groups D4: Collapsible sections and filter by group?
+Options: Neither for now, Filter only, Collapsible and filter
+Choice: Collapsible sections and a filter by group (by user)
+
+## 2026-11-09: task-groups D6: Deleting a group that has tasks
+Options: Move tasks to ungrouped after confirmation, Delete the tasks too, Block deleting a group that has tasks
+Choice: Block deleting a group that still has tasks on any day; the owner moves them first (by user)
+
+## 2026-11-09: task-groups D1: Colour per group?
+Options: Name only, Choose from about 6 colours
+Choice: Choose from about 6 colours per group (by user)
+
+## 2026-11-09: task-groups: Defaults set by PM for the remaining open questions
+Choice (by PM):
+- D3: "Chưa phân nhóm" shown last; groups with no tasks that day are hidden (unless the filter selects them).
+- D5: the add form keeps the chosen group while the page is open and resets to ungrouped on reload.
+- D7: at most 20 groups, names up to 30 characters, no duplicate names ignoring case.
+- Placement: group select next to the add input and inside the edit form; rename, colour and delete in a "Quản lý nhóm" dialog.
+- A moved task sits by its creation time in the new section (creation order kept everywhere).
+- Stamp, progress and summary stay whole day; section headers show group counts.
+- Add cache busting (version query on CSS and JS links) in this feature so stale cached CSS cannot break the page after a release.
+
+## 2026-11-09: task-groups: Bulk move before deleting a group
+Options: One by one for now, Add "move all tasks of this group to..." now
+Choice: Add the bulk move action now, in the "Quản lý nhóm" dialog (by user)
+
+## 2026-11-09: task-groups: Keep the group filter across reloads?
+Options: Reset to all groups on reload, Remember it
+Choice: Reset on reload (by user)
+
+## 2026-11-09: Approve task-groups requirements?
+Options: Approve, Request changes
+Choice: Approve, with the bulk move action added (by user)
+
+## 2026-11-09: task-groups UX: Keep the group bar line on days with no groups?
+Options: Keep it, Move "Quản lý nhóm" next to the title
+Choice: Keep it (by user)
+
+## 2026-11-09: task-groups UX: Accessible name of the rename input
+Options: "Tên nhóm" (add to the text table), "Sửa"
+Choice: "Tên nhóm" (by user)
+
+## 2026-11-09: task-groups UX: defaults by PM
+Choice: At 20 groups the limit error shows as soon as "Nhóm mới..." is chosen; on phones "Chuyển tất cả việc" in a manage row is icon only with tooltip and accessible name (by PM)
+
+## 2026-11-09: Approve task-groups UX?
+Options: Approve, Request changes
+Choice: Approve (by user)
+
+## 2026-11-09: task-groups UX change after approval: group label style
+Options: Highlighter swipe (approved), Paper sticker
+Choice: Group labels look like paper stickers stuck on the page, to match the notebook style (by user)
+Reason: Owner feedback; UX revises the group label look only, flows and behaviour unchanged.
+
+## 2026-11-09: task-groups UX: sticker review
+Options: Approve, Request changes
+Choice: Request changes: labels should look like torn paper labels with jagged, sawtooth edges (by user)
+
+## 2026-11-09: task-groups UX: live preview sticker when renaming or recolouring?
+Options: No, Yes
+Choice: No (by user)
+
+## 2026-11-09: task-groups UX: group choice cut short at 390 px on the add line
+Choice: Fix so the full name shows (by PM; the owner's answer to this question was the torn label request)
+
+## 2026-11-09: task-groups design: Bulk move when storage was unavailable from page load
+Options: Move in memory like every other change in that session, Always show the move error
+Choice: Move in memory (R61); show the error only when a real write fails (by PM)
+
+## 2026-11-09: task-groups design: Version value for cache busting
+Options: package.json version (1.2.0 now, bumped each release), Date stamp, npm bump script
+Choice: package.json version, set to 1.2.0 now and bumped each release; the unit test catches any reference left behind (by PM)
+
+## 2026-11-09: task-groups design: Filter "Chưa phân nhóm" also sets the add choice to ungrouped?
+Options: Yes, the add choice follows any single filter choice, No
+Choice: Yes (by PM)
+Reason: New tasks go where the owner is looking.
+
+## 2026-11-09: Approve task-groups UX (torn paper labels)?
+Options: Approve, Request changes
+Choice: Approve (by user)
+
+## 2026-11-09: task-groups UX: filter choice truncated at 360 px
+Options: "Quản lý nhóm" icon only on narrow screens, Accept truncation
+Choice: "Quản lý nhóm" icon only below 381 px, keeping its accessible name and tooltip (by user); FE applies this in T7
+
+## 2026-11-09: Approve task-groups design and 11 tasks?
+Options: Approve, Request changes
+Choice: Approve (by user)
+
+## 2026-11-09: task-groups T3 review: duplicate names differing only in case or NFC in a hand edited store
+Options: Drop later duplicates on load, Accept as out of scope
+Choice: Accept as out of scope (by PM)
+Reason: The UI can never create such names; only a hand edited store can.
+
+## 2026-11-09: task-groups QA plan open points
+Choice (by PM):
+- R47 hidden group notice for an ungrouped add uses the name "Chưa phân nhóm": confirmed.
+- moveGroup(from, to) with from equal to to, or an unknown id: no data change and no loss: confirmed.
+- Group names are stored as typed (not NFC normalised); only the length and duplicate checks use NFC: confirmed, intended.
+- Two tabs, last writer wins on the groups key: accepted as a residual risk; the existing backlog follow up for multi tab sync covers it.
+- No qa-test-generator specialist: each FE task writes its own e2e tests in a new tests/e2e/groups.spec.js using tests/e2e/helpers.js; QA executes and fills gaps.
+
+## 2026-11-09: task-groups BUG-005: section toggle name conflicts with WCAG 2.5.3 (label in name)
+Options: Change the name so it starts with or contains the visible text, Waive the axe rule, Move the count outside the button
+Choice: Fix it: the toggle's accessible name must contain its visible text ("{name} {d}/{t}") so axe label-content-name-mismatch passes, while still telling screen reader users it is a group and its progress (for example the visible text as the name plus a description). R63 wording is amended accordingly; FE picks the simplest markup that passes axe and reads well in Vietnamese (by PM)
+Reason: Accessibility is not waived; the change is small and reused by later tasks.
+
+## 2026-11-10: task-groups T5: Safari IME Enter guard
+Options: Add `e.keyCode === 229` guard, Skip
+Choice: Add the guard (by PM)
+Reason: The owner may use an iPhone; the guard is one condition and Safari cannot be tested on this host.
+
+## 2026-11-10: task-groups T5: Enter twice quickly when creating a group
+Choice: Accepted as normal add behaviour, no change (by PM, on QA's judgement)
+
+## 2026-11-10: task-groups T5 review: split app.js now?
+Options: Move group UI to src/groups-ui.js before T7, Keep the design plan (src/manage.js from T8)
+Choice: Keep the design plan; T8 creates src/manage.js for the dialog work and may move the add choice and filter helpers there if app.js passes about 900 lines (by PM)
+Reason: Avoid an extra refactor task; the planned split already covers the biggest piece.
+
+## 2026-11-10: task-groups T6 QA optional points
+Choice (by PM):
+- Edit select named "Nhóm" (same as the add select): keep as is, consistent with the edit textbox "Sửa"; no extra aria-label.
+- Repeated live region message for two moves to the same group: make it reliably announced by clearing the text and setting it again on the next frame (small change, done with the T6 review fixes).
+
+## 2026-11-10: task-groups T7: filter choice truncated from 381 to about 412 px
+Options: Raise the icon only breakpoint for "Quản lý nhóm" to about 413 px, Accept the ellipsis
+Choice: Raise the breakpoint so the full filter choice fits on common phones (390 to 412 px); the button keeps its accessible name and tooltip (by PM)
+Reason: The owner already asked to avoid truncated group names on phones (add line, 360 px filter).
+Follow up (2026-11-10): measured breakpoint is 452 px, not 413 px; "Quản lý nhóm" is icon only below 452 px so "Chưa phân nhóm" and "Học tiếng Nhật" fit in full on phones up to 451 px (by PM, from FE measurement).
+
+## 2026-11-10: task-groups T7 QA observations
+Choice (by PM):
+- Open edit dropped when the filter hides its row, and the new group line kept open on a filter change: accepted.
+- Announce the filter empty state: yes, give #group-empty role="status" so screen readers hear the empty text when the filter shows nothing.
+- If the focused filter disappears because all groups were removed in another tab, move focus to the add input.
+- A move into a hidden collapsed group still expands and stores it (R28): accepted.
+
+## 2026-11-10: task-groups T8: design system changes outside the boundary
+Choice: Accept the three design-system.css changes (card dialog full prototype width, scrolling group rows inside the card, row tooltips anchored to stay unclipped) and the app.spec.js selector change to #delete-dialog; FE adds the matching line to design-system.md with the review fixes (by PM)
+
+## 2026-11-10: task-groups T8: storage failure slip hidden behind the modal card
+Choice: Accept for now; T11 (safety checks) decides whether the card should also announce a failed write, reusing the existing storage message text (by PM)
+
+## 2026-11-10: task-groups T9 bugs
+Choice (by PM):
+- BUG-009: yes, at "Xóa nhóm" confirm time re-read the stored tasks and show the blocked note if the group now has tasks on any day. Wider stale tasks across tabs stays out of scope (existing multi tab follow up).
+- BUG-010: fix the forced layout in closeSwipes (skip scrollLeft reads when no swipe strip is open) so a settled move with 200 tasks stays under 100 ms, then remove the fixme; T11 rechecks add, collapse and filter on a settled page.
+
+## 2026-11-10: task-groups T9 review minors
+Choice (by PM):
+- storedUsage must count only entries the store would load (filter with the store's validity check), so a damaged entry cannot block a delete or produce a bad hash: fix before commit.
+- After "Xem các việc này" on the BUG-009 path, the day may look empty because this tab's tasks are not reloaded: accepted as the existing cross tab stale tasks limit (multi tab follow up in the backlog).
+
+## 2026-11-10: task-groups: carry to T11
+Choice (by PM): T11 checks that a stored task with a well formed but impossible date (e.g. 2026-13-45) in a group cannot make "Xem các việc này" move to an invalid day (go() or showGroupTasks must use parseDateKey).
+
+## 2026-11-10: task-groups T10 bugs
+Choice (by PM):
+- BUG-013: keep refusing the move when another tab stored more tasks of the group (no data loss), but show a distinct message instead of the write failure text: "Một tab khác vừa thay đổi việc của nhóm này. Hãy tải lại trang rồi thử lại." Added to the Vietnamese label table. Full cross tab task reload stays out of scope.
+- BUG-012: when the blocked note's group is removed in another tab, sync closes the blocked note and returns focus to the card's row or "Đóng".
+
+## 2026-11-10: task-groups T10: stale check by task id
+Choice: The move is refused (other tab message) when any valid stored task of the group has an id this tab does not hold. Accepted rare case: after a failed delete save in this tab, the move is also refused until reload; nothing is lost (by PM)
+
+## 2026-11-10: task-groups T11
+Choice (by PM):
+- Carry over (b): yes, a failed write while the "Nhóm việc" card is open is announced inside the card, reusing the storage slip text.
+- Move card title overflow with a 30 character name without spaces at 360 px: approve `.dialog__title { overflow-wrap: anywhere; }` in design-system.css and turn the fixme into a normal test.
+- Corner sticker on the move card extending past the screen edge on phones: accepted, same as the approved prototype, causes no scroll.
+
+## 2026-11-10: task-groups: BUG-014 before release?
+Options: Release and record the risk, Fix before release
+Choice: Fix before release (by user). New task T12 "Firefox speed for 200 tasks" (owner fe); it also covers the same slow class in day navigation if the cause is shared.
+
+## 2026-11-10: task-groups T12: Firefox speed test residual on a loaded host
+Options: Accept, Retry once or median of three in Firefox
+Choice: Accept (by PM)
+Reason: The suite runs Chromium only; Firefox medians are 7 to 30 ms; about 5 percent of loaded host Firefox runs land at 111 to 158 ms, down from about 32 percent.
+
+## 2026-11-10: task-groups T12 review: tooltip differences accepted
+Choice: Accepted (by PM): leaving a row straight from Sửa or Xóa hides its tooltip at once (no fade out); browsers without @starting-style (Safari before 17.5, Firefox before 129) show the tooltip at once when the pointer lands straight on a button. design-system.md wording corrected.

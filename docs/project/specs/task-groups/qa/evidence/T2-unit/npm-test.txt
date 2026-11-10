@@ -1,0 +1,229 @@
+
+> todo-list@0.1.0 test
+> node --test tests/unit/
+
+TAP version 13
+# Subtest: toDateKey pads month and day
+ok 1 - toDateKey pads month and day
+  ---
+  duration_ms: 1.272866
+  ...
+# Subtest: toDateKey uses local midnight boundary
+ok 2 - toDateKey uses local midnight boundary
+  ---
+  duration_ms: 0.156899
+  ...
+# Subtest: toDateKey and formatDate default to now
+ok 3 - toDateKey and formatDate default to now
+  ---
+  duration_ms: 0.333413
+  ...
+# Subtest: formatDate example
+ok 4 - formatDate example
+  ---
+  duration_ms: 0.221147
+  ...
+# Subtest: formatDate gives all seven weekday names
+ok 5 - formatDate gives all seven weekday names
+  ---
+  duration_ms: 0.25236
+  ...
+# Subtest: bounds constants
+ok 6 - bounds constants
+  ---
+  duration_ms: 0.165655
+  ...
+# Subtest: parseDateKey accepts valid keys as local midnight
+ok 7 - parseDateKey accepts valid keys as local midnight
+  ---
+  duration_ms: 0.324865
+  ...
+# Subtest: parseDateKey rejects impossible dates, wrong formats and out of range years
+ok 8 - parseDateKey rejects impossible dates, wrong formats and out of range years
+  ---
+  duration_ms: 0.253621
+  ...
+# Subtest: addDays across month end, year end and leap day
+ok 9 - addDays across month end, year end and leap day
+  ---
+  duration_ms: 0.25341
+  ...
+# Subtest: addDays 400 single steps match a UTC calendar
+ok 10 - addDays 400 single steps match a UTC calendar
+  ---
+  duration_ms: 4.411515
+  ...
+# Subtest: addDays is null at the bounds and for invalid keys
+ok 11 - addDays is null at the bounds and for invalid keys
+  ---
+  duration_ms: 0.348278
+  ...
+# Subtest: dayKind gives all five kinds
+ok 12 - dayKind gives all five kinds
+  ---
+  duration_ms: 0.958375
+  ...
+# Subtest: dayKind and dateLine across month and year ends
+ok 13 - dayKind and dateLine across month and year ends
+  ---
+  duration_ms: 0.190971
+  ...
+# Subtest: dateLine requirement examples
+ok 14 - dateLine requirement examples
+  ---
+  duration_ms: 0.196233
+  ...
+# Subtest: dateLine and dayKind never throw or echo invalid input
+ok 15 - dateLine and dayKind never throw or echo invalid input
+  ---
+  duration_ms: 0.264059
+  ...
+# Subtest: validateText limits
+ok 16 - validateText limits
+  ---
+  duration_ms: 1.801023
+  ...
+# Subtest: validateText trims only
+ok 17 - validateText trims only
+  ---
+  duration_ms: 0.18584
+  ...
+# Subtest: getStorage returns null when unavailable
+ok 18 - getStorage returns null when unavailable
+  ---
+  duration_ms: 0.148264
+  ...
+# Subtest: add sets fields; tasksFor filters by date in creation order
+ok 19 - add sets fields; tasksFor filters by date in creation order
+  ---
+  duration_ms: 2.098416
+  ...
+# Subtest: tasksFor returns copies
+ok 20 - tasksFor returns copies
+  ---
+  duration_ms: 0.216195
+  ...
+# Subtest: updateText keeps done, date and position; errors leave text
+ok 21 - updateText keeps done, date and position; errors leave text
+  ---
+  duration_ms: 0.330582
+  ...
+# Subtest: setDone and remove
+ok 22 - setDone and remove
+  ---
+  duration_ms: 0.876625
+  ...
+# Subtest: data survives a new store on the same storage
+ok 23 - data survives a new store on the same storage
+  ---
+  duration_ms: 0.282782
+  ...
+# Subtest: corrupt JSON and non array start empty and back up raw value
+ok 24 - corrupt JSON and non array start empty and back up raw value
+  ---
+  duration_ms: 0.505918
+  ...
+# Subtest: missing or empty value starts empty without backup
+ok 25 - missing or empty value starts empty without backup
+  ---
+  duration_ms: 0.239828
+  ...
+# Subtest: invalid items are dropped, valid kept
+ok 26 - invalid items are dropped, valid kept
+  ---
+  duration_ms: 0.291981
+  ...
+# Subtest: read failure: memory only, no writes
+ok 27 - read failure: memory only, no writes
+  ---
+  duration_ms: 0.263548
+  ...
+# Subtest: write failure keeps memory and old stored value; recovery restores storageOk
+ok 28 - write failure keeps memory and old stored value; recovery restores storageOk
+  ---
+  duration_ms: 0.223939
+  ...
+# Subtest: unknown id: updateText notFound, setDone undefined, remove harmless
+ok 29 - unknown id: updateText notFound, setDone undefined, remove harmless
+  ---
+  duration_ms: 0.195139
+  ...
+# Subtest: write failure on remove and setDone keeps memory change
+ok 30 - write failure on remove and setDone keeps memory change
+  ---
+  duration_ms: 0.178114
+  ...
+# Subtest: corrupt backup failing does not throw or lock the store
+ok 31 - corrupt backup failing does not throw or lock the store
+  ---
+  duration_ms: 0.235401
+  ...
+# Subtest: add with a dateKey uses it as date, keeps real createdAt, persists
+ok 32 - add with a dateKey uses it as date, keeps real createdAt, persists
+  ---
+  duration_ms: 0.250958
+  ...
+# Subtest: add with a dateKey: too long saves nothing; failing write keeps task in memory and old stored value
+ok 33 - add with a dateKey: too long saves nothing; failing write keeps task in memory and old stored value
+  ---
+  duration_ms: 0.307426
+  ...
+# Subtest: validateText max argument and exported newId
+ok 34 - validateText max argument and exported newId
+  ---
+  duration_ms: 0.141809
+  ...
+# Subtest: groupId is written only when set; updateText sets, keeps and removes it
+ok 35 - groupId is written only when set; updateText sets, keeps and removes it
+  ---
+  duration_ms: 0.259395
+  ...
+# Subtest: invalid text changes neither text nor group
+ok 36 - invalid text changes neither text nor group
+  ---
+  duration_ms: 0.154487
+  ...
+# Subtest: groupUsage counts tasks and lists sorted distinct days
+ok 37 - groupUsage counts tasks and lists sorted distinct days
+  ---
+  duration_ms: 0.285177
+  ...
+# Subtest: moveGroup changes only groupId, one write; to null removes the field
+ok 38 - moveGroup changes only groupId, one write; to null removes the field
+  ---
+  duration_ms: 0.532751
+  ...
+# Subtest: moveGroup on an empty group does not write
+ok 39 - moveGroup on an empty group does not write
+  ---
+  duration_ms: 0.14078
+  ...
+# Subtest: moveGroup write failure returns save error and changes nothing
+ok 40 - moveGroup write failure returns save error and changes nothing
+  ---
+  duration_ms: 0.313779
+  ...
+# Subtest: locked store moves in memory without writing
+ok 41 - locked store moves in memory without writing
+  ---
+  duration_ms: 0.216605
+  ...
+# Subtest: stored tasks with missing, null or unknown groupId load and are not rewritten
+ok 42 - stored tasks with missing, null or unknown groupId load and are not rewritten
+  ---
+  duration_ms: 0.147662
+  ...
+# Subtest: non string group ids are ignored by add and updateText
+ok 43 - non string group ids are ignored by add and updateText
+  ---
+  duration_ms: 0.16477
+  ...
+1..43
+# tests 43
+# suites 0
+# pass 43
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 82.370625

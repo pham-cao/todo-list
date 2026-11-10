@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { validateText, createStore, getStorage, STORAGE_KEY, MAX_LENGTH } from "../../src/store.js";
+import { validateText, newId, createStore, getStorage, STORAGE_KEY, MAX_LENGTH } from "../../src/store.js";
 
 const fake = (init = {}) => {
   const data = { ...init };
@@ -207,4 +207,134 @@ test("add with a dateKey: too long saves nothing; failing write keeps task in me
   assert.equal(s.storageOk, false);
   assert.equal(s.tasksFor("2026-11-08").at(-1).id, t.id);
   assert.equal(mem.get(STORAGE_KEY), stored);
+});
+
+test("validateText max argument and exported newId", () => {
+  assert.equal(validateText("a".repeat(31), 30).error, "tooLong");
+  assert.ok(validateText("a".repeat(30), 30).text);
+  assert.notEqual(newId(), newId());
+});
+
+test("groupId is written only when set; updateText sets, keeps and removes it", () => {
+  const s = createStore(fake());
+  const a = s.add("a", day, "2026-11-09").task;
+  assert.ok(!("groupId" in a));
+  assert.ok(!("groupId" in s.add("b", day, "2026-11-09", "").task));
+  const g = s.add("g", day, "2026-11-09", "g1").task;
+  assert.equal(g.groupId, "g1");
+  assert.equal(s.updateText(a.id, "a2", "g2").task.groupId, "g2");
+  assert.equal(s.updateText(a.id, "a3").task.groupId, "g2");
+  const r = s.updateText(a.id, "a4", null).task;
+  assert.ok(!("groupId" in r));
+  assert.ok(!("groupId" in s.tasksFor("2026-11-09")[0]));
+});
+
+test("invalid text changes neither text nor group", () => {
+  const mem = fake();
+  const s = createStore(mem);
+  const t = s.add("a", day, "2026-11-09", "g1").task;
+  const stored = mem.data[STORAGE_KEY];
+  assert.equal(s.updateText(t.id, "  ", null).error, "empty");
+  assert.equal(s.updateText(t.id, "x".repeat(201), "g2").error, "tooLong");
+  assert.equal(s.tasksFor("2026-11-09")[0].groupId, "g1");
+  assert.equal(mem.data[STORAGE_KEY], stored);
+});
+
+const seeded = () => fake({ [STORAGE_KEY]: JSON.stringify([
+  good({ id: "1", groupId: "g", date: "2026-11-10" }),
+  good({ id: "2", groupId: "g", date: "2026-11-01", done: true }),
+  good({ id: "3", groupId: "g", date: "2026-11-10" }),
+  good({ id: "4", groupId: "h", date: "2026-12-25" }),
+  good({ id: "5" }),
+]) });
+
+test("groupUsage counts tasks and lists sorted distinct days", () => {
+  const s = createStore(seeded());
+  assert.deepEqual(s.groupUsage("g"), { count: 3, days: ["2026-11-01", "2026-11-10"] });
+  assert.deepEqual(s.groupUsage("h"), { count: 1, days: ["2026-12-25"] });
+  assert.deepEqual(s.groupUsage("zz"), { count: 0, days: [] });
+});
+
+test("moveGroup changes only groupId, one write; to null removes the field", () => {
+  const mem = seeded();
+  let writes = 0;
+  const storage = { getItem: mem.getItem, setItem: (k, v) => { writes++; mem.setItem(k, v); } };
+  const s = createStore(storage);
+  const before = JSON.parse(mem.data[STORAGE_KEY]);
+  assert.deepEqual(s.moveGroup("g", "h"), { moved: 3 });
+  assert.equal(writes, 1);
+  const after = JSON.parse(mem.data[STORAGE_KEY]);
+  assert.deepEqual(after.map(({ groupId, ...r }) => r), before.map(({ groupId, ...r }) => r));
+  assert.deepEqual(after.map((t) => t.groupId), ["h", "h", "h", "h", undefined]);
+  assert.deepEqual(s.moveGroup("h", null), { moved: 4 });
+  assert.ok(JSON.parse(mem.data[STORAGE_KEY]).every((t) => !("groupId" in t)));
+  assert.ok(s.tasksFor("2026-11-10").every((t) => !("groupId" in t)));
+});
+
+test("moveGroup on an empty group does not write", () => {
+  let writes = 0;
+  const s = createStore({ getItem: () => null, setItem: () => { writes++; } });
+  assert.deepEqual(s.moveGroup("none", "h"), { moved: 0 });
+  assert.equal(writes, 0);
+});
+
+test("moveGroup write failure returns save error and changes nothing", () => {
+  const mem = seeded();
+  let fail = false;
+  const s = createStore({ getItem: mem.getItem, setItem: (k, v) => { if (fail) throw new Error("full"); mem.setItem(k, v); } });
+  s.add("w", day, "2026-11-09"); // a real write first
+  const stored = mem.data[STORAGE_KEY];
+  const tasks = s.tasksFor("2026-11-10");
+  fail = true;
+  assert.deepEqual(s.moveGroup("g", "h"), { error: "save" });
+  assert.deepEqual(s.tasksFor("2026-11-10"), tasks);
+  assert.equal(mem.data[STORAGE_KEY], stored);
+  assert.equal(s.storageOk, true);
+});
+
+test("locked store moves in memory without writing", () => {
+  let writes = 0;
+  const s = createStore({ getItem: () => { throw new Error("denied"); }, setItem: () => { writes++; } });
+  s.add("a", day, "2026-11-09", "g");
+  assert.deepEqual(s.moveGroup("g", "h"), { moved: 1 });
+  assert.equal(s.tasksFor("2026-11-09")[0].groupId, "h");
+  assert.equal(writes, 0);
+});
+
+test("stored tasks with missing, null or unknown groupId load and are not rewritten", () => {
+  const mem = fake({ [STORAGE_KEY]: JSON.stringify([
+    good({ id: "1" }), good({ id: "2", groupId: null }), good({ id: "3", groupId: "gone" }),
+  ]) });
+  const raw = mem.data[STORAGE_KEY];
+  const s = createStore(mem);
+  assert.equal(s.tasksFor("2026-11-09").length, 3);
+  assert.equal(mem.data[STORAGE_KEY], raw);
+});
+
+test("non string group ids are ignored by add and updateText", () => {
+  const s = createStore(fake());
+  assert.ok(!("groupId" in s.add("a", day, "2026-11-09", 5).task));
+  const t = s.add("b", day, "2026-11-09", "g1").task;
+  for (const bad of [5, {}, [], true, ""]) assert.equal(s.updateText(t.id, "b", bad).task.groupId, "g1");
+});
+
+test("moveGroup with a missing fromId moves nothing and does not write", () => {
+  const mem = seeded();
+  let writes = 0;
+  const s = createStore({ getItem: mem.getItem, setItem: (k, v) => { writes++; mem.setItem(k, v); } });
+  for (const bad of [undefined, null, ""]) assert.deepEqual(s.moveGroup(bad, "h"), { moved: 0 });
+  assert.equal(writes, 0);
+  assert.ok(!("groupId" in s.tasksFor("2026-11-09")[0]));
+});
+
+test("a successful moveGroup write restores storageOk", () => {
+  const mem = seeded();
+  let fail = false;
+  const s = createStore({ getItem: mem.getItem, setItem: (k, v) => { if (fail) throw new Error("full"); mem.setItem(k, v); } });
+  fail = true;
+  s.add("w", day, "2026-11-09");
+  assert.equal(s.storageOk, false);
+  fail = false;
+  assert.deepEqual(s.moveGroup("g", "h"), { moved: 3 });
+  assert.equal(s.storageOk, true);
 });

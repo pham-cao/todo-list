@@ -1,0 +1,325 @@
+
+Running 120 tests using 4 workers
+
+[1/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[2/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:838:1 › 200 tasks render quickly and a tick updates in under 100 ms
+[3/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:838:1 › 200 tasks render quickly and a tick updates in under 100 ms
+[4/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:313:1 › 200 tasks in 5 groups: render, collapse and tick each under 100 ms
+[5/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:924:1 › 200 rows: Tab from the add field into rows scrolled away brings the first row back into view
+[6/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[7/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen
+[8/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:924:1 › 200 rows: Tab from the add field into rows scrolled away brings the first row back into view
+[9/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[10/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:313:1 › 200 tasks in 5 groups: render, collapse and tick each under 100 ms
+[11/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen
+[12/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+  1) [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "Việc số 150"
+    Received: ""
+
+      938 |   expect(await page.evaluate(() => window.find('Việc số 150'))).toBe(true);
+      939 |   expect(await page.evaluate(() => scrollY)).toBeGreaterThan(1000);
+    > 940 |   expect(await page.evaluate(() => getSelection().toString())).toBe('Việc số 150');
+          |                                                                ^
+      941 | });
+      942 |
+      943 | test('200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted', async ({ page }) => {
+        at /home/gem/src/todo_list/tests/e2e/day-nav.spec.js:940:64
+
+    Error Context: ff-results/day-nav-200-rows-browser-f-6a39d-of-a-row-that-is-off-screen-firefox/error-context.md
+
+
+[13/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:943:1 › 200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted
+[14/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[15/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+  2) [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "Việc số 150"
+    Received: ""
+
+      938 |   expect(await page.evaluate(() => window.find('Việc số 150'))).toBe(true);
+      939 |   expect(await page.evaluate(() => scrollY)).toBeGreaterThan(1000);
+    > 940 |   expect(await page.evaluate(() => getSelection().toString())).toBe('Việc số 150');
+          |                                                                ^
+      941 | });
+      942 |
+      943 | test('200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted', async ({ page }) => {
+        at /home/gem/src/todo_list/tests/e2e/day-nav.spec.js:940:64
+
+    Error Context: ff-results/day-nav-200-rows-browser-f-6a39d-of-a-row-that-is-off-screen-firefox-repeat1/error-context.md
+
+
+[16/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[17/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[18/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:943:1 › 200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted
+[19/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[20/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[21/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[22/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:966:1 › 200 rows: a hovered or focused row renders in full so the Sửa and Xóa tooltips are not clipped
+[23/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:966:1 › 200 rows: a hovered or focused row renders in full so the Sửa and Xóa tooltips are not clipped
+[24/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[25/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:838:1 › 200 tasks render quickly and a tick updates in under 100 ms
+[26/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[27/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:313:1 › 200 tasks in 5 groups: render, collapse and tick each under 100 ms
+[28/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:838:1 › 200 tasks render quickly and a tick updates in under 100 ms
+[29/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:924:1 › 200 rows: Tab from the add field into rows scrolled away brings the first row back into view
+[30/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[31/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[32/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen
+[33/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[34/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:313:1 › 200 tasks in 5 groups: render, collapse and tick each under 100 ms
+[35/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+  3) [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "Việc số 150"
+    Received: ""
+
+      938 |   expect(await page.evaluate(() => window.find('Việc số 150'))).toBe(true);
+      939 |   expect(await page.evaluate(() => scrollY)).toBeGreaterThan(1000);
+    > 940 |   expect(await page.evaluate(() => getSelection().toString())).toBe('Việc số 150');
+          |                                                                ^
+      941 | });
+      942 |
+      943 | test('200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted', async ({ page }) => {
+        at /home/gem/src/todo_list/tests/e2e/day-nav.spec.js:940:64
+
+    Error Context: ff-results/day-nav-200-rows-browser-f-6a39d-of-a-row-that-is-off-screen-firefox-repeat2/error-context.md
+
+
+[36/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[37/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:924:1 › 200 rows: Tab from the add field into rows scrolled away brings the first row back into view
+[38/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[39/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:943:1 › 200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted
+[40/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[41/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen
+[42/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[43/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[44/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+  4) [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "Việc số 150"
+    Received: ""
+
+      938 |   expect(await page.evaluate(() => window.find('Việc số 150'))).toBe(true);
+      939 |   expect(await page.evaluate(() => scrollY)).toBeGreaterThan(1000);
+    > 940 |   expect(await page.evaluate(() => getSelection().toString())).toBe('Việc số 150');
+          |                                                                ^
+      941 | });
+      942 |
+      943 | test('200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted', async ({ page }) => {
+        at /home/gem/src/todo_list/tests/e2e/day-nav.spec.js:940:64
+
+    Error Context: ff-results/day-nav-200-rows-browser-f-6a39d-of-a-row-that-is-off-screen-firefox-repeat3/error-context.md
+
+
+[45/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:943:1 › 200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted
+[46/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[47/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:966:1 › 200 rows: a hovered or focused row renders in full so the Sửa and Xóa tooltips are not clipped
+[48/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:838:1 › 200 tasks render quickly and a tick updates in under 100 ms
+[49/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:966:1 › 200 rows: a hovered or focused row renders in full so the Sửa and Xóa tooltips are not clipped
+[50/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[51/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:313:1 › 200 tasks in 5 groups: render, collapse and tick each under 100 ms
+[52/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:838:1 › 200 tasks render quickly and a tick updates in under 100 ms
+[53/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:924:1 › 200 rows: Tab from the add field into rows scrolled away brings the first row back into view
+[54/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[55/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen
+[56/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[57/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:313:1 › 200 tasks in 5 groups: render, collapse and tick each under 100 ms
+[58/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+  5) [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "Việc số 150"
+    Received: ""
+
+      938 |   expect(await page.evaluate(() => window.find('Việc số 150'))).toBe(true);
+      939 |   expect(await page.evaluate(() => scrollY)).toBeGreaterThan(1000);
+    > 940 |   expect(await page.evaluate(() => getSelection().toString())).toBe('Việc số 150');
+          |                                                                ^
+      941 | });
+      942 |
+      943 | test('200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted', async ({ page }) => {
+        at /home/gem/src/todo_list/tests/e2e/day-nav.spec.js:940:64
+
+    Error Context: ff-results/day-nav-200-rows-browser-f-6a39d-of-a-row-that-is-off-screen-firefox-repeat4/error-context.md
+
+
+[59/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[60/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:924:1 › 200 rows: Tab from the add field into rows scrolled away brings the first row back into view
+[61/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:943:1 › 200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted
+[62/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[63/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[64/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen
+[65/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[66/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[67/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[68/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+  6) [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "Việc số 150"
+    Received: ""
+
+      938 |   expect(await page.evaluate(() => window.find('Việc số 150'))).toBe(true);
+      939 |   expect(await page.evaluate(() => scrollY)).toBeGreaterThan(1000);
+    > 940 |   expect(await page.evaluate(() => getSelection().toString())).toBe('Việc số 150');
+          |                                                                ^
+      941 | });
+      942 |
+      943 | test('200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted', async ({ page }) => {
+        at /home/gem/src/todo_list/tests/e2e/day-nav.spec.js:940:64
+
+    Error Context: ff-results/day-nav-200-rows-browser-f-6a39d-of-a-row-that-is-off-screen-firefox-repeat5/error-context.md
+
+
+[69/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:943:1 › 200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted
+[70/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:966:1 › 200 rows: a hovered or focused row renders in full so the Sửa and Xóa tooltips are not clipped
+[71/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[72/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:838:1 › 200 tasks render quickly and a tick updates in under 100 ms
+[73/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:966:1 › 200 rows: a hovered or focused row renders in full so the Sửa and Xóa tooltips are not clipped
+[74/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[75/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:313:1 › 200 tasks in 5 groups: render, collapse and tick each under 100 ms
+[76/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:838:1 › 200 tasks render quickly and a tick updates in under 100 ms
+[77/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[78/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:924:1 › 200 rows: Tab from the add field into rows scrolled away brings the first row back into view
+[79/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen
+[80/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[81/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[82/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:924:1 › 200 rows: Tab from the add field into rows scrolled away brings the first row back into view
+[83/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:313:1 › 200 tasks in 5 groups: render, collapse and tick each under 100 ms
+[84/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen
+  7) [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "Việc số 150"
+    Received: ""
+
+      938 |   expect(await page.evaluate(() => window.find('Việc số 150'))).toBe(true);
+      939 |   expect(await page.evaluate(() => scrollY)).toBeGreaterThan(1000);
+    > 940 |   expect(await page.evaluate(() => getSelection().toString())).toBe('Việc số 150');
+          |                                                                ^
+      941 | });
+      942 |
+      943 | test('200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted', async ({ page }) => {
+        at /home/gem/src/todo_list/tests/e2e/day-nav.spec.js:940:64
+
+    Error Context: ff-results/day-nav-200-rows-browser-f-6a39d-of-a-row-that-is-off-screen-firefox-repeat6/error-context.md
+
+
+[85/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[86/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[87/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:943:1 › 200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted
+[88/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[89/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+  8) [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "Việc số 150"
+    Received: ""
+
+      938 |   expect(await page.evaluate(() => window.find('Việc số 150'))).toBe(true);
+      939 |   expect(await page.evaluate(() => scrollY)).toBeGreaterThan(1000);
+    > 940 |   expect(await page.evaluate(() => getSelection().toString())).toBe('Việc số 150');
+          |                                                                ^
+      941 | });
+      942 |
+      943 | test('200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted', async ({ page }) => {
+        at /home/gem/src/todo_list/tests/e2e/day-nav.spec.js:940:64
+
+    Error Context: ff-results/day-nav-200-rows-browser-f-6a39d-of-a-row-that-is-off-screen-firefox-repeat7/error-context.md
+
+
+[90/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[91/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:943:1 › 200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted
+[92/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[93/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[94/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:966:1 › 200 rows: a hovered or focused row renders in full so the Sửa and Xóa tooltips are not clipped
+[95/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[96/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:966:1 › 200 rows: a hovered or focused row renders in full so the Sửa and Xóa tooltips are not clipped
+[97/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:838:1 › 200 tasks render quickly and a tick updates in under 100 ms
+[98/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[99/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:313:1 › 200 tasks in 5 groups: render, collapse and tick each under 100 ms
+[100/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/app.spec.js:838:1 › 200 tasks render quickly and a tick updates in under 100 ms
+[101/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms
+[102/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:924:1 › 200 rows: Tab from the add field into rows scrolled away brings the first row back into view
+[103/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen
+[104/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[105/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[106/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:313:1 › 200 tasks in 5 groups: render, collapse and tick each under 100 ms
+[107/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:924:1 › 200 rows: Tab from the add field into rows scrolled away brings the first row back into view
+[108/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms
+[109/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+  9) [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "Việc số 150"
+    Received: ""
+
+      938 |   expect(await page.evaluate(() => window.find('Việc số 150'))).toBe(true);
+      939 |   expect(await page.evaluate(() => scrollY)).toBeGreaterThan(1000);
+    > 940 |   expect(await page.evaluate(() => getSelection().toString())).toBe('Việc số 150');
+          |                                                                ^
+      941 | });
+      942 |
+      943 | test('200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted', async ({ page }) => {
+        at /home/gem/src/todo_list/tests/e2e/day-nav.spec.js:940:64
+
+    Error Context: ff-results/day-nav-200-rows-browser-f-6a39d-of-a-row-that-is-off-screen-firefox-repeat8/error-context.md
+
+
+[110/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen
+[111/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1029:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010)
+[112/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+[113/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:943:1 › 200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted
+[114/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:1417:1 › 200 tasks in 20 groups: a filter change stays under 100 ms
+[115/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:2749:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms
+  10) [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "Việc số 150"
+    Received: ""
+
+      938 |   expect(await page.evaluate(() => window.find('Việc số 150'))).toBe(true);
+      939 |   expect(await page.evaluate(() => scrollY)).toBeGreaterThan(1000);
+    > 940 |   expect(await page.evaluate(() => getSelection().toString())).toBe('Việc số 150');
+          |                                                                ^
+      941 | });
+      942 |
+      943 | test('200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted', async ({ page }) => {
+        at /home/gem/src/todo_list/tests/e2e/day-nav.spec.js:940:64
+
+    Error Context: ff-results/day-nav-200-rows-browser-f-6a39d-of-a-row-that-is-off-screen-firefox-repeat9/error-context.md
+
+
+[116/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[117/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:943:1 › 200 rows: a long wrapped last row ends inside the page with no sideways scroll, and can be ticked, edited and deleted
+[118/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/groups.spec.js:3387:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms
+[119/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:966:1 › 200 rows: a hovered or focused row renders in full so the Sửa and Xóa tooltips are not clipped
+[120/120] [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:966:1 › 200 rows: a hovered or focused row renders in full so the Sửa and Xóa tooltips are not clipped
+  10 failed
+    [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen 
+    [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen 
+    [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen 
+    [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen 
+    [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen 
+    [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen 
+    [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen 
+    [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen 
+    [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen 
+    [firefox] › ../../../../../../home/gem/src/todo_list/tests/e2e/day-nav.spec.js:936:1 › 200 rows: browser find reaches text of a row that is off screen 
+  110 passed (1.1m)

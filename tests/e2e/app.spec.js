@@ -34,7 +34,7 @@ test('shows only today\'s tasks, oldest first, with their done state and summary
   await expect(progress(page)).toHaveCSS('--p', '67');
   await expect(progress(page)).not.toHaveClass(/progress--complete/);
   await expect(page.locator('.empty')).toBeHidden();
-  await expect(page.locator('.alert')).toBeHidden();
+  await expect(page.locator('.alert:visible')).toHaveCount(0); // neither the storage slip nor the notice
   await expect(page.locator('.add-form .field-error')).toBeHidden();
 });
 
@@ -44,7 +44,7 @@ test('shows the empty state with no rows, progress or summary', async ({ page })
   await expect(rows(page)).toHaveCount(0);
   await expect(page.getByRole('status')).toBeHidden();
   await expect(progress(page)).toBeHidden();
-  await expect(page.locator('.alert')).toBeHidden();
+  await expect(page.locator('.alert:visible')).toHaveCount(0); // neither the storage slip nor the notice
   await expect(page.getByRole('dialog')).toBeHidden();
 });
 
@@ -328,7 +328,7 @@ test('Giữ lại, Escape and a backdrop click keep the task and return focus to
   }
   // A click on the note itself (its padding) does not close it.
   await removeBtn(page, 0).click();
-  await page.locator('.dialog__title').click();
+  await page.locator('#delete-dialog .dialog__title').click();
   await expect(delDialog(page)).toBeVisible();
   await page.keyboard.press('Escape');
   expect((await stored(page)).map((t) => t.id)).toEqual(['a', 'b']);
@@ -382,8 +382,8 @@ test('the sticky note sits in the middle of the viewport', async ({ page }) => {
   await open(page, [task('a', 'Một')]);
   await removeBtn(page, 0).click();
   await expect(delDialog(page)).toBeVisible();
-  await expect(page.locator('.dialog')).toHaveCSS('opacity', '1'); // note-in finished
-  const box = await page.locator('.dialog').boundingBox();
+  await expect(page.locator('#delete-dialog')).toHaveCSS('opacity', '1'); // note-in finished
+  const box = await page.locator('#delete-dialog').boundingBox();
   const vp = page.viewportSize();
   expect(Math.abs(box.x + box.width / 2 - vp.width / 2)).toBeLessThan(4);
   expect(Math.abs(box.y + box.height / 2 - vp.height / 2)).toBeLessThan(8);
@@ -769,8 +769,12 @@ test('keyboard only: add, tick with Space, edit with Enter, cancel with Escape, 
   await expect(labels(page)).toHaveText(['Gọi điện cho mẹ']);
   await expect(input(page)).toBeFocused();
 
+  await kb.press('Tab'); // Nhóm
+  await focused('Nhóm', 'combobox');
   await kb.press('Tab'); // Thêm
   await focused('Thêm');
+  await kb.press('Tab'); // Quản lý nhóm
+  await focused('Quản lý nhóm');
   await kb.press('Tab');
   await expect(box(page, 0)).toBeFocused();
   await kb.press('Space');
@@ -817,7 +821,7 @@ test('every button and checkbox has its Vietnamese accessible name', async ({ pa
     const controls = scope.locator('button:visible, input[type="checkbox"]');
     for (let i = 0; i < names.length; i++) await expect(controls.nth(i)).toHaveAccessibleName(names[i]);
   };
-  await expectNamed(page.locator('main'), ['Xem ngày trước', 'Xem ngày sau', 'Về hôm nay', 'Thêm', 'Đánh dấu hoàn thành', 'Sửa', 'Xóa', 'Đánh dấu hoàn thành', 'Sửa', 'Xóa']);
+  await expectNamed(page.locator('main'), ['Xem ngày trước', 'Xem ngày sau', 'Về hôm nay', 'Thêm', 'Quản lý nhóm', 'Đánh dấu hoàn thành', 'Sửa', 'Xóa', 'Đánh dấu hoàn thành', 'Sửa', 'Xóa']);
   // The row text is the description, so a screen reader hears which task each control is for.
   await expect(box(page, 0)).toHaveAccessibleDescription('Một');
   await expect(removeBtn(page, 1)).toHaveAccessibleDescription('Hai');

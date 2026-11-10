@@ -1,5 +1,7 @@
-import { toDateKey, parseDateKey, addDays, dayKind, dateLine } from "./date.js";
-import { createStore, getStorage } from "./store.js";
+import { toDateKey, parseDateKey, addDays, dayKind, dateLine } from "./date.js?v=1.2.0";
+import { createStore, getStorage, isValid, STORAGE_KEY } from "./store.js?v=1.2.0";
+import { createGroups, nextColor, GROUPS_KEY, MAX_GROUPS, UNGROUPED, UNGROUPED_NAME } from "./groups.js?v=1.2.0";
+import { createManage, setFieldError, showFieldError, GROUP_ERRORS } from "./manage.js?v=1.2.0";
 
 const $ = (id) => document.getElementById(id);
 const els = {
@@ -16,11 +18,24 @@ const els = {
   form: $("add-form"),
   input: $("new-task"),
   addError: $("new-task-error"),
+  addGroup: $("new-task-group"),
+  addSwatch: $("new-task-swatch"),
+  newGroupTemplate: $("new-group-template"),
   empty: $("empty"),
-  list: $("task-list"),
+  list: $("day-list"),
   rowTemplate: $("task-template"),
+  groupTemplate: $("group-template"),
   editTemplate: $("edit-template"),
   sheetBody: document.querySelector(".sheet__body"),
+  srStatus: $("sr-status"),
+  notice: $("notice"),
+  noticeText: $("notice-text"),
+  bar: $("group-bar"),
+  filter: $("group-filter"),
+  filterSwatch: $("group-filter-swatch"),
+  filterParts: [document.querySelector(".group-bar__icon"), document.querySelector(".group-bar__label"), $("group-filter").parentElement],
+  groupEmpty: $("group-empty"),
+  groupEmptyText: $("group-empty-text"),
   dialog: $("delete-dialog"),
   quote: $("del-task"),
 };
@@ -28,6 +43,13 @@ const els = {
 const show = (el, on) => { el.hidden = !on; };
 
 const store = createStore(getStorage());
+let groups = createGroups(getStorage());
+// The add form's group: a group id or UNGROUPED. Kept while the page is open, Chưa phân nhóm after a reload (R14, R20).
+let addGroup = UNGROUPED;
+// The filter: "all", UNGROUPED or a group id. Display only, never stored, kept across day moves, "all" after a reload (R45, R49).
+let filter = "all";
+// Section key -> ul.task-list on screen. A day with no grouped task has one plain list under UNGROUPED.
+let lists = new Map();
 // today: the last local date the page saw. viewed: the day on screen.
 let today = toDateKey();
 let viewed = today;
@@ -44,10 +66,110 @@ function renderRow(task) {
   return row;
 }
 
+// A task whose group is gone (or never existed) is shown as ungrouped and never rewritten (R57, R58).
+const keyOf = (task) => (groups.get(task.groupId) ? task.groupId : UNGROUPED);
+const rowOf = (id) => [...els.list.querySelectorAll(".task")].find((r) => r.dataset.id === id);
+
+// Sections in group creation order, Chưa phân nhóm last, empty ones left out (R29, R30, R32).
+// Rows, lists and sections already on screen are kept and only what changed is moved, so an open edit and the focus
+// survive, and Firefox, which restyles every node put back into the page, only does so for the changed ones (BUG-014).
+function renderList() {
+  const tasks = store.tasksFor(viewed);
+  const focused = els.list.contains(document.activeElement) ? document.activeElement : null;
+  // A section changes its header between toggle and plain heading, so a focused toggle is found again by its key.
+  const focusKey = focused?.closest(".group__toggle")?.closest(".group").dataset.key;
+  const old = new Map([...els.list.querySelectorAll(".task")].map((r) => [r.dataset.id, r]));
+  const oldSections = new Map([...els.list.querySelectorAll(":scope > .group")].map((s) => [s.dataset.key, s]));
+  const buckets = new Map([...groups.list().map((g) => [g.id, []]), [UNGROUPED, []]]);
+  for (const t of tasks) buckets.get(keyOf(t)).push(old.get(t.id) ?? renderRow(t));
+  lists = new Map();
+  const shown = filter === "all" ? null : buckets.get(filter);
+  // Filtered to an empty section on a day with tasks: the one line filter text; a day with no tasks keeps #empty (R44).
+  show(els.groupEmpty, !!shown && !shown.length && tasks.length > 0);
+  els.groupEmptyText.textContent = filter === UNGROUPED ? "Ngày này không có việc nào chưa phân nhóm."
+    : `Ngày này chưa có việc nào trong nhóm "${groups.get(filter)?.name}".`;
+  const section = (key, rows, fixed) => sectionOf(key, rows, fixed, oldSections.get(key));
+  if (shown) {
+    syncChildren(els.list, shown.length ? [section(filter, shown, true)] : []);
+  } else if (buckets.get(UNGROUPED).length === tasks.length) {
+    // No task in a group: the plain list, exactly as before groups existed (R31).
+    let ul = els.list.querySelector(":scope > .task-list");
+    if (!ul) {
+      ul = document.createElement("ul");
+      ul.className = "task-list";
+    }
+    syncChildren(ul, buckets.get(UNGROUPED));
+    lists.set(UNGROUPED, ul);
+    syncChildren(els.list, [ul]);
+  } else {
+    syncChildren(els.list, [...buckets].filter(([, rows]) => rows.length).map(([key, rows]) => section(key, rows, false)));
+  }
+  if (focused?.isConnected && document.activeElement !== focused) focused.focus({ preventScroll: true });
+  else if (focusKey && !focused?.isConnected) lists.get(focusKey)?.closest(".group")?.querySelector(".group__toggle")?.focus({ preventScroll: true });
+  updateSummary();
+}
+
+// Puts nodes into parent in this order, moving only the ones out of place.
+function syncChildren(parent, nodes) {
+  const keep = new Set(nodes);
+  for (const child of [...parent.children]) if (!keep.has(child)) child.remove();
+  nodes.forEach((node, i) => { if (parent.children[i] !== node) parent.insertBefore(node, parent.children[i] ?? null); });
+}
+
+// One section from #group-template, or the one on screen when it has the same kind of header. Under the filter it is
+// always open and its header is a plain heading with the same words, no toggle, and the stored fold left as it is (R41).
+function sectionOf(key, rows, fixed, reuse) {
+  const group = groups.get(key);
+  const keep = reuse && !!reuse.querySelector(".group__static") === fixed;
+  const section = keep ? reuse : els.groupTemplate.content.firstElementChild.cloneNode(true);
+  const collapsed = !fixed && groups.isCollapsed(key);
+  const name = section.querySelector(".group__name");
+  section.dataset.key = key;
+  if (section.dataset.color !== (group?.color ?? "none")) section.dataset.color = group?.color ?? "none";
+  section.classList.toggle("group--collapsed", collapsed);
+  section.querySelector(".group__toggle")?.setAttribute("aria-expanded", String(!collapsed));
+  if (name.textContent !== (group?.name ?? UNGROUPED_NAME)) name.textContent = group?.name ?? UNGROUPED_NAME;
+  if (fixed && !keep) {
+    const head = section.querySelector(".group__toggle");
+    const stat = document.createElement("span");
+    stat.className = "group__static";
+    stat.append(...head.childNodes);
+    head.replaceWith(stat);
+  }
+  const ul = section.querySelector(".task-list");
+  syncChildren(ul, rows);
+  lists.set(key, ul);
+  return section;
+}
+
+// Collapse is a class and aria-expanded only; rows are hidden by CSS (R39, R40).
+function setCollapsed(section, on) {
+  section.classList.toggle("group--collapsed", on);
+  section.querySelector(".group__toggle").setAttribute("aria-expanded", String(!on));
+  groups.setCollapsed(section.dataset.key, on);
+  updateSlip();
+}
+
 function updateSummary() {
   const tasks = store.tasksFor(viewed);
   const total = tasks.length;
   const done = tasks.filter((t) => t.done).length;
+  // Header counts are per section; the summary, progress and stamp count the whole day (R33, R50, R63).
+  const counts = new Map();
+  for (const t of tasks) {
+    const c = counts.get(keyOf(t)) ?? { done: 0, total: 0 };
+    c.total++;
+    if (t.done) c.done++;
+    counts.set(keyOf(t), c);
+  }
+  for (const [key, ul] of lists) {
+    const section = ul.closest(".group");
+    if (!section) continue;
+    const c = counts.get(key) ?? { done: 0, total: 0 };
+    // The toggle's name is "Nhóm {name} {d}/{t} việc đã hoàn thành": the visible "{name} {d}/{t}" plus hidden words
+    // from #group-template, so voice control can say what it sees (WCAG 2.5.3, BUG-005).
+    section.querySelector(".group__count").textContent = `${c.done}/${c.total}`;
+  }
   show(els.empty, total === 0);
   show(els.progress, total > 0);
   show(els.summary, total > 0);
@@ -59,7 +181,7 @@ function updateSummary() {
 }
 
 function updateSlip() {
-  show(els.slip, !store.storageOk);
+  show(els.slip, !store.storageOk || !groups.storageOk);
 }
 
 // yesterday and tomorrow use the past and future wording
@@ -90,8 +212,7 @@ function renderDay() {
   clearTimeout(celebrateTimer);
   els.progress.classList.remove("progress--celebrate");
   renderWording();
-  els.list.replaceChildren(...store.tasksFor(viewed).map(renderRow));
-  updateSummary();
+  renderList();
   updateSlip();
   maybePeek();
 }
@@ -112,40 +233,37 @@ const ERRORS = {
   tooLong: "Nội dung tối đa 200 ký tự.",
 };
 
-function setFieldError(input, errorEl, code) {
-  errorEl.querySelector(".field-error__text").textContent = ERRORS[code] ?? "";
-  show(errorEl, !!code);
-  if (code) {
-    input.setAttribute("aria-invalid", "true");
-    input.setAttribute("aria-describedby", errorEl.id);
-  } else {
-    input.removeAttribute("aria-invalid");
-    input.removeAttribute("aria-describedby");
-  }
-}
-
-// Re-show on repeat submits so the alert is announced and the nudge replays.
-function showFieldError(input, errorEl, code) {
-  setFieldError(input, errorEl, null);
-  void input.offsetWidth;
-  setFieldError(input, errorEl, code);
-}
-
 const setAddError = (code) => setFieldError(els.input, els.addError, code);
 
 els.form.addEventListener("submit", (e) => {
   e.preventDefault();
   const now = new Date();
   checkDay(now);
-  const result = store.add(els.input.value, now, viewed);
+  // R21 (a chosen group removed elsewhere) is covered by the storage listener, which resets addGroup.
+  const result = store.add(els.input.value, now, viewed, addGroup === UNGROUPED ? null : addGroup);
   if (result.error) {
-    showFieldError(els.input, els.addError, result.error);
+    showFieldError(els.input, els.addError, result.error, ERRORS);
   } else {
-    const row = renderRow(result.task);
-    row.classList.add("task--enter");
-    els.list.append(row);
+    const key = keyOf(result.task);
+    if (filter !== "all" && key !== filter) {
+      // Saved where chosen; the filter stays and the slip says where it went (R47).
+      notify(`Đã thêm việc vào nhóm "${groups.get(key)?.name ?? UNGROUPED_NAME}". Nhóm này đang được ẩn bởi bộ lọc.`);
+      renderList(); // the day may have gone from no tasks (#empty) to the filter empty text (R44)
+    } else {
+      notify(null);
+      if (lists.has(key)) {
+        lists.get(key).append(renderRow(result.task));
+        updateSummary();
+      } else {
+        renderList();
+      }
+      const row = rowOf(result.task.id);
+      row.classList.add("task--enter");
+      // A task added to a folded section opens it, so the new row is seen.
+      const section = row.closest(".group--collapsed");
+      if (section) setCollapsed(section, false);
+    }
     els.input.value = "";
-    updateSummary();
     updateSlip();
     maybePeek();
   }
@@ -155,6 +273,10 @@ els.form.addEventListener("submit", (e) => {
 let celebrateTimer;
 
 els.list.addEventListener("change", (e) => {
+  if (e.target.matches(".task__edit select")) {
+    e.target.closest(".select").querySelector(".swatch").dataset.color = colorOf(e.target.value);
+    return;
+  }
   const row = e.target.closest(".task");
   if (!row || !e.target.matches(".check input")) return;
   store.setDone(row.dataset.id, e.target.checked);
@@ -172,6 +294,172 @@ els.list.addEventListener("change", (e) => {
 els.input.addEventListener("input", () => {
   if (!els.addError.hidden) setAddError(null);
 });
+
+// Group names only ever reach the page as option text (R65).
+const option = (value, text) => Object.assign(document.createElement("option"), { value, textContent: text });
+const groupOptions = () => [option(UNGROUPED, UNGROUPED_NAME), ...groups.list().map((g) => option(g.id, g.name))];
+const colorOf = (key) => groups.get(key)?.color ?? "none";
+
+// Add choice: Chưa phân nhóm, every group in creation order, then Nhóm mới... (R14).
+// Filter: Tất cả nhóm, Chưa phân nhóm, every group; shown from the first group on, back to "all" if its group is gone (R42, R48).
+function renderChoices() {
+  if (!groups.get(addGroup)) addGroup = UNGROUPED;
+  els.addGroup.replaceChildren(...groupOptions(), option("new", "Nhóm mới..."));
+  els.addGroup.value = newLine ? "new" : addGroup;
+  els.addSwatch.dataset.color = colorOf(addGroup);
+  els.addSwatch.hidden = !!newLine;
+  const any = groups.list().length > 0;
+  if (!any || (filter !== UNGROUPED && !groups.get(filter))) filter = "all";
+  els.filter.replaceChildren(option("all", "Tất cả nhóm"), ...groupOptions());
+  els.filter.value = filter;
+  for (const el of els.filterParts) show(el, any);
+  els.bar.classList.toggle("group-bar--filtered", filter !== "all");
+  els.filterSwatch.dataset.color = colorOf(filter);
+  show(els.filterSwatch, filter !== "all");
+}
+
+// The info slip: shown empty, then written a frame later, so a repeat of the same text is announced again.
+function notify(message) {
+  els.noticeText.textContent = "";
+  show(els.notice, !!message);
+  if (message) requestAnimationFrame(() => { els.noticeText.textContent = message; });
+}
+
+// A group or Chưa phân nhóm also becomes the add choice, so new tasks go where the owner looks (R43, R46).
+els.filter.addEventListener("change", () => {
+  notify(null); // a "hidden group" notice may no longer be true (BUG-007)
+  filter = els.filter.value;
+  if (filter !== "all") addGroup = filter;
+  renderChoices();
+  renderList();
+  if (editing && !editing.isConnected) editing = null; // an open edit on a row the filter hid is dropped
+  maybePeek();
+});
+
+// The Nhóm mới... line exists only while it is open, from #new-group-template.
+let newLine = null;
+const newName = () => newLine.querySelector(".input");
+const setNewError = (code) => setFieldError(newName(), newLine.querySelector(".field-error"), code, GROUP_ERRORS);
+
+function openNewGroup() {
+  newLine = els.newGroupTemplate.content.firstElementChild.cloneNode(true);
+  newLine.querySelector(".swatch").dataset.color = nextColor(groups.list());
+  els.form.append(newLine);
+  els.addSwatch.hidden = true;
+  newName().focus();
+  // At the limit the error shows at once, before any typing (decisions.md).
+  if (groups.list().length >= MAX_GROUPS) setNewError("tooMany");
+}
+
+function closeNewGroup() {
+  newLine?.remove();
+  newLine = null;
+  els.addGroup.value = addGroup;
+  els.addSwatch.hidden = false;
+}
+
+function createGroup() {
+  const result = groups.create(newName().value);
+  updateSlip();
+  if (result.error) {
+    showFieldError(newName(), newLine.querySelector(".field-error"), result.error, GROUP_ERRORS);
+    newName().focus();
+    return;
+  }
+  // The group is chosen, no task is made, and the owner goes on writing the task (R16).
+  addGroup = result.group.id;
+  closeNewGroup();
+  renderChoices();
+  els.input.focus();
+}
+
+els.addGroup.addEventListener("change", () => {
+  if (els.addGroup.value === "new") return openNewGroup();
+  addGroup = els.addGroup.value;
+  closeNewGroup();
+  renderChoices();
+});
+
+els.form.addEventListener("click", (e) => {
+  if (e.target.closest("#create-group")) createGroup();
+});
+els.form.addEventListener("input", (e) => {
+  if (newLine?.contains(e.target) && !newLine.querySelector(".field-error").hidden) setNewError(null);
+});
+els.form.addEventListener("keydown", (e) => {
+  // isComposing or keyCode 229: a key that ends an IME composition (Safari reports only 229).
+  if (!newLine?.contains(e.target) || e.isComposing || e.keyCode === 229) return;
+  if (e.key === "Escape") {
+    // Nothing is created; the choice goes back to what it was (R17).
+    closeNewGroup();
+    els.addGroup.focus();
+  } else if (e.key === "Enter" && e.target === newName()) {
+    e.preventDefault(); // the name input sits inside the add form: Enter creates the group, never a task
+    createGroup();
+  }
+});
+
+// Another tab changed the groups: take its list, so a removed group is never offered or saved (R21).
+window.addEventListener("storage", (e) => {
+  // A session that could not save keeps its groups in memory; another tab's list would drop them.
+  if ((e.key !== GROUPS_KEY && e.key !== null) || !groups.storageOk) return;
+  groups = createGroups(getStorage());
+  const onFilter = document.activeElement === els.filter;
+  refresh();
+  // The last group went: the filter is hidden, so its focus moves to the add input.
+  if (onFilter && !groups.list().length) els.input.focus();
+  manage.sync();
+});
+
+// Groups changed here or in another tab: the choices, the filter and the list follow (R37, R38, R48).
+// Typed text, an open edit and the focus are kept; an open edit's group choice gets the new names.
+function refresh() {
+  updateSlip();
+  renderChoices();
+  // The open Nhóm mới... line previews the colour the group will get now (R10, R15, BUG-006).
+  newLine?.querySelector(".swatch").setAttribute("data-color", nextColor(groups.list()));
+  for (const select of els.list.querySelectorAll(".task__edit select")) {
+    const value = groups.get(select.value) ? select.value : UNGROUPED;
+    select.replaceChildren(...groupOptions());
+    select.value = value;
+    select.closest(".select").querySelector(".swatch").dataset.color = colorOf(value);
+  }
+  renderList();
+}
+
+// Xem các việc này (R53): filter and add choice on the group (R46), then the day closest to today that holds one of
+// its tasks: the latest up to today, else the earliest later one. A day move writes the hash like any other (R22 to R25).
+// A well formed but impossible stored date (2026-13-45) is never a day to turn to; with no real day the filter still applies.
+function showGroupTasks(id) {
+  if (!groups.get(id)) return;
+  const days = storedUsage(id).days.filter((d) => parseDateKey(d));
+  notify(null);
+  filter = addGroup = id;
+  renderChoices();
+  checkDay();
+  const day = days.findLast((d) => d <= today) ?? days[0];
+  if (day && day !== viewed) return go(day);
+  renderList();
+  if (editing && !editing.isConnected) editing = null; // an open edit on a row the filter hid is dropped
+}
+
+// The group's tasks as stored right now: another tab may have added one since load (BUG-009).
+// Read only: it parses the tasks key and never writes; unreadable storage falls back to this tab's copy.
+// Only entries the store would load count, so a damaged one never blocks a delete or turns to a bad day.
+// ids: the stored task ids of the group; absent on the fallback, which is this tab's own copy.
+function storedUsage(id) {
+  try {
+    const all = JSON.parse(getStorage()?.getItem(STORAGE_KEY) ?? "null");
+    if (!Array.isArray(all)) return store.groupUsage(id);
+    const hit = all.filter((t) => isValid(t) && t.groupId === id);
+    return { count: hit.length, days: [...new Set(hit.map((t) => t.date))].sort(), ids: hit.map((t) => t.id) };
+  } catch {
+    return store.groupUsage(id);
+  }
+}
+
+const manage = createManage({ groups: () => groups, store, button: $("manage-groups"), refresh, notify, showGroupTasks, storedUsage });
+$("manage-groups").addEventListener("click", () => manage.open());
 
 // Edit in place: one row at a time. The read-only line stays in the DOM (hidden)
 // so the checkbox description and the Sửa button survive the round trip.
@@ -196,6 +484,14 @@ function openEdit(row) {
   form.querySelector("label").htmlFor = field.id;
   form.querySelector(".field-error").id = `edit-${id}-error`;
   field.value = row.querySelector(".task__label").textContent;
+  // The task's current section is preselected and remembered, so an unchanged choice never rewrites groupId (R23, R58).
+  const select = form.querySelector("select");
+  const task = store.tasksFor(viewed).find((t) => t.id === id);
+  select.id = `edit-${id}-group`;
+  form.querySelector(".task__edit-group label").htmlFor = select.id;
+  select.replaceChildren(...groupOptions());
+  select.value = select.dataset.from = task ? keyOf(task) : UNGROUPED;
+  form.querySelector(".swatch").dataset.color = colorOf(select.value);
   show(row.querySelector(".task__swipe"), false);
   row.classList.add("task--editing");
   row.append(form);
@@ -205,6 +501,12 @@ function openEdit(row) {
 }
 
 els.list.addEventListener("click", (e) => {
+  const toggle = e.target.closest(".group__toggle");
+  if (toggle) {
+    const section = toggle.closest(".group");
+    setCollapsed(section, !section.classList.contains("group--collapsed"));
+    return;
+  }
   const action = e.target.closest("[data-action]")?.dataset.action;
   const row = e.target.closest(".task");
   if (action === "edit") openEdit(row);
@@ -216,19 +518,56 @@ els.list.addEventListener("submit", (e) => {
   e.preventDefault();
   const row = e.target.closest(".task");
   const field = e.target.querySelector(".input");
-  const result = store.updateText(row.dataset.id, field.value);
+  const select = e.target.querySelector("select");
+  const moved = select.value !== select.dataset.from;
+  // Text and group are saved together; invalid text changes neither (R24, R26). A group removed meanwhile saves ungrouped.
+  const result = store.updateText(row.dataset.id, field.value, moved ? (groups.get(select.value) ? select.value : null) : undefined);
   updateSlip();
   if (result.error && result.error !== "notFound") {
-    showFieldError(field, e.target.querySelector(".field-error"), result.error);
+    showFieldError(field, e.target.querySelector(".field-error"), result.error, ERRORS);
     field.focus();
     return;
   }
   if (result.task) row.querySelector(".task__label").textContent = result.task.text;
-  closeEdit(true);
+  if (!moved || !result.task) return closeEdit(true);
+  closeEdit(false);
+  moveRow(row, keyOf(result.task));
 });
 
+// A moved row lands by creation time in its new section (renderList keeps that order), which opens if folded,
+// washes once in the new colour, keeps focus on Sửa and has its section name announced (R24, R28, R32).
+function moveRow(row, key) {
+  // A target the filter hides takes the row out of view: focus the next row, else the previous one, else the add input.
+  const all = [...els.list.querySelectorAll(".task:not(.task--exit)")];
+  const i = all.indexOf(row);
+  const near = all[i + 1] ?? all[i - 1];
+  if (groups.isCollapsed(key)) groups.setCollapsed(key, false);
+  renderList();
+  updateSlip();
+  if (filter !== "all" && key !== filter) {
+    (near?.querySelector(".check input") ?? els.input).focus();
+  } else {
+    row.classList.remove("task--moved");
+    void row.offsetWidth; // a second move in a row replays the wash
+    row.classList.add("task--moved");
+    // On a phone the line stays closed, as in the approved screen; only the row is scrolled into view.
+    row.querySelector('[data-action="edit"]').focus({ preventScroll: true });
+    row.scrollIntoView({ block: "nearest" });
+  }
+  // Cleared first and written a frame later, so a second move to the same group is announced again.
+  const message = `Đã chuyển việc sang nhóm "${groups.get(key)?.name ?? UNGROUPED_NAME}".`;
+  els.srStatus.textContent = "";
+  requestAnimationFrame(() => { els.srStatus.textContent = message; });
+}
+
 els.list.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && e.target.closest(".task__edit")) closeEdit(true);
+  // isComposing or keyCode 229: a key that ends an IME composition (Safari reports only 229).
+  if (!e.target.closest(".task__edit")) return;
+  if (e.isComposing || e.keyCode === 229) {
+    if (e.key === "Enter" && !e.isComposing) e.preventDefault(); // Safari: no implicit submit on the commit Enter
+    return;
+  }
+  if (e.key === "Escape") closeEdit(true);
 });
 
 els.list.addEventListener("input", (e) => {
@@ -255,11 +594,18 @@ function confirmDelete() {
   if (editing === row) closeEdit(false);
   store.remove(row.dataset.id);
   updateSlip();
-  // Skip rows still erasing from an earlier delete.
-  const live = (el, dir) => { while (el?.classList.contains("task--exit")) el = el[dir]; return el; };
-  const next = live(row.nextElementSibling, "nextElementSibling") ?? live(row.previousElementSibling, "previousElementSibling");
+  // Next row across every section, else the previous one; skip rows still erasing and rows in folded sections.
+  const all = [...els.list.querySelectorAll(".task")];
+  const i = all.indexOf(row);
+  const live = (r) => !r.classList.contains("task--exit") && !r.closest(".group--collapsed");
+  const next = all.slice(i + 1).find(live) ?? all.slice(0, i).findLast(live);
   (next?.querySelector(".check input") ?? els.input).focus();
-  const finish = () => { row.remove(); updateSummary(); };
+  // A list left without rows rebuilds the day: its section goes, or the day falls back to the plain list.
+  const finish = () => {
+    const ul = row.parentElement;
+    row.remove();
+    if (ul?.isConnected && !ul.querySelector(".task:not(.task--exit)")) renderList(); else updateSummary();
+  };
   row.classList.remove("task--enter");
   row.classList.add("task--exit");
   const anim = row.getAnimations()[0];
@@ -279,6 +625,7 @@ els.dialog.addEventListener("click", (e) => {
 
 // Giữ lại, Escape and the backdrop all end here with the task kept.
 els.dialog.addEventListener("close", () => {
+  if (els.dialog.open) return; // queued event of a note that a quick Enter already opened again: it owns pendingDelete
   const row = pendingDelete;
   pendingDelete = null;
   if (!row?.isConnected) return;
@@ -290,21 +637,29 @@ els.dialog.addEventListener("close", () => {
 
 // Phones: CSS scroll snap does the swipe. Script only keeps one line open:
 // opening another line, or a tap or focus anywhere outside the open line, closes it.
+// openSwipe is the strip that is open or about to open from focus or a press. Only it is touched, never every strip:
+// reading scrollLeft of 200 strips on each focus forced a layout of the whole day (BUG-010).
 let openSwipe = null;
 
-// Reads scrollLeft rather than trusting scroll events, which arrive a frame late.
 function closeSwipes(keep) {
-  for (const s of els.list.querySelectorAll(".task__swipe")) if (s.scrollLeft > 0 && !keep?.contains(s)) s.scrollLeft = 0;
+  if (!openSwipe || keep?.contains(openSwipe)) return;
+  openSwipe.scrollLeft = 0;
+  openSwipe = null;
 }
 
 els.list.addEventListener("scroll", (e) => {
   const swipe = e.target;
   if (!swipe.classList?.contains("task__swipe") || swipe.scrollLeft <= 0 || swipe === openSwipe) return;
+  closeSwipes();
   openSwipe = swipe;
-  closeSwipes(swipe);
 }, true);
 
-const closeOutside = (e) => { openSwipe = null; closeSwipes(e.target.closest?.(".task")); };
+// Focus on a button in a strip scrolls it open, but its scroll event comes a frame later: track the strip now,
+// so a note opened by that same click still closes it.
+const closeOutside = (e) => {
+  closeSwipes(e.target.closest?.(".task"));
+  openSwipe ??= e.target.closest?.(".task__swipe") ?? null;
+};
 document.addEventListener("pointerdown", closeOutside);
 document.addEventListener("focusin", closeOutside);
 
@@ -315,7 +670,7 @@ const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 let hintSeen = false;
 
 function maybePeek() {
-  const first = els.list.querySelector(".task");
+  const first = els.list.querySelector(":scope > .task-list > .task, .group:not(.group--collapsed) .task");
   if (hintSeen || !first || !phoneLayout.matches) return;
   hintSeen = true;
   const storage = getStorage();
@@ -326,7 +681,9 @@ function maybePeek() {
   if (!reducedMotion.matches) first.classList.add("task--peek");
 }
 
-const endPeek = (e) => { if (e.animationName === "peek") e.target.closest(".task")?.classList.remove("task--peek"); };
+// One shot classes go when their animation ends, so a row moved by renderList never replays them.
+const ONE_SHOT = { peek: "task--peek", "write-in": "task--enter", "moved-fade": "task--moved" };
+const endPeek = (e) => { if (ONE_SHOT[e.animationName]) e.target.closest(".task")?.classList.remove(ONE_SHOT[e.animationName]); };
 els.list.addEventListener("animationend", endPeek);
 els.list.addEventListener("animationcancel", endPeek);
 
@@ -336,9 +693,9 @@ function resetTransient() {
   editing = null;
   pendingDelete = null;
   els.dialog.close();
-  openSwipe = null;
   closeSwipes();
   setAddError(null);
+  notify(null);
 }
 
 // Page turn (R8): only a move plays it, never a load or a midnight refresh. Keys are YYYY-MM-DD, so they compare as strings.
@@ -433,6 +790,7 @@ viewed = readHash() ?? today;
 // A hash that is bad, out of range or today (even a bare "#") becomes the plain address, with no history entry.
 if (viewed === today && location.href.includes("#")) writeAddress(today, false);
 setAddError(null);
+renderChoices();
 // BUG-001: the markup starts muted; settle the real Về hôm nay look before any transition can run.
 els.toToday.style.transition = "none";
 renderDay();

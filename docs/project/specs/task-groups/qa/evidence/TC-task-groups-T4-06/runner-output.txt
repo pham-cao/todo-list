@@ -1,0 +1,7 @@
+Command: npx playwright test tests/e2e/groups.spec.js --reporter=list (2026-11-09, desktop and mobile projects)
+  ✓   7 [desktop] › tests/e2e/groups.spec.js:66:1 › a tick and an untick update the header count and the summary, keep the row in place, and persist (268ms)
+  ✓   8 [mobile] › tests/e2e/groups.spec.js:66:1 › a tick and an untick update the header count and the summary, keep the row in place, and persist (274ms)
+
+
+  1 skipped
+  45 passed (12.2s)

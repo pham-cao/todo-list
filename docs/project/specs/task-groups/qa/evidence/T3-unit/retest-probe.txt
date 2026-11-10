@@ -1,0 +1,15 @@
+dup load ["a:X","b:Z"] sets 0 unchanged true
+collapsed bad keys sets 0 undefined
+{"collapsed":["none"]}
+create nonstring [
+  '{"error":"empty"}',
+  '{"error":"empty"}',
+  '{"error":"empty"}',
+  '{"error":"empty"}'
+]
+update nonstring [
+  '{"error":"empty"}',
+  '{"error":"empty"}',
+  '{"group":{"id":"93d79181-b7ee-4364-bef3-5dd54f86be63","name":"5","color":"yellow","createdAt":1794237113801}}',
+  '{"group":{"id":"93d79181-b7ee-4364-bef3-5dd54f86be63","name":"[object Object]","color":"yellow","createdAt":1794237113801}}'
+]

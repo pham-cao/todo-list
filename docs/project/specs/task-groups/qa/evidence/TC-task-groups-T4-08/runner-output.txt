@@ -1,0 +1,7 @@
+Command: npx playwright test tests/e2e/groups.spec.js --reporter=list (2026-11-09, desktop and mobile projects)
+  ✓  11 [desktop] › tests/e2e/groups.spec.js:111:1 › Chưa phân nhóm can be folded when another section is shown, and the plain list has no toggle (200ms)
+  ✓  12 [mobile] › tests/e2e/groups.spec.js:111:1 › Chưa phân nhóm can be folded when another section is shown, and the plain list has no toggle (200ms)
+
+
+  1 skipped
+  45 passed (12.2s)

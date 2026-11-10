@@ -1,0 +1,9 @@
+Fresh Playwright context (vi-VN, 1440x900), http://localhost:4173/, loaded then reloaded
+Per load, each URL requested exactly once:
+ /  
+ /docs/project/design-system.css?v=1.2.0
+ /src/app.js?v=1.2.0
+ /src/date.js?v=1.2.0
+ /src/store.js?v=1.2.0
+No HTTP status >= 400, no page errors. Console: one info "Autofocus processing was blocked because a document already has a focused element" (not an error).
+Functional: added a task, it showed in the list and survived reload.

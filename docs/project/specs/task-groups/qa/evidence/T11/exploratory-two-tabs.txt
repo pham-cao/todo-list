@@ -1,0 +1,4 @@
+stored groups after A then B: [ 'Nhóm A', 'Nhóm B' ]
+tasks stored: [ 'Việc của A:g' ]
+B sees rows: 2 errors []
+B delete note: Nhóm A | Xóa nhóm "Nhóm A"? | Giữ lại | Xóa nhóm

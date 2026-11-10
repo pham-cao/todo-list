@@ -1,0 +1,9 @@
+Command: npx playwright test tests/e2e/groups.spec.js --reporter=list (2026-11-09, desktop and mobile projects)
+  ✓  19 [desktop] › tests/e2e/groups.spec.js:161:1 › deleting the last task of a section removes it; the last grouped task turns the day into the plain list (2.4s)
+  ✓  20 [mobile] › tests/e2e/groups.spec.js:161:1 › deleting the last task of a section removes it; the last grouped task turns the day into the plain list (2.9s)
+  ✓  21 [desktop] › tests/e2e/groups.spec.js:182:1 › delete focus skips rows in a folded section and falls back to the previous row (1.3s)
+  ✓  22 [mobile] › tests/e2e/groups.spec.js:182:1 › delete focus skips rows in a folded section and falls back to the previous row (1.3s)
+
+
+  1 skipped
+  45 passed (12.2s)

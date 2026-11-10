@@ -1,0 +1,6 @@
+  ✓  380 [mobile] › tests/e2e/groups.spec.js:1075:3 › phone 360px: after a move focus is on Sửa and the swipe strip stays closed (1.0s)
+  ✓  381 [mobile] › tests/e2e/groups.spec.js:1093:1 › while an edit is open both group selects are named Nhóm; the edit one keeps its visible text in its name (132ms)
+  ✓  382 [mobile] › tests/e2e/groups.spec.js:1101:1 › two moves to the same group each rewrite the live region (204ms)
+
+  14 skipped
+  368 passed (34.9s)

@@ -1,0 +1,7 @@
+Command: npx playwright test tests/e2e/groups.spec.js --reporter=list (2026-11-09, desktop and mobile projects)
+  ✓  17 [desktop] › tests/e2e/groups.spec.js:149:1 › six colours give six coloured headers; an unknown colour shows as yellow (128ms)
+  ✓  18 [mobile] › tests/e2e/groups.spec.js:149:1 › six colours give six coloured headers; an unknown colour shows as yellow (127ms)
+
+
+  1 skipped
+  45 passed (12.2s)

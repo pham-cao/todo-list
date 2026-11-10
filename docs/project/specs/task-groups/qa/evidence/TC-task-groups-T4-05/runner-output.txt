@@ -1,0 +1,7 @@
+Command: npx playwright test tests/e2e/groups.spec.js --reporter=list (2026-11-09, desktop and mobile projects)
+  ✓   4 [desktop] › tests/e2e/groups.spec.js:41:1 › each header is an h2 holding the toggle named with the group and its count (123ms)
+  ✓   3 [mobile] › tests/e2e/groups.spec.js:41:1 › each header is an h2 holding the toggle named with the group and its count (134ms)
+
+
+  1 skipped
+  45 passed (12.2s)

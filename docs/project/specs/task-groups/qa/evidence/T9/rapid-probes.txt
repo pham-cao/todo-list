@@ -1,0 +1,44 @@
+
+Running 40 tests using 6 workers
+
+[1/40] [desktop] › tests/e2e/groups.spec.js:2377:1 › rapid keyboard cycles on the task delete note: after the last reopen, Xóa việc still deletes (BUG-011)
+[2/40] [desktop] › tests/e2e/groups.spec.js:2377:1 › rapid keyboard cycles on the task delete note: after the last reopen, Xóa việc still deletes (BUG-011)
+[3/40] [mobile] › tests/e2e/groups.spec.js:2377:1 › rapid keyboard cycles on the task delete note: after the last reopen, Xóa việc still deletes (BUG-011)
+[4/40] [desktop] › tests/e2e/groups.spec.js:2377:1 › rapid keyboard cycles on the task delete note: after the last reopen, Xóa việc still deletes (BUG-011)
+[5/40] [desktop] › tests/e2e/groups.spec.js:2377:1 › rapid keyboard cycles on the task delete note: after the last reopen, Xóa việc still deletes (BUG-011)
+[6/40] [desktop] › tests/e2e/groups.spec.js:2377:1 › rapid keyboard cycles on the task delete note: after the last reopen, Xóa việc still deletes (BUG-011)
+[7/40] [desktop] › tests/e2e/groups.spec.js:2397:1 › rapid keyboard cycles on the group delete question and blocked note: the last note always acts, never a stale one
+[8/40] [desktop] › tests/e2e/groups.spec.js:2397:1 › rapid keyboard cycles on the group delete question and blocked note: the last note always acts, never a stale one
+[9/40] [desktop] › tests/e2e/groups.spec.js:2397:1 › rapid keyboard cycles on the group delete question and blocked note: the last note always acts, never a stale one
+[10/40] [mobile] › tests/e2e/groups.spec.js:2397:1 › rapid keyboard cycles on the group delete question and blocked note: the last note always acts, never a stale one
+[11/40] [desktop] › tests/e2e/groups.spec.js:2397:1 › rapid keyboard cycles on the group delete question and blocked note: the last note always acts, never a stale one
+[12/40] [desktop] › tests/e2e/groups.spec.js:2397:1 › rapid keyboard cycles on the group delete question and blocked note: the last note always acts, never a stale one
+[13/40] [desktop] › tests/e2e/groups.spec.js:2437:1 › rapid mouse cycles: card, delete question and blocked note opened and closed in a row; the last one acts
+[14/40] [mobile] › tests/e2e/groups.spec.js:2437:1 › rapid mouse cycles: card, delete question and blocked note opened and closed in a row; the last one acts
+[15/40] [desktop] › tests/e2e/groups.spec.js:2437:1 › rapid mouse cycles: card, delete question and blocked note opened and closed in a row; the last one acts
+[16/40] [desktop] › tests/e2e/groups.spec.js:2437:1 › rapid mouse cycles: card, delete question and blocked note opened and closed in a row; the last one acts
+[17/40] [desktop] › tests/e2e/groups.spec.js:2437:1 › rapid mouse cycles: card, delete question and blocked note opened and closed in a row; the last one acts
+[18/40] [desktop] › tests/e2e/groups.spec.js:2437:1 › rapid mouse cycles: card, delete question and blocked note opened and closed in a row; the last one acts
+[19/40] [desktop] › tests/e2e/groups.spec.js:2459:1 › rapid card cycles: Enter on Quản lý nhóm, Escape, Enter again; the card opens and closes cleanly with focus back
+[20/40] [desktop] › tests/e2e/groups.spec.js:2459:1 › rapid card cycles: Enter on Quản lý nhóm, Escape, Enter again; the card opens and closes cleanly with focus back
+[21/40] [mobile] › tests/e2e/groups.spec.js:2377:1 › rapid keyboard cycles on the task delete note: after the last reopen, Xóa việc still deletes (BUG-011)
+[22/40] [desktop] › tests/e2e/groups.spec.js:2459:1 › rapid card cycles: Enter on Quản lý nhóm, Escape, Enter again; the card opens and closes cleanly with focus back
+[23/40] [desktop] › tests/e2e/groups.spec.js:2459:1 › rapid card cycles: Enter on Quản lý nhóm, Escape, Enter again; the card opens and closes cleanly with focus back
+[24/40] [mobile] › tests/e2e/groups.spec.js:2377:1 › rapid keyboard cycles on the task delete note: after the last reopen, Xóa việc still deletes (BUG-011)
+[25/40] [desktop] › tests/e2e/groups.spec.js:2459:1 › rapid card cycles: Enter on Quản lý nhóm, Escape, Enter again; the card opens and closes cleanly with focus back
+[26/40] [mobile] › tests/e2e/groups.spec.js:2377:1 › rapid keyboard cycles on the task delete note: after the last reopen, Xóa việc still deletes (BUG-011)
+[27/40] [mobile] › tests/e2e/groups.spec.js:2377:1 › rapid keyboard cycles on the task delete note: after the last reopen, Xóa việc still deletes (BUG-011)
+[28/40] [mobile] › tests/e2e/groups.spec.js:2397:1 › rapid keyboard cycles on the group delete question and blocked note: the last note always acts, never a stale one
+[29/40] [mobile] › tests/e2e/groups.spec.js:2397:1 › rapid keyboard cycles on the group delete question and blocked note: the last note always acts, never a stale one
+[30/40] [mobile] › tests/e2e/groups.spec.js:2397:1 › rapid keyboard cycles on the group delete question and blocked note: the last note always acts, never a stale one
+[31/40] [mobile] › tests/e2e/groups.spec.js:2397:1 › rapid keyboard cycles on the group delete question and blocked note: the last note always acts, never a stale one
+[32/40] [mobile] › tests/e2e/groups.spec.js:2459:1 › rapid card cycles: Enter on Quản lý nhóm, Escape, Enter again; the card opens and closes cleanly with focus back
+[33/40] [mobile] › tests/e2e/groups.spec.js:2437:1 › rapid mouse cycles: card, delete question and blocked note opened and closed in a row; the last one acts
+[34/40] [mobile] › tests/e2e/groups.spec.js:2437:1 › rapid mouse cycles: card, delete question and blocked note opened and closed in a row; the last one acts
+[35/40] [mobile] › tests/e2e/groups.spec.js:2437:1 › rapid mouse cycles: card, delete question and blocked note opened and closed in a row; the last one acts
+[36/40] [mobile] › tests/e2e/groups.spec.js:2437:1 › rapid mouse cycles: card, delete question and blocked note opened and closed in a row; the last one acts
+[37/40] [mobile] › tests/e2e/groups.spec.js:2459:1 › rapid card cycles: Enter on Quản lý nhóm, Escape, Enter again; the card opens and closes cleanly with focus back
+[38/40] [mobile] › tests/e2e/groups.spec.js:2459:1 › rapid card cycles: Enter on Quản lý nhóm, Escape, Enter again; the card opens and closes cleanly with focus back
+[39/40] [mobile] › tests/e2e/groups.spec.js:2459:1 › rapid card cycles: Enter on Quản lý nhóm, Escape, Enter again; the card opens and closes cleanly with focus back
+[40/40] [mobile] › tests/e2e/groups.spec.js:2459:1 › rapid card cycles: Enter on Quản lý nhóm, Escape, Enter again; the card opens and closes cleanly with focus back
+  40 passed (46.8s)

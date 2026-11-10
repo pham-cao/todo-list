@@ -1,0 +1,4 @@
+Copy of package.json, index.html, src/*.js, version.test.js mutated one change at a time; node --test tests/unit/version.test.js
+baseline: pass
+FAIL as required (detected): css wrong value; css missing query; entry script missing query; import missing query (app.js); import wrong value (store.js); package.json bumped only; import names nonexistent file; export-from without query; dynamic import("...") without query; side effect import, multi line import, default, namespace and alias imports without query; extra script tag without query; extra query parameter
+NOT detected (patterns absent from the codebase today): dynamic import with a template literal; "../" parent relative import; absolute "/src/x.js" import; single quoted href or src attribute in index.html

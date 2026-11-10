@@ -1,0 +1,7 @@
+Command: npx playwright test tests/e2e/groups.spec.js --reporter=list (2026-11-09, desktop and mobile projects)
+  ✓   1 [mobile] › tests/e2e/groups.spec.js:28:1 › sections follow group creation order, Chưa phân nhóm last, empty groups hidden, rows oldest first (206ms)
+  ✓   2 [desktop] › tests/e2e/groups.spec.js:28:1 › sections follow group creation order, Chưa phân nhóm last, empty groups hidden, rows oldest first (208ms)
+
+
+  1 skipped
+  45 passed (12.2s)

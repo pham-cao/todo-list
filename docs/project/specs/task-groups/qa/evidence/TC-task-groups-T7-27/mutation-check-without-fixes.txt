@@ -1,0 +1,1499 @@
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:01] "GET / HTTP/1.1" 200 -
+
+Running 186 tests using 2 workers
+
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:02] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:02] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:02] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:02] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:02] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:02] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓    1 [desktop] › tests/e2e/groups.spec.js:28:1 › sections follow group creation order, Chưa phân nhóm last, empty groups hidden, rows oldest first (202ms)
+  ✓    2 [mobile] › tests/e2e/groups.spec.js:28:1 › sections follow group creation order, Chưa phân nhóm last, empty groups hidden, rows oldest first (202ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓    4 [mobile] › tests/e2e/groups.spec.js:41:1 › each header is an h2 holding the toggle named with the group and its count (126ms)
+  ✓    3 [desktop] › tests/e2e/groups.spec.js:41:1 › each header is an h2 holding the toggle named with the group and its count (130ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓    5 [mobile] › tests/e2e/groups.spec.js:53:1 › a day with only ungrouped tasks, and a task with an unknown group, show the plain list (136ms)
+  ✓    6 [desktop] › tests/e2e/groups.spec.js:53:1 › a day with only ungrouped tasks, and a task with an unknown group, show the plain list (135ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET / HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET / HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/app.js?v=1.2.0 HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/app.js?v=1.2.0 HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/store.js?v=1.2.0 HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/store.js?v=1.2.0 HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/date.js?v=1.2.0 HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/date.js?v=1.2.0 HTTP/1.1" 304 -
+  ✓    8 [desktop] › tests/e2e/groups.spec.js:66:1 › a tick and an untick update the header count and the summary, keep the row in place, and persist (311ms)
+  ✓    7 [mobile] › tests/e2e/groups.spec.js:66:1 › a tick and an untick update the header count and the summary, keep the row in place, and persist (314ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET / HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET / HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/app.js?v=1.2.0 HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/store.js?v=1.2.0 HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/date.js?v=1.2.0 HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/app.js?v=1.2.0 HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/date.js?v=1.2.0 HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/store.js?v=1.2.0 HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:03] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 304 -
+  ✓    9 [desktop] › tests/e2e/groups.spec.js:81:1 › a section collapses with a click, Enter and Space, and the fold is remembered across reload and days (291ms)
+  ✓   10 [mobile] › tests/e2e/groups.spec.js:81:1 › a section collapses with a click, Enter and Space, and the fold is remembered across reload and days (290ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   12 [mobile] › tests/e2e/groups.spec.js:111:1 › Chưa phân nhóm can be folded when another section is shown, and the plain list has no toggle (218ms)
+  ✓   11 [desktop] › tests/e2e/groups.spec.js:111:1 › Chưa phân nhóm can be folded when another section is shown, and the plain list has no toggle (220ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   13 [mobile] › tests/e2e/groups.spec.js:124:1 › a collapsed section still counts in the summary, the progress mark and the stamp (208ms)
+  ✓   14 [desktop] › tests/e2e/groups.spec.js:124:1 › a collapsed section still counts in the summary, the progress mark and the stamp (206ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   15 [mobile] › tests/e2e/groups.spec.js:137:1 › group names are shown as text, never as markup (130ms)
+  ✓   16 [desktop] › tests/e2e/groups.spec.js:137:1 › group names are shown as text, never as markup (135ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   17 [mobile] › tests/e2e/groups.spec.js:149:1 › six colours give six coloured headers; an unknown colour shows as yellow (123ms)
+  ✓   18 [desktop] › tests/e2e/groups.spec.js:149:1 › six colours give six coloured headers; an unknown colour shows as yellow (122ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:04] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   19 [mobile] › tests/e2e/groups.spec.js:161:1 › deleting the last task of a section removes it; the last grouped task turns the day into the plain list (2.9s)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:07] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:07] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:07] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:07] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:07] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:07] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   20 [desktop] › tests/e2e/groups.spec.js:161:1 › deleting the last task of a section removes it; the last grouped task turns the day into the plain list (3.4s)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:08] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:08] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:08] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:08] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:08] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:08] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   21 [mobile] › tests/e2e/groups.spec.js:182:1 › delete focus skips rows in a folded section and falls back to the previous row (853ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:08] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:08] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:08] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:08] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:08] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:08] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   23 [mobile] › tests/e2e/groups.spec.js:199:1 › an open edit stays open with its text when a row in another section is ticked (257ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:08] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:08] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:08] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:08] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:08] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:08] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   22 [desktop] › tests/e2e/groups.spec.js:182:1 › delete focus skips rows in a folded section and falls back to the previous row (1.4s)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:09] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:09] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:09] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:09] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:09] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:09] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   25 [desktop] › tests/e2e/groups.spec.js:199:1 › an open edit stays open with its text when a row in another section is ticked (170ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:09] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:09] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:09] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:09] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:09] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:09] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   24 [mobile] › tests/e2e/groups.spec.js:211:1 › a rebuild keeps an open edit with its text and focus (2.5s)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:11] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:11] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:11] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:11] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:11] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:11] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   26 [desktop] › tests/e2e/groups.spec.js:211:1 › a rebuild keeps an open edit with its text and focus (2.5s)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:12] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:12] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:12] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:12] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:12] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:12] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   27 [mobile] › tests/e2e/groups.spec.js:226:1 › a rebuild keeps the focus on a section toggle (2.9s)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:14] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:14] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:14] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:14] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:14] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:14] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   28 [desktop] › tests/e2e/groups.spec.js:226:1 › a rebuild keeps the focus on a section toggle (2.4s)
+  ✓   29 [mobile] › tests/e2e/groups.spec.js:236:1 › an ungrouped task added to a day of sections lands in Chưa phân nhóm and opens it when folded (464ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:14] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:14] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:14] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:14] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:14] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:14] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:14] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:14] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:14] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:14] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:14] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:14] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   31 [mobile] › tests/e2e/groups.spec.js:253:1 › each day builds only its own sections with the same rules (186ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   32 [mobile] › tests/e2e/groups.spec.js:268:1 › groups and UI state that cannot be read leave the plain list and no error (87ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   30 [desktop] › tests/e2e/groups.spec.js:236:1 › an ungrouped task added to a day of sections lands in Chưa phân nhóm and opens it when folded (541ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   34 [desktop] › tests/e2e/groups.spec.js:253:1 › each day builds only its own sections with the same rules (199ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   35 [desktop] › tests/e2e/groups.spec.js:268:1 › groups and UI state that cannot be read leave the plain list and no error (86ms)
+  -   36 [desktop] › tests/e2e/groups.spec.js:291:1 › on a phone the peek skips a folded section, and swipe, tick and delete work inside sections
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:15] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   37 [desktop] › tests/e2e/groups.spec.js:313:1 › 200 tasks in 5 groups: render, collapse and tick each under 100 ms (342ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   38 [desktop] › tests/e2e/groups.spec.js:338:1 › local midnight with sections on screen: the new day starts empty, folds stay, the old day keeps its sections (168ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   39 [desktop] › tests/e2e/groups.spec.js:351:1 › Back and Forward between days rebuild the right sections (146ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   40 [desktop] › tests/e2e/groups.spec.js:362:1 › older data without groups or UI keys is shown as before and never rewritten by viewing, folding or ticking (131ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   41 [desktop] › tests/e2e/groups.spec.js:374:1 › ticking keeps the groupId of every task and writes nothing to the groups key (203ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   42 [desktop] › tests/e2e/groups.spec.js:383:1 › groups storage that cannot be read: slip shown, tasks still listed, day still usable (198ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:16] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   43 [desktop] › tests/e2e/groups.spec.js:396:1 › a failing write of the fold shows the slip, and the section still folds in memory (162ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:17] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:17] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:17] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:17] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:17] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:17] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:17] "GET / HTTP/1.1" 304 -
+  ✓   44 [desktop] › tests/e2e/groups.spec.js:419:1 › the add choice lists Chưa phân nhóm, the groups and Nhóm mới..., and starts on Chưa phân nhóm after load and reload (172ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:17] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:17] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:17] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:17] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:17] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:17] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   45 [desktop] › tests/e2e/groups.spec.js:434:1 › Nhóm mới... opens the name line with the next colour; Enter and Tạo nhóm create and choose the group without a task (206ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:17] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:17] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:17] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:17] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:17] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:17] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   46 [desktop] › tests/e2e/groups.spec.js:464:1 › seven groups made on the fly take the colours in order and wrap (171ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:17] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:17] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:17] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:17] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:17] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:17] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   47 [desktop] › tests/e2e/groups.spec.js:475:1 › name errors keep the line open and create nothing; typing clears them (325ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   48 [desktop] › tests/e2e/groups.spec.js:502:1 › at 20 groups the limit error shows as soon as Nhóm mới... is chosen, and nothing is created (112ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   49 [desktop] › tests/e2e/groups.spec.js:516:1 › Escape closes the line, puts the choice back and focuses it; an add while it is open uses the previous choice (160ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   50 [desktop] › tests/e2e/groups.spec.js:539:1 › an add saves the group on the viewed day at the end of its section, keeps the choice and the focus (183ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   51 [desktop] › tests/e2e/groups.spec.js:564:1 › a group removed in another tab: the add saves ungrouped and the choice goes back to Chưa phân nhóm (181ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   52 [desktop] › tests/e2e/groups.spec.js:578:1 › an add to a folded section opens it and stores that (115ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   53 [desktop] › tests/e2e/groups.spec.js:589:1 › keyboard only: input, group choice, Thêm; Nhóm mới..., name, Tạo nhóm (150ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:18] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   33 [mobile] › tests/e2e/groups.spec.js:291:1 › on a phone the peek skips a folded section, and swipe, tick and delete work inside sections (3.9s)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   54 [desktop] › tests/e2e/groups.spec.js:614:1 › storage blocked: a group made on the fly works in memory and the slip shows (155ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   56 [desktop] › tests/e2e/groups.spec.js:632:1 › a failing groups write keeps the new group in memory and shows the slip (161ms)
+  ✓   55 [mobile] › tests/e2e/groups.spec.js:313:1 › 200 tasks in 5 groups: render, collapse and tick each under 100 ms (288ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   58 [mobile] › tests/e2e/groups.spec.js:338:1 › local midnight with sections on screen: the new day starts empty, folds stay, the old day keeps its sections (147ms)
+  ✓   57 [desktop] › tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms (213ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   59 [mobile] › tests/e2e/groups.spec.js:351:1 › Back and Forward between days rebuild the right sections (155ms)
+  ✓   60 [desktop] › tests/e2e/groups.spec.js:662:1 › IME: Enter that commits a composition does not create the group; Enter after it does (122ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   61 [mobile] › tests/e2e/groups.spec.js:362:1 › older data without groups or UI keys is shown as before and never rewritten by viewing, folding or ticking (143ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   62 [desktop] › tests/e2e/groups.spec.js:679:1 › pasted decomposed diacritics: a duplicate of a composed name is found, 30 visible characters are accepted (198ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   63 [mobile] › tests/e2e/groups.spec.js:374:1 › ticking keeps the groupId of every task and writes nothing to the groups key (147ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:19] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+  ✓   64 [desktop] › tests/e2e/groups.spec.js:691:1 › Enter twice and a double click on Tạo nhóm make one group (136ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   65 [mobile] › tests/e2e/groups.spec.js:383:1 › groups storage that cannot be read: slip shown, tasks still listed, day still usable (150ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   66 [desktop] › tests/e2e/groups.spec.js:705:1 › another page adds a group: the choice lists it, an open line keeps its text, and the same name is now a duplicate (181ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   67 [mobile] › tests/e2e/groups.spec.js:396:1 › a failing write of the fold shows the slip, and the section still folds in memory (193ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   68 [desktop] › tests/e2e/groups.spec.js:720:1 › another page adds a group: the open line swatch shows the new next colour (BUG-006) (164ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET / HTTP/1.1" 304 -
+  ✓   69 [mobile] › tests/e2e/groups.spec.js:419:1 › the add choice lists Chưa phân nhóm, the groups and Nhóm mới..., and starts on Chưa phân nhóm after load and reload (188ms)
+  ✓   70 [desktop] › tests/e2e/groups.spec.js:731:1 › accessible names of the add form keep their visible text (R63a) (151ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   72 [desktop] › tests/e2e/groups.spec.js:745:1 › an Enter that ends an IME composition (Safari keyCode 229) does not create the group (133ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   71 [mobile] › tests/e2e/groups.spec.js:434:1 › Nhóm mới... opens the name line with the next colour; Enter and Tạo nhóm create and choose the group without a task (223ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   73 [desktop] › tests/e2e/groups.spec.js:758:1 › an Escape that ends an IME composition (Safari keyCode 229) keeps the name line open (131ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   74 [mobile] › tests/e2e/groups.spec.js:464:1 › seven groups made on the fly take the colours in order and wrap (199ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:20] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   75 [desktop] › tests/e2e/groups.spec.js:773:1 › a session whose groups could not be saved keeps its memory groups when another page changes them (306ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   76 [mobile] › tests/e2e/groups.spec.js:475:1 › name errors keep the line open and create nothing; typing clears them (341ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   77 [desktop] › tests/e2e/groups.spec.js:802:1 › Sửa shows the group choice with the current group selected, Chưa phân nhóm for ungrouped and unknown groups (286ms)
+  ✓   78 [mobile] › tests/e2e/groups.spec.js:502:1 › at 20 groups the limit error shows as soon as Nhóm mới... is chosen, and nothing is created (112ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   80 [mobile] › tests/e2e/groups.spec.js:516:1 › Escape closes the line, puts the choice back and focuses it; an add while it is open uses the previous choice (167ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   81 [mobile] › tests/e2e/groups.spec.js:539:1 › an add saves the group on the viewed day at the end of its section, keeps the choice and the focus (181ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   82 [mobile] › tests/e2e/groups.spec.js:564:1 › a group removed in another tab: the add saves ungrouped and the choice goes back to Chưa phân nhóm (177ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:21] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   83 [mobile] › tests/e2e/groups.spec.js:578:1 › an add to a folded section opens it and stores that (114ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   84 [mobile] › tests/e2e/groups.spec.js:589:1 › keyboard only: input, group choice, Thêm; Nhóm mới..., name, Tạo nhóm (140ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   85 [mobile] › tests/e2e/groups.spec.js:614:1 › storage blocked: a group made on the fly works in memory and the slip shows (139ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   86 [mobile] › tests/e2e/groups.spec.js:632:1 › a failing groups write keeps the new group in memory and shows the slip (151ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   87 [mobile] › tests/e2e/groups.spec.js:645:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms (235ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   88 [mobile] › tests/e2e/groups.spec.js:662:1 › IME: Enter that commits a composition does not create the group; Enter after it does (116ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:22] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   89 [mobile] › tests/e2e/groups.spec.js:679:1 › pasted decomposed diacritics: a duplicate of a composed name is found, 30 visible characters are accepted (161ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   90 [mobile] › tests/e2e/groups.spec.js:691:1 › Enter twice and a double click on Tạo nhóm make one group (114ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   91 [mobile] › tests/e2e/groups.spec.js:705:1 › another page adds a group: the choice lists it, an open line keeps its text, and the same name is now a duplicate (162ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   92 [mobile] › tests/e2e/groups.spec.js:720:1 › another page adds a group: the open line swatch shows the new next colour (BUG-006) (148ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   93 [mobile] › tests/e2e/groups.spec.js:731:1 › accessible names of the add form keep their visible text (R63a) (152ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   94 [mobile] › tests/e2e/groups.spec.js:745:1 › an Enter that ends an IME composition (Safari keyCode 229) does not create the group (118ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   95 [mobile] › tests/e2e/groups.spec.js:758:1 › an Escape that ends an IME composition (Safari keyCode 229) keeps the name line open (119ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:23] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   96 [mobile] › tests/e2e/groups.spec.js:773:1 › a session whose groups could not be saved keeps its memory groups when another page changes them (365ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET / HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET /src/app.js?v=1.2.0 HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET /src/store.js?v=1.2.0 HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET /src/date.js?v=1.2.0 HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 304 -
+  ✓   79 [desktop] › tests/e2e/groups.spec.js:824:1 › Lưu saves text and group together: the row lands by creation time, the folded section opens, focus on Sửa, name announced (3.1s)
+  ✓   97 [mobile] › tests/e2e/groups.spec.js:802:1 › Sửa shows the group choice with the current group selected, Chưa phân nhóm for ungrouped and unknown groups (264ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓   98 [desktop] › tests/e2e/groups.spec.js:858:1 › Hủy and Escape keep the old text and the old group (244ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:24] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  100 [desktop] › tests/e2e/groups.spec.js:875:1 › invalid text keeps the edit open and changes neither text nor group (228ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:25] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:25] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:25] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:25] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:25] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:25] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  101 [desktop] › tests/e2e/groups.spec.js:892:1 › a move works on a past and a future day (570ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:25] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:25] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:25] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:25] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:25] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:25] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  102 [desktop] › tests/e2e/groups.spec.js:909:1 › plain list to sections and back: a move to Chưa phân nhóm removes groupId (194ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:25] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:25] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:25] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:25] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:25] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:25] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  103 [desktop] › tests/e2e/groups.spec.js:929:1 › text only, group only and no change: an unchanged choice never rewrites the group (265ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:26] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:26] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:26] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:26] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:26] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:26] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  104 [desktop] › tests/e2e/groups.spec.js:949:1 › a group removed in another page while the edit is open: the task saves ungrouped (311ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:26] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:26] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:26] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:26] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:26] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:26] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  105 [desktop] › tests/e2e/groups.spec.js:963:1 › keyboard only: text, group choice, Hủy, Lưu; Enter saves and Escape cancels (143ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:26] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:26] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:26] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:26] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:26] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:26] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  106 [desktop] › tests/e2e/groups.spec.js:989:1 › an Enter or Escape that ends an IME composition (Safari keyCode 229) neither saves nor cancels the edit (255ms)
+  -  107 [desktop] › tests/e2e/groups.spec.js:1006:1 › on a phone the swipe and Sửa reach the edit form inside a section; the form fits 360 px
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:26] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:26] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:26] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:26] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:26] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:26] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  108 [desktop] › tests/e2e/groups.spec.js:1027:1 › 200 tasks in 20 groups: a move stays under 100 ms (326ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  109 [desktop] › tests/e2e/groups.spec.js:1045:1 › a failing write during a move: slip shown, the move still shows, focus on Sửa, name announced (232ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET / HTTP/1.1" 304 -
+  ✓  110 [desktop] › tests/e2e/groups.spec.js:1061:1 › equal creation times in different groups keep a stable order after a move and a reload (194ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET / HTTP/1.1" 304 -
+  -  111 [desktop] › tests/e2e/groups.spec.js:1075:3 › phone 390px: after a move focus is on Sửa and the swipe strip stays closed
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /src/app.js?v=1.2.0 HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /src/store.js?v=1.2.0 HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /src/date.js?v=1.2.0 HTTP/1.1" 304 -
+  -  112 [desktop] › tests/e2e/groups.spec.js:1075:3 › phone 360px: after a move focus is on Sửa and the swipe strip stays closed
+  ✓   99 [mobile] › tests/e2e/groups.spec.js:824:1 › Lưu saves text and group together: the row lands by creation time, the folded section opens, focus on Sửa, name announced (3.1s)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  113 [desktop] › tests/e2e/groups.spec.js:1093:1 › while an edit is open both group selects are named Nhóm; the edit one keeps its visible text in its name (144ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  114 [mobile] › tests/e2e/groups.spec.js:858:1 › Hủy and Escape keep the old text and the old group (233ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:27] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  115 [desktop] › tests/e2e/groups.spec.js:1101:1 › two moves to the same group each rewrite the live region (262ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  116 [mobile] › tests/e2e/groups.spec.js:875:1 › invalid text keeps the edit open and changes neither text nor group (255ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  117 [desktop] › tests/e2e/groups.spec.js:1127:1 › no filter before the first group, Quản lý nhóm on every day, and the filter appears once a group is made (268ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  119 [desktop] › tests/e2e/groups.spec.js:1143:1 › the filter sits between the add form and the list and lists Tất cả nhóm, Chưa phân nhóm, then the groups (122ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  120 [desktop] › tests/e2e/groups.spec.js:1154:1 › a group in the filter shows only its section, open and without a toggle; the stored fold is kept (125ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  118 [mobile] › tests/e2e/groups.spec.js:892:1 › a move works on a past and a future day (536ms)
+  ✓  121 [desktop] › tests/e2e/groups.spec.js:1174:1 › Chưa phân nhóm in the filter shows ungrouped tasks and tasks of an unknown group (112ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:28] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  122 [mobile] › tests/e2e/groups.spec.js:909:1 › plain list to sections and back: a move to Chưa phân nhóm removes groupId (214ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET / HTTP/1.1" 304 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  123 [desktop] › tests/e2e/groups.spec.js:1184:1 › filter empty states: a group, Chưa phân nhóm, and the usual empty state on a day with no tasks (304ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  124 [mobile] › tests/e2e/groups.spec.js:929:1 › text only, group only and no change: an unchanged choice never rewrites the group (245ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET / HTTP/1.1" 304 -
+  ✓  125 [desktop] › tests/e2e/groups.spec.js:1215:1 › the filter follows previous, next, the picker, Về hôm nay, Back and Forward, and resets on reload (322ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  127 [desktop] › tests/e2e/groups.spec.js:1242:1 › the add choice follows a group and Chưa phân nhóm in the filter, but not Tất cả nhóm (134ms)
+  ✓  126 [mobile] › tests/e2e/groups.spec.js:949:1 › a group removed in another page while the edit is open: the task saves ungrouped (331ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  129 [mobile] › tests/e2e/groups.spec.js:963:1 › keyboard only: text, group choice, Hủy, Lưu; Enter saves and Escape cancels (169ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  128 [desktop] › tests/e2e/groups.spec.js:1255:1 › an add to a group the filter hides is saved, the filter stays and a polite notice says so (258ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:29] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  130 [mobile] › tests/e2e/groups.spec.js:989:1 › an Enter or Escape that ends an IME composition (Safari keyCode 229) neither saves nor cancels the edit (193ms)
+  ✓  131 [desktop] › tests/e2e/groups.spec.js:1287:1 › an add into an empty filtered group replaces the empty text with its section (124ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  133 [desktop] › tests/e2e/groups.spec.js:1298:1 › while filtered the summary, progress and stamp count the whole day (330ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  132 [mobile] › tests/e2e/groups.spec.js:1006:1 › on a phone the swipe and Sửa reach the edit form inside a section; the form fits 360 px (578ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  134 [desktop] › tests/e2e/groups.spec.js:1316:1 › a move under the filter sends focus to the next visible row, else the previous one, else the add input (282ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  135 [mobile] › tests/e2e/groups.spec.js:1027:1 › 200 tasks in 20 groups: a move stays under 100 ms (384ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:30] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  136 [desktop] › tests/e2e/groups.spec.js:1337:1 › filtering and moving between days never writes to storage (444ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  137 [mobile] › tests/e2e/groups.spec.js:1045:1 › a failing write during a move: slip shown, the move still shows, focus on Sửa, name announced (176ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  138 [desktop] › tests/e2e/groups.spec.js:1348:1 › keyboard only: the filter and Quản lý nhóm follow Thêm in the Tab order and the filter changes with the keys (144ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET / HTTP/1.1" 304 -
+  ✓  139 [mobile] › tests/e2e/groups.spec.js:1061:1 › equal creation times in different groups keep a stable order after a move and a reload (210ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  140 [desktop] › tests/e2e/groups.spec.js:1370:3 › 360px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut (555ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:31] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  142 [desktop] › tests/e2e/groups.spec.js:1370:3 › 380px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut (553ms)
+  ✓  141 [mobile] › tests/e2e/groups.spec.js:1075:3 › phone 390px: after a move focus is on Sửa and the swipe strip stays closed (985ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:32] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:32] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:32] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:32] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:32] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:32] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:32] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:32] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:32] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:32] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:32] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:32] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  143 [desktop] › tests/e2e/groups.spec.js:1370:3 › 390px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut (555ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:32] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:32] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:32] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:32] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:32] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:32] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  144 [mobile] › tests/e2e/groups.spec.js:1075:3 › phone 360px: after a move focus is on Sửa and the swipe strip stays closed (1.0s)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  145 [desktop] › tests/e2e/groups.spec.js:1370:3 › 412px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut (536ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  146 [mobile] › tests/e2e/groups.spec.js:1093:1 › while an edit is open both group selects are named Nhóm; the edit one keeps its visible text in its name (133ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  147 [desktop] › tests/e2e/groups.spec.js:1370:3 › 452px: Quản lý nhóm shows its text, targets are 44 px, the filter choice is not cut (157ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  148 [mobile] › tests/e2e/groups.spec.js:1101:1 › two moves to the same group each rewrite the live region (259ms)
+  ✓  149 [desktop] › tests/e2e/groups.spec.js:1370:3 › 1440px: Quản lý nhóm shows its text, targets are 44 px, the filter choice is not cut (158ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:33] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  151 [desktop] › tests/e2e/groups.spec.js:1414:1 › 200 tasks in 20 groups: a filter change stays under 100 ms (218ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  150 [mobile] › tests/e2e/groups.spec.js:1127:1 › no filter before the first group, Quản lý nhóm on every day, and the filter appears once a group is made (271ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  152 [desktop] › tests/e2e/groups.spec.js:1438:1 › a group removed in another tab while it is filtered: the filter resets, the list shows all, the add choice falls back (125ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+  ✓  153 [mobile] › tests/e2e/groups.spec.js:1143:1 › the filter sits between the add form and the list and lists Tất cả nhóm, Chưa phân nhóm, then the groups (133ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  154 [desktop] › tests/e2e/groups.spec.js:1450:1 › the filtered group renamed in another tab stays selected; all groups removed hides the filter and shows every task (130ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  155 [mobile] › tests/e2e/groups.spec.js:1154:1 › a group in the filter shows only its section, open and without a toggle; the stored fold is kept (137ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  157 [mobile] › tests/e2e/groups.spec.js:1174:1 › Chưa phân nhóm in the filter shows ungrouped tasks and tasks of an unknown group (113ms)
+  ✓  156 [desktop] › tests/e2e/groups.spec.js:1462:1 › a filter change drops an open edit on a row it hides and keeps one on a row it shows (207ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  159 [desktop] › tests/e2e/groups.spec.js:1477:1 › a filter change while Nhóm mới... is open changes the add choice but keeps the line and its text (144ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET / HTTP/1.1" 304 -
+  ✓  160 [desktop] › tests/e2e/groups.spec.js:1489:1 › midnight with a filter on keeps the filter, follows the new day and clears the notice (140ms)
+  ✓  158 [mobile] › tests/e2e/groups.spec.js:1184:1 › filter empty states: a group, Chưa phân nhóm, and the usual empty state on a day with no tasks (324ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:34] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:35] "GET / HTTP/1.1" 304 -
+  ✓  162 [mobile] › tests/e2e/groups.spec.js:1215:1 › the filter follows previous, next, the picker, Về hôm nay, Back and Forward, and resets on reload (443ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:35] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:35] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:35] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:35] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:35] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:35] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  163 [mobile] › tests/e2e/groups.spec.js:1242:1 › the add choice follows a group and Chưa phân nhóm in the filter, but not Tất cả nhóm (119ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:35] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:35] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:35] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:35] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:35] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:35] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  164 [mobile] › tests/e2e/groups.spec.js:1255:1 › an add to a group the filter hides is saved, the filter stays and a polite notice says so (220ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:35] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:35] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:35] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:35] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:35] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:35] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  165 [mobile] › tests/e2e/groups.spec.js:1287:1 › an add into an empty filtered group replaces the empty text with its section (112ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:35] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:35] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:35] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:35] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:35] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:35] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  166 [mobile] › tests/e2e/groups.spec.js:1298:1 › while filtered the summary, progress and stamp count the whole day (255ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:36] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:36] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:36] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:36] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:36] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:36] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  167 [mobile] › tests/e2e/groups.spec.js:1316:1 › a move under the filter sends focus to the next visible row, else the previous one, else the add input (261ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:36] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:36] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:36] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:36] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:36] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:36] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  168 [mobile] › tests/e2e/groups.spec.js:1337:1 › filtering and moving between days never writes to storage (505ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:36] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:36] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:36] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:36] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:36] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:36] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  169 [mobile] › tests/e2e/groups.spec.js:1348:1 › keyboard only: the filter and Quản lý nhóm follow Thêm in the Tab order and the filter changes with the keys (124ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:36] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:36] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:36] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:36] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:36] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:36] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  170 [mobile] › tests/e2e/groups.spec.js:1370:3 › 360px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut (549ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:37] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:37] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:37] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:37] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:37] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:37] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  171 [mobile] › tests/e2e/groups.spec.js:1370:3 › 380px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut (615ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:38] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:38] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:38] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:38] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:38] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:38] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  172 [mobile] › tests/e2e/groups.spec.js:1370:3 › 390px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut (548ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:38] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:38] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:38] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:38] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:38] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:38] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  173 [mobile] › tests/e2e/groups.spec.js:1370:3 › 412px: Quản lý nhóm is icon only with its name and tooltip, targets are 44 px, the filter choice is not cut (561ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  174 [mobile] › tests/e2e/groups.spec.js:1370:3 › 452px: Quản lý nhóm shows its text, targets are 44 px, the filter choice is not cut (139ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  175 [mobile] › tests/e2e/groups.spec.js:1370:3 › 1440px: Quản lý nhóm shows its text, targets are 44 px, the filter choice is not cut (141ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  176 [mobile] › tests/e2e/groups.spec.js:1414:1 › 200 tasks in 20 groups: a filter change stays under 100 ms (225ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  177 [mobile] › tests/e2e/groups.spec.js:1438:1 › a group removed in another tab while it is filtered: the filter resets, the list shows all, the add choice falls back (112ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✘  161 [desktop] › tests/e2e/groups.spec.js:1503:1 › the hidden group notice goes away when the filter changes (5.1s)
+  ✓  178 [mobile] › tests/e2e/groups.spec.js:1450:1 › the filtered group renamed in another tab stays selected; all groups removed hides the filter and shows every task (121ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:39] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  179 [mobile] › tests/e2e/groups.spec.js:1462:1 › a filter change drops an open edit on a row it hides and keeps one on a row it shows (207ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  180 [mobile] › tests/e2e/groups.spec.js:1477:1 › a filter change while Nhóm mới... is open changes the add choice but keeps the line and its text (121ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✓  181 [mobile] › tests/e2e/groups.spec.js:1489:1 › midnight with a filter on keeps the filter, follows the new day and clears the notice (128ms)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:40] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+  ✘  182 [mobile] › tests/e2e/groups.spec.js:1503:1 › the hidden group notice goes away when the filter changes (5.2s)
+  ✘  183 [desktop] › tests/e2e/groups.spec.js:1513:1 › the filter empty text is a polite status, so it is announced when the filter shows no task (5.2s)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:46] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:46] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:46] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:46] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:46] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:46] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:46] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:46] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:46] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:46] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:46] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:46] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✘  184 [mobile] › tests/e2e/groups.spec.js:1513:1 › the filter empty text is a polite status, so it is announced when the filter shows no task (5.1s)
+  ✘  185 [desktop] › tests/e2e/groups.spec.js:1520:1 › every group removed in another tab while the filter has focus: the filter goes and focus moves to the add input (5.2s)
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:52] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:52] "GET /docs/project/design-system.css?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:52] "GET /src/app.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:52] "GET /src/store.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:52] "GET /src/date.js?v=1.2.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [10/Nov/2026 01:12:52] "GET /src/groups.js?v=1.2.0 HTTP/1.1" 200 -
+  ✘  186 [mobile] › tests/e2e/groups.spec.js:1520:1 › every group removed in another tab while the filter has focus: the filter goes and focus moves to the add input (5.3s)
+
+
+  1) [desktop] › tests/e2e/groups.spec.js:1503:1 › the hidden group notice goes away when the filter changes 
+
+    Error: expect(locator).toBeHidden() failed
+
+    Locator:  locator('#notice')
+    Expected: hidden
+    Received: visible
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeHidden" locator('#notice') with timeout 5000ms
+      - waiting for locator('#notice')
+        14 × locator resolved to <div id="notice" role="status" class="alert alert--info">…</div>
+           - unexpected value "visible"
+
+
+      1508 |   await expect(notice(page)).toBeVisible();
+      1509 |   await filterSel(page).selectOption({ label: 'Nhà' });
+    > 1510 |   await expect(notice(page)).toBeHidden();
+           |                              ^
+      1511 | });
+      1512 |
+      1513 | test('the filter empty text is a polite status, so it is announced when the filter shows no task', async ({ page }) => {
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/mut/tests/e2e/groups.spec.js:1510:30
+
+    Error Context: test-results/groups-the-hidden-group-no-2f85a-way-when-the-filter-changes-desktop/error-context.md
+
+  2) [desktop] › tests/e2e/groups.spec.js:1513:1 › the filter empty text is a polite status, so it is announced when the filter shows no task 
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  locator('#group-empty')
+    Expected: "status"
+    Received: ""
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveAttribute" locator('#group-empty') with timeout 5000ms
+      - waiting for locator('#group-empty')
+        13 × locator resolved to <div hidden="" id="group-empty" class="group-empty">…</div>
+           - unexpected value "null"
+
+
+      1513 | test('the filter empty text is a polite status, so it is announced when the filter shows no task', async ({ page }) => {
+      1514 |   await open(page, DAY, '', { groups: GROUPS });
+    > 1515 |   await expect(groupEmpty(page)).toHaveAttribute('role', 'status');
+           |                                  ^
+      1516 |   await filterSel(page).selectOption({ label: 'Học tiếng Nhật' });
+      1517 |   await expect(page.getByRole('status').filter({ hasText: 'Ngày này chưa có việc nào trong nhóm "Học tiếng Nhật".' })).toBeVisible();
+      1518 | });
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/mut/tests/e2e/groups.spec.js:1515:34
+
+    Error Context: test-results/groups-the-filter-empty-te-1b260-en-the-filter-shows-no-task-desktop/error-context.md
+
+  3) [desktop] › tests/e2e/groups.spec.js:1520:1 › every group removed in another tab while the filter has focus: the filter goes and focus moves to the add input 
+
+    Error: expect(locator).toBeFocused() failed
+
+    Locator:  locator('#new-task')
+    Expected: focused
+    Received: inactive
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeFocused" locator('#new-task') with timeout 5000ms
+      - waiting for locator('#new-task')
+        14 × locator resolved to <input name="text" type="text" id="new-task" autocomplete="off" class="add-form__input" placeholder="Bạn cần làm gì hôm nay?"/>
+           - unexpected value "inactive"
+
+
+      1527 |   await other.close();
+      1528 |   await expect(filterSel(page)).toBeHidden();
+    > 1529 |   await expect(page.locator('#new-task')).toBeFocused();
+           |                                           ^
+      1530 |   await expect(labels(page)).toHaveCount(6); // back to the plain list of the whole day
+      1531 |   await expect(sections(page)).toHaveCount(0);
+      1532 | });
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/mut/tests/e2e/groups.spec.js:1529:43
+
+    Error Context: test-results/groups-every-group-removed-68c5c-ocus-moves-to-the-add-input-desktop/error-context.md
+
+  4) [mobile] › tests/e2e/groups.spec.js:1503:1 › the hidden group notice goes away when the filter changes 
+
+    Error: expect(locator).toBeHidden() failed
+
+    Locator:  locator('#notice')
+    Expected: hidden
+    Received: visible
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeHidden" locator('#notice') with timeout 5000ms
+      - waiting for locator('#notice')
+        14 × locator resolved to <div id="notice" role="status" class="alert alert--info">…</div>
+           - unexpected value "visible"
+
+
+      1508 |   await expect(notice(page)).toBeVisible();
+      1509 |   await filterSel(page).selectOption({ label: 'Nhà' });
+    > 1510 |   await expect(notice(page)).toBeHidden();
+           |                              ^
+      1511 | });
+      1512 |
+      1513 | test('the filter empty text is a polite status, so it is announced when the filter shows no task', async ({ page }) => {
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/mut/tests/e2e/groups.spec.js:1510:30
+
+    Error Context: test-results/groups-the-hidden-group-no-2f85a-way-when-the-filter-changes-mobile/error-context.md
+
+  5) [mobile] › tests/e2e/groups.spec.js:1513:1 › the filter empty text is a polite status, so it is announced when the filter shows no task 
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  locator('#group-empty')
+    Expected: "status"
+    Received: ""
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveAttribute" locator('#group-empty') with timeout 5000ms
+      - waiting for locator('#group-empty')
+        13 × locator resolved to <div hidden="" id="group-empty" class="group-empty">…</div>
+           - unexpected value "null"
+
+
+      1513 | test('the filter empty text is a polite status, so it is announced when the filter shows no task', async ({ page }) => {
+      1514 |   await open(page, DAY, '', { groups: GROUPS });
+    > 1515 |   await expect(groupEmpty(page)).toHaveAttribute('role', 'status');
+           |                                  ^
+      1516 |   await filterSel(page).selectOption({ label: 'Học tiếng Nhật' });
+      1517 |   await expect(page.getByRole('status').filter({ hasText: 'Ngày này chưa có việc nào trong nhóm "Học tiếng Nhật".' })).toBeVisible();
+      1518 | });
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/mut/tests/e2e/groups.spec.js:1515:34
+
+    Error Context: test-results/groups-the-filter-empty-te-1b260-en-the-filter-shows-no-task-mobile/error-context.md
+
+  6) [mobile] › tests/e2e/groups.spec.js:1520:1 › every group removed in another tab while the filter has focus: the filter goes and focus moves to the add input 
+
+    Error: expect(locator).toBeFocused() failed
+
+    Locator:  locator('#new-task')
+    Expected: focused
+    Received: inactive
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeFocused" locator('#new-task') with timeout 5000ms
+      - waiting for locator('#new-task')
+        14 × locator resolved to <input name="text" type="text" id="new-task" autocomplete="off" class="add-form__input" placeholder="Bạn cần làm gì hôm nay?"/>
+           - unexpected value "inactive"
+
+
+      1527 |   await other.close();
+      1528 |   await expect(filterSel(page)).toBeHidden();
+    > 1529 |   await expect(page.locator('#new-task')).toBeFocused();
+           |                                           ^
+      1530 |   await expect(labels(page)).toHaveCount(6); // back to the plain list of the whole day
+      1531 |   await expect(sections(page)).toHaveCount(0);
+      1532 | });
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/mut/tests/e2e/groups.spec.js:1529:43
+
+    Error Context: test-results/groups-every-group-removed-68c5c-ocus-moves-to-the-add-input-mobile/error-context.md
+
+  6 failed
+    [desktop] › tests/e2e/groups.spec.js:1503:1 › the hidden group notice goes away when the filter changes 
+    [desktop] › tests/e2e/groups.spec.js:1513:1 › the filter empty text is a polite status, so it is announced when the filter shows no task 
+    [desktop] › tests/e2e/groups.spec.js:1520:1 › every group removed in another tab while the filter has focus: the filter goes and focus moves to the add input 
+    [mobile] › tests/e2e/groups.spec.js:1503:1 › the hidden group notice goes away when the filter changes 
+    [mobile] › tests/e2e/groups.spec.js:1513:1 › the filter empty text is a polite status, so it is announced when the filter shows no task 
+    [mobile] › tests/e2e/groups.spec.js:1520:1 › every group removed in another tab while the filter has focus: the filter goes and focus moves to the add input 
+  4 skipped
+  176 passed (56.5s)

@@ -1,0 +1,7 @@
+Command: npx playwright test tests/e2e/groups.spec.js --reporter=list (2026-11-09, desktop and mobile projects)
+  -  29 [desktop] › tests/e2e/groups.spec.js:258:1 › on a phone the peek skips a folded section, and swipe, tick and delete work inside sections
+  ✓  35 [mobile] › tests/e2e/groups.spec.js:258:1 › on a phone the peek skips a folded section, and swipe, tick and delete work inside sections (3.5s)
+
+
+  1 skipped
+  45 passed (12.2s)

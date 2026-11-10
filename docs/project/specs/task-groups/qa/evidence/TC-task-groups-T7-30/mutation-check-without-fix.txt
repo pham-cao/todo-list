@@ -1,0 +1,4 @@
+  ✘  1 [mobile] › tests/e2e/groups.spec.js:1534:1 › an add to a hidden group on an empty day shows the filter empty text and the notice (5.2s)
+  ✘  2 [desktop] › tests/e2e/groups.spec.js:1534:1 › an add to a hidden group on an empty day shows the filter empty text and the notice (5.2s)
+    Error: expect(locator).toBeVisible() failed
+    Error: expect(locator).toBeVisible() failed

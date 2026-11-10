@@ -1,0 +1,54 @@
+
+Running 50 tests using 6 workers
+
+[1/50] [desktop] › tests/e2e/groups.spec.js:2774:1 › Escape peels three stacked dialogs one at a time: move card, blocked note, manage card; focus returns to each opener
+[2/50] [mobile] › tests/e2e/groups.spec.js:2774:1 › Escape peels three stacked dialogs one at a time: move card, blocked note, manage card; focus returns to each opener
+[3/50] [desktop] › tests/e2e/groups.spec.js:2774:1 › Escape peels three stacked dialogs one at a time: move card, blocked note, manage card; focus returns to each opener
+[4/50] [desktop] › tests/e2e/groups.spec.js:2774:1 › Escape peels three stacked dialogs one at a time: move card, blocked note, manage card; focus returns to each opener
+[5/50] [desktop] › tests/e2e/groups.spec.js:2774:1 › Escape peels three stacked dialogs one at a time: move card, blocked note, manage card; focus returns to each opener
+[6/50] [desktop] › tests/e2e/groups.spec.js:2774:1 › Escape peels three stacked dialogs one at a time: move card, blocked note, manage card; focus returns to each opener
+[7/50] [desktop] › tests/e2e/groups.spec.js:2798:1 › rapid cycles on the move card from the row and from the blocked note: it opens clean each time and the last Chuyển việc moves all
+[8/50] [desktop] › tests/e2e/groups.spec.js:2798:1 › rapid cycles on the move card from the row and from the blocked note: it opens clean each time and the last Chuyển việc moves all
+[9/50] [desktop] › tests/e2e/groups.spec.js:2798:1 › rapid cycles on the move card from the row and from the blocked note: it opens clean each time and the last Chuyển việc moves all
+[10/50] [desktop] › tests/e2e/groups.spec.js:2798:1 › rapid cycles on the move card from the row and from the blocked note: it opens clean each time and the last Chuyển việc moves all
+[11/50] [desktop] › tests/e2e/groups.spec.js:2798:1 › rapid cycles on the move card from the row and from the blocked note: it opens clean each time and the last Chuyển việc moves all
+[12/50] [mobile] › tests/e2e/groups.spec.js:2798:1 › rapid cycles on the move card from the row and from the blocked note: it opens clean each time and the last Chuyển việc moves all
+[13/50] [desktop] › tests/e2e/groups.spec.js:2827:1 › names and sizes: every control of the move card has its visible text in its name; the dialog is modal; the buttons reach 44 px on a phone
+[14/50] [desktop] › tests/e2e/groups.spec.js:2827:1 › names and sizes: every control of the move card has its visible text in its name; the dialog is modal; the buttons reach 44 px on a phone
+[15/50] [desktop] › tests/e2e/groups.spec.js:2827:1 › names and sizes: every control of the move card has its visible text in its name; the dialog is modal; the buttons reach 44 px on a phone
+[16/50] [desktop] › tests/e2e/groups.spec.js:2827:1 › names and sizes: every control of the move card has its visible text in its name; the dialog is modal; the buttons reach 44 px on a phone
+[17/50] [mobile] › tests/e2e/groups.spec.js:2827:1 › names and sizes: every control of the move card has its visible text in its name; the dialog is modal; the buttons reach 44 px on a phone
+[18/50] [desktop] › tests/e2e/groups.spec.js:2827:1 › names and sizes: every control of the move card has its visible text in its name; the dialog is modal; the buttons reach 44 px on a phone
+[19/50] [desktop] › tests/e2e/groups.spec.js:2850:1 › the source group removed in another tab while the move card is open closes it without a move or a script error
+[20/50] [desktop] › tests/e2e/groups.spec.js:2850:1 › the source group removed in another tab while the move card is open closes it without a move or a script error
+[21/50] [desktop] › tests/e2e/groups.spec.js:2850:1 › the source group removed in another tab while the move card is open closes it without a move or a script error
+[22/50] [mobile] › tests/e2e/groups.spec.js:2850:1 › the source group removed in another tab while the move card is open closes it without a move or a script error
+[23/50] [desktop] › tests/e2e/groups.spec.js:2850:1 › the source group removed in another tab while the move card is open closes it without a move or a script error
+[24/50] [desktop] › tests/e2e/groups.spec.js:2850:1 › the source group removed in another tab while the move card is open closes it without a move or a script error
+[25/50] [desktop] › tests/e2e/groups.spec.js:2869:1 › another tab stored more tasks of the group: the refusal repeats, Hủy and reopening do not clear it, nothing is written
+[26/50] [mobile] › tests/e2e/groups.spec.js:2869:1 › another tab stored more tasks of the group: the refusal repeats, Hủy and reopening do not clear it, nothing is written
+[27/50] [desktop] › tests/e2e/groups.spec.js:2869:1 › another tab stored more tasks of the group: the refusal repeats, Hủy and reopening do not clear it, nothing is written
+[28/50] [desktop] › tests/e2e/groups.spec.js:2869:1 › another tab stored more tasks of the group: the refusal repeats, Hủy and reopening do not clear it, nothing is written
+[29/50] [desktop] › tests/e2e/groups.spec.js:2869:1 › another tab stored more tasks of the group: the refusal repeats, Hủy and reopening do not clear it, nothing is written
+[30/50] [desktop] › tests/e2e/groups.spec.js:2869:1 › another tab stored more tasks of the group: the refusal repeats, Hủy and reopening do not clear it, nothing is written
+[31/50] [mobile] › tests/e2e/groups.spec.js:2774:1 › Escape peels three stacked dialogs one at a time: move card, blocked note, manage card; focus returns to each opener
+[32/50] [mobile] › tests/e2e/groups.spec.js:2774:1 › Escape peels three stacked dialogs one at a time: move card, blocked note, manage card; focus returns to each opener
+[33/50] [mobile] › tests/e2e/groups.spec.js:2774:1 › Escape peels three stacked dialogs one at a time: move card, blocked note, manage card; focus returns to each opener
+[34/50] [mobile] › tests/e2e/groups.spec.js:2774:1 › Escape peels three stacked dialogs one at a time: move card, blocked note, manage card; focus returns to each opener
+[35/50] [mobile] › tests/e2e/groups.spec.js:2798:1 › rapid cycles on the move card from the row and from the blocked note: it opens clean each time and the last Chuyển việc moves all
+[36/50] [mobile] › tests/e2e/groups.spec.js:2798:1 › rapid cycles on the move card from the row and from the blocked note: it opens clean each time and the last Chuyển việc moves all
+[37/50] [mobile] › tests/e2e/groups.spec.js:2798:1 › rapid cycles on the move card from the row and from the blocked note: it opens clean each time and the last Chuyển việc moves all
+[38/50] [mobile] › tests/e2e/groups.spec.js:2798:1 › rapid cycles on the move card from the row and from the blocked note: it opens clean each time and the last Chuyển việc moves all
+[39/50] [mobile] › tests/e2e/groups.spec.js:2827:1 › names and sizes: every control of the move card has its visible text in its name; the dialog is modal; the buttons reach 44 px on a phone
+[40/50] [mobile] › tests/e2e/groups.spec.js:2827:1 › names and sizes: every control of the move card has its visible text in its name; the dialog is modal; the buttons reach 44 px on a phone
+[41/50] [mobile] › tests/e2e/groups.spec.js:2827:1 › names and sizes: every control of the move card has its visible text in its name; the dialog is modal; the buttons reach 44 px on a phone
+[42/50] [mobile] › tests/e2e/groups.spec.js:2827:1 › names and sizes: every control of the move card has its visible text in its name; the dialog is modal; the buttons reach 44 px on a phone
+[43/50] [mobile] › tests/e2e/groups.spec.js:2850:1 › the source group removed in another tab while the move card is open closes it without a move or a script error
+[44/50] [mobile] › tests/e2e/groups.spec.js:2850:1 › the source group removed in another tab while the move card is open closes it without a move or a script error
+[45/50] [mobile] › tests/e2e/groups.spec.js:2850:1 › the source group removed in another tab while the move card is open closes it without a move or a script error
+[46/50] [mobile] › tests/e2e/groups.spec.js:2850:1 › the source group removed in another tab while the move card is open closes it without a move or a script error
+[47/50] [mobile] › tests/e2e/groups.spec.js:2869:1 › another tab stored more tasks of the group: the refusal repeats, Hủy and reopening do not clear it, nothing is written
+[48/50] [mobile] › tests/e2e/groups.spec.js:2869:1 › another tab stored more tasks of the group: the refusal repeats, Hủy and reopening do not clear it, nothing is written
+[49/50] [mobile] › tests/e2e/groups.spec.js:2869:1 › another tab stored more tasks of the group: the refusal repeats, Hủy and reopening do not clear it, nothing is written
+[50/50] [mobile] › tests/e2e/groups.spec.js:2869:1 › another tab stored more tasks of the group: the refusal repeats, Hủy and reopening do not clear it, nothing is written
+  50 passed (15.6s)

@@ -1,0 +1,11 @@
+
+Running 6 tests using 6 workers
+
+[1/6] [desktop] › tests/e2e/groups.spec.js:2297:1 › phone swipes in sections: one strip open, another swipe closes it, a tap outside closes all, Tab into Sửa opens that strip, Giữ lại leaves only it open
+[2/6] [mobile] › tests/e2e/groups.spec.js:2297:1 › phone swipes in sections: one strip open, another swipe closes it, a tap outside closes all, Tab into Sửa opens that strip, Giữ lại leaves only it open
+[3/6] [mobile] › tests/e2e/groups.spec.js:2297:1 › phone swipes in sections: one strip open, another swipe closes it, a tap outside closes all, Tab into Sửa opens that strip, Giữ lại leaves only it open
+[4/6] [desktop] › tests/e2e/groups.spec.js:2297:1 › phone swipes in sections: one strip open, another swipe closes it, a tap outside closes all, Tab into Sửa opens that strip, Giữ lại leaves only it open
+[5/6] [desktop] › tests/e2e/groups.spec.js:2297:1 › phone swipes in sections: one strip open, another swipe closes it, a tap outside closes all, Tab into Sửa opens that strip, Giữ lại leaves only it open
+[6/6] [mobile] › tests/e2e/groups.spec.js:2297:1 › phone swipes in sections: one strip open, another swipe closes it, a tap outside closes all, Tab into Sửa opens that strip, Giữ lại leaves only it open
+  3 skipped
+  3 passed (5.2s)
