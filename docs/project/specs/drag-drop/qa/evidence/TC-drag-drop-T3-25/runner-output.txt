@@ -1,0 +1,8 @@
+Runner: npx playwright test drag.spec.js --project=desktop (Chromium) and temporary Firefox config; 2026-11-10
+
+## chromium
+  ✓  11 [desktop] › tests/e2e/drag.spec.js:226:3 › mouse › a release anywhere cancels with nothing written; focus stays off the row when it was outside the list (333ms)
+  ✓  16 [desktop] › tests/e2e/drag.spec.js:300:3 › mouse edge cases › a release on the own group or on nothing and Escape all leave all three keys byte for byte (995ms)
+## firefox
+  ✓  11 [firefox] › tests/e2e/drag.spec.js:226:3 › mouse › a release anywhere cancels with nothing written; focus stays off the row when it was outside the list (571ms)
+  ✓  16 [firefox] › tests/e2e/drag.spec.js:300:3 › mouse edge cases › a release on the own group or on nothing and Escape all leave all three keys byte for byte (1.3s)

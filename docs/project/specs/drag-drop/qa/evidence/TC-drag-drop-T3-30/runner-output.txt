@@ -1,0 +1,3 @@
+  ✓  17 [desktop] › tests/e2e/drag.spec.js:317:3 › mouse edge cases › a drag under the filter, with a folded section, or with the new group line open cancels cleanly (1.1s)
+  ✓  18 [desktop] › tests/e2e/drag.spec.js:352:3 › mouse edge cases › a second mouse button, a double click and very fast presses leave nothing behind (2.1s)
+  ✓  19 [desktop] › tests/e2e/drag.spec.js:377:3 › mouse edge cases › following the pointer never rebuilds the list or reads every row (NFR1) (2.4s)

@@ -1,0 +1,6 @@
+Runner: npx playwright test drag.spec.js --project=desktop (Chromium) and temporary Firefox config; 2026-11-10
+
+## chromium
+  ✓   6 [desktop] › tests/e2e/drag.spec.js:123:3 › mouse › no drag while an IME is composing; it works again after the composition ends (704ms)
+## firefox
+  ✓   6 [firefox] › tests/e2e/drag.spec.js:123:3 › mouse › no drag while an IME is composing; it works again after the composition ends (758ms)

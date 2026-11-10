@@ -1,0 +1,8 @@
+Runner: npx playwright test drag.spec.js --project=desktop (Chromium) and temporary Firefox config; 2026-11-10
+
+## chromium
+  ✓  10 [desktop] › tests/e2e/drag.spec.js:206:3 › mouse › Escape cancels: nothing written, focus back on Sửa, the cancel announced, and the Escape reaches nothing else (497ms)
+  ✓  16 [desktop] › tests/e2e/drag.spec.js:300:3 › mouse edge cases › a release on the own group or on nothing and Escape all leave all three keys byte for byte (995ms)
+## firefox
+  ✓  10 [firefox] › tests/e2e/drag.spec.js:206:3 › mouse › Escape cancels: nothing written, focus back on Sửa, the cancel announced, and the Escape reaches nothing else (1.4s)
+  ✓  16 [firefox] › tests/e2e/drag.spec.js:300:3 › mouse edge cases › a release on the own group or on nothing and Escape all leave all three keys byte for byte (1.3s)

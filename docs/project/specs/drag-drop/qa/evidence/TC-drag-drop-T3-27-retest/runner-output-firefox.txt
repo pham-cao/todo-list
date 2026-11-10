@@ -1,0 +1,27 @@
+
+Running 21 tests using 1 worker
+
+  ✓   1 [firefox] › tests/e2e/drag.spec.js:23:3 › mouse › a click on a row changes nothing and a tick still works (1.6s)
+  ✓   2 [firefox] › tests/e2e/drag.spec.js:33:3 › mouse › about 6 px starts a drag: 4 px does not, 8 px does; pen too; a secondary button or second pointer never (1.2s)
+  ✓   3 [firefox] › tests/e2e/drag.spec.js:68:3 › mouse › a press on the tick box, Sửa, Xóa, a section toggle or an edit field never starts a drag (1.9s)
+  ✓   4 [firefox] › tests/e2e/drag.spec.js:91:3 › mouse › no drag while a row is in edit, while the delete note is open, or with no group stored (1.3s)
+  ✓   5 [firefox] › tests/e2e/drag.spec.js:115:3 › mouse › no drag on a day with no group stored (R35) (1.1s)
+  ✓   6 [firefox] › tests/e2e/drag.spec.js:123:3 › mouse › no drag while an IME is composing; it works again after the composition ends (870ms)
+  ✓   7 [firefox] › tests/e2e/drag.spec.js:135:3 › mouse › lifted: placeholder, plain text slip, strip with every group in order and the own group faded (1.3s)
+  ✓   8 [firefox] › tests/e2e/drag.spec.js:184:3 › mouse › a done task lifts as a done slip (729ms)
+  ✓   9 [firefox] › tests/e2e/drag.spec.js:191:3 › mouse › at rest there is no strip, slip or new tab stop, before and after a drag (1.0s)
+  ✓  10 [firefox] › tests/e2e/drag.spec.js:206:3 › mouse › Escape cancels: nothing written, focus back on Sửa, the cancel announced, and the Escape reaches nothing else (1.5s)
+  ✓  11 [firefox] › tests/e2e/drag.spec.js:226:3 › mouse › a release anywhere cancels with nothing written; focus stays off the row when it was outside the list (643ms)
+  ✓  12 [firefox] › tests/e2e/drag.spec.js:242:3 › mouse › reduced motion: the slip has no tilt and no lift animation (543ms)
+  ✓  13 [firefox] › tests/e2e/drag.spec.js:259:3 › mouse edge cases › 20 groups with a 30 character name: one target each, names whole, strip inside the screen at 1440 and 390 (986ms)
+  ✓  14 [firefox] › tests/e2e/drag.spec.js:278:3 › mouse edge cases › the slip stays inside the screen when the pointer is at the right edge (BUG-016) (610ms)
+  ✓  15 [firefox] › tests/e2e/drag.spec.js:289:3 › mouse edge cases › the grab point stays under the pointer wherever the pointer goes (R27, BUG-016) (1.5s)
+  ✓  16 [firefox] › tests/e2e/drag.spec.js:308:3 › mouse edge cases › 390 px: a 200 character task lifts and the page gets no sideways scroll (785ms)
+  ✓  17 [firefox] › tests/e2e/drag.spec.js:317:3 › mouse edge cases › a release on the own group or on nothing and Escape all leave all three keys byte for byte (1.3s)
+  ✓  18 [firefox] › tests/e2e/drag.spec.js:334:3 › mouse edge cases › a drag under the filter, with a folded section, or with the new group line open cancels cleanly (1.5s)
+  ✓  19 [firefox] › tests/e2e/drag.spec.js:369:3 › mouse edge cases › a second mouse button, a double click and very fast presses leave nothing behind (2.0s)
+  ✓  20 [firefox] › tests/e2e/drag.spec.js:394:3 › mouse edge cases › following the pointer never rebuilds the list or reads every row (NFR1) (3.3s)
+  -  21 [firefox] › tests/e2e/drag.spec.js:411:1 › phone: an open swipe strip closes when its row is picked up
+
+  1 skipped
+  20 passed (27.8s)

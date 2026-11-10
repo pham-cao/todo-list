@@ -1,0 +1,6 @@
+Runner: npx playwright test drag.spec.js --project=desktop (Chromium) and temporary Firefox config; 2026-11-10
+
+## chromium
+  ✓   3 [desktop] › tests/e2e/drag.spec.js:68:3 › mouse › a press on the tick box, Sửa, Xóa, a section toggle or an edit field never starts a drag (1.4s)
+## firefox
+  ✓   3 [firefox] › tests/e2e/drag.spec.js:68:3 › mouse › a press on the tick box, Sửa, Xóa, a section toggle or an edit field never starts a drag (1.8s)

@@ -289,15 +289,15 @@ features:
         title: "Mouse pick up, slip, strip and cancel"
         owner: fe
         depends_on: [T2]
-        state: doing
-        attempts: 0
-        bugs_opened: []
+        state: done
+        attempts: 1
+        bugs_opened: [BUG-016]
         trello_card: ""
       - id: T4
         title: "Drop targets and the drop"
         owner: fe
         depends_on: [T1, T2, T3]
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""

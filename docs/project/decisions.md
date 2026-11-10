@@ -560,3 +560,12 @@ Choice (by PM):
 Choice (by PM):
 - BUG-015 (info slip does not wrap long unbroken text at 360 px): fix in T2 with `.alert p { min-width: 0; overflow-wrap: anywhere; }` in design-system.css (authorised); covers the older add notice too.
 - Stale slip after a later visible move: clear it (notify(null)) on a visible move, so the slip never describes an older move.
+
+## 2026-11-10: drag-drop T3: axe scrollable-region-focusable on the placeholder row at 390 px
+Options: Accept as a drag only state, Small CSS change in T8
+Choice: Fix in T8 with a small design-system.css change (e.g. hide placeholder actions with opacity instead of visibility), PM authorised (by PM)
+Also accepted: strip appended inside <main>; pointer captured on the slip, not the row.
+
+## 2026-11-10 drag-drop T3: review minor findings deferred
+- The cancel announcement reads the group from `row.closest(".group")` at drag end, so a row removed mid-drag would announce "Chưa phân nhóm". Fix it in T7 by passing the group key from pick up to `onEnd`, together with `drag.cancel()` in resetTransient.
+- The slip's screen bounds are measured once at pick up, so a resize mid-drag can let the slip go past the new edge. This is accepted as cosmetic; re-measure on resize only if T6 or T7 touch it.

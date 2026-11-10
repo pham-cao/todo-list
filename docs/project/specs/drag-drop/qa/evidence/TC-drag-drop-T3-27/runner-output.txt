@@ -1,0 +1,8 @@
+Runner: npx playwright test drag.spec.js --project=desktop (Chromium) and temporary Firefox config; 2026-11-10
+
+## chromium
+  ✘  14 [desktop] › tests/e2e/drag.spec.js:279:3 › mouse edge cases › the slip stays inside the screen when the pointer is at the right edge (BUG-016) (509ms)
+  ✓  15 [desktop] › tests/e2e/drag.spec.js:291:3 › mouse edge cases › 390 px: a 200 character task lifts and the page gets no sideways scroll (407ms)
+## firefox
+  ✘  14 [firefox] › tests/e2e/drag.spec.js:279:3 › mouse edge cases › the slip stays inside the screen when the pointer is at the right edge (BUG-016) (727ms)
+  ✓  15 [firefox] › tests/e2e/drag.spec.js:291:3 › mouse edge cases › 390 px: a 200 character task lifts and the page gets no sideways scroll (589ms)
