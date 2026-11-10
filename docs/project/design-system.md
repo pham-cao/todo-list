@@ -162,6 +162,7 @@ Rules: only the group name sits on a label, always in main ink (muted ink on the
 - Group edit (`.group-row--editing`, `.colour-pick`): the row gets the highlighter wash used for task editing, the name becomes a line input, then the "Màu nhóm" fieldset with six 44 px radio choices drawn as small torn labels in each colour, named Vàng, Hồng, Xanh lá, Xanh dương, Cam, Tím. The chosen one is lifted 2 px, framed in ink and ticked, so colour is not the only cue. Then Hủy and Lưu.
 - Notes on top of the card: the delete question and the blocked message use the approved sticky note. `.dialog__title--message` sets a full sentence heading at 17 px semibold; `.dialog__actions--stack` gives one button per line (primary first).
 - Move form (`.move-field`): "Chuyển đến nhóm" label and a line select, then the confirmation sentence (`.dialog__text`) that updates with the chosen target. A failed write shows the warning slip inside the card.
+- Long names in dialog titles (T11): `.dialog__title` sets `overflow-wrap: anywhere`, so a group name with no space (up to 30 characters) breaks inside the note or card instead of running off a phone screen. Titles with spaces wrap as before. The "Nhóm việc" card also shows a failed rename or delete inside the card (`#manage-save-error`, the warning slip with the storage message text), because the page slip sits behind the modal.
 
 ### Motion
 

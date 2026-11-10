@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import {
   TODAY, NOW, KEY, GROUPS_KEY, UI_KEY, task, group, open, rows, labels, progress, box, storedRaw, storedJson,
-  addTask, tick, sections, section, toggle, passMidnight, hash,
+  addTask, tick, stored, sections, section, toggle, passMidnight, hash,
 } from './helpers.js';
 
 // T4: the day list in sections, with collapse (R29 to R34, R39, R40, R50, R57, R58, R63, R65, NFR1)
@@ -2947,4 +2947,576 @@ test('another tab adds one task to the group and moves another out: same count, 
   await expect(moveCard(page)).toBeVisible();
   expect(await storedRaw(page)).toBe(before);
   expect(JSON.parse(before).some((t) => t.id === 'other')).toBe(true);
+});
+
+// T11: keyboard, size, safety and speed checks (R9, R12, R59 to R66, NFR1 to NFR8)
+const press = async (page, ...keys) => { for (const k of keys) await page.keyboard.press(k); };
+// Tab forward until the locator has focus; fails if it is not reached within `max` presses.
+async function tabTo(page, locator, max = 40) {
+  for (let i = 0; i < max; i++) {
+    if (await locator.evaluate((el) => el === document.activeElement)) return;
+    await page.keyboard.press('Tab');
+  }
+  await expect(locator).toBeFocused();
+}
+// The page never scrolls sideways, and nothing in an open dialog reaches past the screen edge. Notes keep overflow
+// visible for their corner sticker, so their own scrollWidth is not a scroll; the card's row list does scroll.
+const noHScroll = async (page, label) => {
+  // Dialogs settle in with a short scale, so measure once nothing is moving.
+  await page.waitForFunction(() => document.getAnimations().every((a) => a.playState !== 'running'));
+  const r = await page.evaluate(() => ({
+    doc: document.documentElement.scrollWidth - innerWidth,
+    // The corner sticker hangs past the card edge by design (move-all.html does the same at 390 px); it is aria-hidden.
+    out: [...document.querySelectorAll('dialog[open] *:not(.sticker--corner)')].filter((el) => {
+      const b = el.getBoundingClientRect();
+      return b.width && (b.left < -0.5 || b.right > innerWidth + 0.5);
+    }).map((el) => el.className.baseVal ?? el.className),
+    scrollers: [...document.querySelectorAll('dialog[open] .group-rows')].map((l) => l.scrollWidth - l.clientWidth),
+  }));
+  expect(r.doc, label).toBeLessThanOrEqual(0);
+  expect(r.out, label).toEqual([]);
+  for (const d of r.scrollers) expect(d, label).toBeLessThanOrEqual(0);
+};
+// Every visible match has a hit area of at least 44 by 44 CSS px: a 36 px button reaches 44 with an absolute
+// ::before that sticks out of it (inset -4px 0), so that overhang is added to its box.
+const atLeast44 = async (locator, label) => {
+  const sizes = await locator.evaluateAll((els) => els.filter((el) => el.getClientRects().length).map((el) => {
+    let w = el.offsetWidth, h = el.offsetHeight;
+    for (const pseudo of ['::before', '::after']) {
+      const c = getComputedStyle(el, pseudo);
+      if (c.content === 'none' || c.position !== 'absolute') continue;
+      const px = (v) => (v.endsWith('px') ? parseFloat(v) : 0);
+      w = Math.max(w, el.offsetWidth - px(c.left) - px(c.right));
+      h = Math.max(h, el.offsetHeight - px(c.top) - px(c.bottom));
+    }
+    return [el.getAttribute('aria-label') ?? el.textContent.trim(), w, h];
+  }));
+  expect(sizes.length, label).toBeGreaterThan(0);
+  expect(sizes.filter(([, w, h]) => w < 44 || h < 44), label).toEqual([]);
+};
+const failWrites = (page, keys) => page.evaluate((ks) => {
+  window.__set = window.__set ?? Storage.prototype.setItem;
+  Storage.prototype.setItem = function (key, v) { if (ks.includes(key)) throw new DOMException('Full', 'QuotaExceededError'); return window.__set.call(this, key, v); };
+}, keys);
+const allowWrites = (page) => page.evaluate(() => { Storage.prototype.setItem = window.__set; });
+const SLIP_TEXT = 'Không thể lưu dữ liệu trên trình duyệt này. Công việc có thể bị mất khi bạn tải lại trang.';
+const cardAlert = (page) => card(page).locator('#manage-save-error');
+
+test('keyboard only: create a group on the fly, add, collapse, filter, move a task, rename and recolour, move all, delete', async ({ page }) => {
+  await open(page, []);
+  const input = page.locator('#new-task');
+  await expect(input).toBeFocused();
+  // Two groups made on the fly, each with a task; the typed task text waits while the group is made (R16).
+  for (const [text, name] of [['Gửi báo cáo', 'Công ty'], ['Tưới cây', 'Nhà']]) {
+    await page.keyboard.type(text);
+    await press(page, 'Tab', 'End'); // Nhóm mới... is the last option
+    await expect(nameInput(page)).toBeFocused();
+    await page.keyboard.type(name);
+    await press(page, 'Enter');
+    await expect(input).toBeFocused();
+    await expect(input).toHaveValue(text);
+    await press(page, 'Enter');
+    await expect(sectionLabels(page, name)).toHaveText([text]);
+  }
+  // Collapse and expand with Enter.
+  const head = toggle(page, 'Công ty');
+  await tabTo(page, head);
+  await press(page, 'Enter');
+  await expect(head).toHaveAttribute('aria-expanded', 'false');
+  await press(page, 'Enter');
+  await expect(head).toHaveAttribute('aria-expanded', 'true');
+  // Move a task: Sửa, the group choice, Lưu; Escape on a second edit changes nothing.
+  await tabTo(page, editOf(page, 'Gửi báo cáo'));
+  await press(page, 'Enter');
+  await expect(editField(page)).toBeFocused();
+  await tabTo(page, editChoice(page));
+  await press(page, 'ArrowDown'); // Công ty to Nhà
+  await tabTo(page, page.locator('.task__edit').getByRole('button', { name: 'Lưu' }));
+  await press(page, 'Enter');
+  await expect(sectionLabels(page, 'Nhà')).toHaveText(['Gửi báo cáo', 'Tưới cây']);
+  await expect(editOf(page, 'Gửi báo cáo')).toBeFocused();
+  await press(page, 'Enter', 'Escape');
+  await expect(editOf(page, 'Gửi báo cáo')).toBeFocused();
+  // Filter to Nhà and back to Tất cả nhóm.
+  await page.keyboard.press('Shift+Tab');
+  for (let i = 0; i < 40 && !(await filterSel(page).evaluate((el) => el === document.activeElement)); i++) await page.keyboard.press('Shift+Tab');
+  await press(page, 'End');
+  await expect(filterSel(page)).toHaveValue(/.+/);
+  await expect(names(page)).toHaveText(['Nhà']);
+  await press(page, 'Home');
+  await expect(filterSel(page)).toHaveValue('all');
+  // The card: rename and recolour Công ty with the keys.
+  await tabTo(page, manageBtn(page));
+  await press(page, 'Enter');
+  await expect(card(page)).toBeVisible();
+  await tabTo(page, sua(page, 'Công ty'));
+  await press(page, 'Enter');
+  await expect(renameInput(page)).toBeFocused();
+  await press(page, 'End');
+  await page.keyboard.type(' mới');
+  await press(page, 'Tab', 'ArrowRight'); // Vàng to Hồng
+  await tabTo(page, card(page).getByRole('button', { name: 'Lưu' }));
+  await press(page, 'Enter');
+  await expect(sua(page, 'Công ty mới')).toBeFocused();
+  expect((await storedJson(page, GROUPS_KEY)).map((g) => [g.name, g.color])).toEqual([['Công ty mới', 'pink'], ['Nhà', 'pink']]);
+  // Move all of Nhà into Công ty mới.
+  await tabTo(page, moveBtn(page, 'Nhà'));
+  await press(page, 'Enter');
+  await expect(moveCard(page)).toBeVisible();
+  await tabTo(page, target(page));
+  await press(page, 'ArrowDown');
+  await expect(target(page)).not.toHaveValue('none');
+  await tabTo(page, moveCard(page).getByRole('button', { name: 'Chuyển việc' }));
+  await press(page, 'Enter');
+  await expect(card(page)).toBeHidden();
+  await expect(manageBtn(page)).toBeFocused();
+  await expect(names(page)).toHaveText(['Công ty mới']);
+  // Delete the now empty Nhà: Escape keeps it, then Xóa nhóm.
+  await press(page, 'Enter');
+  await tabTo(page, xoa(page, 'Nhà'));
+  await press(page, 'Enter');
+  await expect(deleteNote(page).getByRole('button', { name: 'Giữ lại' })).toBeFocused();
+  await press(page, 'Escape');
+  await expect(xoa(page, 'Nhà')).toBeFocused();
+  await press(page, 'Enter', 'Tab', 'Enter');
+  await expect(cardRows(page).locator('.sticker')).toHaveText(['Công ty mới']);
+  await press(page, 'Escape');
+  await expect(manageBtn(page)).toBeFocused();
+  expect((await storedJson(page, GROUPS_KEY)).map((g) => g.name)).toEqual(['Công ty mới']);
+  expect((await storedJson(page, KEY)).length).toBe(2);
+});
+
+test('every new control is at least 44 by 44 px', async ({ page }) => {
+  await open(page, SPREAD, '', { groups: [...GROUPS, SK] });
+  await atLeast44(page.locator('#new-task-group, #group-filter, #manage-groups, .group__toggle, #add-form [type=submit]'), 'page');
+  await choice(page).selectOption({ label: 'Nhóm mới...' });
+  await atLeast44(page.locator('#create-group, #new-group-name'), 'new group line');
+  await page.keyboard.press('Escape');
+  await editOf(page, 'Gửi báo cáo').click();
+  await atLeast44(page.locator('.task__edit select, .task__edit button'), 'task edit');
+  await page.keyboard.press('Escape');
+  await openCard(page);
+  await atLeast44(card(page).locator('button'), 'card');
+  await startRename(page, 'Công ty');
+  await atLeast44(card(page).locator('.colour-pick__list label, .group-row--editing button'), 'rename');
+  await page.keyboard.press('Escape');
+  await xoa(page, 'Sức khỏe').click();
+  await atLeast44(deleteNote(page).locator('button'), 'delete note');
+  await page.keyboard.press('Escape');
+  await xoa(page, 'Nhà').click();
+  await atLeast44(blockedNote(page).locator('button'), 'blocked note');
+  await blockedNote(page).getByRole('button', { name: 'Chuyển tất cả việc' }).click();
+  await atLeast44(moveCard(page).locator('select, button'), 'move card');
+});
+
+test('360 px with 20 long names: no horizontal scroll with the new group line, the edit choice and each dialog open', async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 740 });
+  const long = Array.from({ length: 19 }, (_, i) => group(`g${i}`, `${String(i).padStart(2, '0')} Dự án khách hàng lớn ${'x'.repeat(6)}`, 'blue', i + 1));
+  const gs = [...long, group('w', 'W'.repeat(30), 'pink', 99)];
+  const tasks = [{ ...task('a', 'Một việc có nội dung rất dài '.repeat(5).trim()), groupId: 'w' }, task('b', 'Hai'), { ...task('c', 'Ba'), groupId: 'g0' }];
+  await open(page, tasks, '', { groups: gs });
+  await noHScroll(page, 'sections');
+  await choice(page).selectOption('w');
+  await filterSel(page).selectOption('w');
+  await noHScroll(page, 'long name chosen');
+  await filterSel(page).selectOption('all');
+  await choice(page).selectOption({ label: 'Nhóm mới...' });
+  await nameInput(page).fill('W'.repeat(30));
+  await noHScroll(page, 'new group line');
+  await page.keyboard.press('Escape');
+  await editOf(page, 'Hai').click();
+  await editChoice(page).selectOption('w');
+  await noHScroll(page, 'task edit');
+  await page.keyboard.press('Escape');
+  await openCard(page);
+  await noHScroll(page, 'card');
+  await startRename(page, 'W'.repeat(30));
+  await noHScroll(page, 'rename');
+  await page.keyboard.press('Escape');
+  await xoa(page, long[3].name).click();
+  await noHScroll(page, 'delete note');
+  await page.keyboard.press('Escape');
+  await xoa(page, 'W'.repeat(30)).click();
+  await noHScroll(page, 'blocked note');
+  await page.keyboard.press('Escape');
+  await xoa(page, long[0].name).click();
+  await blockedNote(page).getByRole('button', { name: 'Chuyển tất cả việc' }).click();
+  await target(page).selectOption('g18');
+  await noHScroll(page, 'move card');
+});
+
+// Found in T11: a 30 character name with no space used to run off a phone screen in the move card title.
+test('360 px: the move card title wraps a 30 character name with no space', async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 740 });
+  await open(page, [{ ...task('a', 'Một'), groupId: 'w' }], '', { groups: [group('w', 'W'.repeat(30), 'pink')] });
+  await openCard(page);
+  await moveBtn(page, 'W'.repeat(30)).click();
+  await noHScroll(page, 'move card');
+});
+
+test('reduced motion: collapse, expand and a move run no animation', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await open(page, DAY, '', { groups: GROUPS });
+  // Reduced motion leaves 1 ms timings at most (design-system.css); anything longer is an animation that runs.
+  const running = () => page.evaluate(() => document.getAnimations().filter((a) => a.effect.getComputedTiming().duration > 1)
+    .map((a) => a.animationName ?? a.transitionProperty));
+  await page.waitForFunction(() => document.getAnimations().every((a) => a.playState !== 'running'));
+  await toggle(page, 'Công ty').click();
+  expect(await running()).toEqual([]);
+  await toggle(page, 'Công ty').click();
+  expect(await running()).toEqual([]);
+  await editOf(page, 'Tưới cây').click();
+  await editChoice(page).selectOption('cty');
+  await page.locator('.task__edit').getByRole('button', { name: 'Lưu' }).click();
+  await expect(sectionLabels(page, 'Công ty')).toContainText(['Tưới cây']);
+  expect(await running()).toEqual([]);
+});
+
+test('data saved before the feature: every task shown ungrouped, the tasks string unchanged; the first group keeps old shapes', async ({ page }) => {
+  const days = ['2026-11-05', '2026-11-06', '2026-11-07', '2026-11-08', TODAY];
+  const legacy = Array.from({ length: 30 }, (_, i) => task(`l${i}`, `Việc cũ ${i + 1}`, i % 3 === 0, days[i % 5], NOW.getTime() - 86400000 + i));
+  await open(page, legacy);
+  const raw = JSON.stringify(legacy);
+  await expect(rows(page)).toHaveCount(6);
+  await expect(sections(page)).toHaveCount(0);
+  for (let i = 0; i < 4; i++) await page.getByRole('button', { name: 'Xem ngày trước' }).click();
+  await expect(rows(page)).toHaveCount(6);
+  await page.getByRole('button', { name: 'Về hôm nay' }).click();
+  expect(await storedRaw(page)).toBe(raw);
+  expect(await storedAll(page)).toEqual([raw, null, null]);
+  // The first group, a task added to it and one old task moved into it.
+  await choice(page).selectOption({ label: 'Nhóm mới...' });
+  await nameInput(page).fill('Công ty');
+  await nameInput(page).press('Enter');
+  await addTask(page, 'Việc mới');
+  await editOf(page, 'Việc cũ 5').click();
+  await editChoice(page).selectOption({ label: 'Công ty' });
+  await editField(page).press('Enter');
+  const after = await stored(page);
+  const gid = (await storedJson(page, GROUPS_KEY))[0].id;
+  expect(after.length).toBe(31);
+  expect(after.find((t) => t.text === 'Việc mới').groupId).toBe(gid);
+  expect(after.find((t) => t.id === 'l4')).toEqual({ ...legacy[4], groupId: gid });
+  expect(after.filter((t) => t.id !== 'l4' && t.text !== 'Việc mới')).toEqual(legacy.filter((t) => t.id !== 'l4'));
+  await page.reload();
+  expect((await stored(page)).length).toBe(31);
+  await expect(sectionLabels(page, 'Công ty')).toHaveText(['Việc cũ 5', 'Việc mới']);
+});
+
+for (const ui of ['garbage', '{"collapsed":["gone","x\\"]"]}']) {
+  test(`corrupt groups and a UI value of ${ui}: no message, no error, every task shown, the corrupt copy written`, async ({ page }) => {
+    const errors = [];
+    page.on('pageerror', (e) => errors.push(e.message));
+    page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
+    await open(page, DAY, '', { groups: '{bad json', ui });
+    await expect(rows(page)).toHaveCount(DAY.length);
+    await expect(sections(page)).toHaveCount(0);
+    await expect(slip(page)).toBeHidden();
+    await expect(notice(page)).toBeHidden();
+    expect(await page.evaluate((k) => localStorage.getItem(`${k}:corrupt`), GROUPS_KEY)).toBe('{bad json');
+    // With good groups the same UI value leaves every section open.
+    await page.evaluate(([k, g]) => localStorage.setItem(k, g), [GROUPS_KEY, JSON.stringify(GROUPS)]);
+    await page.reload();
+    await expect(sections(page).locator('.group__toggle[aria-expanded="true"]')).toHaveCount(3);
+    expect(errors).toEqual([]);
+  });
+}
+
+test('storage blocked: create, add, move and collapse work in memory with the slip, and nothing is written', async ({ page }) => {
+  await page.addInitScript(() => {
+    window.__writes = [];
+    Storage.prototype.getItem = function () { throw new DOMException('Blocked', 'SecurityError'); };
+    Storage.prototype.setItem = function (k) { window.__writes.push(k); throw new DOMException('Blocked', 'SecurityError'); };
+  });
+  await open(page, null);
+  await expect(slip(page)).toBeVisible();
+  for (const name of ['Công ty', 'Nhà']) {
+    await choice(page).selectOption({ label: 'Nhóm mới...' });
+    await nameInput(page).fill(name);
+    await nameInput(page).press('Enter');
+    await addTask(page, `Việc ${name}`);
+  }
+  await editOf(page, 'Việc Nhà').click();
+  await editChoice(page).selectOption({ label: 'Công ty' });
+  await editField(page).press('Enter');
+  await expect(sectionLabels(page, 'Công ty')).toHaveText(['Việc Công ty', 'Việc Nhà']);
+  await toggle(page, 'Công ty').click();
+  await expect(toggle(page, 'Công ty')).toHaveAttribute('aria-expanded', 'false');
+  await expect(slip(page)).toBeVisible();
+  expect((await page.evaluate(() => window.__writes)).filter((k) => k.startsWith('daily-todo:') && !k.endsWith('swipe-hint-seen'))).toEqual([]);
+});
+
+test('a stored colour "red; x" shows as yellow, with no inline style and no unknown data-color', async ({ page }) => {
+  await open(page, [{ ...task('a', 'Một'), groupId: 'r' }], '', { groups: [group('r', 'Đỏ', 'red; x')] });
+  await expect(sections(page)).toHaveAttribute('data-color', 'yellow');
+  await openCard(page);
+  await expect(cardRow(page, 'Đỏ').locator('.sticker')).toHaveAttribute('data-color', 'yellow');
+  const bad = await page.evaluate(() => [...document.querySelectorAll('[data-color]')]
+    .filter((el) => !['yellow', 'pink', 'green', 'blue', 'orange', 'purple', 'none'].includes(el.dataset.color) || el.hasAttribute('style'))
+    .map((el) => el.outerHTML.slice(0, 80)));
+  expect(bad).toEqual([]);
+  expect(await page.evaluate(() => document.querySelector('[style*="red"]'))).toBeNull();
+});
+
+test('markup and quotes in stored names and ids: no script, no injected element, selectors still work', async ({ page }) => {
+  const evil = [group('a"]b', '<img src=x onerror=window.__x=1>', 'pink', 1), group("c']d", '"><script>window.__x=2</script>', 'green', 2)];
+  await open(page, [{ ...task('t', 'Một'), groupId: 'a"]b' }, { ...task('u', 'Hai'), groupId: "c']d" }], '', { groups: evil });
+  await expect(names(page)).toHaveText([evil[0].name, evil[1].name]);
+  await toggle(page, evil[0].name).click();
+  await filterSel(page).selectOption("c']d");
+  await expect(rows(page)).toHaveCount(1);
+  await filterSel(page).selectOption('all');
+  await openCard(page);
+  await startRename(page, evil[1].name);
+  await page.keyboard.press('Escape');
+  await xoa(page, evil[0].name).click();
+  await blockedNote(page).getByRole('button', { name: 'Chuyển tất cả việc' }).click();
+  await target(page).selectOption("c']d");
+  await moveCard(page).getByRole('button', { name: 'Chuyển việc' }).click();
+  await expect(names(page)).toHaveText([evil[1].name]);
+  expect(await page.evaluate(() => [window.__x, document.querySelectorAll('img, body script').length])).toEqual([undefined, 0]);
+});
+
+test('every request stays on the same origin and the CSP meta is unchanged', async ({ page, baseURL }) => {
+  const urls = [];
+  page.on('request', (r) => urls.push(r.url()));
+  await open(page, SPREAD, '', { groups: GROUPS });
+  await choice(page).selectOption({ label: 'Nhóm mới...' });
+  await nameInput(page).fill('Mới');
+  await nameInput(page).press('Enter');
+  await addTask(page, 'Một');
+  await filterSel(page).selectOption('cty');
+  await openCard(page);
+  await moveBtn(page, 'Công ty').click();
+  await moveCard(page).getByRole('button', { name: 'Chuyển việc' }).click();
+  expect(urls.filter((u) => !u.startsWith(new URL(baseURL).origin) && !u.startsWith('data:'))).toEqual([]);
+  await expect(page.locator('meta[http-equiv="Content-Security-Policy"]'))
+    .toHaveAttribute('content', "default-src 'self'; img-src 'self' data:; style-src 'self'");
+});
+
+test('failing writes on every action never change or shrink the stored strings, and no task is lost', async ({ page }) => {
+  await open(page, SPREAD, '', { groups: [...GROUPS, SK] });
+  const before = await storedAll(page);
+  await failWrites(page, [KEY, GROUPS_KEY, UI_KEY]);
+  await choice(page).selectOption({ label: 'Nhóm mới...' });
+  await nameInput(page).fill('Mới');
+  await nameInput(page).press('Enter');
+  await addTask(page, 'Việc mới');
+  await editOf(page, 'Tưới cây').click();
+  await editChoice(page).selectOption('cty');
+  await editField(page).press('Enter');
+  await toggle(page, 'Nhà').click(); // Nấu cơm keeps Nhà on this day; the fold write fails too
+  await expect(toggle(page, 'Nhà')).toHaveAttribute('aria-expanded', 'false');
+  await openCard(page);
+  await startRename(page, 'Công ty');
+  await renameInput(page).fill('Công ty 2');
+  await renameInput(page).press('Enter');
+  await xoa(page, 'Sức khỏe').click();
+  await deleteNote(page).getByRole('button', { name: 'Xóa nhóm' }).click();
+  await moveBtn(page, 'Công ty 2').click();
+  await moveCard(page).getByRole('button', { name: 'Chuyển việc' }).click();
+  await expect(moveError(page)).toHaveText(MOVE_ERROR);
+  expect(await storedAll(page)).toEqual(before);
+  await expect(slip(page)).toBeVisible();
+});
+
+// T8 carry over: the storage slip sits behind the modal card, so the card says it too.
+test('a failed write in the card is announced inside it with the slip text; a good save hides it', async ({ page }) => {
+  await open(page, DAY, '', { groups: [...GROUPS, SK] });
+  await openCard(page);
+  await expect(cardAlert(page)).toBeHidden();
+  await failWrites(page, [GROUPS_KEY]);
+  await startRename(page, 'Công ty');
+  await renameInput(page).fill('Công ty 2');
+  await renameInput(page).press('Enter');
+  await expect(cardAlert(page)).toHaveText(SLIP_TEXT);
+  await expect(cardAlert(page)).toHaveRole('alert');
+  await page.keyboard.press('Escape');
+  await openCard(page);
+  await expect(cardAlert(page)).toBeHidden(); // a fresh card starts clean
+  await xoa(page, 'Sức khỏe').click();
+  await deleteNote(page).getByRole('button', { name: 'Xóa nhóm' }).click();
+  await expect(cardAlert(page)).toHaveText(SLIP_TEXT);
+  await allowWrites(page);
+  await startRename(page, 'Nhà');
+  await renameInput(page).press('Enter');
+  await expect(cardAlert(page)).toBeHidden();
+  await expect(slip(page)).toBeHidden();
+  expect((await storedJson(page, GROUPS_KEY)).map((g) => g.name)).toEqual(['Công ty 2', 'Nhà', 'Học tiếng Nhật']);
+});
+
+// T9 carry over: a stored task with a well formed but impossible date never becomes the day to turn to.
+for (const [title, dates, to] of [
+  ['an impossible earlier date is skipped for the real one', ['2026-01-05', '2026-02-30'], '2026-01-05'],
+  ['only an impossible date: the filter applies and the day stays', ['2026-13-45'], TODAY],
+]) {
+  test(`Xem các việc này: ${title}`, async ({ page }) => {
+    const tasks = [...DAY.filter((t) => t.groupId !== 'nha'), ...dates.map((d, i) => inGroup('nha', `x${i}`, `Việc ${i}`, false, d, at(6, i)))];
+    await open(page, tasks, '', { groups: GROUPS });
+    await openCard(page);
+    await xoa(page, 'Nhà').click();
+    await blockedNote(page).getByRole('button', { name: 'Xem các việc này' }).click();
+    await expect(card(page)).toBeHidden();
+    await expect(filterSel(page)).toHaveValue('nha');
+    await expect(page.locator('#day-picker')).toHaveValue(to);
+    expect(hash(page)).toBe(to === TODAY ? '' : `#${to}`);
+    await expect(page.locator('#date-line')).not.toBeEmpty();
+  });
+}
+
+test('midnight with the filter on, a folded section and the card open: no error; the filter and fold stay; the new day shows', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  const next = inGroup('cty', 'm', 'Ngày mai', false, '2026-11-10', at(6, 0));
+  await open(page, [...DAY, next], '', { groups: GROUPS, ui: { collapsed: ['nha'] } });
+  await filterSel(page).selectOption('cty');
+  await openCard(page);
+  await passMidnight(page);
+  await expect(card(page)).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#day-picker')).toHaveValue('2026-11-10');
+  await expect(filterSel(page)).toHaveValue('cty');
+  await expect(labels(page)).toHaveText(['Ngày mai']);
+  await filterSel(page).selectOption('all');
+  await page.getByRole('button', { name: 'Xem ngày trước' }).click();
+  await expect(toggle(page, 'Nhà')).toHaveAttribute('aria-expanded', 'false');
+  expect(errors).toEqual([]);
+});
+
+// NFR1, BUG-002 and BUG-010 method: each update timed in the page with a forced layout, on a page left idle 500 ms first.
+test('200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms', async ({ page }) => {
+  const gs = Array.from({ length: 20 }, (_, i) => group(`g${i}`, `Nhóm ${i + 1}`, 'yellow', i + 1));
+  const big = Array.from({ length: 200 }, (_, i) => ({ ...task(`t${i}`, `Việc số ${i + 1}`, i % 3 === 0, TODAY, i + 1), groupId: `g${i % 20}` }));
+  await open(page, big, '', { groups: gs });
+  await expect(rows(page)).toHaveCount(200);
+  const timed = async (code) => {
+    await page.waitForTimeout(500);
+    // A string runs through the debugger, so the page CSP (no eval) does not apply.
+    return page.evaluate(`(() => { const t0 = performance.now(); ${code}; void document.body.offsetHeight; return performance.now() - t0; })()`);
+  };
+  await choice(page).selectOption('g6');
+  await page.locator('#new-task').fill('Việc mới');
+  expect(await timed("document.getElementById('add-form').requestSubmit()"), 'add').toBeLessThan(100);
+  await expect(rows(page)).toHaveCount(201);
+  await editOf(page, 'Việc số 1').click();
+  await editChoice(page).selectOption('g6');
+  expect(await timed("document.querySelector('.task__edit').requestSubmit()"), 'move').toBeLessThan(100);
+  await expect(sectionLabels(page, 'Nhóm 7').first()).toHaveText('Việc số 1');
+  expect(await timed("document.querySelector('.group__toggle').click()"), 'collapse').toBeLessThan(100);
+  await expect(sections(page).first()).toHaveClass(/group--collapsed/);
+  expect(await timed("document.querySelector('.group__toggle').click()"), 'expand').toBeLessThan(100);
+  const filterTo = (v) => `{ const s = document.getElementById('group-filter'); s.value = '${v}'; s.dispatchEvent(new Event('change', { bubbles: true })); }`;
+  expect(await timed(filterTo('g6')), 'filter').toBeLessThan(100);
+  await expect(rows(page)).toHaveCount(12);
+  expect(await timed(filterTo('all')), 'filter off').toBeLessThan(100);
+  await expect(rows(page)).toHaveCount(201);
+});
+
+// Added by QA in T11 (TC-task-groups-T11-05 and T11-22)
+const lum = ([r, g, b]) => { const f = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }; return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b); };
+const ratio = (a, b) => { const [hi, lo] = [lum(a), lum(b)].sort((x, y) => y - x); return (hi + 0.05) / (lo + 0.05); };
+
+for (const scheme of ['light', 'dark']) {
+  test(`${scheme}: the six colours keep the name at 4.5 to 1 on its label and the label mark at 3 to 1 on the paper; the name stays text`, async ({ page }) => {
+    await page.emulateMedia({ colorScheme: scheme });
+    const colours = ['yellow', 'pink', 'green', 'blue', 'orange', 'purple'];
+    const gs = colours.map((c, i) => group(`g${i}`, `Nhóm ${c}`, c, at(7, i)));
+    const ts = colours.map((c, i) => ({ ...task(`t${i}`, `Việc ${c}`, false, TODAY, at(8, i)), groupId: `g${i}` }));
+    await open(page, ts, '', { groups: gs });
+    await expect(sections(page)).toHaveCount(6);
+    const data = await page.evaluate(() => {
+      const rgb = (v) => { const e = document.createElement('i'); e.style.color = v; document.body.append(e); const m = getComputedStyle(e).color.match(/[\d.]+/g).slice(0, 3).map(Number); e.remove(); return m; };
+      const paper = rgb(getComputedStyle(document.documentElement).getPropertyValue('--color-paper'));
+      return [...document.querySelectorAll('#day-list > .group')].map((s) => {
+        const st = getComputedStyle(s), name = s.querySelector('.group__name');
+        return { color: s.dataset.color, text: name.textContent, ink: rgb(getComputedStyle(name).color), fill: rgb(st.getPropertyValue('--hl')), mark: rgb(st.getPropertyValue('--hl-mark')), paper };
+      });
+    });
+    expect(data.map((d) => d.color)).toEqual(colours);
+    for (const d of data) {
+      expect(d.text, d.color).toBe(`Nhóm ${d.color}`);
+      expect(ratio(d.ink, d.fill), `${scheme} ${d.color} text on label`).toBeGreaterThanOrEqual(4.5);
+      expect(ratio(d.mark, d.paper), `${scheme} ${d.color} mark on paper`).toBeGreaterThanOrEqual(3);
+    }
+  });
+}
+
+test('every shown string is Vietnamese: the listed texts are present and no dash or English word appears on the page, the dialogs or the errors', async ({ page }) => {
+  const g = [group('cty', 'Công ty', 'yellow', at(7, 0)), group('nha', 'Nhà', 'pink', at(7, 1))];
+  await open(page, [{ ...task('a', 'Việc một', false, TODAY, at(8, 0)), groupId: 'cty' }, task('b', 'Việc hai', false, TODAY, at(8, 1))], '', { groups: g });
+  const seen = new Set();
+  const collect = async () => {
+    for (const s of await page.evaluate(() => {
+      const out = [];
+      for (const el of document.querySelectorAll('body *')) {
+        if (el.closest('script,style,template') || el.closest('[hidden]')) continue;
+        if (!el.getClientRects().length) continue;
+        for (const a of ['aria-label', 'title', 'placeholder']) if (el.getAttribute(a)) out.push(el.getAttribute(a));
+        if (el.tagName === 'SELECT') out.push(...[...el.options].map((o) => o.textContent));
+        else for (const n of el.childNodes) if (n.nodeType === 3 && n.textContent.trim()) out.push(n.textContent.trim());
+      }
+      return out;
+    })) seen.add(s);
+  };
+  await collect();
+  await choice(page).selectOption({ label: 'Nhóm mới...' });
+  await nameInput(page).fill('');
+  await page.getByRole('button', { name: 'Tạo nhóm' }).click();
+  await collect();
+  await nameInput(page).fill('x'.repeat(31));
+  await page.getByRole('button', { name: 'Tạo nhóm' }).click();
+  await collect();
+  await nameInput(page).fill('Nhà');
+  await page.getByRole('button', { name: 'Tạo nhóm' }).click();
+  await collect();
+  await filterSel(page).selectOption({ label: 'Nhà' });
+  await collect();
+  await page.getByRole('button', { name: 'Quản lý nhóm' }).click();
+  await collect();
+  await card(page).getByRole('button', { name: 'Sửa' }).first().click();
+  await collect();
+  await page.keyboard.press('Escape');
+  await card(page).getByRole('button', { name: 'Chuyển tất cả việc' }).first().click();
+  await collect();
+  await page.keyboard.press('Escape');
+  await card(page).getByRole('button', { name: 'Xóa' }).nth(1).click();
+  await collect();
+  await page.keyboard.press('Escape');
+  await card(page).getByRole('button', { name: 'Xóa' }).first().click();
+  await collect();
+  const all = [...seen];
+  for (const must of ['Nhóm', 'Chưa phân nhóm', 'Nhóm mới...', 'Tên nhóm mới', 'Tạo nhóm', 'Quản lý nhóm', 'Nhóm việc', 'Đóng', 'Lọc theo nhóm', 'Tất cả nhóm', 'Màu nhóm', 'Vàng', 'Xanh lá', 'Xanh dương', 'Chuyển tất cả việc', 'Chuyển đến nhóm', 'Chuyển việc', 'Giữ lại', 'Đã hiểu', 'Xem các việc này',
+    'Vui lòng nhập tên nhóm.', 'Tên nhóm tối đa 30 ký tự.', 'Tên nhóm này đã có rồi.', 'Chuyển tất cả việc của nhóm "Công ty"']) {
+    expect(all.some((s) => s.includes(must)), `missing: ${must}`).toBe(true);
+  }
+  expect(all.filter((s) => /[–—]/.test(s)), 'dashes').toEqual([]);
+  expect(all.filter((s) => /\b(group|groups|delete|cancel|save|close|edit|move|filter|manage|rename|colou?r|the|and|new|all|ok|yes|no)\b/i.test(s)), 'English').toEqual([]);
+});
+
+// Added by QA in T11 (TC-task-groups-T11-29)
+test('360 px: swipe, peek and Sửa work on rows with long text in sections and in the filtered view, with no sideways scroll', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'phone layout only');
+  await page.setViewportSize({ width: 360, height: 740 });
+  const long = 'Một việc có chữ rất dài để kiểm tra xuống dòng ' + 'x'.repeat(60);
+  const day = DAY.map((t) => (t.id === 'c1' ? { ...t, text: long } : t));
+  await open(page, day, '', { groups: GROUPS });
+  await page.evaluate((k) => localStorage.setItem(k, '1'), HINT);
+  const strip = (text) => rowOf(page, text).locator('.task__swipe');
+  const opened = (text) => strip(text).evaluate((el) => el.scrollLeft > 100);
+  const noScroll = async () => expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(0);
+  await noScroll();
+  await touchDrag(page, strip(long), -200);
+  await expect.poll(() => opened(long)).toBe(true);
+  await noScroll();
+  await page.locator('.app-header__title').tap();
+  await expect.poll(() => opened(long)).toBe(false);
+  // the filtered view keeps the same behaviour
+  await filterSel(page).selectOption({ label: 'Công ty' });
+  await expect(rows(page)).toHaveCount(3);
+  await strip('Họp nhóm').scrollIntoViewIfNeeded();
+  await touchDrag(page, strip('Họp nhóm'), -200);
+  await expect.poll(() => opened('Họp nhóm')).toBe(true);
+  await rowOf(page, 'Họp nhóm').getByRole('button', { name: 'Sửa' }).tap();
+  await expect(editField(page)).toBeFocused();
+  await noScroll();
 });

@@ -49,6 +49,14 @@ export function createManage({ groups, store, button, refresh, notify, showGroup
   const deleteNote = $("group-delete-dialog");
   const blockedNote = $("group-blocked-dialog");
   let noteId = null;
+  // The storage slip sits behind the modal card, so a failed write is also said inside it, in the slip's own words (T11).
+  const saveError = $("manage-save-error");
+  function showSaveResult() {
+    const text = saveError.querySelector("p");
+    text.textContent = "";
+    show(saveError, !groups().storageOk);
+    if (!groups().storageOk) requestAnimationFrame(() => { text.textContent = $("storage-slip").textContent.trim(); });
+  }
 
   function viewRow(g, i) {
     const row = clone(rowTemplate);
@@ -132,6 +140,7 @@ export function createManage({ groups, store, button, refresh, notify, showGroup
     const i = rows.findIndex((r) => r.dataset.id === id);
     const next = rows[i + 1] ?? rows[i - 1];
     groups().remove(id);
+    showSaveResult();
     refresh(); // a filter or add choice on it falls back at once (R48, R21)
     render(null);
     focusRow(next?.dataset.id, "rename");
@@ -311,6 +320,7 @@ export function createManage({ groups, store, button, refresh, notify, showGroup
     // Saved at once (R55); the page behind shows the new name and colour straight away (R37).
     const id = editId;
     editId = null;
+    showSaveResult();
     refresh();
     render(id, "rename");
   });
@@ -350,6 +360,7 @@ export function createManage({ groups, store, button, refresh, notify, showGroup
   return {
     open() {
       editId = null;
+      show(saveError, false);
       render(null);
       dialog.showModal();
     },

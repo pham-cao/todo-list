@@ -415,15 +415,16 @@ function refresh() {
 
 // Xem các việc này (R53): filter and add choice on the group (R46), then the day closest to today that holds one of
 // its tasks: the latest up to today, else the earliest later one. A day move writes the hash like any other (R22 to R25).
+// A well formed but impossible stored date (2026-13-45) is never a day to turn to; with no real day the filter still applies.
 function showGroupTasks(id) {
-  const { days } = storedUsage(id);
-  if (!groups.get(id) || !days.length) return;
+  if (!groups.get(id)) return;
+  const days = storedUsage(id).days.filter((d) => parseDateKey(d));
   notify(null);
   filter = addGroup = id;
   renderChoices();
   checkDay();
   const day = days.findLast((d) => d <= today) ?? days[0];
-  if (day !== viewed) return go(day);
+  if (day && day !== viewed) return go(day);
   renderList();
   if (editing && !editing.isConnected) editing = null; // an open edit on a row the filter hid is dropped
 }
