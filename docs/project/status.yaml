@@ -1,7 +1,7 @@
 project: "daily-todo"
 idea: "Web app todo list de ghi lai (log) cac viec can lam hang ngay (daily). Nguyen van: hien tai toi can lam todolist web log may cai toi can lam trong daily"
-state: running        # running | waiting_user | done
-waiting_for: ""
+state: waiting_user        # running | waiting_user | done
+waiting_for: "User pushes task-groups (no GitHub credentials on this host) and opens the PR"
 phase: features       # discovery | features | done
 current_feature: "task-groups"
 trello:               # optional mirror of this file, see "Trello sync" in the PM skill
@@ -162,7 +162,7 @@ features:
         bugs_opened: [BUG-002]
         trello_card: ""
   - slug: task-groups
-    phase: test-report
+    phase: release
     has_ui: true
     pr: ""
     trello_card: ""
