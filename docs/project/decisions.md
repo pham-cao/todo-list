@@ -522,3 +522,18 @@ Choice (by PM): no drag across days (the task keeps its date); dragging is not a
 ## 2026-11-10: Approve drag-drop requirements?
 Options: Approve, Request changes
 Choice: Approve (by user)
+
+## 2026-11-10: drag-drop UX: visible message when a task moves into a group hidden by the filter
+Options: Show the info slip "Đã chuyển việc "{text}" sang nhóm "{name}".", Live region only
+Choice: Show the info slip; applies to the edit form move too (by user)
+
+## 2026-11-10: drag-drop UX: the task's current group in the drop strip
+Options: Faded, a release there cancels, Hidden, Extra text "Đang ở đây"
+Choice: Faded, a release there cancels (by user)
+
+## 2026-11-10: drag-drop UX: defaults by PM
+Choice (by PM): the bottom auto scroll zone is the 64 px above the strip's top edge (hovering the strip never scrolls); a tall strip with 20 groups on a 360 px phone is accepted.
+
+## 2026-11-10: Approve drag-drop UX?
+Options: Approve, Request changes
+Choice: Approve (by user)

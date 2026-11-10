@@ -181,3 +181,45 @@ All of it is removed under `prefers-reduced-motion`.
 - Every new control is at least 44 by 44 px; the drawn 36 px buttons extend their hit area like Thêm.
 - Group names are text in every place they appear; colour is supporting only.
 - Verified without horizontal scroll at 1440, 390 and 360 px in both modes.
+
+## Drag and drop (added for drag-drop)
+
+This section only adds to the system; no existing token or component changed. The CSS lives at the end of `design-system.css` under "Drag and drop". The ui-ux-pro-max search confirmed the rules that matter here: a single pointer alternative for every drag (WCAG 2.5.7, kept through Sửa), immediate feedback on press, subtle motion only, and reduced motion respected. Its suggested flat teal look was not used, because the paper notebook system is approved.
+
+### Direction
+
+A picked up line is a slip of paper torn out of the page. The groups you can drop on are the same torn labels as the section headers, stuck on an index card strip that is taped to the bottom of the screen while you drag. Nothing new appears at rest.
+
+### New tokens
+
+`--drag-tilt` (-2 degrees), `--drag-lift` (the strip shadow), `--drop-ring` (the target frame, the pen colour: 10.7:1 on paper by day, 8.9:1 at night, so well above 3:1), `--drop-fill` (share of the group colour in the target wash: 32 percent by day, 55 percent at night), `--drag-edge` (64 px auto scroll band), `--dur-pick` (160 ms) and `--dur-hold` (400 ms long press).
+
+### Components
+
+- Dragging state (`.is-dragging` on `html`): no text selection, no phone callout, the grabbing hand cursor, and row actions hidden. With a fine pointer the task text shows the open hand (`grab`) at rest.
+- Long press (`.task--pressing`): a pen wash and a pen underline fill the line from the left over 400 ms while the finger holds still. Under reduced motion it shows at once.
+- Placeholder (`.task--placeholder`): the line keeps its height, its content fades to 38 percent and a dashed pencil outline marks the spot.
+- Slip (`.drag-slip` with `__box`, `__text`, `__to`, and `--done`): fixed, on `body`, `pointer-events: none`, up to 520 px wide, two lines of plain text at most, torn ends with `--torn`, ruled line and grain, tilted `--drag-tilt` and lifted with a drop shadow that follows the teeth. While over a target, `.drag-slip__to` is the target's torn label (`.sticker[data-color]`) stuck on the bottom right corner, so the name is always written.
+- Section target (`.group--drop`): a 2 px pen frame around the whole section (margin to line end) and a wash of its group colour. Works on open and folded sections; hovering never opens a folded one.
+- Drop strip (`.drop-strip`, `.drop-strip__label`, `.drop-target`, `--over`, `--home`): `role="group"` named "Thả vào nhóm", no tab stops, shown only during a drag. Index card paper with the red head line and two washi tape pieces, as wide as the sheet (100vw minus 16 px on phones), fixed 12 px (8 px on phones) above the bottom. One `.drop-target[data-color]` per group in creation order, Chưa phân nhóm last, each at least 44 by 44 px with the torn label inside. Names wrap and are never cut. `--over` adds a pen frame, a pen wash and a 2 px lift; `--home` (the task's current group) is faded to 45 percent and flat. On phones the label "Thả vào nhóm" takes its own line.
+- Auto scroll cue (`.drag-edge--up`, `.drag-edge--down`): a 64 px pen tinted band as wide as the sheet, under the top edge or directly above the strip, with a pen chevron at the line end. Decorative (aria-hidden).
+- Landing: the existing `.task--moved` wash in the new group's colour, with focus on Sửa. A move into a group hidden by the filter uses the existing info slip (`.alert--info`) with the moved text.
+
+### Motion
+
+| Moment | Motion | Duration |
+| --- | --- | --- |
+| Long press | Pen wash fills the line | 400 ms |
+| Pick up | Slip tilts and lifts from the line | 160 ms |
+| Strip appears | Rises 16 px and fades in | 220 ms |
+| Target change | Strip label lifts 2 px | 140 ms |
+| Drop | The approved landing wash | 1.8 s after 0.6 s |
+
+Under `prefers-reduced-motion` the slip and strip do not tilt or move, the long press wash shows at once and the landing wash is removed; frames and fills stay (R30).
+
+### Accessibility
+
+- Dragging is never the only way: Sửa and its Nhóm choice move a task with one tap or key press.
+- Results are announced in the existing polite live region; the strip and slip are not read or focused.
+- Targets are named in text (the slip's corner label and the strip labels), framed in pen at 3:1 or better in both modes, and at least 44 by 44 px.
+- Verified without horizontal scroll at 1440, 390 and 360 px in both modes.

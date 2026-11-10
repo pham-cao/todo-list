@@ -264,7 +264,7 @@ features:
         bugs_opened: [BUG-014 fixed]
         trello_card: ""
   - slug: drag-drop
-    phase: ux
+    phase: design
     has_ui: true
     pr: ""
     trello_card: ""

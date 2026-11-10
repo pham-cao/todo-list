@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Drag and drop prototype</title>
+  <link rel="stylesheet" href="../../../design-system.css">
+  <style>
+    .doc { padding: var(--space-12) var(--sheet-pad-end) var(--space-16) calc(var(--holes-w) + var(--margin-w) + var(--margin-gap)); }
+    .doc h1 { font-size: var(--fs-display); line-height: 1.2; letter-spacing: -0.015em; }
+    .doc h2 { font-size: var(--fs-title); margin: var(--space-10) 0 var(--space-3); }
+    .doc p, .doc li { max-width: 68ch; }
+    .doc .washi { margin-top: var(--space-3); }
+    .lead { margin-top: var(--space-5); }
+    .screens { list-style: none; padding: 0; }
+    .screens li { border-bottom: 1px solid var(--color-rule); }
+    .screens a { display: block; padding: var(--space-3) var(--space-2); text-decoration: none; color: var(--text); }
+    .screens a:hover { background: var(--color-pen-wash); }
+    .screens strong { color: var(--color-pen); font-weight: var(--fw-semibold); }
+    .screens span { display: block; color: var(--text-muted); font-size: var(--fs-meta); }
+    .notes { padding-left: var(--space-5); }
+    .notes li + li { margin-top: var(--space-3); }
+    @media (max-width: 600px) { .doc { padding-left: calc(var(--holes-w) + var(--margin-w) + var(--margin-gap)); } }
+  </style>
+</head>
+<body>
+  <div class="desk">
+  <main class="sheet doc">
+    <h1>Drag a task between groups</h1>
+    <p class="washi">Prototype on the paper notebook design, version 3</p>
+    <p class="lead">A clickable prototype for picking up a task and dropping it into another group, with a mouse on a laptop and with a long press on a phone. The swipe left for Sửa and Xóa stays exactly as it is, and Sửa remains the way to move a task without dragging. All interface text is Vietnamese, word for word from the requirements, and dark mode follows your system setting.</p>
+
+    <h2>Start here</h2>
+    <p>Open <a href="screens/resting.html">a day with groups</a> and click a task line to pick it up, then follow the links in the grey note above each sheet. The flows, screen inventory and requirement coverage are in <a href="flows.md">flows.md</a>, the new styles in <a href="../../../design-system.md">design-system.md</a> (section "Drag and drop"), and the review notes in <a href="critique.md">critique.md</a>.</p>
+
+    <h2>Screens and states</h2>
+    <ul class="screens">
+      <li><a href="screens/resting.html"><strong>At rest</strong><span>Nothing new on screen: no handles, no strip.</span></a></li>
+      <li><a href="screens/lifted.html"><strong>Row lifted with a mouse</strong><span>Slip under the pointer, dashed placeholder, the strip with every group.</span></a></li>
+      <li><a href="screens/hover-strip.html"><strong>Over a label in the strip</strong><span>Sức khỏe, a group with no task today.</span></a></li>
+      <li><a href="screens/hover-section.html"><strong>Over a visible section</strong><span>The whole Nhà section is framed and washed.</span></a></li>
+      <li><a href="screens/dropped.html"><strong>Dropped</strong><span>Placed by creation time, wash, focus on Sửa, announcement.</span></a></li>
+      <li><a href="screens/dropped--strip.html"><strong>Dropped from the strip</strong><span>The Sức khỏe section appears with the task.</span></a></li>
+      <li><a href="screens/cancelled.html"><strong>Cancelled</strong><span>Escape, release on nothing, or an interruption. Nothing changes.</span></a></li>
+      <li><a href="screens/phone-hold.html"><strong>Phone, long press</strong><span>The 400 ms hold, compared with the unchanged swipe.</span></a></li>
+      <li><a href="screens/phone-drag.html"><strong>Phone, dragging</strong><span>The slip floats above the finger, over Nhà in the strip.</span></a></li>
+      <li><a href="screens/filtered.html"><strong>Filtered view, hidden target</strong><span>Filter on Công ty, dropping on Nhà.</span></a></li>
+      <li><a href="screens/filtered--dropped.html"><strong>Moved to a hidden group</strong><span>The task leaves the view; the info slip says where it went.</span></a></li>
+      <li><a href="screens/folded.html"><strong>Folded target</strong><span>Does not open on hover.</span></a></li>
+      <li><a href="screens/folded--dropped.html"><strong>Dropped on a folded section</strong><span>The section opens.</span></a></li>
+      <li><a href="screens/autoscroll.html"><strong>Long list, auto scroll</strong><span>The cue band above the strip.</span></a></li>
+    </ul>
+
+    <h2>Key design decisions</h2>
+    <ul class="notes">
+      <li>The picked up line becomes a slip of paper torn out of the page, with the same sawtooth ends as the group labels, a small tilt and a soft shadow. Its old spot stays as a dashed pencil outline, so the list does not jump.</li>
+      <li>The drop strip is an index card strip taped to the bottom of the screen, holding every group's torn label in group order with Chưa phân nhóm last. It shows only while dragging, stays put while the page scrolls, and is close to the thumb on a phone. Names wrap and are never cut. The task's own group lies flat and faded, because a release there changes nothing.</li>
+      <li>The current target is never shown by colour alone: a section gets a pen frame and a light wash of its colour, a strip label gets a pen frame and lifts, and the target group's label is stuck on the corner of the slip so its name is written.</li>
+      <li>On a phone the line fills with a pen wash while the finger holds still. If the finger moves first, the touch belongs to the swipe or the scroll as today. Once lifted, the slip floats above the finger so it is never hidden.</li>
+      <li>The landing reuses the approved wash in the new group's colour and keeps focus on Sửa. When the filter hides the new group, the existing info slip says where the task went.</li>
+      <li>Under reduced motion the slip does not tilt or animate, the strip appears without moving, and the long press wash appears at once. The frames and washes stay.</li>
+    </ul>
+  </main>
+  </div>
+</body>
+</html>
