@@ -60,3 +60,15 @@ export async function passMidnight(page, event = 'visibilitychange', at = AFTER_
   if (event === 'focus') await page.evaluate(() => window.dispatchEvent(new Event('focus')));
   else await page.evaluate(() => document.dispatchEvent(new Event('visibilitychange')));
 }
+
+// Press a row's text with the mouse and move by (dx, dy) in steps. The button stays held, so a test can look at the
+// lifted state, press Escape or call page.mouse.up(). Returns the press point.
+export async function mouseDrag(page, row, dx = 0, dy = 60) {
+  await row.locator('.task__label').scrollIntoViewIfNeeded();
+  const b = await row.locator('.task__label').boundingBox();
+  const x = b.x + Math.min(b.width / 2, 60), y = b.y + b.height / 2;
+  await page.mouse.move(x, y);
+  await page.mouse.down();
+  await page.mouse.move(x + dx, y + dy, { steps: 8 });
+  return { x, y };
+}

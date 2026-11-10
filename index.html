@@ -186,6 +186,13 @@
     </section>
   </template>
 
+  <template id="drag-template">
+    <div class="drag-slip" aria-hidden="true"><span class="drag-slip__box"></span><span class="drag-slip__text"></span></div>
+    <div class="drop-strip" role="group" aria-label="Thả vào nhóm"><span class="drop-strip__label" aria-hidden="true">Thả vào nhóm</span></div>
+    <div class="drop-target"><span class="sticker"></span></div>
+    <div class="drag-edge" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/><path d="m6 4 6 6 6-6" opacity=".5"/></svg></div>
+  </template>
+
   <template id="edit-template">
     <form class="task__edit" novalidate>
       <label class="visually-hidden">Sửa</label>

@@ -2,6 +2,7 @@ import { toDateKey, parseDateKey, addDays, dayKind, dateLine } from "./date.js?v
 import { createStore, getStorage, isValid, STORAGE_KEY } from "./store.js?v=1.2.0";
 import { createGroups, nextColor, GROUPS_KEY, MAX_GROUPS, UNGROUPED, UNGROUPED_NAME } from "./groups.js?v=1.2.0";
 import { createManage, setFieldError, showFieldError, GROUP_ERRORS } from "./manage.js?v=1.2.0";
+import { createDrag } from "./drag.js?v=1.2.0";
 
 const $ = (id) => document.getElementById(id);
 const els = {
@@ -664,6 +665,27 @@ const closeOutside = (e) => {
 };
 document.addEventListener("pointerdown", closeOutside);
 document.addEventListener("focusin", closeOutside);
+
+// Drag a task to another group (drag-drop). No drag while a row is in edit, a dialog is open, an IME is composing,
+// or no group exists to drop on (R5, R35). Picking up closes any open swipe strip (R6).
+let composing = false;
+document.addEventListener("compositionstart", () => { composing = true; });
+document.addEventListener("compositionend", () => { composing = false; });
+const drag = createDrag({
+  list: els.list, template: $("drag-template"), groups: () => groups,
+  canStart: () => !editing && !document.querySelector("dialog[open]") && !composing && groups.list().length > 0,
+  onStart: () => closeSwipes(),
+  onEnd: dropOrCancel,
+});
+
+// T4 adds the drop; for now every release is a cancel: nothing is written, the list stays as it was, focus returns
+// to the row's Sửa when it was in the list, and the task's current group is announced (R22, R36).
+function dropOrCancel(row, key, hadFocus) {
+  const own = row.closest(".group")?.dataset.key ?? UNGROUPED;
+  if (hadFocus && row.isConnected) row.querySelector('[data-action="edit"]').focus({ preventScroll: true });
+  els.srStatus.textContent = "";
+  requestAnimationFrame(() => { els.srStatus.textContent = `Đã hủy. Việc vẫn ở nhóm "${groups.get(own)?.name ?? UNGROUPED_NAME}".`; });
+}
 
 // One time swipe hint: the first line peeks open once, the first time tasks exist on a phone.
 const HINT_KEY = "daily-todo:swipe-hint-seen";
