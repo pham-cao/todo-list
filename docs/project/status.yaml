@@ -162,7 +162,7 @@ features:
         bugs_opened: [BUG-002]
         trello_card: ""
   - slug: task-groups
-    phase: build
+    phase: test-report
     has_ui: true
     pr: ""
     trello_card: ""
@@ -251,9 +251,9 @@ features:
         title: "Keyboard, size, safety and speed checks"
         owner: fe
         depends_on: [T1, T10]
-        state: doing
+        state: done
         attempts: 0
-        bugs_opened: []
+        bugs_opened: [BUG-014]
         trello_card: ""
 # - slug: user-login
 #   phase: requirements   # requirements | ux | design | build | release | done

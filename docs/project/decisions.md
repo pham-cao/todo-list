@@ -478,3 +478,9 @@ Choice (by PM):
 
 ## 2026-11-10: task-groups T10: stale check by task id
 Choice: The move is refused (other tab message) when any valid stored task of the group has an id this tab does not hold. Accepted rare case: after a failed delete save in this tab, the move is also refused until reload; nothing is lost (by PM)
+
+## 2026-11-10: task-groups T11
+Choice (by PM):
+- Carry over (b): yes, a failed write while the "Nhóm việc" card is open is announced inside the card, reusing the storage slip text.
+- Move card title overflow with a 30 character name without spaces at 360 px: approve `.dialog__title { overflow-wrap: anywhere; }` in design-system.css and turn the fixme into a normal test.
+- Corner sticker on the move card extending past the screen edge on phones: accepted, same as the approved prototype, causes no scroll.

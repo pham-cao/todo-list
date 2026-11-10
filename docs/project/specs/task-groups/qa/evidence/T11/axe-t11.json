@@ -1,0 +1,602 @@
+[
+ {
+  "vp": "1440",
+  "scheme": "light",
+  "name": "sections",
+  "violations": [],
+  "passes": 37,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "light",
+  "name": "collapsed",
+  "violations": [],
+  "passes": 37,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "light",
+  "name": "filter",
+  "violations": [],
+  "passes": 37,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "light",
+  "name": "filter-empty",
+  "violations": [],
+  "passes": 35,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "light",
+  "name": "add-newgroup",
+  "violations": [],
+  "passes": 37,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "light",
+  "name": "add-newgroup-error",
+  "violations": [],
+  "passes": 37,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "light",
+  "name": "edit-move",
+  "violations": [],
+  "passes": 37,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "light",
+  "name": "manage",
+  "violations": [],
+  "passes": 20,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "light",
+  "name": "delete",
+  "violations": [],
+  "passes": 21,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "light",
+  "name": "blocked",
+  "violations": [],
+  "passes": 22,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "light",
+  "name": "move-all",
+  "violations": [],
+  "passes": 21,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "light",
+  "name": "move-all-from-blocked",
+  "violations": [],
+  "passes": 21,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "light",
+  "name": "card-save-error",
+  "violations": [],
+  "passes": 23,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "light",
+  "name": "no-groups-card",
+  "violations": [],
+  "passes": 19,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "dark",
+  "name": "sections",
+  "violations": [],
+  "passes": 37,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "dark",
+  "name": "collapsed",
+  "violations": [],
+  "passes": 37,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "dark",
+  "name": "filter",
+  "violations": [],
+  "passes": 37,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "dark",
+  "name": "filter-empty",
+  "violations": [],
+  "passes": 35,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "dark",
+  "name": "add-newgroup",
+  "violations": [],
+  "passes": 37,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "dark",
+  "name": "add-newgroup-error",
+  "violations": [],
+  "passes": 37,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "dark",
+  "name": "edit-move",
+  "violations": [],
+  "passes": 37,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "dark",
+  "name": "manage",
+  "violations": [],
+  "passes": 20,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "dark",
+  "name": "delete",
+  "violations": [],
+  "passes": 21,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "dark",
+  "name": "blocked",
+  "violations": [],
+  "passes": 22,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "dark",
+  "name": "move-all",
+  "violations": [],
+  "passes": 21,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "dark",
+  "name": "move-all-from-blocked",
+  "violations": [],
+  "passes": 21,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "dark",
+  "name": "card-save-error",
+  "violations": [],
+  "passes": 23,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "dark",
+  "name": "no-groups-card",
+  "violations": [],
+  "passes": 19,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "light",
+  "name": "sections",
+  "violations": [],
+  "passes": 39,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "light",
+  "name": "collapsed",
+  "violations": [],
+  "passes": 39,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "light",
+  "name": "filter",
+  "violations": [],
+  "passes": 39,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "light",
+  "name": "filter-empty",
+  "violations": [],
+  "passes": 35,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "light",
+  "name": "add-newgroup",
+  "violations": [],
+  "passes": 39,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "light",
+  "name": "add-newgroup-error",
+  "violations": [],
+  "passes": 39,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "light",
+  "name": "edit-move",
+  "violations": [],
+  "passes": 39,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "light",
+  "name": "manage",
+  "violations": [],
+  "passes": 19,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "light",
+  "name": "delete",
+  "violations": [],
+  "passes": 21,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "light",
+  "name": "blocked",
+  "violations": [],
+  "passes": 22,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "light",
+  "name": "move-all",
+  "violations": [],
+  "passes": 20,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "light",
+  "name": "move-all-from-blocked",
+  "violations": [],
+  "passes": 20,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "light",
+  "name": "card-save-error",
+  "violations": [],
+  "passes": 22,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "light",
+  "name": "no-groups-card",
+  "violations": [],
+  "passes": 19,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "dark",
+  "name": "sections",
+  "violations": [],
+  "passes": 39,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "dark",
+  "name": "collapsed",
+  "violations": [],
+  "passes": 39,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "dark",
+  "name": "filter",
+  "violations": [],
+  "passes": 39,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "dark",
+  "name": "filter-empty",
+  "violations": [],
+  "passes": 35,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "dark",
+  "name": "add-newgroup",
+  "violations": [],
+  "passes": 39,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "dark",
+  "name": "add-newgroup-error",
+  "violations": [],
+  "passes": 39,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "dark",
+  "name": "edit-move",
+  "violations": [],
+  "passes": 39,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "dark",
+  "name": "manage",
+  "violations": [],
+  "passes": 19,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "dark",
+  "name": "delete",
+  "violations": [],
+  "passes": 21,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "dark",
+  "name": "blocked",
+  "violations": [],
+  "passes": 22,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "dark",
+  "name": "move-all",
+  "violations": [],
+  "passes": 20,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "dark",
+  "name": "move-all-from-blocked",
+  "violations": [],
+  "passes": 20,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "dark",
+  "name": "card-save-error",
+  "violations": [],
+  "passes": 22,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "dark",
+  "name": "no-groups-card",
+  "violations": [],
+  "passes": 19,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "light",
+  "name": "manage-edit",
+  "violations": [],
+  "passes": 25,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "1440",
+  "scheme": "dark",
+  "name": "manage-edit",
+  "violations": [],
+  "passes": 25,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "light",
+  "name": "manage-edit",
+  "violations": [],
+  "passes": 24,
+  "incomplete": [
+   "color-contrast"
+  ]
+ },
+ {
+  "vp": "390",
+  "scheme": "dark",
+  "name": "manage-edit",
+  "violations": [],
+  "passes": 24,
+  "incomplete": [
+   "color-contrast"
+  ]
+ }
+]

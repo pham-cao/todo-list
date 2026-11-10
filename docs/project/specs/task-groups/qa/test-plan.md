@@ -22,12 +22,12 @@ Out of scope: items listed in requirements "Out of scope" (full colour picker, c
 
 | Level | What | Tool | Cases |
 | --- | --- | --- | --- |
-| Unit | version test, store (`groupId`, `groupUsage`, `moveGroup`, all or nothing write), groups module (names, colours, limit, load and corrupt rules, collapsed state) | node:test (`tests/unit/version.test.js`, `store.test.js`, `groups.test.js`) | 49 (T1 to T3) |
-| End to end | Sections, collapse, add form, edit move, filter, dialog, delete, move all, compatibility, storage failure, size, motion, speed, security, regression | Playwright, new `tests/e2e/groups.spec.js` plus the existing specs, projects `desktop` and `mobile` | 173 |
+| Unit | version test, store (`groupId`, `groupUsage`, `moveGroup`, all or nothing write), groups module (names, colours, limit, load and corrupt rules, collapsed state) | node:test (`tests/unit/version.test.js`, `store.test.js`, `groups.test.js`) | 48 (T1 to T3) |
+| End to end | Sections, collapse, add form, edit move, filter, dialog, delete, move all, compatibility, storage failure, size, motion, speed, security, regression | Playwright, new `tests/e2e/groups.spec.js` plus the existing specs, projects `desktop` and `mobile` | 209 |
 | Accessibility | axe scan, names, tab order, live regions | Playwright with the a11y skill | inside the e2e count |
-| Manual and exploratory | Prototype comparison (1440 and 390 px, light and dark), cache busting by hand, release step rehearsal, older app copy, Firefox or Edge smoke, exploratory charter for multi tab and rapid actions | Playwright MCP and hand testing | 14 manual and 5 mixed |
+| Manual and exploratory | Prototype comparison (1440 and 390 px, light and dark), cache busting by hand, release step rehearsal, older app copy, Firefox or Edge smoke, exploratory charter for multi tab and rapid actions | Playwright MCP and hand testing | 15 manual, 1 manual script and 8 mixed |
 
-Total 246 cases. By priority: Critical 90, High 117, Medium 30, Low 4. Counts per task (test-cases.csv ID prefix): T1 10, T2 20, T3 24, T4 21, T5 26, T6 18, T7 22, T8 23, T9 20, T10 30, T11 32.
+Total 281 cases (counts after T11 execution, the plan grew while the tasks were tested). By priority: Critical 93, High 137, Medium 43, Low 8. Counts per task (test-cases.csv ID prefix): T1 10, T2 20, T3 24, T4 21, T5 31, T6 23, T7 30, T8 30, T9 30, T10 30, T11 32. Suites at T11: npm test 65 unit tests; e2e 618 runs in the two Chromium projects (598 passed, 20 skipped by design), 1182 passed with --repeat-each=2 before the last additions; Firefox smoke of the whole suite 277 passed, 9 failed (see BUG-014 and the residual risks).
 
 Techniques: equivalence partitioning and boundary value analysis for group names (0, 1, 29, 30, 31 code points, NFD input), the 20 group limit, colour wrap at 7, width 380 and 381 px, and 44 px targets; decision tables for the delete outcome, the day chosen by "Xem các việc này", the filter empty texts and the add choice following the filter; state transitions for collapse, filter across days, the add choice, row edit and the move card (success and failure); use cases for each user story; error guessing for markup in names, stale ids, double Enter, two tabs, failing `setItem`, corrupt values and an older app copy; checklist for Vietnamese text (exact strings) and for control sizes.
 
@@ -89,6 +89,7 @@ Suspension: stop executing a task when its page does not load or the whole suite
 | Contrast of six colours in light and dark, torn label style | Medium | Medium | T11-05, T11-06, T11-23 |
 | Two tabs overwrite each other's groups (last writer wins) | Low | Medium | T11-30 exploratory; recorded as residual risk |
 | Safari and WebKit untested (native select, dialog, swipe) | Medium | Medium | Not runnable here; owner checks on a real device; listed in the release note |
+| Firefox: 200 task updates about 190 ms (BUG-014); Playwright Firefox content process crashes on role locators in an open dialog (also on main), so 4 tests cannot run there | Medium | Low | Recorded at T11; Chromium is the verified browser; hand smoke of the main path in Firefox passed |
 
 ## 9. Open points found while planning (for the PM to confirm, none blocks the build)
 

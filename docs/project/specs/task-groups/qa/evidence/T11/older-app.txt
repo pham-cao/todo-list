@@ -1,0 +1,5 @@
+older app rows: [ 'Việc nhóm', 'Việc khác' ]
+rows after reload: 3
+stored: [{"id":"a","text":"Việc nhóm","done":true,"groupId":"cty"},{"id":"b","text":"Việc khác","done":false},{"id":"d564","text":"Việc mới","done":false}]
+groups key untouched: [{"id":"cty","name":"Công ty","color":"yellow","createdAt":1}]
+errors: []

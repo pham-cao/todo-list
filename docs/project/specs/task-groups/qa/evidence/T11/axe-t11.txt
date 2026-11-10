@@ -1,0 +1,61 @@
+1440 light sections | serious/critical: 0 | other:  | incomplete: color-contrast
+1440 light collapsed | serious/critical: 0 | other:  | incomplete: color-contrast
+1440 light filter | serious/critical: 0 | other:  | incomplete: color-contrast
+1440 light filter-empty | serious/critical: 0 | other:  | incomplete: color-contrast
+1440 light add-newgroup | serious/critical: 0 | other:  | incomplete: color-contrast
+1440 light add-newgroup-error | serious/critical: 0 | other:  | incomplete: color-contrast
+1440 light edit-move | serious/critical: 0 | other:  | incomplete: color-contrast
+1440 light manage | serious/critical: 0 | other:  | incomplete: color-contrast
+ERR 1440 light manage-edit locator.click: Timeout 30000ms exceeded.
+1440 light delete | serious/critical: 0 | other:  | incomplete: color-contrast
+1440 light blocked | serious/critical: 0 | other:  | incomplete: color-contrast
+1440 light move-all | serious/critical: 0 | other:  | incomplete: color-contrast
+1440 light move-all-from-blocked | serious/critical: 0 | other:  | incomplete: color-contrast
+1440 light card-save-error | serious/critical: 0 | other:  | incomplete: color-contrast
+1440 light no-groups-card | serious/critical: 0 | other:  | incomplete: color-contrast
+1440 dark sections | serious/critical: 0 | other:  | incomplete: color-contrast
+1440 dark collapsed | serious/critical: 0 | other:  | incomplete: color-contrast
+1440 dark filter | serious/critical: 0 | other:  | incomplete: color-contrast
+1440 dark filter-empty | serious/critical: 0 | other:  | incomplete: color-contrast
+1440 dark add-newgroup | serious/critical: 0 | other:  | incomplete: color-contrast
+1440 dark add-newgroup-error | serious/critical: 0 | other:  | incomplete: color-contrast
+1440 dark edit-move | serious/critical: 0 | other:  | incomplete: color-contrast
+1440 dark manage | serious/critical: 0 | other:  | incomplete: color-contrast
+ERR 1440 dark manage-edit locator.click: Timeout 30000ms exceeded.
+1440 dark delete | serious/critical: 0 | other:  | incomplete: color-contrast
+1440 dark blocked | serious/critical: 0 | other:  | incomplete: color-contrast
+1440 dark move-all | serious/critical: 0 | other:  | incomplete: color-contrast
+1440 dark move-all-from-blocked | serious/critical: 0 | other:  | incomplete: color-contrast
+1440 dark card-save-error | serious/critical: 0 | other:  | incomplete: color-contrast
+1440 dark no-groups-card | serious/critical: 0 | other:  | incomplete: color-contrast
+390 light sections | serious/critical: 0 | other:  | incomplete: color-contrast
+390 light collapsed | serious/critical: 0 | other:  | incomplete: color-contrast
+390 light filter | serious/critical: 0 | other:  | incomplete: color-contrast
+390 light filter-empty | serious/critical: 0 | other:  | incomplete: color-contrast
+390 light add-newgroup | serious/critical: 0 | other:  | incomplete: color-contrast
+390 light add-newgroup-error | serious/critical: 0 | other:  | incomplete: color-contrast
+390 light edit-move | serious/critical: 0 | other:  | incomplete: color-contrast
+390 light manage | serious/critical: 0 | other:  | incomplete: color-contrast
+ERR 390 light manage-edit locator.click: Timeout 30000ms exceeded.
+390 light delete | serious/critical: 0 | other:  | incomplete: color-contrast
+390 light blocked | serious/critical: 0 | other:  | incomplete: color-contrast
+390 light move-all | serious/critical: 0 | other:  | incomplete: color-contrast
+390 light move-all-from-blocked | serious/critical: 0 | other:  | incomplete: color-contrast
+390 light card-save-error | serious/critical: 0 | other:  | incomplete: color-contrast
+390 light no-groups-card | serious/critical: 0 | other:  | incomplete: color-contrast
+390 dark sections | serious/critical: 0 | other:  | incomplete: color-contrast
+390 dark collapsed | serious/critical: 0 | other:  | incomplete: color-contrast
+390 dark filter | serious/critical: 0 | other:  | incomplete: color-contrast
+390 dark filter-empty | serious/critical: 0 | other:  | incomplete: color-contrast
+390 dark add-newgroup | serious/critical: 0 | other:  | incomplete: color-contrast
+390 dark add-newgroup-error | serious/critical: 0 | other:  | incomplete: color-contrast
+390 dark edit-move | serious/critical: 0 | other:  | incomplete: color-contrast
+390 dark manage | serious/critical: 0 | other:  | incomplete: color-contrast
+ERR 390 dark manage-edit locator.click: Timeout 30000ms exceeded.
+390 dark delete | serious/critical: 0 | other:  | incomplete: color-contrast
+390 dark blocked | serious/critical: 0 | other:  | incomplete: color-contrast
+390 dark move-all | serious/critical: 0 | other:  | incomplete: color-contrast
+390 dark move-all-from-blocked | serious/critical: 0 | other:  | incomplete: color-contrast
+390 dark card-save-error | serious/critical: 0 | other:  | incomplete: color-contrast
+390 dark no-groups-card | serious/critical: 0 | other:  | incomplete: color-contrast
+states with problems: 4 of 60
