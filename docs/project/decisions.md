@@ -496,3 +496,29 @@ Reason: The suite runs Chromium only; Firefox medians are 7 to 30 ms; about 5 pe
 
 ## 2026-11-10: task-groups T12 review: tooltip differences accepted
 Choice: Accepted (by PM): leaving a row straight from Sửa or Xóa hides its tooltip at once (no fade out); browsers without @starting-style (Safari before 17.5, Firefox before 129) show the tooltip at once when the pointer lands straight on a button. design-system.md wording corrected.
+
+## 2026-11-10: Next feature after task-groups
+Choice: drag-drop, pick up a task and drag it between groups, requested by the owner (by user)
+
+## 2026-11-10: drag-drop: scope
+Options: Between groups only, Also reorder inside a group, Reorder within one day only
+Choice: Between groups only; tasks keep creation order (by user)
+
+## 2026-11-10: drag-drop: drop targets for empty, hidden or filtered groups
+Options: Drop strip listing every group during a drag, Visible sections only, Show empty sections while dragging
+Choice: Drop strip with every group's torn label, shown only during a drag (by user)
+
+## 2026-11-10: drag-drop: how a drag starts
+Options: Whole row (mouse move on desktop, 400 ms long press on phones, swipe left unchanged), Grip handle on every row, Handle on phones only
+Choice: Whole row; long press on phones; swipe left unchanged (by user)
+
+## 2026-11-10: drag-drop: keyboard and screen reader alternative
+Options: Keep the Sửa move, Keyboard drag mode, Alt plus arrow shortcut
+Choice: Keep the existing Sửa move as the WCAG 2.5.7 alternative (by user)
+
+## 2026-11-10: drag-drop: defaults by PM
+Choice (by PM): no drag across days (the task keeps its date); dragging is not available while a row is in edit mode.
+
+## 2026-11-10: Approve drag-drop requirements?
+Options: Approve, Request changes
+Choice: Approve (by user)
