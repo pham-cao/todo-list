@@ -613,3 +613,15 @@ Also accepted: strip appended inside <main>; pointer captured on the slip, not t
 - BUG-024: fix it now. This is a test-only change: compare scrollY with a tolerance under 1 px, so the two T6 tests also pass in Firefox.
 - Two Firefox-only, load-dependent test failures are accepted as known risks: the BUG-020 short-screen strip test, and the 3-section count in the NFR1 drag test. QA's earlier Firefox run passed both, and the e2e suite officially runs on Chromium only. BUG-024 is verified by QA in report mode.
 - The two device-only cases (TC-drag-drop-T5-18 and T5-19) are counted as blocked. They go into the release note as manual checks.
+
+## 2026-11-11 page-flip requirements (chosen by the owner)
+- Q1 Flip style (hinged 3D leaf, flat 2D fold, full 3D curl): a hinged 3D leaf that turns on the left edge, with perspective, a moving shadow and a darker back, using transform and opacity only.
+- Q2 Duration (450, 350 or 600 ms): 450 ms on phones and desktop, as one token `--dur-flip`.
+- Q3 Browser Back and Forward flip (yes, or only arrows, picker and Về hôm nay): yes, every day change by the owner flips.
+- Q4 Far jump from the picker or Về hôm nay (one flip, a short riffle capped at 3, no flip past 7 days): a short riffle of a few quick pages, capped at 3. This differs from the BA default.
+- Q5 What flips (sheet body only, the whole sheet, the body without the tape re-press): the sheet body only. The header updates at once and the date tape keeps its 360 ms re-press.
+- Q6 Back and Forward direction (follow the date, follow the history): follow the date.
+- Q7 Rapid presses (interrupt and restart, skip, queue): interrupt and restart. Held key repeat changes the day with no new flip, and one flip plays after it stops. Nothing is queued.
+- Q8 Reduced motion (no motion, a 150 ms crossfade): no motion, the day changes at once.
+- Q9 Sideways swipe to turn days on phones (out of scope, later feature, now): out of scope for this feature.
+- Riffle detail (approve as written, or Back and Forward always one flip): approved as written. 2 days plays 2 leaves, 3 or more days plays 3, total under 700 ms, and Back and Forward follow the same distance rule. The owner approved the page-flip requirements.
