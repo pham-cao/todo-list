@@ -321,15 +321,15 @@ features:
         title: "Interruptions never leave the page stuck"
         owner: fe
         depends_on: [T6]
-        state: doing
-        attempts: 0
-        bugs_opened: []
+        state: done
+        attempts: 1
+        bugs_opened: [BUG-021, BUG-022, BUG-023]
         trello_card: ""
       - id: T8
         title: "Speed, accessibility and regression checks"
         owner: fe
         depends_on: [T7]
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""

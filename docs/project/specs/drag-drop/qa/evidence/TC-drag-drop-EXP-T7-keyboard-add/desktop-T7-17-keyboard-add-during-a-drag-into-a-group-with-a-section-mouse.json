@@ -1,0 +1,19 @@
+{
+ "title": "T7-17 keyboard add during a drag into a group with a section mouse",
+ "project": "desktop",
+ "status": "passed",
+ "p": [],
+ "said": [
+  "Đã hủy. Việc vẫn ở nhóm \"Công ty\"."
+ ],
+ "focus": "INPUT#new-task",
+ "scrollY": 12,
+ "rowStill": 1,
+ "next": {
+  "ok": true,
+  "g": "nha",
+  "said": [
+   "Đã chuyển việc \"Cắt tóc\" sang nhóm \"Nhà\"."
+  ]
+ }
+}

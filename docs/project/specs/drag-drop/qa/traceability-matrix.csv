@@ -16,11 +16,11 @@ R14,TC-drag-drop-T4-13;TC-drag-drop-T4-14,
 R15,TC-drag-drop-T2-01;TC-drag-drop-T2-02;TC-drag-drop-T2-03;TC-drag-drop-T2-05;TC-drag-drop-T2-06;TC-drag-drop-T2-11;TC-drag-drop-T2-12;TC-drag-drop-T2-13;TC-drag-drop-T4-15;TC-drag-drop-T4-16,BUG-015
 R16,TC-drag-drop-T4-17,
 R17,TC-drag-drop-T3-16;TC-drag-drop-T3-30,
-R18,TC-drag-drop-T3-17;TC-drag-drop-T3-18;TC-drag-drop-T7-01;TC-drag-drop-T7-02;TC-drag-drop-T7-14;TC-drag-drop-T3-29;TC-drag-drop-T3-32,
+R18,TC-drag-drop-T3-17;TC-drag-drop-T3-18;TC-drag-drop-T7-01;TC-drag-drop-T7-02;TC-drag-drop-T7-14;TC-drag-drop-T3-29;TC-drag-drop-T3-32,BUG-023
 R19,TC-drag-drop-T3-28;TC-drag-drop-T4-27;TC-drag-drop-T5-21;TC-drag-drop-T8-24,
 R20,TC-drag-drop-T7-03;TC-drag-drop-T7-04;TC-drag-drop-T7-05;TC-drag-drop-T7-06;TC-drag-drop-T7-08;TC-drag-drop-T7-15,
-R21,TC-drag-drop-T4-18;TC-drag-drop-T7-07;TC-drag-drop-T7-12,
-R22,TC-drag-drop-T3-19;TC-drag-drop-T3-20;TC-drag-drop-T5-15;TC-drag-drop-T7-11,BUG-017;BUG-018
+R21,TC-drag-drop-T4-18;TC-drag-drop-T7-07;TC-drag-drop-T7-12,BUG-022
+R22,TC-drag-drop-T3-19;TC-drag-drop-T3-20;TC-drag-drop-T5-15;TC-drag-drop-T7-11,BUG-017;BUG-018;BUG-022
 R23,TC-drag-drop-T2-04;TC-drag-drop-T2-14;TC-drag-drop-T4-10,
 R24,TC-drag-drop-T2-08;TC-drag-drop-T4-28,
 R25,TC-drag-drop-T8-12,
@@ -39,7 +39,7 @@ R37,TC-drag-drop-T2-07;TC-drag-drop-T3-23;TC-drag-drop-T4-25,
 NFR1,TC-drag-drop-T8-01;TC-drag-drop-T8-02;TC-drag-drop-T8-03,
 NFR2,TC-drag-drop-T8-06,
 NFR3,TC-drag-drop-T8-14;TC-drag-drop-T9-01;TC-drag-drop-T9-02;TC-drag-drop-T9-03;TC-drag-drop-T9-04;TC-drag-drop-T9-05;TC-drag-drop-T9-06,
-NFR4,TC-drag-drop-T7-09;TC-drag-drop-T7-10;TC-drag-drop-T7-13;TC-drag-drop-T8-25,
+NFR4,TC-drag-drop-T7-09;TC-drag-drop-T7-10;TC-drag-drop-T7-13;TC-drag-drop-T8-25,BUG-021
 NFR5,TC-drag-drop-T2-09;TC-drag-drop-T8-10,
 NFR6,TC-drag-drop-T5-18;TC-drag-drop-T5-19;TC-drag-drop-T8-16;TC-drag-drop-T8-17,
 NFR7,TC-drag-drop-T8-15,

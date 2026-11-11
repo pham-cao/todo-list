@@ -1,0 +1,364 @@
+
+
+Running 64 tests using 1 worker
+
+[1/64] [desktop] › probe.spec.js:155:3 › T7-03 hidden mouse
+
+
+
+
+
+
+
+[2/64] [desktop] › probe.spec.js:159:3 › T7-03 hidden touch
+[3/64] [desktop] › probe.spec.js:155:3 › T7-04 blur mouse
+
+
+
+
+
+
+
+
+[4/64] [desktop] › probe.spec.js:159:3 › T7-04 blur touch
+[5/64] [desktop] › probe.spec.js:155:3 › T7-05 back mouse
+
+
+
+
+
+
+
+[6/64] [desktop] › probe.spec.js:159:3 › T7-05 back touch
+[7/64] [desktop] › probe.spec.js:155:3 › T7-05 picker mouse
+
+
+
+
+
+
+
+
+[8/64] [desktop] › probe.spec.js:159:3 › T7-05 picker touch
+[9/64] [desktop] › probe.spec.js:155:3 › T7-05 arrow next mouse
+
+
+
+
+
+
+
+  1) [desktop] › probe.spec.js:155:3 › T7-05 arrow next mouse ──────────────────────────────────────
+
+    Test timeout of 40000ms exceeded.
+
+    Error: page.evaluate: Target page, context or browser has been closed
+
+      65 |   await page.waitForSelector('.task');
+      66 | };
+    > 67 | const snapshot = (page) => page.evaluate(() => ({ raf: window.__raf(), lsn: window.__lsn(), scrollY }));
+         |                                 ^
+      68 | const focusDesc = (page) => page.evaluate(() => { const a = document.activeElement; return a === document.body ? 'body' : `${a.tagName}${a.id ? '#' + a.id : ''}${a.dataset?.action ? '[' + a.dataset.action + ']' : ''}${a.closest?.('.task') ? ' in ' + a.closest('.task').querySelector('.task__label')?.textContent : ''}`; });
+      69 |
+      70 | // start a drag of `text` (mouse or touch). returns { f, pt }.
+        at snapshot (/tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t7probe/probe.spec.js:67:33)
+        at interruption (/tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t7probe/probe.spec.js:198:21)
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t7probe/probe.spec.js:157:5
+
+    Error Context: out/probe-T7-05-arrow-next-mouse-desktop/error-context.md
+
+
+[10/64] [desktop] › probe.spec.js:159:3 › T7-05 arrow next touch
+[11/64] [desktop] › probe.spec.js:155:3 › T7-05 arrow prev mouse
+
+
+
+
+
+
+
+
+  2) [desktop] › probe.spec.js:155:3 › T7-05 arrow prev mouse ──────────────────────────────────────
+
+    Test timeout of 40000ms exceeded.
+
+    Error: page.evaluate: Target page, context or browser has been closed
+
+      65 |   await page.waitForSelector('.task');
+      66 | };
+    > 67 | const snapshot = (page) => page.evaluate(() => ({ raf: window.__raf(), lsn: window.__lsn(), scrollY }));
+         |                                 ^
+      68 | const focusDesc = (page) => page.evaluate(() => { const a = document.activeElement; return a === document.body ? 'body' : `${a.tagName}${a.id ? '#' + a.id : ''}${a.dataset?.action ? '[' + a.dataset.action + ']' : ''}${a.closest?.('.task') ? ' in ' + a.closest('.task').querySelector('.task__label')?.textContent : ''}`; });
+      69 |
+      70 | // start a drag of `text` (mouse or touch). returns { f, pt }.
+        at snapshot (/tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t7probe/probe.spec.js:67:33)
+        at interruption (/tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t7probe/probe.spec.js:198:21)
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t7probe/probe.spec.js:157:5
+
+    Error Context: out/probe-T7-05-arrow-prev-mouse-desktop/error-context.md
+
+
+[12/64] [desktop] › probe.spec.js:159:3 › T7-05 arrow prev touch
+[13/64] [desktop] › probe.spec.js:155:3 › T7-06 midnight focus mouse
+
+
+
+
+
+
+
+
+[14/64] [desktop] › probe.spec.js:159:3 › T7-06 midnight focus touch
+[15/64] [desktop] › probe.spec.js:155:3 › T7-06 midnight visibilitychange mouse
+
+
+
+
+
+
+
+
+[16/64] [desktop] › probe.spec.js:159:3 › T7-06 midnight visibilitychange touch
+[17/64] [desktop] › probe.spec.js:155:3 › T7-07 groups changed mouse
+
+
+
+
+
+
+
+
+[18/64] [desktop] › probe.spec.js:159:3 › T7-07 groups changed touch
+[19/64] [desktop] › probe.spec.js:155:3 › T7-12 tasks key mouse
+
+
+
+
+
+
+
+[20/64] [desktop] › probe.spec.js:159:3 › T7-12 tasks key touch
+[21/64] [desktop] › probe.spec.js:155:3 › T7-12 ui key mouse
+
+
+
+
+
+
+
+
+[22/64] [desktop] › probe.spec.js:159:3 › T7-12 ui key touch
+[23/64] [desktop] › probe.spec.js:155:3 › T7-07 storage clear (key null) mouse
+
+
+
+
+
+
+
+
+[24/64] [desktop] › probe.spec.js:159:3 › T7-07 storage clear (key null) touch
+[25/64] [desktop] › probe.spec.js:155:3 › T7-08 dialog mouse
+
+
+
+
+
+
+
+[26/64] [desktop] › probe.spec.js:159:3 › T7-08 dialog touch
+[27/64] [desktop] › probe.spec.js:155:3 › T7-02 pointercancel mouse
+
+
+
+
+
+
+
+[28/64] [desktop] › probe.spec.js:159:3 › T7-02 pointercancel touch
+[29/64] [desktop] › probe.spec.js:155:3 › T7-02 lostpointercapture mouse
+
+
+
+
+
+
+
+
+[30/64] [desktop] › probe.spec.js:159:3 › T7-02 lostpointercapture touch
+[31/64] [desktop] › probe.spec.js:155:3 › T7-01 touchCancel mouse
+[32/64] [desktop] › probe.spec.js:159:3 › T7-01 touchCancel touch
+[33/64] [pixel7] › probe.spec.js:155:3 › T7-03 hidden mouse
+[34/64] [pixel7] › probe.spec.js:159:3 › T7-03 hidden touch
+
+
+
+
+
+
+
+
+[35/64] [pixel7] › probe.spec.js:155:3 › T7-04 blur mouse
+[36/64] [pixel7] › probe.spec.js:159:3 › T7-04 blur touch
+
+
+
+
+
+
+
+
+[37/64] [pixel7] › probe.spec.js:155:3 › T7-05 back mouse
+[38/64] [pixel7] › probe.spec.js:159:3 › T7-05 back touch
+
+
+
+
+
+
+
+
+[39/64] [pixel7] › probe.spec.js:155:3 › T7-05 picker mouse
+[40/64] [pixel7] › probe.spec.js:159:3 › T7-05 picker touch
+
+
+
+
+
+
+
+
+[41/64] [pixel7] › probe.spec.js:155:3 › T7-05 arrow next mouse
+[42/64] [pixel7] › probe.spec.js:159:3 › T7-05 arrow next touch
+
+
+
+
+
+
+
+[43/64] [pixel7] › probe.spec.js:155:3 › T7-05 arrow prev mouse
+[44/64] [pixel7] › probe.spec.js:159:3 › T7-05 arrow prev touch
+
+
+
+
+
+
+
+
+[45/64] [pixel7] › probe.spec.js:155:3 › T7-06 midnight focus mouse
+[46/64] [pixel7] › probe.spec.js:159:3 › T7-06 midnight focus touch
+
+
+
+
+
+
+
+
+[47/64] [pixel7] › probe.spec.js:155:3 › T7-06 midnight visibilitychange mouse
+[48/64] [pixel7] › probe.spec.js:159:3 › T7-06 midnight visibilitychange touch
+
+
+
+
+
+
+
+
+[49/64] [pixel7] › probe.spec.js:155:3 › T7-07 groups changed mouse
+[50/64] [pixel7] › probe.spec.js:159:3 › T7-07 groups changed touch
+
+
+
+
+
+
+
+
+[51/64] [pixel7] › probe.spec.js:155:3 › T7-12 tasks key mouse
+[52/64] [pixel7] › probe.spec.js:159:3 › T7-12 tasks key touch
+
+
+
+
+
+
+
+
+[53/64] [pixel7] › probe.spec.js:155:3 › T7-12 ui key mouse
+[54/64] [pixel7] › probe.spec.js:159:3 › T7-12 ui key touch
+
+
+
+
+
+
+
+
+[55/64] [pixel7] › probe.spec.js:155:3 › T7-07 storage clear (key null) mouse
+[56/64] [pixel7] › probe.spec.js:159:3 › T7-07 storage clear (key null) touch
+
+
+
+
+
+
+
+
+[57/64] [pixel7] › probe.spec.js:155:3 › T7-08 dialog mouse
+[58/64] [pixel7] › probe.spec.js:159:3 › T7-08 dialog touch
+
+
+
+
+
+
+
+
+  3) [pixel7] › probe.spec.js:159:3 › T7-08 dialog touch ───────────────────────────────────────────
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 6
+
+    - Array []
+    + Array [
+    +   "leftovers 4: is-dragging,task task--placeholder,drop-strip,drag-slip",
+    +   "listeners left: d|contextmenu|true|20, d|dragstart|true|22, d|selectstart|true|21, d|visibilitychange|true|18, w|blur|true|17, w|keydown|true|19, w|pointercancel|true|16, w|pointerdown|true|14, w|pointermove|true|13, w|pointerup|true|15, w|resize|true|24, w|scroll|true|23",
+    +   "html class is-dragging",
+    +   "announce [] want once Đã hủy. Việc vẫn ở nhóm \"Công ty\".",
+    + ]
+
+      199 |   if (extraL.length) c.p.push('listeners after next drag: ' + extraL);
+      200 |   results[T].problems = c.p;
+    > 201 |   expect(c.p).toEqual([]);
+          |               ^
+      202 | }
+      203 |
+        at interruption (/tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t7probe/probe.spec.js:201:15)
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t7probe/probe.spec.js:161:5
+
+    Error Context: out/probe-T7-08-dialog-touch-pixel7/error-context.md
+
+
+[59/64] [pixel7] › probe.spec.js:155:3 › T7-02 pointercancel mouse
+[60/64] [pixel7] › probe.spec.js:159:3 › T7-02 pointercancel touch
+[61/64] [pixel7] › probe.spec.js:155:3 › T7-02 lostpointercapture mouse
+[62/64] [pixel7] › probe.spec.js:159:3 › T7-02 lostpointercapture touch
+[63/64] [pixel7] › probe.spec.js:155:3 › T7-01 touchCancel mouse
+[64/64] [pixel7] › probe.spec.js:159:3 › T7-01 touchCancel touch
+
+
+
+
+
+
+  3 failed
+    [desktop] › probe.spec.js:155:3 › T7-05 arrow next mouse ───────────────────────────────────────
+    [desktop] › probe.spec.js:155:3 › T7-05 arrow prev mouse ───────────────────────────────────────
+    [pixel7] › probe.spec.js:159:3 › T7-08 dialog touch ────────────────────────────────────────────
+  35 skipped
+  26 passed (3.0m)

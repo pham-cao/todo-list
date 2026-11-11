@@ -1,0 +1,23 @@
+{
+ "title": "T7-08 dialog mouse",
+ "project": "desktop",
+ "status": "passed",
+ "during": {
+  "listeners": 12,
+  "raf": 0
+ },
+ "p": [],
+ "said": [
+  "Đã hủy. Việc vẫn ở nhóm \"Công ty\"."
+ ],
+ "focus": "BUTTON[keep]",
+ "scrollY": 267,
+ "next": {
+  "ok": true,
+  "g": "nha",
+  "said": [
+   "Đã chuyển việc \"Cắt tóc\" sang nhóm \"Nhà\"."
+  ]
+ },
+ "problems": []
+}

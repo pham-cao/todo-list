@@ -166,3 +166,37 @@ date,task,tc_id,result,evidence,bug_id
 2026-11-11,T6,EXP-T6-retest-bug019-t4-drop-tests-repeat5,pass,evidence/T6-retest1/t4-drop-tests-repeat5.txt (65 passed),BUG-019
 2026-11-11,T6,EXP-T6-retest-regression-full-e2e-workers2,pass,"evidence/T6-retest1/full-e2e-workers2.txt (670 passed, 70 skipped, 0 failed)",
 2026-11-11,T6,EXP-T6-retest-regression-unit,pass,evidence/T6-retest1/unit.txt (78 of 78),
+2026-11-11,T7,TC-drag-drop-T7-01,pass,"evidence/TC-drag-drop-T7-01/ (pixel7 touchCancel: clean end, page scrolls, touchmove not blocked, next drag drops)",
+2026-11-11,T7,TC-drag-drop-T7-02,pass,"evidence/TC-drag-drop-T7-02/ (mouse pointercancel and lostpointercapture)",
+2026-11-11,T7,TC-drag-drop-T7-03,pass,"evidence/TC-drag-drop-T7-03/ (hidden, mouse and Pixel 7)",
+2026-11-11,T7,TC-drag-drop-T7-04,pass,"evidence/TC-drag-drop-T7-04/ (blur, mouse and Pixel 7)",
+2026-11-11,T7,TC-drag-drop-T7-05,pass,"evidence/TC-drag-drop-T7-05/ (Back, picker, next and previous arrow, mouse and Pixel 7)",
+2026-11-11,T7,TC-drag-drop-T7-06,pass,"evidence/TC-drag-drop-T7-06/ (midnight by focus and by visibilitychange; touch repeat x10 in T7-regression/midnight-touch-repeat10.txt: 10 passed)",
+2026-11-11,T7,TC-drag-drop-T7-07,pass,"evidence/TC-drag-drop-T7-07/ (groups key and key null, mouse and Pixel 7; rename and delete announcement see BUG-022)",BUG-022
+2026-11-11,T7,TC-drag-drop-T7-08,pass,"evidence/TC-drag-drop-T7-08/ (mouse: dialog, ends at the next move; touch: ends at the next move or release; a dialog opened under a still finger keeps the drag until then, which design.md path 4 allows: open question 1)",
+2026-11-11,T7,TC-drag-drop-T7-09,pass,"evidence/TC-drag-drop-T7-09/leftover-matrix.txt (30 interruption runs: zero leftovers, listeners, rAF; storage bytes unchanged; next drag works; announce once)",
+2026-11-11,T7,TC-drag-drop-T7-10,pass,"evidence/TC-drag-drop-T7-10/ (hidden x2, blur x2, Escape x2, tasks storage x2, release x2: one announcement, no page error)",
+2026-11-11,T7,TC-drag-drop-T7-11,pass,"evidence/TC-drag-drop-T7-11/ (focus to Sửa for hidden, blur, groups and tasks storage, Escape; add field focus untouched; day change leaves focus on body)",
+2026-11-11,T7,TC-drag-drop-T7-12,pass,"evidence/TC-drag-drop-T7-12/ (tasks key and ui key end the drag cleanly; behaviour recorded for open question 2)",
+2026-11-11,T7,TC-drag-drop-T7-13,pass,"evidence/TC-drag-drop-T7-13/ (scroll works, 0 blocked touchmoves; the sideways swipe probe was inconclusive, covered by the T5 swipe tests in the full run)",
+2026-11-11,T7,TC-drag-drop-T7-14,fail,"evidence/TC-drag-drop-T7-14/ (blur and hidden: no drag; Escape during the hold: the lift still follows)",BUG-023
+2026-11-11,T7,TC-drag-drop-T7-15,pass,"evidence/TC-drag-drop-T7-15/ (1733 seeded random actions in 150 s: no stuck state, no leftovers, task count intact; SecurityErrors seen come from the probe init script on about:blank after history Back)",
+2026-11-11,T7,EXP-T7-resize-rotation,pass,"evidence/TC-drag-drop-EXP-T7-resize-rotation/ (mouse 800x560, 1100x400; Pixel 7 915x412, 360x640: drag kept, slip inside the bounds and above the strip, one cancel or drop announcement)",
+2026-11-11,T7,EXP-T7-keyboard-add-without-section,pass,"evidence/TC-drag-drop-EXP-T7-keyboard-add/ (mouse and touch: cancel clean, one announcement, only the new task written, next drag works)",
+2026-11-11,T7,EXP-T7-keyboard-add-with-section,fail,"evidence/TC-drag-drop-EXP-T7-keyboard-add/ (drag continues, no cancel)",BUG-021
+2026-11-11,T7,EXP-T7-autoscroll-interrupt,pass,"evidence/TC-drag-drop-EXP-T7-autoscroll-interrupt/ (hidden, blur, Escape, groups, tasks, day, midnight, dialog, pointercancel, touchCancel: scroll stops, no rAF left, no leftovers)",
+2026-11-11,T7,EXP-T7-group-renamed-deleted,fail,"evidence/TC-drag-drop-EXP-T7-group-renamed-deleted/ (announces the new name or Chưa phân nhóm)",BUG-022
+2026-11-11,T7,T7-regression-full-e2e-workers2,pass,"evidence/T7-regression/full-e2e-workers2.txt (689 passed, 91 skipped, 0 failed)",
+2026-11-11,T7,T7-regression-unit,pass,"evidence/T7-regression/unit.txt (78 of 78)",
+2026-11-11,T7,T7-regression-t7-block,pass,"evidence/T7-regression/t7-interruptions-block.txt (20 passed)",
+2026-11-11,T7,T7-regression-midnight-touch-x10,pass,"evidence/T7-regression/midnight-touch-repeat10.txt (10 of 10)",
+2026-11-11,T7,TC-drag-drop-EXP-T7-keyboard-add-with-section-retest,pass,"evidence/TC-drag-drop-EXP-T7-keyboard-add/ (mouse and Pixel 7: cancel, one announcement, next drag works)",BUG-021
+2026-11-11,T7,TC-drag-drop-T7-14-retest,pass,"evidence/TC-drag-drop-T7-14/ (Escape, blur, hidden during the hold: no drag)",BUG-023
+2026-11-11,T7,EXP-T7-escape-rules,pass,"evidence/TC-drag-drop-T7-20/ (Escape swallowed in a real drag; ends a mouse press under 6 px and goes on; still reaches the edit form, a dialog and the add field)",BUG-023
+2026-11-11,T7,EXP-T7-group-renamed-deleted-new-oracle,pass,"evidence/TC-drag-drop-EXP-T7-group-renamed-deleted/ (announces the current group; mouse and Pixel 7)",BUG-022
+2026-11-11,T7,EXP-T7-focus-after-day-change,pass,"evidence/TC-drag-drop-T7-11/ (arrow, Back, picker during a drag: focus on the add field after a list focus, body or add field otherwise unchanged)",
+2026-11-11,T7,EXP-T7-picker-typing,pass,"evidence/TC-drag-drop-T7-21/ (8 digits typed one by one: focus stays in the picker, value 2026-11-08; arrow keeps focus on itself)",
+2026-11-11,T7,T7-retest1-qa-probe,pass,"evidence/T7-retest1/qa-probe-run5.txt (47 passed; the only failure is T7-08 dialog touch with the finger still, accepted by decision)",
+2026-11-11,T7,T7-retest1-full-e2e-workers2,pass,"evidence/T7-retest1/full-e2e-workers2.txt (693 passed, 95 skipped, 0 failed)",
+2026-11-11,T7,T7-retest1-unit,pass,"evidence/T7-retest1/unit.txt (78 of 78)",
+2026-11-11,T7,T7-retest1-midnight-touch-x10,pass,"evidence/T7-retest1/midnight-touch-repeat10.txt (10 of 10)",

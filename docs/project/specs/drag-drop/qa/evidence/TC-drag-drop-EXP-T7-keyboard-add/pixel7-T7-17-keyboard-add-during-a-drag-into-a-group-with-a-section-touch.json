@@ -1,0 +1,23 @@
+{
+ "title": "T7-17 keyboard add during a drag into a group with a section touch",
+ "project": "pixel7",
+ "status": "passed",
+ "p": [],
+ "said": [
+  "Đã hủy. Việc vẫn ở nhóm \"Công ty\"."
+ ],
+ "focus": "INPUT#new-task",
+ "scrollY": 0,
+ "rowStill": 1,
+ "scroll": {
+  "scrolled": 407,
+  "blocked": 0
+ },
+ "next": {
+  "ok": true,
+  "g": "nha",
+  "said": [
+   "Đã chuyển việc \"Cắt tóc\" sang nhóm \"Nhà\"."
+  ]
+ }
+}

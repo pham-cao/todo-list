@@ -1,0 +1,26 @@
+
+Running 20 tests using 2 workers
+
+  -   1 [desktop] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the midnight check changes the day
+  -   2 [desktop] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the midnight check changes the day
+  -   3 [desktop] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the midnight check changes the day
+  -   4 [desktop] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the midnight check changes the day
+  -   6 [desktop] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the midnight check changes the day
+  -   5 [desktop] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the midnight check changes the day
+  -   7 [desktop] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the midnight check changes the day
+  -   8 [desktop] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the midnight check changes the day
+  -   9 [desktop] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the midnight check changes the day
+  -  10 [desktop] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the midnight check changes the day
+  ✓  12 [mobile] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the midnight check changes the day (3.3s)
+  ✓  11 [mobile] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the midnight check changes the day (3.3s)
+  ✓  14 [mobile] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the midnight check changes the day (3.4s)
+  ✓  13 [mobile] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the midnight check changes the day (3.4s)
+  ✓  15 [mobile] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the midnight check changes the day (3.5s)
+  ✓  16 [mobile] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the midnight check changes the day (3.5s)
+  ✓  17 [mobile] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the midnight check changes the day (3.1s)
+  ✓  18 [mobile] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the midnight check changes the day (3.1s)
+  ✓  19 [mobile] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the midnight check changes the day (3.0s)
+  ✓  20 [mobile] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the midnight check changes the day (3.4s)
+
+  10 skipped
+  10 passed (24.5s)

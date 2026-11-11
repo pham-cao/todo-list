@@ -1,0 +1,35 @@
+{
+ "title": "T7-00 noop touch",
+ "project": "pixel7",
+ "status": "failed",
+ "during": {
+  "listeners": 12,
+  "raf": 0
+ },
+ "p": [
+  "leftovers 4: is-dragging,task task--placeholder,drop-strip,drag-slip",
+  "listeners left: d|contextmenu|true|20, d|dragstart|true|22, d|selectstart|true|21, d|visibilitychange|true|18, w|blur|true|17, w|keydown|true|19, w|pointercancel|true|16, w|pointerdown|true|14, w|pointermove|true|13, w|pointerup|true|15, w|resize|true|24, w|scroll|true|23",
+  "html class is-dragging",
+  "announce [] want once Đã hủy. Việc vẫn ở nhóm \"Công ty\"."
+ ],
+ "said": [],
+ "focus": "INPUT#new-task",
+ "scrollY": 0,
+ "scroll": {
+  "scrolled": 285,
+  "blocked": 0
+ },
+ "next": {
+  "ok": true,
+  "g": "nha",
+  "said": [
+   "Đã chuyển việc \"Cắt tóc\" sang nhóm \"Nhà\"."
+  ]
+ },
+ "problems": [
+  "leftovers 4: is-dragging,task task--placeholder,drop-strip,drag-slip",
+  "listeners left: d|contextmenu|true|20, d|dragstart|true|22, d|selectstart|true|21, d|visibilitychange|true|18, w|blur|true|17, w|keydown|true|19, w|pointercancel|true|16, w|pointerdown|true|14, w|pointermove|true|13, w|pointerup|true|15, w|resize|true|24, w|scroll|true|23",
+  "html class is-dragging",
+  "announce [] want once Đã hủy. Việc vẫn ở nhóm \"Công ty\"."
+ ]
+}

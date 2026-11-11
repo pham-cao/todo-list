@@ -587,3 +587,16 @@ Also accepted: strip appended inside <main>; pointer captured on the slip, not t
 - BUG-020 zone sharing: the strip wins, so the speed is 0 for y >= stripTop. When stripTop < 128, the two zones split the space above the strip evenly. The up zone is [0, min(64, stripTop/2)) and the down zone is [max(stripTop-64, stripTop/2), stripTop), each with full speed range across its own height. When stripTop <= 0 there is no zone.
 - BUG-019: the flaky T4 target test is fixed in test code by keeping hovered rows clear of the bottom zone. FE runs the T4 drop tests with --repeat-each=5 to confirm.
 - The bottom zone includes its first pixel, so the speed is 1 at stripTop - 64. This is accepted under R31's "about 64 px", and TC-drag-drop-T6-03 is read with that tolerance.
+
+## 2026-11-11 drag-drop T7: interruptions
+- A resize during a drag re-measures the bounds rather than cancelling, because a phone's address bar showing or hiding fires resize during auto scroll. This also closes the T3 resize finding.
+- `drag.cancel()` goes at the top of `renderList` as well, so every re-render path, such as adding a task by keyboard during a mouse drag, cancels first. This is safe because `end` clears the state before `onEnd`. The PM authorises this app.js change beyond the T7 Boundary.
+- A dialog that opens during a drag ends it (design.md cancel path 4).
+- Correction: `drag.cancel()` lives in renderList and in the storage listener, not in resetTransient. Every day change path reaches renderList. design.md is updated to match.
+- Review finding: after a day change cancels a drag, focus can fall to body. go() and syncFromAddress() fall back to the add field when focus is on body, as checkDay already does. FE fixes this in T7 after QA.
+- The per-frame `dialog[open]` query is measured in T8, and a cached list of dialogs is used only if it shows up as a cost.
+- BUG-021: fix it. Any keyboard add during a drag cancels the drag, including an add into an existing section.
+- BUG-022: works as intended, so close it. R22 announces the group the task is in now. After another tab renames or deletes the group, "Công ty mới" or "Chưa phân nhóm" is the true current group.
+- BUG-023: fix it. Escape during the 400 ms touch hold cancels the press, the same as blur and hidden.
+- A dialog that opens under a still finger ends the drag on the next move or release. This is accepted, because a dialog cannot open from a touch while a finger is holding a drag.
+- Storage events on the tasks and ui keys cancel the drag. This is confirmed as intended.

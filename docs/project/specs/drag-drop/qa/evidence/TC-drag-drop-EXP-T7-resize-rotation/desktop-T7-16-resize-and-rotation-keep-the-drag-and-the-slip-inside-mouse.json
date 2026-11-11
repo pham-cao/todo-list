@@ -1,0 +1,47 @@
+{
+ "title": "T7-16 resize and rotation keep the drag and the slip inside mouse",
+ "project": "desktop",
+ "status": "passed",
+ "sizes": [
+  {
+   "w": 800,
+   "h": 560,
+   "right": 792,
+   "cw": 800,
+   "bottom": 478,
+   "stripTop": 478,
+   "ch": 560,
+   "dragging": true
+  },
+  {
+   "w": 1100,
+   "h": 400,
+   "right": 1092,
+   "cw": 1100,
+   "bottom": 318,
+   "stripTop": 318,
+   "ch": 400,
+   "dragging": true
+  },
+  {
+   "w": 1280,
+   "h": 720,
+   "right": 1272,
+   "cw": 1280,
+   "bottom": 638,
+   "stripTop": 638,
+   "ch": 720,
+   "dragging": true
+  }
+ ],
+ "said": [
+  "Đã hủy. Việc vẫn ở nhóm \"Công ty\"."
+ ],
+ "next": {
+  "ok": true,
+  "g": "nha",
+  "said": [
+   "Đã chuyển việc \"Cắt tóc\" sang nhóm \"Nhà\"."
+  ]
+ }
+}

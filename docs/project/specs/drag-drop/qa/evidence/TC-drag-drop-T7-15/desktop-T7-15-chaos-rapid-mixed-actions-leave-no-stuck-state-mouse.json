@@ -1,0 +1,13 @@
+{
+ "title": "T7-15 chaos: rapid mixed actions leave no stuck state mouse",
+ "project": "desktop",
+ "status": "failed",
+ "steps": 1733,
+ "violations": [],
+ "errs": [
+  "SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.",
+  "SecurityError: Failed to read the 'sessionStorage' property from 'Window': Access is denied for this document.",
+  "SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.",
+  "SecurityError: Failed to read the 'sessionStorage' property from 'Window': Access is denied for this document."
+ ]
+}

@@ -121,7 +121,7 @@ TC-drag-drop-T7-03,R20,Critical,state transition,T7,Drag,Dispatch visibilitychan
 TC-drag-drop-T7-04,R20,Critical,state transition,T7,Drag,Dispatch window blur,blur,Clean cancel,e2e
 TC-drag-drop-T7-05,R20,Critical,state transition,T7,Drag,"Press Back (day change), and in other runs picker and next day arrow",day change,Drag cancelled; the new day shows normally; no leftovers,e2e
 TC-drag-drop-T7-06,R20,High,state transition,T7,Drag with fixed time before midnight,Pass midnight (existing passMidnight helper),midnight,Drag cancelled; day rolls over as today,e2e
-TC-drag-drop-T7-07,R21,Critical,state transition,T7,Drag in this tab,Change the groups key from another context (storage event),groups change,"Drag cancelled, then list refreshes as multi tab sync does",e2e
+TC-drag-drop-T7-07,R21,Critical,state transition,T7,Drag in this tab,Change the groups key from another context (storage event),groups change,"Drag cancelled, then list refreshes as multi tab sync does; the cancel announces the group the task is in now (a renamed group by its new name, a deleted one as Chưa phân nhóm; BUG-022 closed as designed)",e2e
 TC-drag-drop-T7-08,R20,High,state transition,T7,Drag,Make a dialog open (focus a path that opens Nhóm việc by script),dialog,Cancelled without changes,e2e
 TC-drag-drop-T7-09,NFR4,Critical,checklist,T7,After each interruption above,Count leftovers and start a new drag,none,Zero leftovers; the next drag works normally,e2e
 TC-drag-drop-T7-10,NFR4,High,error guessing,T7,Drag in progress,"Call cancel twice, press Escape after the end, release twice",repeat,Idempotent; no exception; no double announcement,e2e

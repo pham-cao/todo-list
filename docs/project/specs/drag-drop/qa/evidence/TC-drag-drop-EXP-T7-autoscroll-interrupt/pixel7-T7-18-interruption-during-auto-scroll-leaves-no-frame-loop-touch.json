@@ -1,0 +1,88 @@
+{
+ "title": "T7-18 interruption during auto scroll leaves no frame loop touch",
+ "project": "pixel7",
+ "status": "passed",
+ "cases": {
+  "hidden": {
+   "scrollingBefore": 434,
+   "scrollAfterRun": 447,
+   "scrollLater": 447,
+   "raf": 0,
+   "baseRaf": 0,
+   "left": 0
+  },
+  "blur": {
+   "scrollingBefore": 428,
+   "scrollAfterRun": 441,
+   "scrollLater": 441,
+   "raf": 0,
+   "baseRaf": 0,
+   "left": 0
+  },
+  "escape": {
+   "scrollingBefore": 447,
+   "scrollAfterRun": 447,
+   "scrollLater": 447,
+   "raf": 0,
+   "baseRaf": 0,
+   "left": 0
+  },
+  "groups": {
+   "scrollingBefore": 441,
+   "scrollAfterRun": 441,
+   "scrollLater": 441,
+   "raf": 0,
+   "baseRaf": 0,
+   "left": 0
+  },
+  "tasks": {
+   "scrollingBefore": 447,
+   "scrollAfterRun": 447,
+   "scrollLater": 447,
+   "raf": 0,
+   "baseRaf": 0,
+   "left": 0
+  },
+  "day": {
+   "scrollingBefore": 441,
+   "scrollAfterRun": 0,
+   "scrollLater": 0,
+   "raf": 0,
+   "baseRaf": 0,
+   "left": 0
+  },
+  "midnight": {
+   "scrollingBefore": 441,
+   "scrollAfterRun": 0,
+   "scrollLater": 0,
+   "raf": 0,
+   "baseRaf": 0,
+   "left": 0
+  },
+  "dialog": {
+   "scrollingBefore": 447,
+   "scrollAfterRun": 447,
+   "scrollLater": 447,
+   "raf": 0,
+   "baseRaf": 0,
+   "left": 0
+  },
+  "cancel": {
+   "scrollingBefore": 444,
+   "scrollAfterRun": 483,
+   "scrollLater": 483,
+   "raf": 0,
+   "baseRaf": 0,
+   "left": 0
+  },
+  "pointercancel": {
+   "scrollingBefore": 441,
+   "scrollAfterRun": 441,
+   "scrollLater": 441,
+   "raf": 0,
+   "baseRaf": 0,
+   "left": 0
+  }
+ },
+ "problems": []
+}

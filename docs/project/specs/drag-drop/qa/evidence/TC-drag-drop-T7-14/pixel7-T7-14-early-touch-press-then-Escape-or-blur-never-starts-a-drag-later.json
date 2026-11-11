@@ -1,0 +1,20 @@
+{
+ "title": "T7-14 early touch press then Escape or blur never starts a drag later",
+ "project": "pixel7",
+ "status": "passed",
+ "escape": {
+  "pressingBefore": 1,
+  "dragging": false,
+  "left": 0
+ },
+ "blur": {
+  "pressingBefore": 1,
+  "dragging": false,
+  "left": 0
+ },
+ "hidden": {
+  "pressingBefore": 1,
+  "dragging": false,
+  "left": 0
+ }
+}
