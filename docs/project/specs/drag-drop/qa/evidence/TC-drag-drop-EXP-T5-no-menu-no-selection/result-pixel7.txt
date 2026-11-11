@@ -1,0 +1,6 @@
+EXP-T5-no-menu-no-selection hold 1.5 s selects no text, no callout styles, contextmenu prevented
+project: pixel7
+status: passed
+selection during drag: ""
+css: {"rowUserSelect":"none","slipUserSelect":"none","htmlUS":"none"}
+selection after: ""

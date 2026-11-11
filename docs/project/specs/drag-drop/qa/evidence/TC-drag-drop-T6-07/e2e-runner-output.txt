@@ -1,0 +1,16 @@
+
+Running 10 tests using 2 workers
+
+  -   2 [mobile] › tests/e2e/drag.spec.js:654:3 › auto scroll › resting above the strip scrolls down with the down cue, the strip stays put, and it stops at the page end
+  -   3 [mobile] › tests/e2e/drag.spec.js:682:3 › auto scroll › leaving the zone stops the scroll; near the top it scrolls up with the up cue and stops at the page top
+  -   4 [mobile] › tests/e2e/drag.spec.js:704:3 › auto scroll › a pointer over the strip never scrolls, and every end stops a running scroll
+  -   5 [mobile] › tests/e2e/drag.spec.js:733:3 › auto scroll › a section the scroll brings under a still pointer becomes the target, and a release drops there
+  ✓   1 [desktop] › tests/e2e/drag.spec.js:654:3 › auto scroll › resting above the strip scrolls down with the down cue, the strip stays put, and it stops at the page end (2.8s)
+  ✓   6 [mobile] › tests/e2e/drag.spec.js:981:3 › touch › a finger resting above the strip scrolls the page, but only after it leaves the lift point (R31, BUG-018) (4.0s)
+  ✓   7 [desktop] › tests/e2e/drag.spec.js:682:3 › auto scroll › leaving the zone stops the scroll; near the top it scrolls up with the up cue and stops at the page top (1.6s)
+  ✓   8 [desktop] › tests/e2e/drag.spec.js:704:3 › auto scroll › a pointer over the strip never scrolls, and every end stops a running scroll (1.6s)
+  ✓   9 [desktop] › tests/e2e/drag.spec.js:733:3 › auto scroll › a section the scroll brings under a still pointer becomes the target, and a release drops there (2.5s)
+  -  10 [desktop] › tests/e2e/drag.spec.js:981:3 › touch › a finger resting above the strip scrolls the page, but only after it leaves the lift point (R31, BUG-018)
+
+  5 skipped
+  5 passed (10.0s)

@@ -1,0 +1,4 @@
+EXP-T5-speed no renderList and no row queries while moving
+project: pixel7
+status: passed
+mutations in #day-list, qsa, rects during move: {"list":0,"qsa":0,"rects":0}

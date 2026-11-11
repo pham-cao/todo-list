@@ -1,0 +1,10 @@
+
+Running 5 tests using 1 worker
+
+  ✓  1 [desktop] › tests/e2e/drag.spec.js:657:3 › auto scroll › resting above the strip scrolls down with the down cue, the strip stays put, and it stops at the page end (3.1s)
+  ✓  2 [desktop] › tests/e2e/drag.spec.js:685:3 › auto scroll › leaving the zone stops the scroll; near the top it scrolls up with the up cue and stops at the page top (1.8s)
+  ✓  3 [desktop] › tests/e2e/drag.spec.js:707:3 › auto scroll › a pointer over the strip never scrolls, and every end stops a running scroll (1.8s)
+  ✓  4 [desktop] › tests/e2e/drag.spec.js:736:3 › auto scroll › on a short screen with 20 groups a pointer over the strip never scrolls (BUG-020) (2.0s)
+  ✓  5 [desktop] › tests/e2e/drag.spec.js:761:3 › auto scroll › a section the scroll brings under a still pointer becomes the target, and a release drops there (2.7s)
+
+  5 passed (13.3s)

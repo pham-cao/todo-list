@@ -1,0 +1,2 @@
+TC-drag-drop-T4-19-quota: PASS
+slip text Không thể lưu dữ liệu trên trình duyệt này. Công việc có thể bị mất khi bạn tải lại trang.

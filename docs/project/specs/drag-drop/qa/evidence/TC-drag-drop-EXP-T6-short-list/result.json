@@ -1,0 +1,24 @@
+{
+  "h900": {
+    "scrollableBefore": 76,
+    "scrollableDuring": 76,
+    "downY": 76,
+    "downCue": 0,
+    "raf": 8,
+    "upY": 0,
+    "upCue": 0,
+    "rafIdle": 0,
+    "leftovers": 0
+  },
+  "h1400": {
+    "scrollableBefore": 0,
+    "scrollableDuring": 0,
+    "downY": 0,
+    "downCue": 0,
+    "raf": 2,
+    "upY": 0,
+    "upCue": 0,
+    "rafIdle": 0,
+    "leftovers": 0
+  }
+}

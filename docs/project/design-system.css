@@ -255,6 +255,7 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
   rotate: -0.4deg;
 }
 .alert .icon { margin-top: 1px; }
+.alert p { min-width: 0; overflow-wrap: anywhere; } /* a long unbroken word (a pasted link) wraps inside the slip (BUG-015) */
 .alert--warning { color: var(--color-slip-ink); }
 
 /* ---------- Dialog: a sticky note ---------- */
@@ -847,3 +848,133 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
 /* Very narrow phones: drop the mini sticker inside the add line and filter selects so the group name has room
    (the name stays as text, and the section headers keep their stickers) */
 @media (max-width: 380px) { .add-form__group .swatch, .group-bar .swatch { display: none; } }
+
+/* ---------- Drag and drop (feature drag-drop, additive) ----------
+   Moving a task between groups by dragging. While a drag runs, the page gets .is-dragging; the row being moved
+   becomes a dashed placeholder (.task--placeholder) and a copy of it floats under the pointer as a slip torn out of
+   the page (.drag-slip). Every group can be reached from the drop strip (.drop-strip) fixed to the bottom of the
+   screen. A visible section under the pointer is marked with .group--drop, a strip label with .drop-target--over.
+   The landing reuses .task--moved. No existing token changes. */
+:root {
+  --drag-tilt: -2deg;                         /* the slip leans like a note picked up by one corner */
+  --drag-lift: 0 3px 3px rgba(56, 48, 30, 0.14), 0 22px 40px -12px rgba(56, 48, 30, 0.45);
+  --drop-ring: var(--color-pen);              /* target outline: 10.7:1 on paper by day, 8.9:1 at night */
+  --drop-fill: 32%;                           /* share of the group colour in the target wash */
+  --drag-edge: 64px;                          /* auto scroll zone at the top and bottom of the list area */
+  --dur-pick: 160ms;
+  --dur-hold: 400ms;                          /* phone long press before a pick up */
+}
+@media (prefers-color-scheme: dark) {
+  :root { --drag-lift: 0 3px 3px rgba(0, 0, 0, 0.45), 0 22px 40px -12px rgba(0, 0, 0, 0.85); --drop-fill: 55%; }
+}
+
+/* While dragging: no text selection, no callout, the hand cursor that grabs */
+.is-dragging, .is-dragging * { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; cursor: grabbing !important; }
+.is-dragging .task__actions { opacity: 0 !important; } /* hover actions stay away while a slip is in the air */
+.task__swipe { -webkit-touch-callout: none; }
+@media (hover: hover) and (pointer: fine) { .task__text { cursor: grab; } }
+
+/* Phone long press: the line fills with a pen wash from the left while the finger holds still (400 ms) */
+.task--pressing { isolation: isolate; }
+.task--pressing::before {
+  content: ""; position: absolute; inset: 0 var(--sheet-pad-end) 0 calc(var(--holes-w) + var(--margin-w)); z-index: -1; pointer-events: none;
+  background: linear-gradient(var(--color-pen-wash), var(--color-pen-wash)) no-repeat 0 0 / var(--hold, 0%) 100%,
+              linear-gradient(var(--color-pen), var(--color-pen)) no-repeat 0 100% / var(--hold, 0%) 2px;
+  animation: hold-fill var(--dur-hold) linear forwards;
+}
+@keyframes hold-fill { from { background-size: 0 100%, 0 2px; } to { background-size: 100% 100%, 100% 2px; } }
+
+/* The spot the task left: a dashed pencil outline, text faded, same height, so the list never jumps */
+.task--placeholder { content-visibility: visible; }
+.task--placeholder::after {
+  content: ""; position: absolute; inset: 3px var(--sheet-pad-end) 3px calc(var(--holes-w) + var(--margin-w) + var(--margin-gap) - 8px);
+  border: 1.5px dashed var(--color-pencil); border-radius: var(--radius-control); pointer-events: none;
+}
+.task--placeholder > *, .task--placeholder .task__text { opacity: 0.38; }
+.task--placeholder .task__actions { visibility: hidden; } /* never focusable while invisible (WCAG 2.4.7) */
+.task--placeholder .task__swipe { overflow: hidden; } /* so the phone swipe region is no scroller with nothing to focus (axe scrollable-region-focusable) */
+
+/* The slip: a copy of the line, torn out of the page, following the pointer (position set by script, plain text only) */
+.drag-slip {
+  position: fixed; z-index: 40; display: grid; grid-template-columns: 36px minmax(0, 1fr); align-items: center; column-gap: var(--space-2);
+  width: min(520px, calc(100vw - 32px)); min-height: var(--rule); padding: 0 var(--space-6) 0 var(--space-3);
+  color: var(--text); font-size: var(--fs-body); line-height: 1.35; pointer-events: none; isolation: isolate;
+  rotate: var(--drag-tilt); filter: drop-shadow(0 2px 2px rgba(56, 48, 30, 0.16)) drop-shadow(0 14px 18px rgba(56, 48, 30, 0.28));
+  animation: pick-up var(--dur-pick) var(--ease-out);
+}
+@media (prefers-color-scheme: dark) { .drag-slip { filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5)) drop-shadow(0 14px 18px rgba(0, 0, 0, 0.6)); } }
+.drag-slip::before { /* paper with the grain, one ruled line, torn at both ends like the group labels */
+  content: ""; position: absolute; inset: 0; z-index: -1; clip-path: var(--torn);
+  background: linear-gradient(to top, transparent 9px, var(--color-rule) 9px 10px, transparent 10px), var(--grain), var(--color-paper);
+}
+.drag-slip__box { justify-self: center; width: 18px; height: 18px; border: 1.75px solid var(--color-pencil); border-radius: 3px 4px 3px 5px; }
+.drag-slip--done .drag-slip__box { border-color: var(--color-ink-muted); background: linear-gradient(135deg, transparent 45%, var(--color-pen) 45% 58%, transparent 58%); }
+.drag-slip--done .drag-slip__text { color: var(--color-ink-done); text-decoration: line-through 2px var(--color-pen); }
+.drag-slip__text { padding-block: 11px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow-wrap: anywhere; }
+.drag-slip__to { /* the target group's label stuck on the slip's corner while over a target: the name, never colour alone */
+  position: absolute; right: -10px; bottom: -16px; z-index: 1; rotate: 5deg; font-size: var(--fs-small); padding: 3px 13px 4px;
+}
+@keyframes pick-up { from { rotate: 0deg; translate: 0 3px; filter: drop-shadow(0 0 0 transparent); } }
+
+/* A visible section as a target (header, rows or the space inside it): an ink frame and a wash in its colour */
+.group--drop { position: relative; isolation: isolate; }
+.group--drop::before {
+  content: ""; position: absolute; inset: 0 calc(var(--sheet-pad-end) - 8px) 0 calc(var(--holes-w) + 6px); z-index: -1; pointer-events: none;
+  border: 2px solid var(--drop-ring); border-radius: var(--radius-control);
+  background: color-mix(in srgb, var(--hl) var(--drop-fill), transparent);
+}
+.group--drop .group__chev { background: var(--color-pen-wash); }
+
+/* The drop strip: an index card strip taped to the bottom of the screen, one torn label per group, Chưa phân nhóm last.
+   Shown only while dragging; it stays put while the page scrolls. role="group" with aria-label "Thả vào nhóm", no tab stops. */
+.drop-strip {
+  position: fixed; z-index: 30; left: 50%; bottom: var(--space-3); translate: -50% 0; rotate: -0.4deg;
+  width: min(var(--sheet-max), calc(100vw - 24px)); /* never clipped: every group must stay reachable (R9) */
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1) var(--space-2);
+  padding: var(--space-3) var(--space-5) var(--space-3);
+  background: var(--grain), var(--color-card); border-top: 2px solid var(--color-card-rule); border-radius: 3px;
+  box-shadow: var(--drag-lift); animation: strip-in var(--dur-base) var(--ease-out);
+}
+.drop-strip::before, .drop-strip::after { /* two strips of washi tape hold it down */
+  content: ""; position: absolute; top: -11px; width: 76px; height: 20px; opacity: 0.85;
+  background: repeating-linear-gradient(-45deg, var(--color-washi) 0 6px, var(--color-washi-2) 6px 12px);
+  clip-path: polygon(0 8%, 5% 0, 10% 10%, 15% 0, 100% 0, 96% 25%, 100% 50%, 96% 75%, 100% 100%, 0 100%, 4% 70%, 0 40%);
+}
+.drop-strip::before { left: 18px; rotate: -4deg; }
+.drop-strip::after { right: 18px; rotate: 3deg; }
+.drop-strip__label { flex: 0 0 auto; margin-right: var(--space-2); color: var(--text-muted); font-size: var(--fs-meta); font-weight: var(--fw-semibold); line-height: var(--tap); white-space: nowrap; }
+.drop-target { /* the whole 44 px box is the target, the torn label sits inside it */
+  position: relative; display: inline-grid; place-items: center; min-width: var(--tap); min-height: var(--tap); padding: 0 var(--space-1);
+  border-radius: var(--radius-control); color: var(--text); text-decoration: none;
+}
+.drop-target .sticker { font-size: var(--fs-meta); transition: translate var(--dur-fast) ease; } /* names wrap, never cut (owner: no truncated group names on phones) */
+.drop-target:nth-child(odd) .sticker { rotate: 1.1deg; }
+.drop-target--over { background: var(--color-pen-wash); box-shadow: inset 0 0 0 2px var(--drop-ring); }
+.drop-target--over .sticker { translate: 0 -2px; }
+.drop-target--home { opacity: 0.45; } /* the group the task is in now: a release here changes nothing (R12) */
+.drop-target--home .sticker { filter: none; }
+@keyframes strip-in { from { opacity: 0; translate: -50% 16px; } }
+@media (max-width: 600px) {
+  .drop-strip { bottom: var(--space-2); width: calc(100vw - 16px); padding: var(--space-3) var(--space-3) var(--space-2); gap: 2px var(--space-1); }
+  .drop-strip__label { flex-basis: 100%; line-height: 1.4; margin: 0 0 var(--space-1) var(--space-1); font-size: var(--fs-small); }
+  .drop-target .sticker { font-size: var(--fs-small); }
+  .drag-slip { width: calc(100vw - 40px); }
+}
+
+/* Auto scroll cue: a soft pen wash with a chevron in the 64 px band above the strip (or under the top edge) */
+.drag-edge {
+  position: fixed; z-index: 25; left: 50%; translate: -50% 0; width: min(var(--sheet-max), 100vw); height: var(--drag-edge); pointer-events: none;
+  display: grid; place-items: center end; padding-right: var(--sheet-pad-end); color: var(--color-pen); /* chevron at the line end, clear of the slip */
+}
+.drag-edge--down { background: linear-gradient(to top, color-mix(in srgb, var(--color-pen) 14%, transparent), transparent); }
+.drag-edge--up { top: 0; background: linear-gradient(to bottom, color-mix(in srgb, var(--color-pen) 14%, transparent), transparent); }
+.drag-edge .icon { width: 26px; height: 26px; stroke-width: 2.4; }
+.drag-edge--up .icon { rotate: 180deg; } /* the template's chevron points down */
+
+@media (prefers-reduced-motion: reduce) {
+  .drag-slip { rotate: 0deg; animation: none; }
+  .drop-strip { rotate: 0deg; animation: none; }
+  .task--pressing::before { animation: none; background-size: 100% 100%, 100% 2px; }
+  .drop-target .sticker { transition: none; }
+  .drop-target--over .sticker { translate: none; }
+}

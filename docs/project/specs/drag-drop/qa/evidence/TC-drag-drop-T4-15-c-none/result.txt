@@ -1,0 +1,3 @@
+TC-drag-drop-T4-15-c-none: PASS
+notice Đã chuyển việc "Gửi báo cáo" sang nhóm "Nhà".
+focus {"id":"new-task","tag":"INPUT","cls":"text"}

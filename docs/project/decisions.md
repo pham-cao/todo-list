@@ -496,3 +496,120 @@ Reason: The suite runs Chromium only; Firefox medians are 7 to 30 ms; about 5 pe
 
 ## 2026-11-10: task-groups T12 review: tooltip differences accepted
 Choice: Accepted (by PM): leaving a row straight from Sửa or Xóa hides its tooltip at once (no fade out); browsers without @starting-style (Safari before 17.5, Firefox before 129) show the tooltip at once when the pointer lands straight on a button. design-system.md wording corrected.
+
+## 2026-11-10: Next feature after task-groups
+Choice: drag-drop, pick up a task and drag it between groups, requested by the owner (by user)
+
+## 2026-11-10: drag-drop: scope
+Options: Between groups only, Also reorder inside a group, Reorder within one day only
+Choice: Between groups only; tasks keep creation order (by user)
+
+## 2026-11-10: drag-drop: drop targets for empty, hidden or filtered groups
+Options: Drop strip listing every group during a drag, Visible sections only, Show empty sections while dragging
+Choice: Drop strip with every group's torn label, shown only during a drag (by user)
+
+## 2026-11-10: drag-drop: how a drag starts
+Options: Whole row (mouse move on desktop, 400 ms long press on phones, swipe left unchanged), Grip handle on every row, Handle on phones only
+Choice: Whole row; long press on phones; swipe left unchanged (by user)
+
+## 2026-11-10: drag-drop: keyboard and screen reader alternative
+Options: Keep the Sửa move, Keyboard drag mode, Alt plus arrow shortcut
+Choice: Keep the existing Sửa move as the WCAG 2.5.7 alternative (by user)
+
+## 2026-11-10: drag-drop: defaults by PM
+Choice (by PM): no drag across days (the task keeps its date); dragging is not available while a row is in edit mode.
+
+## 2026-11-10: Approve drag-drop requirements?
+Options: Approve, Request changes
+Choice: Approve (by user)
+
+## 2026-11-10: drag-drop UX: visible message when a task moves into a group hidden by the filter
+Options: Show the info slip "Đã chuyển việc "{text}" sang nhóm "{name}".", Live region only
+Choice: Show the info slip; applies to the edit form move too (by user)
+
+## 2026-11-10: drag-drop UX: the task's current group in the drop strip
+Options: Faded, a release there cancels, Hidden, Extra text "Đang ở đây"
+Choice: Faded, a release there cancels (by user)
+
+## 2026-11-10: drag-drop UX: defaults by PM
+Choice (by PM): the bottom auto scroll zone is the 64 px above the strip's top edge (hovering the strip never scrolls); a tall strip with 20 groups on a 360 px phone is accepted.
+
+## 2026-11-10: Approve drag-drop UX?
+Options: Approve, Request changes
+Choice: Approve (by user)
+
+## 2026-11-10: drag-drop design: open points
+Choice (by PM):
+- Move into a group hidden by the filter: write only the info slip (role="status"), not #sr-status too, so screen readers hear it once.
+- Use the same live text "Đã chuyển việc "{text}" sang nhóm "{name}"." for drop and edit form moves; the five affected groups.spec.js assertions are updated in the task that changes it.
+- Accepted design choices: new store.setGroup(id, groupId) (never touches text); one passive:false touchmove listener on #day-list instead of a late touch-action change; drag never calls renderList or reads all rows.
+
+## 2026-11-10: Approve drag-drop design and 9 tasks?
+Options: Approve, Request changes
+Choice: Approve (by user)
+
+## 2026-11-10: drag-drop QA plan open points
+Choice (by PM):
+- store.setGroup with the task's current group: no data change and no error is enough; a redundant write is acceptable.
+- A storage event for the tasks or ui key during a drag: cancel the drag through the same end step as the groups key, so the page is never stuck.
+- R3 reading confirmed: up to 10 px of movement during the 400 ms hold still starts a drag; more than 10 px gives way to swipe or scroll.
+- Firefox spot check uses a temporary config or a hand run; no Firefox project is added to playwright.config.js.
+- No qa-test-generator: each FE task writes its e2e tests in tests/e2e/drag.spec.js; QA executes and fills gaps.
+
+## 2026-11-10: drag-drop T2 QA findings
+Choice (by PM):
+- BUG-015 (info slip does not wrap long unbroken text at 360 px): fix in T2 with `.alert p { min-width: 0; overflow-wrap: anywhere; }` in design-system.css (authorised); covers the older add notice too.
+- Stale slip after a later visible move: clear it (notify(null)) on a visible move, so the slip never describes an older move.
+
+## 2026-11-10: drag-drop T3: axe scrollable-region-focusable on the placeholder row at 390 px
+Options: Accept as a drag only state, Small CSS change in T8
+Choice: Fix in T8 with a small design-system.css change (e.g. hide placeholder actions with opacity instead of visibility), PM authorised (by PM)
+Also accepted: strip appended inside <main>; pointer captured on the slip, not the row.
+
+## 2026-11-10 drag-drop T3: review minor findings deferred
+- The cancel announcement reads the group from `row.closest(".group")` at drag end, so a row removed mid-drag would announce "Chưa phân nhóm". Fix it in T7 by passing the group key from pick up to `onEnd`, together with `drag.cancel()` in resetTransient.
+- The slip's screen bounds are measured once at pick up, so a resize mid-drag can let the slip go past the new edge. This is accepted as cosmetic; re-measure on resize only if T6 or T7 touch it.
+
+## 2026-11-10 drag-drop T4: the slip never covers the strip
+- This follows the approved hover-strip screens: the slip rests on the strip's top edge, so the hovered label stays readable. The cap is measured once at pick up. A row picked up where the strip appears jumps above the strip; this is accepted.
+- The T4 drop tests run at 1440x900 because at 1280x720 the fixed strip covers the lower rows. That is correct behaviour, and only the test viewport changes.
+- Review minor finding: the target-name sticker hangs about 16 px over the strip's top edge. QA's visual check matched hover-strip at 1440 and 390, so this is accepted. It will be re-checked in the T8 visual pass.
+
+## 2026-11-11 drag-drop T5: review findings
+- A second finger during the 400 ms hold must cancel the hold, so that a pinch never lifts a task. FE will fix this in T5 after QA, together with a two-finger CDP test.
+- If the row is re-rendered during a touch drag, touch events go to the detached node and the scroll lock is lost. T7 covers this by cancelling the drag before any renderList.
+- BUG-018: a lifted task with no finger movement must not drop on whatever the strip puts under the finger. This is fixed in T5: after a touch pick up, hit testing stays off until the finger has moved more than the 10 px slop, so a release before then is a cancel.
+
+## 2026-11-11 drag-drop T6: review findings
+- scrollSpeed must return 0 over the strip even when a tall strip starts above 64 px. FE fixes this in T6 after QA, with a unit case for stripTop < 64.
+- The up chevron flip (`style.rotate` in drag.js) moves to design-system.css as `.drag-edge--up .icon { rotate: 180deg }` in T8, together with the placeholder CSS fix.
+- Auto scroll stays on under reduced motion. R30 covers only the tilt and the lift and return animations.
+- BUG-020 zone sharing: the strip wins, so the speed is 0 for y >= stripTop. When stripTop < 128, the two zones split the space above the strip evenly. The up zone is [0, min(64, stripTop/2)) and the down zone is [max(stripTop-64, stripTop/2), stripTop), each with full speed range across its own height. When stripTop <= 0 there is no zone.
+- BUG-019: the flaky T4 target test is fixed in test code by keeping hovered rows clear of the bottom zone. FE runs the T4 drop tests with --repeat-each=5 to confirm.
+- The bottom zone includes its first pixel, so the speed is 1 at stripTop - 64. This is accepted under R31's "about 64 px", and TC-drag-drop-T6-03 is read with that tolerance.
+
+## 2026-11-11 drag-drop T7: interruptions
+- A resize during a drag re-measures the bounds rather than cancelling, because a phone's address bar showing or hiding fires resize during auto scroll. This also closes the T3 resize finding.
+- `drag.cancel()` goes at the top of `renderList` as well, so every re-render path, such as adding a task by keyboard during a mouse drag, cancels first. This is safe because `end` clears the state before `onEnd`. The PM authorises this app.js change beyond the T7 Boundary.
+- A dialog that opens during a drag ends it (design.md cancel path 4).
+- Correction: `drag.cancel()` lives in renderList and in the storage listener, not in resetTransient. Every day change path reaches renderList. design.md is updated to match.
+- Review finding: after a day change cancels a drag, focus can fall to body. go() and syncFromAddress() fall back to the add field when focus is on body, as checkDay already does. FE fixes this in T7 after QA.
+- The per-frame `dialog[open]` query is measured in T8, and a cached list of dialogs is used only if it shows up as a cost.
+- BUG-021: fix it. Any keyboard add during a drag cancels the drag, including an add into an existing section.
+- BUG-022: works as intended, so close it. R22 announces the group the task is in now. After another tab renames or deletes the group, "Công ty mới" or "Chưa phân nhóm" is the true current group.
+- BUG-023: fix it. Escape during the 400 ms touch hold cancels the press, the same as blur and hidden.
+- A dialog that opens under a still finger ends the drag on the next move or release. This is accepted, because a dialog cannot open from a touch while a finger is holding a drag.
+- Storage events on the tasks and ui keys cancel the drag. This is confirmed as intended.
+
+## 2026-11-11 drag-drop T8
+- Swapping the placeholder's `visibility: hidden` for `opacity: 0` is not accepted as it stands. It lets invisible Sửa and Xóa take Tab focus during a drag, which breaks focus visible (WCAG 2.4.7). FE keeps the actions unfocusable, for example by keeping visibility hidden and making the placeholder's swipe region not scrollable (`overflow: hidden`), and keeps axe at zero.
+- No dialog cache: 37 µs per frame at 200 tasks is not worth the code.
+- The sticker overhang only covers the washi tape, so it is accepted.
+- Axe runs on Chromium only. Headless Firefox crashes now and then with axe, but not without it.
+- Firefox 200-task moves at 104 to 122 ms are the known task-groups residual. Main shows the same numbers, so this is accepted.
+- T8 Boundary exception: design-system.css and .md (the authorised placeholder and chevron fix), and package.json and package-lock.json (the @axe-core/playwright devDependency). The lockfile root moved from 0.1.0 to 1.2.0 only to match package.json.
+- The NFR1 test asserts the median of 3 runs, to guard against timing noise on the powersave host. This is accepted.
+- Release note for the PR: Safari and iOS could not be tested on this host. Check by hand on a real iPhone and in Safari that (1) a long press shows no callout or text selection menu and lifts the task after about 0.4 s, (2) the page does not scroll under the finger during a drag and scrolls normally after the drop or a cancel, and (3) a fast swipe left still opens Sửa and Xóa. In Firefox on a day with about 200 tasks, a move can sometimes take slightly over 100 ms on a busy computer.
+- BUG-024: fix it now. This is a test-only change: compare scrollY with a tolerance under 1 px, so the two T6 tests also pass in Firefox.
+- Two Firefox-only, load-dependent test failures are accepted as known risks: the BUG-020 short-screen strip test, and the 3-section count in the NFR1 drag test. QA's earlier Firefox run passed both, and the e2e suite officially runs on Chromium only. BUG-024 is verified by QA in report mode.
+- The two device-only cases (TC-drag-drop-T5-18 and T5-19) are counted as blocked. They go into the release note as manual checks.

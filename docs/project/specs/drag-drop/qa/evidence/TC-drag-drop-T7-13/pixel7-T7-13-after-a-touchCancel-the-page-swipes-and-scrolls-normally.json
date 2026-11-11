@@ -1,0 +1,11 @@
+{
+ "title": "T7-13 after a touchCancel the page swipes and scrolls normally",
+ "project": "pixel7",
+ "status": "passed",
+ "scroll": {
+  "scrolled": 399,
+  "blocked": 0
+ },
+ "swiped": 0,
+ "blockedMoves": 0
+}

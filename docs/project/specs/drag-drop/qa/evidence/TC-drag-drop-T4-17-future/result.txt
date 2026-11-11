@@ -1,0 +1,2 @@
+TC-drag-drop-T4-17-future: PASS
+{"id":"c","text":"Tiền điện","done":false,"createdAt":30,"date":"2026-11-12","groupId":"cty"}

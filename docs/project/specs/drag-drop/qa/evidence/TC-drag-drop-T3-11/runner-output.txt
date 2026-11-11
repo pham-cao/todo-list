@@ -1,0 +1,8 @@
+Runner: npx playwright test drag.spec.js --project=desktop (Chromium) and temporary Firefox config; 2026-11-10
+
+## chromium
+  ✓   5 [desktop] › tests/e2e/drag.spec.js:115:3 › mouse › no drag on a day with no group stored (R35) (316ms)
+  ✓  13 [desktop] › tests/e2e/drag.spec.js:259:3 › mouse edge cases › 20 groups with a 30 character name: one target each, names whole, strip inside the screen at 1440 and 390 (838ms)
+## firefox
+  ✓   5 [firefox] › tests/e2e/drag.spec.js:115:3 › mouse › no drag on a day with no group stored (R35) (514ms)
+  ✓  13 [firefox] › tests/e2e/drag.spec.js:259:3 › mouse edge cases › 20 groups with a 30 character name: one target each, names whole, strip inside the screen at 1440 and 390 (954ms)

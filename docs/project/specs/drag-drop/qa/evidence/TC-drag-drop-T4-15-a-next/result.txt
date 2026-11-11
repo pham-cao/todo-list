@@ -1,0 +1,3 @@
+TC-drag-drop-T4-15-a-next: PASS
+notice Đã chuyển việc "Gửi báo cáo" sang nhóm "Nhà".
+focus {"id":"","lab":"Trả lời email","tag":"INPUT","cls":"checkbox"}

@@ -1,0 +1,74 @@
+{
+  "360x640": {
+    "stripTop": 80,
+    "overStripNearTop": {
+      "y": 90,
+      "over": "strip",
+      "delta": 0,
+      "cue": null
+    },
+    "overStripLower": {
+      "y": 140,
+      "over": "strip",
+      "delta": 0,
+      "cue": null
+    },
+    "upZone": {
+      "y": 20,
+      "over": "page",
+      "delta": -297,
+      "cue": "drag-edge drag-edge--up"
+    },
+    "downZone": {
+      "y": 60,
+      "over": "page",
+      "delta": 306,
+      "cue": "drag-edge drag-edge--down"
+    },
+    "leftovers": 0
+  },
+  "320x568": {
+    "stripTop": 8,
+    "overStripNearTop": {
+      "y": 18,
+      "over": "strip",
+      "delta": 0,
+      "cue": null
+    },
+    "overStripLower": {
+      "y": 68,
+      "over": "strip",
+      "delta": 0,
+      "cue": null
+    },
+    "upZone": {
+      "y": 2,
+      "over": "page",
+      "delta": -297,
+      "cue": "drag-edge drag-edge--up"
+    },
+    "downZone": {
+      "y": 6,
+      "over": "page",
+      "delta": 297,
+      "cue": "drag-edge drag-edge--down"
+    },
+    "leftovers": 0
+  },
+  "360x440": {
+    "stripTop": -120,
+    "overStripNearTop": {
+      "y": 5,
+      "over": "strip",
+      "delta": 0,
+      "cue": null
+    },
+    "overStripLower": {
+      "y": -60,
+      "over": "page",
+      "delta": 0,
+      "cue": null
+    },
+    "leftovers": 0
+  }
+}

@@ -1,0 +1,4 @@
+TC-drag-drop-EXP-stale-label: PASS
+dragging after groups change true strip labels ["Công ty","Nhà","Sức khỏe","Chưa phân nhóm"]
+hover removed group label: slip name = Chưa phân nhóm | over class drop-target drop-target--over
+tasks unchanged true status Đã hủy. Việc vẫn ở nhóm "Chưa phân nhóm".

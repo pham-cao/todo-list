@@ -1,0 +1,6 @@
+EXP-T5-hold-boundary hold 380 ms is a tap, 420 ms drags, first lift near 400
+project: p390dark
+status: passed
+after 380 ms lift: dragging: false
+drag started after ms (wall, incl CDP latency): 378
+in page hold ms: 416

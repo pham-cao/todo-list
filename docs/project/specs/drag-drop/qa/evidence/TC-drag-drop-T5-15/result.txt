@@ -1,0 +1,6 @@
+TC-drag-drop-T5-15
+Verified by: touch › lift over own place + probe drop-section step 4/5 (see BUG-018 for rows under the strip)
+Result: pass
+Runner output: evidence/T5-regression/t5-touch-tests-mobile-repeat3.txt (27 passed, 3 repeats of 9) and evidence/T5-regression/probe-run5.txt (48 passed, Pixel 7, 360 px, 390 px dark)
+Probe source: evidence/T5-regression/probe.spec.js
+Result: pass after BUG-018 fix (retest 2026-11-11, evidence/TC-drag-drop-BUG-018-retest/).

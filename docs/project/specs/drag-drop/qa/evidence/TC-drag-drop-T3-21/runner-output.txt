@@ -1,0 +1,6 @@
+Runner: npx playwright test drag.spec.js --project=desktop (Chromium) and temporary Firefox config; 2026-11-10
+
+## chromium
+  ✓   7 [desktop] › tests/e2e/drag.spec.js:135:3 › mouse › lifted: placeholder, plain text slip, strip with every group in order and the own group faded (450ms)
+## firefox
+  ✓   7 [firefox] › tests/e2e/drag.spec.js:135:3 › mouse › lifted: placeholder, plain text slip, strip with every group in order and the own group faded (769ms)

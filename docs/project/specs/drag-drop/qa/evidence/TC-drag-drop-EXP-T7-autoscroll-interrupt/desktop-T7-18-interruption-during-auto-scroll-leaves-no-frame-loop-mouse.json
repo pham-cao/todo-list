@@ -1,0 +1,80 @@
+{
+ "title": "T7-18 interruption during auto scroll leaves no frame loop mouse",
+ "project": "desktop",
+ "status": "passed",
+ "cases": {
+  "hidden": {
+   "scrollingBefore": 425,
+   "scrollAfterRun": 425,
+   "scrollLater": 425,
+   "raf": 0,
+   "baseRaf": 0,
+   "left": 0
+  },
+  "blur": {
+   "scrollingBefore": 414,
+   "scrollAfterRun": 414,
+   "scrollLater": 414,
+   "raf": 0,
+   "baseRaf": 0,
+   "left": 0
+  },
+  "escape": {
+   "scrollingBefore": 414,
+   "scrollAfterRun": 414,
+   "scrollLater": 414,
+   "raf": 0,
+   "baseRaf": 0,
+   "left": 0
+  },
+  "groups": {
+   "scrollingBefore": 432,
+   "scrollAfterRun": 432,
+   "scrollLater": 432,
+   "raf": 0,
+   "baseRaf": 0,
+   "left": 0
+  },
+  "tasks": {
+   "scrollingBefore": 430,
+   "scrollAfterRun": 430,
+   "scrollLater": 430,
+   "raf": 0,
+   "baseRaf": 0,
+   "left": 0
+  },
+  "day": {
+   "scrollingBefore": 393,
+   "scrollAfterRun": 256,
+   "scrollLater": 256,
+   "raf": 0,
+   "baseRaf": 0,
+   "left": 0
+  },
+  "midnight": {
+   "scrollingBefore": 438,
+   "scrollAfterRun": 256,
+   "scrollLater": 256,
+   "raf": 0,
+   "baseRaf": 0,
+   "left": 0
+  },
+  "dialog": {
+   "scrollingBefore": 438,
+   "scrollAfterRun": 438,
+   "scrollLater": 438,
+   "raf": 0,
+   "baseRaf": 0,
+   "left": 0
+  },
+  "pointercancel": {
+   "scrollingBefore": 383,
+   "scrollAfterRun": 395,
+   "scrollLater": 395,
+   "raf": 0,
+   "baseRaf": 0,
+   "left": 0
+  }
+ },
+ "problems": []
+}

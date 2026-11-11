@@ -1,0 +1,51 @@
+  ✓  1 [firefox] › tests/e2e/groups.spec.js:634:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms 
+  ✓  2 [firefox] › tests/e2e/groups.spec.js:1018:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010) 
+  ✓  3 [firefox] › tests/e2e/groups.spec.js:1556:1 › 200 tasks in 20 groups: a filter change stays under 100 ms 
+  ✓  4 [firefox] › tests/e2e/groups.spec.js:3526:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+  4 passed 
+--- ff run 1
+  ✓  1 [firefox] › tests/e2e/groups.spec.js:634:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms 
+  ✓  2 [firefox] › tests/e2e/groups.spec.js:1018:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010) 
+  ✓  3 [firefox] › tests/e2e/groups.spec.js:1556:1 › 200 tasks in 20 groups: a filter change stays under 100 ms 
+  ✓  4 [firefox] › tests/e2e/groups.spec.js:3526:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+  4 passed 
+--- ff run 2
+  ✓  1 [firefox] › tests/e2e/groups.spec.js:634:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms 
+  ✓  2 [firefox] › tests/e2e/groups.spec.js:1018:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010) 
+  ✓  3 [firefox] › tests/e2e/groups.spec.js:1556:1 › 200 tasks in 20 groups: a filter change stays under 100 ms 
+  ✓  4 [firefox] › tests/e2e/groups.spec.js:3526:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+  4 passed 
+--- ff run 3
+T8 speed, 200 tasks: pick up 29.0,22.0,22.0 ms, drop 26.0,31.0,35.0 ms
+  ✓  1 [firefox] › tests/e2e/drag.spec.js:1318:3 › T8 › 200 tasks in 20 groups, settled: pick up and drop each under 100 ms, and following adds or removes no row (NFR1) 
+  ✓  2 [firefox] › tests/e2e/drag.spec.js:1376:3 › T8 › every strip target is at least 44 by 44 px with its name whole, at 1440, 390 and 360 px (R29) 
+T8 frame contrast light: section {"outside":10.711475015008546,"inside":9.491422056168828}, strip {"outside":11.086083333546341,"inside":9.788470792157042}
+T8 frame contrast dark: section {"outside":8.478923165906814,"inside":7.024894867656743}, strip {"outside":7.818005531446169,"inside":6.410464174230074}
+  ✓  3 [firefox] › tests/e2e/drag.spec.js:1402:3 › T8 › the target frame has at least 3 to 1 contrast against its surroundings in light and dark mode (R28) 
+  ✓  4 [firefox] › tests/e2e/drag.spec.js:1445:5 › T8 › during a drag at 1440 px, Tab never lands inside the placeholder 
+  ✓  5 [firefox] › tests/e2e/drag.spec.js:1445:5 › T8 › during a drag at 390 px, Tab never lands inside the placeholder 
+  ✓  6 [firefox] › tests/e2e/drag.spec.js:1465:3 › T8 › the up cue chevron is turned by the stylesheet, not by script 
+  6 passed 
+--- ff T8 run 1
+T8 speed, 200 tasks: pick up 30.0,23.0,23.0 ms, drop 36.0,27.0,26.0 ms
+  ✓  1 [firefox] › tests/e2e/drag.spec.js:1318:3 › T8 › 200 tasks in 20 groups, settled: pick up and drop each under 100 ms, and following adds or removes no row (NFR1) 
+  ✓  2 [firefox] › tests/e2e/drag.spec.js:1376:3 › T8 › every strip target is at least 44 by 44 px with its name whole, at 1440, 390 and 360 px (R29) 
+T8 frame contrast light: section {"outside":10.711475015008546,"inside":9.491422056168828}, strip {"outside":11.086083333546341,"inside":9.788470792157042}
+T8 frame contrast dark: section {"outside":8.478923165906814,"inside":7.024894867656743}, strip {"outside":7.818005531446169,"inside":6.410464174230074}
+  ✓  3 [firefox] › tests/e2e/drag.spec.js:1402:3 › T8 › the target frame has at least 3 to 1 contrast against its surroundings in light and dark mode (R28) 
+  ✓  4 [firefox] › tests/e2e/drag.spec.js:1445:5 › T8 › during a drag at 1440 px, Tab never lands inside the placeholder 
+  ✓  5 [firefox] › tests/e2e/drag.spec.js:1445:5 › T8 › during a drag at 390 px, Tab never lands inside the placeholder 
+  ✓  6 [firefox] › tests/e2e/drag.spec.js:1465:3 › T8 › the up cue chevron is turned by the stylesheet, not by script 
+  6 passed 
+--- ff T8 run 2
+T8 speed, 200 tasks: pick up 23.0,21.0,27.0 ms, drop 27.0,56.0,31.0 ms
+  ✓  1 [firefox] › tests/e2e/drag.spec.js:1318:3 › T8 › 200 tasks in 20 groups, settled: pick up and drop each under 100 ms, and following adds or removes no row (NFR1) 
+  ✓  2 [firefox] › tests/e2e/drag.spec.js:1376:3 › T8 › every strip target is at least 44 by 44 px with its name whole, at 1440, 390 and 360 px (R29) 
+T8 frame contrast light: section {"outside":10.711475015008546,"inside":9.491422056168828}, strip {"outside":11.086083333546341,"inside":9.788470792157042}
+T8 frame contrast dark: section {"outside":8.478923165906814,"inside":7.024894867656743}, strip {"outside":7.818005531446169,"inside":6.410464174230074}
+  ✓  3 [firefox] › tests/e2e/drag.spec.js:1402:3 › T8 › the target frame has at least 3 to 1 contrast against its surroundings in light and dark mode (R28) 
+  ✓  4 [firefox] › tests/e2e/drag.spec.js:1445:5 › T8 › during a drag at 1440 px, Tab never lands inside the placeholder 
+  ✓  5 [firefox] › tests/e2e/drag.spec.js:1445:5 › T8 › during a drag at 390 px, Tab never lands inside the placeholder 
+  ✓  6 [firefox] › tests/e2e/drag.spec.js:1465:3 › T8 › the up cue chevron is turned by the stylesheet, not by script 
+  6 passed 
+--- ff T8 run 3

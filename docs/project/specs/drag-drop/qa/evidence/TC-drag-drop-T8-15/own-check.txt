@@ -1,0 +1,11 @@
+13 rest: {"strip":false,"stripInTree":false,"stripTabbables":0,"srRegion":""}
+13 drag: {"strip":true,"stripInTree":true,"slipHidden":"true","stripName":"Thả vào nhóm","stripRole":"group","stripTabbables":0,"srRegion":""}
+13 axtree strip: - group "Thả vào nhóm": Nhóm 1 Nhóm 2 Nhóm 3 Nhóm 4 Nhóm 5 Nhóm 6 Nhóm 7 Nhóm 8 Nhóm 9 Nhóm 10 Nhóm 11 Nhóm 12 Nhóm 13 Nhóm 14 Nhóm 15 Nhóm 16 Nhóm 17 Nhóm 18 Nhóm 19 Nhóm 20 Chưa phân nhóm
+15 moved live: "Đã chuyển việc \"Việc số 101\" sang nhóm \"Nhóm 3\"."
+15 cancel live: "Đã hủy. Việc vẫn ở nhóm \"Nhóm 2\"."
+15 strip label text: ["Thả vào nhóm","Thả vào nhóm"]
+14 network: requests during drags: 0 ; storage keys before daily-todo:groups:v1,daily-todo:tasks:v1 after daily-todo:groups:v1,daily-todo:tasks:v1 ; CSP meta: default-src 'self'; img-src 'self' data:; style-src 'self'
+20 drag behind manage dialog started: false
+20 focus after Escape: btn btn--ghost group-bar__manage
+25 desktop mix: stuck leftovers 0; tasks 200 (expect 200); stored 200; console: []
+25 phone mix: leftovers 0; tasks 200; stored 200; console: []

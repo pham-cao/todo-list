@@ -1,0 +1,8 @@
+not ok 2 - every local reference carries the package version and names an existing file
+    src/drag.js: ./groups.js?v=1.2.0
+    + actual - expected
+    + 'v=1.2.0'
+  expected: 'v=1.3.0'
+  actual: 'v=1.2.0'
+# pass 1
+# fail 1

@@ -1,0 +1,17 @@
+{
+ "title": "T7-10 repeated cancels are idempotent: no double announcement, no exception",
+ "project": "desktop",
+ "status": "passed",
+ "said": [
+  "Đã hủy. Việc vẫn ở nhóm \"Công ty\"."
+ ],
+ "errs": [],
+ "left": 0,
+ "next": {
+  "ok": true,
+  "g": "nha",
+  "said": [
+   "Đã chuyển việc \"Cắt tóc\" sang nhóm \"Nhà\"."
+  ]
+ }
+}

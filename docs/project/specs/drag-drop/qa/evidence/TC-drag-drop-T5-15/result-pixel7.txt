@@ -1,0 +1,14 @@
+EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity
+project: pixel7
+status: passed
+viewport and heading box: [{"width":412,"height":839},{"x":87.69945526123047,"y":563.59521484375,"width":65.86670684814453,"height":33.1845703125}]
+heading under the strip band, section hover skipped, strip label used: false
+section marked: 1
+writes after section drop: 1
+writes after strip drop: 2
+over nothing: marked: 0
+writes after cancel: 2
+status: "Đã hủy. Việc vẫn ở nhóm \"Chưa phân nhóm\"."
+writes after in place lift: 2
+tasks changed by lift: false
+status after in place lift: "Đã hủy. Việc vẫn ở nhóm \"Công ty\"."

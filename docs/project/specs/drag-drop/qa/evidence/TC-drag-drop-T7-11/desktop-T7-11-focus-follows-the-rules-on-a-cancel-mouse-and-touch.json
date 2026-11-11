@@ -1,0 +1,14 @@
+{
+ "title": "T7-11 focus follows the rules on a cancel mouse and touch",
+ "project": "desktop",
+ "status": "passed",
+ "list-focus, hidden": "BUTTON[edit] in Trả lời email",
+ "list-focus, blur": "BUTTON[edit] in Trả lời email",
+ "list-focus, groups storage": "BUTTON[edit] in Trả lời email",
+ "list-focus, tasks storage": "BUTTON[edit] in Trả lời email",
+ "list-focus, Escape": "BUTTON[edit] in Trả lời email",
+ "add-field focus, hidden": "body",
+ "add-field focus, storage groups": "body",
+ "no focus, hidden": "body",
+ "list-focus, day change": "INPUT#new-task"
+}

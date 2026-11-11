@@ -1,0 +1,607 @@
+
+
+
+Running 98 tests using 1 worker
+
+[1/98] [desktop] › probe.spec.js:156:3 › T7-03 hidden mouse
+
+
+
+
+
+
+
+[2/98] [desktop] › probe.spec.js:160:3 › T7-03 hidden touch
+[3/98] [desktop] › probe.spec.js:156:3 › T7-04 blur mouse
+
+
+
+
+
+
+
+
+[4/98] [desktop] › probe.spec.js:160:3 › T7-04 blur touch
+[5/98] [desktop] › probe.spec.js:156:3 › T7-05 back mouse
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[6/98] [desktop] › probe.spec.js:160:3 › T7-05 back touch
+[7/98] [desktop] › probe.spec.js:156:3 › T7-05 picker mouse
+
+
+
+
+
+
+
+
+[8/98] [desktop] › probe.spec.js:160:3 › T7-05 picker touch
+[9/98] [desktop] › probe.spec.js:156:3 › T7-05 arrow next mouse
+
+
+
+
+
+
+
+[10/98] [desktop] › probe.spec.js:160:3 › T7-05 arrow next touch
+[11/98] [desktop] › probe.spec.js:156:3 › T7-05 arrow prev mouse
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[12/98] [desktop] › probe.spec.js:160:3 › T7-05 arrow prev touch
+[13/98] [desktop] › probe.spec.js:156:3 › T7-06 midnight focus mouse
+
+
+
+
+
+
+
+
+[14/98] [desktop] › probe.spec.js:160:3 › T7-06 midnight focus touch
+[15/98] [desktop] › probe.spec.js:156:3 › T7-06 midnight visibilitychange mouse
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[16/98] [desktop] › probe.spec.js:160:3 › T7-06 midnight visibilitychange touch
+[17/98] [desktop] › probe.spec.js:156:3 › T7-07 groups changed mouse
+
+
+
+
+
+
+
+[18/98] [desktop] › probe.spec.js:160:3 › T7-07 groups changed touch
+[19/98] [desktop] › probe.spec.js:156:3 › T7-12 tasks key mouse
+
+
+
+
+
+
+
+
+[20/98] [desktop] › probe.spec.js:160:3 › T7-12 tasks key touch
+[21/98] [desktop] › probe.spec.js:156:3 › T7-12 ui key mouse
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[22/98] [desktop] › probe.spec.js:160:3 › T7-12 ui key touch
+[23/98] [desktop] › probe.spec.js:156:3 › T7-07 storage clear (key null) mouse
+
+
+
+
+
+
+
+[24/98] [desktop] › probe.spec.js:160:3 › T7-07 storage clear (key null) touch
+[25/98] [desktop] › probe.spec.js:156:3 › T7-08 dialog mouse
+
+
+
+
+
+
+
+
+[26/98] [desktop] › probe.spec.js:160:3 › T7-08 dialog touch
+[27/98] [desktop] › probe.spec.js:156:3 › T7-02 pointercancel mouse
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[28/98] [desktop] › probe.spec.js:160:3 › T7-02 pointercancel touch
+[29/98] [desktop] › probe.spec.js:156:3 › T7-02 lostpointercapture mouse
+
+
+
+
+
+
+
+
+[30/98] [desktop] › probe.spec.js:160:3 › T7-02 lostpointercapture touch
+[31/98] [desktop] › probe.spec.js:156:3 › T7-01 touchCancel mouse
+[32/98] [desktop] › probe.spec.js:160:3 › T7-01 touchCancel touch
+[33/98] [desktop] › probe.spec.js:156:3 › T7-08 dialog then move mouse
+
+
+
+
+
+
+
+[34/98] [desktop] › probe.spec.js:160:3 › T7-08 dialog then move touch
+[35/98] [desktop] › probe.spec.js:213:3 › T7-16 resize and rotation keep the drag and the slip inside mouse
+
+
+
+
+
+
+
+[36/98] [desktop] › probe.spec.js:234:37 › T7-17 keyboard add during a drag into a group with a section mouse
+
+
+
+
+
+
+
+
+[37/98] [desktop] › probe.spec.js:234:37 › T7-17 keyboard add during a drag into a group without a section mouse
+
+
+
+
+
+
+
+
+[38/98] [desktop] › probe.spec.js:252:3 › T7-18 interruption during auto scroll leaves no frame loop mouse
+
+
+
+
+
+
+
+
+[39/98] [desktop] › probe.spec.js:213:3 › T7-16 resize and rotation keep the drag and the slip inside touch
+[40/98] [desktop] › probe.spec.js:234:37 › T7-17 keyboard add during a drag into a group with a section touch
+[41/98] [desktop] › probe.spec.js:234:37 › T7-17 keyboard add during a drag into a group without a section touch
+[42/98] [desktop] › probe.spec.js:252:3 › T7-18 interruption during auto scroll leaves no frame loop touch
+[43/98] [desktop] › probe.spec.js:284:1 › T7-11 focus follows the rules on a cancel mouse and touch
+
+
+
+
+
+
+
+
+[44/98] [desktop] › probe.spec.js:313:1 › T7-19 group renamed or deleted in another tab: the cancel names the group read at pick up
+
+
+
+
+
+
+
+
+[45/98] [desktop] › probe.spec.js:329:1 › T7-10 repeated cancels are idempotent: no double announcement, no exception
+
+
+
+
+
+
+
+
+[46/98] [desktop] › probe.spec.js:348:1 › T7-14 early touch press then Escape or blur never starts a drag later
+[47/98] [desktop] › probe.spec.js:367:1 › T7-13 after a touchCancel the page swipes and scrolls normally
+[48/98] [desktop] › probe.spec.js:421:1 › T7-20 Escape: swallowed in a real drag, ends a press, otherwise reaches its handlers mouse
+
+
+
+
+
+
+
+[49/98] [desktop] › probe.spec.js:450:1 › T7-21 typing a date digit by digit in the picker is unaffected
+
+
+
+
+
+
+
+
+  1) [desktop] › probe.spec.js:450:1 › T7-21 typing a date digit by digit in the picker is unaffected 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "2026-11-08"
+    Received: "2026-08-11"
+
+      456 |   await frames(page, 3); await page.waitForTimeout(300);
+      457 |   results[T] = { trail, value: await pk.inputValue(), focus: await focusDesc(page), date: await page.locator('.date-stamp, #date-line').first().innerText().catch(() => '') };
+    > 458 |   expect(trail.every((x) => x === 'INPUT#day-picker')).toBe(true); expect(results[T].value).toBe('2026-11-08');
+          |                                                                                             ^
+      459 |   // day change by keyboard from the arrow: focus stays on the control used
+      460 |   await page.locator('#next-day').focus(); await page.keyboard.press('Enter'); await frames(page, 2);
+      461 |   results[T].arrowFocus = await focusDesc(page); expect(results[T].arrowFocus).toBe('BUTTON#next-day');
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t7probe/probe.spec.js:458:93
+
+    Error Context: out/probe-T7-21-typing-a-date--b1eea-in-the-picker-is-unaffected-desktop/error-context.md
+
+
+[50/98] [pixel7] › probe.spec.js:156:3 › T7-03 hidden mouse
+[51/98] [pixel7] › probe.spec.js:160:3 › T7-03 hidden touch
+
+
+
+
+
+
+
+
+[52/98] [pixel7] › probe.spec.js:156:3 › T7-04 blur mouse
+[53/98] [pixel7] › probe.spec.js:160:3 › T7-04 blur touch
+
+
+
+
+
+
+
+
+[54/98] [pixel7] › probe.spec.js:156:3 › T7-05 back mouse
+[55/98] [pixel7] › probe.spec.js:160:3 › T7-05 back touch
+
+
+
+
+
+
+
+
+[56/98] [pixel7] › probe.spec.js:156:3 › T7-05 picker mouse
+[57/98] [pixel7] › probe.spec.js:160:3 › T7-05 picker touch
+
+
+
+
+
+
+
+
+[58/98] [pixel7] › probe.spec.js:156:3 › T7-05 arrow next mouse
+[59/98] [pixel7] › probe.spec.js:160:3 › T7-05 arrow next touch
+
+
+
+
+
+
+
+[60/98] [pixel7] › probe.spec.js:156:3 › T7-05 arrow prev mouse
+[61/98] [pixel7] › probe.spec.js:160:3 › T7-05 arrow prev touch
+
+
+
+
+
+
+
+[62/98] [pixel7] › probe.spec.js:156:3 › T7-06 midnight focus mouse
+[63/98] [pixel7] › probe.spec.js:160:3 › T7-06 midnight focus touch
+
+
+
+
+
+
+
+[64/98] [pixel7] › probe.spec.js:156:3 › T7-06 midnight visibilitychange mouse
+[65/98] [pixel7] › probe.spec.js:160:3 › T7-06 midnight visibilitychange touch
+
+
+
+
+
+
+
+[66/98] [pixel7] › probe.spec.js:156:3 › T7-07 groups changed mouse
+[67/98] [pixel7] › probe.spec.js:160:3 › T7-07 groups changed touch
+
+
+
+
+
+
+
+
+[68/98] [pixel7] › probe.spec.js:156:3 › T7-12 tasks key mouse
+[69/98] [pixel7] › probe.spec.js:160:3 › T7-12 tasks key touch
+
+
+
+
+
+
+
+
+[70/98] [pixel7] › probe.spec.js:156:3 › T7-12 ui key mouse
+[71/98] [pixel7] › probe.spec.js:160:3 › T7-12 ui key touch
+
+
+
+
+
+
+
+
+[72/98] [pixel7] › probe.spec.js:156:3 › T7-07 storage clear (key null) mouse
+[73/98] [pixel7] › probe.spec.js:160:3 › T7-07 storage clear (key null) touch
+
+
+
+
+
+
+
+
+[74/98] [pixel7] › probe.spec.js:156:3 › T7-08 dialog mouse
+[75/98] [pixel7] › probe.spec.js:160:3 › T7-08 dialog touch
+
+
+
+
+
+
+
+
+  2) [pixel7] › probe.spec.js:160:3 › T7-08 dialog touch ───────────────────────────────────────────
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 6
+
+    - Array []
+    + Array [
+    +   "leftovers 4: is-dragging,task task--placeholder,drop-strip,drag-slip",
+    +   "listeners left: d|contextmenu|true|20, d|dragstart|true|22, d|selectstart|true|21, d|visibilitychange|true|18, w|blur|true|17, w|keydown|true|19, w|pointercancel|true|16, w|pointerdown|true|14, w|pointermove|true|13, w|pointerup|true|15, w|resize|true|24, w|scroll|true|23",
+    +   "html class is-dragging",
+    +   "announce [] want once Đã hủy. Việc vẫn ở nhóm \"Công ty\".",
+    + ]
+
+      202 |   if (extraL.length) c.p.push('listeners after next drag: ' + extraL);
+      203 |   results[T].problems = c.p;
+    > 204 |   expect(c.p).toEqual([]);
+          |               ^
+      205 | }
+      206 |
+      207 | // ---------- extra probes ----------
+        at interruption (/tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t7probe/probe.spec.js:204:15)
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/t7probe/probe.spec.js:162:5
+
+    Error Context: out/probe-T7-08-dialog-touch-pixel7/error-context.md
+
+
+[76/98] [pixel7] › probe.spec.js:156:3 › T7-02 pointercancel mouse
+[77/98] [pixel7] › probe.spec.js:160:3 › T7-02 pointercancel touch
+[78/98] [pixel7] › probe.spec.js:156:3 › T7-02 lostpointercapture mouse
+[79/98] [pixel7] › probe.spec.js:160:3 › T7-02 lostpointercapture touch
+[80/98] [pixel7] › probe.spec.js:156:3 › T7-01 touchCancel mouse
+[81/98] [pixel7] › probe.spec.js:160:3 › T7-01 touchCancel touch
+
+
+
+
+
+
+
+
+[82/98] [pixel7] › probe.spec.js:156:3 › T7-08 dialog then move mouse
+[83/98] [pixel7] › probe.spec.js:160:3 › T7-08 dialog then move touch
+
+
+
+
+
+
+
+[84/98] [pixel7] › probe.spec.js:213:3 › T7-16 resize and rotation keep the drag and the slip inside mouse
+[85/98] [pixel7] › probe.spec.js:234:37 › T7-17 keyboard add during a drag into a group with a section mouse
+[86/98] [pixel7] › probe.spec.js:234:37 › T7-17 keyboard add during a drag into a group without a section mouse
+[87/98] [pixel7] › probe.spec.js:252:3 › T7-18 interruption during auto scroll leaves no frame loop mouse
+[88/98] [pixel7] › probe.spec.js:213:3 › T7-16 resize and rotation keep the drag and the slip inside touch
+
+
+
+
+
+
+
+
+[89/98] [pixel7] › probe.spec.js:234:37 › T7-17 keyboard add during a drag into a group with a section touch
+
+
+
+
+
+
+
+
+[90/98] [pixel7] › probe.spec.js:234:37 › T7-17 keyboard add during a drag into a group without a section touch
+
+
+
+
+
+
+
+
+[91/98] [pixel7] › probe.spec.js:252:3 › T7-18 interruption during auto scroll leaves no frame loop touch
+
+
+
+
+
+
+
+
+[92/98] [pixel7] › probe.spec.js:284:1 › T7-11 focus follows the rules on a cancel mouse and touch
+
+
+
+
+
+
+
+[93/98] [pixel7] › probe.spec.js:313:1 › T7-19 group renamed or deleted in another tab: the cancel names the group read at pick up
+
+
+
+
+
+
+
+
+[94/98] [pixel7] › probe.spec.js:329:1 › T7-10 repeated cancels are idempotent: no double announcement, no exception
+
+
+
+
+
+
+
+
+[95/98] [pixel7] › probe.spec.js:348:1 › T7-14 early touch press then Escape or blur never starts a drag later
+
+
+
+
+
+
+
+
+[96/98] [pixel7] › probe.spec.js:367:1 › T7-13 after a touchCancel the page swipes and scrolls normally
+
+
+
+
+
+
+
+
+[97/98] [pixel7] › probe.spec.js:421:1 › T7-20 Escape: swallowed in a real drag, ends a press, otherwise reaches its handlers mouse
+[98/98] [pixel7] › probe.spec.js:450:1 › T7-21 typing a date digit by digit in the picker is unaffected
+  2 failed
+    [desktop] › probe.spec.js:450:1 › T7-21 typing a date digit by digit in the picker is unaffected 
+    [pixel7] › probe.spec.js:160:3 › T7-08 dialog touch ────────────────────────────────────────────
+  49 skipped
+  47 passed (3.2m)

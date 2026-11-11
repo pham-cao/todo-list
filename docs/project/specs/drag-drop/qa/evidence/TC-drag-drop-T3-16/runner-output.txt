@@ -1,0 +1,6 @@
+Runner: npx playwright test drag.spec.js --project=desktop (Chromium) and temporary Firefox config; 2026-11-10
+
+## chromium
+  ✓   2 [desktop] › tests/e2e/drag.spec.js:33:3 › mouse › about 6 px starts a drag: 4 px does not, 8 px does; pen too; a secondary button or second pointer never (618ms)
+## firefox
+  ✓   2 [firefox] › tests/e2e/drag.spec.js:33:3 › mouse › about 6 px starts a drag: 4 px does not, 8 px does; pen too; a secondary button or second pointer never (974ms)

@@ -1,0 +1,27 @@
+{
+ "title": "T7-06 midnight visibilitychange touch",
+ "project": "pixel7",
+ "status": "passed",
+ "during": {
+  "listeners": 12,
+  "raf": 0
+ },
+ "p": [],
+ "said": [
+  "Đã hủy. Việc vẫn ở nhóm \"Công ty\"."
+ ],
+ "focus": "INPUT#new-task",
+ "scrollY": 0,
+ "scroll": {
+  "scrolled": 0,
+  "blocked": 0
+ },
+ "next": {
+  "ok": true,
+  "g": "nha",
+  "said": [
+   "Đã chuyển việc \"Việc ngày mai\" sang nhóm \"Nhà\"."
+  ]
+ },
+ "problems": []
+}

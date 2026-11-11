@@ -1,0 +1,5 @@
+EXP-T5-reduced-motion pressing wash at once, no tilt
+project: p390dark
+status: passed
+pressing: {"has":true,"anim":"none","size":"100% 100%, 100% 2px"}
+slip rotate: "0deg"

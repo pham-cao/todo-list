@@ -1,0 +1,3 @@
+TC-drag-drop-T4-18: PASS
+status Đã hủy. Việc vẫn ở nhóm "Chưa phân nhóm".
+sections ["Công ty","Nhà","Chưa phân nhóm"]

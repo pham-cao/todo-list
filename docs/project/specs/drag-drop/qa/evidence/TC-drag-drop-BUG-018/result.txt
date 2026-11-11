@@ -1,0 +1,3 @@
+{"over":"sticker","marked":["drop-target drop-target--over nha"],"vh":839,"y":756.1875}
+changed true {"id":"d","text":"Cắt tóc","done":false,"createdAt":40,"date":"2026-11-09","groupId":"nha"}
+  1 passed (3.7s)

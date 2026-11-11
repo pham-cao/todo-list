@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import {
   TODAY, NOW, KEY, GROUPS_KEY, UI_KEY, task, group, open, rows, labels, progress, box, storedRaw, storedJson,
-  addTask, tick, stored, sections, section, toggle, passMidnight, hash,
+  addTask, tick, stored, sections, section, toggle, passMidnight, hash, touchDrag,
 } from './helpers.js';
 
 // T4: the day list in sections, with collapse (R29 to R34, R39, R40, R50, R57, R58, R63, R65, NFR1)
@@ -277,17 +277,6 @@ test('groups and UI state that cannot be read leave the plain list and no error'
 
 // Phone row actions inside sections (R64)
 const HINT = 'daily-todo:swipe-hint-seen';
-async function touchDrag(page, locator, dx) {
-  const b = await locator.boundingBox();
-  const y = b.y + b.height / 2, x0 = b.x + b.width - 30;
-  const cdp = await page.context().newCDPSession(page);
-  const send = (type, x) => cdp.send('Input.dispatchTouchEvent', { type, touchPoints: type === 'touchEnd' ? [] : [{ x, y }] });
-  await send('touchStart', x0);
-  for (let i = 1; i <= 10; i++) { await send('touchMove', x0 + (dx * i) / 10); await page.waitForTimeout(16); }
-  await send('touchEnd', x0 + dx);
-  await cdp.detach();
-}
-
 test('on a phone the peek skips a folded section, and swipe, tick and delete work inside sections', async ({ page, isMobile }) => {
   test.skip(!isMobile, 'phone layout only');
   await open(page, DAY, '', { groups: GROUPS, ui: { collapsed: ['cty'] } });
@@ -834,7 +823,7 @@ test('Lưu saves text and group together: the row lands by creation time, the fo
   await expect(counts(page)).toHaveText(['1/4', '1/2']);
   await expect(editOf(page, 'Đọc tài liệu')).toBeFocused();
   await expect(rowOf(page, 'Đọc tài liệu')).toHaveClass(/task--moved/);
-  await expect(srStatus(page)).toHaveText('Đã chuyển việc sang nhóm "Công ty".');
+  await expect(srStatus(page)).toHaveText('Đã chuyển việc "Đọc tài liệu" sang nhóm "Công ty".');
   await expect(srStatus(page)).toHaveAttribute('aria-live', 'polite');
   expect(await byId(page, 'u1')).toEqual({ ...DAY[2], text: 'Đọc tài liệu', groupId: 'cty' });
   await expect(rowOf(page, 'Đọc tài liệu')).not.toHaveClass(/task--moved/, { timeout: 4000 }); // the wash plays once
@@ -846,7 +835,7 @@ test('Lưu saves text and group together: the row lands by creation time, the fo
   await expect(names(page)).toHaveText(['Công ty', 'Nhà', 'Học tiếng Nhật']);
   await expect(rowOf(page, 'Nấu cơm').getByRole('checkbox')).toBeChecked();
   await expect(editOf(page, 'Nấu cơm')).toBeFocused();
-  await expect(srStatus(page)).toHaveText('Đã chuyển việc sang nhóm "Học tiếng Nhật".');
+  await expect(srStatus(page)).toHaveText('Đã chuyển việc "Nấu cơm" sang nhóm "Học tiếng Nhật".');
   expect(await byId(page, 'n2')).toEqual({ ...DAY[3], groupId: 'jp' });
   await expect(summary(page)).toHaveText('Đã hoàn thành 2/6 việc');
 
@@ -922,7 +911,7 @@ test('plain list to sections and back: a move to Chưa phân nhóm removes group
   await expect(sections(page)).toHaveCount(0);
   await expect(labels(page)).toHaveText(['Một', 'Hai', 'Ba']);
   await expect(editOf(page, 'Hai')).toBeFocused();
-  await expect(srStatus(page)).toHaveText('Đã chuyển việc sang nhóm "Chưa phân nhóm".');
+  await expect(srStatus(page)).toHaveText('Đã chuyển việc "Hai" sang nhóm "Chưa phân nhóm".');
   expect(await storedRaw(page)).toBe(JSON.stringify(plain));
 });
 
@@ -1057,7 +1046,7 @@ test('a failing write during a move: slip shown, the move still shows, focus on 
   await expect(slip(page)).toBeVisible();
   await expect(sectionLabels(page, 'Công ty').first()).toHaveText('Tưới cây');
   await expect(editOf(page, 'Tưới cây')).toBeFocused();
-  await expect(srStatus(page)).toHaveText('Đã chuyển việc sang nhóm "Công ty".');
+  await expect(srStatus(page)).toHaveText('Đã chuyển việc "Tưới cây" sang nhóm "Công ty".');
   expect((await byId(page, 'n1')).groupId).toBe('nha'); // storage kept the old value
 });
 
@@ -1113,7 +1102,7 @@ test('two moves to the same group each rewrite the live region', async ({ page }
     await editField(page).press('Enter');
     await expect(editOf(page, text)).toBeFocused();
     // The message is written a frame after the region is cleared.
-    await expect(srStatus(page)).toHaveText('Đã chuyển việc sang nhóm "Học tiếng Nhật".');
+    await expect(srStatus(page)).toHaveText(`Đã chuyển việc "${text}" sang nhóm "Học tiếng Nhật".`);
   }
   // First move: one write. Second move: a clear, then the same text again.
   expect(await page.evaluate(() => window.__mut)).toBeGreaterThanOrEqual(3);
@@ -1327,7 +1316,7 @@ test('a move under the filter sends focus to the next visible row, else the prev
   await moveTo('Họp nhóm', 'Nhà'); // row 2 of 3
   await expect(labels(page)).toHaveText(['Gửi báo cáo', 'Trả lời email']);
   await expect(rowOf(page, 'Trả lời email').getByRole('checkbox')).toBeFocused();
-  await expect(srStatus(page)).toHaveText('Đã chuyển việc sang nhóm "Nhà".');
+  await expect(notice(page)).toHaveText('Đã chuyển việc "Họp nhóm" sang nhóm "Nhà".'); // the slip only, not #sr-status too
   await moveTo('Trả lời email', 'Nhà'); // the last row: previous one
   await expect(rowOf(page, 'Gửi báo cáo').getByRole('checkbox')).toBeFocused();
   await moveTo('Gửi báo cáo', 'Chưa phân nhóm'); // the only row: the add input
@@ -1335,6 +1324,156 @@ test('a move under the filter sends focus to the next visible row, else the prev
   await expect(groupEmpty(page)).toHaveText('Ngày này chưa có việc nào trong nhóm "Công ty".');
   expect((await byId(page, 'c2')).groupId).toBe('nha');
   expect((await byId(page, 'c1')).groupId).toBeUndefined();
+});
+
+// drag-drop T2: a move into a group the filter hides is told in the info slip only, for the edit form move too.
+test('an edit form move into a group the filter hides shows the info slip, keeps the filter and focuses the next row', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await filterSel(page).selectOption({ label: 'Công ty' });
+  await editOf(page, 'Gửi báo cáo').click();
+  await editChoice(page).selectOption({ label: 'Học tiếng Nhật' });
+  await page.getByRole('button', { name: 'Lưu', exact: true }).click();
+  await expect(notice(page)).toBeVisible();
+  await expect(notice(page)).toHaveAttribute('role', 'status');
+  await expect(notice(page)).toHaveText('Đã chuyển việc "Gửi báo cáo" sang nhóm "Học tiếng Nhật".');
+  await expect(srStatus(page)).toHaveText(''); // heard once, from the slip
+  await expect(filterSel(page)).toHaveValue('cty');
+  await expect(labels(page)).toHaveText(['Họp nhóm', 'Trả lời email']);
+  await expect(rowOf(page, 'Họp nhóm').getByRole('checkbox')).toBeFocused();
+  expect((await byId(page, 'c1')).groupId).toBe('jp');
+});
+
+// drag-drop T2 (QA): no slip when the target stays visible, the ungrouped target is named, markup stays text, long text wraps, repeats re-announce.
+test('no info slip when the target group is visible or no filter is set', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  const move = async (text, target) => {
+    await editOf(page, text).click();
+    await editChoice(page).selectOption({ label: target });
+    await editField(page).press('Enter');
+  };
+  await move('Tưới cây', 'Học tiếng Nhật'); // no filter
+  await expect(notice(page)).toBeHidden();
+  await expect(srStatus(page)).toHaveText('Đã chuyển việc "Tưới cây" sang nhóm "Học tiếng Nhật".');
+  await filterSel(page).selectOption({ label: 'Công ty' });
+  await expect(notice(page)).toBeHidden();
+  await move('Gửi báo cáo', 'Công ty'); // the shown group
+  await expect(notice(page)).toBeHidden();
+});
+
+test('a move into Chưa phân nhóm under a filter names Chưa phân nhóm in the slip', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await filterSel(page).selectOption({ label: 'Công ty' });
+  await editOf(page, 'Họp nhóm').click();
+  await editChoice(page).selectOption({ label: 'Chưa phân nhóm' });
+  await editField(page).press('Enter');
+  await expect(notice(page)).toHaveText('Đã chuyển việc "Họp nhóm" sang nhóm "Chưa phân nhóm".');
+  await expect(srStatus(page)).toHaveText('');
+});
+
+test('markup in the task text and group name shows as plain characters in the slip', async ({ page }) => {
+  const groups = [group('cty', 'Công ty', 'yellow', at(7, 0)), group('x', '<i>x</i>', 'pink', at(7, 1))];
+  const tasks = [{ ...task('c1', '<b>abc</b><img src=x onerror="window.__xss=1">', false, TODAY, at(8, 0)), groupId: 'cty' }];
+  await open(page, tasks, '', { groups });
+  await filterSel(page).selectOption({ label: 'Công ty' });
+  await editOf(page, '<b>abc</b><img src=x onerror="window.__xss=1">').click();
+  await editChoice(page).selectOption({ label: '<i>x</i>' });
+  await editField(page).press('Enter');
+  await expect(notice(page)).toHaveText('Đã chuyển việc "<b>abc</b><img src=x onerror="window.__xss=1">" sang nhóm "<i>x</i>".');
+  await expect(notice(page).locator('b, i, img')).toHaveCount(0);
+  expect(await page.evaluate(() => window.__xss)).toBeUndefined();
+});
+
+for (const [kind, text] of [['with spaces', 'Việc rất dài '.repeat(15).slice(0, 200).trim()], ['without spaces', 'A'.repeat(200)]]) {
+  // BUG-015: a 200 character text with no space must wrap inside the slip too.
+  test(`a 200 character task text ${kind} wraps in the info slip at 360 px with no sideways scroll`, async ({ page }) => {
+    await page.setViewportSize({ width: 360, height: 740 });
+    await open(page, [{ ...task('c1', text, false, TODAY, at(8, 0)), groupId: 'cty' }, { ...task('c2', 'Khác', false, TODAY, at(8, 1)), groupId: 'cty' }], '', { groups: GROUPS });
+    await filterSel(page).selectOption({ label: 'Công ty' });
+    await editOf(page, text).click();
+    await editChoice(page).selectOption({ label: 'Nhà' });
+    await editField(page).press('Enter');
+    await expect(notice(page)).toContainText('Đã chuyển việc');
+    const m = await page.evaluate(() => {
+      const n = document.getElementById('notice').getBoundingClientRect();
+      return { overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth, right: n.right, vw: window.innerWidth };
+    });
+    expect(m.overflow).toBeLessThanOrEqual(0);
+    expect(m.right).toBeLessThanOrEqual(m.vw);
+  });
+}
+
+// T2 retry (PM): a visible move clears an older slip, so the slip never describes an earlier move.
+test('a visible move after a slip about an earlier move hides the slip and announces in #sr-status', async ({ page }) => {
+  await open(page, SPREAD, '', { groups: GROUPS });
+  await openCard(page);
+  await moveBtn(page, 'Công ty').click();
+  await target(page).selectOption('nha');
+  await moveCard(page).getByRole('button', { name: 'Chuyển việc' }).click();
+  await expect(notice(page)).toHaveText('Đã chuyển 5 việc sang nhóm "Nhà".');
+  await editOf(page, 'Đọc sách').click();
+  await editChoice(page).selectOption({ label: 'Học tiếng Nhật' });
+  await editField(page).press('Enter');
+  await expect(editOf(page, 'Đọc sách')).toBeFocused();
+  await expect(notice(page)).toBeHidden();
+  await expect(srStatus(page)).toHaveText('Đã chuyển việc "Đọc sách" sang nhóm "Học tiếng Nhật".');
+});
+
+test('two moves into hidden groups each rewrite the info slip, and #sr-status stays empty', async ({ page }) => {
+  await open(page, DAY, '', { groups: GROUPS });
+  await filterSel(page).selectOption({ label: 'Công ty' });
+  await page.evaluate(() => {
+    window.__mut = 0;
+    new MutationObserver((l) => { window.__mut += l.length; }).observe(document.getElementById('notice-text') ?? document.getElementById('notice'), { childList: true, characterData: true, subtree: true });
+  });
+  for (const text of ['Họp nhóm', 'Trả lời email']) {
+    await editOf(page, text).click();
+    await editChoice(page).selectOption({ label: 'Nhà' });
+    await editField(page).press('Enter');
+    await expect(notice(page)).toHaveText(`Đã chuyển việc "${text}" sang nhóm "Nhà".`);
+  }
+  expect(await page.evaluate(() => window.__mut)).toBeGreaterThanOrEqual(3); // a clear then a write for each move
+  await expect(srStatus(page)).toHaveText('');
+});
+
+// T2 retry (QA, BUG-015): a long unbroken group name or task text never pushes a slip past a 360 px screen.
+const noSideScroll = (page) => page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+const LONG = 'G'.repeat(120);
+const LONG_GROUPS = [...GROUPS, group('lg', LONG, 'blue', at(7, 3))];
+
+test('360 px: the storage slip and the move slip together, and the bulk move slip, stay inside the screen with a long unbroken group name', async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 740 });
+  await open(page, SPREAD, '', { groups: LONG_GROUPS });
+  await openCard(page);
+  await moveBtn(page, 'Công ty').click();
+  await target(page).selectOption('lg');
+  expect(await noSideScroll(page)).toBeLessThanOrEqual(0); // the card text and title name the long group
+  await page.evaluate((k) => {
+    const set = window.__set = Storage.prototype.setItem;
+    Storage.prototype.setItem = function (key, v) { if (key === k) throw new DOMException('Full', 'QuotaExceededError'); return set.call(this, key, v); };
+  }, KEY);
+  await moveCard(page).getByRole('button', { name: 'Chuyển việc' }).click();
+  await expect(moveError(page)).toBeVisible(); // the card's own alert
+  expect(await noSideScroll(page)).toBeLessThanOrEqual(0);
+  await page.evaluate(() => { Storage.prototype.setItem = window.__set; });
+  await moveCard(page).getByRole('button', { name: 'Chuyển việc' }).click();
+  await expect(notice(page)).toHaveText(`Đã chuyển 5 việc sang nhóm "${LONG}".`);
+  expect(await noSideScroll(page)).toBeLessThanOrEqual(0);
+});
+
+test('360 px: the info slip for a move into a hidden long named group and the storage slip show together inside the screen', async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 740 });
+  await open(page, DAY, '', { groups: LONG_GROUPS });
+  await filterSel(page).selectOption({ label: 'Công ty' });
+  await editOf(page, 'Họp nhóm').click();
+  await editChoice(page).selectOption({ label: LONG });
+  await page.evaluate((k) => {
+    const set = Storage.prototype.setItem;
+    Storage.prototype.setItem = function (key, v) { if (key === k) throw new DOMException('Full', 'QuotaExceededError'); return set.call(this, key, v); };
+  }, KEY);
+  await editField(page).press('Enter');
+  await expect(notice(page)).toHaveText(`Đã chuyển việc "Họp nhóm" sang nhóm "${LONG}".`);
+  await expect(slip(page)).toBeVisible();
+  expect(await noSideScroll(page)).toBeLessThanOrEqual(0);
 });
 
 test('filtering and moving between days never writes to storage', async ({ page }) => {

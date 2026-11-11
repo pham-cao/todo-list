@@ -1,0 +1,6 @@
+Runner: npx playwright test drag.spec.js --project=desktop (Chromium) and temporary Firefox config; 2026-11-10
+
+## chromium
+  ✓   4 [desktop] › tests/e2e/drag.spec.js:91:3 › mouse › no drag while a row is in edit, while the delete note is open, or with no group stored (573ms)
+## firefox
+  ✓   4 [firefox] › tests/e2e/drag.spec.js:91:3 › mouse › no drag while a row is in edit, while the delete note is open, or with no group stored (811ms)

@@ -6,8 +6,8 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'">
   <link rel="icon" href="data:,">
   <title>Việc cần làm hôm nay</title>
-  <link rel="stylesheet" href="docs/project/design-system.css?v=1.2.0">
-  <script type="module" src="src/app.js?v=1.2.0"></script>
+  <link rel="stylesheet" href="docs/project/design-system.css?v=1.3.0">
+  <script type="module" src="src/app.js?v=1.3.0"></script>
 </head>
 <body>
   <div class="desk">
@@ -184,6 +184,13 @@
       <h2 class="group__head"><button class="group__toggle" type="button" aria-expanded="true"><span class="group__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span><span class="visually-hidden">Nhóm </span><span class="group__name sticker"></span> <span class="group__count"></span><span class="visually-hidden"> việc đã hoàn thành</span></button></h2>
       <ul class="task-list"></ul>
     </section>
+  </template>
+
+  <template id="drag-template">
+    <div class="drag-slip" aria-hidden="true"><span class="drag-slip__box"></span><span class="drag-slip__text"></span></div>
+    <div class="drop-strip" role="group" aria-label="Thả vào nhóm"><span class="drop-strip__label" aria-hidden="true">Thả vào nhóm</span></div>
+    <div class="drop-target"><span class="sticker"></span></div>
+    <div class="drag-edge" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/><path d="m6 4 6 6 6-6" opacity=".5"/></svg></div>
   </template>
 
   <template id="edit-template">

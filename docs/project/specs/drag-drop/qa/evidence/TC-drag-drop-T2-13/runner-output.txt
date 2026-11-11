@@ -1,0 +1,11 @@
+
+Running 6 tests using 2 workers
+
+  ✓  1 [desktop] › tests/e2e/groups.spec.js:1454:1 › 360 px: the storage slip and the move slip together, and the bulk move slip, stay inside the screen with a long unbroken group name (1.3s)
+  ✓  2 [mobile] › tests/e2e/groups.spec.js:1454:1 › 360 px: the storage slip and the move slip together, and the bulk move slip, stay inside the screen with a long unbroken group name (1.3s)
+  ✓  4 [mobile] › tests/e2e/groups.spec.js:1474:1 › 360 px: the info slip for a move into a hidden long named group and the storage slip show together inside the screen (192ms)
+  ✓  3 [desktop] › tests/e2e/groups.spec.js:1474:1 › 360 px: the info slip for a move into a hidden long named group and the storage slip show together inside the screen (447ms)
+  ✓  5 [mobile] › tests/e2e/groups.spec.js:3299:1 › 360 px: the move card title wraps a 30 character name with no space (1.6s)
+  ✓  6 [desktop] › tests/e2e/groups.spec.js:3299:1 › 360 px: the move card title wraps a 30 character name with no space (1.6s)
+
+  6 passed (4.2s)

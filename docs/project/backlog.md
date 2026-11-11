@@ -39,6 +39,16 @@ Both MVP features are shipped and live at https://pham-cao.github.io/todo-list/.
    - Backend: not needed.
    - Note: Adds an optional `groupId` to tasks and a new `daily-todo:groups:v1` key. Existing tasks load as ungrouped with no migration. Backup files (feature 4) should carry both keys.
 
+3a. `drag-drop` (in progress, requested by the owner)
+   - Goal: Pick up a task with the mouse or a long press on a phone and drop it into another group, with a drop strip that lists every group and Escape to cancel. The edit form move stays as the way to move a task without dragging.
+   - Why it helps: Moving a task between groups becomes one gesture instead of Sửa, group choice, and Lưu.
+   - Size: M
+   - Scope: later, now in progress (chosen by the owner)
+   - has_ui: true
+   - Dependencies: task-groups
+   - Backend: not needed.
+   - Note: Moves between groups only. A dropped task keeps its creation time place, so reordering inside a group is not included (it needs a stored order field, see the drag-drop requirements). Dragging across days is out of scope.
+
 4. `backup-export-import` (recommended next after task-groups)
    - Goal: Download all tasks as one file and restore them from that file, so the log survives a cleared browser, a new phone, or a new laptop.
    - Why it helps: All data lives in one browser's localStorage and there is no copy anywhere else. This is the biggest risk to the owner's trust in the tool, and it also gives a manual way to move data between devices without any backend.

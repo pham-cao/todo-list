@@ -1,0 +1,4 @@
+EXP-T5-sequence swipe, then long press drag, then swipe on another row; touchCancel early
+project: pixel7
+status: passed
+after touchCancel: leftovers, dragging: [0,false]

@@ -1,0 +1,33 @@
+TC-drag-drop-T4-23: PASS
+{
+ "light": {
+  "nameTxt": "Nhà",
+  "nameS": "Sức khỏe",
+  "border": "rgb(31, 58, 104)",
+  "bw": "2px",
+  "ring": "#1F3A68",
+  "bg": "rgb(201, 206, 196)",
+  "strip": {
+   "shadow": "rgb(31, 58, 104) 0px 0px 0px 2px inset",
+   "bg": "rgba(31, 58, 104, 0.07)",
+   "stripbg": "rgb(255, 253, 248)",
+   "ring": "#1F3A68"
+  }
+ },
+ "dark": {
+  "nameTxt": "Nhà",
+  "nameS": "Sức khỏe",
+  "border": "rgb(169, 195, 238)",
+  "bw": "2px",
+  "ring": "#A9C3EE",
+  "bg": "rgb(21, 24, 28)",
+  "strip": {
+   "shadow": "rgb(169, 195, 238) 0px 0px 0px 2px inset",
+   "bg": "rgba(169, 195, 238, 0.09)",
+   "stripbg": "rgb(40, 44, 52)",
+   "ring": "#A9C3EE"
+  }
+ }
+}
+light section frame vs page 7.04
+dark section frame vs page 9.94

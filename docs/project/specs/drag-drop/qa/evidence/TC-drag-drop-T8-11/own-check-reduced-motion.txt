@@ -1,0 +1,2 @@
+["all","0.001s",["1ms left running","1ms top running"]]
+{"lifted":{"slipRotate":"0deg","slipAnimName":"none","slipAnims":["left","top"],"stripAnims":[],"stripAnimName":"none","placeholderBorder":"none"},"hover":{"framed":true,"border":"solid 2px","bg":"color(srgb 0.976471 0.752941 0.827451 / 0.32)","anims":[]},"afterDropAnims":[]}

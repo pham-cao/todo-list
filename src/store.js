@@ -1,4 +1,4 @@
-import { toDateKey } from "./date.js?v=1.2.0";
+import { toDateKey } from "./date.js?v=1.3.0";
 
 export const STORAGE_KEY = "daily-todo:tasks:v1";
 export const MAX_LENGTH = 200;
@@ -84,6 +84,15 @@ export function createStore(storage) {
     const task = find(id);
     if (!task) return { error: "notFound" };
     task.text = v.text;
+    if (typeof groupId === "string" && groupId) task.groupId = groupId;
+    else if (groupId === null) delete task.groupId;
+    save();
+    return { task: { ...task } };
+  };
+
+  store.setGroup = (id, groupId) => {
+    const task = find(id);
+    if (!task) return { error: "notFound" };
     if (typeof groupId === "string" && groupId) task.groupId = groupId;
     else if (groupId === null) delete task.groupId;
     save();

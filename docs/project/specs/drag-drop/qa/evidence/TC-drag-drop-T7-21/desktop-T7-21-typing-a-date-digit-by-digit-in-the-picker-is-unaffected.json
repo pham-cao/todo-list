@@ -1,0 +1,19 @@
+{
+ "title": "T7-21 typing a date digit by digit in the picker is unaffected",
+ "project": "desktop",
+ "status": "passed",
+ "trail": [
+  "INPUT#day-picker",
+  "INPUT#day-picker",
+  "INPUT#day-picker",
+  "INPUT#day-picker",
+  "INPUT#day-picker",
+  "INPUT#day-picker",
+  "INPUT#day-picker",
+  "INPUT#day-picker"
+ ],
+ "value": "2026-11-08",
+ "focus": "INPUT#day-picker",
+ "date": "",
+ "arrowFocus": "BUTTON#next-day"
+}

@@ -1,0 +1,6 @@
+EXP-T5-blocked-states long press while editing and with a dialog open
+project: p360
+status: passed
+editing: dragging: false
+dialog: dragging: false
+dialog opened mid hold: dragging: false

@@ -1,0 +1,20 @@
+day today desktop light: 0 violations  
+info slip desktop light: 0 violations  [slip: Đã chuyển việc "Trả lời email" sang nhóm "Nhà".]
+day yesterday desktop light: 0 violations  
+manage dialog desktop light: 0 violations  [dialogs open: 1]
+delete note desktop light: 0 violations  [delete note: 1]
+day today mobile light: 0 violations  
+info slip mobile light: 0 violations  [slip: Đã chuyển việc "Trả lời email" sang nhóm "Nhà".]
+day yesterday mobile light: 0 violations  
+manage dialog mobile light: 0 violations  [dialogs open: 1]
+delete note mobile light: 0 violations  [delete note: 1]
+day today desktop dark: 0 violations  
+info slip desktop dark: 0 violations  [slip: Đã chuyển việc "Trả lời email" sang nhóm "Nhà".]
+day yesterday desktop dark: 0 violations  
+manage dialog desktop dark: 0 violations  [dialogs open: 1]
+delete note desktop dark: 0 violations  [delete note: 1]
+day today mobile dark: 0 violations  
+info slip mobile dark: 0 violations  [slip: Đã chuyển việc "Trả lời email" sang nhóm "Nhà".]
+day yesterday mobile dark: 0 violations  
+manage dialog mobile dark: 0 violations  [dialogs open: 1]
+delete note mobile dark: 0 violations  [delete note: 1]

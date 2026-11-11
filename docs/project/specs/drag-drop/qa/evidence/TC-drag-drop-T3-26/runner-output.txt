@@ -1,0 +1,6 @@
+Runner: npx playwright test drag.spec.js --project=desktop (Chromium) and temporary Firefox config; 2026-11-10
+
+## chromium
+  ✓  12 [desktop] › tests/e2e/drag.spec.js:242:3 › mouse › reduced motion: the slip has no tilt and no lift animation (349ms)
+## firefox
+  ✓  12 [firefox] › tests/e2e/drag.spec.js:242:3 › mouse › reduced motion: the slip has no tilt and no lift animation (583ms)

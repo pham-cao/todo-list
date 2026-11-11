@@ -1,0 +1,48 @@
+
+Running 42 tests using 2 workers
+
+  -   2 [desktop] › tests/e2e/drag.spec.js:845:3 › touch › the page does not scroll while the finger moves during a drag (R32)
+  ✓   3 [desktop] › tests/e2e/drag.spec.js:1113:5 › interruptions › mouse: the page becomes hidden (936ms)
+  -   4 [desktop] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the page becomes hidden
+  ✓   5 [desktop] › tests/e2e/drag.spec.js:1113:5 › interruptions › mouse: the window loses focus (668ms)
+  -   6 [desktop] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the window loses focus
+  ✓   1 [mobile] › tests/e2e/drag.spec.js:845:3 › touch › the page does not scroll while the finger moves during a drag (R32) (2.5s)
+  -   8 [mobile] › tests/e2e/drag.spec.js:1113:5 › interruptions › mouse: the page becomes hidden
+  ✓   7 [desktop] › tests/e2e/drag.spec.js:1113:5 › interruptions › mouse: Back changes the day (1.0s)
+  -  10 [desktop] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: Back changes the day
+  ✓  11 [desktop] › tests/e2e/drag.spec.js:1113:5 › interruptions › mouse: the midnight check changes the day (952ms)
+  -  12 [desktop] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the midnight check changes the day
+  ✓  13 [desktop] › tests/e2e/drag.spec.js:1113:5 › interruptions › mouse: another tab changes the groups (568ms)
+  -  14 [desktop] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: another tab changes the groups
+  ✓  15 [desktop] › tests/e2e/drag.spec.js:1113:5 › interruptions › mouse: another tab changes the tasks (593ms)
+  -  16 [desktop] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: another tab changes the tasks
+  ✓   9 [mobile] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the page becomes hidden (3.1s)
+  -  18 [mobile] › tests/e2e/drag.spec.js:1113:5 › interruptions › mouse: the window loses focus
+  ✓  17 [desktop] › tests/e2e/drag.spec.js:1113:5 › interruptions › mouse: another tab changes the ui key (593ms)
+  -  20 [desktop] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: another tab changes the ui key
+  -  21 [desktop] › tests/e2e/drag.spec.js:1113:5 › interruptions › mouse: the touch is cancelled
+  -  22 [desktop] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the touch is cancelled
+  ✓  23 [desktop] › tests/e2e/drag.spec.js:1176:3 › interruptions › a groups change in another tab during a drag shows the new group on the next drag (670ms)
+  ✓  24 [desktop] › tests/e2e/drag.spec.js:1189:3 › interruptions › a task added by keyboard during a mouse drag rebuilds the list: the drag ends first, cleanly (687ms)
+  ✓  25 [desktop] › tests/e2e/drag.spec.js:1223:3 › interruptions › a dialog opened during a drag ends it at the next move (353ms)
+  ✓  26 [desktop] › tests/e2e/drag.spec.js:1236:3 › interruptions › a resize during a drag measures the screen again: the slip stays inside it and above the strip (366ms)
+  ✓  19 [mobile] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the window loses focus (3.0s)
+  -  27 [mobile] › tests/e2e/drag.spec.js:1113:5 › interruptions › mouse: Back changes the day
+  ✓  28 [mobile] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: Back changes the day (3.0s)
+  -  29 [mobile] › tests/e2e/drag.spec.js:1113:5 › interruptions › mouse: the midnight check changes the day
+  ✓  30 [mobile] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the midnight check changes the day (2.9s)
+  -  31 [mobile] › tests/e2e/drag.spec.js:1113:5 › interruptions › mouse: another tab changes the groups
+  ✓  32 [mobile] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: another tab changes the groups (2.7s)
+  -  33 [mobile] › tests/e2e/drag.spec.js:1113:5 › interruptions › mouse: another tab changes the tasks
+  ✓  34 [mobile] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: another tab changes the tasks (2.7s)
+  -  35 [mobile] › tests/e2e/drag.spec.js:1113:5 › interruptions › mouse: another tab changes the ui key
+  ✓  36 [mobile] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: another tab changes the ui key (2.8s)
+  -  37 [mobile] › tests/e2e/drag.spec.js:1113:5 › interruptions › mouse: the touch is cancelled
+  ✓  38 [mobile] › tests/e2e/drag.spec.js:1137:5 › interruptions › touch: the touch is cancelled (2.8s)
+  -  39 [mobile] › tests/e2e/drag.spec.js:1176:3 › interruptions › a groups change in another tab during a drag shows the new group on the next drag
+  -  40 [mobile] › tests/e2e/drag.spec.js:1189:3 › interruptions › a task added by keyboard during a mouse drag rebuilds the list: the drag ends first, cleanly
+  -  41 [mobile] › tests/e2e/drag.spec.js:1223:3 › interruptions › a dialog opened during a drag ends it at the next move
+  -  42 [mobile] › tests/e2e/drag.spec.js:1236:3 › interruptions › a resize during a drag measures the screen again: the slip stays inside it and above the strip
+
+  22 skipped
+  20 passed (27.3s)

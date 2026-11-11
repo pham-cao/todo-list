@@ -1,0 +1,3 @@
+TC-drag-drop-T4-08: PASS
+writes while moving []
+writes on drop ["daily-todo:tasks:v1"]

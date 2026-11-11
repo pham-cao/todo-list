@@ -1,0 +1,15 @@
+      638 |   const end = (page) => page.evaluate(() => document.documentElement.scrollHeight - innerHeight);
+      639 |   const cue = (page) => page.locator('body > .drag-edge');
+    > 640 |   const settled = (loc) => loc.evaluate((el) => Promise.all(el.getAnimations().map((a) => a.finished)).then(() => el.getBoundingClientRect().toJSON()));
+          |                                ^
+      641 |   // The strip's top edge without its slight rotation, as the zone is measured.
+      642 |   const stripTop = (page) => strip(page).evaluate((el) => el.offsetTop);
+      643 |   // Lifts Trả lời email and returns the pointer x and the strip's top edge.
+        at settled (/home/gem/src/todo_list/tests/e2e/drag.spec.js:640:32)
+        at /home/gem/src/todo_list/tests/e2e/drag.spec.js:746:13
+
+    Error Context: ../../../../tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/ff8-results/drag-auto-scroll-on-a-shor-4a93c-trip-never-scrolls-BUG-020--firefox/error-context.md
+
+  1 failed
+    [firefox] › tests/e2e/drag.spec.js:736:3 › auto scroll › on a short screen with 20 groups a pointer over the strip never scrolls (BUG-020) 
+  4 passed (46.9s)

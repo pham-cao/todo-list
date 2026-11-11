@@ -1,0 +1,14 @@
+TC-drag-drop-T4-03: PASS
+Nhà section box {"x":320,"y":587.796875,"width":800,"height":88} gap px 44
+gap mid | nhaMarked false | marks 0 | slip name none
+gap just above Nhà (top-1) | nhaMarked false | marks 0 | slip name none
+Nhà top+0.5 | nhaMarked true | marks 1 | slip name Nhà
+Nhà bottom-1 | nhaMarked true | marks 1 | slip name Nhà
+Nhà bottom+1 | nhaMarked false | marks 0 | slip name none
+left edge x=b.x | nhaMarked true | marks 1 | slip name Nhà
+left of section x=b.x-2 | nhaMarked false | marks 0 | slip name none
+x=0 | nhaMarked false | marks 0 | slip name none
+right edge x=b.x+w-1 | nhaMarked true | marks 1 | slip name Nhà
+right of section x=b.x+w+2 | nhaMarked false | marks 0 | slip name none
+x=1439 | nhaMarked false | marks 0 | slip name none
+Đã hủy. Việc vẫn ở nhóm "Công ty".

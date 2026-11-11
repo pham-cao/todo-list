@@ -1,0 +1,11 @@
+
+Running 6 tests using 2 workers
+
+  ✓  1 [desktop] › tests/e2e/drag.spec.js:453:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28) (807ms)
+  ✓  2 [desktop] › tests/e2e/drag.spec.js:453:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28) (813ms)
+  ✓  4 [desktop] › tests/e2e/drag.spec.js:453:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28) (968ms)
+  ✓  3 [desktop] › tests/e2e/drag.spec.js:453:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28) (1.0s)
+  ✓  5 [desktop] › tests/e2e/drag.spec.js:453:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28) (954ms)
+  ✓  6 [desktop] › tests/e2e/drag.spec.js:453:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28) (948ms)
+
+  6 passed (5.1s)

@@ -1,0 +1,2 @@
+TC-drag-drop-EXP-speed-drop200: PASS
+release to next frame ms 19.0 18.0 20.0 52.0 19.0 30.0 19.0 median 19.0

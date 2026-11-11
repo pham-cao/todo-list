@@ -1,0 +1,24 @@
+{
+ "title": "T7-20 Escape: swallowed in a real drag, ends a press, otherwise reaches its handlers mouse",
+ "project": "desktop",
+ "status": "passed",
+ "drag": {
+  "left": 0,
+  "escSeen": 0,
+  "field": "abc",
+  "said": [
+   "Đã hủy. Việc vẫn ở nhóm \"Công ty\"."
+  ]
+ },
+ "press": {
+  "escReached": 1,
+  "dragging": false,
+  "left": 0
+ },
+ "edit": {
+  "inEdit": 1,
+  "after": 0
+ },
+ "dialogOpenAfterEsc": false,
+ "fieldEscReached": 1
+}

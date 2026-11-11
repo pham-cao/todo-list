@@ -1,0 +1,14 @@
+import { chromium } from '/home/gem/src/todo_list/node_modules/@playwright/test/index.mjs';
+const NOW = new Date('2026-11-10T09:00:00+07:00');
+const G=[['cty','Công ty','yellow'],['nha','Nhà','pink']].map(([id,name,color],i)=>({id,name,color,createdAt:i+1}));
+const T=[['a','Một','cty'],['b','Hai','cty'],['c','Ba','nha']].map(([id,text,g],i)=>({id,text,done:false,createdAt:(i+1)*1000,date:'2026-11-10',groupId:g}));
+const b=await chromium.launch(); const ctx=await b.newContext({viewport:{width:1440,height:900},locale:'vi-VN',timezoneId:'Asia/Ho_Chi_Minh',reducedMotion:'reduce'}); const page=await ctx.newPage(); await page.clock.setFixedTime(NOW);
+await page.addInitScript(([t,g])=>{localStorage.setItem('daily-todo:tasks:v1',JSON.stringify(t));localStorage.setItem('daily-todo:groups:v1',JSON.stringify(g));},[T,G]);
+await page.goto('http://localhost:4173/'); await page.waitForSelector('.task');
+const l=page.locator('.task',{hasText:'Hai'}).locator('.task__label'); const bb=await l.boundingBox(); await page.mouse.move(bb.x+20,bb.y+10); await page.mouse.down(); await page.mouse.move(bb.x+40,bb.y+40,{steps:5});
+const s=await page.evaluate(()=>{const sl=document.querySelector('.drag-slip'); window.__t=[getComputedStyle(sl).transitionProperty,getComputedStyle(sl).transitionDuration, sl.getAnimations().map(a=>a.effect.getTiming().duration+'ms '+a.transitionProperty+' '+a.playState)],st=document.querySelector('.drop-strip'); const c=getComputedStyle(sl); const anim=(e)=>e.getAnimations().map(a=>a.animationName||a.transitionProperty);return {slipRotate:c.rotate, slipAnimName:c.animationName, slipAnims:anim(sl), stripAnims:anim(st), stripAnimName:getComputedStyle(st).animationName, placeholderBorder:getComputedStyle(document.querySelector('.task--placeholder')).borderTopStyle}});
+const nha=page.locator('.group__toggle',{hasText:'Nhà'}); const nb=await nha.boundingBox(); await page.mouse.move(nb.x+30,nb.y+10,{steps:5});
+const h=await page.evaluate(()=>{const g=document.querySelector('.group--drop'); const c=getComputedStyle(g,'::before'); return {framed:!!g, border:c.borderTopStyle+' '+c.borderTopWidth, bg:c.backgroundColor, anims:g.getAnimations({subtree:true}).map(a=>a.animationName||a.transitionProperty)}});
+await page.mouse.up(); await page.waitForTimeout(100);
+const d=await page.evaluate(()=>document.querySelector('.task--moved')?.getAnimations({subtree:true}).map(a=>a.animationName||a.transitionProperty)??'no moved row');
+console.log(JSON.stringify(await page.evaluate(()=>window.__t)));console.log(JSON.stringify({lifted:s,hover:h,afterDropAnims:d})); await b.close();

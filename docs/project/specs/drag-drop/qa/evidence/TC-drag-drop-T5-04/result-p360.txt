@@ -1,0 +1,10 @@
+EXP-T5-scroll-swipe-early vertical scroll and horizontal swipe started before 400 ms, also late at 300 ms
+project: p360
+status: passed
+vertical wait 0: scrollY: [10,345]
+vertical wait 300: scrollY: [0,342]
+swipe wait 0: scrollLeft: 130
+seen so far: ["task--pressing"]
+swipe wait 250: scrollLeft: 130
+seen so far: ["task--pressing"]
+classes ever seen: ["task--pressing"]

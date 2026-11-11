@@ -1,0 +1,5 @@
+TC-drag-drop-EXP-outside-targets: PASS
+page title marks 0 status Đã hủy. Việc vẫn ở nhóm "Công ty".
+add input marks 0 status Đã hủy. Việc vẫn ở nhóm "Công ty".
+filter select marks 0 status Đã hủy. Việc vẫn ở nhóm "Công ty".
+summary marks 0 status Đã hủy. Việc vẫn ở nhóm "Công ty".

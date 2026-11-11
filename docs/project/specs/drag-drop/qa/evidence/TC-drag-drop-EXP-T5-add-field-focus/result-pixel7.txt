@@ -1,0 +1,6 @@
+EXP-T5-add-field-focus long press with the add field focused does not scroll to top
+project: pixel7
+status: passed
+scrollY before, at pickup, after move: [400,400,400]
+scrollY after release (cancel): 400
+active element: "new-task"

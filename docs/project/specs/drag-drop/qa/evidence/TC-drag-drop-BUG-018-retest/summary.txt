@@ -1,0 +1,1 @@
+16 passed (4 tests x pixel7, 360, 390, 390 dark). Full suite --workers=2: 664 passed, 64 skipped, 0 failed; npm test 69 of 69; T5 touch tests 24 of 24 (2 repeats).

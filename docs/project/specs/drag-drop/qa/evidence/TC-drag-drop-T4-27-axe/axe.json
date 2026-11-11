@@ -1,0 +1,258 @@
+[
+ {
+  "state": "hover-section",
+  "scheme": "light",
+  "w": 1440,
+  "v": []
+ },
+ {
+  "state": "hover-strip",
+  "scheme": "light",
+  "w": 1440,
+  "v": []
+ },
+ {
+  "state": "dropped",
+  "scheme": "light",
+  "w": 1440,
+  "v": []
+ },
+ {
+  "state": "dropped--strip",
+  "scheme": "light",
+  "w": 1440,
+  "v": []
+ },
+ {
+  "state": "folded",
+  "scheme": "light",
+  "w": 1440,
+  "v": []
+ },
+ {
+  "state": "folded--dropped",
+  "scheme": "light",
+  "w": 1440,
+  "v": []
+ },
+ {
+  "state": "filtered",
+  "scheme": "light",
+  "w": 1440,
+  "v": []
+ },
+ {
+  "state": "filtered--dropped",
+  "scheme": "light",
+  "w": 1440,
+  "v": []
+ },
+ {
+  "state": "hover-section",
+  "scheme": "dark",
+  "w": 1440,
+  "v": []
+ },
+ {
+  "state": "hover-strip",
+  "scheme": "dark",
+  "w": 1440,
+  "v": []
+ },
+ {
+  "state": "dropped",
+  "scheme": "dark",
+  "w": 1440,
+  "v": []
+ },
+ {
+  "state": "dropped--strip",
+  "scheme": "dark",
+  "w": 1440,
+  "v": []
+ },
+ {
+  "state": "folded",
+  "scheme": "dark",
+  "w": 1440,
+  "v": []
+ },
+ {
+  "state": "folded--dropped",
+  "scheme": "dark",
+  "w": 1440,
+  "v": []
+ },
+ {
+  "state": "filtered",
+  "scheme": "dark",
+  "w": 1440,
+  "v": []
+ },
+ {
+  "state": "filtered--dropped",
+  "scheme": "dark",
+  "w": 1440,
+  "v": []
+ },
+ {
+  "state": "hover-section",
+  "scheme": "light",
+  "w": 390,
+  "v": [
+   {
+    "id": "scrollable-region-focusable",
+    "impact": "serious",
+    "nodes": [
+     ".task--placeholder > .task__swipe"
+    ]
+   }
+  ]
+ },
+ {
+  "state": "hover-strip",
+  "scheme": "light",
+  "w": 390,
+  "v": [
+   {
+    "id": "scrollable-region-focusable",
+    "impact": "serious",
+    "nodes": [
+     ".task--placeholder > .task__swipe"
+    ]
+   }
+  ]
+ },
+ {
+  "state": "dropped",
+  "scheme": "light",
+  "w": 390,
+  "v": []
+ },
+ {
+  "state": "dropped--strip",
+  "scheme": "light",
+  "w": 390,
+  "v": []
+ },
+ {
+  "state": "folded",
+  "scheme": "light",
+  "w": 390,
+  "v": [
+   {
+    "id": "scrollable-region-focusable",
+    "impact": "serious",
+    "nodes": [
+     ".task--placeholder > .task__swipe"
+    ]
+   }
+  ]
+ },
+ {
+  "state": "folded--dropped",
+  "scheme": "light",
+  "w": 390,
+  "v": []
+ },
+ {
+  "state": "filtered",
+  "scheme": "light",
+  "w": 390,
+  "v": [
+   {
+    "id": "scrollable-region-focusable",
+    "impact": "serious",
+    "nodes": [
+     ".task--placeholder > .task__swipe"
+    ]
+   }
+  ]
+ },
+ {
+  "state": "filtered--dropped",
+  "scheme": "light",
+  "w": 390,
+  "v": []
+ },
+ {
+  "state": "hover-section",
+  "scheme": "dark",
+  "w": 390,
+  "v": [
+   {
+    "id": "scrollable-region-focusable",
+    "impact": "serious",
+    "nodes": [
+     ".task--placeholder > .task__swipe"
+    ]
+   }
+  ]
+ },
+ {
+  "state": "hover-strip",
+  "scheme": "dark",
+  "w": 390,
+  "v": [
+   {
+    "id": "scrollable-region-focusable",
+    "impact": "serious",
+    "nodes": [
+     ".task--placeholder > .task__swipe"
+    ]
+   }
+  ]
+ },
+ {
+  "state": "dropped",
+  "scheme": "dark",
+  "w": 390,
+  "v": []
+ },
+ {
+  "state": "dropped--strip",
+  "scheme": "dark",
+  "w": 390,
+  "v": []
+ },
+ {
+  "state": "folded",
+  "scheme": "dark",
+  "w": 390,
+  "v": [
+   {
+    "id": "scrollable-region-focusable",
+    "impact": "serious",
+    "nodes": [
+     ".task--placeholder > .task__swipe"
+    ]
+   }
+  ]
+ },
+ {
+  "state": "folded--dropped",
+  "scheme": "dark",
+  "w": 390,
+  "v": []
+ },
+ {
+  "state": "filtered",
+  "scheme": "dark",
+  "w": 390,
+  "v": [
+   {
+    "id": "scrollable-region-focusable",
+    "impact": "serious",
+    "nodes": [
+     ".task--placeholder > .task__swipe"
+    ]
+   }
+  ]
+ },
+ {
+  "state": "filtered--dropped",
+  "scheme": "dark",
+  "w": 390,
+  "v": []
+ }
+]

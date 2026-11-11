@@ -1,0 +1,7 @@
+
+Running 2 tests using 2 workers
+
+  ✓  2 [desktop] › tests/e2e/groups.spec.js:1417:1 › a visible move after a slip about an earlier move hides the slip and announces in #sr-status (1.2s)
+  ✓  1 [mobile] › tests/e2e/groups.spec.js:1417:1 › a visible move after a slip about an earlier move hides the slip and announces in #sr-status (1.2s)
+
+  2 passed (2.0s)

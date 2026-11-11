@@ -1,0 +1,32 @@
+{
+  "escape": {
+    "leftovers": 0,
+    "scrollDrift": 0,
+    "rafAfter": 0,
+    "dragging": false
+  },
+  "release": {
+    "leftovers": 0,
+    "scrollDrift": 0,
+    "rafAfter": 0,
+    "dragging": false
+  },
+  "blur": {
+    "leftovers": 0,
+    "scrollDrift": 0,
+    "rafAfter": 0,
+    "dragging": false
+  },
+  "hidden": {
+    "leftovers": 0,
+    "scrollDrift": 0,
+    "rafAfter": 0,
+    "dragging": false
+  },
+  "pointercancel": {
+    "leftovers": 0,
+    "scrollDrift": 0,
+    "rafAfter": 0,
+    "dragging": false
+  }
+}

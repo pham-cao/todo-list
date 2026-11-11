@@ -1,0 +1,182 @@
+TAP version 13
+# Subtest: validateText limits
+ok 1 - validateText limits # SKIP test name does not match pattern
+  ---
+  duration_ms: 5.544043
+  ...
+# Subtest: validateText trims only
+ok 2 - validateText trims only # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.598954
+  ...
+# Subtest: getStorage returns null when unavailable
+ok 3 - getStorage returns null when unavailable # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.487899
+  ...
+# Subtest: add sets fields; tasksFor filters by date in creation order
+ok 4 - add sets fields; tasksFor filters by date in creation order # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.51144
+  ...
+# Subtest: tasksFor returns copies
+ok 5 - tasksFor returns copies # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.804143
+  ...
+# Subtest: updateText keeps done, date and position; errors leave text
+ok 6 - updateText keeps done, date and position; errors leave text # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.525536
+  ...
+# Subtest: setDone and remove
+ok 7 - setDone and remove # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.48555
+  ...
+# Subtest: data survives a new store on the same storage
+ok 8 - data survives a new store on the same storage # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.523811
+  ...
+# Subtest: corrupt JSON and non array start empty and back up raw value
+ok 9 - corrupt JSON and non array start empty and back up raw value # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.938773
+  ...
+# Subtest: missing or empty value starts empty without backup
+ok 10 - missing or empty value starts empty without backup # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.838438
+  ...
+# Subtest: invalid items are dropped, valid kept
+ok 11 - invalid items are dropped, valid kept # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.547626
+  ...
+# Subtest: read failure: memory only, no writes
+ok 12 - read failure: memory only, no writes # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.515237
+  ...
+# Subtest: write failure keeps memory and old stored value; recovery restores storageOk
+ok 13 - write failure keeps memory and old stored value; recovery restores storageOk # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.445039
+  ...
+# Subtest: unknown id: updateText notFound, setDone undefined, remove harmless
+ok 14 - unknown id: updateText notFound, setDone undefined, remove harmless # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.66183
+  ...
+# Subtest: write failure on remove and setDone keeps memory change
+ok 15 - write failure on remove and setDone keeps memory change # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.422637
+  ...
+# Subtest: corrupt backup failing does not throw or lock the store
+ok 16 - corrupt backup failing does not throw or lock the store # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.746312
+  ...
+# Subtest: add with a dateKey uses it as date, keeps real createdAt, persists
+ok 17 - add with a dateKey uses it as date, keeps real createdAt, persists # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.442834
+  ...
+# Subtest: add with a dateKey: too long saves nothing; failing write keeps task in memory and old stored value
+ok 18 - add with a dateKey: too long saves nothing; failing write keeps task in memory and old stored value # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.818867
+  ...
+# Subtest: validateText max argument and exported newId
+ok 19 - validateText max argument and exported newId # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.446632
+  ...
+# Subtest: groupId is written only when set; updateText sets, keeps and removes it
+ok 20 - groupId is written only when set; updateText sets, keeps and removes it # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.689605
+  ...
+# Subtest: invalid text changes neither text nor group
+ok 21 - invalid text changes neither text nor group # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.373938
+  ...
+# Subtest: groupUsage counts tasks and lists sorted distinct days
+ok 22 - groupUsage counts tasks and lists sorted distinct days # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.331923
+  ...
+# Subtest: moveGroup changes only groupId, one write; to null removes the field
+ok 23 - moveGroup changes only groupId, one write; to null removes the field # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.280605
+  ...
+# Subtest: moveGroup on an empty group does not write
+ok 24 - moveGroup on an empty group does not write # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.317712
+  ...
+# Subtest: moveGroup write failure returns save error and changes nothing
+ok 25 - moveGroup write failure returns save error and changes nothing # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.301877
+  ...
+# Subtest: locked store moves in memory without writing
+ok 26 - locked store moves in memory without writing # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.288662
+  ...
+# Subtest: stored tasks with missing, null or unknown groupId load and are not rewritten
+ok 27 - stored tasks with missing, null or unknown groupId load and are not rewritten # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.279424
+  ...
+# Subtest: non string group ids are ignored by add and updateText
+ok 28 - non string group ids are ignored by add and updateText # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.261288
+  ...
+# Subtest: moveGroup with a missing fromId moves nothing and does not write
+ok 29 - moveGroup with a missing fromId moves nothing and does not write # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.260494
+  ...
+# Subtest: a successful moveGroup write restores storageOk
+ok 30 - a successful moveGroup write restores storageOk # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.262656
+  ...
+# Subtest: setGroup sets, replaces and removes groupId and touches nothing else, one write
+ok 31 - setGroup sets, replaces and removes groupId and touches nothing else, one write
+  ---
+  duration_ms: 5.598501
+  ...
+# Subtest: setGroup on an unknown id returns notFound and does not write
+ok 32 - setGroup on an unknown id returns notFound and does not write
+  ---
+  duration_ms: 0.883269
+  ...
+# Subtest: setGroup keeps the change in memory when setItem throws or the store is locked
+ok 33 - setGroup keeps the change in memory when setItem throws or the store is locked
+  ---
+  duration_ms: 8.142907
+  ...
+# Subtest: setGroup keeps groupId for an empty or non string value and returns notFound for a bad id
+ok 34 - setGroup keeps groupId for an empty or non string value and returns notFound for a bad id
+  ---
+  duration_ms: 1.162892
+  ...
+1..34
+# tests 34
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 30
+# todo 0
+# duration_ms 322.406201
+# pass 69
+# fail 0

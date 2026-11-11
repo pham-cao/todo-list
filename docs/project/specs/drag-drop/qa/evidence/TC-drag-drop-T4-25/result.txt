@@ -1,0 +1,2 @@
+TC-drag-drop-T4-25: PASS
+console clean

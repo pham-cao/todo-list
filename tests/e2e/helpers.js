@@ -60,3 +60,64 @@ export async function passMidnight(page, event = 'visibilitychange', at = AFTER_
   if (event === 'focus') await page.evaluate(() => window.dispatchEvent(new Event('focus')));
   else await page.evaluate(() => document.dispatchEvent(new Event('visibilitychange')));
 }
+
+// Press a row's text with the mouse and move by (dx, dy) in steps. The button stays held, so a test can look at the
+// lifted state, press Escape or call page.mouse.up(). Returns the press point.
+export async function mouseDrag(page, row, dx = 0, dy = 60) {
+  await row.locator('.task__label').scrollIntoViewIfNeeded();
+  const b = await row.locator('.task__label').boundingBox();
+  const x = b.x + Math.min(b.width / 2, 60), y = b.y + b.height / 2;
+  await page.mouse.move(x, y);
+  await page.mouse.down();
+  await page.mouse.move(x + dx, y + dy, { steps: 8 });
+  return { x, y };
+}
+
+// Real touch (CDP) so the browser's own scroller, snap and scroll logic run, not a scrollLeft assignment.
+// A fast horizontal drag on a swipe strip, from 30 px inside its right edge, 20 px per step.
+export async function touchDrag(page, locator, dx) {
+  const b = await locator.boundingBox();
+  const y = b.y + b.height / 2, x0 = b.x + b.width - 30;
+  const cdp = await page.context().newCDPSession(page);
+  const send = (type, x) => cdp.send('Input.dispatchTouchEvent', { type, touchPoints: type === 'touchEnd' ? [] : [{ x, y }] });
+  await send('touchStart', x0);
+  for (let i = 1; i <= 10; i++) { await send('touchMove', x0 + (dx * i) / 10); await page.waitForTimeout(16); }
+  await send('touchEnd', x0 + dx);
+  await cdp.detach();
+}
+
+// One finger driven through CDP: down(x, y), move(x, y, steps) in 16 ms steps, up(), cancel().
+export async function finger(page) {
+  const cdp = await page.context().newCDPSession(page);
+  let at = [0, 0];
+  const send = (type, points) => cdp.send('Input.dispatchTouchEvent', { type, touchPoints: points });
+  return {
+    at: () => at,
+    down: async (x, y) => { at = [x, y]; await send('touchStart', [{ x, y }]); },
+    move: async (x, y, steps = 8) => {
+      const [x0, y0] = at;
+      for (let i = 1; i <= steps; i++) {
+        await send('touchMove', [{ x: x0 + ((x - x0) * i) / steps, y: y0 + ((y - y0) * i) / steps }]);
+        await page.waitForTimeout(16);
+      }
+      at = [x, y];
+    },
+    up: async () => { await send('touchEnd', []); await cdp.detach(); },
+    cancel: async () => { await send('touchCancel', []); await cdp.detach(); },
+  };
+}
+
+// Long press a row's text for 450 ms (the hold is 400 ms), then move the finger to `to` ([x, y] or a locator's
+// centre) and lift it. Pass { release: false } to keep the finger down; the finger is returned either way.
+export async function longPressDrag(page, row, to, { release = true } = {}) {
+  const b = await row.locator('.task__label').boundingBox();
+  const f = await finger(page);
+  await f.down(b.x + Math.min(b.width / 2, 60), b.y + b.height / 2);
+  await page.waitForTimeout(450);
+  if (to) {
+    const t = Array.isArray(to) ? to : await to.boundingBox().then((r) => [r.x + r.width / 2, r.y + r.height / 2]);
+    await f.move(...t);
+  }
+  if (release) await f.up();
+  return f;
+}

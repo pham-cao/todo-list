@@ -1,0 +1,47 @@
+{
+ "title": "T7-16 resize and rotation keep the drag and the slip inside touch",
+ "project": "pixel7",
+ "status": "passed",
+ "sizes": [
+  {
+   "w": 915,
+   "h": 412,
+   "right": 907,
+   "cw": 915,
+   "bottom": 330,
+   "stripTop": 330,
+   "ch": 412,
+   "dragging": true
+  },
+  {
+   "w": 360,
+   "h": 640,
+   "right": 352,
+   "cw": 360,
+   "bottom": 494,
+   "stripTop": 494,
+   "ch": 640,
+   "dragging": true
+  },
+  {
+   "w": 412,
+   "h": 839,
+   "right": 404,
+   "cw": 412,
+   "bottom": 693,
+   "stripTop": 693,
+   "ch": 839,
+   "dragging": true
+  }
+ ],
+ "said": [
+  "Đã hủy. Việc vẫn ở nhóm \"Công ty\"."
+ ],
+ "next": {
+  "ok": true,
+  "g": "nha",
+  "said": [
+   "Đã chuyển việc \"Cắt tóc\" sang nhóm \"Nhà\"."
+  ]
+ }
+}

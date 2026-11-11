@@ -1,0 +1,4 @@
+EXP-T5-strip-stays strip stays in place while dragging; page height unchanged
+project: pixel7
+status: passed
+strip box before/after, scrollY: [{"x":7.5245361328125,"y":692.025634765625,"width":396.950927734375,"height":140.35498046875},{"x":7.5245361328125,"y":692.025634765625,"width":396.950927734375,"height":140.35498046875},396,396]

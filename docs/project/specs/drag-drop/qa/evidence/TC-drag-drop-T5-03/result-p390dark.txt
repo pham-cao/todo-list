@@ -1,0 +1,9 @@
+EXP-T5-slop 9 px move during hold still drags, 11 px does not
+project: p390dark
+status: passed
+9px dragging: true
+9px vertical dragging: true
+11px dragging: false
+11px vertical dragging: false
+diagonal 11.3px dragging: false
+out 15 and back dragging: false

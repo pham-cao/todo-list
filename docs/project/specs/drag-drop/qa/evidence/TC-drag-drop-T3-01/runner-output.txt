@@ -1,0 +1,6 @@
+Runner: npx playwright test drag.spec.js --project=desktop (Chromium) and temporary Firefox config; 2026-11-10
+
+## chromium
+  ✓   1 [desktop] › tests/e2e/drag.spec.js:23:3 › mouse › a click on a row changes nothing and a tick still works (428ms)
+## firefox
+  ✓   1 [firefox] › tests/e2e/drag.spec.js:23:3 › mouse › a click on a row changes nothing and a tick still works (1.2s)

@@ -1,0 +1,4 @@
+B18-second finger after the drag started leaves the drag running and ends cleanly
+passed
+dragging, slips after second finger: [true,1]
+leftovers: 0

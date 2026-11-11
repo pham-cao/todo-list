@@ -1,0 +1,3 @@
+TC-drag-drop-T4-09: PASS
+counts 0/1 1/2 Đã hoàn thành 1/4 việc
+null

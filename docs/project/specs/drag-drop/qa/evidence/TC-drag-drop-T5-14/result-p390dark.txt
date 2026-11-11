@@ -1,0 +1,4 @@
+EXP-T5-strip-stays strip stays in place while dragging; page height unchanged
+project: p390dark
+status: passed
+strip box before/after, scrollY: [{"x":7.52426815032959,"y":697.1024169921875,"width":374.95147037506104,"height":140.201416015625},{"x":7.52426815032959,"y":697.1024169921875,"width":374.95147037506104,"height":140.201416015625},396,396]

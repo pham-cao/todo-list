@@ -1,0 +1,19 @@
+{
+ "title": "T7-19 group renamed or deleted in another tab: the cancel names the group read at pick up",
+ "project": "pixel7",
+ "status": "passed",
+ "renamed": {
+  "said": [
+   "Đã hủy. Việc vẫn ở nhóm \"Công ty mới\"."
+  ],
+  "left": 0,
+  "strip": null
+ },
+ "deleted": {
+  "said": [
+   "Đã hủy. Việc vẫn ở nhóm \"Chưa phân nhóm\"."
+  ],
+  "left": 0,
+  "strip": null
+ }
+}
