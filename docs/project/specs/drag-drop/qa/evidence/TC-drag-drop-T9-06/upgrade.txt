@@ -1,0 +1,19 @@
+   200 /
+   200 /src/app.js?v=1.2.0
+   200 /src/drag.js?v=1.2.0
+old assets data:, http://localhost:4173/docs/project/design-system.css?v=1.2.0 http://localhost:4173/src/app.js?v=1.2.0
+   200 /
+   200 /src/app.js?v=1.2.0
+   200 /src/drag.js?v=1.2.0
+   200 /
+   200 /src/app.js?v=1.2.0
+   200 /src/drag.js?v=1.2.0
+before 239 2
+port v=1.3.0
+   200 /
+   200 /src/app.js?v=1.3.0
+   200 /src/drag.js?v=1.3.0
+new assets data:, http://localhost:4173/docs/project/design-system.css?v=1.3.0 http://localhost:4173/src/app.js?v=1.3.0
+rows after 2 stored same true
+drag.js loaded http://localhost:4173/src/app.js?v=1.3.0 http://localhost:4173/src/groups.js?v=1.3.0 http://localhost:4173/src/drag.js?v=1.3.0
+errors []

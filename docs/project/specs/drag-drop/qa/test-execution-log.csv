@@ -230,3 +230,18 @@ date,task,tc_id,result,evidence,bug_id
 2026-11-11,T8,T8-unit,pass,"evidence/T8/unit.txt (78 of 78)",
 2026-11-11,T8,T8-t8-block-desktop,pass,"evidence/T8/t8-desktop.txt (10 of 10)",
 2026-11-11,T8,T8-firefox-t8-block,pass,"evidence/TC-drag-drop-T8-05/firefox-spot.txt (6 of 6, 3 runs, axe tests excluded)",
+2026-11-11,T1,TC-drag-drop-T1-09,pass,"evidence/release/npm-test.txt (store.test.js "setGroup keeps the change in memory when setItem throws or the store is locked", 78 of 78 pass on 1.3.0)",
+2026-11-11,T1,TC-drag-drop-T1-10,pass,"evidence/release/npm-test.txt (store.test.js "sets, replaces and removes groupId and touches nothing else")",
+2026-11-11,T1,TC-drag-drop-T1-11,pass,"evidence/release/npm-test.txt (setGroup with the same group: task unchanged, no error)",
+2026-11-11,T1,TC-drag-drop-T1-12,pass,evidence/release/npm-test.txt (npm test 78 of 78 on 1.3.0; the version expectation moved to 1.3.0 in T9 as planned),
+2026-11-11,T9,TC-drag-drop-T9-01,pass,evidence/release/npm-test.txt (version.test.js passes; package.json 1.3.0),
+2026-11-11,T9,TC-drag-drop-T9-02,pass,evidence/release/npm-test.txt (every local reference in index.html ends with ?v=1.3.0 and names an existing file),
+2026-11-11,T9,TC-drag-drop-T9-03,pass,evidence/release/npm-test.txt (every import in src including ./drag.js and ./groups.js carries ?v=1.3.0),
+2026-11-11,T9,TC-drag-drop-T9-04,pass,"evidence/TC-drag-drop-T9-04/mutation.txt (mutation run on a scratch copy, src of the repo untouched: drag.js reference set to ?v=1.2.0, version test fails and names src/drag.js: ./groups.js?v=1.2.0)",
+2026-11-11,T9,TC-drag-drop-T9-05,pass,"evidence/TC-drag-drop-T9-05/grep.txt (no 1.2.0 in index.html, src, package.json or design-system.css)",
+2026-11-11,T9,TC-drag-drop-T9-06,pass,"evidence/TC-drag-drop-T9-06/upgrade.txt;evidence/TC-drag-drop-T9-06/after-upgrade.png (Chromium profile loaded 1.2.0 with 2 tasks, server switched to 1.3.0, normal reload: every asset 1.3.0, 2 tasks intact, storage byte for byte equal, no page error)",
+2026-11-11,T9,TC-drag-drop-T9-07,pass,"evidence/release/npm-test.txt;evidence/release/playwright.txt (npm test 78 of 78; npx playwright test --workers=2: 703 passed, 105 skipped, 0 failed, desktop and mobile)",
+2026-11-11,T8,TC-drag-drop-BUG-024-retest,pass,evidence/TC-drag-drop-BUG-024-retest/chromium.txt;evidence/TC-drag-drop-BUG-024-retest/firefox.txt (both T6 tests pass on Chromium and in Firefox with ff8.config.mjs; BUG-024 Verified then Closed),BUG-024
+2026-11-11,T9,T9-release-regression-npm-test,pass,evidence/release/npm-test.txt (78 of 78),
+2026-11-11,T9,T9-release-regression-playwright-workers2,pass,"evidence/release/playwright.txt (703 passed, 105 skipped, 0 failed)",
+2026-11-11,T7,TC-drag-drop-T7-14,pass,"evidence/TC-drag-drop-T7-14/ (retest of BUG-023: Escape, blur and hidden during the hold: no drag; see row TC-drag-drop-T7-14-retest)",BUG-023

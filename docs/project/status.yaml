@@ -1,6 +1,6 @@
 project: "daily-todo"
 idea: "Web app todo list de ghi lai (log) cac viec can lam hang ngay (daily). Nguyen van: hien tai toi can lam todolist web log may cai toi can lam trong daily"
-state: running        # running | waiting_user | done
+state: waiting_user        # running | waiting_user | done
 waiting_for: ""
 phase: features       # discovery | features | done
 current_feature: "drag-drop"
@@ -264,7 +264,7 @@ features:
         bugs_opened: [BUG-014 fixed]
         trello_card: ""
   - slug: drag-drop
-    phase: build
+    phase: release
     has_ui: true
     pr: ""
     trello_card: ""
@@ -337,7 +337,7 @@ features:
         title: "Release version 1.3.0"
         owner: be
         depends_on: [T8]
-        state: doing
+        state: done
         attempts: 0
         bugs_opened: []
         trello_card: ""
