@@ -1,8 +1,8 @@
-import { toDateKey, parseDateKey, addDays, dayKind, dateLine } from "./date.js?v=1.2.0";
-import { createStore, getStorage, isValid, STORAGE_KEY } from "./store.js?v=1.2.0";
-import { createGroups, nextColor, GROUPS_KEY, MAX_GROUPS, UNGROUPED, UNGROUPED_NAME } from "./groups.js?v=1.2.0";
-import { createManage, setFieldError, showFieldError, GROUP_ERRORS } from "./manage.js?v=1.2.0";
-import { createDrag } from "./drag.js?v=1.2.0";
+import { toDateKey, parseDateKey, addDays, dayKind, dateLine } from "./date.js?v=1.3.0";
+import { createStore, getStorage, isValid, STORAGE_KEY } from "./store.js?v=1.3.0";
+import { createGroups, nextColor, GROUPS_KEY, MAX_GROUPS, UNGROUPED, UNGROUPED_NAME } from "./groups.js?v=1.3.0";
+import { createManage, setFieldError, showFieldError, GROUP_ERRORS } from "./manage.js?v=1.3.0";
+import { createDrag } from "./drag.js?v=1.3.0";
 
 const $ = (id) => document.getElementById(id);
 const els = {

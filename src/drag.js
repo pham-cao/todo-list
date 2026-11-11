@@ -1,4 +1,4 @@
-import { UNGROUPED, UNGROUPED_NAME } from "./groups.js?v=1.2.0";
+import { UNGROUPED, UNGROUPED_NAME } from "./groups.js?v=1.3.0";
 
 // Presses here keep their own behaviour and never start a drag (R4).
 const SKIP = ".check, button, a, input, select, textarea, .task__edit, .group__toggle";

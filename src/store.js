@@ -1,4 +1,4 @@
-import { toDateKey } from "./date.js?v=1.2.0";
+import { toDateKey } from "./date.js?v=1.3.0";
 
 export const STORAGE_KEY = "daily-todo:tasks:v1";
 export const MAX_LENGTH = 200;
