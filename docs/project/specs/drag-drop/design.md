@@ -23,7 +23,7 @@ Markup and classes come from the "Drag and drop" block of `docs/project/design-s
 | `tests/unit/store.test.js` | be | Tests for `setGroup` |
 | `src/drag.js` | fe | New: the gesture, slip, strip, hit testing, auto scroll, cancel; exports `createDrag` and the pure helper `scrollSpeed` |
 | `tests/unit/drag.test.js` | fe | New: `scrollSpeed` only (the rest needs a browser) |
-| `src/app.js` | fe | `moveRow` message and hidden target info slip; `createDrag` wiring; `drag.cancel()` in `resetTransient` and the storage listener |
+| `src/app.js` | fe | `moveRow` message and hidden target info slip; `createDrag` wiring; `drag.cancel()` in `renderList` and the storage listener |
 | `index.html` | fe | `#drag-template` |
 | `tests/e2e/helpers.js` | fe | Drag helpers: `mouseDrag`, `longPressDrag` (CDP touch), `touchDrag` moved here from the two spec files |
 | `tests/e2e/drag.spec.js` | fe | New: this feature's end to end tests |
@@ -96,7 +96,7 @@ function dropOrCancel(row, key, hadFocus) {}
 //   moveRow(row, key, `Đã chuyển việc "${text}" sang nhóm "${name(key)}".`) (R13 to R15, R23, R33, R34).
 ```
 
-`composing` is a flag set by `compositionstart` and cleared by `compositionend` on `document` (R5). `resetTransient()` calls `drag.cancel()` first, so a day move (Back, picker, arrows, midnight) ends a drag (R20). The storage listener calls `drag.cancel()` before `refresh()` for a groups change (R21).
+`composing` is a flag set by `compositionstart` and cleared by `compositionend` on `document` (R5). `renderList()` calls `drag.cancel()` first, so every rebuild, including a day move (Back, picker, arrows, midnight), ends a drag (R20). The storage listener calls `drag.cancel()` for any key, before `refresh()` for a groups change (R21).
 
 ### Markup: `#drag-template` in `index.html` (owner `fe`)
 
@@ -151,7 +151,7 @@ While dragging, these all call the same `end(null)`:
 2. `pointercancel` and `lostpointercapture` (a call, the OS taking the touch) (R18).
 3. `visibilitychange`, window `blur` (R20).
 4. A dialog found open (`dialog[open]`) in a frame or at release (R20).
-5. `drag.cancel()` from `resetTransient()` (day change) and from the storage listener (R20, R21).
+5. `drag.cancel()` from `renderList()` (day change and every other rebuild) and from the storage listener (R20, R21).
 
 `end` always, in this order: clears the timer and the frame, removes every listener it added, removes `html.is-dragging`, `.task--pressing`, `.task--placeholder`, the target classes, the slip, the strip and the cue, sets the state to idle, and only then calls `onEnd`. Each step is idempotent, so a second `end` or a `cancel()` with nothing running does nothing. This is what keeps a page from staying stuck (NFR4).
 
@@ -206,7 +206,7 @@ All existing unit and e2e tests keep passing unchanged, apart from the one asser
 | R12 | Own key is no target; release there is a cancel |
 | R13, R14, R15, R16 | `store.setGroup` then `moveRow` (expand, `renderList`, filter focus, any viewed day) |
 | R17 | One row per press |
-| R18, R20, R21 | Cancel paths, `drag.cancel()` from `resetTransient` and the storage listener, existence check at release |
+| R18, R20, R21 | Cancel paths, `drag.cancel()` from `renderList` and the storage listener, existence check at release |
 | R19, R27 to R30 | Design system classes: slip, placeholder, `.group--drop`, strip, `--over`, `--home`, `.drag-slip__to`, reduced motion rules |
 | R22, R23 | `dropOrCancel`: announcements in `#sr-status`, focus to Sửa; `moveRow` focus rules |
 | R24, R25 | Edit form move unchanged |

@@ -21,8 +21,9 @@ export function scrollSpeed(y, stripTop, edge = EDGE, max = 18) {
 }
 
 // Picks a task up with a mouse or pen and floats it as a slip over the drop strip. Knows nothing about storage:
-// the outcome goes to onEnd(row, key, hadFocus), key null for a cancel. A finger picks up after a 400 ms hold; the
-// browser's own swipe and scroll keep the touch when it moves first (they send pointercancel).
+// the outcome goes to onEnd(row, key, hadFocus, home), key null for a cancel, home the group the task was lifted from.
+// A finger picks up after a 400 ms hold; the browser's own swipe and scroll keep the touch when it moves first (they
+// send pointercancel).
 // Following the pointer never rebuilds the list or reads all rows: one scroll step, one position and one hit test per
 // frame (NFR1, BUG-010).
 export function createDrag({ list, template, groups, canStart, onStart, onEnd }) {
@@ -51,7 +52,8 @@ export function createDrag({ list, template, groups, canStart, onStart, onEnd })
     on(window, "blur", (e) => { if (e.target === window) end(null); }); // capture also sees every element blur
     on(document, "visibilitychange", () => { if (document.hidden) end(null); });
     on(window, "keydown", (e) => {
-      if (!s.dragging || e.key !== "Escape") return;
+      if (e.key !== "Escape") return;
+      if (!s.dragging) return end(null); // a press or a hold ends quietly; the Escape goes on to whatever it was for
       e.preventDefault();
       e.stopImmediatePropagation(); // the Escape cancels the drag only, never an edit, a dialog or a field (R18)
       end(null);
@@ -60,6 +62,9 @@ export function createDrag({ list, template, groups, canStart, onStart, onEnd })
     for (const type of ["contextmenu", "selectstart"]) on(document, type, (e) => { if (s.dragging || s.touch) e.preventDefault(); });
     on(document, "dragstart", (e) => e.preventDefault()); // a selected text would start the native drag instead
     on(window, "scroll", () => { if (s.dragging) frame ||= requestAnimationFrame(follow); }); // a wheel moves the targets
+    // A resize or a rotation keeps the drag: the screen and the strip are measured again, so the slip stays inside
+    // them. A phone's address bar showing or hiding fires resize too, and must not end a drag (decisions.md, T7).
+    on(window, "resize", () => { if (s.dragging) { measure(); frame ||= requestAnimationFrame(follow); } });
     if (s.touch) {
       row.classList.add("task--pressing");
       s.timer = setTimeout(() => {
@@ -129,14 +134,19 @@ export function createDrag({ list, template, groups, canStart, onStart, onEnd })
     const r = row.querySelector(".task__text").getBoundingClientRect();
     s.dx = r.left - text.offsetLeft - s.x0;
     s.dy = row.getBoundingClientRect().top - s.y0;
-    s.maxX = html.clientWidth - slip.offsetWidth - 8;
-    // The slip rides on the strip's top edge, never over it, so the label under the pointer stays readable
-    // (hover-strip.html). offsetTop: the strip's place without its entry animation.
-    s.h = slip.offsetHeight;
-    s.stripTop = strip.offsetTop;
-    s.maxY = Math.min(html.clientHeight, s.stripTop) - s.h;
     s.edge = part(".drag-edge");
+    measure();
     follow();
+  }
+
+  // The screen and the strip, at pick up and on every resize.
+  // The slip rides on the strip's top edge, never over it, so the label under the pointer stays readable
+  // (hover-strip.html). offsetTop: the strip's place without its entry animation.
+  function measure() {
+    s.maxX = html.clientWidth - s.slip.offsetWidth - 8;
+    s.h = s.slip.offsetHeight;
+    s.stripTop = s.strip.offsetTop;
+    s.maxY = Math.min(html.clientHeight, s.stripTop) - s.h;
   }
 
   // One frame: an auto scroll step, the slip, the hit test. The loop goes on only while a step really moved the page,
@@ -144,6 +154,7 @@ export function createDrag({ list, template, groups, canStart, onStart, onEnd })
   function follow() {
     frame = 0;
     if (!s?.slip) return;
+    if (document.querySelector("dialog[open]")) return end(null); // a dialog opened under the drag (R20)
     const v = held() ? 0 : scrollSpeed(s.y, s.stripTop);
     const top = scrollY;
     if (v) scrollBy(0, v);
@@ -196,7 +207,7 @@ export function createDrag({ list, template, groups, canStart, onStart, onEnd })
   }
 
   function release(e) {
-    if (!s.dragging) return end(null);
+    if (!s.dragging || document.querySelector("dialog[open]")) return end(null);
     s.x = e.clientX;
     s.y = e.clientY;
     // The click that follows the release never ticks, opens or follows anything (R7).
@@ -210,7 +221,7 @@ export function createDrag({ list, template, groups, canStart, onStart, onEnd })
   // Every exit runs this; each step is safe to repeat, so nothing is ever left on the page (NFR4).
   function end(key) {
     if (!s) return;
-    const { row, ac, dragging, hadFocus, slip, strip, edge, over, timer } = s;
+    const { row, ac, dragging, hadFocus, slip, strip, edge, over, timer, key: home } = s;
     s = null;
     clearTimeout(timer);
     cancelAnimationFrame(frame);
@@ -222,7 +233,7 @@ export function createDrag({ list, template, groups, canStart, onStart, onEnd })
     slip?.remove();
     strip?.remove();
     edge?.remove();
-    if (dragging) onEnd(row, key, hadFocus);
+    if (dragging) onEnd(row, key, hadFocus, home); // home: the group read at pick up, even if the row has gone since
   }
 
   return { cancel: () => end(null), active: () => !!s?.dragging };

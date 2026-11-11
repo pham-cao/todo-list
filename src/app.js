@@ -75,6 +75,9 @@ const rowOf = (id) => [...els.list.querySelectorAll(".task")].find((r) => r.data
 // Rows, lists and sections already on screen are kept and only what changed is moved, so an open edit and the focus
 // survive, and Firefox, which restyles every node put back into the page, only does so for the changed ones (BUG-014).
 function renderList() {
+  // Every rebuild ends a running drag first, so it never runs over rows that move or go (R20, R21, T5 review).
+  // A drop's own rebuild comes after the drag has ended, so this does nothing there.
+  drag.cancel();
   const tasks = store.tasksFor(viewed);
   const focused = els.list.contains(document.activeElement) ? document.activeElement : null;
   // A section changes its header between toggle and plain heading, so a focused toggle is found again by its key.
@@ -238,6 +241,7 @@ const setAddError = (code) => setFieldError(els.input, els.addError, code);
 
 els.form.addEventListener("submit", (e) => {
   e.preventDefault();
+  drag.cancel(); // an add during a drag ends it, also when the row is added in place without a rebuild (BUG-021)
   const now = new Date();
   checkDay(now);
   // R21 (a chosen group removed elsewhere) is covered by the storage listener, which resets addGroup.
@@ -402,6 +406,8 @@ els.form.addEventListener("keydown", (e) => {
 
 // Another tab changed the groups: take its list, so a removed group is never offered or saved (R21).
 window.addEventListener("storage", (e) => {
+  // Any key ends a drag, also the tasks and ui keys, which rebuild nothing here (decisions.md, QA plan).
+  drag.cancel();
   // A session that could not save keeps its groups in memory; another tab's list would drop them.
   if ((e.key !== GROUPS_KEY && e.key !== null) || !groups.storageOk) return;
   groups = createGroups(getStorage());
@@ -682,8 +688,7 @@ const drag = createDrag({
 // only, then moveRow (creation order, unfold, filter, focus, the moved text) (R13 to R15, R23, R33, R34, R36).
 // Anything else is a cancel: nothing is written, the list stays as it was, focus returns to the row's Sửa when it was
 // in the list, and the task's current group is announced (R12, R21, R22).
-function dropOrCancel(row, key, hadFocus) {
-  const own = row.closest(".group")?.dataset.key ?? UNGROUPED;
+function dropOrCancel(row, key, hadFocus, own) {
   const exists = key === UNGROUPED || !!groups.get(key);
   if (key && key !== own && exists && row.isConnected && store.setGroup(row.dataset.id, key === UNGROUPED ? null : key).task) {
     return moveRow(row, key);
@@ -748,11 +753,21 @@ for (const el of [els.sheetBody, els.date]) {
 // One move is one history entry (R22, R25). Focus is left on the control used (R8).
 function go(key) {
   if (!key || key === viewed) { if (els.picker.value !== viewed) els.picker.value = viewed; return; }
+  const onRow = rowFocus();
   resetTransient();
   writeAddress(key, true);
   turnPage(viewed, key);
   viewed = key;
   renderDay();
+  if (onRow) focusAddIfLost();
+}
+
+// A day change removes the old rows, and with them a focused row or the Sửa a drag cancel returns focus to: the page
+// then starts again at the add field. Only then: while a date is typed into the picker Chromium reports body as the
+// active element, and that focus must stay where it is.
+const rowFocus = () => drag.active() || els.list.contains(document.activeElement);
+function focusAddIfLost() {
+  if (!document.activeElement || document.activeElement === document.body) els.input.focus();
 }
 
 // Back, Forward or an edited hash on a loaded page (R24). popstate and hashchange both
@@ -762,10 +777,12 @@ function syncFromAddress() {
   const key = readHash() ?? today;
   if (key === today && location.href.includes("#")) writeAddress(today, false);
   if (key === viewed) return;
+  const onRow = rowFocus();
   resetTransient();
   turnPage(viewed, key);
   viewed = key;
   renderDay();
+  if (onRow) focusAddIfLost();
 }
 
 // Targets come from the day on screen, before the midnight check.
@@ -809,8 +826,7 @@ function checkDay(now = new Date()) {
   resetTransient();
   viewed = today;
   renderDay();
-  // Focus that sat on an old row or the note is gone; start the fresh page at the add field.
-  if (!document.activeElement || document.activeElement === document.body) els.input.focus();
+  focusAddIfLost(); // focus that sat on an old row or the note is gone
 }
 
 document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") checkDay(); });

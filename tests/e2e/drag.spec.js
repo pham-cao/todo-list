@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { open, task, group, rows, tick, section, toggle, mouseDrag, longPressDrag, finger, touchDrag, storedJson, KEY, GROUPS_KEY, UI_KEY } from './helpers.js';
+import { open, task, group, rows, tick, section, toggle, mouseDrag, longPressDrag, finger, touchDrag, storedJson, passMidnight, KEY, GROUPS_KEY, UI_KEY } from './helpers.js';
 
 // drag-drop T3: mouse pick up, slip, strip and cancel. T4 (below): drop targets and the drop.
 const GROUPS = [group('cty', 'Công ty', 'yellow', 1), group('nha', 'Nhà', 'pink', 2), group('sk', 'Sức khỏe', 'blue', 3)];
@@ -1063,5 +1063,245 @@ test.describe('touch', () => {
       await f.up();
       await expect(leftovers(page)).toHaveCount(0);
     });
+  });
+});
+
+// drag-drop T7: every interruption ends a mouse or touch drag through the one end step (R18, R20, R21, NFR4): nothing
+// is left on the page, nothing is written, the cancel is announced with the group read at pick up, the phone page
+// scrolls again and the next drag drops normally.
+test.describe('interruptions', () => {
+  const TOMORROW = '2026-11-10';
+  const fill = (date, at) => Array.from({ length: 20 }, (_, i) => ({ ...task(`f${date}${i}`, `Việc thêm ${i + 1}`, false, date, at + i), groupId: 'sk' }));
+  const ALL = [...TASKS, { ...task('n', 'Việc ngày mai', false, TOMORROW, 50), groupId: 'cty' }, ...fill(undefined, 100), ...fill(TOMORROW, 200)];
+  const NEW_GROUPS = JSON.stringify([...GROUPS, group('hoc', 'Học', 'green', 4)]);
+  const from = (page) => row(page, 'Trả lời email');
+  const target = (page, name) => strip(page).locator('.drop-target').filter({ hasText: name });
+  const storage = (key, value) => (page) => page.evaluate(([k, v]) => {
+    if (v != null) localStorage.setItem(k, v); // another tab's write; the tasks and ui events carry no change
+    window.dispatchEvent(new StorageEvent('storage', { key: k }));
+  }, [key, value]);
+  const CASES = [
+    { name: 'the page becomes hidden', run: (page) => page.evaluate(() => {
+      for (const [k, v] of [['hidden', true], ['visibilityState', 'hidden']]) Object.defineProperty(document, k, { value: v, configurable: true });
+      document.dispatchEvent(new Event('visibilitychange'));
+      delete document.hidden;
+      delete document.visibilityState;
+    }) },
+    { name: 'the window loses focus', run: (page) => page.evaluate(() => window.dispatchEvent(new Event('blur'))) },
+    { name: 'Back changes the day', back: true, run: (page) => page.goBack(), restore: (page) => page.goForward() },
+    { name: 'the midnight check changes the day', next: 'Việc ngày mai', run: (page) => passMidnight(page, 'focus') },
+    { name: 'another tab changes the groups', groups: NEW_GROUPS, run: storage(GROUPS_KEY, NEW_GROUPS) },
+    { name: 'another tab changes the tasks', run: storage(KEY) },
+    { name: 'another tab changes the ui key', run: storage(UI_KEY) },
+    { name: 'the touch is cancelled', touch: true, run: (page, f) => f.cancel() },
+  ];
+
+  const start = async (page, c) => {
+    await seed(page, ALL);
+    if (c.back) {
+      await page.locator('#prev-day').click();
+      await page.locator('#next-day').click();
+    }
+    await page.locator('#new-task').focus();
+    await page.evaluate(() => {
+      window.blocked = 0; // touchmoves the page blocked: the scroll lock, seen after every listener on the list
+      window.addEventListener('touchmove', (e) => { if (e.defaultPrevented) window.blocked++; }, { passive: true });
+    });
+  };
+
+  for (const c of CASES) {
+    test(`mouse: ${c.name}`, async ({ page, isMobile }) => {
+      test.skip(isMobile || c.touch, 'mouse: desktop project');
+      await start(page, c);
+      const before = await rawAll(page);
+      await mouseDrag(page, from(page), 0, 80);
+      expect(await dragging(page)).toBe(true);
+      await c.run(page);
+      await expect(leftovers(page)).toHaveCount(0);
+      await expect(page.locator('.task--pressing, .group--drop, .drop-target--over')).toHaveCount(0);
+      await expect(page.locator('#sr-status')).toHaveText('Đã hủy. Việc vẫn ở nhóm "Công ty".');
+      await page.mouse.up();
+      expect(await rawAll(page)).toEqual(c.groups ? [before[0], c.groups, before[2]] : before);
+      await c.restore?.(page);
+      // The next drag drops normally.
+      const next = row(page, c.next ?? 'Cắt tóc');
+      const id = await next.getAttribute('data-id');
+      await mouseDrag(page, next, 0, 20);
+      const t = await target(page, 'Nhà').boundingBox();
+      await page.mouse.move(t.x + t.width / 2, t.y + t.height / 2, { steps: 4 });
+      await page.mouse.up();
+      await expect(leftovers(page)).toHaveCount(0);
+      expect((await storedJson(page, KEY)).find((x) => x.id === id).groupId).toBe('nha');
+    });
+
+    test(`touch: ${c.name}`, async ({ page, isMobile }) => {
+      test.skip(!isMobile, 'touch: phone project');
+      await page.addInitScript(() => localStorage.setItem('daily-todo:swipe-hint-seen', '1'));
+      await start(page, c);
+      const before = await rawAll(page);
+      const f = await longPressDrag(page, from(page), null, { release: false });
+      await f.move(f.at()[0], f.at()[1] + 40);
+      expect(await dragging(page)).toBe(true);
+      await c.run(page, f);
+      await expect(leftovers(page)).toHaveCount(0);
+      await expect(page.locator('.task--pressing, .group--drop, .drop-target--over')).toHaveCount(0);
+      await expect(page.locator('#sr-status')).toHaveText('Đã hủy. Việc vẫn ở nhóm "Công ty".');
+      if (!c.touch) await f.up();
+      expect(await rawAll(page)).toEqual(c.groups ? [before[0], c.groups, before[2]] : before);
+      await c.restore?.(page);
+      // The page scrolls under a finger again: no scroll lock is left on any row, old or new.
+      await page.evaluate(() => { window.blocked = 0; }); // the drag itself blocked its own moves, as it should (R32)
+      const b = await rows(page).first().locator('.task__label').boundingBox();
+      const g = await finger(page);
+      await g.down(b.x + 20, b.y + b.height / 2);
+      await g.move(b.x + 20, b.y + b.height / 2 - 300, 10);
+      await g.up();
+      await expect.poll(() => page.evaluate(() => scrollY)).toBeGreaterThan(100);
+      expect(await page.evaluate(() => window.blocked)).toBe(0);
+      await expect(leftovers(page)).toHaveCount(0);
+      // The next drag drops normally.
+      await page.evaluate(() => scrollTo(0, 0));
+      const next = row(page, c.next ?? 'Cắt tóc');
+      const id = await next.getAttribute('data-id');
+      await next.scrollIntoViewIfNeeded();
+      const h = await longPressDrag(page, next, null, { release: false });
+      const t = await target(page, 'Nhà').boundingBox();
+      await h.move(t.x + t.width / 2, t.y + t.height / 2);
+      await h.up();
+      await expect(leftovers(page)).toHaveCount(0);
+      expect((await storedJson(page, KEY)).find((x) => x.id === id).groupId).toBe('nha');
+    });
+  }
+
+  test('a groups change in another tab during a drag shows the new group on the next drag', async ({ page, isMobile }) => {
+    test.skip(isMobile, 'mouse: desktop project');
+    await seed(page, ALL);
+    await mouseDrag(page, from(page), 0, 80);
+    await storage(GROUPS_KEY, NEW_GROUPS)(page);
+    await page.mouse.up();
+    await mouseDrag(page, from(page), 0, 20);
+    await expect(strip(page).locator('.drop-target')).toHaveText(['Công ty', 'Nhà', 'Sức khỏe', 'Học', 'Chưa phân nhóm']);
+    await page.keyboard.press('Escape');
+    await page.mouse.up();
+    await expect(leftovers(page)).toHaveCount(0);
+  });
+
+  test('a task added by keyboard during a mouse drag rebuilds the list: the drag ends first, cleanly', async ({ page, isMobile }) => {
+    test.skip(isMobile, 'mouse: desktop project');
+    await seed(page);
+    await page.locator('#new-task-group').selectOption('sk'); // a group with no section yet: the add rebuilds the list
+    const before = await storedJson(page, KEY);
+    await mouseDrag(page, from(page), 0, 80);
+    expect(await dragging(page)).toBe(true);
+    await page.locator('#new-task').focus(); // the press on the row took focus off the field
+    await page.keyboard.type('Đi bộ');
+    await page.keyboard.press('Enter');
+    await expect(leftovers(page)).toHaveCount(0);
+    await expect(page.locator('#sr-status')).toHaveText('Đã hủy. Việc vẫn ở nhóm "Công ty".');
+    await page.mouse.up();
+    const after = await storedJson(page, KEY);
+    expect(after.slice(0, before.length)).toEqual(before); // only the new task was written
+    expect(after.at(-1)).toMatchObject({ text: 'Đi bộ', groupId: 'sk' });
+    await expect(from(page)).toHaveCount(1);
+    // The drop's own rebuild runs after the drag has ended: one move, announced once, never as a cancel.
+    await mouseDrag(page, from(page), 0, 20);
+    const t = await target(page, 'Nhà').boundingBox();
+    await page.mouse.move(t.x + t.width / 2, t.y + t.height / 2, { steps: 4 });
+    await page.evaluate(() => {
+      window.said = [];
+      new MutationObserver(() => window.said.push(document.getElementById('sr-status').textContent))
+        .observe(document.getElementById('sr-status'), { childList: true, characterData: true, subtree: true });
+    });
+    await page.mouse.up();
+    await expect(leftovers(page)).toHaveCount(0);
+    await expect(page.locator('#sr-status')).toHaveText('Đã chuyển việc "Trả lời email" sang nhóm "Nhà".');
+    await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
+    expect((await page.evaluate(() => window.said)).filter(Boolean)).toEqual(['Đã chuyển việc "Trả lời email" sang nhóm "Nhà".']);
+    expect((await storedJson(page, KEY)).find((x) => x.id === 'b').groupId).toBe('nha');
+  });
+
+  test('a task added by keyboard into a section already on screen also ends the drag first (BUG-021)', async ({ page, isMobile }) => {
+    test.skip(isMobile, 'mouse: desktop project');
+    await seed(page);
+    await page.locator('#new-task-group').selectOption('cty'); // Công ty has a section: the row is added in place
+    await mouseDrag(page, from(page), 0, 80);
+    expect(await dragging(page)).toBe(true);
+    await page.locator('#new-task').focus();
+    await page.keyboard.type('Đi bộ');
+    await page.keyboard.press('Enter');
+    await expect(leftovers(page)).toHaveCount(0);
+    await expect(page.locator('#sr-status')).toHaveText('Đã hủy. Việc vẫn ở nhóm "Công ty".');
+    await page.mouse.up();
+    await expect(section(page, 'Công ty').locator('.task__label')).toHaveText(['Gửi báo cáo', 'Trả lời email', 'Đi bộ']);
+    expect((await storedJson(page, KEY)).find((x) => x.id === 'b').groupId).toBe('cty');
+  });
+
+  // A day change removes the row whose Sửa the cancel focused: focus lands on the add field, never on body.
+  for (const [name, move] of [
+    ['an arrow (go)', (page) => page.evaluate(() => document.getElementById('prev-day').click())],
+    ['Back (syncFromAddress)', (page) => page.goBack()],
+  ]) {
+    test(`a day change by ${name} during a drag leaves focus on the add field`, async ({ page, isMobile }) => {
+      test.skip(isMobile, 'mouse: desktop project');
+      await seed(page, ALL);
+      await page.locator('#prev-day').click();
+      await page.locator('#next-day').click();
+      await from(page).getByRole('button', { name: 'Sửa' }).focus(); // focus in the list: the cancel returns it to Sửa
+      await mouseDrag(page, from(page), 0, 80);
+      await move(page);
+      await expect(leftovers(page)).toHaveCount(0);
+      await expect(page.locator('#new-task')).toBeFocused();
+      await page.mouse.up();
+    });
+  }
+
+  test('Escape during the touch hold ends the press: no lift follows (BUG-023)', async ({ page, isMobile }) => {
+    test.skip(!isMobile, 'touch: phone project');
+    await seed(page);
+    const before = await rawAll(page);
+    const b = await from(page).locator('.task__label').boundingBox();
+    const f = await finger(page);
+    await f.down(b.x + 30, b.y + b.height / 2);
+    await expect(from(page)).toHaveClass(/task--pressing/);
+    await page.waitForTimeout(150);
+    await page.keyboard.press('Escape');
+    await expect(from(page)).not.toHaveClass(/task--pressing/);
+    await page.waitForTimeout(700); // well past the 400 ms hold
+    expect(await dragging(page)).toBe(false);
+    await expect(leftovers(page)).toHaveCount(0);
+    await f.up();
+    expect(await rawAll(page)).toEqual(before);
+    await longPressDrag(page, row(page, 'Cắt tóc'), target(page, 'Nhà')); // the next drag works
+    expect((await storedJson(page, KEY)).find((x) => x.id === 'd').groupId).toBe('nha');
+  });
+
+  test('a dialog opened during a drag ends it at the next move', async ({ page, isMobile }) => {
+    test.skip(isMobile, 'mouse: desktop project');
+    await seed(page, ALL);
+    const before = await rawAll(page);
+    const { x, y } = await mouseDrag(page, from(page), 0, 80);
+    await page.evaluate(() => document.getElementById('delete-dialog').showModal());
+    await page.mouse.move(x, y + 100, { steps: 2 });
+    await expect(leftovers(page)).toHaveCount(0);
+    await page.mouse.up();
+    await page.evaluate(() => document.getElementById('delete-dialog').close());
+    expect(await rawAll(page)).toEqual(before);
+  });
+
+  test('a resize during a drag measures the screen again: the slip stays inside it and above the strip', async ({ page, isMobile }) => {
+    test.skip(isMobile, 'mouse: desktop project');
+    await seed(page, ALL);
+    await mouseDrag(page, from(page), 0, 80);
+    await page.setViewportSize({ width: 800, height: 560 });
+    await page.mouse.move(795, 555, { steps: 4 });
+    expect(await dragging(page)).toBe(true);
+    // The slip's own box, without its tilt and the target sticker that hangs over the strip edge (decisions.md, T4).
+    const s = await slip(page).evaluate((el) => ({ right: el.offsetLeft + el.offsetWidth, bottom: el.offsetTop + el.offsetHeight }));
+    const top = await strip(page).evaluate((el) => el.offsetTop);
+    expect(s.right).toBeLessThanOrEqual(800);
+    expect(s.bottom).toBeLessThanOrEqual(top);
+    await page.keyboard.press('Escape');
+    await page.mouse.up();
+    await expect(leftovers(page)).toHaveCount(0);
   });
 });
