@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { TODAY, KEY, AFTER_MIDNIGHT, task, open, rows, labels, progress, box, stored, storedRaw, addTask, tick, passMidnight } from './helpers.js';
+import { TODAY, KEY, AFTER_MIDNIGHT, task, open, rows, labels, progress, box, stored, storedRaw, addTask, tick, passMidnight, touchDrag } from './helpers.js';
 
 test('page has the expected title and the date line for today', async ({ page }) => {
   const errors = [];
@@ -505,18 +505,6 @@ test('no horizontal page scroll at 360 px with a long task', async ({ page, isMo
     expect(b.height).toBeGreaterThanOrEqual(44);
   }
 });
-
-// Real touch drag (CDP) so the browser's own scroller and snap logic run, not a scrollLeft assignment.
-async function touchDrag(page, locator, dx) {
-  const b = await locator.boundingBox();
-  const y = b.y + b.height / 2, x0 = b.x + b.width - 30;
-  const cdp = await page.context().newCDPSession(page);
-  const send = (type, x) => cdp.send('Input.dispatchTouchEvent', { type, touchPoints: type === 'touchEnd' ? [] : [{ x, y }] });
-  await send('touchStart', x0);
-  for (let i = 1; i <= 10; i++) { await send('touchMove', x0 + (dx * i) / 10); await page.waitForTimeout(16); }
-  await send('touchEnd', x0 + dx);
-  await cdp.detach();
-}
 
 test('a real swipe opens one row; swiping another closes it; a tap outside closes all', async ({ page, isMobile }) => {
   test.skip(!isMobile, 'phone layout only');

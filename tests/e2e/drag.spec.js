@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { open, task, group, rows, tick, section, toggle, mouseDrag, storedJson, KEY, GROUPS_KEY, UI_KEY } from './helpers.js';
+import { open, task, group, rows, tick, section, toggle, mouseDrag, longPressDrag, finger, touchDrag, storedJson, KEY, GROUPS_KEY, UI_KEY } from './helpers.js';
 
 // drag-drop T3: mouse pick up, slip, strip and cancel. T4 (below): drop targets and the drop.
 const GROUPS = [group('cty', 'Công ty', 'yellow', 1), group('nha', 'Nhà', 'pink', 2), group('sk', 'Sức khỏe', 'blue', 3)];
@@ -621,5 +621,248 @@ test.describe('drop', () => {
     await expect(labelsOf(page, 'Nhà')).toHaveText(['Trả lời email', 'Tiền điện']);
     await expect(page.getByRole('alert').filter({ hasText: 'Không thể lưu dữ liệu' })).toBeVisible();
     expect(await page.evaluate((k) => localStorage.getItem(k), KEY)).toBe(tasks);
+  });
+});
+
+// drag-drop T5: long press on phones, next to the swipe and the page scroll (R2, R3, R6, R7, R32). CDP touch.
+test.describe('touch', () => {
+  test.skip(({ isMobile }) => !isMobile, 'touch: phone project');
+  const HINT = 'daily-todo:swipe-hint-seen';
+  // A long day: the page scrolls, and Công ty holds most of it.
+  const LONG = [...TASKS, ...Array.from({ length: 24 }, (_, i) => ({ ...task(`l${i}`, `Việc dài ${i + 1}`, false, undefined, 100 + i), groupId: 'cty' }))];
+  const target = (page, name) => strip(page).locator('.drop-target').filter({ hasText: name });
+  const label = async (page, text) => { const b = await row(page, text).locator('.task__label').boundingBox(); return [b.x + Math.min(b.width / 2, 60), b.y + b.height / 2]; };
+  const scrollY = (page) => page.evaluate(() => scrollY);
+  // Records every drag class that ever appears, so a gesture that should never lift can be checked afterwards.
+  const watch = (page) => page.evaluate(() => {
+    window.seen = new Set();
+    new MutationObserver((list) => {
+      for (const m of list) for (const c of ['is-dragging', 'task--placeholder']) if (m.target.classList.contains(c)) window.seen.add(c);
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['class'], subtree: true });
+  });
+  const seen = (page) => page.evaluate(() => [...window.seen]);
+  test.beforeEach(async ({ page }) => { await page.addInitScript((k) => localStorage.setItem(k, '1'), HINT); });
+
+  test('the line washes while the finger holds, lifts at 400 ms, and a lift over its own place changes nothing', async ({ page }) => {
+    await seed(page);
+    const before = await rawAll(page);
+    const r = row(page, 'Trả lời email');
+    const f = await finger(page);
+    await f.down(...(await label(page, 'Trả lời email')));
+    await expect(r).toHaveClass(/task--pressing/);
+    expect(await dragging(page)).toBe(false);
+    await f.move(f.at()[0] + 6, f.at()[1] + 4, 2); // a small tremble stays a press (R3 reading: up to 10 px)
+    await expect.poll(() => dragging(page)).toBe(true);
+    await expect(r).toHaveClass(/task--placeholder/);
+    await expect(r).not.toHaveClass(/task--pressing/);
+    await expect(slip(page)).toHaveText('Trả lời email');
+    await expect(strip(page)).toBeVisible();
+    await f.up();
+    await expect(leftovers(page)).toHaveCount(0);
+    await expect(page.locator('.task--pressing')).toHaveCount(0);
+    expect(await rawAll(page)).toEqual(before);
+    await expect(page.locator('#sr-status')).toHaveText('Đã hủy. Việc vẫn ở nhóm "Công ty".');
+  });
+
+  test('a long press then a move onto a strip label drops the task; the slip rides 60 px above the finger', async ({ page }) => {
+    await seed(page);
+    const f = await longPressDrag(page, row(page, 'Trả lời email'), null, { release: false });
+    const t = target(page, 'Sức khỏe');
+    const b = await t.boundingBox();
+    await f.move(b.x + b.width / 2, b.y + b.height / 2);
+    await expect(t).toHaveClass(/drop-target--over/);
+    await expect(slip(page).locator('.drag-slip__to')).toHaveText('Sức khỏe');
+    const s = await slip(page).evaluate((el) => { const r = el.getBoundingClientRect(); return { left: r.left, right: r.right, bottom: r.bottom }; });
+    const w = await page.evaluate(() => document.documentElement.clientWidth);
+    expect(s.left).toBeGreaterThanOrEqual(0);
+    expect(s.right).toBeLessThanOrEqual(w);
+    expect(s.bottom).toBeLessThanOrEqual(b.y + b.height / 2 - 40); // well clear of the finger, never under it
+    await f.up();
+    await expect(leftovers(page)).toHaveCount(0);
+    expect((await storedJson(page, KEY)).find((x) => x.id === 'b').groupId).toBe('sk');
+    await expect(section(page, 'Sức khỏe').locator('.task__label')).toHaveText(['Trả lời email']);
+    await expect(page.locator('#sr-status')).toHaveText('Đã chuyển việc "Trả lời email" sang nhóm "Sức khỏe".');
+  });
+
+  test('the page does not scroll while the finger moves during a drag (R32)', async ({ page }) => {
+    await seed(page, LONG);
+    await page.evaluate(() => scrollTo(0, 300));
+    const top = await scrollY(page);
+    expect(top).toBeGreaterThan(0);
+    const [x, y] = await label(page, 'Việc dài 8');
+    const f = await longPressDrag(page, row(page, 'Việc dài 8'), null, { release: false });
+    expect(await dragging(page)).toBe(true);
+    await f.move(x, y - 120, 10);
+    await f.move(x, y + 80, 10);
+    expect(await scrollY(page)).toBe(top);
+    expect(await dragging(page)).toBe(true);
+    await f.move(x, y); // back over its own section: the lift is a cancel
+    await f.up();
+    await expect(leftovers(page)).toHaveCount(0);
+    expect(await scrollY(page)).toBe(top);
+  });
+
+  test('a fast swipe left still opens Sửa and Xóa with no drag and no class left', async ({ page }) => {
+    await seed(page);
+    await watch(page);
+    const swipe = row(page, 'Trả lời email').locator('.task__swipe');
+    await touchDrag(page, swipe, -200);
+    await expect.poll(() => swipe.evaluate((el) => el.scrollLeft)).toBeGreaterThan(100);
+    await page.waitForTimeout(500); // past the hold: nothing may lift late
+    expect(await seen(page)).toEqual([]);
+    await expect(page.locator('.task--pressing')).toHaveCount(0);
+    await expect(leftovers(page)).toHaveCount(0);
+  });
+
+  test('a fast vertical move scrolls the page with no drag', async ({ page }) => {
+    await seed(page, LONG);
+    await watch(page);
+    const [x, y] = await label(page, 'Việc dài 3');
+    const f = await finger(page);
+    await f.down(x, y);
+    await f.move(x, y - 300, 10);
+    await f.up();
+    await expect.poll(() => scrollY(page)).toBeGreaterThan(100);
+    await page.waitForTimeout(500);
+    expect(await seen(page)).toEqual([]);
+    await expect(page.locator('.task--pressing')).toHaveCount(0);
+    await expect(leftovers(page)).toHaveCount(0);
+  });
+
+  test('a short tap behaves as today: nothing lifts, nothing is written, the tick box still ticks', async ({ page }) => {
+    await seed(page);
+    await watch(page);
+    const before = await rawAll(page);
+    const f = await finger(page);
+    await f.down(...(await label(page, 'Trả lời email')));
+    await page.waitForTimeout(80);
+    await f.up();
+    await page.waitForTimeout(500);
+    expect(await seen(page)).toEqual([]);
+    await expect(page.locator('.task--pressing')).toHaveCount(0);
+    expect(await rawAll(page)).toEqual(before);
+    await row(page, 'Trả lời email').locator('.check__box').tap();
+    await expect(row(page, 'Trả lời email').getByRole('checkbox')).toBeChecked();
+  });
+
+  test('a long press on a row whose swipe is open closes the strip before the drag (R6)', async ({ page }) => {
+    await seed(page);
+    const r = row(page, 'Trả lời email');
+    const swipe = r.locator('.task__swipe');
+    await touchDrag(page, swipe, -200);
+    await expect.poll(() => swipe.evaluate((el) => el.scrollLeft)).toBeGreaterThan(100);
+    const b = await swipe.boundingBox();
+    const f = await finger(page);
+    await f.down(b.x + 20, b.y + b.height / 2); // the part of the text still showing
+    await page.waitForTimeout(450);
+    expect(await dragging(page)).toBe(true);
+    await expect.poll(() => swipe.evaluate((el) => el.scrollLeft)).toBe(0);
+    await f.up();
+    await expect(leftovers(page)).toHaveCount(0);
+  });
+
+  test('a long press opens no context menu and selects no text (R7)', async ({ page }) => {
+    await seed(page);
+    // Bubbling listeners on window see whether the page default was left to run.
+    await page.evaluate(() => {
+      window.menus = [];
+      for (const t of ['contextmenu', 'selectstart']) addEventListener(t, (e) => window.menus.push([t, e.defaultPrevented]));
+    });
+    const fire = () => page.evaluate(() => {
+      const el = document.querySelector('.task--pressing, .task--placeholder').querySelector('.task__label');
+      el.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true }));
+      el.dispatchEvent(new Event('selectstart', { bubbles: true, cancelable: true }));
+    });
+    const f = await finger(page);
+    await f.down(...(await label(page, 'Trả lời email')));
+    await fire(); // during the hold
+    await page.waitForTimeout(450);
+    await fire(); // during the drag
+    await page.waitForTimeout(300); // past the browser's own long press (500 ms)
+    // Read while the finger is down: the selectstart a lift sends afterwards is the browser's tap, as on a plain tap today.
+    const menus = await page.evaluate(() => window.menus);
+    expect(menus.length).toBeGreaterThanOrEqual(4);
+    expect(menus.every(([, prevented]) => prevented)).toBe(true);
+    expect(await page.evaluate(() => getSelection().toString())).toBe('');
+    await f.up();
+    expect(await page.evaluate(() => getSelection().toString())).toBe('');
+  });
+
+  test('a long press on a row under the strip, lifted without moving, is a cancel (BUG-018)', async ({ page }) => {
+    await seed(page);
+    const r = row(page, 'Cắt tóc');
+    await r.evaluate((el) => el.scrollIntoView({ block: 'start' }));
+    await page.evaluate(() => scrollBy(0, -250)); // the page end: the last row sits in the band the strip will cover
+    const before = await rawAll(page);
+    const [x, y] = await label(page, 'Cắt tóc');
+    const f = await finger(page);
+    await f.down(x, y);
+    await page.waitForTimeout(450);
+    expect(await dragging(page)).toBe(true);
+    // The strip is now under the finger, but nothing is marked until the finger moves.
+    expect(await page.evaluate(([x, y]) => !!document.elementFromPoint(x, y)?.closest('.drop-target'), [x, y])).toBe(true);
+    await f.move(x + 4, y + 3, 2); // a tremble inside the slop changes nothing
+    await expect(page.locator('.drop-target--over, .group--drop')).toHaveCount(0);
+    await f.up();
+    await expect(leftovers(page)).toHaveCount(0);
+    expect(await rawAll(page)).toEqual(before);
+    await expect(page.locator('#sr-status')).toHaveText('Đã hủy. Việc vẫn ở nhóm "Chưa phân nhóm".');
+  });
+
+  test('after a lift in place the targets come back once the finger moves past the slop', async ({ page }) => {
+    await seed(page);
+    const f = await longPressDrag(page, row(page, 'Trả lời email'), null, { release: false });
+    const t = target(page, 'Nhà');
+    await f.move(...(await t.boundingBox().then((b) => [b.x + b.width / 2, b.y + b.height / 2])));
+    await expect(t).toHaveClass(/drop-target--over/);
+    await f.up();
+    expect((await storedJson(page, KEY)).find((x) => x.id === 'b').groupId).toBe('nha');
+  });
+
+  test('a second finger during the hold cancels it, so a pinch never lifts a task; after the pick up it changes nothing', async ({ page }) => {
+    await seed(page);
+    await watch(page);
+    const before = await rawAll(page);
+    const [x, y] = await label(page, 'Trả lời email');
+    const cdp = await page.context().newCDPSession(page);
+    const send = (type, touchPoints) => cdp.send('Input.dispatchTouchEvent', { type, touchPoints });
+    const one = { x, y, id: 0 }, two = { x: x + 120, y: y + 90, id: 1 };
+    await send('touchStart', [one]);
+    await page.waitForTimeout(100);
+    await send('touchStart', [one, two]);
+    await page.waitForTimeout(450);
+    expect(await seen(page)).toEqual([]);
+    await expect(page.locator('.task--pressing')).toHaveCount(0);
+    await send('touchEnd', []);
+    expect(await rawAll(page)).toEqual(before);
+
+    await send('touchStart', [one]);
+    await page.waitForTimeout(450);
+    expect(await dragging(page)).toBe(true);
+    await send('touchStart', [one, two]);
+    await page.waitForTimeout(100);
+    expect(await dragging(page)).toBe(true);
+    await send('touchEnd', []);
+    await cdp.detach();
+    await expect(leftovers(page)).toHaveCount(0);
+  });
+
+  test.describe('360 px', () => {
+    test.use({ viewport: { width: 360, height: 740 } });
+    test('no sideways scroll while dragging, with the finger at either edge', async ({ page }) => {
+      await seed(page);
+      const f = await longPressDrag(page, row(page, 'Trả lời email'), null, { release: false });
+      for (const x of [355, 4]) {
+        await f.move(x, 300);
+        const m = await page.evaluate(() => ({ sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth, sx: scrollX }));
+        expect(m.sw).toBeLessThanOrEqual(m.cw);
+        expect(m.sx).toBe(0);
+        const s = await slip(page).boundingBox();
+        expect(s.x).toBeGreaterThanOrEqual(0);
+        expect(s.x + s.width).toBeLessThanOrEqual(360);
+      }
+      await f.up();
+      await expect(leftovers(page)).toHaveCount(0);
+    });
   });
 });

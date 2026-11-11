@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import {
   TODAY, NOW, KEY, GROUPS_KEY, UI_KEY, task, group, open, rows, labels, progress, box, storedRaw, storedJson,
-  addTask, tick, stored, sections, section, toggle, passMidnight, hash,
+  addTask, tick, stored, sections, section, toggle, passMidnight, hash, touchDrag,
 } from './helpers.js';
 
 // T4: the day list in sections, with collapse (R29 to R34, R39, R40, R50, R57, R58, R63, R65, NFR1)
@@ -277,17 +277,6 @@ test('groups and UI state that cannot be read leave the plain list and no error'
 
 // Phone row actions inside sections (R64)
 const HINT = 'daily-todo:swipe-hint-seen';
-async function touchDrag(page, locator, dx) {
-  const b = await locator.boundingBox();
-  const y = b.y + b.height / 2, x0 = b.x + b.width - 30;
-  const cdp = await page.context().newCDPSession(page);
-  const send = (type, x) => cdp.send('Input.dispatchTouchEvent', { type, touchPoints: type === 'touchEnd' ? [] : [{ x, y }] });
-  await send('touchStart', x0);
-  for (let i = 1; i <= 10; i++) { await send('touchMove', x0 + (dx * i) / 10); await page.waitForTimeout(16); }
-  await send('touchEnd', x0 + dx);
-  await cdp.detach();
-}
-
 test('on a phone the peek skips a folded section, and swipe, tick and delete work inside sections', async ({ page, isMobile }) => {
   test.skip(!isMobile, 'phone layout only');
   await open(page, DAY, '', { groups: GROUPS, ui: { collapsed: ['cty'] } });
