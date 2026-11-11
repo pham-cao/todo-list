@@ -6,11 +6,25 @@ const SLOP = 6; // mouse and pen: px of movement before a press becomes a drag (
 const TOUCH_SLOP = 10; // touch: more movement than this during the hold hands the touch to the swipe or the scroll (R3)
 const HOLD = 400; // touch: ms of holding still before a pick up (R2)
 const ABOVE = 60; // touch: the slip's bottom edge this far above the finger, so the finger never hides it
+const EDGE = 64; // auto scroll zones: under the screen top, and above the strip's top edge (the strip never scrolls)
+
+// Auto scroll speed in px per frame for a pointer at clientY (R31). Negative scrolls up, positive down, 0 outside the
+// zones. The strip always wins: 0 over it, and no zone at all when it fills the screen (BUG-020). Up zone
+// [0, min(edge, stripTop / 2)), down zone [max(stripTop - edge, stripTop / 2), stripTop): when the strip starts above
+// 2 * edge the two share the space evenly. Each ramps from 1 to max across its own height, in whole px.
+export function scrollSpeed(y, stripTop, edge = EDGE, max = 18) {
+  if (y >= stripTop || stripTop <= 0) return 0;
+  const up = Math.min(edge, stripTop / 2), down = Math.max(stripTop - edge, stripTop / 2);
+  const ramp = (depth, height) => Math.max(1, Math.ceil(max * Math.min(1, depth / height)));
+  if (y < up) return -ramp(up - y, up);
+  return y >= down ? ramp(y - down, stripTop - down) : 0;
+}
 
 // Picks a task up with a mouse or pen and floats it as a slip over the drop strip. Knows nothing about storage:
 // the outcome goes to onEnd(row, key, hadFocus), key null for a cancel. A finger picks up after a 400 ms hold; the
-// browser's own swipe and scroll keep the touch when it moves first (they send pointercancel). Auto scroll comes in T6.
-// Following the pointer never rebuilds the list or reads all rows: one position and one hit test per frame (NFR1, BUG-010).
+// browser's own swipe and scroll keep the touch when it moves first (they send pointercancel).
+// Following the pointer never rebuilds the list or reads all rows: one scroll step, one position and one hit test per
+// frame (NFR1, BUG-010).
 export function createDrag({ list, template, groups, canStart, onStart, onEnd }) {
   const part = (sel) => template.content.querySelector(sel).cloneNode(true);
   const html = document.documentElement;
@@ -45,6 +59,7 @@ export function createDrag({ list, template, groups, canStart, onStart, onEnd })
     // No long press menu or word selection on a phone, from the press on; a mouse keeps its own until the drag (R7).
     for (const type of ["contextmenu", "selectstart"]) on(document, type, (e) => { if (s.dragging || s.touch) e.preventDefault(); });
     on(document, "dragstart", (e) => e.preventDefault()); // a selected text would start the native drag instead
+    on(window, "scroll", () => { if (s.dragging) frame ||= requestAnimationFrame(follow); }); // a wheel moves the targets
     if (s.touch) {
       row.classList.add("task--pressing");
       s.timer = setTimeout(() => {
@@ -118,29 +133,54 @@ export function createDrag({ list, template, groups, canStart, onStart, onEnd })
     // The slip rides on the strip's top edge, never over it, so the label under the pointer stays readable
     // (hover-strip.html). offsetTop: the strip's place without its entry animation.
     s.h = slip.offsetHeight;
-    s.maxY = Math.min(html.clientHeight, strip.offsetTop) - s.h;
+    s.stripTop = strip.offsetTop;
+    s.maxY = Math.min(html.clientHeight, s.stripTop) - s.h;
+    s.edge = part(".drag-edge");
     follow();
   }
 
+  // One frame: an auto scroll step, the slip, the hit test. The loop goes on only while a step really moved the page,
+  // so it stops when the pointer leaves the zone, at the page ends and (through end) when the drag ends (R31).
   function follow() {
     frame = 0;
     if (!s?.slip) return;
+    const v = held() ? 0 : scrollSpeed(s.y, s.stripTop);
+    const top = scrollY;
+    if (v) scrollBy(0, v);
+    const scrolled = scrollY !== top;
+    cue(scrolled ? v : 0);
     const x = Math.max(8, Math.min(s.x + s.dx, s.maxX));
     const y = Math.max(0, Math.min(s.touch ? s.y - ABOVE - s.h : s.y + s.dy, s.maxY));
     // left and top, not transform or translate: the CSS rotate would turn a transform's offset (BUG-016), and the
     // pick-up keyframes animate translate. The slip is fixed and out of flow, so this lays out the slip only.
     s.slip.style.left = `${x}px`;
     s.slip.style.top = `${y}px`;
-    hit();
+    hit(); // after the step, so a section the scroll brings under a still pointer is the target
+    if (scrolled) frame = requestAnimationFrame(follow);
+  }
+
+  // The cue band: under the screen top, or right on the strip's top edge. The template's chevron points down.
+  function cue(v) {
+    const { edge } = s;
+    if (!v) return edge.remove();
+    edge.classList.toggle("drag-edge--up", v < 0);
+    edge.classList.toggle("drag-edge--down", v > 0);
+    edge.style.top = v > 0 ? `${s.stripTop - EDGE}px` : "";
+    edge.firstElementChild.style.rotate = v < 0 ? "180deg" : "";
+    if (!edge.isConnected) document.body.append(edge);
+  }
+
+  // A lifted finger that has not left its lift point by more than the slop neither marks a target nor scrolls, so a
+  // lift in place is always a cancel and never runs the page away (BUG-018).
+  function held() {
+    if (s.still && Math.hypot(s.x - s.still[0], s.y - s.still[1]) > TOUCH_SLOP) s.still = null;
+    return !!s.still;
   }
 
   // The target under the pointer: a strip label, else a visible section (header, rows or its space, open or folded).
   // The own group is no target (R12). Classes change only when the target does; hovering never unfolds (R14).
   function hit() {
-    if (s.still) {
-      if (Math.hypot(s.x - s.still[0], s.y - s.still[1]) <= TOUCH_SLOP) return;
-      s.still = null;
-    }
+    if (held()) return;
     const el = document.elementFromPoint(s.x, s.y); // the slip is pointer-events: none
     let over = el?.closest(".drop-target[data-key]") ?? el?.closest("#day-list > .group");
     if (over?.dataset.key === s.key) over = null;
@@ -170,7 +210,7 @@ export function createDrag({ list, template, groups, canStart, onStart, onEnd })
   // Every exit runs this; each step is safe to repeat, so nothing is ever left on the page (NFR4).
   function end(key) {
     if (!s) return;
-    const { row, ac, dragging, hadFocus, slip, strip, over, timer } = s;
+    const { row, ac, dragging, hadFocus, slip, strip, edge, over, timer } = s;
     s = null;
     clearTimeout(timer);
     cancelAnimationFrame(frame);
@@ -181,6 +221,7 @@ export function createDrag({ list, template, groups, canStart, onStart, onEnd })
     over?.classList.remove("group--drop", "drop-target--over");
     slip?.remove();
     strip?.remove();
+    edge?.remove();
     if (dragging) onEnd(row, key, hadFocus);
   }
 

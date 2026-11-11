@@ -431,7 +431,9 @@ test('phone: an open swipe strip closes when its row is picked up', async ({ pag
 // drag-drop T4: drop targets and the drop.
 test.describe('drop', () => {
   test.skip(({ isMobile }) => isMobile, 'mouse and pen: desktop project');
-  test.use({ viewport: { width: 1440, height: 900 } }); // the strip sits clear of the rows used as targets
+  // Tall enough that the strip and the 64 px auto scroll zone above it sit clear of every row used as a target, and
+  // a hover over a row never starts an auto scroll that would move the rows away (BUG-019).
+  test.use({ viewport: { width: 1440, height: 1100 } });
   const target = (page, name) => strip(page).locator('.drop-target').filter({ hasText: name });
   const marked = (page) => page.locator('#day-list > .group.group--drop, .drop-target--over');
   const to = (page) => slip(page).locator('.drag-slip__to');
@@ -621,6 +623,162 @@ test.describe('drop', () => {
     await expect(labelsOf(page, 'Nhà')).toHaveText(['Trả lời email', 'Tiền điện']);
     await expect(page.getByRole('alert').filter({ hasText: 'Không thể lưu dữ liệu' })).toBeVisible();
     expect(await page.evaluate((k) => localStorage.getItem(k), KEY)).toBe(tasks);
+  });
+});
+
+// drag-drop T6: auto scroll on a long day (R31, R32). The down zone is the 64 px above the strip, the up zone the
+// 64 px under the screen top; the strip itself never scrolls.
+test.describe('auto scroll', () => {
+  test.skip(({ isMobile }) => isMobile, 'mouse: desktop project');
+  test.use({ viewport: { width: 1440, height: 900 } });
+  // Công ty holds most of a long day; Nhà, Sức khỏe and Chưa phân nhóm follow it.
+  const LONG = [...TASKS, ...Array.from({ length: 30 }, (_, i) => ({ ...task(`l${i}`, `Việc dài ${i + 1}`, false, undefined, 100 + i), groupId: 'cty' }))];
+  const scrollY = (page) => page.evaluate(() => scrollY);
+  const end = (page) => page.evaluate(() => document.documentElement.scrollHeight - innerHeight);
+  const cue = (page) => page.locator('body > .drag-edge');
+  const settled = (loc) => loc.evaluate((el) => Promise.all(el.getAnimations().map((a) => a.finished)).then(() => el.getBoundingClientRect().toJSON()));
+  // The strip's top edge without its slight rotation, as the zone is measured.
+  const stripTop = (page) => strip(page).evaluate((el) => el.offsetTop);
+  // Lifts Trả lời email and returns the pointer x and the strip's top edge.
+  const lift = async (page, tasks = LONG) => {
+    await seed(page, tasks);
+    const { x } = await mouseDrag(page, row(page, 'Trả lời email'), 0, 20);
+    await settled(strip(page));
+    return { x, top: await stripTop(page) };
+  };
+  // Counts animation frames asked for from now on, to prove the loop has stopped.
+  const frames = (page) => page.evaluate(() => {
+    window.__raf = 0;
+    const raf = window.requestAnimationFrame;
+    window.requestAnimationFrame = (fn) => { window.__raf++; return raf(fn); };
+  });
+
+  test('resting above the strip scrolls down with the down cue, the strip stays put, and it stops at the page end', async ({ page }) => {
+    const { x, top } = await lift(page);
+    const before = await settled(strip(page));
+    await page.evaluate(() => {
+      window.__m = { qsa: 0, rects: 0 };
+      for (const P of [Document.prototype, Element.prototype]) { const o = P.querySelectorAll; P.querySelectorAll = function (...a) { window.__m.qsa++; return o.apply(this, a); }; }
+      const g = Element.prototype.getBoundingClientRect; Element.prototype.getBoundingClientRect = function () { window.__m.rects++; return g.call(this); };
+    });
+    await page.mouse.move(x, top - 10, { steps: 4 });
+    await expect.poll(() => scrollY(page)).toBeGreaterThan(100);
+    await expect(cue(page)).toHaveClass(/drag-edge--down/);
+    expect(await page.evaluate(() => window.__m)).toEqual({ qsa: 0, rects: 0 }); // NFR1: no row is read while scrolling
+    const c = await cue(page).boundingBox();
+    expect(Math.round(c.y + c.height)).toBe(Math.round(top)); // the band sits right on the strip
+    expect(await strip(page).evaluate((el) => el.getBoundingClientRect().toJSON())).toEqual(before);
+    const last = await end(page);
+    await expect.poll(() => scrollY(page)).toBe(last);
+    await expect(cue(page)).toHaveCount(0);
+    await frames(page);
+    await page.waitForTimeout(200);
+    expect(await page.evaluate(() => window.__raf)).toBe(0);
+    expect(await scrollY(page)).toBe(last);
+    expect(await dragging(page)).toBe(true);
+    await page.keyboard.press('Escape');
+    await page.mouse.up();
+    await expect(leftovers(page)).toHaveCount(0);
+  });
+
+  test('leaving the zone stops the scroll; near the top it scrolls up with the up cue and stops at the page top', async ({ page }) => {
+    const { x, top } = await lift(page);
+    await page.mouse.move(x, top - 30, { steps: 4 });
+    await expect.poll(() => scrollY(page)).toBeGreaterThan(150);
+    await page.mouse.move(x, 400, { steps: 2 });
+    await expect(cue(page)).toHaveCount(0);
+    const still = await scrollY(page);
+    await frames(page);
+    await page.waitForTimeout(200);
+    expect(await scrollY(page)).toBe(still);
+    expect(await page.evaluate(() => window.__raf)).toBe(0);
+
+    await page.mouse.move(x, 20, { steps: 4 });
+    await expect(cue(page)).toHaveClass(/drag-edge--up/);
+    expect((await cue(page).boundingBox()).y).toBe(0);
+    await expect.poll(() => scrollY(page)).toBeLessThan(still);
+    await expect.poll(() => scrollY(page)).toBe(0);
+    await expect(cue(page)).toHaveCount(0);
+    await page.mouse.up();
+    await expect(leftovers(page)).toHaveCount(0);
+  });
+
+  test('a pointer over the strip never scrolls, and every end stops a running scroll', async ({ page }) => {
+    const { x, top } = await lift(page);
+    await page.mouse.move(x, top + 20); // one jump: passing through the zone would scroll a little
+    await page.waitForTimeout(250);
+    expect(await scrollY(page)).toBe(0);
+    await expect(cue(page)).toHaveCount(0);
+
+    await page.mouse.move(x, top - 10, { steps: 2 });
+    await expect.poll(() => scrollY(page)).toBeGreaterThan(50);
+    await page.keyboard.press('Escape');
+    await expect(leftovers(page)).toHaveCount(0);
+    const at = await scrollY(page);
+    await page.waitForTimeout(200);
+    expect(await scrollY(page)).toBe(at);
+    await page.mouse.up();
+
+    // A release while scrolling stops it too.
+    await mouseDrag(page, row(page, 'Việc dài 20'), 0, 20);
+    const t = await stripTop(page);
+    await page.mouse.move(x, t - 10, { steps: 2 });
+    const from = await scrollY(page);
+    await expect.poll(() => scrollY(page)).toBeGreaterThan(from);
+    await page.mouse.up();
+    await expect(leftovers(page)).toHaveCount(0);
+    const stop = await scrollY(page);
+    await page.waitForTimeout(200);
+    expect(await scrollY(page)).toBe(stop);
+  });
+
+  test('on a short screen with 20 groups a pointer over the strip never scrolls (BUG-020)', async ({ page }) => {
+    const many = Array.from({ length: 20 }, (_, i) => group(`g${i}`, `Nhóm ${i + 1}`, 'yellow', i + 1));
+    const tasks = Array.from({ length: 60 }, (_, i) => ({ ...task(`m${i}`, `Việc ${i + 1}`, false, undefined, 10 + i), groupId: `g${i % 20}` }));
+    // 360 x 500: the strip's top edge is near 80, so the zones share the space above it. 360 x 380: the strip is
+    // taller than the screen and there is no zone.
+    for (const size of [{ width: 360, height: 500 }, { width: 360, height: 380 }]) {
+      await page.setViewportSize(size);
+      await seed(page, tasks, many);
+      await page.evaluate(() => scrollTo(0, 600));
+      await mouseDrag(page, row(page, 'Việc 20'), 0, 20);
+      await settled(strip(page));
+      const top = await stripTop(page);
+      expect(top).toBeLessThan(128);
+      const y = Math.max(top, 0) + 5;
+      await page.mouse.move(60, y);
+      const at = await scrollY(page);
+      await page.waitForTimeout(300);
+      expect(await scrollY(page), `${size.height} px`).toBe(at);
+      await expect(cue(page)).toHaveCount(0);
+      await page.keyboard.press('Escape');
+      await page.mouse.up();
+      await expect(leftovers(page)).toHaveCount(0);
+    }
+  });
+
+  test('a section the scroll brings under a still pointer becomes the target, and a release drops there', async ({ page }) => {
+    // Ten more ungrouped tasks, so Chưa phân nhóm ends the page with rows inside the zone.
+    const { x, top } = await lift(page, [...LONG, ...Array.from({ length: 10 }, (_, i) => task(`u${i}`, `Việc lẻ ${i + 1}`, false, undefined, 200 + i))]);
+    await page.evaluate(() => {
+      window.marked = [];
+      new MutationObserver((list) => {
+        for (const m of list) if (m.target.classList.contains('group--drop')) window.marked.push(m.target.dataset.key);
+      }).observe(document.getElementById('day-list'), { attributes: true, attributeFilter: ['class'], subtree: true });
+    });
+    await page.mouse.move(x, top - 10, { steps: 4 });
+    await expect.poll(() => page.evaluate(() => window.marked)).toContain('nha');
+    await expect.poll(() => page.evaluate(() => window.marked)).toContain('none'); // Chưa phân nhóm, last on the page
+    await expect.poll(() => scrollY(page)).toBe(await end(page));
+    // At the page end the sheet's bottom margin is under the pointer; a little higher is the last row, and a release
+    // there drops into Chưa phân nhóm.
+    await page.mouse.move(x, top - 60, { steps: 2 });
+    await expect(section(page, 'Chưa phân nhóm')).toHaveClass(/group--drop/);
+    await expect(slip(page).locator('.drag-slip__to')).toHaveText('Chưa phân nhóm');
+    await page.mouse.up();
+    await expect(leftovers(page)).toHaveCount(0);
+    expect((await storedJson(page, KEY)).find((t) => t.id === 'b').groupId).toBeUndefined();
+    await expect(section(page, 'Chưa phân nhóm').locator('.task__label').first()).toHaveText('Trả lời email');
   });
 });
 
@@ -845,6 +1003,47 @@ test.describe('touch', () => {
     await send('touchEnd', []);
     await cdp.detach();
     await expect(leftovers(page)).toHaveCount(0);
+  });
+
+  test('a finger resting above the strip scrolls the page, but only after it leaves the lift point (R31, BUG-018)', async ({ page }) => {
+    await seed(page, LONG);
+    const stripTop = () => strip(page).evaluate((el) => Promise.all(el.getAnimations().map((a) => a.finished)).then(() => el.getBoundingClientRect().top));
+    // Measure where the strip sits, then cancel with a lift in place.
+    let f = await longPressDrag(page, row(page, 'Việc dài 4'), null, { release: false });
+    const top = await stripTop();
+    await f.up();
+    await expect(leftovers(page)).toHaveCount(0);
+
+    // Bring a row to 20 px above the strip and lift it there: no scroll while the finger has not moved.
+    const [x, y0] = await label(page, 'Việc dài 6');
+    await page.evaluate((dy) => scrollBy(0, dy), y0 - (top - 20));
+    const [, y] = await label(page, 'Việc dài 6');
+    expect(Math.abs(y - (top - 20))).toBeLessThan(2);
+    const start = await scrollY(page);
+    f = await finger(page);
+    await f.down(x, y);
+    await page.waitForTimeout(700);
+    expect(await dragging(page)).toBe(true);
+    expect(await scrollY(page)).toBe(start);
+    await expect(page.locator('body > .drag-edge')).toHaveCount(0);
+
+    // Past the slop the page scrolls down under the still finger and the sections it brings are marked.
+    await page.evaluate(() => {
+      window.marked = [];
+      new MutationObserver((list) => {
+        for (const m of list) if (m.target.classList.contains('group--drop')) window.marked.push(m.target.dataset.key);
+      }).observe(document.getElementById('day-list'), { attributes: true, attributeFilter: ['class'], subtree: true });
+    });
+    await f.move(x, y - 12, 2);
+    await expect.poll(() => scrollY(page)).toBeGreaterThan(start + 50);
+    await expect(page.locator('body > .drag-edge')).toHaveClass(/drag-edge--down/);
+    await expect.poll(() => page.evaluate(() => window.marked)).toContain('nha');
+    expect(await strip(page).evaluate((el) => el.getBoundingClientRect().top)).toBe(top);
+    await f.up();
+    await expect(leftovers(page)).toHaveCount(0);
+    const stop = await scrollY(page);
+    await page.waitForTimeout(200);
+    expect(await scrollY(page)).toBe(stop);
   });
 
   test.describe('360 px', () => {
