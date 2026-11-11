@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
 import { open, task, group, rows, tick, section, toggle, mouseDrag, longPressDrag, finger, touchDrag, storedJson, passMidnight, KEY, GROUPS_KEY, UI_KEY } from './helpers.js';
 
 // drag-drop T3: mouse pick up, slip, strip and cancel. T4 (below): drop targets and the drop.
@@ -669,12 +670,12 @@ test.describe('auto scroll', () => {
     expect(Math.round(c.y + c.height)).toBe(Math.round(top)); // the band sits right on the strip
     expect(await strip(page).evaluate((el) => el.getBoundingClientRect().toJSON())).toEqual(before);
     const last = await end(page);
-    await expect.poll(() => scrollY(page)).toBe(last);
+    await expect.poll(async () => Math.abs((await scrollY(page)) - last)).toBeLessThan(1); // Firefox reports fractions (BUG-024)
     await expect(cue(page)).toHaveCount(0);
     await frames(page);
     await page.waitForTimeout(200);
     expect(await page.evaluate(() => window.__raf)).toBe(0);
-    expect(await scrollY(page)).toBe(last);
+    expect(Math.abs((await scrollY(page)) - last)).toBeLessThan(1);
     expect(await dragging(page)).toBe(true);
     await page.keyboard.press('Escape');
     await page.mouse.up();
@@ -769,7 +770,8 @@ test.describe('auto scroll', () => {
     await page.mouse.move(x, top - 10, { steps: 4 });
     await expect.poll(() => page.evaluate(() => window.marked)).toContain('nha');
     await expect.poll(() => page.evaluate(() => window.marked)).toContain('none'); // Chưa phân nhóm, last on the page
-    await expect.poll(() => scrollY(page)).toBe(await end(page));
+    const last = await end(page);
+    await expect.poll(async () => Math.abs((await scrollY(page)) - last)).toBeLessThan(1); // Firefox reports fractions (BUG-024)
     // At the page end the sheet's bottom margin is under the pointer; a little higher is the last row, and a release
     // there drops into Chưa phân nhóm.
     await page.mouse.move(x, top - 60, { steps: 2 });
@@ -1304,4 +1306,216 @@ test.describe('interruptions', () => {
     await page.mouse.up();
     await expect(leftovers(page)).toHaveCount(0);
   });
+});
+
+// drag-drop T8: speed, accessibility and regression checks.
+test.describe('T8', () => {
+  test.skip(({ isMobile }) => isMobile, 'mouse: desktop project (390 and 360 px are set by viewport)');
+  const COLORS = ['yellow', 'pink', 'blue', 'green', 'orange'];
+  const GS20 = Array.from({ length: 20 }, (_, i) => group(`g${i}`, i === 19 ? 'N'.repeat(30) : `Nhóm ${i + 1}`, COLORS[i % 5], i + 1));
+  const BIG = Array.from({ length: 200 }, (_, i) => ({ ...task(`t${i}`, `Việc số ${i + 1}`, false, undefined, i + 1), groupId: `g${i % 20}` }));
+  const median = (a) => [...a].sort((x, y) => x - y)[Math.floor(a.length / 2)];
+
+  test('200 tasks in 20 groups, settled: pick up and drop each under 100 ms, and following adds or removes no row (NFR1)', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await seed(page, BIG, GS20);
+    await expect(rows(page)).toHaveCount(200);
+    const pick = [], drop = [];
+    for (let run = 0; run < 3; run++) {
+      await page.evaluate(() => scrollTo(0, 0));
+      await page.waitForTimeout(500); // let the page settle: an idle page is the slow case (the CPU clocks down)
+      const picked = await page.evaluate(() => {
+        const label = document.querySelector('#day-list .task__label');
+        const { x, y } = label.getBoundingClientRect();
+        const o = { bubbles: true, pointerId: 5, pointerType: 'mouse', button: 0, buttons: 1, isPrimary: true, clientX: x + 5, clientY: y + 5 };
+        const t0 = performance.now();
+        label.dispatchEvent(new PointerEvent('pointerdown', o));
+        label.dispatchEvent(new PointerEvent('pointermove', { ...o, clientY: y + 25 }));
+        void document.body.offsetHeight;
+        return { ms: performance.now() - t0, id: label.closest('.task').dataset.id };
+      });
+      pick.push(picked.ms);
+      expect(await dragging(page)).toBe(true);
+      // The pointer rests mid screen while the page scrolls sections under it: several targets, no row added or removed.
+      const hovered = await page.evaluate(async () => {
+        const raf = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+        let changes = 0;
+        const mo = new MutationObserver((l) => { changes += l.length; });
+        mo.observe(document.getElementById('day-list'), { childList: true, subtree: true });
+        window.dispatchEvent(new PointerEvent('pointermove', { pointerId: 5, pointerType: 'mouse', clientX: 600, clientY: 300 }));
+        const seen = new Set();
+        for (let i = 0; i < 8; i++) {
+          scrollBy(0, 350);
+          await raf();
+          const g = document.querySelector('.group--drop');
+          if (g) seen.add(g.dataset.key);
+        }
+        await raf();
+        mo.disconnect();
+        return { changes, seen: [...seen] };
+      });
+      expect(hovered.changes).toBe(0);
+      expect(hovered.seen.length).toBeGreaterThanOrEqual(3);
+      await page.waitForTimeout(500);
+      const res = await page.evaluate(() => {
+        const key = document.querySelector('.group--drop').dataset.key;
+        const t0 = performance.now();
+        window.dispatchEvent(new PointerEvent('pointerup', { pointerId: 5, pointerType: 'mouse', clientX: 600, clientY: 300 }));
+        void document.body.offsetHeight;
+        return { ms: performance.now() - t0, key };
+      });
+      drop.push(res.ms);
+      await expect(leftovers(page)).toHaveCount(0);
+      expect((await storedJson(page, KEY)).find((t) => t.id === picked.id).groupId).toBe(res.key);
+      await expect(page.locator(`#day-list > .group[data-key="${res.key}"] .task[data-id="${picked.id}"]`)).toBeAttached();
+    }
+    console.log(`T8 speed, 200 tasks: pick up ${pick.map((n) => n.toFixed(1))} ms, drop ${drop.map((n) => n.toFixed(1))} ms`);
+    expect(median(pick)).toBeLessThan(100);
+    expect(median(drop)).toBeLessThan(100);
+  });
+
+  test('every strip target is at least 44 by 44 px with its name whole, at 1440, 390 and 360 px (R29)', async ({ page }) => {
+    for (const size of [{ width: 1440, height: 900 }, { width: 390, height: 844 }, { width: 360, height: 740 }]) {
+      await page.setViewportSize(size);
+      await seed(page, TASKS.map((t) => ({ ...t, groupId: t.groupId && 'g0' })), GS20);
+      await mouseDrag(page, row(page, 'Cắt tóc'), 0, -40);
+      await strip(page).evaluate((el) => Promise.all(el.getAnimations().map((a) => a.finished)));
+      const boxes = await strip(page).locator('.drop-target').evaluateAll((ts) => ts.map((t) => {
+        const r = t.getBoundingClientRect(), s = t.firstElementChild;
+        return { name: s.textContent, w: r.width, h: r.height, top: r.top, bottom: r.bottom, left: r.left, right: r.right,
+          cut: s.scrollWidth > s.clientWidth + 1 || s.scrollHeight > s.clientHeight + 1 || getComputedStyle(s).textOverflow === 'ellipsis' };
+      }));
+      expect(boxes).toHaveLength(21);
+      for (const b of boxes) {
+        expect(b.w, `${size.width}: ${b.name}`).toBeGreaterThanOrEqual(44);
+        expect(b.h, `${size.width}: ${b.name}`).toBeGreaterThanOrEqual(44);
+        expect(b.cut, `${size.width}: ${b.name}`).toBe(false);
+        expect(b.top).toBeGreaterThanOrEqual(0);
+        expect(b.bottom).toBeLessThanOrEqual(size.height);
+        expect(b.left).toBeGreaterThanOrEqual(0);
+        expect(b.right).toBeLessThanOrEqual(size.width);
+      }
+      await page.keyboard.press('Escape');
+      await page.mouse.up();
+    }
+  });
+
+  test('the target frame has at least 3 to 1 contrast against its surroundings in light and dark mode (R28)', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 1100 });
+    for (const colorScheme of ['light', 'dark']) {
+      await page.emulateMedia({ colorScheme });
+      await seed(page);
+      await mouseDrag(page, row(page, 'Trả lời email'), 0, 20);
+      const at = async (loc) => { const b = await loc.boundingBox(); await page.mouse.move(b.x + b.width / 2, b.y + b.height / 2, { steps: 4 }); };
+      await at(toggle(page, 'Nhà'));
+      await expect(section(page, 'Nhà')).toHaveClass(/group--drop/);
+      const ratios = async (sel) => page.evaluate((sel) => {
+        // Any CSS colour to [r, g, b] in 0..255, painted over the layers below it, through a 1 px canvas.
+        const ctx = Object.assign(document.createElement('canvas'), { width: 1, height: 1 }).getContext('2d', { willReadFrequently: true });
+        const paint = (...layers) => {
+          ctx.clearRect(0, 0, 1, 1);
+          for (const c of layers) { ctx.fillStyle = '#000'; ctx.fillStyle = c; ctx.fillRect(0, 0, 1, 1); }
+          return [...ctx.getImageData(0, 0, 1, 1).data.slice(0, 3)];
+        };
+        const lum = (rgb) => { const [r, g, b] = rgb.map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
+        const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return (x + 0.05) / (y + 0.05); };
+        const paper = getComputedStyle(document.querySelector('.sheet')).backgroundColor;
+        if (sel === 'section') {
+          const st = getComputedStyle(document.querySelector('.group--drop'), '::before');
+          const ring = paint(paper, st.borderTopColor);
+          return { outside: ratio(ring, paint(paper)), inside: ratio(ring, paint(paper, st.backgroundColor)) };
+        }
+        const t = document.querySelector('.drop-target--over'), st = getComputedStyle(t);
+        const card = getComputedStyle(t.closest('.drop-strip')).backgroundColor;
+        const ring = paint(card, st.boxShadow.match(/^(rgba?\([^)]*\)|color\([^)]*\))/)[1]);
+        return { outside: ratio(ring, paint(card)), inside: ratio(ring, paint(card, st.backgroundColor)) };
+      }, sel);
+      const sec = await ratios('section');
+      await at(strip(page).locator('.drop-target').filter({ hasText: 'Sức khỏe' }));
+      await expect(page.locator('.drop-target--over')).toHaveCount(1);
+      const lab = await ratios('strip');
+      console.log(`T8 frame contrast ${colorScheme}: section ${JSON.stringify(sec)}, strip ${JSON.stringify(lab)}`);
+      for (const v of [sec.outside, sec.inside, lab.outside, lab.inside]) expect(v).toBeGreaterThanOrEqual(3);
+      await page.keyboard.press('Escape');
+      await page.mouse.up();
+    }
+  });
+
+  // The placeholder's Sửa and Xóa are invisible during a drag, so they must never take focus (WCAG 2.4.7).
+  for (const width of [1440, 390]) {
+    test(`during a drag at ${width} px, Tab never lands inside the placeholder`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 844 });
+      await seed(page);
+      const r = row(page, 'Trả lời email');
+      await r.getByRole('checkbox').focus(); // the next Tab stops would be the row's own Sửa and Xóa
+      await mouseDrag(page, r, 0, 12);
+      expect(await dragging(page)).toBe(true);
+      const inside = [];
+      for (let i = 0; i < 8; i++) {
+        await page.keyboard.press('Tab');
+        inside.push(await page.evaluate(() => !!document.activeElement?.closest('.task--placeholder')));
+      }
+      expect(await dragging(page)).toBe(true);
+      expect(inside).toEqual(Array(8).fill(false));
+      await page.keyboard.press('Escape');
+      await page.mouse.up();
+      await expect(leftovers(page)).toHaveCount(0);
+    });
+  }
+
+  test('the up cue chevron is turned by the stylesheet, not by script', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    const LONG = [...TASKS, ...Array.from({ length: 40 }, (_, i) => ({ ...task(`l${i}`, `Việc dài ${i + 1}`, false, undefined, 100 + i), groupId: 'cty' }))];
+    await seed(page, LONG);
+    await page.evaluate(() => scrollTo(0, document.documentElement.scrollHeight));
+    const r = rows(page).filter({ hasText: 'Việc dài 30' });
+    const { x } = await mouseDrag(page, r, 0, -20);
+    await page.mouse.move(x, 10, { steps: 6 });
+    const icon = page.locator('body > .drag-edge--up .icon');
+    await expect(icon).toBeAttached();
+    expect(await icon.evaluate((el) => [el.style.rotate, getComputedStyle(el).rotate])).toEqual(['', '180deg']);
+    await page.keyboard.press('Escape');
+    await page.mouse.up();
+  });
+
+  // Zero axe violations in every drag state, at 1440 and 390 px, light and dark (NFR5).
+  for (const width of [1440, 390]) {
+    for (const colorScheme of ['light', 'dark']) {
+      test(`axe: resting, lifted, hover section, hover strip, auto scroll and cancelled at ${width} px, ${colorScheme}`, async ({ page }) => {
+        test.setTimeout(90_000);
+        const height = width === 390 ? 844 : 900;
+        await page.setViewportSize({ width, height });
+        await page.emulateMedia({ colorScheme });
+        const LONG = [...TASKS, ...Array.from({ length: 120 }, (_, i) => ({ ...task(`l${i}`, `Việc dài ${i + 1}`, false, undefined, 100 + i), groupId: 'sk' }))];
+        await seed(page, LONG);
+        const found = {};
+        const scan = async (state) => {
+          const { violations } = await new AxeBuilder({ page }).analyze();
+          found[state] = violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).join(', ')}`);
+        };
+        await scan('resting');
+        const r = row(page, 'Trả lời email');
+        const { x } = await mouseDrag(page, r, 0, 12);
+        await strip(page).evaluate((el) => Promise.all(el.getAnimations().map((a) => a.finished)));
+        await scan('lifted');
+        const t = await toggle(page, 'Nhà').boundingBox();
+        await page.mouse.move(x, t.y + t.height / 2, { steps: 4 });
+        await expect(section(page, 'Nhà')).toHaveClass(/group--drop/);
+        await scan('hover section');
+        const s = await strip(page).locator('.drop-target').filter({ hasText: 'Sức khỏe' }).boundingBox();
+        await page.mouse.move(s.x + s.width / 2, s.y + s.height / 2, { steps: 4 });
+        await expect(page.locator('.drop-target--over')).toHaveCount(1);
+        await scan('hover strip');
+        const top = await strip(page).evaluate((el) => el.offsetTop);
+        await page.mouse.move(x, top - 20, { steps: 4 });
+        await expect(page.locator('body > .drag-edge--down')).toBeAttached();
+        await scan('auto scroll');
+        await page.keyboard.press('Escape');
+        await page.mouse.up();
+        await expect(page.locator('#sr-status')).toContainText('Đã hủy');
+        await scan('cancelled');
+        expect(found).toEqual({ resting: [], lifted: [], 'hover section': [], 'hover strip': [], 'auto scroll': [], cancelled: [] });
+      });
+    }
+  }
 });

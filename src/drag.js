@@ -170,14 +170,13 @@ export function createDrag({ list, template, groups, canStart, onStart, onEnd })
     if (scrolled) frame = requestAnimationFrame(follow);
   }
 
-  // The cue band: under the screen top, or right on the strip's top edge. The template's chevron points down.
+  // The cue band: under the screen top, or right on the strip's top edge. The stylesheet turns the chevron up.
   function cue(v) {
     const { edge } = s;
     if (!v) return edge.remove();
     edge.classList.toggle("drag-edge--up", v < 0);
     edge.classList.toggle("drag-edge--down", v > 0);
     edge.style.top = v > 0 ? `${s.stripTop - EDGE}px` : "";
-    edge.firstElementChild.style.rotate = v < 0 ? "180deg" : "";
     if (!edge.isConnected) document.body.append(edge);
   }
 

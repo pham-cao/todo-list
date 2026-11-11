@@ -891,7 +891,8 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
   border: 1.5px dashed var(--color-pencil); border-radius: var(--radius-control); pointer-events: none;
 }
 .task--placeholder > *, .task--placeholder .task__text { opacity: 0.38; }
-.task--placeholder .task__actions { visibility: hidden; }
+.task--placeholder .task__actions { visibility: hidden; } /* never focusable while invisible (WCAG 2.4.7) */
+.task--placeholder .task__swipe { overflow: hidden; } /* so the phone swipe region is no scroller with nothing to focus (axe scrollable-region-focusable) */
 
 /* The slip: a copy of the line, torn out of the page, following the pointer (position set by script, plain text only) */
 .drag-slip {
@@ -968,6 +969,7 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
 .drag-edge--down { background: linear-gradient(to top, color-mix(in srgb, var(--color-pen) 14%, transparent), transparent); }
 .drag-edge--up { top: 0; background: linear-gradient(to bottom, color-mix(in srgb, var(--color-pen) 14%, transparent), transparent); }
 .drag-edge .icon { width: 26px; height: 26px; stroke-width: 2.4; }
+.drag-edge--up .icon { rotate: 180deg; } /* the template's chevron points down */
 
 @media (prefers-reduced-motion: reduce) {
   .drag-slip { rotate: 0deg; animation: none; }
