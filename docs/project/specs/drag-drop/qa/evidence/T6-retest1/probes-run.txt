@@ -1,0 +1,67 @@
+Running 30 tests using 1 worker
+  ✓   1 [desktop] › probe.spec.js:32:3 › desktop › speed scales with depth (bottom and top) (7.2s)
+  ✘   2 [desktop] › probe.spec.js:48:3 › desktop › strip borders: zone edge, strip top, over strip, 1 px above the strip (3.5s)
+  ✓   3 [desktop] › probe.spec.js:63:3 › desktop › Escape, release, blur and hidden page stop the loop, no frames left (5.6s)
+  ✓   4 [desktop] › probe.spec.js:85:3 › desktop › top zone brings a section under a still pointer; wheel retargets (5.5s)
+  ✓   5 [desktop] › probe.spec.js:113:3 › desktop › wheel drives target, strict check against pointer x (2.1s)
+  ✓   6 [desktop] › probe.spec.js:131:3 › desktop › 200 tasks 20 groups: frame times and calls while scrolling (3.9s)
+  ✓   7 [desktop] › probe.spec.js:159:3 › desktop › short list cannot scroll (4.0s)
+  ✓   8 [desktop] › probe.spec.js:186:3 › desktop › reduced motion keeps auto scroll; cue has no animation (892ms)
+  ✓   9 [desktop] › probe.spec.js:199:3 › desktop › visual 1440 light and dark (4.2s)
+  -  10 [desktop] › probe.spec.js:220:3 › phone › touch auto scroll under the finger, stop on lift, no scroll lock leak
+  -  11 [desktop] › probe.spec.js:257:3 › phone › BUG-018: lift inside the bottom zone and the top zone does not run away; release is a cancel
+  -  12 [desktop] › probe.spec.js:280:3 › phone › 20 groups at 390: tall strip
+  -  13 [desktop] › probe.spec.js:306:3 › phone › visual 390 light and dark
+  -  14 [desktop] › probe.spec.js:327:3 › strip top by screen size › sweep
+  -  15 [desktop] › probe.spec.js:348:3 › retest BUG-020 finger on short viewports › finger over the strip never scrolls; split zones scroll
+  -  16 [mobile] › probe.spec.js:32:3 › desktop › speed scales with depth (bottom and top)
+  -  17 [mobile] › probe.spec.js:48:3 › desktop › strip borders: zone edge, strip top, over strip, 1 px above the strip
+  -  18 [mobile] › probe.spec.js:63:3 › desktop › Escape, release, blur and hidden page stop the loop, no frames left
+  -  19 [mobile] › probe.spec.js:85:3 › desktop › top zone brings a section under a still pointer; wheel retargets
+  -  20 [mobile] › probe.spec.js:113:3 › desktop › wheel drives target, strict check against pointer x
+  -  21 [mobile] › probe.spec.js:131:3 › desktop › 200 tasks 20 groups: frame times and calls while scrolling
+  -  22 [mobile] › probe.spec.js:159:3 › desktop › short list cannot scroll
+  -  23 [mobile] › probe.spec.js:186:3 › desktop › reduced motion keeps auto scroll; cue has no animation
+  -  24 [mobile] › probe.spec.js:199:3 › desktop › visual 1440 light and dark
+  ✓  25 [mobile] › probe.spec.js:220:3 › phone › touch auto scroll under the finger, stop on lift, no scroll lock leak (5.6s)
+  ✓  26 [mobile] › probe.spec.js:257:3 › phone › BUG-018: lift inside the bottom zone and the top zone does not run away; release is a cancel (3.4s)
+  ✓  27 [mobile] › probe.spec.js:280:3 › phone › 20 groups at 390: tall strip (5.3s)
+  ✓  28 [mobile] › probe.spec.js:306:3 › phone › visual 390 light and dark (9.2s)
+  ✓  29 [mobile] › probe.spec.js:327:3 › strip top by screen size › sweep (5.5s)
+at 360 640 overStripNearTop 90
+at 360 640 overStripLower 140
+at 360 640 upZone 20
+at 360 640 downZone 72
+  ✘  30 [mobile] › probe.spec.js:348:3 › retest BUG-020 finger on short viewports › finger over the strip never scrolls; split zones scroll (1.3m)
+  1) [desktop] › probe.spec.js:48:3 › desktop › strip borders: zone edge, strip top, over strip, 1 px above the strip 
+    Error: expect(received).toBe(expected) // Object.is equality
+    Expected: 0
+    Received: 18
+      57 |     expect(r.aboveZone.scrolled).toBe(0); expect(r.zoneEdge.scrolled).toBeGreaterThanOrEqual(0);
+      58 |     expect(r.inZone1.scrolled).toBeGreaterThan(0); expect(r.justAbove.scrolled).toBeGreaterThan(0);
+    > 59 |     expect(r.onEdge.scrolled).toBe(0); expect(r.onStrip.scrolled).toBe(0); expect(r.stripMid.scrolled).toBe(0);
+         |                               ^
+      60 |     await page.mouse.up();
+      61 |   });
+      62 |
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/p6/probe.spec.js:59:31
+    Error Context: test-results/probe-desktop-strip-border-bc8c3--strip-1-px-above-the-strip-desktop/error-context.md
+  2) [mobile] › probe.spec.js:348:3 › retest BUG-020 finger on short viewports › finger over the strip never scrolls; split zones scroll 
+    Test timeout of 80000ms exceeded.
+    Error: locator.evaluate: Test timeout of 80000ms exceeded.
+    Call log:
+      - waiting for getByRole('group', { name: 'Thả vào nhóm' })
+      359 |       const f = await finger(page);
+      360 |       await f.down(b.x + 40, b.y + b.height / 2); await page.waitForTimeout(450);
+    > 361 |       const top = await strip(page).evaluate((el) => Promise.all(el.getAnimations().map((a) => a.finished)).then(() => el.offsetTop));
+          |                                     ^
+      362 |       const o = { stripTop: top };
+      363 |       await f.move(180, 300, 3);
+      364 |       const at = async (y, label) => { console.log('at', w, h, label, y);
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/p6/probe.spec.js:361:37
+    Error Context: test-results/probe-retest-BUG-020-finge-397fa--scrolls-split-zones-scroll-mobile/error-context.md
+  2 failed
+    [desktop] › probe.spec.js:48:3 › desktop › strip borders: zone edge, strip top, over strip, 1 px above the strip 
+    [mobile] › probe.spec.js:348:3 › retest BUG-020 finger on short viewports › finger over the strip never scrolls; split zones scroll 
+  15 skipped
+  13 passed (2.5m)

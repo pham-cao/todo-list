@@ -1,0 +1,72 @@
+
+Running 12 tests using 2 workers
+
+  ✓   2 [desktop] › tests/e2e/drag.spec.js:453:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28) (1.2s)
+  ✓   1 [desktop] › tests/e2e/drag.spec.js:453:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28) (1.2s)
+  ✓   3 [desktop] › tests/e2e/drag.spec.js:453:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28) (1.0s)
+  ✓   4 [desktop] › tests/e2e/drag.spec.js:453:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28) (1.1s)
+  ✘   5 [desktop] › tests/e2e/drag.spec.js:453:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28) (6.1s)
+  ✘   6 [desktop] › tests/e2e/drag.spec.js:453:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28) (6.0s)
+  -   7 [mobile] › tests/e2e/drag.spec.js:453:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28)
+  -   8 [mobile] › tests/e2e/drag.spec.js:453:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28)
+  -   9 [mobile] › tests/e2e/drag.spec.js:453:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28)
+  -  10 [mobile] › tests/e2e/drag.spec.js:453:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28)
+  -  11 [mobile] › tests/e2e/drag.spec.js:453:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28)
+  -  12 [mobile] › tests/e2e/drag.spec.js:453:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28)
+
+
+  1) [desktop] › tests/e2e/drag.spec.js:453:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28) 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: locator('body > .drag-slip').locator('.drag-slip__to')
+    Expected: "Chưa phân nhóm"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveText" locator('body > .drag-slip').locator('.drag-slip__to') with timeout 5000ms
+      - waiting for locator('body > .drag-slip').locator('.drag-slip__to')
+
+
+      469 |     await expect(section(page, 'Chưa phân nhóm')).toHaveClass(/group--drop/);
+      470 |     await expect(nha).not.toHaveClass(/group--drop/);
+    > 471 |     await expect(to(page)).toHaveText('Chưa phân nhóm');
+          |                            ^
+      472 |     // The ink frame is drawn (R28).
+      473 |     const frame = await section(page, 'Chưa phân nhóm').evaluate((el) => getComputedStyle(el, '::before').borderTopWidth);
+      474 |     expect(frame).toBe('2px');
+        at /home/gem/src/todo_list/tests/e2e/drag.spec.js:471:28
+
+    Error Context: test-results/drag-drop-a-header-a-row-a-e8f62-ame-on-the-slip-R8-R11-R28--desktop-repeat4/error-context.md
+
+  2) [desktop] › tests/e2e/drag.spec.js:453:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28) 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: locator('body > .drag-slip').locator('.drag-slip__to')
+    Expected: "Chưa phân nhóm"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveText" locator('body > .drag-slip').locator('.drag-slip__to') with timeout 5000ms
+      - waiting for locator('body > .drag-slip').locator('.drag-slip__to')
+
+
+      469 |     await expect(section(page, 'Chưa phân nhóm')).toHaveClass(/group--drop/);
+      470 |     await expect(nha).not.toHaveClass(/group--drop/);
+    > 471 |     await expect(to(page)).toHaveText('Chưa phân nhóm');
+          |                            ^
+      472 |     // The ink frame is drawn (R28).
+      473 |     const frame = await section(page, 'Chưa phân nhóm').evaluate((el) => getComputedStyle(el, '::before').borderTopWidth);
+      474 |     expect(frame).toBe('2px');
+        at /home/gem/src/todo_list/tests/e2e/drag.spec.js:471:28
+
+    Error Context: test-results/drag-drop-a-header-a-row-a-e8f62-ame-on-the-slip-R8-R11-R28--desktop-repeat5/error-context.md
+
+  2 failed
+    [desktop] › tests/e2e/drag.spec.js:453:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28) 
+    [desktop] › tests/e2e/drag.spec.js:453:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28) 
+  6 skipped
+  4 passed (13.6s)

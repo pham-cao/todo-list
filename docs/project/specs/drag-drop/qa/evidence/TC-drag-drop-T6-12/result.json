@@ -1,0 +1,11 @@
+{
+  "cue": "drag-edge drag-edge--down",
+  "stripTopDuring": 692.025634765625,
+  "scrollByFingerMove": 0,
+  "afterEnd": {
+    "leftovers": 0,
+    "touchAction": "auto"
+  },
+  "scrollAfterDragByFinger": 529,
+  "noPreventIdle": false
+}

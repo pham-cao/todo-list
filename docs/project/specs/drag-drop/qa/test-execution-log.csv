@@ -131,3 +131,38 @@ date,task,tc_id,result,evidence,bug_id
 2026-11-11,T5,EXP-T5-retest-second-finger-hold-header-addform-row,pass,evidence/TC-drag-drop-BUG-018-retest/,BUG-018
 2026-11-11,T5,EXP-T5-retest-second-finger-after-drag-start,pass,evidence/TC-drag-drop-BUG-018-retest/,BUG-018
 2026-11-11,T5,EXP-T5-retest-regression-chromium-full-e2e-unit,pass,evidence/T5-regression/chromium-full-e2e-workers2-after-fix1.txt;evidence/T5-regression/unit-after-fix1.txt,
+2026-11-11,T6,TC-drag-drop-T6-01,pass,evidence/TC-drag-drop-T6-01/,
+2026-11-11,T6,TC-drag-drop-T6-02,pass,evidence/TC-drag-drop-T6-02/,
+2026-11-11,T6,TC-drag-drop-T6-03,pass,evidence/TC-drag-drop-T6-03/,
+2026-11-11,T6,TC-drag-drop-T6-04,pass,evidence/TC-drag-drop-T6-04/,
+2026-11-11,T6,TC-drag-drop-T6-05,pass,evidence/TC-drag-drop-T6-05/,
+2026-11-11,T6,TC-drag-drop-T6-06,pass,evidence/TC-drag-drop-T6-06/,BUG-020
+2026-11-11,T6,TC-drag-drop-T6-07,pass,evidence/TC-drag-drop-T6-07/;evidence/TC-drag-drop-EXP-T6-speed-depth/,
+2026-11-11,T6,TC-drag-drop-T6-08,pass,evidence/TC-drag-drop-T6-08/;evidence/TC-drag-drop-EXP-T6-speed-depth/,
+2026-11-11,T6,TC-drag-drop-T6-09,pass,evidence/TC-drag-drop-T6-09/;evidence/TC-drag-drop-EXP-T6-borders/,BUG-020
+2026-11-11,T6,TC-drag-drop-T6-10,pass,evidence/TC-drag-drop-T6-10/;evidence/TC-drag-drop-EXP-T6-stops/,
+2026-11-11,T6,TC-drag-drop-T6-11,pass,evidence/TC-drag-drop-T6-11/,BUG-019
+2026-11-11,T6,TC-drag-drop-T6-12,pass,evidence/TC-drag-drop-T6-12/;evidence/TC-drag-drop-EXP-T6-touch-lift-in-zone/,
+2026-11-11,T6,TC-drag-drop-T6-13,pass,evidence/TC-drag-drop-T6-13/;evidence/TC-drag-drop-EXP-T6-wheel/,
+2026-11-11,T6,TC-drag-drop-T6-14,pass,evidence/TC-drag-drop-T6-14/,
+2026-11-11,T6,TC-drag-drop-T6-15,pass,evidence/TC-drag-drop-T6-15/,
+2026-11-11,T6,TC-drag-drop-T6-16,pass,evidence/TC-drag-drop-T6-16/,
+2026-11-11,T6,EXP-T6-speed-depth,pass,evidence/TC-drag-drop-EXP-T6-speed-depth/,
+2026-11-11,T6,EXP-T6-strip-borders,pass,evidence/TC-drag-drop-EXP-T6-borders/,
+2026-11-11,T6,EXP-T6-stops-escape-release-blur-hidden-cancel,pass,evidence/TC-drag-drop-EXP-T6-stops/,
+2026-11-11,T6,EXP-T6-wheel-retarget,pass,evidence/TC-drag-drop-EXP-T6-wheel/,
+2026-11-11,T6,EXP-T6-200-tasks-no-qsa-rect-childlist,pass,evidence/TC-drag-drop-EXP-T6-200-tasks/,
+2026-11-11,T6,EXP-T6-short-list-cannot-scroll,pass,evidence/TC-drag-drop-EXP-T6-short-list/,
+2026-11-11,T6,EXP-T6-touch-lift-in-zone-no-runaway,pass,evidence/TC-drag-drop-EXP-T6-touch-lift-in-zone/,BUG-018
+2026-11-11,T6,EXP-T6-20-groups-390,pass,evidence/TC-drag-drop-EXP-T6-20-groups-390/,
+2026-11-11,T6,EXP-T6-tall-strip-small-screen,fail,evidence/TC-drag-drop-EXP-T6-tall-strip-small-screen/;evidence/TC-drag-drop-EXP-T6-strip-top-by-size/,BUG-020
+2026-11-11,T6,EXP-T6-regression-t4-header-row-test,fail,evidence/T6-regression/t4-header-row-test-repeat6.txt,BUG-019
+2026-11-11,T6,EXP-T6-regression-full-e2e-workers2,fail,"evidence/T6-regression/full-e2e-workers2.txt (668 passed, 1 failed, 69 skipped)",BUG-019
+2026-11-11,T6,EXP-T6-regression-unit,pass,evidence/T6-regression/unit.txt (74 of 74),
+2026-11-11,T6,EXP-T6-regression-drag-spec-desktop-repeat3,pass,evidence/T6-regression/drag-spec-desktop-repeat3.txt (105 passed),
+2026-11-11,T6,EXP-T6-a11y-axe,blocked,not run: @axe-core/playwright not installed (T8),
+2026-11-11,T6,EXP-T6-retest-bug020-finger-pixel7-short-viewports,pass,"evidence/TC-drag-drop-EXP-T6-retest-bug020-finger-short/;evidence/T6-retest1/finger-short-viewport-run.txt",BUG-020
+2026-11-11,T6,EXP-T6-retest-bug020-strip-top-by-size-and-borders-1440-390,pass,"evidence/TC-drag-drop-EXP-T6-strip-top-by-size/;evidence/TC-drag-drop-EXP-T6-borders/;evidence/T6-retest1/probes-run.txt",BUG-020
+2026-11-11,T6,EXP-T6-retest-bug019-t4-drop-tests-repeat5,pass,evidence/T6-retest1/t4-drop-tests-repeat5.txt (65 passed),BUG-019
+2026-11-11,T6,EXP-T6-retest-regression-full-e2e-workers2,pass,"evidence/T6-retest1/full-e2e-workers2.txt (670 passed, 70 skipped, 0 failed)",
+2026-11-11,T6,EXP-T6-retest-regression-unit,pass,evidence/T6-retest1/unit.txt (78 of 78),

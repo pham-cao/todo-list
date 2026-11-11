@@ -1,0 +1,153 @@
+
+Running 147 tests using 2 workers
+
+  ✓    2 [desktop] › tests/e2e/drag.spec.js:23:3 › mouse › a click on a row changes nothing and a tick still works (260ms)
+  ✓    1 [desktop] › tests/e2e/drag.spec.js:23:3 › mouse › a click on a row changes nothing and a tick still works (265ms)
+  ✓    4 [desktop] › tests/e2e/drag.spec.js:33:3 › mouse › about 6 px starts a drag: 4 px does not, 8 px does; pen too; a secondary button or second pointer never (516ms)
+  ✓    3 [desktop] › tests/e2e/drag.spec.js:33:3 › mouse › about 6 px starts a drag: 4 px does not, 8 px does; pen too; a secondary button or second pointer never (523ms)
+  ✓    6 [desktop] › tests/e2e/drag.spec.js:68:3 › mouse › a press on the tick box, Sửa, Xóa, a section toggle or an edit field never starts a drag (1.0s)
+  ✓    5 [desktop] › tests/e2e/drag.spec.js:68:3 › mouse › a press on the tick box, Sửa, Xóa, a section toggle or an edit field never starts a drag (1.0s)
+  ✓    8 [desktop] › tests/e2e/drag.spec.js:91:3 › mouse › no drag while a row is in edit, while the delete note is open, or with no group stored (478ms)
+  ✓    7 [desktop] › tests/e2e/drag.spec.js:91:3 › mouse › no drag while a row is in edit, while the delete note is open, or with no group stored (479ms)
+  ✓    9 [desktop] › tests/e2e/drag.spec.js:115:3 › mouse › no drag on a day with no group stored (R35) (294ms)
+  ✓   10 [desktop] › tests/e2e/drag.spec.js:115:3 › mouse › no drag on a day with no group stored (R35) (290ms)
+  ✓   11 [desktop] › tests/e2e/drag.spec.js:123:3 › mouse › no drag while an IME is composing; it works again after the composition ends (476ms)
+  ✓   12 [desktop] › tests/e2e/drag.spec.js:123:3 › mouse › no drag while an IME is composing; it works again after the composition ends (491ms)
+  ✓   14 [desktop] › tests/e2e/drag.spec.js:135:3 › mouse › lifted: placeholder, plain text slip, strip with every group in order and the own group faded (433ms)
+  ✓   13 [desktop] › tests/e2e/drag.spec.js:135:3 › mouse › lifted: placeholder, plain text slip, strip with every group in order and the own group faded (468ms)
+  ✓   15 [desktop] › tests/e2e/drag.spec.js:184:3 › mouse › a done task lifts as a done slip (298ms)
+  ✓   16 [desktop] › tests/e2e/drag.spec.js:184:3 › mouse › a done task lifts as a done slip (297ms)
+  ✓   17 [desktop] › tests/e2e/drag.spec.js:191:3 › mouse › at rest there is no strip, slip or new tab stop, before and after a drag (472ms)
+  ✓   18 [desktop] › tests/e2e/drag.spec.js:191:3 › mouse › at rest there is no strip, slip or new tab stop, before and after a drag (475ms)
+  ✓   20 [desktop] › tests/e2e/drag.spec.js:206:3 › mouse › Escape cancels: nothing written, focus back on Sửa, the cancel announced, and the Escape reaches nothing else (365ms)
+  ✓   19 [desktop] › tests/e2e/drag.spec.js:206:3 › mouse › Escape cancels: nothing written, focus back on Sửa, the cancel announced, and the Escape reaches nothing else (389ms)
+  ✓   21 [desktop] › tests/e2e/drag.spec.js:226:3 › mouse › a release anywhere cancels with nothing written; focus stays off the row when it was outside the list (415ms)
+  ✓   22 [desktop] › tests/e2e/drag.spec.js:226:3 › mouse › a release anywhere cancels with nothing written; focus stays off the row when it was outside the list (419ms)
+  ✓   23 [desktop] › tests/e2e/drag.spec.js:246:3 › mouse › reduced motion: the slip has no tilt and no lift animation (315ms)
+  ✓   24 [desktop] › tests/e2e/drag.spec.js:246:3 › mouse › reduced motion: the slip has no tilt and no lift animation (303ms)
+  ✓   25 [desktop] › tests/e2e/drag.spec.js:263:3 › mouse edge cases › 20 groups with a 30 character name: one target each, names whole, strip inside the screen at 1440 and 390 (576ms)
+  ✓   26 [desktop] › tests/e2e/drag.spec.js:263:3 › mouse edge cases › 20 groups with a 30 character name: one target each, names whole, strip inside the screen at 1440 and 390 (576ms)
+  ✓   27 [desktop] › tests/e2e/drag.spec.js:282:3 › mouse edge cases › the slip stays inside the screen when the pointer is at the right edge (BUG-016) (378ms)
+  ✓   28 [desktop] › tests/e2e/drag.spec.js:282:3 › mouse edge cases › the slip stays inside the screen when the pointer is at the right edge (BUG-016) (391ms)
+  ✓   29 [desktop] › tests/e2e/drag.spec.js:293:3 › mouse edge cases › the grab point stays under the pointer wherever the pointer goes (R27, BUG-016) (1.1s)
+  ✓   30 [desktop] › tests/e2e/drag.spec.js:293:3 › mouse edge cases › the grab point stays under the pointer wherever the pointer goes (R27, BUG-016) (1.1s)
+  ✓   32 [desktop] › tests/e2e/drag.spec.js:313:3 › mouse edge cases › 390 px: a 200 character task lifts and the page gets no sideways scroll (365ms)
+  ✓   31 [desktop] › tests/e2e/drag.spec.js:313:3 › mouse edge cases › 390 px: a 200 character task lifts and the page gets no sideways scroll (374ms)
+  ✓   34 [desktop] › tests/e2e/drag.spec.js:322:3 › mouse edge cases › a release on the own group or on nothing and Escape all leave all three keys byte for byte (988ms)
+  ✓   33 [desktop] › tests/e2e/drag.spec.js:322:3 › mouse edge cases › a release on the own group or on nothing and Escape all leave all three keys byte for byte (1.8s)
+  ✓   35 [desktop] › tests/e2e/drag.spec.js:339:3 › mouse edge cases › a drag under the filter, with a folded section, or with the new group line open cancels cleanly (862ms)
+  ✓   36 [desktop] › tests/e2e/drag.spec.js:339:3 › mouse edge cases › a drag under the filter, with a folded section, or with the new group line open cancels cleanly (864ms)
+  ✓   37 [desktop] › tests/e2e/drag.spec.js:374:3 › mouse edge cases › a second mouse button, a double click and very fast presses leave nothing behind (988ms)
+  ✓   38 [desktop] › tests/e2e/drag.spec.js:374:3 › mouse edge cases › a second mouse button, a double click and very fast presses leave nothing behind (1.0s)
+  ✓   39 [desktop] › tests/e2e/drag.spec.js:399:3 › mouse edge cases › following the pointer never rebuilds the list or reads every row (NFR1) (2.0s)
+  -   41 [desktop] › tests/e2e/drag.spec.js:416:1 › phone: an open swipe strip closes when its row is picked up
+  ✓   42 [desktop] › tests/e2e/drag.spec.js:453:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28) (663ms)
+  ✓   40 [desktop] › tests/e2e/drag.spec.js:399:3 › mouse edge cases › following the pointer never rebuilds the list or reads every row (NFR1) (2.0s)
+  -   44 [desktop] › tests/e2e/drag.spec.js:416:1 › phone: an open swipe strip closes when its row is picked up
+  ✓   45 [desktop] › tests/e2e/drag.spec.js:453:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28) (672ms)
+  ✓   43 [desktop] › tests/e2e/drag.spec.js:479:3 › drop › a strip label for a group with no task today is a target; the own section and the faded label are not (1.1s)
+  ✓   47 [desktop] › tests/e2e/drag.spec.js:510:3 › drop › a drop moves the task by creation time, one tasks write, counts updated, focus on Sửa, announced (R13, R23, R33, R36) (416ms)
+  ✓   46 [desktop] › tests/e2e/drag.spec.js:479:3 › drop › a strip label for a group with no task today is a target; the own section and the faded label are not (1.1s)
+  ✓   48 [desktop] › tests/e2e/drag.spec.js:535:3 › drop › a drop on a strip label of a group with no section creates the section (406ms)
+  ✓   49 [desktop] › tests/e2e/drag.spec.js:510:3 › drop › a drop moves the task by creation time, one tasks write, counts updated, focus on Sửa, announced (R13, R23, R33, R36) (434ms)
+  ✓   50 [desktop] › tests/e2e/drag.spec.js:546:3 › drop › a hovered folded section stays folded and opens on the drop, with the fold stored (R14) (770ms)
+  ✓   51 [desktop] › tests/e2e/drag.spec.js:535:3 › drop › a drop on a strip label of a group with no section creates the section (394ms)
+  ✓   52 [desktop] › tests/e2e/drag.spec.js:564:3 › drop › under the filter, a drop into a hidden group keeps the filter, shows the info slip and focuses the next row (R15) (469ms)
+  ✓   53 [desktop] › tests/e2e/drag.spec.js:546:3 › drop › a hovered folded section stays folded and opens on the drop, with the fold stored (R14) (770ms)
+  ✓   54 [desktop] › tests/e2e/drag.spec.js:578:5 › drop › a drop works on another day (2026-11-08) and keeps the date (R16) (393ms)
+  ✓   56 [desktop] › tests/e2e/drag.spec.js:578:5 › drop › a drop works on another day (2026-11-12) and keeps the date (R16) (386ms)
+  ✓   55 [desktop] › tests/e2e/drag.spec.js:564:3 › drop › under the filter, a drop into a hidden group keeps the filter, shows the info slip and focuses the next row (R15) (454ms)
+  ✓   58 [desktop] › tests/e2e/drag.spec.js:578:5 › drop › a drop works on another day (2026-11-08) and keeps the date (R16) (399ms)
+  ✓   57 [desktop] › tests/e2e/drag.spec.js:588:3 › drop › a drop on Chưa phân nhóm removes groupId (420ms)
+  ✓   59 [desktop] › tests/e2e/drag.spec.js:578:5 › drop › a drop works on another day (2026-11-12) and keeps the date (R16) (392ms)
+  ✓   60 [desktop] › tests/e2e/drag.spec.js:598:3 › drop › a target group removed in storage before the release is a cancel (R21) (401ms)
+  ✓   61 [desktop] › tests/e2e/drag.spec.js:588:3 › drop › a drop on Chưa phân nhóm removes groupId (421ms)
+  ✓   62 [desktop] › tests/e2e/drag.spec.js:613:3 › drop › a failing tasks write keeps the move on screen and shows the storage slip (R34) (405ms)
+  ✓   63 [desktop] › tests/e2e/drag.spec.js:598:3 › drop › a target group removed in storage before the release is a cancel (R21) (398ms)
+  ✓   65 [desktop] › tests/e2e/drag.spec.js:613:3 › drop › a failing tasks write keeps the move on screen and shows the storage slip (R34) (388ms)
+  ✓   64 [desktop] › tests/e2e/drag.spec.js:654:3 › auto scroll › resting above the strip scrolls down with the down cue, the strip stays put, and it stops at the page end (2.8s)
+  ✓   66 [desktop] › tests/e2e/drag.spec.js:654:3 › auto scroll › resting above the strip scrolls down with the down cue, the strip stays put, and it stops at the page end (2.8s)
+  ✓   67 [desktop] › tests/e2e/drag.spec.js:682:3 › auto scroll › leaving the zone stops the scroll; near the top it scrolls up with the up cue and stops at the page top (1.6s)
+  ✓   68 [desktop] › tests/e2e/drag.spec.js:682:3 › auto scroll › leaving the zone stops the scroll; near the top it scrolls up with the up cue and stops at the page top (1.6s)
+  ✓   69 [desktop] › tests/e2e/drag.spec.js:704:3 › auto scroll › a pointer over the strip never scrolls, and every end stops a running scroll (1.6s)
+  ✓   70 [desktop] › tests/e2e/drag.spec.js:704:3 › auto scroll › a pointer over the strip never scrolls, and every end stops a running scroll (1.6s)
+  ✓   71 [desktop] › tests/e2e/drag.spec.js:733:3 › auto scroll › a section the scroll brings under a still pointer becomes the target, and a release drops there (2.5s)
+  -   73 [desktop] › tests/e2e/drag.spec.js:777:3 › touch › the line washes while the finger holds, lifts at 400 ms, and a lift over its own place changes nothing
+  -   74 [desktop] › tests/e2e/drag.spec.js:798:3 › touch › a long press then a move onto a strip label drops the task; the slip rides 60 px above the finger
+  -   75 [desktop] › tests/e2e/drag.spec.js:818:3 › touch › the page does not scroll while the finger moves during a drag (R32)
+  -   76 [desktop] › tests/e2e/drag.spec.js:836:3 › touch › a fast swipe left still opens Sửa and Xóa with no drag and no class left
+  -   77 [desktop] › tests/e2e/drag.spec.js:848:3 › touch › a fast vertical move scrolls the page with no drag
+  -   78 [desktop] › tests/e2e/drag.spec.js:863:3 › touch › a short tap behaves as today: nothing lifts, nothing is written, the tick box still ticks
+  -   79 [desktop] › tests/e2e/drag.spec.js:879:3 › touch › a long press on a row whose swipe is open closes the strip before the drag (R6)
+  -   80 [desktop] › tests/e2e/drag.spec.js:895:3 › touch › a long press opens no context menu and selects no text (R7)
+  -   81 [desktop] › tests/e2e/drag.spec.js:922:3 › touch › a long press on a row under the strip, lifted without moving, is a cancel (BUG-018)
+  -   82 [desktop] › tests/e2e/drag.spec.js:943:3 › touch › after a lift in place the targets come back once the finger moves past the slop
+  -   83 [desktop] › tests/e2e/drag.spec.js:953:3 › touch › a second finger during the hold cancels it, so a pinch never lifts a task; after the pick up it changes nothing
+  -   84 [desktop] › tests/e2e/drag.spec.js:981:3 › touch › a finger resting above the strip scrolls the page, but only after it leaves the lift point (R31, BUG-018)
+  -   85 [desktop] › tests/e2e/drag.spec.js:1024:5 › touch › 360 px › no sideways scroll while dragging, with the finger at either edge
+  ✓   72 [desktop] › tests/e2e/drag.spec.js:733:3 › auto scroll › a section the scroll brings under a still pointer becomes the target, and a release drops there (2.5s)
+  -   87 [desktop] › tests/e2e/drag.spec.js:777:3 › touch › the line washes while the finger holds, lifts at 400 ms, and a lift over its own place changes nothing
+  -   88 [desktop] › tests/e2e/drag.spec.js:798:3 › touch › a long press then a move onto a strip label drops the task; the slip rides 60 px above the finger
+  -   89 [desktop] › tests/e2e/drag.spec.js:818:3 › touch › the page does not scroll while the finger moves during a drag (R32)
+  -   90 [desktop] › tests/e2e/drag.spec.js:836:3 › touch › a fast swipe left still opens Sửa and Xóa with no drag and no class left
+  -   91 [desktop] › tests/e2e/drag.spec.js:848:3 › touch › a fast vertical move scrolls the page with no drag
+  -   92 [desktop] › tests/e2e/drag.spec.js:863:3 › touch › a short tap behaves as today: nothing lifts, nothing is written, the tick box still ticks
+  -   93 [desktop] › tests/e2e/drag.spec.js:879:3 › touch › a long press on a row whose swipe is open closes the strip before the drag (R6)
+  -   94 [desktop] › tests/e2e/drag.spec.js:895:3 › touch › a long press opens no context menu and selects no text (R7)
+  ✓   86 [desktop] › tests/e2e/drag.spec.js:23:3 › mouse › a click on a row changes nothing and a tick still works (240ms)
+  -   95 [desktop] › tests/e2e/drag.spec.js:922:3 › touch › a long press on a row under the strip, lifted without moving, is a cancel (BUG-018)
+  -   97 [desktop] › tests/e2e/drag.spec.js:943:3 › touch › after a lift in place the targets come back once the finger moves past the slop
+  -   98 [desktop] › tests/e2e/drag.spec.js:953:3 › touch › a second finger during the hold cancels it, so a pinch never lifts a task; after the pick up it changes nothing
+  -   99 [desktop] › tests/e2e/drag.spec.js:981:3 › touch › a finger resting above the strip scrolls the page, but only after it leaves the lift point (R31, BUG-018)
+  -  100 [desktop] › tests/e2e/drag.spec.js:1024:5 › touch › 360 px › no sideways scroll while dragging, with the finger at either edge
+  ✓   96 [desktop] › tests/e2e/drag.spec.js:33:3 › mouse › about 6 px starts a drag: 4 px does not, 8 px does; pen too; a secondary button or second pointer never (556ms)
+  ✓  101 [desktop] › tests/e2e/drag.spec.js:68:3 › mouse › a press on the tick box, Sửa, Xóa, a section toggle or an edit field never starts a drag (1.2s)
+  ✓  102 [desktop] › tests/e2e/drag.spec.js:91:3 › mouse › no drag while a row is in edit, while the delete note is open, or with no group stored (503ms)
+  ✓  103 [desktop] › tests/e2e/drag.spec.js:115:3 › mouse › no drag on a day with no group stored (R35) (300ms)
+  ✓  104 [desktop] › tests/e2e/drag.spec.js:123:3 › mouse › no drag while an IME is composing; it works again after the composition ends (468ms)
+  ✓  105 [desktop] › tests/e2e/drag.spec.js:135:3 › mouse › lifted: placeholder, plain text slip, strip with every group in order and the own group faded (440ms)
+  ✓  106 [desktop] › tests/e2e/drag.spec.js:184:3 › mouse › a done task lifts as a done slip (293ms)
+  ✓  107 [desktop] › tests/e2e/drag.spec.js:191:3 › mouse › at rest there is no strip, slip or new tab stop, before and after a drag (458ms)
+  ✓  108 [desktop] › tests/e2e/drag.spec.js:206:3 › mouse › Escape cancels: nothing written, focus back on Sửa, the cancel announced, and the Escape reaches nothing else (346ms)
+  ✓  109 [desktop] › tests/e2e/drag.spec.js:226:3 › mouse › a release anywhere cancels with nothing written; focus stays off the row when it was outside the list (386ms)
+  ✓  110 [desktop] › tests/e2e/drag.spec.js:246:3 › mouse › reduced motion: the slip has no tilt and no lift animation (283ms)
+  ✓  111 [desktop] › tests/e2e/drag.spec.js:263:3 › mouse edge cases › 20 groups with a 30 character name: one target each, names whole, strip inside the screen at 1440 and 390 (563ms)
+  ✓  112 [desktop] › tests/e2e/drag.spec.js:282:3 › mouse edge cases › the slip stays inside the screen when the pointer is at the right edge (BUG-016) (365ms)
+  ✓  113 [desktop] › tests/e2e/drag.spec.js:293:3 › mouse edge cases › the grab point stays under the pointer wherever the pointer goes (R27, BUG-016) (1.1s)
+  ✓  114 [desktop] › tests/e2e/drag.spec.js:313:3 › mouse edge cases › 390 px: a 200 character task lifts and the page gets no sideways scroll (368ms)
+  ✓  115 [desktop] › tests/e2e/drag.spec.js:322:3 › mouse edge cases › a release on the own group or on nothing and Escape all leave all three keys byte for byte (795ms)
+  ✓  116 [desktop] › tests/e2e/drag.spec.js:339:3 › mouse edge cases › a drag under the filter, with a folded section, or with the new group line open cancels cleanly (909ms)
+  ✓  117 [desktop] › tests/e2e/drag.spec.js:374:3 › mouse edge cases › a second mouse button, a double click and very fast presses leave nothing behind (1.3s)
+  ✓  118 [desktop] › tests/e2e/drag.spec.js:399:3 › mouse edge cases › following the pointer never rebuilds the list or reads every row (NFR1) (2.1s)
+  -  119 [desktop] › tests/e2e/drag.spec.js:416:1 › phone: an open swipe strip closes when its row is picked up
+  ✓  120 [desktop] › tests/e2e/drag.spec.js:453:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28) (652ms)
+  ✓  121 [desktop] › tests/e2e/drag.spec.js:479:3 › drop › a strip label for a group with no task today is a target; the own section and the faded label are not (1.2s)
+  ✓  122 [desktop] › tests/e2e/drag.spec.js:510:3 › drop › a drop moves the task by creation time, one tasks write, counts updated, focus on Sửa, announced (R13, R23, R33, R36) (425ms)
+  ✓  123 [desktop] › tests/e2e/drag.spec.js:535:3 › drop › a drop on a strip label of a group with no section creates the section (414ms)
+  ✓  124 [desktop] › tests/e2e/drag.spec.js:546:3 › drop › a hovered folded section stays folded and opens on the drop, with the fold stored (R14) (821ms)
+  ✓  125 [desktop] › tests/e2e/drag.spec.js:564:3 › drop › under the filter, a drop into a hidden group keeps the filter, shows the info slip and focuses the next row (R15) (504ms)
+  ✓  126 [desktop] › tests/e2e/drag.spec.js:578:5 › drop › a drop works on another day (2026-11-08) and keeps the date (R16) (525ms)
+  ✓  127 [desktop] › tests/e2e/drag.spec.js:578:5 › drop › a drop works on another day (2026-11-12) and keeps the date (R16) (443ms)
+  ✓  128 [desktop] › tests/e2e/drag.spec.js:588:3 › drop › a drop on Chưa phân nhóm removes groupId (402ms)
+  ✓  129 [desktop] › tests/e2e/drag.spec.js:598:3 › drop › a target group removed in storage before the release is a cancel (R21) (385ms)
+  ✓  130 [desktop] › tests/e2e/drag.spec.js:613:3 › drop › a failing tasks write keeps the move on screen and shows the storage slip (R34) (391ms)
+  ✓  131 [desktop] › tests/e2e/drag.spec.js:654:3 › auto scroll › resting above the strip scrolls down with the down cue, the strip stays put, and it stops at the page end (2.8s)
+  ✓  132 [desktop] › tests/e2e/drag.spec.js:682:3 › auto scroll › leaving the zone stops the scroll; near the top it scrolls up with the up cue and stops at the page top (1.7s)
+  ✓  133 [desktop] › tests/e2e/drag.spec.js:704:3 › auto scroll › a pointer over the strip never scrolls, and every end stops a running scroll (1.7s)
+  ✓  134 [desktop] › tests/e2e/drag.spec.js:733:3 › auto scroll › a section the scroll brings under a still pointer becomes the target, and a release drops there (2.7s)
+  -  135 [desktop] › tests/e2e/drag.spec.js:777:3 › touch › the line washes while the finger holds, lifts at 400 ms, and a lift over its own place changes nothing
+  -  136 [desktop] › tests/e2e/drag.spec.js:798:3 › touch › a long press then a move onto a strip label drops the task; the slip rides 60 px above the finger
+  -  137 [desktop] › tests/e2e/drag.spec.js:818:3 › touch › the page does not scroll while the finger moves during a drag (R32)
+  -  138 [desktop] › tests/e2e/drag.spec.js:836:3 › touch › a fast swipe left still opens Sửa and Xóa with no drag and no class left
+  -  139 [desktop] › tests/e2e/drag.spec.js:848:3 › touch › a fast vertical move scrolls the page with no drag
+  -  140 [desktop] › tests/e2e/drag.spec.js:863:3 › touch › a short tap behaves as today: nothing lifts, nothing is written, the tick box still ticks
+  -  141 [desktop] › tests/e2e/drag.spec.js:879:3 › touch › a long press on a row whose swipe is open closes the strip before the drag (R6)
+  -  142 [desktop] › tests/e2e/drag.spec.js:895:3 › touch › a long press opens no context menu and selects no text (R7)
+  -  143 [desktop] › tests/e2e/drag.spec.js:922:3 › touch › a long press on a row under the strip, lifted without moving, is a cancel (BUG-018)
+  -  144 [desktop] › tests/e2e/drag.spec.js:943:3 › touch › after a lift in place the targets come back once the finger moves past the slop
+  -  145 [desktop] › tests/e2e/drag.spec.js:953:3 › touch › a second finger during the hold cancels it, so a pinch never lifts a task; after the pick up it changes nothing
+  -  146 [desktop] › tests/e2e/drag.spec.js:981:3 › touch › a finger resting above the strip scrolls the page, but only after it leaves the lift point (R31, BUG-018)
+  -  147 [desktop] › tests/e2e/drag.spec.js:1024:5 › touch › 360 px › no sideways scroll while dragging, with the finger at either edge
+
+  42 skipped
+  105 passed (58.8s)

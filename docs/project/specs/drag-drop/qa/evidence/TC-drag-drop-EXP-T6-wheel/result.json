@@ -1,0 +1,38 @@
+[
+  {
+    "y": 350,
+    "over": null,
+    "under": "g0",
+    "slipTo": null
+  },
+  {
+    "y": 700,
+    "over": "g1",
+    "under": "g1",
+    "slipTo": "Nhóm 2"
+  },
+  {
+    "y": 1050,
+    "over": "g2",
+    "under": "g2",
+    "slipTo": "Nhóm 3"
+  },
+  {
+    "y": 1400,
+    "over": "g3",
+    "under": "g3",
+    "slipTo": "Nhóm 4"
+  },
+  {
+    "y": 1750,
+    "over": "g4",
+    "under": "g4",
+    "slipTo": "Nhóm 5"
+  },
+  {
+    "y": 550,
+    "over": "g1",
+    "under": "g1",
+    "slipTo": "Nhóm 2"
+  }
+]

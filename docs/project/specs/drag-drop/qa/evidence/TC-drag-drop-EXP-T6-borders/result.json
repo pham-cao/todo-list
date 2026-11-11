@@ -1,0 +1,40 @@
+{
+  "top": 818,
+  "r": {
+    "aboveZone": {
+      "y": 753,
+      "scrolled": 0,
+      "cue": 0
+    },
+    "zoneEdge": {
+      "y": 754,
+      "scrolled": 20,
+      "cue": 1
+    },
+    "inZone1": {
+      "y": 755,
+      "scrolled": 20,
+      "cue": 1
+    },
+    "justAbove": {
+      "y": 817,
+      "scrolled": 342,
+      "cue": 1
+    },
+    "onEdge": {
+      "y": 818,
+      "scrolled": 0,
+      "cue": 0
+    },
+    "onStrip": {
+      "y": 828,
+      "scrolled": 0,
+      "cue": 0
+    },
+    "stripMid": {
+      "y": 858,
+      "scrolled": 0,
+      "cue": 0
+    }
+  }
+}

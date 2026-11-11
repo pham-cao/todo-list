@@ -1,0 +1,22 @@
+{
+  "bottom": {
+    "y": 663.1875,
+    "top": 693,
+    "dragging": true,
+    "drift": 0,
+    "cue": 0,
+    "marked": 0,
+    "leftovers": 0,
+    "unchanged": true
+  },
+  "top": {
+    "y": 30.1875,
+    "top": 693,
+    "dragging": true,
+    "drift": 0,
+    "cue": 0,
+    "marked": 0,
+    "leftovers": 0,
+    "unchanged": true
+  }
+}

@@ -579,3 +579,11 @@ Also accepted: strip appended inside <main>; pointer captured on the slip, not t
 - A second finger during the 400 ms hold must cancel the hold, so that a pinch never lifts a task. FE will fix this in T5 after QA, together with a two-finger CDP test.
 - If the row is re-rendered during a touch drag, touch events go to the detached node and the scroll lock is lost. T7 covers this by cancelling the drag before any renderList.
 - BUG-018: a lifted task with no finger movement must not drop on whatever the strip puts under the finger. This is fixed in T5: after a touch pick up, hit testing stays off until the finger has moved more than the 10 px slop, so a release before then is a cancel.
+
+## 2026-11-11 drag-drop T6: review findings
+- scrollSpeed must return 0 over the strip even when a tall strip starts above 64 px. FE fixes this in T6 after QA, with a unit case for stripTop < 64.
+- The up chevron flip (`style.rotate` in drag.js) moves to design-system.css as `.drag-edge--up .icon { rotate: 180deg }` in T8, together with the placeholder CSS fix.
+- Auto scroll stays on under reduced motion. R30 covers only the tilt and the lift and return animations.
+- BUG-020 zone sharing: the strip wins, so the speed is 0 for y >= stripTop. When stripTop < 128, the two zones split the space above the strip evenly. The up zone is [0, min(64, stripTop/2)) and the down zone is [max(stripTop-64, stripTop/2), stripTop), each with full speed range across its own height. When stripTop <= 0 there is no zone.
+- BUG-019: the flaky T4 target test is fixed in test code by keeping hovered rows clear of the bottom zone. FE runs the T4 drop tests with --repeat-each=5 to confirm.
+- The bottom zone includes its first pixel, so the speed is 1 at stripTop - 64. This is accepted under R31's "about 64 px", and TC-drag-drop-T6-03 is read with that tolerance.

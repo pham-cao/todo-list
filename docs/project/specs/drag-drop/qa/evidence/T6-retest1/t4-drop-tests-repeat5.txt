@@ -1,0 +1,136 @@
+
+Running 130 tests using 2 workers
+
+  ✓    2 [desktop] › tests/e2e/drag.spec.js:455:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28) (869ms)
+  ✓    1 [desktop] › tests/e2e/drag.spec.js:455:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28) (903ms)
+  ✓    4 [desktop] › tests/e2e/drag.spec.js:481:3 › drop › a strip label for a group with no task today is a target; the own section and the faded label are not (1.6s)
+  ✓    3 [desktop] › tests/e2e/drag.spec.js:481:3 › drop › a strip label for a group with no task today is a target; the own section and the faded label are not (1.7s)
+  ✓    5 [desktop] › tests/e2e/drag.spec.js:512:3 › drop › a drop moves the task by creation time, one tasks write, counts updated, focus on Sửa, announced (R13, R23, R33, R36) (420ms)
+  ✓    6 [desktop] › tests/e2e/drag.spec.js:512:3 › drop › a drop moves the task by creation time, one tasks write, counts updated, focus on Sửa, announced (R13, R23, R33, R36) (437ms)
+  ✓    7 [desktop] › tests/e2e/drag.spec.js:537:3 › drop › a drop on a strip label of a group with no section creates the section (402ms)
+  ✓    8 [desktop] › tests/e2e/drag.spec.js:537:3 › drop › a drop on a strip label of a group with no section creates the section (407ms)
+  ✓    9 [desktop] › tests/e2e/drag.spec.js:548:3 › drop › a hovered folded section stays folded and opens on the drop, with the fold stored (R14) (890ms)
+  ✓   10 [desktop] › tests/e2e/drag.spec.js:548:3 › drop › a hovered folded section stays folded and opens on the drop, with the fold stored (R14) (940ms)
+  ✓   11 [desktop] › tests/e2e/drag.spec.js:566:3 › drop › under the filter, a drop into a hidden group keeps the filter, shows the info slip and focuses the next row (R15) (653ms)
+  ✓   12 [desktop] › tests/e2e/drag.spec.js:566:3 › drop › under the filter, a drop into a hidden group keeps the filter, shows the info slip and focuses the next row (R15) (544ms)
+  ✓   13 [desktop] › tests/e2e/drag.spec.js:580:5 › drop › a drop works on another day (2026-11-08) and keeps the date (R16) (538ms)
+  ✓   14 [desktop] › tests/e2e/drag.spec.js:580:5 › drop › a drop works on another day (2026-11-08) and keeps the date (R16) (479ms)
+  ✓   16 [desktop] › tests/e2e/drag.spec.js:580:5 › drop › a drop works on another day (2026-11-12) and keeps the date (R16) (616ms)
+  ✓   15 [desktop] › tests/e2e/drag.spec.js:580:5 › drop › a drop works on another day (2026-11-12) and keeps the date (R16) (627ms)
+  ✓   18 [desktop] › tests/e2e/drag.spec.js:590:3 › drop › a drop on Chưa phân nhóm removes groupId (528ms)
+  ✓   17 [desktop] › tests/e2e/drag.spec.js:590:3 › drop › a drop on Chưa phân nhóm removes groupId (540ms)
+  ✓   20 [desktop] › tests/e2e/drag.spec.js:600:3 › drop › a target group removed in storage before the release is a cancel (R21) (418ms)
+  ✓   19 [desktop] › tests/e2e/drag.spec.js:600:3 › drop › a target group removed in storage before the release is a cancel (R21) (422ms)
+  ✓   21 [desktop] › tests/e2e/drag.spec.js:615:3 › drop › a failing tasks write keeps the move on screen and shows the storage slip (R34) (417ms)
+  ✓   22 [desktop] › tests/e2e/drag.spec.js:615:3 › drop › a failing tasks write keeps the move on screen and shows the storage slip (R34) (416ms)
+  ✓   23 [desktop] › tests/e2e/drag.spec.js:760:3 › auto scroll › a section the scroll brings under a still pointer becomes the target, and a release drops there (2.5s)
+  -   25 [desktop] › tests/e2e/drag.spec.js:825:3 › touch › a long press then a move onto a strip label drops the task; the slip rides 60 px above the finger
+  ✓   24 [desktop] › tests/e2e/drag.spec.js:760:3 › auto scroll › a section the scroll brings under a still pointer becomes the target, and a release drops there (2.5s)
+  -   26 [desktop] › tests/e2e/drag.spec.js:825:3 › touch › a long press then a move onto a strip label drops the task; the slip rides 60 px above the finger
+  ✓   27 [desktop] › tests/e2e/drag.spec.js:455:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28) (803ms)
+  ✓   28 [desktop] › tests/e2e/drag.spec.js:455:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28) (728ms)
+  ✓   29 [desktop] › tests/e2e/drag.spec.js:481:3 › drop › a strip label for a group with no task today is a target; the own section and the faded label are not (1.2s)
+  ✓   30 [desktop] › tests/e2e/drag.spec.js:481:3 › drop › a strip label for a group with no task today is a target; the own section and the faded label are not (1.2s)
+  ✓   31 [desktop] › tests/e2e/drag.spec.js:512:3 › drop › a drop moves the task by creation time, one tasks write, counts updated, focus on Sửa, announced (R13, R23, R33, R36) (436ms)
+  ✓   32 [desktop] › tests/e2e/drag.spec.js:512:3 › drop › a drop moves the task by creation time, one tasks write, counts updated, focus on Sửa, announced (R13, R23, R33, R36) (447ms)
+  ✓   33 [desktop] › tests/e2e/drag.spec.js:537:3 › drop › a drop on a strip label of a group with no section creates the section (403ms)
+  ✓   34 [desktop] › tests/e2e/drag.spec.js:537:3 › drop › a drop on a strip label of a group with no section creates the section (395ms)
+  ✓   35 [desktop] › tests/e2e/drag.spec.js:548:3 › drop › a hovered folded section stays folded and opens on the drop, with the fold stored (R14) (863ms)
+  ✓   36 [desktop] › tests/e2e/drag.spec.js:548:3 › drop › a hovered folded section stays folded and opens on the drop, with the fold stored (R14) (843ms)
+  ✓   37 [desktop] › tests/e2e/drag.spec.js:566:3 › drop › under the filter, a drop into a hidden group keeps the filter, shows the info slip and focuses the next row (R15) (527ms)
+  ✓   38 [desktop] › tests/e2e/drag.spec.js:566:3 › drop › under the filter, a drop into a hidden group keeps the filter, shows the info slip and focuses the next row (R15) (497ms)
+  ✓   39 [desktop] › tests/e2e/drag.spec.js:580:5 › drop › a drop works on another day (2026-11-08) and keeps the date (R16) (421ms)
+  ✓   40 [desktop] › tests/e2e/drag.spec.js:580:5 › drop › a drop works on another day (2026-11-08) and keeps the date (R16) (404ms)
+  ✓   42 [desktop] › tests/e2e/drag.spec.js:580:5 › drop › a drop works on another day (2026-11-12) and keeps the date (R16) (413ms)
+  ✓   41 [desktop] › tests/e2e/drag.spec.js:580:5 › drop › a drop works on another day (2026-11-12) and keeps the date (R16) (432ms)
+  ✓   43 [desktop] › tests/e2e/drag.spec.js:590:3 › drop › a drop on Chưa phân nhóm removes groupId (433ms)
+  ✓   44 [desktop] › tests/e2e/drag.spec.js:590:3 › drop › a drop on Chưa phân nhóm removes groupId (436ms)
+  ✓   45 [desktop] › tests/e2e/drag.spec.js:600:3 › drop › a target group removed in storage before the release is a cancel (R21) (412ms)
+  ✓   46 [desktop] › tests/e2e/drag.spec.js:600:3 › drop › a target group removed in storage before the release is a cancel (R21) (413ms)
+  ✓   47 [desktop] › tests/e2e/drag.spec.js:615:3 › drop › a failing tasks write keeps the move on screen and shows the storage slip (R34) (415ms)
+  ✓   48 [desktop] › tests/e2e/drag.spec.js:615:3 › drop › a failing tasks write keeps the move on screen and shows the storage slip (R34) (419ms)
+  ✓   49 [desktop] › tests/e2e/drag.spec.js:760:3 › auto scroll › a section the scroll brings under a still pointer becomes the target, and a release drops there (2.5s)
+  -   51 [desktop] › tests/e2e/drag.spec.js:825:3 › touch › a long press then a move onto a strip label drops the task; the slip rides 60 px above the finger
+  ✓   50 [desktop] › tests/e2e/drag.spec.js:760:3 › auto scroll › a section the scroll brings under a still pointer becomes the target, and a release drops there (2.5s)
+  -   52 [desktop] › tests/e2e/drag.spec.js:825:3 › touch › a long press then a move onto a strip label drops the task; the slip rides 60 px above the finger
+  -   54 [mobile] › tests/e2e/drag.spec.js:455:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28)
+  -   55 [mobile] › tests/e2e/drag.spec.js:481:3 › drop › a strip label for a group with no task today is a target; the own section and the faded label are not
+  -   56 [mobile] › tests/e2e/drag.spec.js:512:3 › drop › a drop moves the task by creation time, one tasks write, counts updated, focus on Sửa, announced (R13, R23, R33, R36)
+  -   57 [mobile] › tests/e2e/drag.spec.js:537:3 › drop › a drop on a strip label of a group with no section creates the section
+  -   58 [mobile] › tests/e2e/drag.spec.js:548:3 › drop › a hovered folded section stays folded and opens on the drop, with the fold stored (R14)
+  -   59 [mobile] › tests/e2e/drag.spec.js:566:3 › drop › under the filter, a drop into a hidden group keeps the filter, shows the info slip and focuses the next row (R15)
+  -   60 [mobile] › tests/e2e/drag.spec.js:580:5 › drop › a drop works on another day (2026-11-08) and keeps the date (R16)
+  -   61 [mobile] › tests/e2e/drag.spec.js:580:5 › drop › a drop works on another day (2026-11-12) and keeps the date (R16)
+  -   62 [mobile] › tests/e2e/drag.spec.js:590:3 › drop › a drop on Chưa phân nhóm removes groupId
+  -   63 [mobile] › tests/e2e/drag.spec.js:600:3 › drop › a target group removed in storage before the release is a cancel (R21)
+  -   64 [mobile] › tests/e2e/drag.spec.js:615:3 › drop › a failing tasks write keeps the move on screen and shows the storage slip (R34)
+  -   65 [mobile] › tests/e2e/drag.spec.js:760:3 › auto scroll › a section the scroll brings under a still pointer becomes the target, and a release drops there
+  ✓   53 [desktop] › tests/e2e/drag.spec.js:455:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28) (972ms)
+  ✓   66 [mobile] › tests/e2e/drag.spec.js:825:3 › touch › a long press then a move onto a strip label drops the task; the slip rides 60 px above the finger (1.3s)
+  -   68 [mobile] › tests/e2e/drag.spec.js:455:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28)
+  -   69 [mobile] › tests/e2e/drag.spec.js:481:3 › drop › a strip label for a group with no task today is a target; the own section and the faded label are not
+  -   70 [mobile] › tests/e2e/drag.spec.js:512:3 › drop › a drop moves the task by creation time, one tasks write, counts updated, focus on Sửa, announced (R13, R23, R33, R36)
+  -   71 [mobile] › tests/e2e/drag.spec.js:537:3 › drop › a drop on a strip label of a group with no section creates the section
+  -   72 [mobile] › tests/e2e/drag.spec.js:548:3 › drop › a hovered folded section stays folded and opens on the drop, with the fold stored (R14)
+  -   73 [mobile] › tests/e2e/drag.spec.js:566:3 › drop › under the filter, a drop into a hidden group keeps the filter, shows the info slip and focuses the next row (R15)
+  -   74 [mobile] › tests/e2e/drag.spec.js:580:5 › drop › a drop works on another day (2026-11-08) and keeps the date (R16)
+  -   75 [mobile] › tests/e2e/drag.spec.js:580:5 › drop › a drop works on another day (2026-11-12) and keeps the date (R16)
+  -   76 [mobile] › tests/e2e/drag.spec.js:590:3 › drop › a drop on Chưa phân nhóm removes groupId
+  -   77 [mobile] › tests/e2e/drag.spec.js:600:3 › drop › a target group removed in storage before the release is a cancel (R21)
+  -   78 [mobile] › tests/e2e/drag.spec.js:615:3 › drop › a failing tasks write keeps the move on screen and shows the storage slip (R34)
+  -   79 [mobile] › tests/e2e/drag.spec.js:760:3 › auto scroll › a section the scroll brings under a still pointer becomes the target, and a release drops there
+  ✓   67 [desktop] › tests/e2e/drag.spec.js:481:3 › drop › a strip label for a group with no task today is a target; the own section and the faded label are not (1.2s)
+  ✓   81 [desktop] › tests/e2e/drag.spec.js:512:3 › drop › a drop moves the task by creation time, one tasks write, counts updated, focus on Sửa, announced (R13, R23, R33, R36) (470ms)
+  ✓   82 [desktop] › tests/e2e/drag.spec.js:537:3 › drop › a drop on a strip label of a group with no section creates the section (404ms)
+  ✓   80 [mobile] › tests/e2e/drag.spec.js:825:3 › touch › a long press then a move onto a strip label drops the task; the slip rides 60 px above the finger (1.1s)
+  -   84 [mobile] › tests/e2e/drag.spec.js:455:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28)
+  ✓   83 [desktop] › tests/e2e/drag.spec.js:548:3 › drop › a hovered folded section stays folded and opens on the drop, with the fold stored (R14) (781ms)
+  -   85 [mobile] › tests/e2e/drag.spec.js:481:3 › drop › a strip label for a group with no task today is a target; the own section and the faded label are not
+  -   87 [mobile] › tests/e2e/drag.spec.js:512:3 › drop › a drop moves the task by creation time, one tasks write, counts updated, focus on Sửa, announced (R13, R23, R33, R36)
+  -   88 [mobile] › tests/e2e/drag.spec.js:537:3 › drop › a drop on a strip label of a group with no section creates the section
+  -   89 [mobile] › tests/e2e/drag.spec.js:548:3 › drop › a hovered folded section stays folded and opens on the drop, with the fold stored (R14)
+  -   90 [mobile] › tests/e2e/drag.spec.js:566:3 › drop › under the filter, a drop into a hidden group keeps the filter, shows the info slip and focuses the next row (R15)
+  -   91 [mobile] › tests/e2e/drag.spec.js:580:5 › drop › a drop works on another day (2026-11-08) and keeps the date (R16)
+  -   92 [mobile] › tests/e2e/drag.spec.js:580:5 › drop › a drop works on another day (2026-11-12) and keeps the date (R16)
+  -   93 [mobile] › tests/e2e/drag.spec.js:590:3 › drop › a drop on Chưa phân nhóm removes groupId
+  -   94 [mobile] › tests/e2e/drag.spec.js:600:3 › drop › a target group removed in storage before the release is a cancel (R21)
+  -   95 [mobile] › tests/e2e/drag.spec.js:615:3 › drop › a failing tasks write keeps the move on screen and shows the storage slip (R34)
+  -   96 [mobile] › tests/e2e/drag.spec.js:760:3 › auto scroll › a section the scroll brings under a still pointer becomes the target, and a release drops there
+  ✓   86 [desktop] › tests/e2e/drag.spec.js:566:3 › drop › under the filter, a drop into a hidden group keeps the filter, shows the info slip and focuses the next row (R15) (474ms)
+  ✓   98 [desktop] › tests/e2e/drag.spec.js:580:5 › drop › a drop works on another day (2026-11-08) and keeps the date (R16) (384ms)
+  ✓   99 [desktop] › tests/e2e/drag.spec.js:580:5 › drop › a drop works on another day (2026-11-12) and keeps the date (R16) (391ms)
+  ✓   97 [mobile] › tests/e2e/drag.spec.js:825:3 › touch › a long press then a move onto a strip label drops the task; the slip rides 60 px above the finger (1.1s)
+  ✓  100 [desktop] › tests/e2e/drag.spec.js:590:3 › drop › a drop on Chưa phân nhóm removes groupId (433ms)
+  -  102 [mobile] › tests/e2e/drag.spec.js:455:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28)
+  -  103 [mobile] › tests/e2e/drag.spec.js:481:3 › drop › a strip label for a group with no task today is a target; the own section and the faded label are not
+  -  104 [mobile] › tests/e2e/drag.spec.js:512:3 › drop › a drop moves the task by creation time, one tasks write, counts updated, focus on Sửa, announced (R13, R23, R33, R36)
+  -  105 [mobile] › tests/e2e/drag.spec.js:537:3 › drop › a drop on a strip label of a group with no section creates the section
+  -  106 [mobile] › tests/e2e/drag.spec.js:548:3 › drop › a hovered folded section stays folded and opens on the drop, with the fold stored (R14)
+  -  107 [mobile] › tests/e2e/drag.spec.js:566:3 › drop › under the filter, a drop into a hidden group keeps the filter, shows the info slip and focuses the next row (R15)
+  -  108 [mobile] › tests/e2e/drag.spec.js:580:5 › drop › a drop works on another day (2026-11-08) and keeps the date (R16)
+  -  109 [mobile] › tests/e2e/drag.spec.js:580:5 › drop › a drop works on another day (2026-11-12) and keeps the date (R16)
+  -  110 [mobile] › tests/e2e/drag.spec.js:590:3 › drop › a drop on Chưa phân nhóm removes groupId
+  -  111 [mobile] › tests/e2e/drag.spec.js:600:3 › drop › a target group removed in storage before the release is a cancel (R21)
+  -  112 [mobile] › tests/e2e/drag.spec.js:615:3 › drop › a failing tasks write keeps the move on screen and shows the storage slip (R34)
+  -  113 [mobile] › tests/e2e/drag.spec.js:760:3 › auto scroll › a section the scroll brings under a still pointer becomes the target, and a release drops there
+  ✓  101 [desktop] › tests/e2e/drag.spec.js:600:3 › drop › a target group removed in storage before the release is a cancel (R21) (418ms)
+  ✓  115 [desktop] › tests/e2e/drag.spec.js:615:3 › drop › a failing tasks write keeps the move on screen and shows the storage slip (R34) (505ms)
+  ✓  114 [mobile] › tests/e2e/drag.spec.js:825:3 › touch › a long press then a move onto a strip label drops the task; the slip rides 60 px above the finger (1.1s)
+  -  117 [mobile] › tests/e2e/drag.spec.js:455:3 › drop › a header, a row and the space inside a section are targets: frame and the name on the slip (R8, R11, R28)
+  -  118 [mobile] › tests/e2e/drag.spec.js:481:3 › drop › a strip label for a group with no task today is a target; the own section and the faded label are not
+  -  119 [mobile] › tests/e2e/drag.spec.js:512:3 › drop › a drop moves the task by creation time, one tasks write, counts updated, focus on Sửa, announced (R13, R23, R33, R36)
+  -  120 [mobile] › tests/e2e/drag.spec.js:537:3 › drop › a drop on a strip label of a group with no section creates the section
+  -  121 [mobile] › tests/e2e/drag.spec.js:548:3 › drop › a hovered folded section stays folded and opens on the drop, with the fold stored (R14)
+  -  122 [mobile] › tests/e2e/drag.spec.js:566:3 › drop › under the filter, a drop into a hidden group keeps the filter, shows the info slip and focuses the next row (R15)
+  -  123 [mobile] › tests/e2e/drag.spec.js:580:5 › drop › a drop works on another day (2026-11-08) and keeps the date (R16)
+  -  124 [mobile] › tests/e2e/drag.spec.js:580:5 › drop › a drop works on another day (2026-11-12) and keeps the date (R16)
+  -  125 [mobile] › tests/e2e/drag.spec.js:590:3 › drop › a drop on Chưa phân nhóm removes groupId
+  -  126 [mobile] › tests/e2e/drag.spec.js:600:3 › drop › a target group removed in storage before the release is a cancel (R21)
+  -  127 [mobile] › tests/e2e/drag.spec.js:615:3 › drop › a failing tasks write keeps the move on screen and shows the storage slip (R34)
+  -  128 [mobile] › tests/e2e/drag.spec.js:760:3 › auto scroll › a section the scroll brings under a still pointer becomes the target, and a release drops there
+  ✓  116 [desktop] › tests/e2e/drag.spec.js:760:3 › auto scroll › a section the scroll brings under a still pointer becomes the target, and a release drops there (2.7s)
+  -  130 [desktop] › tests/e2e/drag.spec.js:825:3 › touch › a long press then a move onto a strip label drops the task; the slip rides 60 px above the finger
+  ✓  129 [mobile] › tests/e2e/drag.spec.js:825:3 › touch › a long press then a move onto a strip label drops the task; the slip rides 60 px above the finger (1.3s)
+
+  65 skipped
+  65 passed (31.1s)
