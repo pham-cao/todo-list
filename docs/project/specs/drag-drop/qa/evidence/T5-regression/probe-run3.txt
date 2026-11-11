@@ -1,0 +1,139 @@
+
+Running 18 tests using 1 worker
+
+  ✓   1 [pixel7] › probe.spec.js:75:1 › EXP-T5-scroll-swipe-early vertical scroll and horizontal swipe started before 400 ms, also late at 300 ms (8.0s)
+  ✘   2 [pixel7] › probe.spec.js:233:1 › EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity (6.8s)
+  ✓   3 [pixel7] › probe.spec.js:288:1 › EXP-T5-strip-stays strip stays in place while dragging; page height unchanged (3.3s)
+  ✓   4 [pixel7] › probe.spec.js:75:1 › EXP-T5-scroll-swipe-early vertical scroll and horizontal swipe started before 400 ms, also late at 300 ms (8.1s)
+  ✘   5 [pixel7] › probe.spec.js:233:1 › EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity (6.4s)
+  ✓   6 [pixel7] › probe.spec.js:288:1 › EXP-T5-strip-stays strip stays in place while dragging; page height unchanged (3.4s)
+  ✓   7 [p360] › probe.spec.js:75:1 › EXP-T5-scroll-swipe-early vertical scroll and horizontal swipe started before 400 ms, also late at 300 ms (7.7s)
+  ✘   8 [p360] › probe.spec.js:233:1 › EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity (2.8s)
+  ✓   9 [p360] › probe.spec.js:288:1 › EXP-T5-strip-stays strip stays in place while dragging; page height unchanged (3.6s)
+  ✓  10 [p360] › probe.spec.js:75:1 › EXP-T5-scroll-swipe-early vertical scroll and horizontal swipe started before 400 ms, also late at 300 ms (8.1s)
+  ✘  11 [p360] › probe.spec.js:233:1 › EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity (2.7s)
+  ✓  12 [p360] › probe.spec.js:288:1 › EXP-T5-strip-stays strip stays in place while dragging; page height unchanged (3.2s)
+  ✓  13 [p390dark] › probe.spec.js:75:1 › EXP-T5-scroll-swipe-early vertical scroll and horizontal swipe started before 400 ms, also late at 300 ms (7.8s)
+  ✘  14 [p390dark] › probe.spec.js:233:1 › EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity (6.5s)
+  ✓  15 [p390dark] › probe.spec.js:288:1 › EXP-T5-strip-stays strip stays in place while dragging; page height unchanged (3.2s)
+  ✓  16 [p390dark] › probe.spec.js:75:1 › EXP-T5-scroll-swipe-early vertical scroll and horizontal swipe started before 400 ms, also late at 300 ms (8.0s)
+  ✘  17 [p390dark] › probe.spec.js:233:1 › EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity (7.3s)
+  ✓  18 [p390dark] › probe.spec.js:288:1 › EXP-T5-strip-stays strip stays in place while dragging; page height unchanged (3.7s)
+
+
+  1) [pixel7] › probe.spec.js:233:1 › EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 2
+    Received: 3
+
+      264 |   const pre = await page.evaluate(() => localStorage.getItem('daily-todo:tasks:v1'));
+      265 |   f = await lp(page, 'Cắt tóc', null); await page.waitForTimeout(300); note(ID, 'writes after in place lift', await writes()); note(ID, 'tasks changed by lift', pre !== await page.evaluate(() => localStorage.getItem('daily-todo:tasks:v1')));
+    > 266 |   expect(await writes()).toBe(2); expect(await lefts(page)).toBe(0);
+          |                          ^
+      267 |   note(ID, 'status after in place lift', await page.locator('#sr-status').textContent());
+      268 |   // 5 drop on own group = cancel
+      269 |   const cty = section(page, 'Công ty'); const cb = await cty.locator('.task').first().boundingBox();
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/probe/probe.spec.js:266:26
+
+    Error Context: out/probe-EXP-T5-drop-section--6d803-over-nothing-data-integrity-pixel7/error-context.md
+
+  2) [pixel7] › probe.spec.js:233:1 › EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 2
+    Received: 3
+
+      264 |   const pre = await page.evaluate(() => localStorage.getItem('daily-todo:tasks:v1'));
+      265 |   f = await lp(page, 'Cắt tóc', null); await page.waitForTimeout(300); note(ID, 'writes after in place lift', await writes()); note(ID, 'tasks changed by lift', pre !== await page.evaluate(() => localStorage.getItem('daily-todo:tasks:v1')));
+    > 266 |   expect(await writes()).toBe(2); expect(await lefts(page)).toBe(0);
+          |                          ^
+      267 |   note(ID, 'status after in place lift', await page.locator('#sr-status').textContent());
+      268 |   // 5 drop on own group = cancel
+      269 |   const cty = section(page, 'Công ty'); const cb = await cty.locator('.task').first().boundingBox();
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/probe/probe.spec.js:266:26
+
+    Error Context: out/probe-EXP-T5-drop-section--6d803-over-nothing-data-integrity-pixel7-repeat1/error-context.md
+
+  3) [p360] › probe.spec.js:233:1 › EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1
+    Received: 0
+
+      243 |   await page.screenshot({ path: EV + 'TC-drag-drop-EXP-T5-drop-section/over-section-' + test.info().project.name + '.png' }).catch(() => {});
+      244 |   await f.up(); await page.waitForTimeout(300);
+    > 245 |   note(ID, 'writes after section drop', await writes()); expect(await writes()).toBe(1);
+          |                                                                                 ^
+      246 |   expect((await storedJson(page, KEY)).find((t) => t.id === 'b').groupId).toBe('nha');
+      247 |   expect(await lefts(page)).toBe(0);
+      248 |   // 2 drop on strip label ungrouped
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/probe/probe.spec.js:245:81
+
+    Error Context: out/probe-EXP-T5-drop-section--6d803-over-nothing-data-integrity-p360/error-context.md
+
+  4) [p360] › probe.spec.js:233:1 › EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1
+    Received: 0
+
+      243 |   await page.screenshot({ path: EV + 'TC-drag-drop-EXP-T5-drop-section/over-section-' + test.info().project.name + '.png' }).catch(() => {});
+      244 |   await f.up(); await page.waitForTimeout(300);
+    > 245 |   note(ID, 'writes after section drop', await writes()); expect(await writes()).toBe(1);
+          |                                                                                 ^
+      246 |   expect((await storedJson(page, KEY)).find((t) => t.id === 'b').groupId).toBe('nha');
+      247 |   expect(await lefts(page)).toBe(0);
+      248 |   // 2 drop on strip label ungrouped
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/probe/probe.spec.js:245:81
+
+    Error Context: out/probe-EXP-T5-drop-section--6d803-over-nothing-data-integrity-p360-repeat1/error-context.md
+
+  5) [p390dark] › probe.spec.js:233:1 › EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 2
+    Received: 3
+
+      264 |   const pre = await page.evaluate(() => localStorage.getItem('daily-todo:tasks:v1'));
+      265 |   f = await lp(page, 'Cắt tóc', null); await page.waitForTimeout(300); note(ID, 'writes after in place lift', await writes()); note(ID, 'tasks changed by lift', pre !== await page.evaluate(() => localStorage.getItem('daily-todo:tasks:v1')));
+    > 266 |   expect(await writes()).toBe(2); expect(await lefts(page)).toBe(0);
+          |                          ^
+      267 |   note(ID, 'status after in place lift', await page.locator('#sr-status').textContent());
+      268 |   // 5 drop on own group = cancel
+      269 |   const cty = section(page, 'Công ty'); const cb = await cty.locator('.task').first().boundingBox();
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/probe/probe.spec.js:266:26
+
+    Error Context: out/probe-EXP-T5-drop-section--6d803-over-nothing-data-integrity-p390dark/error-context.md
+
+  6) [p390dark] › probe.spec.js:233:1 › EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 2
+    Received: 3
+
+      264 |   const pre = await page.evaluate(() => localStorage.getItem('daily-todo:tasks:v1'));
+      265 |   f = await lp(page, 'Cắt tóc', null); await page.waitForTimeout(300); note(ID, 'writes after in place lift', await writes()); note(ID, 'tasks changed by lift', pre !== await page.evaluate(() => localStorage.getItem('daily-todo:tasks:v1')));
+    > 266 |   expect(await writes()).toBe(2); expect(await lefts(page)).toBe(0);
+          |                          ^
+      267 |   note(ID, 'status after in place lift', await page.locator('#sr-status').textContent());
+      268 |   // 5 drop on own group = cancel
+      269 |   const cty = section(page, 'Công ty'); const cb = await cty.locator('.task').first().boundingBox();
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/probe/probe.spec.js:266:26
+
+    Error Context: out/probe-EXP-T5-drop-section--6d803-over-nothing-data-integrity-p390dark-repeat1/error-context.md
+
+  6 failed
+    [pixel7] › probe.spec.js:233:1 › EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity 
+    [pixel7] › probe.spec.js:233:1 › EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity 
+    [p360] › probe.spec.js:233:1 › EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity 
+    [p360] › probe.spec.js:233:1 › EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity 
+    [p390dark] › probe.spec.js:233:1 › EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity 
+    [p390dark] › probe.spec.js:233:1 › EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity 
+  12 passed (1.9m)

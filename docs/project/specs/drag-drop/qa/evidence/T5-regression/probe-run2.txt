@@ -1,0 +1,152 @@
+
+Running 48 tests using 1 worker
+
+  ✓   1 [pixel7] › probe.spec.js:33:1 › EXP-T5-hold-boundary hold 380 ms is a tap, 420 ms drags, first lift near 400 (3.1s)
+  ✓   2 [pixel7] › probe.spec.js:51:1 › EXP-T5-slop 9 px move during hold still drags, 11 px does not (5.7s)
+  ✓   3 [pixel7] › probe.spec.js:74:1 › EXP-T5-scroll-swipe-early vertical scroll and horizontal swipe started before 400 ms, also late at 300 ms (7.7s)
+  ✓   4 [pixel7] › probe.spec.js:102:1 › EXP-T5-open-swipe-press long press on a row whose swipe is open; drop and cancel do not reopen (4.9s)
+  ✓   5 [pixel7] › probe.spec.js:127:1 › EXP-T5-skip-targets long press on tick box, Sửa, Xóa, section toggle does not drag (4.0s)
+  ✓   6 [pixel7] › probe.spec.js:150:1 › EXP-T5-blocked-states long press while editing and with a dialog open (4.2s)
+  ✓   7 [pixel7] › probe.spec.js:177:1 › EXP-T5-add-field-focus long press with the add field focused does not scroll to top (2.0s)
+  ✓   8 [pixel7] › probe.spec.js:193:1 › EXP-T5-second-finger a second finger during hold and during drag (4.5s)
+  ✓   9 [pixel7] › probe.spec.js:220:1 › EXP-T5-no-menu-no-selection hold 1.5 s selects no text, no callout styles, contextmenu prevented (2.7s)
+  ✘  10 [pixel7] › probe.spec.js:232:1 › EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity (6.8s)
+  ✓  11 [pixel7] › probe.spec.js:272:1 › EXP-T5-speed no renderList and no row queries while moving (4.7s)
+  ✓  12 [pixel7] › probe.spec.js:286:1 › EXP-T5-strip-stays strip stays in place while dragging; page height unchanged (3.1s)
+  ✓  13 [pixel7] › probe.spec.js:296:1 › EXP-T5-reduced-motion pressing wash at once, no tilt (1.3s)
+  ✓  14 [pixel7] › probe.spec.js:307:1 › EXP-T5-sequence swipe, then long press drag, then swipe on another row; touchCancel early (3.9s)
+  ✓  15 [pixel7] › probe.spec.js:322:1 › EXP-T5-edges slip stays inside the screen at both edges and the top (2.3s)
+  ✓  16 [pixel7] › probe.spec.js:337:1 › EXP-T5-visual phone hold, drag and dropped states (5.7s)
+  ✓  17 [p360] › probe.spec.js:33:1 › EXP-T5-hold-boundary hold 380 ms is a tap, 420 ms drags, first lift near 400 (3.5s)
+  ✓  18 [p360] › probe.spec.js:51:1 › EXP-T5-slop 9 px move during hold still drags, 11 px does not (5.9s)
+  ✓  19 [p360] › probe.spec.js:74:1 › EXP-T5-scroll-swipe-early vertical scroll and horizontal swipe started before 400 ms, also late at 300 ms (7.8s)
+  ✓  20 [p360] › probe.spec.js:102:1 › EXP-T5-open-swipe-press long press on a row whose swipe is open; drop and cancel do not reopen (5.1s)
+  ✓  21 [p360] › probe.spec.js:127:1 › EXP-T5-skip-targets long press on tick box, Sửa, Xóa, section toggle does not drag (4.3s)
+  ✓  22 [p360] › probe.spec.js:150:1 › EXP-T5-blocked-states long press while editing and with a dialog open (4.7s)
+  ✓  23 [p360] › probe.spec.js:177:1 › EXP-T5-add-field-focus long press with the add field focused does not scroll to top (2.3s)
+  ✓  24 [p360] › probe.spec.js:193:1 › EXP-T5-second-finger a second finger during hold and during drag (4.8s)
+  ✓  25 [p360] › probe.spec.js:220:1 › EXP-T5-no-menu-no-selection hold 1.5 s selects no text, no callout styles, contextmenu prevented (2.8s)
+  ✘  26 [p360] › probe.spec.js:232:1 › EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity (3.1s)
+  ✓  27 [p360] › probe.spec.js:272:1 › EXP-T5-speed no renderList and no row queries while moving (5.4s)
+  ✘  28 [p360] › probe.spec.js:286:1 › EXP-T5-strip-stays strip stays in place while dragging; page height unchanged (30.9s)
+  ✓  29 [p360] › probe.spec.js:296:1 › EXP-T5-reduced-motion pressing wash at once, no tilt (1.7s)
+  ✓  30 [p360] › probe.spec.js:307:1 › EXP-T5-sequence swipe, then long press drag, then swipe on another row; touchCancel early (4.0s)
+  ✓  31 [p360] › probe.spec.js:322:1 › EXP-T5-edges slip stays inside the screen at both edges and the top (2.4s)
+  ✓  32 [p360] › probe.spec.js:337:1 › EXP-T5-visual phone hold, drag and dropped states (5.6s)
+  ✓  33 [p390dark] › probe.spec.js:33:1 › EXP-T5-hold-boundary hold 380 ms is a tap, 420 ms drags, first lift near 400 (3.5s)
+  ✓  34 [p390dark] › probe.spec.js:51:1 › EXP-T5-slop 9 px move during hold still drags, 11 px does not (6.2s)
+  ✘  35 [p390dark] › probe.spec.js:74:1 › EXP-T5-scroll-swipe-early vertical scroll and horizontal swipe started before 400 ms, also late at 300 ms (7.9s)
+  ✓  36 [p390dark] › probe.spec.js:102:1 › EXP-T5-open-swipe-press long press on a row whose swipe is open; drop and cancel do not reopen (5.0s)
+  ✓  37 [p390dark] › probe.spec.js:127:1 › EXP-T5-skip-targets long press on tick box, Sửa, Xóa, section toggle does not drag (4.3s)
+  ✓  38 [p390dark] › probe.spec.js:150:1 › EXP-T5-blocked-states long press while editing and with a dialog open (5.0s)
+  ✓  39 [p390dark] › probe.spec.js:177:1 › EXP-T5-add-field-focus long press with the add field focused does not scroll to top (2.5s)
+  ✓  40 [p390dark] › probe.spec.js:193:1 › EXP-T5-second-finger a second finger during hold and during drag (4.9s)
+  ✓  41 [p390dark] › probe.spec.js:220:1 › EXP-T5-no-menu-no-selection hold 1.5 s selects no text, no callout styles, contextmenu prevented (2.7s)
+  ✘  42 [p390dark] › probe.spec.js:232:1 › EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity (6.6s)
+  ✓  43 [p390dark] › probe.spec.js:272:1 › EXP-T5-speed no renderList and no row queries while moving (5.0s)
+  ✓  44 [p390dark] › probe.spec.js:286:1 › EXP-T5-strip-stays strip stays in place while dragging; page height unchanged (3.2s)
+  ✓  45 [p390dark] › probe.spec.js:296:1 › EXP-T5-reduced-motion pressing wash at once, no tilt (1.8s)
+  ✓  46 [p390dark] › probe.spec.js:307:1 › EXP-T5-sequence swipe, then long press drag, then swipe on another row; touchCancel early (4.3s)
+  ✓  47 [p390dark] › probe.spec.js:322:1 › EXP-T5-edges slip stays inside the screen at both edges and the top (2.6s)
+  ✓  48 [p390dark] › probe.spec.js:337:1 › EXP-T5-visual phone hold, drag and dropped states (5.3s)
+
+
+  1) [pixel7] › probe.spec.js:232:1 › EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 2
+    Received: 3
+
+      262 |   // 4 lift without moving
+      263 |   f = await longPressDrag(page, row(page, 'Cắt tóc'), null); await page.waitForTimeout(300); note(ID, 'writes after in place lift', await writes());
+    > 264 |   expect(await writes()).toBe(2); expect(await lefts(page)).toBe(0);
+          |                          ^
+      265 |   note(ID, 'status after in place lift', await page.locator('#sr-status').textContent());
+      266 |   // 5 drop on own group = cancel
+      267 |   const cty = section(page, 'Công ty'); const cb = await cty.locator('.task').first().boundingBox();
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/probe/probe.spec.js:264:26
+
+    Error Context: out/probe-EXP-T5-drop-section--6d803-over-nothing-data-integrity-pixel7/error-context.md
+
+  2) [p360] › probe.spec.js:232:1 › EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1
+    Received: 0
+
+      242 |   await page.screenshot({ path: EV + 'TC-drag-drop-EXP-T5-drop-section/over-section-' + test.info().project.name + '.png' }).catch(() => {});
+      243 |   await f.up(); await page.waitForTimeout(300);
+    > 244 |   note(ID, 'writes after section drop', await writes()); expect(await writes()).toBe(1);
+          |                                                                                 ^
+      245 |   expect((await storedJson(page, KEY)).find((t) => t.id === 'b').groupId).toBe('nha');
+      246 |   expect(await lefts(page)).toBe(0);
+      247 |   // 2 drop on strip label ungrouped
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/probe/probe.spec.js:244:81
+
+    Error Context: out/probe-EXP-T5-drop-section--6d803-over-nothing-data-integrity-p360/error-context.md
+
+  3) [p360] › probe.spec.js:286:1 › EXP-T5-strip-stays strip stays in place while dragging; page height unchanged 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.boundingBox: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for getByRole('group', { name: 'Thả vào nhóm' })
+
+
+      287 |   await seed(page, LONG);
+      288 |   const f = await longPressDrag(page, row(page, 'Việc dài 4'), null, { release: false });
+    > 289 |   await page.waitForTimeout(800); const s0 = await strip(page).boundingBox(); const sy = await page.evaluate(() => scrollY);
+          |                                                                ^
+      290 |   await f.move(100, 200, 10); await f.move(300, 500, 10);
+      291 |   const s1 = await strip(page).boundingBox();
+      292 |   note(ID, 'strip box before/after, scrollY', [s0, s1, sy, await page.evaluate(() => scrollY)]);
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/probe/probe.spec.js:289:64
+
+    Error Context: out/probe-EXP-T5-strip-stays-s-acb41-gging-page-height-unchanged-p360/error-context.md
+
+  4) [p390dark] › probe.spec.js:74:1 › EXP-T5-scroll-swipe-early vertical scroll and horizontal swipe started before 400 ms, also late at 300 ms 
+
+    Error: expect(received).toBeGreaterThan(expected)
+
+    Expected: > 100
+    Received:   0
+
+      93 |     await s('touchEnd', x0 - 200); await cdp.detach();
+      94 |     await page.waitForTimeout(700);
+    > 95 |     const sl = await swipe.evaluate((el) => el.scrollLeft); note(ID, `swipe wait ${wait}: scrollLeft`, sl); expect(sl).toBeGreaterThan(100);
+         |                                                                                                                        ^
+      96 |     expect(await lefts(page)).toBe(0);
+      97 |     await swipe.evaluate((el) => { el.scrollLeft = 0; }); await page.waitForTimeout(400);
+      98 |   }
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/probe/probe.spec.js:95:120
+
+    Error Context: out/probe-EXP-T5-scroll-swipe--1cb9f--400-ms-also-late-at-300-ms-p390dark/error-context.md
+
+  5) [p390dark] › probe.spec.js:232:1 › EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 2
+    Received: 3
+
+      262 |   // 4 lift without moving
+      263 |   f = await longPressDrag(page, row(page, 'Cắt tóc'), null); await page.waitForTimeout(300); note(ID, 'writes after in place lift', await writes());
+    > 264 |   expect(await writes()).toBe(2); expect(await lefts(page)).toBe(0);
+          |                          ^
+      265 |   note(ID, 'status after in place lift', await page.locator('#sr-status').textContent());
+      266 |   // 5 drop on own group = cancel
+      267 |   const cty = section(page, 'Công ty'); const cb = await cty.locator('.task').first().boundingBox();
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/probe/probe.spec.js:264:26
+
+    Error Context: out/probe-EXP-T5-drop-section--6d803-over-nothing-data-integrity-p390dark/error-context.md
+
+  5 failed
+    [pixel7] › probe.spec.js:232:1 › EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity 
+    [p360] › probe.spec.js:232:1 › EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity 
+    [p360] › probe.spec.js:286:1 › EXP-T5-strip-stays strip stays in place while dragging; page height unchanged 
+    [p390dark] › probe.spec.js:74:1 › EXP-T5-scroll-swipe-early vertical scroll and horizontal swipe started before 400 ms, also late at 300 ms 
+    [p390dark] › probe.spec.js:232:1 › EXP-T5-drop-section drop on a section, and on a strip label, cancel over nothing, data integrity 
+  43 passed (4.0m)

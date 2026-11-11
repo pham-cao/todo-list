@@ -1,0 +1,1 @@
+Not executable on this host: needs a real iPhone with Safari. Kept as a release manual check.

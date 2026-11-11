@@ -1,0 +1,1 @@
+Full suite --workers=2: 661 passed, 61 skipped, 0 failed (desktop + mobile). npm test: 69 of 69. app.spec.js and groups.spec.js touch tests pass with only the import changed.

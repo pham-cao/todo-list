@@ -98,3 +98,36 @@ date,task,tc_id,result,evidence,bug_id
 2026-11-10,T4,EXP-T4-firefox-drag-spec,fail,evidence/T4-regression/firefox-drag-spec.txt;evidence/T4-regression/firefox-offscreen-release-probe.spec.js,BUG-017
 2026-11-10,T4,EXP-T4-firefox-drag-spec,pass,evidence/TC-drag-drop-BUG-017-retest/,BUG-017
 2026-11-10,T4,EXP-T4-chromium-drag-spec,pass,evidence/TC-drag-drop-BUG-017-retest/,BUG-017
+2026-11-11,T5,TC-drag-drop-T5-01,pass,evidence/TC-drag-drop-T5-01/,
+2026-11-11,T5,TC-drag-drop-T5-02,pass,evidence/TC-drag-drop-T5-02/,
+2026-11-11,T5,TC-drag-drop-T5-03,pass,evidence/TC-drag-drop-T5-03/,
+2026-11-11,T5,TC-drag-drop-T5-04,pass,evidence/TC-drag-drop-T5-04/,
+2026-11-11,T5,TC-drag-drop-T5-05,pass,evidence/TC-drag-drop-T5-05/,
+2026-11-11,T5,TC-drag-drop-T5-06,pass,evidence/TC-drag-drop-T5-06/,
+2026-11-11,T5,TC-drag-drop-T5-07,pass,evidence/TC-drag-drop-T5-07/,
+2026-11-11,T5,TC-drag-drop-T5-08,pass,evidence/TC-drag-drop-T5-08/,
+2026-11-11,T5,TC-drag-drop-T5-09,pass,evidence/TC-drag-drop-T5-09/,
+2026-11-11,T5,TC-drag-drop-T5-10,pass,evidence/TC-drag-drop-T5-10/,
+2026-11-11,T5,TC-drag-drop-T5-11,pass,evidence/TC-drag-drop-T5-11/,
+2026-11-11,T5,TC-drag-drop-T5-12,pass,evidence/TC-drag-drop-T5-12/,
+2026-11-11,T5,TC-drag-drop-T5-13,pass,evidence/TC-drag-drop-T5-13/,
+2026-11-11,T5,TC-drag-drop-T5-14,pass,evidence/TC-drag-drop-T5-14/,
+2026-11-11,T5,TC-drag-drop-T5-15,fail,evidence/TC-drag-drop-T5-15/,BUG-018
+2026-11-11,T5,TC-drag-drop-T5-16,pass,evidence/TC-drag-drop-T5-16/,
+2026-11-11,T5,TC-drag-drop-T5-17,pass,evidence/TC-drag-drop-T5-17/,
+2026-11-11,T5,TC-drag-drop-T5-18,not executed,evidence/TC-drag-drop-T5-18/,
+2026-11-11,T5,TC-drag-drop-T5-19,not executed,evidence/TC-drag-drop-T5-19/,
+2026-11-11,T5,TC-drag-drop-T5-20,pass,evidence/TC-drag-drop-T5-20/,
+2026-11-11,T5,TC-drag-drop-T5-21,pass,evidence/TC-drag-drop-T5-21/,
+2026-11-11,T5,EXP-T5-regression-chromium-full-e2e,pass,evidence/T5-regression/chromium-full-e2e-workers2.txt;evidence/T5-regression/unit.txt,
+2026-11-11,T5,EXP-T5-flaky-groups-2536-repeat,pass,evidence/T5-regression/flaky-groups-2536-repeat10.txt;evidence/T5-regression/flaky-groups-2536-repeat30-workers4.txt,
+2026-11-11,T5,EXP-T5-edge-probes-pixel7-360-390dark,pass,evidence/T5-regression/probe-run5.txt;evidence/T5-regression/probe.spec.js,
+2026-11-11,T5,EXP-T5-add-field-focus,pass,evidence/TC-drag-drop-EXP-T5-add-field-focus/,
+2026-11-11,T5,EXP-T5-second-finger,pass,evidence/TC-drag-drop-EXP-T5-second-finger/,
+2026-11-11,T5,EXP-T5-speed-no-renderlist,pass,evidence/TC-drag-drop-EXP-T5-speed/,
+2026-11-11,T5,EXP-T5-row-under-strip-lift-in-place,fail,evidence/TC-drag-drop-BUG-018/,BUG-018
+2026-11-11,T5,TC-drag-drop-T5-15,pass,evidence/TC-drag-drop-BUG-018-retest/,BUG-018
+2026-11-11,T5,EXP-T5-retest-normal-drag-under-strip-drops,pass,evidence/TC-drag-drop-BUG-018-retest/,BUG-018
+2026-11-11,T5,EXP-T5-retest-second-finger-hold-header-addform-row,pass,evidence/TC-drag-drop-BUG-018-retest/,BUG-018
+2026-11-11,T5,EXP-T5-retest-second-finger-after-drag-start,pass,evidence/TC-drag-drop-BUG-018-retest/,BUG-018
+2026-11-11,T5,EXP-T5-retest-regression-chromium-full-e2e-unit,pass,evidence/T5-regression/chromium-full-e2e-workers2-after-fix1.txt;evidence/T5-regression/unit-after-fix1.txt,

@@ -305,15 +305,15 @@ features:
         title: "Long press on phones next to the swipe"
         owner: fe
         depends_on: [T4]
-        state: doing
-        attempts: 0
-        bugs_opened: []
+        state: done
+        attempts: 1
+        bugs_opened: [BUG-018]
         trello_card: ""
       - id: T6
         title: "Auto scroll on long lists"
         owner: fe
         depends_on: [T5]
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""

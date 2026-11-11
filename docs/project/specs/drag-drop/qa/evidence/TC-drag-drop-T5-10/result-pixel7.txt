@@ -1,0 +1,9 @@
+EXP-T5-skip-targets long press on tick box, Sửa, Xóa, section toggle does not drag
+project: pixel7
+status: passed
+tick box dragging: false
+tick box long press toggled to: true
+section toggle dragging: false
+Sửa dragging: false
+edit opened after long press on Sửa: 1
+pressing ever seen on skipped targets: true

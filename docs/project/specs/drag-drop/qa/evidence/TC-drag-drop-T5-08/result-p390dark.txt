@@ -1,0 +1,6 @@
+EXP-T5-open-swipe-press long press on a row whose swipe is open; drop and cancel do not reopen
+project: p390dark
+status: passed
+two open: [0,130]
+after drop: [0,0]
+after cancel: 0

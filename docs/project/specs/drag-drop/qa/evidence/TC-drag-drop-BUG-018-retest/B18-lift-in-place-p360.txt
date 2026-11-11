@@ -1,0 +1,5 @@
+B18-lift-in-place under the strip is a cancel
+passed
+finger y of 839: 622.375
+dragging, marked target: [true,0]
+status: "Đã hủy. Việc vẫn ở nhóm \"Chưa phân nhóm\"."

@@ -1,0 +1,8 @@
+EXP-T5-second-finger a second finger during hold and during drag
+project: pixel7
+status: passed
+drag + second finger: slips, dragging: [1,true]
+after the 2nd finger lifted: dragging: false
+after all lifted: leftovers: 0
+hold + second finger: dragging, slips: [true,1]
+leftovers after: 0

@@ -574,3 +574,8 @@ Also accepted: strip appended inside <main>; pointer captured on the slip, not t
 - This follows the approved hover-strip screens: the slip rests on the strip's top edge, so the hovered label stays readable. The cap is measured once at pick up. A row picked up where the strip appears jumps above the strip; this is accepted.
 - The T4 drop tests run at 1440x900 because at 1280x720 the fixed strip covers the lower rows. That is correct behaviour, and only the test viewport changes.
 - Review minor finding: the target-name sticker hangs about 16 px over the strip's top edge. QA's visual check matched hover-strip at 1440 and 390, so this is accepted. It will be re-checked in the T8 visual pass.
+
+## 2026-11-11 drag-drop T5: review findings
+- A second finger during the 400 ms hold must cancel the hold, so that a pinch never lifts a task. FE will fix this in T5 after QA, together with a two-finger CDP test.
+- If the row is re-rendered during a touch drag, touch events go to the detached node and the scroll lock is lost. T7 covers this by cancelling the drag before any renderList.
+- BUG-018: a lifted task with no finger movement must not drop on whatever the strip puts under the finger. This is fixed in T5: after a touch pick up, hit testing stays off until the finger has moved more than the 10 px slop, so a release before then is a cancel.

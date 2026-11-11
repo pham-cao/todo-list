@@ -1,0 +1,5 @@
+TC-drag-drop-T5-10
+Verified by: probe long press on tick box, section toggle, revealed Sửa
+Result: pass
+Runner output: evidence/T5-regression/t5-touch-tests-mobile-repeat3.txt (27 passed, 3 repeats of 9) and evidence/T5-regression/probe-run5.txt (48 passed, Pixel 7, 360 px, 390 px dark)
+Probe source: evidence/T5-regression/probe.spec.js
