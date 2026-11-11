@@ -1,0 +1,18 @@
+
+Running 10 tests using 1 worker
+
+T8 speed, 200 tasks: pick up 25.0,48.0,41.0 ms, drop 61.0,13.0,59.0 ms
+  ✓   1 [desktop] › tests/e2e/drag.spec.js:1318:3 › T8 › 200 tasks in 20 groups, settled: pick up and drop each under 100 ms, and following adds or removes no row (NFR1) (5.0s)
+  ✓   2 [desktop] › tests/e2e/drag.spec.js:1376:3 › T8 › every strip target is at least 44 by 44 px with its name whole, at 1440, 390 and 360 px (R29) (1.4s)
+T8 frame contrast light: section {"outside":10.711475015008546,"inside":9.491422056168828}, strip {"outside":11.086083333546341,"inside":9.788470792157042}
+T8 frame contrast dark: section {"outside":8.478923165906814,"inside":7.024894867656743}, strip {"outside":7.818005531446169,"inside":6.410464174230074}
+  ✓   3 [desktop] › tests/e2e/drag.spec.js:1402:3 › T8 › the target frame has at least 3 to 1 contrast against its surroundings in light and dark mode (R28) (876ms)
+  ✓   4 [desktop] › tests/e2e/drag.spec.js:1445:5 › T8 › during a drag at 1440 px, Tab never lands inside the placeholder (335ms)
+  ✓   5 [desktop] › tests/e2e/drag.spec.js:1445:5 › T8 › during a drag at 390 px, Tab never lands inside the placeholder (326ms)
+  ✓   6 [desktop] › tests/e2e/drag.spec.js:1465:3 › T8 › the up cue chevron is turned by the stylesheet, not by script (461ms)
+  ✓   7 [desktop] › tests/e2e/drag.spec.js:1483:7 › T8 › axe: resting, lifted, hover section, hover strip, auto scroll and cancelled at 1440 px, light (21.4s)
+  ✓   8 [desktop] › tests/e2e/drag.spec.js:1483:7 › T8 › axe: resting, lifted, hover section, hover strip, auto scroll and cancelled at 1440 px, dark (22.9s)
+  ✓   9 [desktop] › tests/e2e/drag.spec.js:1483:7 › T8 › axe: resting, lifted, hover section, hover strip, auto scroll and cancelled at 390 px, light (24.6s)
+  ✓  10 [desktop] › tests/e2e/drag.spec.js:1483:7 › T8 › axe: resting, lifted, hover section, hover strip, auto scroll and cancelled at 390 px, dark (23.7s)
+
+  10 passed (1.7m)

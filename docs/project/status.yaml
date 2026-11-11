@@ -329,15 +329,15 @@ features:
         title: "Speed, accessibility and regression checks"
         owner: fe
         depends_on: [T7]
-        state: doing
-        attempts: 0
-        bugs_opened: []
+        state: done
+        attempts: 1
+        bugs_opened: [BUG-024]
         trello_card: ""
       - id: T9
         title: "Release version 1.3.0"
         owner: be
         depends_on: [T8]
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""

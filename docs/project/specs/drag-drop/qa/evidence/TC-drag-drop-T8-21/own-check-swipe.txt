@@ -1,0 +1,9 @@
+desktop drag Tab: computed hidden,hidden ; sequence BUTTON > Đánh dấu hoàn thành > Sửa > Xóa > Sửa > Xóa > BUTTON > Đánh dấu hoàn thành > Sửa > Xóa
+rest: after checkbox Tab -> Sửa
+kb move result: Công ty=Gửi báo cáo/Họp nhóm ; Nhà=Trả lời email/Tiền điện live: Đã chuyển việc "Trả lời email" sang nhóm "Nhà". stored: nha
+mobile swipe Họp nhóm scrollLeft: 130
+actions width 130
+mobile lifted: true,hidden,hidden
+after cancel leftovers: 0
+mobile swipe Gửi báo cáo after drag scrollLeft: 130
+page scrolls: true

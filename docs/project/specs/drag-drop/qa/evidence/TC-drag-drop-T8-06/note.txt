@@ -1,0 +1,1 @@
+Pointer types: mouse (Playwright), pen and second pointer (synthetic PointerEvent, drag.spec "about 6 px starts a drag"), touch (CDP, drag.spec touch tests). src has no draggable attribute; document dragstart is only preventDefault. Result: ../T8/full-e2e-workers2.txt

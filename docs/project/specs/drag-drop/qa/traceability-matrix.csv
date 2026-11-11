@@ -41,7 +41,7 @@ NFR2,TC-drag-drop-T8-06,
 NFR3,TC-drag-drop-T8-14;TC-drag-drop-T9-01;TC-drag-drop-T9-02;TC-drag-drop-T9-03;TC-drag-drop-T9-04;TC-drag-drop-T9-05;TC-drag-drop-T9-06,
 NFR4,TC-drag-drop-T7-09;TC-drag-drop-T7-10;TC-drag-drop-T7-13;TC-drag-drop-T8-25,BUG-021
 NFR5,TC-drag-drop-T2-09;TC-drag-drop-T8-10,
-NFR6,TC-drag-drop-T5-18;TC-drag-drop-T5-19;TC-drag-drop-T8-16;TC-drag-drop-T8-17,
+NFR6,TC-drag-drop-T5-18;TC-drag-drop-T5-19;TC-drag-drop-T8-16;TC-drag-drop-T8-17,BUG-024
 NFR7,TC-drag-drop-T8-15,
 REG-collapse,TC-drag-drop-T8-18,
 REG-dialogs,TC-drag-drop-T8-20,

@@ -1,0 +1,42 @@
+  ✓   1 [desktop] › tests/e2e/app.spec.js:826:1 › 200 tasks render quickly and a tick updates in under 100 ms 
+  ✓   2 [desktop] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 0 tasks renders in under 100 ms 
+  ✓   3 [desktop] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 1 tasks renders in under 100 ms 
+  ✓   4 [desktop] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms 
+T8 speed, 200 tasks: pick up 15.0,10.0,10.0 ms, drop 13.0,13.0,16.0 ms
+  ✓   5 [desktop] › tests/e2e/drag.spec.js:1318:3 › T8 › 200 tasks in 20 groups, settled: pick up and drop each under 100 ms, and following adds or removes no row (NFR1) 
+  ✓   6 [desktop] › tests/e2e/groups.spec.js:302:1 › 200 tasks in 5 groups: render, collapse and tick each under 100 ms 
+  ✓   7 [desktop] › tests/e2e/groups.spec.js:634:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms 
+  ✓   8 [desktop] › tests/e2e/groups.spec.js:1018:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010) 
+  ✓   9 [desktop] › tests/e2e/groups.spec.js:1556:1 › 200 tasks in 20 groups: a filter change stays under 100 ms 
+  ✓  10 [desktop] › tests/e2e/groups.spec.js:2888:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms 
+  ✓  11 [desktop] › tests/e2e/groups.spec.js:3526:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+  11 passed 
+--- run 1
+  ✓   1 [desktop] › tests/e2e/app.spec.js:826:1 › 200 tasks render quickly and a tick updates in under 100 ms 
+  ✓   2 [desktop] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 0 tasks renders in under 100 ms 
+  ✓   3 [desktop] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 1 tasks renders in under 100 ms 
+  ✓   4 [desktop] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms 
+T8 speed, 200 tasks: pick up 15.0,15.0,10.0 ms, drop 13.0,19.0,18.0 ms
+  ✓   5 [desktop] › tests/e2e/drag.spec.js:1318:3 › T8 › 200 tasks in 20 groups, settled: pick up and drop each under 100 ms, and following adds or removes no row (NFR1) 
+  ✓   6 [desktop] › tests/e2e/groups.spec.js:302:1 › 200 tasks in 5 groups: render, collapse and tick each under 100 ms 
+  ✓   7 [desktop] › tests/e2e/groups.spec.js:634:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms 
+  ✓   8 [desktop] › tests/e2e/groups.spec.js:1018:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010) 
+  ✓   9 [desktop] › tests/e2e/groups.spec.js:1556:1 › 200 tasks in 20 groups: a filter change stays under 100 ms 
+  ✓  10 [desktop] › tests/e2e/groups.spec.js:2888:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms 
+  ✓  11 [desktop] › tests/e2e/groups.spec.js:3526:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+  11 passed 
+--- run 2
+  ✓   1 [desktop] › tests/e2e/app.spec.js:826:1 › 200 tasks render quickly and a tick updates in under 100 ms 
+  ✓   2 [desktop] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 0 tasks renders in under 100 ms 
+  ✓   3 [desktop] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 1 tasks renders in under 100 ms 
+  ✓   4 [desktop] › tests/e2e/day-nav.spec.js:868:3 › moving to a day with 200 tasks renders in under 100 ms 
+T8 speed, 200 tasks: pick up 14.0,13.0,10.0 ms, drop 15.0,13.0,13.0 ms
+  ✓   5 [desktop] › tests/e2e/drag.spec.js:1318:3 › T8 › 200 tasks in 20 groups, settled: pick up and drop each under 100 ms, and following adds or removes no row (NFR1) 
+  ✓   6 [desktop] › tests/e2e/groups.spec.js:302:1 › 200 tasks in 5 groups: render, collapse and tick each under 100 ms 
+  ✓   7 [desktop] › tests/e2e/groups.spec.js:634:1 › 200 tasks in 20 groups: an add to a group stays under 100 ms 
+  ✓   8 [desktop] › tests/e2e/groups.spec.js:1018:1 › 200 tasks in 20 groups: a move on a settled page stays under 100 ms (BUG-010) 
+  ✓   9 [desktop] › tests/e2e/groups.spec.js:1556:1 › 200 tasks in 20 groups: a filter change stays under 100 ms 
+  ✓  10 [desktop] › tests/e2e/groups.spec.js:2888:1 › 200 tasks of one group on 60 days: Chuyển việc on a settled page is one write and under 100 ms 
+  ✓  11 [desktop] › tests/e2e/groups.spec.js:3526:1 › 200 tasks in 20 groups on a settled page: add, move, collapse and filter each under 100 ms 
+  11 passed 
+--- run 3

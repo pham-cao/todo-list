@@ -600,3 +600,15 @@ Also accepted: strip appended inside <main>; pointer captured on the slip, not t
 - BUG-023: fix it. Escape during the 400 ms touch hold cancels the press, the same as blur and hidden.
 - A dialog that opens under a still finger ends the drag on the next move or release. This is accepted, because a dialog cannot open from a touch while a finger is holding a drag.
 - Storage events on the tasks and ui keys cancel the drag. This is confirmed as intended.
+
+## 2026-11-11 drag-drop T8
+- Swapping the placeholder's `visibility: hidden` for `opacity: 0` is not accepted as it stands. It lets invisible Sửa and Xóa take Tab focus during a drag, which breaks focus visible (WCAG 2.4.7). FE keeps the actions unfocusable, for example by keeping visibility hidden and making the placeholder's swipe region not scrollable (`overflow: hidden`), and keeps axe at zero.
+- No dialog cache: 37 µs per frame at 200 tasks is not worth the code.
+- The sticker overhang only covers the washi tape, so it is accepted.
+- Axe runs on Chromium only. Headless Firefox crashes now and then with axe, but not without it.
+- Firefox 200-task moves at 104 to 122 ms are the known task-groups residual. Main shows the same numbers, so this is accepted.
+- T8 Boundary exception: design-system.css and .md (the authorised placeholder and chevron fix), and package.json and package-lock.json (the @axe-core/playwright devDependency). The lockfile root moved from 0.1.0 to 1.2.0 only to match package.json.
+- The NFR1 test asserts the median of 3 runs, to guard against timing noise on the powersave host. This is accepted.
+- Release note for the PR: Safari and iOS could not be tested on this host. Check by hand on a real iPhone and in Safari that (1) a long press shows no callout or text selection menu and lifts the task after about 0.4 s, (2) the page does not scroll under the finger during a drag and scrolls normally after the drop or a cancel, and (3) a fast swipe left still opens Sửa and Xóa. In Firefox on a day with about 200 tasks, a move can sometimes take slightly over 100 ms on a busy computer.
+- BUG-024: fix it now. This is a test-only change: compare scrollY with a tolerance under 1 px, so the two T6 tests also pass in Firefox.
+- Two Firefox-only, load-dependent test failures are accepted as known risks: the BUG-020 short-screen strip test, and the 3-section count in the NFR1 drag test. QA's earlier Firefox run passed both, and the e2e suite officially runs on Chromium only. BUG-024 is verified by QA in report mode.

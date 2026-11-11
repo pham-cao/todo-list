@@ -1,0 +1,25 @@
+      771 |     await expect.poll(() => page.evaluate(() => window.marked)).toContain('nha');
+      772 |     await expect.poll(() => page.evaluate(() => window.marked)).toContain('none'); // Chưa phân nhóm, last on the page
+    > 773 |     await expect.poll(() => scrollY(page)).toBe(await end(page));
+          |                                            ^
+      774 |     // At the page end the sheet's bottom margin is under the pointer; a little higher is the last row, and a release
+      775 |     // there drops into Chưa phân nhóm.
+      776 |     await page.mouse.move(x, top - 60, { steps: 2 });
+        at /home/gem/src/todo_list/tests/e2e/drag.spec.js:773:44
+
+    Error Context: ../../../../tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/ff8-results/drag-auto-scroll-a-section-7584e-t-and-a-release-drops-there-firefox/error-context.md
+
+
+[firefox] › tests/e2e/drag.spec.js:1318:3 › T8 › 200 tasks in 20 groups, settled: pick up and drop each under 100 ms, and following adds or removes no row (NFR1)
+T8 speed, 200 tasks: pick up 27.0,21.0,21.0 ms, drop 28.0,33.0,30.0 ms
+
+[firefox] › tests/e2e/drag.spec.js:1402:3 › T8 › the target frame has at least 3 to 1 contrast against its surroundings in light and dark mode (R28)
+T8 frame contrast light: section {"outside":10.711475015008546,"inside":9.491422056168828}, strip {"outside":11.086083333546341,"inside":9.788470792157042}
+
+T8 frame contrast dark: section {"outside":8.478923165906814,"inside":7.024894867656743}, strip {"outside":7.818005531446169,"inside":6.410464174230074}
+
+  2 failed
+    [firefox] › tests/e2e/drag.spec.js:657:3 › auto scroll › resting above the strip scrolls down with the down cue, the strip stays put, and it stops at the page end 
+    [firefox] › tests/e2e/drag.spec.js:761:3 › auto scroll › a section the scroll brings under a still pointer becomes the target, and a release drops there 
+  24 skipped
+  54 passed (1.5m)
