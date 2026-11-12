@@ -33,7 +33,8 @@ export const section = (page, name) => sections(page).filter({ has: page.locator
 export const toggle = (page, name) => section(page, name).locator('.group__toggle');
 export const storedJson = async (page, key) => JSON.parse(await page.evaluate((k) => localStorage.getItem(k), key));
 
-export const rows = (page) => page.locator('.task-list > .task');
+// Scoped to the real list, so the copy of a page on a flip leaf never matches.
+export const rows = (page) => page.locator('#day-list .task-list > .task');
 export const labels = (page) => rows(page).locator('.task__label');
 export const progress = (page) => page.locator('.progress');
 export const box = (page, i) => rows(page).nth(i).getByRole('checkbox', { name: 'Đánh dấu hoàn thành' });
@@ -53,6 +54,46 @@ export async function tick(page, i, on) {
   if (on === undefined) return;
   await (on ? expect(box(page, i)).toBeChecked() : expect(box(page, i)).not.toBeChecked());
 }
+
+// Records every .flip-stage ever added and when it went, and every time the tape gets washi--restick, so a 450 ms
+// stage cannot slip between two checks. Times are performance.now() in the page.
+export async function watchFlips(page) {
+  await page.addInitScript(() => {
+    window.__flips = [];
+    window.__resticks = [];
+    window.__turnClass = false;
+    new MutationObserver((list) => {
+      for (const m of list) {
+        if (m.type === 'attributes') {
+          if (/\bturn--/.test(m.target.className)) window.__turnClass = true; // the superseded page turn
+          // A record holds the value before the change; the value after is the next record's oldValue, or the current one.
+          const later = list.slice(list.indexOf(m) + 1).find((r) => r.type === 'attributes' && r.target === m.target);
+          const was = /\bwashi--restick\b/.test(m.oldValue ?? '');
+          const on = /\bwashi--restick\b/.test(later ? later.oldValue ?? '' : m.target.className);
+          if (on !== was) window.__resticks.push({ on, t: performance.now() });
+          continue;
+        }
+        for (const n of m.addedNodes) {
+          if (!n.classList?.contains('flip-stage')) continue;
+          const leaves = [...n.querySelectorAll('.leaf')];
+          window.__flips.push({
+            node: n, added: performance.now(), removed: null, back: n.classList.contains('flip-stage--back'),
+            leaves: leaves.length, blank: leaves.filter((l) => l.classList.contains('leaf--blank')).length,
+            ariaHidden: n.getAttribute('aria-hidden'), inert: n.inert, ids: n.querySelectorAll('[id]').length,
+            text: leaves.find((l) => !l.classList.contains('leaf--blank'))?.querySelector('.leaf__content')?.textContent ?? '',
+          });
+        }
+        for (const n of m.removedNodes) {
+          const f = window.__flips.find((x) => x.node === n);
+          if (f) f.removed = performance.now();
+        }
+      }
+    }).observe(document, { subtree: true, childList: true, attributes: true, attributeFilter: ['class'], attributeOldValue: true });
+  });
+}
+// The flips recorded by watchFlips, without the DOM node.
+export const flipsSeen = (page) => page.evaluate(() => window.__flips.map(({ node, ...f }) => f));
+export const resticksSeen = (page) => page.evaluate(() => window.__resticks);
 
 // Move the fake clock past local midnight, then fire the event the app listens to.
 export async function passMidnight(page, event = 'visibilitychange', at = AFTER_MIDNIGHT) {

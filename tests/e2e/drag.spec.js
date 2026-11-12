@@ -96,7 +96,7 @@ test.describe('mouse', () => {
     expect(await dragging(page)).toBe(false);
     await page.mouse.up();
     await page.getByRole('button', { name: 'Hủy' }).click();
-    await expect(page.locator('.task--editing')).toHaveCount(0);
+    await expect(page.locator('#day-list .task--editing')).toHaveCount(0);
 
     await row(page, 'Cắt tóc').hover();
     await row(page, 'Cắt tóc').getByRole('button', { name: 'Xóa' }).click();

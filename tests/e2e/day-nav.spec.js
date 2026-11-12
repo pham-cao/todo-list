@@ -1,11 +1,11 @@
 import { test, expect } from '@playwright/test';
-import { TODAY, NOW, KEY, AFTER_MIDNIGHT, task, open, rows, labels, progress, hash, stored, storedRaw, addTask, tick, passMidnight } from './helpers.js';
+import { TODAY, NOW, KEY, AFTER_MIDNIGHT, task, open, rows, labels, progress, hash, stored, storedRaw, addTask, tick, passMidnight, watchFlips, flipsSeen, resticksSeen } from './helpers.js';
 
 const heading = (page) => page.getByRole('heading', { level: 1 });
 const dateLine = (page) => page.locator('#date-line');
 const input = (page) => page.locator('#new-task');
 const toToday = (page) => page.getByRole('button', { name: 'Về hôm nay' });
-const emptyText = (page) => page.locator('.empty__text');
+const emptyText = (page) => page.locator('#empty-text');
 
 const SEED = [
   task('y1', 'Dọn tủ quần áo', true, '2026-11-08', 1),
@@ -70,7 +70,7 @@ test('an empty future day and an empty past day show their own empty text', asyn
     title: 'Việc cần làm', line: 'Thứ Năm, 05/11/2026', ask: 'Bạn cần làm gì ngày này?',
     empty: 'Ngày này chưa có việc nào được ghi lại.',
   });
-  await expect(page.locator('.empty')).toBeVisible();
+  await expect(page.locator('#empty')).toBeVisible();
 });
 
 test('today keeps its own wording on the plain address', async ({ page }) => {
@@ -294,11 +294,11 @@ test('moves cross year end and the leap day', async ({ page }) => {
 test('a move drops an open edit without saving it', async ({ page }) => {
   await open(page, SEED, '#2026-11-08');
   await rows(page).nth(0).getByRole('button', { name: 'Sửa' }).click();
-  await page.locator('.task__edit .input').fill('đã sửa');
+  await page.locator('#day-list .task__edit .input').fill('đã sửa');
   await next(page).click();
-  await expect(page.locator('.task__edit')).toHaveCount(0);
+  await expect(page.locator('#day-list .task__edit')).toHaveCount(0);
   await prev(page).click();
-  await expect(page.locator('.task__edit')).toHaveCount(0);
+  await expect(page.locator('#day-list .task__edit')).toHaveCount(0);
   await expect(rows(page).nth(0).locator('.task__label')).toHaveText('Dọn tủ quần áo');
   expect((await stored(page)).find((t) => t.id === 'y1').text).toBe('Dọn tủ quần áo');
 });
@@ -344,7 +344,7 @@ test('a move leaves no row swiped open on a phone', async ({ page, isMobile }) =
   await expect(dateLine(page)).toHaveText('Ngày mai, Thứ Ba, 10/11/2026');
   await page.goBack();
   await expect(rows(page)).toHaveCount(2);
-  for (const s of await page.locator('.task__swipe').all()) expect(await s.evaluate((el) => el.scrollLeft)).toBe(0);
+  for (const s of await page.locator('#day-list .task__swipe').all()) expect(await s.evaluate((el) => el.scrollLeft)).toBe(0);
 });
 
 test('changing the hash on a loaded page shows that day, then today', async ({ page }) => {
@@ -561,7 +561,7 @@ test('adding on an empty future day replaces the empty text and saves that date'
   await open(page, SEED, '#2026-11-10');
   await input(page).fill('Chuẩn bị họp');
   await page.getByRole('button', { name: 'Thêm' }).click();
-  await expect(page.locator('.empty')).toBeHidden();
+  await expect(page.locator('#empty')).toBeHidden();
   await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 0/1 việc');
   expect((await stored(page)).at(-1)).toMatchObject({ text: 'Chuẩn bị họp', date: '2026-11-10' });
 });
@@ -576,8 +576,8 @@ test('tick, edit and delete on another day keep date and order and save', async 
   await expect(rows(page).nth(1).locator('.check input')).not.toBeChecked();
 
   await rows(page).nth(0).getByRole('button', { name: 'Sửa' }).click();
-  await page.locator('.task__edit .input').fill('Dọn tủ giày');
-  await page.locator('.task__edit .input').press('Enter');
+  await page.locator('#day-list .task__edit .input').fill('Dọn tủ giày');
+  await page.locator('#day-list .task__edit .input').press('Enter');
   await expect(labels(page)).toHaveText(['Dọn tủ giày', 'Gọi video cho bố mẹ', 'Nấu canh chua']);
 
   await rows(page).nth(1).getByRole('button', { name: 'Xóa' }).click();
@@ -627,7 +627,7 @@ test('after midnight, viewing tomorrow stays and becomes today with a muted Về
 test('after midnight, an older day stays with its open edit and plain wording', async ({ page }) => {
   await open(page, [task('o1', 'Trả sách thư viện', false, '2026-11-05')], '#2026-11-05');
   await rows(page).first().getByRole('button', { name: 'Sửa' }).click();
-  const field = page.locator('.task__edit .input');
+  const field = page.locator('#day-list .task__edit .input');
   await field.fill('Trả sách và mượn thêm');
   await passMidnight(page);
   await expect(dateLine(page)).toHaveText('Thứ Năm, 05/11/2026');
@@ -665,7 +665,7 @@ test('an add right after a silent midnight on another day saves to the viewed da
 });
 
 // T6 (QA additions): invalid text, stamp transitions, per day counts, storage slip, old data, midnight celebration.
-const addError = (page) => page.locator('.add-form .field-error');
+const addError = (page) => page.locator('#new-task-error');
 const slipOnPage = (page) => page.getByRole('alert').filter({ hasText: 'Không thể lưu dữ liệu trên trình duyệt này.' });
 
 test('on a past day an empty, blank or 201 character add shows the usual errors and stores nothing', async ({ page }) => {
@@ -683,10 +683,10 @@ test('on a past day an invalid edit keeps edit mode and the stored task', async 
   await open(page, SEED, '#2026-11-08');
   const before = await storedRaw(page);
   await rows(page).first().getByRole('button', { name: 'Sửa' }).click();
-  const field = page.locator('.task__edit .input');
+  const field = page.locator('#day-list .task__edit .input');
   await field.fill('a'.repeat(201));
   await field.press('Enter');
-  await expect(page.locator('.task__edit .field-error')).toHaveText('Nội dung tối đa 200 ký tự.');
+  await expect(page.locator('#day-list .task__edit .field-error')).toHaveText('Nội dung tối đa 200 ký tự.');
   await expect(field).toBeFocused();
   expect(await storedRaw(page)).toBe(before);
 });
@@ -754,75 +754,59 @@ test('data saved by the daily task log in its exact shape shows on its days with
 });
 
 test('after midnight on an all done day nothing celebrates again and no page turn plays', async ({ page }) => {
-  await watchTurns(page);
+  await watchFlips(page);
   await open(page, [task('a', 'Một', true, '2026-11-08')], '#2026-11-08');
   await passMidnight(page);
   await expect(dateLine(page)).toHaveText('Chủ Nhật, 08/11/2026');
   await expect(progress(page)).toHaveClass(/progress--complete/);
   await expect(progress(page)).not.toHaveClass(/progress--celebrate/);
-  await expect(page.locator('.turn--back, .turn--forward, .washi--restick')).toHaveCount(0);
-  expect(await turnsSeen(page)).toEqual([]);
+  await expect(page.locator('.flip-stage, .washi--restick')).toHaveCount(0);
+  expect(await flipsSeen(page)).toEqual([]);
+  expect(await resticksSeen(page)).toEqual([]);
 });
 
-// T7: page turn motion, keyboard order, size and speed
-// Records every turn or restick class ever set, so a 240 ms animation cannot slip between two checks.
-async function watchTurns(page) {
-  await page.addInitScript(() => {
-    window.__turns = [];
-    new MutationObserver((list) => {
-      for (const m of list) for (const c of m.target.classList) if (/^turn--|^washi--restick$/.test(c)) window.__turns.push(c);
-    }).observe(document, { subtree: true, attributes: true, attributeFilter: ['class'] });
-  });
-}
-const turnsSeen = (page) => page.evaluate(() => [...new Set(window.__turns)]);
-const sheetBody = (page) => page.locator('.sheet__body');
-// Clicks inside the page and reads the classes in the same task, before any animation can end.
-const clickAndRead = (page, id) => page.evaluate((id) => {
-  document.getElementById(id).click();
-  return [document.querySelector('.sheet__body').className, document.getElementById('date-line').className];
-}, id);
+// T7: page turn motion, keyboard order, size and speed. The turn is the page flip (page-flip): watchFlips records
+// every stage, so a 450 ms leaf cannot slip between two checks.
+const stages = (page) => page.locator('.flip-stage');
 
-test('a move turns the page by direction and the classes go after the animation', async ({ page }) => {
+test('a move flips a leaf by direction and the stage and tape class go after the animation', async ({ page }) => {
+  await watchFlips(page);
   await open(page, SEED);
-  let [body, date] = await clickAndRead(page, 'next-day');
-  expect(body.split(' ')).toContain('turn--forward');
-  expect(body).not.toContain('turn--back');
-  expect(date.split(' ')).toContain('washi--restick');
-  await expect(sheetBody(page)).not.toHaveClass(/turn--/);
+  await page.getByRole('button', { name: 'Xem ngày sau' }).click();
+  await expect(stages(page)).toHaveCount(0);
   await expect(dateLine(page)).not.toHaveClass(/washi--restick/);
-
-  [body, date] = await clickAndRead(page, 'prev-day');
-  expect(body.split(' ')).toContain('turn--back');
-  expect(body).not.toContain('turn--forward');
-  expect(date.split(' ')).toContain('washi--restick');
-  await expect(sheetBody(page)).not.toHaveClass(/turn--/);
+  await page.getByRole('button', { name: 'Xem ngày trước' }).click();
+  await expect(stages(page)).toHaveCount(0);
   await expect(dateLine(page)).not.toHaveClass(/washi--restick/);
-
-  // Browser Back is a move too: back from today to tomorrow turns forward.
+  // Browser Back is a move too: back from today to tomorrow flips forward.
   await page.goBack();
   await expect(dateLine(page)).toHaveText('Ngày mai, Thứ Ba, 10/11/2026');
-  await expect(sheetBody(page)).not.toHaveClass(/turn--/);
+  await expect(stages(page)).toHaveCount(0);
+  expect((await flipsSeen(page)).map((f) => f.back)).toEqual([false, true, false]);
+  expect((await resticksSeen(page)).filter((r) => r.on)).toHaveLength(3);
 });
 
-test('loading a day plays no page turn', async ({ page }) => {
-  await watchTurns(page);
+test('loading a day plays no page flip', async ({ page }) => {
+  await watchFlips(page);
   await open(page, SEED, '#2026-11-08');
   await expect(dateLine(page)).toHaveText('Hôm qua, Chủ Nhật, 08/11/2026');
   await page.reload();
   await expect(dateLine(page)).toHaveText('Hôm qua, Chủ Nhật, 08/11/2026');
-  expect(await turnsSeen(page)).toEqual([]);
+  expect(await flipsSeen(page)).toEqual([]);
+  expect(await resticksSeen(page)).toEqual([]);
 });
 
-test('with reduced motion a move changes the day and plays no page turn', async ({ page }) => {
+test('with reduced motion a move changes the day and plays no page flip', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await watchTurns(page);
+  await watchFlips(page);
   await open(page, SEED);
   await page.getByRole('button', { name: 'Xem ngày trước' }).click();
   await expect(dateLine(page)).toHaveText('Hôm qua, Chủ Nhật, 08/11/2026');
   await expect(rows(page)).toHaveCount(3);
   await page.getByRole('button', { name: 'Xem ngày sau' }).click();
   await expect(dateLine(page)).toHaveText('Hôm nay, Thứ Hai, 09/11/2026');
-  expect(await turnsSeen(page)).toEqual([]);
+  expect(await flipsSeen(page)).toEqual([]);
+  expect(await resticksSeen(page)).toEqual([]);
 });
 
 test('Tab from the page start reaches previous, next, Chọn ngày, Về hôm nay, then the add field', async ({ page }) => {
@@ -858,7 +842,7 @@ test('no horizontal scroll at 360 px on today and on a past day, with a long unb
   for (const hash of ['', '#2026-11-08']) {
     if (hash) await page.getByRole('button', { name: 'Xem ngày trước' }).click();
     await expect(rows(page)).toHaveCount(1);
-    await expect(sheetBody(page)).not.toHaveClass(/turn--/);
+    await expect(stages(page)).toHaveCount(0);
     const [scroll, client] = await page.evaluate(() => [document.documentElement.scrollWidth, document.documentElement.clientWidth]);
     expect(scroll, hash || 'today').toBeLessThanOrEqual(client);
   }

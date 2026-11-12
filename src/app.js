@@ -3,6 +3,7 @@ import { createStore, getStorage, isValid, STORAGE_KEY } from "./store.js?v=1.3.
 import { createGroups, nextColor, GROUPS_KEY, MAX_GROUPS, UNGROUPED, UNGROUPED_NAME } from "./groups.js?v=1.3.0";
 import { createManage, setFieldError, showFieldError, GROUP_ERRORS } from "./manage.js?v=1.3.0";
 import { createDrag } from "./drag.js?v=1.3.0";
+import { createFlip } from "./flip.js?v=1.3.0";
 
 const $ = (id) => document.getElementById(id);
 const els = {
@@ -78,6 +79,7 @@ function renderList() {
   // Every rebuild ends a running drag first, so it never runs over rows that move or go (R20, R21, T5 review).
   // A drop's own rebuild comes after the drag has ended, so this does nothing there.
   drag.cancel();
+  flip.end(); // and a page flip over the old rows (R37: add, delete, storage refresh, filter, midnight)
   const tasks = store.tasksFor(viewed);
   const focused = els.list.contains(document.activeElement) ? document.activeElement : null;
   // A section changes its header between toggle and plain heading, so a focused toggle is found again by its key.
@@ -242,6 +244,7 @@ const setAddError = (code) => setFieldError(els.input, els.addError, code);
 els.form.addEventListener("submit", (e) => {
   e.preventDefault();
   drag.cancel(); // an add during a drag ends it, also when the row is added in place without a rebuild (BUG-021)
+  flip.end(); // and an add during a flip ends it, also in place (decisions.md 2026-11-12, page-flip design)
   const now = new Date();
   checkDay(now);
   // R21 (a chosen group removed elsewhere) is covered by the storage listener, which resets addGroup.
@@ -683,6 +686,8 @@ const drag = createDrag({
   onStart: () => closeSwipes(),
   onEnd: dropOrCancel,
 });
+// Page flip (page-flip R1 to R12): a visual layer of leaves over the sheet on a day change only.
+const flip = createFlip({ sheet: document.querySelector(".sheet"), body: els.sheetBody, date: els.date });
 
 // A release on another group that still exists moves the task the same way as the edit form: one write of groupId
 // only, then moveRow (creation order, unfold, filter, focus, the moved text) (R13 to R15, R23, R33, R34, R36).
@@ -733,33 +738,27 @@ function resetTransient() {
   notify(null);
 }
 
-// Page turn (R8): only a move plays it, never a load or a midnight refresh. Keys are YYYY-MM-DD, so they compare as strings.
-const TURNS = ["turn--back", "turn--forward", "washi--restick"];
-function turnPage(from, to) {
-  if (reducedMotion.matches) return; // the CSS drops the animation, so animationend would never clear the class
-  els.sheetBody.classList.remove(...TURNS);
-  els.date.classList.remove(...TURNS);
-  void els.sheetBody.offsetWidth; // restart the animation on quick repeated moves
-  els.sheetBody.classList.add(to < from ? "turn--back" : "turn--forward");
-  els.date.classList.add("washi--restick");
-}
-// Row animations bubble up to the sheet body; only its own turn ends here.
-const endTurn = (e) => { if (e.target === e.currentTarget) e.target.classList.remove(...TURNS); };
-for (const el of [els.sheetBody, els.date]) {
-  el.addEventListener("animationend", endTurn);
-  el.addEventListener("animationcancel", endTurn);
-}
-
-// One move is one history entry (R22, R25). Focus is left on the control used (R8).
-function go(key) {
-  if (!key || key === viewed) { if (els.picker.value !== viewed) els.picker.value = viewed; return; }
-  const onRow = rowFocus();
+// One day change, shared by go() and syncFromAddress(); the caller writes the address. The day renders, focus settles
+// and the live date line changes at once (R10, R18, R19); the flip only draws over the settled page afterwards.
+function changeDay(key) {
+  const from = viewed;
+  const onRow = rowFocus(); // read before the drag is cancelled (drag.active() counts)
   resetTransient();
-  writeAddress(key, true);
-  turnPage(viewed, key);
+  drag.cancel(); // R25: the drag ends before the old page is copied, so no placeholder on the leaf
+  flip.end(); // R14: the running flip goes, all leaves together
+  const page = flip.snapshot(from, key);
   viewed = key;
   renderDay();
   if (onRow) focusAddIfLost();
+  flip.play(from, key, page);
+}
+
+// One move is one history entry (R22, R25). Focus is left on the control used (R8).
+// Only a move flips the page, never a load or a midnight refresh (R6).
+function go(key) {
+  if (!key || key === viewed) { if (els.picker.value !== viewed) els.picker.value = viewed; return; }
+  writeAddress(key, true);
+  changeDay(key);
 }
 
 // A day change removes the old rows, and with them a focused row or the Sửa a drag cancel returns focus to: the page
@@ -777,12 +776,7 @@ function syncFromAddress() {
   const key = readHash() ?? today;
   if (key === today && location.href.includes("#")) writeAddress(today, false);
   if (key === viewed) return;
-  const onRow = rowFocus();
-  resetTransient();
-  turnPage(viewed, key);
-  viewed = key;
-  renderDay();
-  if (onRow) focusAddIfLost();
+  changeDay(key);
 }
 
 // Targets come from the day on screen, before the midnight check.
