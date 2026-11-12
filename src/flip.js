@@ -22,31 +22,37 @@ export function createFlip({ sheet, body, date }) {
   let timer = 0;
   let follow = null; // the ResizeObserver that keeps the stage on the page while it lives
 
-  // A copy of the sheet body as it is now. Cloned inputs keep value and checked state; a cloned select does not, so
-  // its value is copied over. Every id goes, so no lookup, label or aria reference ever finds a leaf node, and every
-  // label's `for` goes, so a leaf label never names a real control on the page (R11, R20).
+  // A copy of the sheet body as it is now, down to the first row whose top is below the window (NFR3). Rows above the
+  // window stay, so --flip-offset still lines the copy up with the page. A Range clones only that part: no row below
+  // the cut is ever cloned, and the rows' ancestors come along as shallow copies holding the rows before it.
+  // Cloned inputs keep value and checked state; a cloned select does not, so its value is copied over. Every id goes,
+  // so no lookup, label or aria reference ever finds a leaf node, and every label's `for` goes, so a leaf label never
+  // names a real control on the page (R11, R20).
   // Each copied row is as tall as its row is laid out now (fit). Rows use content-visibility: auto, and a clone has no
   // remembered size, so left alone every copied row would be a one rule placeholder and the copy would drift off the
   // page, with the rows meant for the window laid out elsewhere and never painted (R13).
-  // ponytail: copies every row; T8 trims rows below the window (NFR3).
   function copy() {
-    return [...body.children].map((node) => {
-      const clone = node.cloneNode(true);
-      const from = node.querySelectorAll("select");
-      clone.querySelectorAll("select").forEach((s, i) => { s.value = from[i].value; });
-      fit(node, clone);
-      clone.removeAttribute("id");
-      for (const el of clone.querySelectorAll("[id], [for]")) { el.removeAttribute("id"); el.removeAttribute("for"); }
-      return clone;
-    });
+    const range = document.createRange();
+    range.selectNodeContents(body);
+    // One layout for all the reads. A row not yet laid out sits at its one rule placeholder, which is never taller than
+    // the row, so the cut can only fall later than the real one, never cut a row the window shows.
+    const cut = [...body.querySelectorAll(".task")].find((t) => t.getBoundingClientRect().top >= innerHeight);
+    if (cut) range.setEndBefore(cut);
+    const part = range.cloneContents();
+    const from = body.querySelectorAll("select");
+    part.querySelectorAll("select").forEach((s, i) => { s.value = from[i].value; }); // the copy's selects are a prefix
+    fit(body, part)();
+    for (const el of part.querySelectorAll("[id], [for]")) { el.removeAttribute("id"); el.removeAttribute("for"); }
+    return [...part.childNodes];
   }
 
-  // Gives every .task under `copied` the height of the matching .task under `from`, when both hold the same rows.
+  // Reads the height of the first .task rows under `from`, as many as `copied` holds, and returns the writes that give
+  // each copied row its height, so a caller can do every read before any write: one layout.
   function fit(from, copied) {
-    const real = from.querySelectorAll(".task"), rows = copied.querySelectorAll(".task");
-    if (real.length !== rows.length) return;
-    const tall = [...real].map((t) => t.offsetHeight); // all reads first, then all writes: one layout
-    rows.forEach((t, i) => { t.style.height = `${tall[i]}px`; });
+    const rows = copied.querySelectorAll(".task"), real = [...from.querySelectorAll(".task")].slice(0, rows.length);
+    if (real.length !== rows.length) return () => {};
+    const tall = real.map((t) => t.offsetHeight);
+    return () => rows.forEach((t, i) => { t.style.height = `${tall[i]}px`; });
   }
 
   // Puts the stage over the part of the sheet body that is in the window; false when under 1 px of it is.
@@ -113,8 +119,9 @@ export function createFlip({ sheet, body, date }) {
       // page now is, and a back copy (the new page) takes the rows' new heights (R13, NFR1: no row is laid out here).
       follow = new ResizeObserver(() => {
         try {
+          const size = back ? fit(body, s.querySelector(".leaf__content")) : null; // reads, then place reads and writes
           place(s);
-          if (back) fit(body, s.querySelector(".leaf__content"));
+          size?.();
         } catch {
           end();
         }

@@ -1333,7 +1333,10 @@ test.describe('T7: layout, phones and dark mode', () => {
     expect(m.offset).toBeGreaterThan(0);
     expect(m.offset).toBeCloseTo(m.above, 0);
     expect(m.top).toBeCloseTo(0, 0); // the stage starts at the window top, not at the scrolled away body top
-    expect(m.count).toEqual([rows, rows]);
+    expect(m.count[0]).toBe(rows);
+    // T8 (NFR3): the copy ends at the first row below the window, and holds every row in the window and above it.
+    expect(m.count[1]).toBeLessThanOrEqual(rows);
+    expect(m.count[1]).toBeGreaterThan(Math.max(...m.seen.map(([i]) => i)));
     expect(m.seen.length).toBeGreaterThan(2);
     expect(m.leaf).toEqual(m.seen); // every row in the window has its copy exactly on it
     expect(m.overflowX).toBe(0);
@@ -1587,4 +1590,127 @@ test.describe('T7: layout, phones and dark mode', () => {
     expect(c.leaf).toEqual([DARK_PAPER]);
     expect(c.back).toEqual([DARK_BACK]);
   });
+});
+
+test.describe('T8: speed with 200 tasks', () => {
+  const DAY = (date, from) => Array.from({ length: 200 }, (_, k) => task(`${date}-${k}`, `Việc số ${k + 1} của ngày ${date}`, k % 3 === 0, date, from + k));
+  const BIG = [...DAY(TODAY, 1000), ...DAY('2026-11-10', 2000), ...DAY('2026-11-12', 3000)];
+  const median = (a) => [...a].sort((x, y) => x - y)[Math.floor(a.length / 2)];
+  const pick = (page, key) => page.evaluate((k) => { const p = document.getElementById('day-picker'); p.value = k; p.dispatchEvent(new Event('change')); }, key);
+
+  // Scrolls to `to` (a y, or 'bottom' for 300 px above the end), lets the rows near the window paint, moves, and
+  // counts the rows of the compared page that reach into the window (top above its bottom edge, the rows above it
+  // included) against the rows on the leaf copy. Forward: the old page as it sat; back: the new page, read once two
+  // frames have laid out its rows near the window. `last` is the highest index of a row in the window.
+  const trimmed = (page, id, to) => page.evaluate(async ([id, to]) => {
+    const paint = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+    const reach = () => {
+      const r = [...document.querySelectorAll('#day-list .task')].map((t) => t.getBoundingClientRect());
+      return { reach: r.filter((b) => b.top < innerHeight).length, last: r.findLastIndex((b) => b.bottom > 0 && b.top < innerHeight) };
+    };
+    scrollTo(0, to === 'bottom' ? document.documentElement.scrollHeight - innerHeight - 300 : to);
+    await paint();
+    const old = reach();
+    document.getElementById(id).click();
+    const stage = document.querySelector('.flip-stage');
+    const back = stage.classList.contains('flip-stage--back');
+    const copied = () => stage.querySelectorAll('.leaf:not(.leaf--blank) .task').length;
+    const first = copied();
+    if (!back) return { ...old, copied: first, back };
+    await paint();
+    return { ...reach(), copied: copied(), back };
+  }, [id, to]);
+
+  for (const to of [0, 'bottom']) {
+    test(`a leaf copy of a 200 task day holds no more rows than reach into the window, scrolled to ${to === 0 ? 'the top' : 'near the bottom'}`, async ({ page }) => {
+      await open(page, BIG);
+      for (const id of ['next-day', 'prev-day']) {
+        const m = await trimmed(page, id, to);
+        expect(m.reach, id).toBeLessThan(200);
+        expect(m.copied, id).toBeLessThanOrEqual(m.reach); // no row below the window
+        expect(m.copied, id).toBeGreaterThan(m.last); // every row in the window, and every row above it, is there
+        await expect(stages(page)).toHaveCount(0);
+      }
+    });
+  }
+
+  test('the trimmed copy keeps the chosen select values and holds no id or for', async ({ page }) => {
+    await open(page, BIG, '', { groups: [group('g1', 'Việc nhà'), group('g2', 'Công việc', 'blue')] });
+    await page.locator('#new-task-group').selectOption('g2');
+    const m = await page.evaluate(() => {
+      document.getElementById('next-day').click();
+      const leaf = document.querySelector('.flip-stage .leaf:not(.leaf--blank)');
+      return {
+        values: [...leaf.querySelectorAll('select')].map((s) => s.value),
+        page: [...document.querySelectorAll('.sheet__body select')].map((s) => s.value),
+        refs: leaf.querySelectorAll('[id], [for]').length,
+        rows: leaf.querySelectorAll('.task').length,
+      };
+    });
+    expect(m.values).toContain('g2');
+    expect(m.values).toEqual(m.page.slice(0, m.values.length));
+    expect(m.refs).toBe(0);
+    expect(m.rows).toBeGreaterThan(0);
+    expect(m.rows).toBeLessThan(200);
+  });
+
+  // NFR2 (Chromium): every frame of the motion, from the first frame after the move to the one the stage goes in,
+  // with a longtask observer that runs 3 frames more. The move's own task and the frame that paints it render the new day's 200
+  // rows and are timed by NFR1 (the under 100 ms tests); what NFR2 adds is that the motion after it never stalls.
+  // Per run: the longtask count, the median frame time and the longest frame; the asserts take the median of 3 runs.
+  const measure = (page, key) => page.evaluate((key) => new Promise((done) => {
+    const long = [];
+    const po = new PerformanceObserver((l) => long.push(...l.getEntries()));
+    po.observe({ type: 'longtask' });
+    const frames = [];
+    let first = 0, last = 0, after = 0;
+    const p = document.getElementById('day-picker');
+    p.value = key;
+    p.dispatchEvent(new Event('change'));
+    const leaves = document.querySelectorAll('.flip-stage .leaf').length;
+    const tick = (t) => {
+      if (!after) frames.push(t - last); // up to and with the frame the stage is removed in
+      last = t;
+      if (!document.querySelector('.flip-stage')) after++;
+      if (after < 3) return requestAnimationFrame(tick); // longtasks are still watched for 3 frames more
+      setTimeout(() => { // longtask entries are delivered late
+        po.disconnect();
+        done({ leaves, frames, long: long.filter((e) => e.startTime + e.duration > first).map((e) => e.duration) });
+      }, 50);
+    };
+    requestAnimationFrame((t) => { first = last = t; requestAnimationFrame(tick); });
+  }), key);
+
+  for (const [n, keys] of [[3, ['2026-11-12', TODAY]], [1, ['2026-11-10', TODAY]]]) {
+    test(`a ${n} leaf ${n === 3 ? 'riffle' : 'flip'} between two 200 task days: no longtask, median frame at most 18.2 ms, no frame over 50 ms (median of 3)`, async ({ page, browserName, isMobile }) => {
+      test.skip(browserName !== 'chromium', 'longtask and frame timing are measured in Chromium');
+      // One project only: both projects are Chromium, and two copies of this schedule in step on the two workers put
+      // one browser's 200 row move into the other's frames. The phone width is checked here instead.
+      test.skip(isMobile, 'timed in the desktop project, at 1440 and 390 px');
+      test.setTimeout(60_000);
+      await open(page, BIG);
+      const runs = [];
+      for (const [width, height] of [[1440, 900], [390, 844]]) {
+        await page.setViewportSize({ width, height });
+        for (let k = 0; k < 3; k++) { // one run: forward, then back again
+          const frames = [], long = [];
+          for (const key of keys) {
+            await page.waitForTimeout(300);
+            const r = await measure(page, key);
+            expect(r.leaves).toBe(n);
+            frames.push(...r.frames);
+            long.push(...r.long);
+          }
+          runs.push({ width, long: long.length, median: median(frames), max: Math.max(...frames), at: frames.indexOf(Math.max(...frames)), n: frames.length });
+        }
+      }
+      console.log(`T8 NFR2 ${n} leaf: ${JSON.stringify(runs.map((r) => [r.width, r.long, r.median.toFixed(1), r.max.toFixed(1), `${r.at}/${r.n}`]))}`);
+      for (const width of [1440, 390]) {
+        const at = runs.filter((r) => r.width === width);
+        expect(median(at.map((r) => r.long)), `${width} px`).toBe(0);
+        expect(median(at.map((r) => r.median)), `${width} px`).toBeLessThanOrEqual(18.2);
+        expect(median(at.map((r) => r.max)), `${width} px`).toBeLessThanOrEqual(50);
+      }
+    });
+  }
 });
