@@ -415,7 +415,7 @@ features:
         title: "Perceptible flip motion (BUG-028)"
         owner: fe
         depends_on: [T8]
-        state: doing
+        state: done
         attempts: 0
         bugs_opened: []
         trello_card: ""

@@ -137,3 +137,9 @@ date,task,tc_id,result,evidence,bug_id
 2026-11-12,T8,TC-page-flip-T8-09,blocked,,Needs a real Android phone; goes to release note
 2026-11-12,T8,TC-page-flip-T8-10,blocked,,Exploratory charter not run in this pass; run after the BUG-028 fix
 2026-11-12,T8,TC-page-flip-T8-11,fail,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T8-11/app-contact.png,BUG-028
+2026-11-12,T8b,TC-page-flip-T8-11,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T8-11/runner-output-t8b-repeat3.txt,"T8b block 18 of 18 over 3 repeats (1440 and 390: forward, back, 3 leaf riffle, 200 task day). QA reviewed FE contact sheets: leaf visibly turns from about 100 to 550 ms, back appears only at the end, no hinge collapse. BUG-028 Verified"
+2026-11-12,T8b,TC-page-flip-T8-04,pass,docs/project/specs/page-flip/qa/evidence/T8b-qa/nfr2-repeat3.txt,"Rerun at 600 ms, 3 repeats x (1440, 390): 0 longtasks; median frame 16.0 ms; max frame 21 to 32 ms"
+2026-11-12,T8b,TC-page-flip-T8-05,pass,docs/project/specs/page-flip/qa/evidence/T8b-qa/nfr2-repeat3.txt,"Rerun at 600 ms, 3 repeats x (1440, 390): 0 longtasks; median 16.0 ms; max frame 20 to 32 ms"
+2026-11-12,T8b,TC-page-flip-T7-09,pass,docs/project/specs/page-flip/qa/evidence/T8b-qa/full-suite-clean.txt,"Contrast samples at 20, 50, 65 percent: pass light and dark in the full suite. R35 reading accepted, see BUG-028.md"
+2026-11-12,T8b,TC-page-flip-T8-03,pass,docs/project/specs/page-flip/qa/evidence/T8b-qa/full-suite-clean.txt,"Full suite 922 passed, 112 skipped, 0 failed (workers=2); npm test 88 of 88"
+2026-11-12,T8b,TC-page-flip-T8-10,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T8-10/charter2-output.txt,"Charter 2 now run (40 rapid mixed moves, adds, picker jumps on 200 tasks, 1440 and 390 wide): no stuck leaf or stage, 0 page errors. Observation: 200 row renders gave longtasks of 53 to 64 ms and frames of 110 and 135 ms under abuse; not the flip (NFR2 leaves the move render out); watch item"
