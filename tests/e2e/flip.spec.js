@@ -684,3 +684,215 @@ test('30 moves leave zero leaf nodes and the same listener count on window, docu
   expect(await listeners()).toEqual(before);
   await cdp.detach();
 });
+
+// T5: a held key (R15, R7, R14). Playwright sets repeat true on every keyboard.down of a key already down.
+// Reads the page right after a key event: the stage count, the date line and the address.
+const readNow = (page) => page.evaluate(() => ({
+  stages: document.querySelectorAll('.flip-stage').length,
+  date: document.getElementById('date-line').textContent,
+  hash: location.hash,
+}));
+// Holds a key on the focused control: one ordinary press, then `repeats` repeated downs. Returns a read after each.
+const hold = async (page, key, repeats) => {
+  await page.keyboard.down(key);
+  const reads = [await readNow(page)];
+  for (let k = 0; k < repeats; k++) {
+    await page.keyboard.down(key);
+    reads.push(await readNow(page));
+  }
+  return reads;
+};
+
+test('a held Enter on next: the first down flips, each repeat moves at once with no stage, the release flips the whole distance', async ({ page }) => {
+  await watchFlips(page);
+  await open(page, SEED);
+  await next(page).focus();
+  const reads = await hold(page, 'Enter', 2);
+  expect(reads).toEqual([
+    { stages: 1, date: 'Ngày mai, Thứ Ba, 10/11/2026', hash: '#2026-11-10' }, // the first down is an ordinary move
+    { stages: 0, date: 'Thứ Tư, 11/11/2026', hash: '#2026-11-11' }, // a repeat ends the running flip and plays nothing
+    { stages: 0, date: 'Thứ Năm, 12/11/2026', hash: '#2026-11-12' },
+  ]);
+  expect(await page.evaluate(() => document.querySelectorAll('.flip-stage').length)).toBe(0);
+  await page.keyboard.up('Enter');
+  await expect(stages(page)).toHaveCount(1);
+  const flips = await flipsSeen(page);
+  expect(flips[0].removed - flips[0].added).toBeLessThan(400); // cut short by the first repeat
+  // The release turns from 10/11, the day on screen before the first repeat, to 12/11: 2 leaves (R3).
+  expect(flips[1].text).toContain('Đặt bánh sinh nhật');
+  expect(await settled(page, 2)).toEqual([flip(false, 1), flip(false, 2)]);
+  await expect(next(page)).toBeFocused();
+  expectOneAtATime(await flipsSeen(page));
+});
+
+test('one repeat gives 1 leaf on release, and 5 repeats give 3 leaves gone within 800 ms', async ({ page }) => {
+  await watchFlips(page);
+  await open(page, SEED);
+  await next(page).focus();
+  await hold(page, 'Enter', 1);
+  await page.keyboard.up('Enter');
+  expect(await settled(page, 2)).toEqual([flip(false, 1), flip(false, 1)]);
+  await hold(page, 'Enter', 5);
+  await page.keyboard.up('Enter');
+  await expect(dateLine(page)).toHaveText('Thứ Ba, 17/11/2026');
+  expect(await settled(page, 4)).toEqual([flip(false, 1), flip(false, 1), flip(false, 1), flip(false, 3)]);
+  const last = (await flipsSeen(page))[3];
+  expect(last.removed - last.added).toBeLessThan(lifetime(3));
+});
+
+test('a 40 repeat hold ends on the right day with 3 leaves and no leaf 800 ms after the release', async ({ page }) => {
+  await watchFlips(page);
+  await open(page, SEED);
+  await next(page).focus();
+  await hold(page, 'Enter', 40);
+  await page.keyboard.up('Enter');
+  await page.waitForTimeout(800);
+  expect(await nodesLeft(page)).toBe(0);
+  expect(hash(page)).toBe('#2026-12-20');
+  await expect(page.locator('#day-picker')).toHaveValue('2026-12-20');
+  await expect(dateLine(page)).toHaveText('Chủ Nhật, 20/12/2026');
+  expect(await settled(page, 2)).toEqual([flip(false, 1), flip(false, 3)]);
+});
+
+test('a held Enter on previous flips back on release with the R3 leaf count', async ({ page }) => {
+  await watchFlips(page);
+  await open(page, SEED);
+  await prev(page).focus();
+  await hold(page, 'Enter', 2);
+  await page.keyboard.up('Enter');
+  await expect(dateLine(page)).toHaveText('Thứ Sáu, 06/11/2026');
+  expect(await settled(page, 2)).toEqual([flip(true, 1), flip(true, 2)]);
+});
+
+for (const [how, act] of [
+  ['focus moving away by Tab', (page) => page.keyboard.press('Tab')],
+  ['a window blur', (page) => page.evaluate(() => dispatchEvent(new Event('blur')))],
+]) {
+  test(`${how} during a hold acts as the release`, async ({ page }) => {
+    await watchFlips(page);
+    await open(page, SEED);
+    await next(page).focus();
+    await hold(page, 'Enter', 2);
+    await act(page);
+    expect(await page.evaluate(() => document.querySelectorAll('.flip-stage .leaf').length)).toBe(2);
+    await page.keyboard.up('Enter'); // the held key's own release now finds nothing to play
+    expect(await settled(page, 2)).toEqual([flip(false, 1), flip(false, 2)]);
+    await page.waitForTimeout(200);
+    expect(await flipsSeen(page)).toHaveLength(2);
+  });
+}
+
+test('the page going hidden during a hold plays no motion, then or on the key release', async ({ page }) => {
+  await fakeVisibility(page);
+  await watchFlips(page);
+  await open(page, SEED);
+  await next(page).focus();
+  await hold(page, 'Enter', 2);
+  await page.evaluate(() => { window.__hidden = true; document.dispatchEvent(new Event('visibilitychange')); });
+  await page.keyboard.up('Enter');
+  await page.evaluate(() => { window.__hidden = false; document.dispatchEvent(new Event('visibilitychange')); });
+  await page.waitForTimeout(100);
+  expect(await nodesLeft(page)).toBe(0);
+  expect((await flipsSeen(page)).map((f) => f.leaves)).toEqual([1]); // only the first, ordinary press
+  await expect(dateLine(page)).toHaveText('Thứ Năm, 12/11/2026');
+});
+
+test('a mouse click after repeats, before the key comes up, plays its own flip from the day on screen', async ({ page }) => {
+  await watchFlips(page);
+  await open(page, SEED);
+  await next(page).focus();
+  await hold(page, 'Enter', 2);
+  await next(page).click();
+  await page.keyboard.up('Enter');
+  await expect(dateLine(page)).toHaveText('Thứ Sáu, 13/11/2026');
+  expect(await settled(page, 2)).toEqual([flip(false, 1), flip(false, 1)]);
+  await page.waitForTimeout(200);
+  expect(await flipsSeen(page)).toHaveLength(2); // the key release found no hold left
+});
+
+test('a single Space press on an arrow flips once as an ordinary move, and a mouse click after a hold flips normally', async ({ page }) => {
+  await watchFlips(page);
+  await open(page, SEED);
+  await next(page).focus();
+  await page.keyboard.press('Space');
+  await expect(dateLine(page)).toHaveText('Ngày mai, Thứ Ba, 10/11/2026');
+  expect(await settled(page, 1)).toEqual([flip(false, 1)]);
+  await hold(page, 'Enter', 3);
+  await page.keyboard.up('Enter');
+  expect(await settled(page, 3)).toEqual([flip(false, 1), flip(false, 1), flip(false, 3)]);
+  await next(page).click();
+  expect(await settled(page, 4)).toEqual([flip(false, 1), flip(false, 1), flip(false, 3), flip(false, 1)]);
+});
+
+// Space clicks on keyup. With repeated Space keydowns the repeat flag is set, so release() must clear it in the keyup
+// dispatch before the click, or the one move would be taken as a repeat and play nothing.
+test('a held Space on an arrow moves once on keyup with one ordinary flip and focus kept', async ({ page }) => {
+  await watchFlips(page);
+  await open(page, SEED);
+  await next(page).focus();
+  const reads = await hold(page, 'Space', 2);
+  expect(reads.map((r) => r.hash)).toEqual(['', '', '']); // no move while Space is down
+  await page.keyboard.up('Space');
+  await expect(dateLine(page)).toHaveText('Ngày mai, Thứ Ba, 10/11/2026');
+  expect(hash(page)).toBe('#2026-11-10');
+  await expect(next(page)).toBeFocused();
+  expect(await settled(page, 1)).toEqual([flip(false, 1)]);
+  await page.waitForTimeout(200);
+  expect(await flipsSeen(page)).toHaveLength(1);
+});
+
+// A picker change with repeat true is a repeated move (decisions.md 2026-11-12, page-flip design). Repeats that come
+// back to the day they started from play nothing on release. The repeat flag comes from a keydown with repeat true.
+test('picker repeats that end on the start day play no motion on release', async ({ page }) => {
+  await watchFlips(page);
+  await open(page, SEED);
+  const counts = await page.evaluate(() => {
+    const p = document.getElementById('day-picker');
+    p.focus();
+    p.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', repeat: true, bubbles: true }));
+    const seen = [];
+    for (const key of ['2026-11-10', '2026-11-11', '2026-11-10', '2026-11-09']) {
+      p.value = key;
+      p.dispatchEvent(new Event('change'));
+      seen.push(document.querySelectorAll('.flip-stage').length);
+    }
+    p.dispatchEvent(new KeyboardEvent('keyup', { key: 'ArrowDown', bubbles: true }));
+    return seen;
+  });
+  expect(counts).toEqual([0, 0, 0, 0]);
+  await page.waitForTimeout(200);
+  expect(await flipsSeen(page)).toEqual([]);
+  await expect(dateLine(page)).toHaveText('Hôm nay, Thứ Hai, 09/11/2026');
+});
+
+// Chromium steps the focused part of the date field on each repeated ArrowDown and fires change with a keydown repeat
+// before it, so T5-14 applies here. The first part may be the month or the day; the leaf count follows the distance.
+test('a held arrow key in the date field plays nothing on the repeats and one flip or riffle on release', async ({ page }) => {
+  await watchFlips(page);
+  await open(page, SEED);
+  const picker = page.locator('#day-picker');
+  await picker.focus();
+  const reads = await hold(page, 'ArrowDown', 2);
+  expect(reads.map((r) => r.stages)).toEqual([1, 0, 0]); // the first down is an ordinary move
+  const from = reads[0].hash.slice(1);
+  const to = reads[2].hash.slice(1);
+  expect(to < from).toBe(true);
+  await page.keyboard.up('ArrowDown');
+  const days = Math.round((Date.parse(from) - Date.parse(to)) / 864e5);
+  expect((await settled(page, 2))[1]).toEqual(flip(true, Math.min(days, 3))); // from the day before the first repeat
+});
+
+test('a held Enter on Về hôm nay moves to today once with at most one flip and no error', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(e));
+  await watchFlips(page);
+  await open(page, SEED, '#2026-11-12');
+  await page.locator('#to-today').focus();
+  await hold(page, 'Enter', 4);
+  await page.keyboard.up('Enter');
+  await expect(dateLine(page)).toHaveText('Hôm nay, Thứ Hai, 09/11/2026');
+  await page.waitForTimeout(800);
+  expect((await flipsSeen(page)).length).toBeLessThanOrEqual(1);
+  expect(await nodesLeft(page)).toBe(0);
+  expect(errors).toEqual([]);
+});
