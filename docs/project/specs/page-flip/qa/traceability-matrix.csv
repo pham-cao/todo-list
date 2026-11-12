@@ -1,5 +1,5 @@
 requirement,test_cases,bugs
-R1,TC-page-flip-T2-01;TC-page-flip-T3-08;TC-page-flip-T3-09;TC-page-flip-T3-16,
+R1,TC-page-flip-T2-01;TC-page-flip-T3-08;TC-page-flip-T3-09;TC-page-flip-T3-16;TC-page-flip-T8-11,BUG-028
 R2,TC-page-flip-T3-01;TC-page-flip-T3-02;TC-page-flip-T3-08;TC-page-flip-T3-09,
 R3,TC-page-flip-T1-01;TC-page-flip-T1-02;TC-page-flip-T1-03;TC-page-flip-T1-04;TC-page-flip-T1-05;TC-page-flip-T1-06;TC-page-flip-T1-07;TC-page-flip-T1-08;TC-page-flip-T1-09;TC-page-flip-T1-10;TC-page-flip-T3-01;TC-page-flip-T3-02;TC-page-flip-T3-03;TC-page-flip-T3-04;TC-page-flip-T3-05;TC-page-flip-T3-07;TC-page-flip-T5-03;TC-page-flip-T5-04;TC-page-flip-T5-05,
 R3a,TC-page-flip-T1-03;TC-page-flip-T1-08;TC-page-flip-T1-09;TC-page-flip-T3-01;TC-page-flip-T3-03;TC-page-flip-T5-05,
@@ -8,7 +8,7 @@ R4,TC-page-flip-T2-01;TC-page-flip-T2-02;TC-page-flip-T3-05;TC-page-flip-T3-06;T
 R5,TC-page-flip-T1-01;TC-page-flip-T1-02;TC-page-flip-T1-06;TC-page-flip-T3-08;TC-page-flip-T3-09;TC-page-flip-T3-10;TC-page-flip-T3-11;TC-page-flip-T3-13;TC-page-flip-T3-15,
 R6,TC-page-flip-T2-09;TC-page-flip-T2-10;TC-page-flip-T2-11;TC-page-flip-T3-13;TC-page-flip-T3-14,
 R7,TC-page-flip-T4-09;TC-page-flip-T4-10;TC-page-flip-T5-10,
-R8,TC-page-flip-T2-01;TC-page-flip-T2-02;TC-page-flip-T2-14;TC-page-flip-T7-12;TC-page-flip-T7-13,
+R8,TC-page-flip-T2-01;TC-page-flip-T2-02;TC-page-flip-T2-14;TC-page-flip-T7-12;TC-page-flip-T7-13;TC-page-flip-T8-11,BUG-028
 R9,TC-page-flip-T2-08;TC-page-flip-T2-12;TC-page-flip-T2-13;TC-page-flip-T9-01;TC-page-flip-T9-02;TC-page-flip-T9-03,
 R10,TC-page-flip-T2-03,
 R11,TC-page-flip-T2-06;TC-page-flip-T6-07;TC-page-flip-T6-09;TC-page-flip-T8-02,BUG-025

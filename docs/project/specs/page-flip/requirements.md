@@ -49,9 +49,9 @@ R1. WHEN the owner presses the previous day button, the next day button, or "V�
 
 R2. WHEN the owner picks a date in the date picker or presses "Về hôm nay" AND the new viewed day is exactly 1 day from the old one THE SYSTEM SHALL play one flip, as for an arrow. WHEN the new viewed day is more than 1 day from the old one THE SYSTEM SHALL play a riffle (R3), whatever the distance.
 
-R3. THE SYSTEM SHALL set the number of leaves in a riffle from the distance in calendar days between the old and the new viewed day: 2 days gives 2 leaves, and 3 days or more gives 3 leaves (never more than 3). The leaves turn in the same direction (R4), each one lasts 450 ms (`--dur-flip`), and each one starts 125 ms after the one before it (a new token `--dur-riffle-step`), so the leaves overlap like fanned pages. The first leaf is the copy of the old page, and the later leaves are plain blank ruled paper without text.
+R3. THE SYSTEM SHALL set the number of leaves in a riffle from the distance in calendar days between the old and the new viewed day: 2 days gives 2 leaves, and 3 days or more gives 3 leaves (never more than 3). The leaves turn in the same direction (R4), each one lasts 600 ms (`--dur-flip`), and each one starts 125 ms after the one before it (a new token `--dur-riffle-step`), so the leaves overlap like fanned pages. The first leaf is the copy of the old page, and the later leaves are plain blank ruled paper without text.
 
-R3a. THE SYSTEM SHALL keep the whole riffle within a total time budget of 700 ms from the start of the first leaf to the end of the last one (450 ms plus at most 2 steps of 125 ms). The total SHALL not grow with the distance. A single flip for a move of 1 day stays 450 ms.
+R3a. THE SYSTEM SHALL keep the whole riffle within a total time budget of 850 ms from the start of the first leaf to the end of the last one (600 ms plus at most 2 steps of 125 ms). The total SHALL not grow with the distance. A single flip for a move of 1 day lasts 600 ms.
 
 R3b. WHEN the viewed day changes because of the browser Back or Forward button or a hash edit THE SYSTEM SHALL play the same flip or riffle as for any other move, chosen by the distance in days (R2, R3).
 
@@ -65,9 +65,9 @@ R7. IF the page is hidden (the tab is in the background) when the viewed day cha
 
 ### What the owner sees during and after the flip
 
-R8. WHEN a flip starts THE SYSTEM SHALL show the leaf as a copy of the old sheet body, in the paper look of the notebook (ruled lines, margin line, punched hole side), turning with a visible hinge on the left edge, a soft shadow that moves with the turn, and a slightly darker back of the leaf during the second half of the turn.
+R8. WHEN a flip starts THE SYSTEM SHALL show the leaf as a copy of the old sheet body, in the paper look of the notebook (ruled lines, margin line, punched hole side), turning with a visible hinge on the left edge, a soft shadow that moves with the turn, and a slightly darker back of the leaf during the second half of the turn. The turn SHALL be clearly perceptible in real time playback, not only in paused frames: the leaf visibly sweeps from the free edge to the hinge over most of the duration, and its text stays visible through most of the turn.
 
-R9. THE SYSTEM SHALL make each leaf last 450 ms, taken from one design token (a new `--dur-flip`, replacing the use of `--dur-turn`), and SHALL remove every leaf and every helper class and style when the flip or riffle ends or is cancelled, so that the page looks and behaves exactly as before after it.
+R9. THE SYSTEM SHALL make each leaf last 600 ms, taken from one design token (a new `--dur-flip`, replacing the use of `--dur-turn`), and SHALL remove every leaf and every helper class and style when the flip or riffle ends or is cancelled, so that the page looks and behaves exactly as before after it.
 
 R10. WHEN a flip or riffle starts THE SYSTEM SHALL show the real new day beneath the leaves from the first frame, with its heading, date line, placeholder, rows, empty state, summary and progress already updated as in R6 of `day-navigation`, and SHALL write the address and the history entry, keep focus and announce the date line at once (R18, R19). Neither a flip nor a riffle SHALL delay, hold back or replay any of these updates, however many leaves play. A riffle SHALL never show an in between day: the leaves are visual only.
 
@@ -155,7 +155,7 @@ R41. THE SYSTEM SHALL keep every rule of `day-navigation` and `drag-drop` about 
 4. Performance, repeats: 30 moves in 3 seconds SHALL leave no growing memory, no leftover leaf nodes and no leftover listeners (a count of leaf elements in the page after the last flip SHALL be zero).
 5. Accessibility: all of R11, R18 to R21 and R28 hold. The flip SHALL pass WCAG 2.3.3 (animation from interactions can be disabled, through the reduced motion setting) and SHALL not flash more than three times in any one second (2.3.1).
 6. Security and data protection: no data leaves the browser. The leaf is built from the app's own rendered page, never from the address or from stored text inserted as markup. No new dependency and no external library or image is needed (the flip is CSS and a little vanilla JavaScript, as the stack decision requires).
-7. Reliability: the app works the same with the flip failing, because it is cosmetic. Every flip ends within 450 ms plus one frame, and every riffle within 700 ms plus one frame, or is ended by R14, R29, R37 or R38.
+7. Reliability: the app works the same with the flip failing, because it is cosmetic. Every flip ends within 600 ms plus one frame, and every riffle within 850 ms plus one frame, or is ended by R14, R29, R37 or R38.
 8. Compatibility: works in the current versions of Chrome, Safari, Firefox and Edge on desktop and mobile, using the same `animationend` and `animationcancel` care as today. Safari and iOS cannot be tested on the build host, so they are listed as a manual check in the release note, as earlier releases did.
 9. Hosting: the feature adds no file path that breaks the GitHub Pages subpath, and no asset except CSS and JS, which carry the release version query.
 10. Language: no new visible text. Existing Vietnamese text and accessible names stay unchanged.

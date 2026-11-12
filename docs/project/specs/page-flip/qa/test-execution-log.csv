@@ -126,3 +126,14 @@ date,task,tc_id,result,evidence,bug_id
 2026-11-12,T7,TC-page-flip-T7-09,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-09/qa-note-retest2.txt,
 2026-11-12,T7,TC-page-flip-T7-12,dropped,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-12/retest2-note.txt,
 2026-11-12,T7,TC-page-flip-T7-13,pass,docs/project/specs/page-flip/qa/evidence/T7-fe/,Recaptured frames reviewed (dark riffle, 200 rows near bottom, 360 px dark)
+2026-11-12,T8,TC-page-flip-T8-01,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T8-01/runner-output.txt,Top and bottom; 3 runs each
+2026-11-12,T8,TC-page-flip-T8-02,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T8-02/runner-output.txt,3 runs
+2026-11-12,T8,TC-page-flip-T8-03,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T8-03/full-suite-runner-output.txt,Existing day-nav 200 task tests pass unchanged in both projects in the full suite (914 passed 112 skipped)
+2026-11-12,T8,TC-page-flip-T8-04,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T8-04/runner-output.txt,"3 runs x (1440, 390): 0 longtasks; median frame 16.0 ms; max frame 17 to 23 ms"
+2026-11-12,T8,TC-page-flip-T8-05,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T8-05/runner-output.txt,"3 runs: 0 longtasks; median 16.0 ms; max frame 17 to 31 ms"
+2026-11-12,T8,TC-page-flip-T8-06,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T8-06/runner-output.txt,"QA ad hoc check, 4 animations, properties transform and opacity only"
+2026-11-12,T8,TC-page-flip-T8-07,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T8-07/runner-output.txt,"30 moves: 0 leaf nodes. Heap growth not measured (performance.memory not exposed in headless Chromium)"
+2026-11-12,T8,TC-page-flip-T8-08,blocked,,Firefox not run on this host in T8; goes to release note
+2026-11-12,T8,TC-page-flip-T8-09,blocked,,Needs a real Android phone; goes to release note
+2026-11-12,T8,TC-page-flip-T8-10,blocked,,Exploratory charter not run in this pass; run after the BUG-028 fix
+2026-11-12,T8,TC-page-flip-T8-11,fail,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T8-11/app-contact.png,BUG-028

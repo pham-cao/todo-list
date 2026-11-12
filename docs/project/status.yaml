@@ -407,6 +407,14 @@ features:
         title: "Speed with 200 tasks"
         owner: fe
         depends_on: [T7]
+        state: done
+        attempts: 0
+        bugs_opened: [BUG-028]
+        trello_card: ""
+      - id: T8b
+        title: "Perceptible flip motion (BUG-028)"
+        owner: fe
+        depends_on: [T8]
         state: doing
         attempts: 0
         bugs_opened: []
@@ -414,7 +422,7 @@ features:
       - id: T9
         title: "Remove the superseded page turn styles"
         owner: fe
-        depends_on: [T8]
+        depends_on: [T8b]
         state: todo
         attempts: 0
         bugs_opened: []
