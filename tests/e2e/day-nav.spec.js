@@ -805,6 +805,14 @@ test('with reduced motion a move changes the day and plays no page flip', async 
   await expect(rows(page)).toHaveCount(3);
   await page.getByRole('button', { name: 'Xem ngày sau' }).click();
   await expect(dateLine(page)).toHaveText('Hôm nay, Thứ Hai, 09/11/2026');
+  // A 6 day jump, Về hôm nay and browser Back: each changes the day at once with no riffle either (R28).
+  await page.locator('#day-picker').fill('2026-11-15');
+  await expect(dateLine(page)).toHaveText('Chủ Nhật, 15/11/2026');
+  await page.getByRole('button', { name: 'Về hôm nay' }).click();
+  await expect(dateLine(page)).toHaveText('Hôm nay, Thứ Hai, 09/11/2026');
+  await page.goBack();
+  await expect(dateLine(page)).toHaveText('Chủ Nhật, 15/11/2026');
+  await page.waitForTimeout(100);
   expect(await flipsSeen(page)).toEqual([]);
   expect(await resticksSeen(page)).toEqual([]);
 });

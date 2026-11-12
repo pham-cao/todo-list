@@ -91,7 +91,8 @@ export function createFlip({ sheet, body, date }) {
   }
 
   // Registered once, never per move (NFR4).
-  reduced.addEventListener("change", () => { if (reduced.matches) end(); }); // R29
+  // R29: under reduced motion the tape's animation is none, so no animationend would ever take its class off.
+  reduced.addEventListener("change", () => { if (reduced.matches) { end(); date.classList.remove("washi--restick"); } });
   document.addEventListener("visibilitychange", () => { if (document.hidden) end(); }); // R7, R38
   document.addEventListener("toggle", (e) => { if (e.newState === "open") end(); }, true); // a dialog or popover opened (R37)
   const unstick = (e) => { if (e.target === date) date.classList.remove("washi--restick"); };
