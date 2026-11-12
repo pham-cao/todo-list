@@ -644,3 +644,7 @@ Also accepted: strip appended inside <main>; pointer captured on the slip, not t
 - Point 4: T4-06 records the observed typing sequence; it is accepted as written.
 - Point 5: Firefox stays a hand or temporary config run, as in drag-drop. No Firefox project is added.
 - Point 6: a held Enter on Về hôm nay moves once and plays no motion on the repeats. This is expected.
+
+## 2026-11-12 page-flip T2
+- T2 Boundary exception: test only selector scoping in tests/e2e/groups.spec.js, app.spec.js, drag.spec.js and day-nav.spec.js (beyond its T7 block), because the leaf copy has no ids and would otherwise match unscoped selectors. Selectors inside the sheet body now point at real ids (#empty, #empty-text, #new-task-error, #group-bar) or are prefixed with #day-list (.task__edit, .task--editing, .task--peek, .task__swipe, .group__toggle, .task-list b). The reviewer checked that none weakens an assertion.
+- Adding a task appends a row without renderList. The owner was told on 2026-11-12 that adding, deleting or changing the filter during a flip ends it, so the add submit handler also calls flip.end(). This replaces an earlier note in this section.

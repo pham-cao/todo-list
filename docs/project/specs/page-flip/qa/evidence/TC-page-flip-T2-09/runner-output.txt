@@ -1,0 +1,2 @@
+  ✓  149 [desktop] › tests/e2e/flip.spec.js:109:1 › no stage on load, reload or a bookmarked day (277ms)
+  ✓  595 [mobile] › tests/e2e/flip.spec.js:109:1 › no stage on load, reload or a bookmarked day (270ms)

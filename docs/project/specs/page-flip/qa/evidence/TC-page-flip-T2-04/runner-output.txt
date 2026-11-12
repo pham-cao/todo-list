@@ -1,0 +1,2 @@
+  ✓  145 [desktop] › tests/e2e/flip.spec.js:81:1 › Enter on the next arrow keeps focus on it with no focus event (116ms)
+  ✓  591 [mobile] › tests/e2e/flip.spec.js:81:1 › Enter on the next arrow keeps focus on it with no focus event (112ms)

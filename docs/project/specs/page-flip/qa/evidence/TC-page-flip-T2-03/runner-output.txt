@@ -1,0 +1,2 @@
+  ✓  144 [desktop] › tests/e2e/flip.spec.js:70:1 › the day, address, picker and focus change in the same task as the click; the leaf copy is never matched (107ms)
+  ✓  590 [mobile] › tests/e2e/flip.spec.js:70:1 › the day, address, picker and focus change in the same task as the click; the leaf copy is never matched (103ms)

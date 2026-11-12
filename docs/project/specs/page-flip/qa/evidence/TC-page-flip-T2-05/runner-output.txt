@@ -1,0 +1,2 @@
+  ✓  146 [desktop] › tests/e2e/flip.spec.js:91:1 › a move with focus in a removed row hands focus to the add field (103ms)
+  ✓  592 [mobile] › tests/e2e/flip.spec.js:91:1 › a move with focus in a removed row hands focus to the add field (97ms)

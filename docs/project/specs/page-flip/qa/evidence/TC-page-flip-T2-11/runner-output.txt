@@ -1,0 +1,2 @@
+  ✓  152 [desktop] › tests/e2e/flip.spec.js:138:1 › choosing the viewed day in the picker or the address builds no stage and no history entry (184ms)
+  ✓  598 [mobile] › tests/e2e/flip.spec.js:138:1 › choosing the viewed day in the picker or the address builds no stage and no history entry (179ms)

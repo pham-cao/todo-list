@@ -1,0 +1,2 @@
+  ✓  151 [desktop] › tests/e2e/flip.spec.js:123:1 › no stage on a midnight refresh, an invalid hash or a hash equal to today (282ms)
+  ✓  597 [mobile] › tests/e2e/flip.spec.js:123:1 › no stage on a midnight refresh, an invalid hash or a hash equal to today (271ms)

@@ -1,0 +1,2 @@
+  ✓  141 [desktop] › tests/e2e/flip.spec.js:57:1 › the previous arrow turns one leaf back carrying the new day (879ms)
+  ✓  588 [mobile] › tests/e2e/flip.spec.js:57:1 › the previous arrow turns one leaf back carrying the new day (899ms)
