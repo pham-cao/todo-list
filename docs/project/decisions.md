@@ -631,3 +631,8 @@ Also accepted: strip appended inside <main>; pointer captured on the slip, not t
 - Held key repeat release (one riffle on release, no flip on release): when the owner releases a held arrow key after repeated day changes, one flip or riffle plays for the whole distance moved, capped at 3 leaves. Repeated key presses during the hold play nothing. This refines R15, and the prototype, which plays nothing on release, differs here.
 - Leaf back (fade to darker paper inside the sheet, show the back over the hole strip past 90 degrees): keep the fade to darker paper as built.
 - The P3 critique finding (the leaf's top edge is briefly cut at the header rule) is accepted, because the leaf stays inside the sheet (R13).
+
+## 2026-11-12 page-flip design (chosen by the owner)
+- List rebuild during a flip (any rebuild ends the flip, only external rebuilds end it): any renderList rebuild ends the running flip, as R37 reads. Adding, deleting or changing the filter within 450 ms of a move cuts the leaf short. Ticking a box does not rebuild and does not end it.
+- Held arrow key in the date picker (follow R15, every step restarts the flip): follow R15. A picker change with repeat true counts as a repeated move, plays no motion, and one flip or riffle plays on release.
+- The owner approved design.md and tasks.md (T1 to T10).
