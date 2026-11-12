@@ -1,0 +1,1 @@
+T5-05 pass: spec flip.spec.js:728 and manual MCP run: 6 repeats gave 3 leaves, gone after 1050 ms. Run 2026-11-12, Chromium desktop and mobile projects.

@@ -383,7 +383,7 @@ features:
         title: "Held key repeat and release"
         owner: fe
         depends_on: [T4]
-        state: doing
+        state: done
         attempts: 0
         bugs_opened: []
         trello_card: ""
@@ -391,7 +391,7 @@ features:
         title: "Working on the page during a flip"
         owner: fe
         depends_on: [T5]
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""
