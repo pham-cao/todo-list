@@ -1,0 +1,12 @@
+date,task,tc_id,result,evidence,bug_id
+2026-11-12,T1,TC-page-flip-T1-01,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T1-01/,
+2026-11-12,T1,TC-page-flip-T1-02,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T1-02/,
+2026-11-12,T1,TC-page-flip-T1-03,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T1-03/,
+2026-11-12,T1,TC-page-flip-T1-04,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T1-04/,
+2026-11-12,T1,TC-page-flip-T1-05,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T1-05/,
+2026-11-12,T1,TC-page-flip-T1-06,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T1-06/,
+2026-11-12,T1,TC-page-flip-T1-07,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T1-07/,
+2026-11-12,T1,TC-page-flip-T1-11,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T1-11/,
+2026-11-12,T1,TC-page-flip-T1-08,blocked,leafCount arrives in T2,
+2026-11-12,T1,TC-page-flip-T1-09,blocked,leafCount arrives in T2,
+2026-11-12,T1,TC-page-flip-T1-10,blocked,leafCount arrives in T2,

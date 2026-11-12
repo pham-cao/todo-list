@@ -1,0 +1,9 @@
+TZ=Europe/Berlin
+# pass 84
+# fail 0
+TZ=America/New_York
+# pass 84
+# fail 0
+TZ=Asia/Ho_Chi_Minh
+# pass 84
+# fail 0

@@ -636,3 +636,11 @@ Also accepted: strip appended inside <main>; pointer captured on the slip, not t
 - List rebuild during a flip (any rebuild ends the flip, only external rebuilds end it): any renderList rebuild ends the running flip, as R37 reads. Adding, deleting or changing the filter within 450 ms of a move cuts the leaf short. Ticking a box does not rebuild and does not end it.
 - Held arrow key in the date picker (follow R15, every step restarts the flip): follow R15. A picker change with repeat true counts as a repeated move, plays no motion, and one flip or riffle plays on release.
 - The owner approved design.md and tasks.md (T1 to T10).
+
+## 2026-11-12 page-flip test plan (PM, following earlier owner decisions)
+- QA plan point 1: already settled by the owner on 2026-11-12. An add, save or delete within 450 ms of a move may cut the leaf short, and the action must land on the new day.
+- Point 2: if Chromium does not report repeated picker steps, T5-14 is recorded as not applicable for that browser.
+- Point 3: T4-11 asserting no stage 700 ms plus one frame after a blur is accepted.
+- Point 4: T4-06 records the observed typing sequence; it is accepted as written.
+- Point 5: Firefox stays a hand or temporary config run, as in drag-drop. No Firefox project is added.
+- Point 6: a held Enter on Về hôm nay moves once and plays no motion on the repeats. This is expected.
