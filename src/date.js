@@ -48,3 +48,10 @@ export function dateLine(key, todayKey) {
   const d = parseDateKey(key);
   return d ? (PREFIX[dayKind(key, todayKey)] ?? "") + formatDate(d) : "";
 }
+
+// Calendar days from key a to key b: positive when b is later, 0 for the same day, null when either key is invalid.
+// Local midnights, rounded, so a 23 or 25 hour day still counts as 1.
+export function daysBetween(a, b) {
+  const [da, db] = [parseDateKey(a), parseDateKey(b)];
+  return da && db ? Math.round((db - da) / 86400000) : null;
+}
