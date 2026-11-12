@@ -1,0 +1,15 @@
+  ✓  161 [mobile] › tests/e2e/flip.spec.js:1486:5 › T7: layout, phones and dark mode › dark mode: every leaf and leaf back of a 3 leaf riffle back uses the dark paper tokens on every frame (852ms)
+  ✓  162 [mobile] › tests/e2e/flip.spec.js:1486:5 › T7: layout, phones and dark mode › dark mode: every leaf and leaf back of a 3 leaf riffle back uses the dark paper tokens on every frame (808ms)
+T7 text contrast light: [["next-day",0.2,0,["19.3","5.5","5.5"],[]],["next-day",0.5,0.0594991,["15.7","4.6","4.5"],["5.5"]],["next-day",0.8,1,["1.0","1.0","1.0"],["18.6","5.1","5.1"]],["prev-day",0.2,1,["1.0","1.0","1.0"],["18.6","5.1","5.1"]],["prev-day",0.5,0.0594991,["15.7","4.6","4.5"],["5.5"]],["prev-day",0.8,0,["19.3","5.5","5.5"],[]]]
+  ✓  163 [mobile] › tests/e2e/flip.spec.js:1513:5 › T7: layout, phones and dark mode › light: leaf and new page text keep 4.5 to 1 at 20, 50 and 80 percent of a flip, forward and back (4.9s)
+T7 text contrast light: [["next-day",0.2,0,["19.3","5.5","5.5"],[]],["next-day",0.5,0.0594991,["15.7","4.6","4.5"],["5.5"]],["next-day",0.8,1,["1.0","1.0","1.0"],["18.6","5.1","5.1"]],["prev-day",0.2,1,["1.0","1.0","1.0"],["18.6","5.1","5.1"]],["prev-day",0.5,0.0594991,["15.7","4.6","4.5"],["5.5"]],["prev-day",0.8,0,["19.3","5.5","5.5"],[]]]
+  ✓  164 [mobile] › tests/e2e/flip.spec.js:1513:5 › T7: layout, phones and dark mode › light: leaf and new page text keep 4.5 to 1 at 20, 50 and 80 percent of a flip, forward and back (4.8s)
+T7 text contrast dark: [["next-day",0.2,0,["12.8","5.6","5.6"],[]],["next-day",0.5,0.0594991,["10.7","4.8","4.7"],["5.6"]],["next-day",0.8,1,["1.0","1.0","1.0"],["13.6","5.9","5.9"]],["prev-day",0.2,1,["1.0","1.0","1.0"],["13.6","5.9","5.9"]],["prev-day",0.5,0.0594991,["10.7","4.8","4.7"],["5.6"]],["prev-day",0.8,0,["12.8","5.6","5.6"],[]]]
+  ✓  165 [mobile] › tests/e2e/flip.spec.js:1513:5 › T7: layout, phones and dark mode › dark: leaf and new page text keep 4.5 to 1 at 20, 50 and 80 percent of a flip, forward and back (4.9s)
+T7 text contrast dark: [["next-day",0.2,0,["12.8","5.6","5.6"],[]],["next-day",0.5,0.0594991,["10.7","4.8","4.7"],["5.6"]],["next-day",0.8,1,["1.0","1.0","1.0"],["13.6","5.9","5.9"]],["prev-day",0.2,1,["1.0","1.0","1.0"],["13.6","5.9","5.9"]],["prev-day",0.5,0.0594991,["10.7","4.8","4.7"],["5.6"]],["prev-day",0.8,0,["12.8","5.6","5.6"],[]]]
+  ✓  166 [mobile] › tests/e2e/flip.spec.js:1513:5 › T7: layout, phones and dark mode › dark: leaf and new page text keep 4.5 to 1 at 20, 50 and 80 percent of a flip, forward and back (4.9s)
+  ✓  167 [mobile] › tests/e2e/flip.spec.js:1578:3 › T7: layout, phones and dark mode › switching to dark mid flip ends cleanly, and the next flip uses the dark leaf back (1.4s)
+  ✓  168 [mobile] › tests/e2e/flip.spec.js:1578:3 › T7: layout, phones and dark mode › switching to dark mid flip ends cleanly, and the next flip uses the dark leaf back (1.6s)
+
+  8 skipped
+  160 passed (2.9m)

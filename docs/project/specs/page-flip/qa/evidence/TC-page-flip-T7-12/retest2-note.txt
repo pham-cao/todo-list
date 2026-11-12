@@ -1,0 +1,1 @@
+Retest 2: dropped per decisions.md 2026-11-12 page-flip T7 (state unreachable). R13 covered by T7-01 and T7-11.

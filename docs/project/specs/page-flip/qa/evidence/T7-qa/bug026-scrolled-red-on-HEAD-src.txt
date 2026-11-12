@@ -1,0 +1,20 @@
+  ✓  1 [desktop] › tests/e2e/flip.spec.js:1289:3 › T7: layout, phones and dark mode › a scrolled page at 1440 px: the leaf copy lines up with the page through --flip-offset, the tape presses, no overflow (1.2s)
+  ✓  2 [mobile] › tests/e2e/flip.spec.js:1289:3 › T7: layout, phones and dark mode › a scrolled page at 1440 px: the leaf copy lines up with the page through --flip-offset, the tape presses, no overflow (1.3s)
+  ✘  3 [desktop] › tests/e2e/flip.spec.js:1289:3 › T7: layout, phones and dark mode › a scrolled page at 390 px: the leaf copy lines up with the page through --flip-offset, the tape presses, no overflow (396ms)
+  ✓  4 [mobile] › tests/e2e/flip.spec.js:1289:3 › T7: layout, phones and dark mode › a scrolled page at 390 px: the leaf copy lines up with the page through --flip-offset, the tape presses, no overflow (1.3s)
+  ✘  5 [mobile] › tests/e2e/flip.spec.js:1289:3 › T7: layout, phones and dark mode › a scrolled page at 360 px: the leaf copy lines up with the page through --flip-offset, the tape presses, no overflow (337ms)
+  ✘  6 [desktop] › tests/e2e/flip.spec.js:1289:3 › T7: layout, phones and dark mode › a scrolled page at 360 px: the leaf copy lines up with the page through --flip-offset, the tape presses, no overflow (505ms)
+    Expected: 957.8125
+    Received: 711.8125
+    Expected precision:    0
+    Expected difference: < 0.5
+    Received difference:   246
+    Expected: 884.8125
+    Received: 775.8125
+    Expected precision:    0
+    Expected difference: < 0.5
+    Received difference:   109
+    Expected: 806.8125
+    Received: 775.8125
+    Expected precision:    0
+    Expected difference: < 0.5

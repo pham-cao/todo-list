@@ -102,3 +102,27 @@ date,task,tc_id,result,evidence,bug_id
 2026-11-12,T6,TC-page-flip-T6-20,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T6-20/,
 2026-11-12,T6,TC-page-flip-T6-21,blocked,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T6-21/,
 2026-11-12,T6,TC-page-flip-T6-22,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T6-22/,
+2026-11-12,T7,TC-page-flip-T7-01,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-01/,
+2026-11-12,T7,TC-page-flip-T7-02,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-02/,
+2026-11-12,T7,TC-page-flip-T7-03,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-03/,
+2026-11-12,T7,TC-page-flip-T7-04,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-04/,
+2026-11-12,T7,TC-page-flip-T7-05,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-05/,
+2026-11-12,T7,TC-page-flip-T7-06,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-06/,
+2026-11-12,T7,TC-page-flip-T7-07,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-07/,
+2026-11-12,T7,TC-page-flip-T7-08,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-08/,
+2026-11-12,T7,TC-page-flip-T7-09,blocked,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-09/,
+2026-11-12,T7,TC-page-flip-T7-10,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-10/,
+2026-11-12,T7,TC-page-flip-T7-11,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-11/,BUG-026
+2026-11-12,T7,TC-page-flip-T7-12,blocked,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-12/,
+2026-11-12,T7,TC-page-flip-T7-13,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-13/,
+2026-11-12,T7,TC-page-flip-T7-14,blocked,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-14/,
+2026-11-12,T7,TC-page-flip-T7-15,blocked,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-15/,
+2026-11-12,T7,TC-page-flip-T7-16,blocked,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-16/,
+2026-11-12,T7,TC-page-flip-T7-17,blocked,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-17/,
+2026-11-12,T7,TC-page-flip-T7-18,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-18/,
+2026-11-12,T7,TC-page-flip-T2-15,fail,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T2-15/,BUG-027
+2026-11-12,T7,TC-page-flip-T2-15,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T2-15/retest2-runner-output.txt,BUG-027 verified (one unreproduced mobile miss in 51 runs; see BUG-027)
+2026-11-12,T7,TC-page-flip-T7-01,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-01/retest2-note.txt,
+2026-11-12,T7,TC-page-flip-T7-09,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-09/qa-note-retest2.txt,
+2026-11-12,T7,TC-page-flip-T7-12,dropped,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-12/retest2-note.txt,
+2026-11-12,T7,TC-page-flip-T7-13,pass,docs/project/specs/page-flip/qa/evidence/T7-fe/,Recaptured frames reviewed (dark riffle, 200 rows near bottom, 360 px dark)

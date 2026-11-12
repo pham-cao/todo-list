@@ -1,0 +1,1 @@
+blocked: no contrast script or test exists for T7-09 and FE did not cover it; dark and light frames reviewed by eye only. Needs a contrast check at 3 sampled frames.

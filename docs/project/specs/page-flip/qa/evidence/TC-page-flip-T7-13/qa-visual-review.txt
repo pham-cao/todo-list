@@ -1,0 +1,1 @@
+Reviewed visually by QA against ux/screenshots (forward 225 ms, riffle 350 ms, back, light and dark, 1440, 390, 360). Matches the approved prototype; top edge cut at the header rule is the accepted P3.

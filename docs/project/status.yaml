@@ -399,15 +399,15 @@ features:
         title: "Layout, phones and dark mode"
         owner: fe
         depends_on: [T6]
-        state: doing
-        attempts: 0
-        bugs_opened: []
+        state: done
+        attempts: 1
+        bugs_opened: [BUG-026, BUG-027]
         trello_card: ""
       - id: T8
         title: "Speed with 200 tasks"
         owner: fe
         depends_on: [T7]
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""

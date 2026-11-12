@@ -1,0 +1,1 @@
+blocked: no test (sheet body cannot scroll fully out of view, per FE). Not reachable in the app; needs a decision to drop or rewrite the case.

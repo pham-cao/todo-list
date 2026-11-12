@@ -652,3 +652,14 @@ Also accepted: strip appended inside <main>; pointer captured on the slip, not t
 ## 2026-11-12 page-flip T6
 - copy() strips every label's `for` as well as every `id`. A cloned `<label for>` would otherwise join the real control's labels and double its accessible name (R11, R20). This amends step 2 of copy() in design.md. Other ARIA reference attributes in the copy point outward and stay, since the stage is aria-hidden and inert.
 - Editing and saving a row during a flip updates it in place, so the flip keeps running. Only add, delete and real list rebuilds end it.
+
+## 2026-11-12 page-flip T7
+- Reviewer attempt 1 failed T7: forcing every row visible for the geometry read costs up to 197 to 235 ms with 200 wrapping rows (NFR1). (Superseded by the T7 rework bullet below: no measure at all, a ResizeObserver realigns the stage.) FE proves the fix with a 200 long-row NFR1 case and a scrolled near the bottom case.
+- design-system.md gets a note on `.flip-measure` and its interplay with content-visibility in T9, which owns that file.
+- QA confirmed the reviewer finding as BUG-027 (High). BUG-026 (scrolled leaf offset) is closed.
+- TC-page-flip-T7-12 (sheet body fully scrolled out of view) is dropped: the sheet body runs to the bottom of the sheet, so the state cannot be reached. R13 stays covered by T7-01 and T7-11.
+- TC-page-flip-T7-09 (contrast at sampled frames) is automated by FE in the T7 rework.
+- The flaky T7-01 frame assumption is fixed by FE in the same rework, not by the healer, since the BUG-027 fix changes the timing.
+- T7-14 to T7-17 (real devices, Safari, Firefox, Edge) go to the release note as manual checks, as in drag-drop.
+- T7 rework: play() no longer forces row layout; a ResizeObserver on the sheet body realigns the stage after each layout until the flip ends, and copied rows get explicit heights. The flip-measure class and CSS rule are removed. design-system.md will describe this in T9.
+- The dark `--flip-shade` goes from 0.34 to 0.08, because at 0.34 dark done ink on the leaf fell to 3.1:1 and broke R35. The dark leaf shows less shading near its free edge than the approved prototype; the cast shadow and darker back still give depth. Accessibility (R35, approved by the owner) takes priority over the prototype's shade strength. Light stays at 0.10, which is the darkest that passes.
