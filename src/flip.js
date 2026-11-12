@@ -127,7 +127,16 @@ export function createFlip({ sheet, body, date }) {
         }
       });
       follow.observe(body);
-      timer = setTimeout(end, ms("--dur-flip") + (n - 1) * ms("--dur-riffle-step") + 17);
+      // The animations start in the first frame that draws the stage, which can come late after a heavy render, so the
+      // end timer starts there too and never cuts the last part of the turn (BUG-028). Until that frame a backstop
+      // twice as long stands in, so a frame that never comes still leaves no leaf (R9).
+      const life = ms("--dur-flip") + (n - 1) * ms("--dur-riffle-step") + 17;
+      timer = setTimeout(end, 2 * life);
+      requestAnimationFrame(() => {
+        if (stage !== s) return;
+        clearTimeout(timer);
+        timer = setTimeout(end, life);
+      });
     } catch {
       end();
     }

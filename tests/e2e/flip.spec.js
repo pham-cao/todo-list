@@ -37,7 +37,7 @@ const clickAndRead = (page, id) => page.evaluate((id) => {
   };
 }, id);
 
-test('the next arrow turns one leaf forward carrying the old day, then the stage goes within 550 ms', async ({ page }) => {
+test('the next arrow turns one leaf forward carrying the old day, then the stage goes within 700 ms', async ({ page }) => {
   await watchFlips(page);
   await open(page, SEED);
   const now = await clickAndRead(page, 'next-day');
@@ -52,8 +52,8 @@ test('the next arrow turns one leaf forward carrying the old day, then the stage
   expect(f.text).toContain('Gửi báo cáo tuần');
   expect(f.text).toContain('Tập yoga 30 phút');
   expect(f.text).not.toContain('Đặt bánh sinh nhật');
-  expect(f.removed - f.added).toBeLessThanOrEqual(450 + 100);
-  expect(f.removed - f.added).toBeGreaterThanOrEqual(400);
+  expect(f.removed - f.added).toBeLessThanOrEqual(600 + 100);
+  expect(f.removed - f.added).toBeGreaterThanOrEqual(550);
 });
 
 test('the previous arrow turns one leaf back carrying the new day', async ({ page }) => {
@@ -66,7 +66,7 @@ test('the previous arrow turns one leaf back carrying the new day', async ({ pag
   expect(flips[0]).toMatchObject({ back: true, leaves: 1, blank: 0, ariaHidden: 'true', inert: true, ids: 0 });
   expect(flips[0].text).toContain('Dọn tủ quần áo');
   expect(flips[0].text).not.toContain('Gửi báo cáo tuần');
-  expect(flips[0].removed - flips[0].added).toBeLessThanOrEqual(550);
+  expect(flips[0].removed - flips[0].added).toBeLessThanOrEqual(600 + 100);
 });
 
 test('the day, address, picker and focus change in the same task as the click; the leaf copy is never matched', async ({ page }) => {
@@ -208,8 +208,8 @@ const pickAndRead = (page, key) => page.evaluate((key) => {
     date: document.getElementById('date-line').textContent,
   };
 }, key);
-// The lifetime the timer allows: 450 ms for one leaf and 125 ms more for each riffle leaf, plus 100 ms of slack.
-const lifetime = (n) => 450 + (n - 1) * 125 + 100;
+// The lifetime the timer allows: 600 ms for one leaf and 125 ms more for each riffle leaf, plus 100 ms of slack.
+const lifetime = (n) => 600 + (n - 1) * 125 + 100;
 
 for (const [key, n] of [['2026-11-10', 1], ['2026-11-11', 2], ['2026-11-12', 3], ['2026-11-18', 3], ['2027-12-14', 3]]) {
   test(`a picker move to ${key} turns ${n} leaf or leaves forward, the top one with the old day, then goes in time`, async ({ page }) => {
@@ -430,7 +430,7 @@ test('a riffle cut by a previous press goes whole, then one back leaf plays from
   expectOneAtATime(await flipsSeen(page));
 });
 
-test('30 presses at 100 ms end on the right day with everything matching and no leaf 800 ms later', async ({ page }) => {
+test('30 presses at 100 ms end on the right day with everything matching and no leaf 950 ms later', async ({ page }) => {
   test.setTimeout(30_000);
   await watchFlips(page);
   await open(page, SEED);
@@ -439,7 +439,7 @@ test('30 presses at 100 ms end on the right day with everything matching and no 
     await next(page).click();
     await page.waitForTimeout(100);
   }
-  await page.waitForTimeout(700); // 800 ms after the last press, counting the wait in the loop
+  await page.waitForTimeout(850); // 950 ms after the last press, counting the wait in the loop
   expect(await nodesLeft(page)).toBe(0);
   expect(hash(page)).toBe('#2026-12-09');
   expect(await page.evaluate(() => history.length)).toBe(before + 30);
@@ -452,9 +452,10 @@ test('30 presses at 100 ms end on the right day with everything matching and no 
   expectOneAtATime(flips);
 });
 
-// The removal timer is --dur-flip plus 17 ms (467 ms). Presses 467, 468 and 470 ms after the one before race that
-// timer: whichever runs first, there is one stage at a time and none left over.
-test('presses at 449, 450 and 451 ms, then at the 467 ms timer edge, never leave two stages or a leftover', async ({ page }) => {
+// The removal timer is --dur-flip plus 17 ms (617 ms), counted from the first frame that draws the stage. Presses 617,
+// 625 and 633 ms after the one before race that timer: whichever runs first, there is one stage at a time and none
+// left over.
+test('presses at 599, 600 and 601 ms, then at the 617 ms timer edge, never leave two stages or a leftover', async ({ page }) => {
   await watchFlips(page);
   await open(page, SEED);
   const counts = await page.evaluate(() => new Promise((done) => {
@@ -465,9 +466,9 @@ test('presses at 449, 450 and 451 ms, then at the 467 ms timer edge, never leave
     };
     const after = (ms, then) => setTimeout(() => { press(); then?.(); }, ms);
     press();
-    setTimeout(press, 449);
-    setTimeout(press, 450);
-    after(451, () => after(467, () => after(468, () => after(470, () => done(seen)))));
+    setTimeout(press, 599);
+    setTimeout(press, 600);
+    after(601, () => after(617, () => after(625, () => after(633, () => done(seen)))));
   }));
   expect(counts).toEqual([1, 1, 1, 1, 1, 1, 1]);
   await expect(page.locator('#day-picker')).toHaveValue('2026-11-16');
@@ -510,7 +511,7 @@ test('typing a date into the picker moves on each valid date and ends on the typ
   await expect(page.locator('#day-picker')).toHaveValue('2026-12-12');
   await expect.poll(() => hash(page)).toBe('#2026-12-12');
   await expect(dateLine(page)).toHaveText('Thứ Bảy, 12/12/2026');
-  await page.waitForTimeout(800);
+  await page.waitForTimeout(950);
   expect(await nodesLeft(page)).toBe(0);
   // Each distinct valid date the picker reported, other than the day it started on, is one move (R17); empty values
   // and partial years are ignored.
@@ -531,7 +532,7 @@ test('reduced motion switched on during a riffle removes it at once with no help
   await expect(stages(page)).toHaveCount(0);
   await expect(dateLine(page)).not.toHaveClass(/washi--restick/);
   const [f] = await flipsSeen(page);
-  expect(f.removed - f.added).toBeLessThan(500); // the riffle lives 700 ms: the setting ended it, not the timer
+  expect(f.removed - f.added).toBeLessThan(500); // the riffle lives 850 ms: the setting ended it, not the timer
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await next(page).click();
   expect(await settled(page, 2)).toEqual([flip(false, 3), flip(false, 1)]);
@@ -565,11 +566,11 @@ test('the page going hidden during a flip ends it at once', async ({ page }) => 
   await expect(dateLine(page)).toHaveText('Ngày mai, Thứ Ba, 10/11/2026');
 });
 
-test('a window blur during a riffle leaves no stage after 700 ms', async ({ page }) => {
+test('a window blur during a riffle leaves no stage after 850 ms', async ({ page }) => {
   await open(page, SEED);
   await pickAndRead(page, '2026-11-15');
   await page.evaluate(() => dispatchEvent(new Event('blur')));
-  await page.waitForTimeout(700 + 17);
+  await page.waitForTimeout(850 + 50); // the timer starts at the first frame
   expect(await nodesLeft(page)).toBe(0);
 });
 
@@ -654,7 +655,7 @@ test('a theme change during a riffle leaves no stage, and the next leaf back use
   await open(page, SEED);
   await pickAndRead(page, '2026-11-15');
   await page.emulateMedia({ colorScheme: 'light' });
-  await page.waitForTimeout(700 + 100);
+  await page.waitForTimeout(850 + 100);
   expect(await nodesLeft(page)).toBe(0);
   const back = await page.evaluate(() => {
     document.getElementById('next-day').click();
@@ -681,7 +682,7 @@ test('30 moves leave zero leaf nodes and the same listener count on window, docu
     await (k % 2 ? prev(page) : next(page)).click();
     await page.waitForTimeout(50);
   }
-  await page.waitForTimeout(800);
+  await page.waitForTimeout(950);
   expect(await nodesLeft(page)).toBe(0);
   expect(await listeners()).toEqual(before);
   await cdp.detach();
@@ -727,7 +728,7 @@ test('a held Enter on next: the first down flips, each repeat moves at once with
   expectOneAtATime(await flipsSeen(page));
 });
 
-test('one repeat gives 1 leaf on release, and 5 repeats give 3 leaves gone within 800 ms', async ({ page }) => {
+test('one repeat gives 1 leaf on release, and 5 repeats give 3 leaves gone within 950 ms', async ({ page }) => {
   await watchFlips(page);
   await open(page, SEED);
   await next(page).focus();
@@ -742,13 +743,13 @@ test('one repeat gives 1 leaf on release, and 5 repeats give 3 leaves gone withi
   expect(last.removed - last.added).toBeLessThan(lifetime(3));
 });
 
-test('a 40 repeat hold ends on the right day with 3 leaves and no leaf 800 ms after the release', async ({ page }) => {
+test('a 40 repeat hold ends on the right day with 3 leaves and no leaf 950 ms after the release', async ({ page }) => {
   await watchFlips(page);
   await open(page, SEED);
   await next(page).focus();
   await hold(page, 'Enter', 40);
   await page.keyboard.up('Enter');
-  await page.waitForTimeout(800);
+  await page.waitForTimeout(950);
   expect(await nodesLeft(page)).toBe(0);
   expect(hash(page)).toBe('#2026-12-20');
   await expect(page.locator('#day-picker')).toHaveValue('2026-12-20');
@@ -893,7 +894,7 @@ test('a held Enter on Về hôm nay moves to today once with at most one flip an
   await hold(page, 'Enter', 4);
   await page.keyboard.up('Enter');
   await expect(dateLine(page)).toHaveText('Hôm nay, Thứ Hai, 09/11/2026');
-  await page.waitForTimeout(800);
+  await page.waitForTimeout(950);
   expect((await flipsSeen(page)).length).toBeLessThanOrEqual(1);
   expect(await nodesLeft(page)).toBe(0);
   expect(errors).toEqual([]);
@@ -1500,7 +1501,7 @@ test.describe('T7: layout, phones and dark mode', () => {
     });
   }
 
-  // TC-page-flip-T7-09 (R35): text contrast at 20, 50 and 80 percent of a flip, forward and back, light and dark. The
+  // TC-page-flip-T7-09 (R35): text contrast at 20, 50 and 65 percent of a flip, forward and back, light and dark. The
   // leaf is held at each frame and every colour is composited through a 1 px canvas, layer by layer as it is painted.
   // Leaf text is paper, then ink, then the shade, then the leaf back at its frame opacity, checked while the back has
   // not yet covered it (opacity under 1). The shade runs from clear at 10 percent of the leaf to --flip-shade at its
@@ -1515,12 +1516,15 @@ test.describe('T7: layout, phones and dark mode', () => {
     // a done task long enough to wrap, so its ink reaches the free edge where the shade is darkest
     task(`w${k}`, 'Trình bày số liệu tháng 10 ở buổi họp dự án với khách hàng, rồi gửi biên bản và lịch hẹn tiếp theo cho cả nhóm', true, d, 3 * k + 2)]);
   for (const colorScheme of ['light', 'dark']) {
-    test(`${colorScheme}: leaf and new page text keep 4.5 to 1 at 20, 50 and 80 percent of a flip, forward and back`, async ({ page }) => {
+    test(`${colorScheme}: leaf and new page text keep 4.5 to 1 at 20, 50 and 65 percent of a flip, forward and back`, async ({ page }) => {
       await page.emulateMedia({ colorScheme });
       await open(page, INKS);
       const seen = [];
       for (const id of ['next-day', 'prev-day']) {
-        for (const at of [0.2, 0.5, 0.8]) {
+        // 20, 50 and 65 percent of the turn; 65 is the last before the words fade into the back (70 to 92 percent of
+        // the turn, BUG-028), the fade R35 allows (before T8b it ran from 45 to 70 percent and 80 fell after it). A back
+        // flip plays the turn in reverse, so its times are 1 minus those.
+        for (const at of id === 'next-day' ? [0.2, 0.5, 0.65] : [0.8, 0.5, 0.35]) {
           const r = await page.evaluate(([id, at]) => {
             document.getElementById(id).click();
             const stage = document.querySelector('.flip-stage');
@@ -1584,7 +1588,7 @@ test.describe('T7: layout, phones and dark mode', () => {
     await open(page, SEED);
     await pick(page, '2026-11-15');
     await page.emulateMedia({ colorScheme: 'dark' });
-    await page.waitForTimeout(700 + 100);
+    await page.waitForTimeout(850 + 100);
     await expect(stages(page)).toHaveCount(0);
     const c = await leafColours(page, '2026-11-14');
     expect(c.leaf).toEqual([DARK_PAPER]);
@@ -1634,19 +1638,22 @@ test.describe('T8: speed with 200 tasks', () => {
     });
   }
 
+  // The page's select values are read before the move, in the same task: they are what the leaf copies.
+  const copiedSelects = (page) => page.evaluate(() => {
+    const page = [...document.querySelectorAll('.sheet__body select')].map((s) => s.value);
+    document.getElementById('next-day').click();
+    const leaf = document.querySelector('.flip-stage .leaf:not(.leaf--blank)');
+    return {
+      page, values: [...leaf.querySelectorAll('select')].map((s) => s.value),
+      refs: leaf.querySelectorAll('[id], [for]').length, rows: leaf.querySelectorAll('.task').length,
+    };
+  });
+  const GROUPS = { groups: [group('g1', 'Việc nhà'), group('g2', 'Công việc', 'blue')] };
+
   test('the trimmed copy keeps the chosen select values and holds no id or for', async ({ page }) => {
-    await open(page, BIG, '', { groups: [group('g1', 'Việc nhà'), group('g2', 'Công việc', 'blue')] });
+    await open(page, BIG, '', GROUPS);
     await page.locator('#new-task-group').selectOption('g2');
-    const m = await page.evaluate(() => {
-      document.getElementById('next-day').click();
-      const leaf = document.querySelector('.flip-stage .leaf:not(.leaf--blank)');
-      return {
-        values: [...leaf.querySelectorAll('select')].map((s) => s.value),
-        page: [...document.querySelectorAll('.sheet__body select')].map((s) => s.value),
-        refs: leaf.querySelectorAll('[id], [for]').length,
-        rows: leaf.querySelectorAll('.task').length,
-      };
-    });
+    const m = await copiedSelects(page);
     expect(m.values).toContain('g2');
     expect(m.values).toEqual(m.page.slice(0, m.values.length));
     expect(m.refs).toBe(0);
@@ -1654,9 +1661,24 @@ test.describe('T8: speed with 200 tasks', () => {
     expect(m.rows).toBeLessThan(200);
   });
 
+  test('a row edit form open inside the trimmed part: the leaf keeps its group choice and the page prefix', async ({ page }) => {
+    await open(page, BIG, '', GROUPS);
+    await page.locator('#new-task-group').selectOption('g1');
+    await rows(page).nth(2).getByRole('button', { name: 'Sửa' }).click();
+    const edit = rows(page).nth(2).locator('.task__edit select');
+    await edit.selectOption('g2');
+    const m = await copiedSelects(page);
+    expect(m.page.length).toBe(3); // add, filter and the row's edit select
+    expect(m.values).toEqual(m.page.slice(0, m.values.length));
+    expect(m.values).toEqual(expect.arrayContaining(['g1', 'g2']));
+    expect(m.refs).toBe(0);
+    expect(m.rows).toBeGreaterThan(2);
+    expect(m.rows).toBeLessThan(200);
+  });
+
   // NFR2 (Chromium): every frame of the motion, from the first frame after the move to the one the stage goes in,
-  // with a longtask observer that runs 3 frames more. The move's own task and the frame that paints it render the new day's 200
-  // rows and are timed by NFR1 (the under 100 ms tests); what NFR2 adds is that the motion after it never stalls.
+  // with a longtask observer that runs 3 frames more. Only the move's own task is left out: it renders the new day's
+  // 200 rows and is timed by NFR1 (the under 100 ms tests). The frame that paints it is measured.
   // Per run: the longtask count, the median frame time and the longest frame; the asserts take the median of 3 runs.
   const measure = (page, key) => page.evaluate((key) => new Promise((done) => {
     const long = [];
@@ -1713,4 +1735,78 @@ test.describe('T8: speed with 200 tasks', () => {
       }
     });
   }
+});
+
+test.describe('T8b: perceptible flip motion (BUG-028)', () => {
+  // Real time, nothing paused: the move, then the leaf with words read on every animation frame until the stage goes.
+  // angle: how far the leaf has turned up from the page (rotateY, 0 to 92 degrees); back: the plain back's opacity;
+  // width: the leaf's drawn width over the stage width; left: the leftmost drawn edge of any leaf, from the stage left,
+  // over the stage width.
+  const sweep = (page, move) => page.evaluate(async (move) => {
+    const picker = document.getElementById('day-picker');
+    if (move.startsWith('#')) { picker.value = move.slice(1); picker.dispatchEvent(new Event('change')); }
+    else document.getElementById(move).click();
+    const stage = document.querySelector('.flip-stage');
+    const leaf = stage.querySelector('.leaf:not(.leaf--blank)'), leaves = [...stage.querySelectorAll('.leaf')];
+    const back = leaf.querySelector('.leaf__back');
+    const samples = [];
+    await new Promise((done) => {
+      const read = (t) => {
+        if (!stage.isConnected) return done();
+        const m = new DOMMatrix(getComputedStyle(leaf).transform), s = stage.getBoundingClientRect();
+        samples.push({
+          t, angle: (Math.atan2(m.m13, m.m11) * 180) / Math.PI, back: +getComputedStyle(back).opacity,
+          width: leaf.getBoundingClientRect().width / s.width,
+          left: (Math.min(...leaves.map((l) => l.getBoundingClientRect().left)) - s.left) / s.width,
+        });
+        requestAnimationFrame(read);
+      };
+      requestAnimationFrame(read);
+    });
+    return { dur: parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--dur-flip')), samples, leaves: leaves.length };
+  }, move);
+
+  // TC-page-flip-T8-11: the leaf turns at 2 degrees per 50 ms or more for at least 60 percent of --dur-flip, the words
+  // show (back under 0.05) for at least 60 percent of it, the back shows only once the leaf is turned 60 degrees or
+  // more, the leaf keeps at least a fifth of its width until 75 degrees (no early collapse onto the hinge), and no leaf
+  // is drawn more than 5 percent of the stage width past its left edge (the leaf ends at 92 degrees, just past edge on,
+  // a few pixels over the hinge; it must never swing far past it into the clip, as with BUG-028's 36 percent).
+  const perceptible = ({ dur, samples }, what) => {
+    let turning = 0, words = 0;
+    for (let k = 1; k < samples.length; k++) {
+      const [a, b] = [samples[k - 1], samples[k]], dt = b.t - a.t;
+      if ((Math.abs(b.angle - a.angle) / dt) * 50 >= 2) turning += dt;
+      if (a.back < 0.05) words += dt;
+    }
+    expect(samples.length, what).toBeGreaterThan(10);
+    expect(Math.max(...samples.map((s) => s.angle)), what).toBeGreaterThan(85);
+    expect(turning, `${what}: ms turning`).toBeGreaterThanOrEqual(0.6 * dur);
+    expect(words, `${what}: ms with words showing`).toBeGreaterThanOrEqual(0.6 * dur);
+    for (const s of samples) {
+      if (s.back >= 0.05) expect(s.angle, `${what}: back shown at ${s.angle.toFixed(0)} degrees`).toBeGreaterThanOrEqual(60);
+      if (s.angle < 75) expect(s.width, `${what}: width at ${s.angle.toFixed(0)} degrees`).toBeGreaterThanOrEqual(0.2);
+      expect(s.left, `${what}: drawn past the hinge`).toBeGreaterThanOrEqual(-0.05);
+    }
+  };
+
+  for (const [width, height] of [[1440, 900], [390, 844]]) {
+    test(`at ${width} px a forward flip, a back flip and a 3 leaf riffle visibly turn in real time`, async ({ page }) => {
+      await page.setViewportSize({ width, height });
+      await open(page, SEED);
+      for (const [move, n] of [['next-day', 1], ['prev-day', 1], ['#2026-11-12', 3]]) {
+        await page.waitForTimeout(200);
+        const r = await sweep(page, move);
+        expect(r.leaves, move).toBe(n);
+        console.log(`T8b ${width} ${move}: ${r.samples.map((s) => `${s.angle.toFixed(0)}/${s.back.toFixed(2)}/${s.width.toFixed(2)}`).join(' ')}`);
+        perceptible(r, `${width} px ${move}`);
+      }
+    });
+  }
+
+  test('a forward flip off a 200 task day visibly turns in real time', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await open(page, Array.from({ length: 200 }, (_, k) => task(`b${k}`, `Việc số ${k + 1}`, k % 3 === 0, TODAY, k)));
+    await page.waitForTimeout(300);
+    perceptible(await sweep(page, 'next-day'), '200 tasks');
+  });
 });

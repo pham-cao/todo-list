@@ -55,7 +55,7 @@ export async function tick(page, i, on) {
   await (on ? expect(box(page, i)).toBeChecked() : expect(box(page, i)).not.toBeChecked());
 }
 
-// Records every .flip-stage ever added and when it went, and every time the tape gets washi--restick, so a 450 ms
+// Records every .flip-stage ever added and when it went, and every time the tape gets washi--restick, so a 600 ms
 // stage cannot slip between two checks. Times are performance.now() in the page.
 export async function watchFlips(page) {
   await page.addInitScript(() => {

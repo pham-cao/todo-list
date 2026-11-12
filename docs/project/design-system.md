@@ -231,19 +231,19 @@ This section only adds to the system. The CSS lives at the end of `design-system
 
 ### Direction
 
-The ruled part of the sheet turns like a loose leaf page on its rings. The hinge is the punched hole strip; the leaf lifts towards the owner with perspective, its free edge growing slightly, then narrows to a line at the holes. From half way the text fades into the plain darker back of the paper and a shade grows towards the free edge. Going back plays the same motion in reverse: a leaf of the earlier day lands from the rings. Jumps of 2 or more days riffle through blank ruled pages. The header band never moves.
+The ruled part of the sheet turns like a loose leaf page on its rings. The hinge is the punched hole strip; the leaf lifts towards the owner with perspective, its free edge growing slightly, then narrows steadily to a line at the holes. The eye sits over the rings (`perspective-origin` on the hinge), so the leaf is never drawn past the holes and clipped. The words stay on the leaf for most of the turn; only once the leaf is nearly edge on (70 to 92 percent of the time) does it fade into the plain darker back, while a shade grows towards the free edge. The leaf moves from the first frame, so the whole turn reads as one sweep in real time, not a flicker (BUG-028). Going back plays the same motion in reverse: a leaf of the earlier day lands from the rings. Jumps of 2 or more days riffle through blank ruled pages. The header band never moves.
 
 ### New tokens
 
 | Token | Light | Dark | Use |
 | --- | --- | --- | --- |
-| `--dur-flip` | 450 ms | same | One leaf, phones and desktop. Replaces `--dur-turn` for the day change |
-| `--dur-riffle-step` | 125 ms | same | Start of one riffle leaf to the next; 3 leaves end at 700 ms |
-| `--ease-flip` | cubic-bezier(0.5, 0.05, 0.7, 0.75) | same | Slow lift, then the turn speeds up; reversed it lands softly |
+| `--dur-flip` | 600 ms | same | One leaf, phones and desktop. Replaces `--dur-turn` for the day change. 450 ms read as a flicker (BUG-028) |
+| `--dur-riffle-step` | 125 ms | same | Start of one riffle leaf to the next; 3 leaves end at 850 ms |
+| `--ease-flip` | cubic-bezier(0.4, 0, 0.6, 1) | same | Moves at once and eases into the rings; reversed it lands softly |
 | `--flip-perspective` | 1800 px (1100 px below 601 px) | same | Depth of the turn |
 | `--color-leaf-back` | #ECE5D4 | #1B1F25 | Back of a leaf, never lighter than the paper, so no flash at night |
 | `--flip-cast` | rgba(56, 48, 30, 0.30) | rgba(0, 0, 0, 0.62) | Shadow on the page under the leaf, and the leaf's edge shadow |
-| `--flip-shade` | rgba(56, 48, 30, 0.10) | rgba(0, 0, 0, 0.34) | Light falloff across the leaf. Capped at 0.10 by day so done ink stays at 4.5:1; at night it only raises contrast |
+| `--flip-shade` | rgba(56, 48, 30, 0.10) | rgba(0, 0, 0, 0.08) | Light falloff across the leaf. Capped at 0.10 by day and 0.08 at night so done ink stays at 4.5:1 near the free edge (R35) |
 
 ### Components
 
@@ -252,17 +252,19 @@ The ruled part of the sheet turns like a loose leaf page on its rings. The hinge
 - Cast (`.leaf-cast`): one before each leaf, on the page underneath, darkest at the rings, narrowing with the turn.
 - Order: the leaf with words is always last in the DOM (on top). Forward it has `--i: 0` and the copy of the old page; back it has the highest `--i` and a copy of the new page, and every animation runs with `animation-direction: reverse`.
 - Tape: `.washi--restick` is added once per day change, with the first leaf.
-- Lifetime: the stage is removed by a timer at `--dur-flip + (leaves - 1) * --dur-riffle-step` plus one frame, or at once by a new move, reduced motion switching on, the page becoming hidden, or a re-render of the sheet body.
+- Copy: the leaf holds the sheet body down to the first row below the window (rows above it stay, so `--flip-offset` lines it up). Each copied row gets the height its row has now, because rows use `content-visibility: auto` and a clone has no remembered size.
+- Following the page: rows of a new day are one rule placeholders until the browser lays out the ones near the window, which can take a frame or more and can move the window back from a clamped scroll. The script lays out no rows itself (NFR1); a ResizeObserver on the sheet body puts the stage back on the page after each layout until the flip ends, and a back leaf's copied rows take their rows' new heights. Every read in its callback comes before any write.
+- Lifetime: the stage is removed by a timer at `--dur-flip + (leaves - 1) * --dur-riffle-step` plus one frame, counted from the first frame that draws the stage (so a slow first frame never cuts the end of the turn), or at once by a new move, reduced motion switching on, the page becoming hidden, or a re-render of the sheet body.
 - Superseded: `.turn--back`, `.turn--forward` and `--dur-turn` are no longer used for the day change once page-flip ships, and can be removed with it.
 
 ### Motion
 
 | Moment | Motion | Duration |
 | --- | --- | --- |
-| 1 day later | Old page turns away on the rings | 450 ms |
-| 1 day earlier | Leaf of the earlier day lands from the rings | 450 ms |
-| 2 days | Riffle: page with words plus 1 blank | 575 ms |
-| 3 days or more | Riffle: page with words plus 2 blanks | 700 ms |
+| 1 day later | Old page turns away on the rings | 600 ms |
+| 1 day earlier | Leaf of the earlier day lands from the rings | 600 ms |
+| 2 days | Riffle: page with words plus 1 blank | 725 ms |
+| 3 days or more | Riffle: page with words plus 2 blanks | 850 ms |
 | Any day change | Tape pressed down once | 360 ms |
 
 Under `prefers-reduced-motion` nothing plays: no leaf, no shadow and no tape press.
@@ -271,5 +273,6 @@ Under `prefers-reduced-motion` nothing plays: no leaf, no shadow and no tape pre
 
 - The leaf is a picture: hidden from assistive technology, inert, and clicks pass through to the new day.
 - Focus, the live date line and the tab order are untouched, because the real page changes before the leaf is drawn.
-- Text on a leaf keeps 4.5:1 while it is readable in both modes; past half way it fades into the back on purpose.
+- Text on a leaf keeps 4.5:1 while it is readable in both modes; near edge on it fades into the back on purpose.
+- Motion is checked in real time, never only on paused frames: the leaf turns for at least 60 percent of `--dur-flip` and the words show for at least 60 percent of it (TC-page-flip-T8-11).
 - Verified without horizontal scroll at 1440, 390 and 360 px in both modes.

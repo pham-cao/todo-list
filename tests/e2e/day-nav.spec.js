@@ -766,7 +766,7 @@ test('after midnight on an all done day nothing celebrates again and no page tur
 });
 
 // T7: page turn motion, keyboard order, size and speed. The turn is the page flip (page-flip): watchFlips records
-// every stage, so a 450 ms leaf cannot slip between two checks.
+// every stage, so a 600 ms leaf cannot slip between two checks.
 const stages = (page) => page.locator('.flip-stage');
 
 test('a move flips a leaf by direction and the stage and tape class go after the animation', async ({ page }) => {

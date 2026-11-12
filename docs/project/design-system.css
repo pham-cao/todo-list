@@ -991,9 +991,9 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
    Stage geometry is set inline by script: --flip-top and --flip-h (the visible part of the sheet body, in sheet
    coordinates) and --flip-offset (how much of the sheet body is scrolled above the window). */
 :root {
-  --dur-flip: 450ms;                     /* one leaf, phones and desktop */
-  --dur-riffle-step: 125ms;              /* start of one riffle leaf to the start of the next; 3 leaves end at 700 ms */
-  --ease-flip: cubic-bezier(0.5, 0.05, 0.7, 0.75); /* slow lift, then the turn speeds up; reversed it lands softly */
+  --dur-flip: 600ms;                     /* one leaf, phones and desktop (BUG-028: 450 ms read as a flicker) */
+  --dur-riffle-step: 125ms;              /* start of one riffle leaf to the start of the next; 3 leaves end at 850 ms */
+  --ease-flip: cubic-bezier(0.4, 0, 0.6, 1); /* moves at once, eases into the rings; the same shape reversed */
   --flip-perspective: 1800px;
   --color-leaf-back: #ECE5D4;            /* back of a leaf: the same paper, turned away from the light */
   --flip-cast: rgba(56, 48, 30, 0.30);   /* shadow the lifted leaf casts on the page under it */
@@ -1011,7 +1011,9 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
 .flip-stage {
   position: absolute; left: 0; right: 0; top: var(--flip-top, 0); height: var(--flip-h, 0); z-index: 3;
   overflow: clip; pointer-events: none; user-select: none; -webkit-user-select: none;
-  perspective: var(--flip-perspective); perspective-origin: 100% 50%;
+  /* The eye is over the rings, so the leaf narrows steadily onto the hinge as it turns and is never projected past it
+     (BUG-028: from the far edge it collapsed onto the hinge at about 67 degrees and the rest was clipped). */
+  perspective: var(--flip-perspective); perspective-origin: calc(var(--holes-w) / 2) 50%;
   contain: layout paint style;
 }
 .leaf, .leaf-cast {
@@ -1042,7 +1044,7 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
   .leaf::before { background-size: 100% 66px; background-image: radial-gradient(circle at 50% 50%, var(--color-desk) 0 4.5px, var(--color-desk-deep) 5px 6px, transparent 6.5px); }
 }
 .leaf__content { position: absolute; left: 0; right: 0; top: 0; translate: 0 calc(-1 * var(--flip-offset, 0px)); }
-.leaf__back { /* plain paper, no text: what the owner sees once the leaf has turned past half way */
+.leaf__back { /* plain paper, no text: what the owner sees once the leaf is nearly edge on */
   position: absolute; inset: 0; opacity: 0;
   background:
     var(--grain),
@@ -1065,7 +1067,7 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
 .flip-stage--back .leaf__back, .flip-stage--back .leaf__shade { animation-direction: reverse; }
 
 @keyframes leaf-turn { from { transform: rotateY(0deg); } to { transform: rotateY(-92deg); } }
-@keyframes leaf-back { 0%, 45% { opacity: 0; } 70%, 100% { opacity: 1; } }
+@keyframes leaf-back { 0%, 70% { opacity: 0; } 92%, 100% { opacity: 1; } } /* only once the leaf is near edge on */
 @keyframes leaf-shade { from { opacity: 0; } 55%, to { opacity: 1; } }
 @keyframes leaf-cast {
   from { opacity: 0; transform: scaleX(1); }
