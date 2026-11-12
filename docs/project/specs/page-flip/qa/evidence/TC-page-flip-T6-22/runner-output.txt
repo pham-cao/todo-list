@@ -1,0 +1,5 @@
+npx playwright test --workers=2 --reporter=list -g "T6:" (build 1.3.0, uncommitted T6 diff)
+  ✓  30 [desktop] › tests/e2e/flip.spec.js:1207:5 › T6: working on the page during a flip › the live date line changes once at an arrow move and not at the end of the flip (1.1s)
+  ✓  32 [desktop] › tests/e2e/flip.spec.js:1207:5 › T6: working on the page during a flip › the live date line changes once at a riffle move and not at the end of the flip (1.1s)
+  ✓  35 [mobile] › tests/e2e/flip.spec.js:1207:5 › T6: working on the page during a flip › the live date line changes once at an arrow move and not at the end of the flip (1.1s)
+  ✓  36 [mobile] › tests/e2e/flip.spec.js:1207:5 › T6: working on the page during a flip › the live date line changes once at a riffle move and not at the end of the flip (1.1s)

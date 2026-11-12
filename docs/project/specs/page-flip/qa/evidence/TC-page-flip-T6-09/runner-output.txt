@@ -1,0 +1,3 @@
+npx playwright test --workers=2 --reporter=list -g "T6:" (build 1.3.0, uncommitted T6 diff)
+  ✓  15 [desktop] › tests/e2e/flip.spec.js:1046:3 › T6: working on the page during a flip › the accessibility tree with a stage present holds the new day only, as on the settled page (218ms)
+  ✓  16 [mobile] › tests/e2e/flip.spec.js:1046:3 › T6: working on the page during a flip › the accessibility tree with a stage present holds the new day only, as on the settled page (219ms)

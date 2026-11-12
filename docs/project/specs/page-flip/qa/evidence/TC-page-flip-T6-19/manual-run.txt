@@ -1,0 +1,5 @@
+Manual run via Playwright MCP, Chromium desktop 1440x900, CDP Page.startScreencast, 2 moves (arrow, riffle to 25/11) over about 4 s.
+frames sampled: 47 (about 12 per second, coarse)
+mean luminance range 0.844 to 0.868
+flashes (opposing change >= 0.1): 0, max per second 0
+Limit: sampling at about 12 fps does not prove frame level behaviour. Result: pass

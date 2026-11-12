@@ -1,0 +1,3 @@
+npx playwright test --workers=2 --reporter=list -g "T6:" (build 1.3.0, uncommitted T6 diff)
+  ✓   3 [desktop] › tests/e2e/flip.spec.js:948:3 › T6: working on the page during a flip › a task added while the stage plays is saved with the new day, and the rebuild ends the flip (174ms)
+  ✓   4 [mobile] › tests/e2e/flip.spec.js:948:3 › T6: working on the page during a flip › a task added while the stage plays is saved with the new day, and the rebuild ends the flip (191ms)

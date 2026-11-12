@@ -1,0 +1,3 @@
+npx playwright test --workers=2 --reporter=list -g "T6:" (build 1.3.0, uncommitted T6 diff)
+  ✓  29 [desktop] › tests/e2e/flip.spec.js:1194:3 › T6: working on the page during a flip › under reduced motion CSS hides a stage injected by hand (81ms)
+  ✓  34 [mobile] › tests/e2e/flip.spec.js:1194:3 › T6: working on the page during a flip › under reduced motion CSS hides a stage injected by hand (68ms)

@@ -1,0 +1,1 @@
+Manual case, not executed: no NVDA or VoiceOver in this environment. Partial cover: T6-22 (one live update at the change) and T6-09 (accessibility tree) pass.

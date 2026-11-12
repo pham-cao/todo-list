@@ -391,15 +391,15 @@ features:
         title: "Working on the page during a flip"
         owner: fe
         depends_on: [T5]
-        state: doing
+        state: done
         attempts: 0
-        bugs_opened: []
+        bugs_opened: [BUG-025]
         trello_card: ""
       - id: T7
         title: "Layout, phones and dark mode"
         owner: fe
         depends_on: [T6]
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""

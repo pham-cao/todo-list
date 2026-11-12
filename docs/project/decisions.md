@@ -648,3 +648,7 @@ Also accepted: strip appended inside <main>; pointer captured on the slip, not t
 ## 2026-11-12 page-flip T2
 - T2 Boundary exception: test only selector scoping in tests/e2e/groups.spec.js, app.spec.js, drag.spec.js and day-nav.spec.js (beyond its T7 block), because the leaf copy has no ids and would otherwise match unscoped selectors. Selectors inside the sheet body now point at real ids (#empty, #empty-text, #new-task-error, #group-bar) or are prefixed with #day-list (.task__edit, .task--editing, .task--peek, .task__swipe, .group__toggle, .task-list b). The reviewer checked that none weakens an assertion.
 - Adding a task appends a row without renderList. The owner was told on 2026-11-12 that adding, deleting or changing the filter during a flip ends it, so the add submit handler also calls flip.end(). This replaces an earlier note in this section.
+
+## 2026-11-12 page-flip T6
+- copy() strips every label's `for` as well as every `id`. A cloned `<label for>` would otherwise join the real control's labels and double its accessible name (R11, R20). This amends step 2 of copy() in design.md. Other ARIA reference attributes in the copy point outward and stay, since the stage is aria-hidden and inert.
+- Editing and saving a row during a flip updates it in place, so the flip keeps running. Only add, delete and real list rebuilds end it.
