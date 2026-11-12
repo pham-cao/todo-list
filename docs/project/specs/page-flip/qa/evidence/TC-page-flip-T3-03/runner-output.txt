@@ -1,0 +1,8 @@
+  ✓  32 [mobile] › tests/e2e/flip.spec.js:213:3 › a picker move to 2026-11-12 turns 3 leaf or leaves forward, the top one with the old day, then goes in time (1.0s)
+  ✓  34 [mobile] › tests/e2e/flip.spec.js:213:3 › a picker move to 2026-11-18 turns 3 leaf or leaves forward, the top one with the old day, then goes in time (1.1s)
+  ✓  35 [desktop] › tests/e2e/flip.spec.js:213:3 › a picker move to 2026-11-12 turns 3 leaf or leaves forward, the top one with the old day, then goes in time (1.0s)
+  ✓  37 [desktop] › tests/e2e/flip.spec.js:213:3 › a picker move to 2026-11-18 turns 3 leaf or leaves forward, the top one with the old day, then goes in time (1.0s)
+  ✓  44 [desktop] › tests/e2e/flip.spec.js:233:3 › a picker move back to 2026-11-06 turns 3 leaf or leaves back, the last one landing with the new day (925ms)
+  ✓  43 [mobile] › tests/e2e/flip.spec.js:233:3 › a picker move back to 2026-11-06 turns 3 leaf or leaves back, the last one landing with the new day (930ms)
+  ✓  46 [mobile] › tests/e2e/flip.spec.js:233:3 › a picker move back to 2026-10-31 turns 3 leaf or leaves back, the last one landing with the new day (2.0s)
+  ✓  45 [desktop] › tests/e2e/flip.spec.js:233:3 › a picker move back to 2026-10-31 turns 3 leaf or leaves back, the last one landing with the new day (2.0s)

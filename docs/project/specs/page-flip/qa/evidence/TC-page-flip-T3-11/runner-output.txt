@@ -1,0 +1,4 @@
+  ✓  57 [desktop] › tests/e2e/flip.spec.js:284:1 › browser Back follows the dates, not the history direction (Back from today to tomorrow flips forward) (2.1s)
+  ✓  58 [mobile] › tests/e2e/flip.spec.js:284:1 › browser Back follows the dates, not the history direction (Back from today to tomorrow flips forward) (2.0s)
+  ✓  59 [desktop] › tests/e2e/flip.spec.js:295:1 › picker jumps then Back twice: each Back flips by the distance and order of the two dates (4.1s)
+  ✓  60 [mobile] › tests/e2e/flip.spec.js:295:1 › picker jumps then Back twice: each Back flips by the distance and order of the two dates (3.7s)

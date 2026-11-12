@@ -367,7 +367,7 @@ features:
         title: "Riffle and every entry point"
         owner: fe
         depends_on: [T2]
-        state: doing
+        state: done
         attempts: 0
         bugs_opened: []
         trello_card: ""
@@ -375,7 +375,7 @@ features:
         title: "Rapid moves and interruptions"
         owner: fe
         depends_on: [T3]
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""

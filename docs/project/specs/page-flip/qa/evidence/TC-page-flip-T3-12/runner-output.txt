@@ -1,0 +1,2 @@
+  ✓  61 [desktop] › tests/e2e/flip.spec.js:310:1 › an edited hash flips like any move: 2 days then 8 days away (2.0s)
+  ✓  62 [mobile] › tests/e2e/flip.spec.js:310:1 › an edited hash flips like any move: 2 days then 8 days away (2.0s)

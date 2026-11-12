@@ -1,0 +1,4 @@
+  ✓  47 [mobile] › tests/e2e/flip.spec.js:252:3 › Về hôm nay from 2026-11-08 flips forward with 1 leaf or leaves (984ms)
+  ✓  48 [desktop] › tests/e2e/flip.spec.js:252:3 › Về hôm nay from 2026-11-08 flips forward with 1 leaf or leaves (987ms)
+  ✓  49 [mobile] › tests/e2e/flip.spec.js:252:3 › Về hôm nay from 2026-11-03 flips forward with 3 leaf or leaves (1.0s)
+  ✓  50 [desktop] › tests/e2e/flip.spec.js:252:3 › Về hôm nay from 2026-11-03 flips forward with 3 leaf or leaves (1.0s)

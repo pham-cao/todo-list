@@ -1,0 +1,5 @@
+Playwright MCP, 1440x900, real timing, picker move of 3 days forward (2026-11-12 to 2026-11-15).
+Leaves (--i, blank, has .leaf__content, animation-delay, animation-duration):
+ 2 blank no-content 0.25s 0.45s | 1 blank no-content 0.125s 0.45s | 0 non-blank content 0s 0.45s
+Step between starts 125 ms, duration 450 ms, stage removed after 738 ms (polled, includes 10 ms poll steps), under 800 ms.
+Frame check: FE frame-riffle3-350ms-desktop.png compared with ux/screenshots/frame-riffle3-350ms-desktop.png: same fan of ruled leaves, perspective and shading; only a 2 px crop offset.
