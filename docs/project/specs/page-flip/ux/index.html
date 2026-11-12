@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page flip prototype</title>
+  <link rel="stylesheet" href="../../../design-system.css">
+  <style>
+    .doc { padding: var(--space-12) var(--sheet-pad-end) var(--space-16) calc(var(--holes-w) + var(--margin-w) + var(--margin-gap)); }
+    .doc h1 { font-size: var(--fs-display); line-height: 1.2; letter-spacing: -0.015em; }
+    .doc h2 { font-size: var(--fs-title); margin: var(--space-10) 0 var(--space-3); }
+    .doc h3 { font-size: var(--fs-meta); margin: var(--space-6) 0 var(--space-2); }
+    .doc p, .doc li { max-width: 68ch; }
+    .doc .washi { margin-top: var(--space-3); }
+    .lead { margin-top: var(--space-5); }
+    .start { display: inline-flex; width: fit-content; margin-top: var(--space-4); text-decoration: none; }
+    .notes { padding-left: var(--space-5); }
+    .notes li + li { margin-top: var(--space-3); }
+    .frames { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-3); margin: 0; }
+    .frames figure { margin: 0; }
+    .frames img { display: block; width: 100%; height: auto; border: 1px solid var(--color-rule); border-radius: var(--radius-paper); }
+    .frames figcaption { font-size: var(--fs-tiny); color: var(--text-muted); margin-top: var(--space-1); }
+    .shots { list-style: none; padding: 0; }
+    .shots li { border-bottom: 1px solid var(--color-rule); padding: var(--space-2) 0; font-size: var(--fs-meta); }
+    @media (max-width: 600px) { .frames { grid-template-columns: minmax(0, 1fr); } }
+  </style>
+</head>
+<body>
+  <div class="desk">
+  <main class="sheet doc">
+    <h1>Page flip</h1>
+    <p class="washi">Prototype on the paper notebook design, version 3</p>
+    <p class="lead">When the day changes, the ruled part of the sheet now turns like a real loose leaf page on its rings, instead of sliding 18 px. The new day is already in place underneath, so nothing waits for the motion. The header, the arrows and the date stamp stay still, and the washi tape is pressed down once, as before. No new text is added anywhere.</p>
+    <a class="btn btn--primary start" href="screens/flip.html">Open the prototype</a>
+
+    <h2>What to try</h2>
+    <ul class="notes">
+      <li>Press › and ‹ to turn one page each way. Tick a task or start typing straight after a press: the new day takes it at once.</li>
+      <li>Use the date stamp, or the "2 days later", "9 days later" and "4 days earlier" buttons, to feel a riffle of 2 or 3 pages. Then press Về hôm nay from far away.</li>
+      <li>Press "5 quick presses on ›", or click › as fast as you can. Each press ends the running turn and starts a fresh one, and nothing plays on after you stop.</li>
+      <li>Hold Enter on an arrow: the days run on with no flip until you let go.</li>
+      <li>Tick "Reduce motion" to see what owners with that system setting get: the day just changes. "Slow motion" and "Inspect one frame" are there so you can study the turn.</li>
+      <li>Try the browser Back and Forward buttons. The direction follows the date, not the history.</li>
+    </ul>
+
+    <h2>The turn, frame by frame</h2>
+    <h3>One page forward (a later day), 450 ms</h3>
+    <div class="frames">
+      <figure><img src="screenshots/frame-forward-90ms-desktop.png" alt="Old page starting to lift on its rings"><figcaption>90 ms: the old page lifts on the punched holes</figcaption></figure>
+      <figure><img src="screenshots/frame-forward-225ms-desktop.png" alt="Old page half turned, the next day visible on the right"><figcaption>225 ms: the next day shows beneath, a shadow falls on it</figcaption></figure>
+      <figure><img src="screenshots/frame-forward-360ms-desktop.png" alt="Leaf almost edge on, its darker back showing"><figcaption>360 ms: the plain darker back, then gone at the rings</figcaption></figure>
+    </div>
+    <h3>One page back (an earlier day), 450 ms</h3>
+    <div class="frames">
+      <figure><img src="screenshots/frame-back-90ms-desktop.png" alt="A leaf rising from the holes"><figcaption>90 ms: a leaf comes over from the rings</figcaption></figure>
+      <figure><img src="screenshots/frame-back-225ms-desktop.png" alt="Leaf of the earlier day half landed"><figcaption>225 ms: the earlier day lands from the left</figcaption></figure>
+      <figure><img src="screenshots/frame-back-360ms-desktop.png" alt="Leaf almost flat on the page"><figcaption>360 ms: it settles softly on the page</figcaption></figure>
+    </div>
+    <h3>Riffle of 3 (a jump of 3 days or more), 700 ms</h3>
+    <div class="frames">
+      <figure><img src="screenshots/frame-riffle3-150ms-desktop.png" alt="Old page turning with a blank ruled page beneath"><figcaption>150 ms: the old page goes, a blank ruled page below it</figcaption></figure>
+      <figure><img src="screenshots/frame-riffle3-350ms-desktop.png" alt="Blank page turning"><figcaption>350 ms: blank pages follow, 125 ms apart</figcaption></figure>
+      <figure><img src="screenshots/frame-riffle3-550ms-desktop.png" alt="Last blank page leaving, the new day underneath"><figcaption>550 ms: the last one leaves the new day</figcaption></figure>
+    </div>
+    <div class="frames" style="margin-top: var(--space-3)">
+      <figure><img src="screenshots/frame-riffle3-back-150ms-desktop.png" alt="Blank page landing from the left"><figcaption>Back, 150 ms: blank pages land first</figcaption></figure>
+      <figure><img src="screenshots/frame-riffle3-back-350ms-desktop.png" alt="Second blank page landing"><figcaption>Back, 350 ms: the second blank page</figcaption></figure>
+      <figure><img src="screenshots/frame-riffle3-back-550ms-desktop.png" alt="The earlier day landing on top"><figcaption>Back, 550 ms: the earlier day lands last, on top</figcaption></figure>
+    </div>
+
+    <h2>Key design decisions</h2>
+    <ul class="notes">
+      <li>The leaf turns on the punched holes, the way a loose leaf page turns on its rings, and lifts towards you with perspective. Its free edge grows a little as it rises, then narrows to a line at the holes. The leaf stays inside the sheet, so the part that would pass over the rings onto the desk is cut off at the sheet edge.</li>
+      <li>Because the leaf cannot leave the sheet (R13), its back cannot be seen lying on the left. Instead, from half way on, the text fades into the plain darker back of the paper while a shade grows towards the free edge. It reads as the page turning away from the light.</li>
+      <li>Going back in time plays the same motion in reverse: a leaf of the earlier day lands from the rings onto the page. The real earlier day is already underneath from the first frame (R10), so the landing leaf matches it exactly and disappears without a jump.</li>
+      <li>In a riffle, the page with words is always on top: it leaves first when going forward and lands last when going back. The pages in between are blank ruled paper, so no in between day is ever shown.</li>
+      <li>Only the visible part of the sheet body becomes a leaf, so a day with 200 tasks costs no more than a short one. Only transform and opacity move.</li>
+      <li>The leaf is a picture: hidden from screen readers, not reachable by Tab, and clicks pass through it to the new day.</li>
+      <li>The prototype uses a small inline script, unlike earlier static prototypes, because motion has to be felt. The control slip above the sheet (or in the left margin on wide screens) is a prototype aid and not part of the app.</li>
+    </ul>
+
+    <h2>Files</h2>
+    <p>Flows and the state inventory are in <a href="flows.md">flows.md</a>, the new tokens and classes in <a href="../../../design-system.md">design-system.md</a> (section "Page flip"), and the review notes in <a href="critique.md">critique.md</a>.</p>
+    <ul class="shots">
+      <li>Settled: <a href="screenshots/flip-desktop.png">desktop</a>, <a href="screenshots/flip-mobile.png">phone</a>, <a href="screenshots/flip-dark-desktop.png">desktop dark</a>, <a href="screenshots/flip-dark-mobile.png">phone dark</a></li>
+      <li>Forward at 225 ms: <a href="screenshots/flip--forward-225ms-desktop.png">desktop</a>, <a href="screenshots/flip--forward-225ms-mobile.png">phone</a>, <a href="screenshots/flip--forward-225ms-mobile360.png">360 px</a>, <a href="screenshots/flip--forward-225ms-dark-desktop.png">desktop dark</a>, <a href="screenshots/flip--forward-225ms-dark-mobile.png">phone dark</a></li>
+      <li>Back at 225 ms: <a href="screenshots/flip--back-225ms-desktop.png">desktop</a>, <a href="screenshots/flip--back-225ms-mobile.png">phone</a>, <a href="screenshots/flip--back-225ms-dark-desktop.png">desktop dark</a>, <a href="screenshots/flip--back-225ms-dark-mobile.png">phone dark</a></li>
+      <li>Riffle of 3 at 350 ms: <a href="screenshots/flip--riffle3-350ms-desktop.png">desktop</a>, <a href="screenshots/flip--riffle3-350ms-mobile.png">phone</a>, <a href="screenshots/flip--riffle3-350ms-dark-desktop.png">desktop dark</a>, <a href="screenshots/flip--riffle3-350ms-dark-mobile.png">phone dark</a></li>
+      <li>Reduced motion: <a href="screenshots/flip--reduced-desktop.png">desktop</a>, <a href="screenshots/flip--reduced-mobile.png">phone</a></li>
+    </ul>
+  </main>
+  </div>
+</body>
+</html>

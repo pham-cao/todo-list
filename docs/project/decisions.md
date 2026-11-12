@@ -625,3 +625,9 @@ Also accepted: strip appended inside <main>; pointer captured on the slip, not t
 - Q8 Reduced motion (no motion, a 150 ms crossfade): no motion, the day changes at once.
 - Q9 Sideways swipe to turn days on phones (out of scope, later feature, now): out of scope for this feature.
 - Riffle detail (approve as written, or Back and Forward always one flip): approved as written. 2 days plays 2 leaves, 3 or more days plays 3, total under 700 ms, and Back and Forward follow the same distance rule. The owner approved the page-flip requirements.
+
+## 2026-11-12 page-flip UX (chosen by the owner)
+- UX review (approve, request changes): approved. The prototype's control slip is a review aid only and is not built.
+- Held key repeat release (one riffle on release, no flip on release): when the owner releases a held arrow key after repeated day changes, one flip or riffle plays for the whole distance moved, capped at 3 leaves. Repeated key presses during the hold play nothing. This refines R15, and the prototype, which plays nothing on release, differs here.
+- Leaf back (fade to darker paper inside the sheet, show the back over the hole strip past 90 degrees): keep the fade to darker paper as built.
+- The P3 critique finding (the leaf's top edge is briefly cut at the header rule) is accepted, because the leaf stays inside the sheet (R13).

@@ -224,3 +224,52 @@ Under `prefers-reduced-motion` the slip and strip do not tilt or move, the long 
 - Results are announced in the existing polite live region; the strip and slip are not read or focused.
 - Targets are named in text (the slip's corner label and the strip labels), framed in pen at 3:1 or better in both modes, and at least 44 by 44 px.
 - Verified without horizontal scroll at 1440, 390 and 360 px in both modes.
+
+## Page flip (added for page-flip)
+
+This section only adds to the system. The CSS lives at the end of `design-system.css` under "Page flip". The ui-ux-pro-max search confirmed the rules that shape it: animate only transform and opacity, respect reduced motion, keep one key motion per view, and make every transition cancellable without relying on `animationend` for correctness. Its suggested flat teal style was not used, because the paper notebook system is approved.
+
+### Direction
+
+The ruled part of the sheet turns like a loose leaf page on its rings. The hinge is the punched hole strip; the leaf lifts towards the owner with perspective, its free edge growing slightly, then narrows to a line at the holes. From half way the text fades into the plain darker back of the paper and a shade grows towards the free edge. Going back plays the same motion in reverse: a leaf of the earlier day lands from the rings. Jumps of 2 or more days riffle through blank ruled pages. The header band never moves.
+
+### New tokens
+
+| Token | Light | Dark | Use |
+| --- | --- | --- | --- |
+| `--dur-flip` | 450 ms | same | One leaf, phones and desktop. Replaces `--dur-turn` for the day change |
+| `--dur-riffle-step` | 125 ms | same | Start of one riffle leaf to the next; 3 leaves end at 700 ms |
+| `--ease-flip` | cubic-bezier(0.5, 0.05, 0.7, 0.75) | same | Slow lift, then the turn speeds up; reversed it lands softly |
+| `--flip-perspective` | 1800 px (1100 px below 601 px) | same | Depth of the turn |
+| `--color-leaf-back` | #ECE5D4 | #1B1F25 | Back of a leaf, never lighter than the paper, so no flash at night |
+| `--flip-cast` | rgba(56, 48, 30, 0.30) | rgba(0, 0, 0, 0.62) | Shadow on the page under the leaf, and the leaf's edge shadow |
+| `--flip-shade` | rgba(56, 48, 30, 0.10) | rgba(0, 0, 0, 0.34) | Light falloff across the leaf. Capped at 0.10 by day so done ink stays at 4.5:1; at night it only raises contrast |
+
+### Components
+
+- Stage (`.flip-stage`, `.flip-stage--back`): absolute on `.sheet`, covering only the part of `.sheet__body` in the window. Script sets `--flip-top`, `--flip-h` and `--flip-offset` inline. `aria-hidden="true"`, `inert`, `pointer-events: none`, not selectable, `overflow: clip`, `z-index: 3`, so it never adds scroll area and is drawn above the sheet's own holes and margin line. `@media (prefers-reduced-motion: reduce)` hides it, and the script builds none.
+- Leaf (`.leaf`, `.leaf--blank`, `--i`): ruled paper with grain, its own punched holes and double margin line aligned with the sheet's, a pencil line and cast shadow on its free edge. Children: `.leaf__content` (a copy of the sheet body with ids removed, shifted up by `--flip-offset`), `.leaf__back` (plain darker ruled paper) and `.leaf__shade`. Blank leaves have no content. Start delay is `--i` times `--dur-riffle-step`.
+- Cast (`.leaf-cast`): one before each leaf, on the page underneath, darkest at the rings, narrowing with the turn.
+- Order: the leaf with words is always last in the DOM (on top). Forward it has `--i: 0` and the copy of the old page; back it has the highest `--i` and a copy of the new page, and every animation runs with `animation-direction: reverse`.
+- Tape: `.washi--restick` is added once per day change, with the first leaf.
+- Lifetime: the stage is removed by a timer at `--dur-flip + (leaves - 1) * --dur-riffle-step` plus one frame, or at once by a new move, reduced motion switching on, the page becoming hidden, or a re-render of the sheet body.
+- Superseded: `.turn--back`, `.turn--forward` and `--dur-turn` are no longer used for the day change once page-flip ships, and can be removed with it.
+
+### Motion
+
+| Moment | Motion | Duration |
+| --- | --- | --- |
+| 1 day later | Old page turns away on the rings | 450 ms |
+| 1 day earlier | Leaf of the earlier day lands from the rings | 450 ms |
+| 2 days | Riffle: page with words plus 1 blank | 575 ms |
+| 3 days or more | Riffle: page with words plus 2 blanks | 700 ms |
+| Any day change | Tape pressed down once | 360 ms |
+
+Under `prefers-reduced-motion` nothing plays: no leaf, no shadow and no tape press.
+
+### Accessibility
+
+- The leaf is a picture: hidden from assistive technology, inert, and clicks pass through to the new day.
+- Focus, the live date line and the tab order are untouched, because the real page changes before the leaf is drawn.
+- Text on a leaf keeps 4.5:1 while it is readable in both modes; past half way it fades into the back on purpose.
+- Verified without horizontal scroll at 1440, 390 and 360 px in both modes.

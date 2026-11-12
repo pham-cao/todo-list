@@ -342,7 +342,7 @@ features:
         bugs_opened: []
         trello_card: ""
   - slug: page-flip
-    phase: ux
+    phase: design
     has_ui: true
     pr: ""
     trello_card: ""

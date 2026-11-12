@@ -978,3 +978,98 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
   .drop-target .sticker { transition: none; }
   .drop-target--over .sticker { translate: none; }
 }
+
+/* ---------- Page flip (feature page-flip, additive) ----------
+   Replaces the 18 px slide of .turn--back and .turn--forward (those two classes and --dur-turn are no longer used once
+   page-flip ships). A day change builds one .flip-stage on the .sheet, over the part of the sheet body that is in the
+   window, and fills it with leaves. The real new day is already rendered underneath; the stage is aria-hidden, inert and
+   ignores the pointer, so it is only a picture. Only transform and opacity animate.
+   Forward (a later day): the leaf is a copy of the old page, hinged at the punched holes, and turns up towards the owner
+   until it stands edge on at the holes. Back (an earlier day): the same motion played in reverse with a copy of the new
+   page, so the leaf lands from the holes onto the page. Riffle: up to two blank ruled leaves, each one --dur-riffle-step
+   after the one before it.
+   Stage geometry is set inline by script: --flip-top and --flip-h (the visible part of the sheet body, in sheet
+   coordinates) and --flip-offset (how much of the sheet body is scrolled above the window). */
+:root {
+  --dur-flip: 450ms;                     /* one leaf, phones and desktop */
+  --dur-riffle-step: 125ms;              /* start of one riffle leaf to the start of the next; 3 leaves end at 700 ms */
+  --ease-flip: cubic-bezier(0.5, 0.05, 0.7, 0.75); /* slow lift, then the turn speeds up; reversed it lands softly */
+  --flip-perspective: 1800px;
+  --color-leaf-back: #ECE5D4;            /* back of a leaf: the same paper, turned away from the light */
+  --flip-cast: rgba(56, 48, 30, 0.30);   /* shadow the lifted leaf casts on the page under it */
+  --flip-shade: rgba(56, 48, 30, 0.10);  /* light falling off across the leaf; at most 0.10 keeps done ink at 4.5:1 */
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-leaf-back: #1B1F25;          /* darker charcoal, never lighter than the paper: no flash at night */
+    --flip-cast: rgba(0, 0, 0, 0.62);
+    --flip-shade: rgba(0, 0, 0, 0.34);
+  }
+}
+@media (max-width: 600px) { :root { --flip-perspective: 1100px; } }
+
+.flip-stage {
+  position: absolute; left: 0; right: 0; top: var(--flip-top, 0); height: var(--flip-h, 0); z-index: 3;
+  overflow: clip; pointer-events: none; user-select: none; -webkit-user-select: none;
+  perspective: var(--flip-perspective); perspective-origin: 100% 50%;
+  contain: layout paint style;
+}
+.leaf, .leaf-cast {
+  position: absolute; inset: 0;
+  transform-origin: calc(var(--holes-w) / 2) 50%; /* the rings run through the punched holes */
+  animation-duration: var(--dur-flip); animation-timing-function: var(--ease-flip);
+  animation-delay: calc(var(--i, 0) * var(--dur-riffle-step)); animation-fill-mode: both;
+}
+.leaf {
+  overflow: clip; will-change: transform; animation-name: leaf-turn;
+  background:
+    var(--grain),
+    repeating-linear-gradient(to bottom, transparent 0 calc(var(--rule) - 1px), var(--color-rule) calc(var(--rule) - 1px) var(--rule))
+      0 calc(var(--rule-shift) - var(--flip-offset, 0px)) / 100% var(--rule),
+    var(--color-paper);
+  box-shadow: inset -1px 0 0 color-mix(in srgb, var(--color-pencil) 45%, transparent), 3px 0 8px -3px var(--flip-cast); /* the free edge, visible at night too */
+}
+.leaf::before { /* punched holes, lined up with the sheet's own holes */
+  content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: var(--holes-w); z-index: 1;
+  background: radial-gradient(circle at 50% 50%, var(--color-desk) 0 6px, var(--color-desk-deep) 6.5px 7.5px, transparent 8px)
+    0 calc(22px - var(--flip-top, 0px)) / 100% 88px repeat-y;
+}
+.leaf::after { /* double margin line */
+  content: ""; position: absolute; top: 0; bottom: 0; left: calc(var(--holes-w) + var(--margin-w) - 4px); width: 4px; z-index: 1;
+  border-left: 1px solid var(--color-margin); border-right: 1px solid var(--color-margin); opacity: 0.85;
+}
+@media (max-width: 600px) {
+  .leaf::before { background-size: 100% 66px; background-image: radial-gradient(circle at 50% 50%, var(--color-desk) 0 4.5px, var(--color-desk-deep) 5px 6px, transparent 6.5px); }
+}
+.leaf__content { position: absolute; left: 0; right: 0; top: 0; translate: 0 calc(-1 * var(--flip-offset, 0px)); }
+.leaf__back { /* plain paper, no text: what the owner sees once the leaf has turned past half way */
+  position: absolute; inset: 0; opacity: 0;
+  background:
+    var(--grain),
+    repeating-linear-gradient(to bottom, transparent 0 calc(var(--rule) - 1px), color-mix(in srgb, var(--color-rule) 55%, transparent) calc(var(--rule) - 1px) var(--rule))
+      0 calc(var(--rule-shift) - var(--flip-offset, 0px)) / 100% var(--rule),
+    var(--color-leaf-back);
+  animation: inherit; animation-name: leaf-back;
+}
+.leaf__shade {
+  position: absolute; inset: 0; opacity: 0;
+  background: linear-gradient(to right, transparent 10%, var(--flip-shade) 100%);
+  animation: inherit; animation-name: leaf-shade;
+}
+.leaf--blank .leaf__content { display: none; } /* riffle leaves: ruled paper only */
+.leaf-cast { /* on the page under the leaf, darkest at the rings */
+  opacity: 0; animation-name: leaf-cast;
+  background: linear-gradient(to right, var(--flip-cast), transparent 92%);
+}
+.flip-stage--back .leaf, .flip-stage--back .leaf-cast,
+.flip-stage--back .leaf__back, .flip-stage--back .leaf__shade { animation-direction: reverse; }
+
+@keyframes leaf-turn { from { transform: rotateY(0deg); } to { transform: rotateY(-92deg); } }
+@keyframes leaf-back { 0%, 45% { opacity: 0; } 70%, 100% { opacity: 1; } }
+@keyframes leaf-shade { from { opacity: 0; } 55%, to { opacity: 1; } }
+@keyframes leaf-cast {
+  from { opacity: 0; transform: scaleX(1); }
+  30% { opacity: 1; transform: scaleX(0.82); }
+  to { opacity: 0; transform: scaleX(0.04); }
+}
+@media (prefers-reduced-motion: reduce) { .flip-stage { display: none; } } /* script builds none either (R28) */
