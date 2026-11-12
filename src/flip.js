@@ -20,25 +20,51 @@ export function createFlip({ sheet, body, date }) {
   const ms = (name) => parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name)) || 0;
   let stage = null;
   let timer = 0;
+  let follow = null; // the ResizeObserver that keeps the stage on the page while it lives
 
   // A copy of the sheet body as it is now. Cloned inputs keep value and checked state; a cloned select does not, so
   // its value is copied over. Every id goes, so no lookup, label or aria reference ever finds a leaf node, and every
   // label's `for` goes, so a leaf label never names a real control on the page (R11, R20).
+  // Each copied row is as tall as its row is laid out now (fit). Rows use content-visibility: auto, and a clone has no
+  // remembered size, so left alone every copied row would be a one rule placeholder and the copy would drift off the
+  // page, with the rows meant for the window laid out elsewhere and never painted (R13).
   // ponytail: copies every row; T8 trims rows below the window (NFR3).
   function copy() {
     return [...body.children].map((node) => {
       const clone = node.cloneNode(true);
       const from = node.querySelectorAll("select");
       clone.querySelectorAll("select").forEach((s, i) => { s.value = from[i].value; });
+      fit(node, clone);
       clone.removeAttribute("id");
       for (const el of clone.querySelectorAll("[id], [for]")) { el.removeAttribute("id"); el.removeAttribute("for"); }
       return clone;
     });
   }
 
+  // Gives every .task under `copied` the height of the matching .task under `from`, when both hold the same rows.
+  function fit(from, copied) {
+    const real = from.querySelectorAll(".task"), rows = copied.querySelectorAll(".task");
+    if (real.length !== rows.length) return;
+    const tall = [...real].map((t) => t.offsetHeight); // all reads first, then all writes: one layout
+    rows.forEach((t, i) => { t.style.height = `${tall[i]}px`; });
+  }
+
+  // Puts the stage over the part of the sheet body that is in the window; false when under 1 px of it is.
+  function place(s) {
+    const sr = sheet.getBoundingClientRect(), br = body.getBoundingClientRect();
+    const top = Math.max(br.top, 0), bottom = Math.min(br.bottom, innerHeight); // only the part in the window
+    if (bottom - top < 1) return false;
+    s.style.setProperty("--flip-top", `${top - sr.top}px`);
+    s.style.setProperty("--flip-h", `${bottom - top}px`);
+    s.style.setProperty("--flip-offset", `${top - br.top}px`);
+    return true;
+  }
+
   // Removes the stage and clears the timer at once; all leaves go together (R9, R14, R37).
   function end() {
     clearTimeout(timer);
+    follow?.disconnect();
+    follow = null;
     stage?.remove();
     stage = null;
   }
@@ -56,18 +82,14 @@ export function createFlip({ sheet, body, date }) {
       void date.offsetWidth;
       date.classList.add("washi--restick");
       const n = leafCount(daysBetween(from, to));
-      const sr = sheet.getBoundingClientRect(), br = body.getBoundingClientRect();
-      const top = Math.max(br.top, 0), bottom = Math.min(br.bottom, innerHeight); // only the part in the window
-      if (!n || bottom - top < 1) return;
+      if (!n) return;
       const back = to < from; // keys are YYYY-MM-DD, so they compare as text (R5)
+      const s = div(back ? "flip-stage flip-stage--back" : "flip-stage");
+      if (!place(s)) return;
       const content = back ? copy() : page; // forward shows the old page leaving, back the new one landing (R4)
       if (!content) return;
-      const s = div(back ? "flip-stage flip-stage--back" : "flip-stage");
       s.setAttribute("aria-hidden", "true");
       s.inert = true;
-      s.style.setProperty("--flip-top", `${top - sr.top}px`);
-      s.style.setProperty("--flip-h", `${bottom - top}px`);
-      s.style.setProperty("--flip-offset", `${top - br.top}px`);
       for (let k = 0; k < n; k++) {
         const withText = k === n - 1; // the leaf with text is always on top
         const i = back ? k : n - 1 - k; // forward: it goes first; back: it lands last
@@ -85,6 +107,19 @@ export function createFlip({ sheet, body, date }) {
       }
       sheet.append(s);
       stage = s;
+      // The new rows are one rule placeholders until the browser lays out the ones near the window (content-visibility:
+      // auto), which also moves the window back from a clamped scroll; that can take more than one frame. The stage
+      // was placed from this task's layout, so after each layout, before paint, it is put back on the page as the
+      // page now is, and a back copy (the new page) takes the rows' new heights (R13, NFR1: no row is laid out here).
+      follow = new ResizeObserver(() => {
+        try {
+          place(s);
+          if (back) fit(body, s.querySelector(".leaf__content"));
+        } catch {
+          end();
+        }
+      });
+      follow.observe(body);
       timer = setTimeout(end, ms("--dur-flip") + (n - 1) * ms("--dur-riffle-step") + 17);
     } catch {
       end();

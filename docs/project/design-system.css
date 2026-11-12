@@ -1003,7 +1003,7 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
   :root {
     --color-leaf-back: #1B1F25;          /* darker charcoal, never lighter than the paper: no flash at night */
     --flip-cast: rgba(0, 0, 0, 0.62);
-    --flip-shade: rgba(0, 0, 0, 0.34);
+    --flip-shade: rgba(0, 0, 0, 0.08);   /* at most 0.08 keeps done ink at 4.5:1 at the free edge as the back fades in (R35) */
   }
 }
 @media (max-width: 600px) { :root { --flip-perspective: 1100px; } }

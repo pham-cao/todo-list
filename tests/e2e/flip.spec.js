@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { TODAY, GROUPS_KEY, task, group, open, rows, labels, hash, addTask, passMidnight, watchFlips, flipsSeen, resticksSeen } from './helpers.js';
 import AxeBuilder from '@axe-core/playwright';
-import { KEY, UI_KEY, storedJson, tick, box, mouseDrag, longPressDrag, finger } from './helpers.js';
+import { KEY, UI_KEY, storedJson, tick, box, mouseDrag, longPressDrag, finger, touchDrag } from './helpers.js';
 
 // page-flip end to end tests. Today is Thứ Hai 09/11/2026.
 const SEED = [
@@ -1226,4 +1226,365 @@ test.describe('T6: working on the page during a flip', () => {
       expect(await page.evaluate(() => window.__live)).toEqual([true]);
     });
   }
+});
+
+// T7: layout, phones and dark mode (R13, R30, R32 to R36).
+test.describe('T7: layout, phones and dark mode', () => {
+  const WIDTHS = [[1440, 900], [390, 844], [360, 780]];
+  const LONG = 'Đ'.repeat(200); // a long unbroken word, the worst case for horizontal overflow
+  const T7 = [...SEED, task('l1', LONG, false, TODAY, 7), task('l2', LONG, false, '2026-11-12', 8)];
+  // A day with enough rows that the page scrolls, so the sheet body can sit partly above the window.
+  // The text wraps to two lines at 390 and 360 px, so rows above the window are taller than the one rule placeholder.
+  const many = (date, from) => Array.from({ length: 30 }, (_, k) => task(`${date}-${k}`, `Việc số ${k + 1}: gọi nhà cung cấp hỏi lịch giao hàng của ${date}`, false, date, from + k));
+  const SCROLL = [...many(TODAY, 100), ...many('2026-11-10', 200)];
+  const pick = (page, key) => page.evaluate((k) => { const p = document.getElementById('day-picker'); p.value = k; p.dispatchEvent(new Event('change')); }, key);
+
+  // Moves with the picker in the page, then reads the layout on every frame until the stage is gone and 3 frames
+  // more. The move and the first read share one task, so the frame the stage is built in is read too. The new day may
+  // be taller, so frames are compared with the settled last one. Rows use content-visibility: auto with a one rule
+  // placeholder, so a tall new row reaches its real height a frame or more after the move, with or without a flip.
+  // So every read is checked against the same read without the stage (the stage adds no height), the page must settle
+  // within a few frames and stay settled, and from the first painted frame the stage stays inside the sheet as the
+  // sheet is in that frame (it follows the page while rows grow).
+  const riffleFrames = (page, key) => page.evaluate((key) => new Promise((done) => {
+    const root = document.documentElement;
+    const p = document.getElementById('day-picker');
+    p.value = key;
+    p.dispatchEvent(new Event('change'));
+    const frames = [];
+    let after = 0;
+    const read = () => {
+      const stage = document.querySelector('.flip-stage');
+      const s = stage?.getBoundingClientRect(), sh = document.querySelector('.sheet').getBoundingClientRect();
+      const height = root.scrollHeight;
+      if (stage) stage.style.display = 'none'; // the same frame without the stage, for what the stage itself adds
+      const bare = root.scrollHeight;
+      if (stage) stage.style.display = '';
+      frames.push({
+        stage: !!stage, leaves: stage ? stage.querySelectorAll('.leaf').length : 0,
+        overflowX: root.scrollWidth - root.clientWidth, height, bare,
+        inside: !s || (s.left >= sh.left - 0.5 && s.right <= sh.right + 0.5 && s.top >= sh.top - 0.5 && s.bottom <= sh.bottom + 0.5),
+      });
+      if (!stage) after++;
+      if (after > 3) done(frames); else requestAnimationFrame(read);
+    };
+    read();
+  }), key);
+
+  for (const [width, height] of WIDTHS) {
+    test(`at ${width} px a 3 leaf riffle adds no horizontal scroll or height and stays inside the sheet, during and after`, async ({ page }) => {
+      await page.setViewportSize({ width, height });
+      await open(page, T7);
+      for (const key of ['2026-11-12', TODAY]) { // forward to the long word day, then back again
+        const frames = await riffleFrames(page, key);
+        expect(frames[0]).toMatchObject({ stage: true, leaves: 3 });
+        expect(frames.filter((f) => f.stage).length).toBeGreaterThan(5);
+        const settled = frames.at(-1).height;
+        for (const f of frames) expect(f, key).toMatchObject({ overflowX: 0, height: f.bare });
+        for (const f of frames.slice(1)) expect(f.inside, key).toBe(true);
+        const from = frames.findIndex((f) => f.height === settled);
+        expect(from, key).toBeLessThanOrEqual(5);
+        for (const f of frames.slice(from)) expect(f.height, key).toBe(settled);
+      }
+    });
+  }
+
+  // Scrolls (to a y, or 'bottom' for 300 px above the end; `through` first scrolls the whole page a window at a time so
+  // every old row has painted at its real size), lets two frames paint (rows coming into view leave their one rule
+  // placeholder), reads the label boxes, moves, holds the leaf flat (a forward leaf at its first frame, a back leaf at
+  // its last, the same motion reversed), lets two more frames paint and reads the leaf copy and the page again.
+  // Boxes are taken from the sheet body top: the header can change height with the day (the title wraps on today at
+  // 360 px), and the leaf is the body's page, drawn under the header rule as it is now. `seen` lists the rows of the
+  // compared page that are in the window, as [index, left, top], and `leaf` the copy's rows at the same indexes.
+  const scrolledMove = (page, id, to, through = false) => page.evaluate(async ([id, to, through]) => {
+    const paint = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+    const rects = (sel) => {
+      const top = document.querySelector('.sheet__body').getBoundingClientRect().top;
+      return [...document.querySelectorAll(sel)].map((l) => l.getBoundingClientRect())
+        .map((r, i) => ({ i, left: Math.round(r.left), top: Math.round(r.top - top), seen: r.bottom > 0 && r.top < innerHeight }));
+    };
+    const y = () => (to === 'bottom' ? document.documentElement.scrollHeight - innerHeight - 300 : to);
+    if (through) for (let k = 0; k < y(); k += innerHeight) { scrollTo(0, k); await paint(); }
+    scrollTo(0, y());
+    await paint();
+    const old = rects('#day-list .task__label');
+    document.getElementById(id).click();
+    const stage = document.querySelector('.flip-stage');
+    const back = stage.classList.contains('flip-stage--back');
+    stage.getAnimations({ subtree: true }).forEach((a) => (back ? a.finish() : a.pause()));
+    await paint();
+    const body = document.querySelector('.sheet__body').getBoundingClientRect();
+    const page = back ? rects('#day-list .task__label') : old;
+    const leaf = rects('.flip-stage .leaf:not(.leaf--blank) .task__label');
+    const seen = page.filter((r) => r.seen);
+    return {
+      offset: parseFloat(stage.style.getPropertyValue('--flip-offset')), above: -body.top,
+      top: stage.getBoundingClientRect().top, count: [page.length, leaf.length],
+      seen: seen.map(({ i, left, top }) => [i, left, top]),
+      leaf: seen.map(({ i }) => [i, leaf[i].left, leaf[i].top]),
+      overflowX: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    };
+  }, [id, to, through]);
+  const playOut = async (page) => {
+    await page.evaluate(() => document.querySelector('.flip-stage')?.getAnimations({ subtree: true }).forEach((a) => a.play()));
+    await expect(stages(page)).toHaveCount(0);
+  };
+  const linedUp = (m, rows) => {
+    expect(m.offset).toBeGreaterThan(0);
+    expect(m.offset).toBeCloseTo(m.above, 0);
+    expect(m.top).toBeCloseTo(0, 0); // the stage starts at the window top, not at the scrolled away body top
+    expect(m.count).toEqual([rows, rows]);
+    expect(m.seen.length).toBeGreaterThan(2);
+    expect(m.leaf).toEqual(m.seen); // every row in the window has its copy exactly on it
+    expect(m.overflowX).toBe(0);
+  };
+
+  for (const [width, height] of WIDTHS) {
+    test(`a scrolled page at ${width} px: the leaf copy lines up with the page through --flip-offset, the tape presses, no overflow`, async ({ page }) => {
+      await page.setViewportSize({ width, height });
+      await watchFlips(page);
+      await open(page, SCROLL);
+      linedUp(await scrolledMove(page, 'next-day', 1200), 30); // forward: the old page's copy as the old rows sat
+      await playOut(page);
+      linedUp(await scrolledMove(page, 'prev-day', 1200), 30); // back: the new page's copy on the new rows
+      expect((await resticksSeen(page)).filter((r) => r.on)).toHaveLength(2);
+    });
+  }
+
+  // 200 wrapping rows a day: play() lays out no rows (BUG-027); the far rows stay one rule placeholders, and the
+  // ResizeObserver puts the stage back on the page after each layout, so the copy lines up once the rows near the
+  // window have grown.
+  const LONG_DAY = (date, from) => Array.from({ length: 200 }, (_, k) => task(`${date}-${k}`, `Việc số ${k + 1}: gọi nhà cung cấp hỏi lại lịch giao hàng và hóa đơn của ${date}`, k % 3 === 0, date, from + k));
+  const BIG = [...LONG_DAY(TODAY, 1000), ...LONG_DAY('2026-11-10', 2000)];
+  for (const [width, height] of [[1440, 900], [390, 844]]) {
+    for (const through of [false, true]) {
+      test(`200 wrapping rows scrolled near the bottom at ${width} px${through ? ' after scrolling the whole page' : ''}: the copy lines up`, async ({ page }) => {
+        test.setTimeout(60_000);
+        await page.setViewportSize({ width, height });
+        await open(page, BIG);
+        linedUp(await scrolledMove(page, 'next-day', 'bottom', through), 200);
+        await playOut(page);
+        linedUp(await scrolledMove(page, 'prev-day', 'bottom', through), 200);
+      });
+    }
+  }
+
+  // NFR1 with the flip on: a move to a day of 200 long, wrapping rows, the click and the layout it forces, median of 3,
+  // from the top of the page and from near its bottom. play() lays out no rows in this task; the ResizeObserver
+  // realigns the stage in the frame that follows, so near the bottom costs no more than the top.
+  const median = (a) => [...a].sort((x, y) => x - y)[Math.floor(a.length / 2)];
+  for (const where of ['top', 'bottom']) {
+    test(`a move between two days of 200 long wrapping rows takes under 100 ms (median of 3), scrolled to the ${where}`, async ({ page }) => {
+      await page.setViewportSize({ width: 390, height: 844 });
+      await open(page, BIG);
+      const times = [];
+      for (let k = 0; k < 3; k++) {
+        await page.evaluate((where) => scrollTo(0, where === 'top' ? 0 : document.documentElement.scrollHeight - innerHeight - 300), where);
+        await page.waitForTimeout(500); // an idle page is the slow case (BUG-002)
+        times.push(await page.evaluate((id) => {
+          const t = performance.now();
+          document.getElementById(id).click();
+          void document.body.offsetHeight;
+          return performance.now() - t;
+        }, k % 2 ? 'prev-day' : 'next-day'));
+        await expect(rows(page)).toHaveCount(200);
+        expect(await page.locator('.flip-stage').count()).toBe(1);
+        await expect(stages(page)).toHaveCount(0);
+      }
+      console.log(`T7 NFR1 200 wrapping rows, ${where}: ${times.map((t) => t.toFixed(1)).join(', ')} ms`);
+      expect(median(times)).toBeLessThan(100);
+    });
+  }
+
+  test('the same leaf counts and lifetimes on a tap, a picker date and Về hôm nay as on desktop', async ({ page, isMobile }) => {
+    await watchFlips(page);
+    await open(page, SEED);
+    const press = (loc) => (isMobile ? loc.tap() : loc.click());
+    await press(next(page));
+    await expect(dateLine(page)).toHaveText('Ngày mai, Thứ Ba, 10/11/2026');
+    await expect.poll(async () => (await flipsSeen(page)).filter((f) => f.removed).length).toBe(1);
+    await page.locator('#day-picker').fill('2026-11-13');
+    await expect.poll(async () => (await flipsSeen(page)).filter((f) => f.removed).length).toBe(2);
+    await press(page.getByRole('button', { name: 'Về hôm nay' }));
+    await expect.poll(async () => (await flipsSeen(page)).filter((f) => f.removed).length).toBe(3);
+    const flips = await flipsSeen(page);
+    expect(flips.map(({ back, leaves }) => ({ back, leaves }))).toEqual([
+      { back: false, leaves: 1 }, { back: false, leaves: 3 }, { back: true, leaves: 3 }]);
+    for (const f of flips) {
+      expect(f.removed - f.added).toBeLessThanOrEqual(lifetime(f.leaves));
+      expect(f.removed - f.added).toBeGreaterThanOrEqual(lifetime(f.leaves) - 150);
+    }
+  });
+
+  test('a swipe left on a row opens Sửa and Xóa with no day change and no flip', async ({ page, isMobile }) => {
+    test.skip(!isMobile, 'phone swipe only');
+    await page.addInitScript(() => localStorage.setItem('daily-todo:swipe-hint-seen', '1'));
+    await watchFlips(page);
+    await open(page, SEED);
+    const swipe = rows(page).nth(0).locator('.task__swipe');
+    await touchDrag(page, swipe, -200);
+    await expect.poll(() => swipe.evaluate((el) => el.scrollLeft)).toBeGreaterThan(100);
+    await expect(rows(page).nth(0).getByRole('button', { name: 'Sửa' })).toBeInViewport();
+    await expect(rows(page).nth(0).getByRole('button', { name: 'Xóa' })).toBeInViewport();
+    await expect(dateLine(page)).toHaveText('Hôm nay, Thứ Hai, 09/11/2026');
+    expect(hash(page)).toBe('');
+    expect(await flipsSeen(page)).toEqual([]);
+    expect(await resticksSeen(page)).toEqual([]);
+  });
+
+  test('a sideways swipe on an empty part of the page changes no day and plays no flip', async ({ page, isMobile }) => {
+    test.skip(!isMobile, 'phone swipe only');
+    await watchFlips(page);
+    await open(page, SEED);
+    const list = await page.locator('#day-list').boundingBox();
+    const y = Math.min(list.y + list.height + 80, page.viewportSize().height - 20);
+    for (const dx of [-200, 200]) {
+      const f = await finger(page);
+      await f.down(page.viewportSize().width / 2 + (dx < 0 ? 100 : -100), y);
+      await f.move(page.viewportSize().width / 2 + (dx < 0 ? 100 : -100) + dx, y);
+      await f.up();
+    }
+    await page.waitForTimeout(600);
+    await expect(dateLine(page)).toHaveText('Hôm nay, Thứ Hai, 09/11/2026');
+    expect(hash(page)).toBe('');
+    expect(await flipsSeen(page)).toEqual([]);
+  });
+
+  test('at 360 px every nav control stays at least 44 by 44 px while a stage plays, with no overflow', async ({ page }) => {
+    await page.setViewportSize({ width: 360, height: 780 });
+    await open(page, T7);
+    await page.evaluate(() => document.documentElement.style.setProperty('--dur-flip', '30000ms'));
+    await next(page).click();
+    await expect(stages(page)).toHaveCount(1);
+    for (const sel of ['#prev-day', '#next-day', '.date-stamp', '#to-today']) {
+      const b = await page.locator(sel).boundingBox();
+      expect(b.width, sel).toBeGreaterThanOrEqual(44);
+      expect(b.height, sel).toBeGreaterThanOrEqual(44);
+    }
+    expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBe(0);
+  });
+
+  // Dark tokens from design-system.css: --color-paper #22262D, --color-leaf-back #1B1F25. Light: #FCF9F1 and #ECE5D4.
+  const DARK_PAPER = 'rgb(34, 38, 45)', DARK_BACK = 'rgb(27, 31, 37)';
+  const LIGHT = ['rgb(252, 249, 241)', 'rgb(236, 229, 212)'];
+  // Reads the background of every leaf and leaf back on every frame of a move, until the stage goes.
+  const leafColours = (page, key) => page.evaluate((key) => new Promise((done) => {
+    const p = document.getElementById('day-picker');
+    p.value = key;
+    p.dispatchEvent(new Event('change'));
+    const seen = { leaf: new Set(), back: new Set(), frames: 0 };
+    const read = () => {
+      const stage = document.querySelector('.flip-stage');
+      if (!stage) return done({ leaf: [...seen.leaf], back: [...seen.back], frames: seen.frames });
+      seen.frames++;
+      for (const l of stage.querySelectorAll('.leaf')) seen.leaf.add(getComputedStyle(l).backgroundColor);
+      for (const b of stage.querySelectorAll('.leaf__back')) seen.back.add(getComputedStyle(b).backgroundColor);
+      requestAnimationFrame(read);
+    };
+    read();
+  }), key);
+
+  for (const key of ['2026-11-12', '2026-11-06']) {
+    test(`dark mode: every leaf and leaf back of a 3 leaf riffle ${key > TODAY ? 'forward' : 'back'} uses the dark paper tokens on every frame`, async ({ page }) => {
+      await page.emulateMedia({ colorScheme: 'dark' });
+      await open(page, SEED);
+      const c = await leafColours(page, key);
+      expect(c.frames).toBeGreaterThan(5);
+      expect(c.leaf).toEqual([DARK_PAPER]);
+      expect(c.back).toEqual([DARK_BACK]);
+      expect(await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--color-leaf-back').trim().toUpperCase())).toBe('#1B1F25');
+      for (const light of LIGHT) expect([...c.leaf, ...c.back]).not.toContain(light);
+    });
+  }
+
+  // TC-page-flip-T7-09 (R35): text contrast at 20, 50 and 80 percent of a flip, forward and back, light and dark. The
+  // leaf is held at each frame and every colour is composited through a 1 px canvas, layer by layer as it is painted.
+  // Leaf text is paper, then ink, then the shade, then the leaf back at its frame opacity, checked while the back has
+  // not yet covered it (opacity under 1). The shade runs from clear at 10 percent of the leaf to --flip-shade at its
+  // free edge, so each label takes the shade at its right end (its darkest point), in the leaf's own flat coordinates.
+  // New page text is ink on paper under the cast shadow at its frame opacity. The cast fades from the rings to clear
+  // at 92 percent of its width and the leaf hides what is left of its projected edge, so each label is checked at
+  // its darkest visible point: its left end, or the leaf's edge when the leaf covers that end; a label wholly under
+  // the leaf is not readable and is skipped.
+  // Every day holds an open and a done task, so both inks are checked on the leaf and on the page at every frame.
+  const INKS = ['2026-11-09', '2026-11-10', '2026-11-11', '2026-11-12'].flatMap((d, k) => [
+    task(`o${k}`, 'Gửi biên bản họp cho anh Minh', false, d, 3 * k), task(`d${k}`, 'Đi chợ mua rau và trứng', true, d, 3 * k + 1),
+    // a done task long enough to wrap, so its ink reaches the free edge where the shade is darkest
+    task(`w${k}`, 'Trình bày số liệu tháng 10 ở buổi họp dự án với khách hàng, rồi gửi biên bản và lịch hẹn tiếp theo cho cả nhóm', true, d, 3 * k + 2)]);
+  for (const colorScheme of ['light', 'dark']) {
+    test(`${colorScheme}: leaf and new page text keep 4.5 to 1 at 20, 50 and 80 percent of a flip, forward and back`, async ({ page }) => {
+      await page.emulateMedia({ colorScheme });
+      await open(page, INKS);
+      const seen = [];
+      for (const id of ['next-day', 'prev-day']) {
+        for (const at of [0.2, 0.5, 0.8]) {
+          const r = await page.evaluate(([id, at]) => {
+            document.getElementById(id).click();
+            const stage = document.querySelector('.flip-stage');
+            const ms = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--dur-flip'));
+            for (const a of stage.getAnimations({ subtree: true })) { a.pause(); a.currentTime = at * ms; }
+            const ctx = Object.assign(document.createElement('canvas'), { width: 1, height: 1 }).getContext('2d', { willReadFrequently: true });
+            const paint = (...layers) => { // [colour, alpha] pairs, painted in order
+              ctx.clearRect(0, 0, 1, 1);
+              for (const [c, alpha = 1] of layers) { ctx.globalAlpha = alpha; ctx.fillStyle = '#000'; ctx.fillStyle = c; ctx.fillRect(0, 0, 1, 1); }
+              ctx.globalAlpha = 1;
+              return [...ctx.getImageData(0, 0, 1, 1).data.slice(0, 3)];
+            };
+            const lum = (rgb) => { const [r, g, b] = rgb.map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
+            const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return (x + 0.05) / (y + 0.05); };
+            const css = (el, p) => getComputedStyle(el)[p];
+            const leaf = stage.querySelector('.leaf:not(.leaf--blank)');
+            const paper = css(leaf, 'backgroundColor');
+            const shade = [getComputedStyle(document.documentElement).getPropertyValue('--flip-shade').trim(), +css(leaf.querySelector('.leaf__shade'), 'opacity')];
+            const back = [css(leaf.querySelector('.leaf__back'), 'backgroundColor'), +css(leaf.querySelector('.leaf__back'), 'opacity')];
+            const cast = [getComputedStyle(document.documentElement).getPropertyValue('--flip-cast').trim(), +css(stage.querySelector('.leaf-cast'), 'opacity')];
+            const page = css(document.querySelector('.sheet'), 'backgroundColor');
+            const inks = (root) => [...new Set([...root.querySelectorAll('.task__text')].map((t) => css(t, 'color')))];
+            const flatRight = (el) => { let x = el.offsetWidth; for (let e = el; e && e !== leaf; e = e.offsetParent) x += e.offsetLeft; return x; };
+            const onLeaf = [...leaf.querySelectorAll('.task__label')].map((l) => {
+              const f = flatRight(l) / leaf.offsetWidth;
+              const s = [shade[0], shade[1] * Math.min(Math.max((f - 0.1) / 0.9, 0), 1)];
+              const ink = css(l, 'color');
+              return ratio(paint([paper], [ink], s, back), paint([paper], s, back));
+            });
+            const c = stage.querySelector('.leaf-cast').getBoundingClientRect();
+            const edge = leaf.getBoundingClientRect().right;
+            const onPage = [...document.querySelectorAll('#day-list .task__label')].flatMap((t) => {
+              const r = t.getBoundingClientRect();
+              const x = Math.max(r.left, edge);
+              if (x >= r.right) return []; // wholly under the leaf
+              const f = Math.min(Math.max((x - c.left) / c.width, 0), 1);
+              const under = [cast[0], cast[1] * Math.max(0, 1 - f / 0.92)];
+              return [ratio(paint([page], under, [css(t, 'color')]), paint([page], under))];
+            });
+            const out = { back: back[1], onLeaf, onPage, inks: inks(leaf).length, pageInks: inks(document.getElementById('day-list')).length };
+            for (const a of stage.getAnimations({ subtree: true })) a.finish();
+            return out;
+          }, [id, at]);
+          seen.push({ id, at, ...r });
+          await expect(stages(page)).toHaveCount(0);
+        }
+      }
+      console.log(`T7 text contrast ${colorScheme}: ${JSON.stringify(seen.map(({ id, at, back, onLeaf, onPage }) => [id, at, back, onLeaf.map((v) => v.toFixed(1)), onPage.map((v) => v.toFixed(1))]))}`);
+      const readable = seen.filter((f) => f.back < 1);
+      expect(readable.length).toBeGreaterThanOrEqual(3); // text shows on the leaf in at least 3 of the 6 frames
+      for (const f of seen) {
+        expect(f.inks, `${f.id} ${f.at}`).toBe(2); // open and done ink both checked
+        expect(f.onLeaf.length, `${f.id} ${f.at}`).toBe(3);
+        if (f.back < 1) for (const v of f.onLeaf) expect(v, `leaf ${f.id} ${f.at}`).toBeGreaterThanOrEqual(4.5);
+        for (const v of f.onPage) expect(v, `page ${f.id} ${f.at}`).toBeGreaterThanOrEqual(4.5);
+      }
+    });
+  }
+
+  test('switching to dark mid flip ends cleanly, and the next flip uses the dark leaf back', async ({ page }) => {
+    await open(page, SEED);
+    await pick(page, '2026-11-15');
+    await page.emulateMedia({ colorScheme: 'dark' });
+    await page.waitForTimeout(700 + 100);
+    await expect(stages(page)).toHaveCount(0);
+    const c = await leafColours(page, '2026-11-14');
+    expect(c.leaf).toEqual([DARK_PAPER]);
+    expect(c.back).toEqual([DARK_BACK]);
+  });
 });
