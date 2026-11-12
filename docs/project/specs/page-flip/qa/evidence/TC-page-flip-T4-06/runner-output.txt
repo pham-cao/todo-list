@@ -1,0 +1,3 @@
+npx playwright test --workers=2 (full suite, 2026-11-12): 807 passed, 105 skipped, 0 failed. Matching lines:
+  ✓  248 [desktop] › tests/e2e/flip.spec.js:488:1 › typing a date into the picker moves on each valid date and ends on the typed day with no stage left (1.4s)
+  ✓  767 [mobile] › tests/e2e/flip.spec.js:488:1 › typing a date into the picker moves on each valid date and ends on the typed day with no stage left (1.4s)

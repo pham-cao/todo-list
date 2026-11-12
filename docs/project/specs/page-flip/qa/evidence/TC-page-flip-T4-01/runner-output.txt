@@ -1,0 +1,3 @@
+npx playwright test --workers=2 (full suite, 2026-11-12): 807 passed, 105 skipped, 0 failed. Matching lines:
+  ✓  231 [desktop] › tests/e2e/flip.spec.js:396:1 › a move during a flip removes the old stage and builds one new stage, never two at once (1.1s)
+  ✓  731 [mobile] › tests/e2e/flip.spec.js:396:1 › a move during a flip removes the old stage and builds one new stage, never two at once (1.1s)

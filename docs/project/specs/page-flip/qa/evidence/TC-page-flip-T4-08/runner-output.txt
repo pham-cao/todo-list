@@ -1,0 +1,3 @@
+npx playwright test --workers=2 (full suite, 2026-11-12): 807 passed, 105 skipped, 0 failed. Matching lines:
+  ✓  249 [desktop] › tests/e2e/flip.spec.js:514:1 › reduced motion switched on during a riffle removes it at once with no helper class left; off again flips (1.0s)
+  ✓  771 [mobile] › tests/e2e/flip.spec.js:514:1 › reduced motion switched on during a riffle removes it at once with no helper class left; off again flips (1.1s)

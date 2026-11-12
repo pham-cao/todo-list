@@ -1,0 +1,3 @@
+npx playwright test --workers=2 (full suite, 2026-11-12): 807 passed, 105 skipped, 0 failed. Matching lines:
+  ✓  107 [desktop] › tests/e2e/day-nav.spec.js:799:1 › with reduced motion a move changes the day and plays no page flip (358ms)
+  ✓  540 [mobile] › tests/e2e/day-nav.spec.js:799:1 › with reduced motion a move changes the day and plays no page flip (335ms)

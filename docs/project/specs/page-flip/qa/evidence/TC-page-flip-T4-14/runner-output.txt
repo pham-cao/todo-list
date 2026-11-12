@@ -1,0 +1,3 @@
+npx playwright test --workers=2 (full suite, 2026-11-12): 807 passed, 105 skipped, 0 failed. Matching lines:
+  ✓  255 [desktop] › tests/e2e/flip.spec.js:589:1 › the midnight refresh during a flip ends it and shows the new today (167ms)
+  ✓  784 [mobile] › tests/e2e/flip.spec.js:589:1 › the midnight refresh during a flip ends it and shows the new today (210ms)

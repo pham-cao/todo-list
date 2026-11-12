@@ -1,0 +1,2 @@
+Manual run in Chromium via Playwright MCP, 2026-11-12: 12 next presses at 60 ms, 6 previous at 40 ms, 4 next with no wait, Về hôm nay, then previous at 100 ms.
+After 1 s: .flip-stage 0, .leaf 0, .washi--restick 0, max stages at once (MutationObserver) 1, hash #2026-11-11 equals picker value 2026-11-11, history grew 20 to 44 (24 moves), no console or page errors.
