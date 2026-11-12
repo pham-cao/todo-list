@@ -1,5 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { TODAY, GROUPS_KEY, task, group, open, rows, labels, hash, addTask, passMidnight, watchFlips, flipsSeen, resticksSeen } from './helpers.js';
+import AxeBuilder from '@axe-core/playwright';
+import { KEY, UI_KEY, storedJson, tick, box, mouseDrag, longPressDrag, finger } from './helpers.js';
 
 // page-flip end to end tests. Today is Thứ Hai 09/11/2026.
 const SEED = [
@@ -895,4 +897,333 @@ test('a held Enter on Về hôm nay moves to today once with at most one flip an
   expect((await flipsSeen(page)).length).toBeLessThanOrEqual(1);
   expect(await nodesLeft(page)).toBe(0);
   expect(errors).toEqual([]);
+});
+
+// T6: working on the page during a flip (R11, R18, R20 to R27, R31, R40, NFR5). slowFlip stretches --dur-flip, which
+// the stage's timer reads, to 30 s, so the stage is certainly present while a real user action runs.
+test.describe('T6: working on the page during a flip', () => {
+  const TOMORROW = '2026-11-10';
+  // The same text on both days, so a click or a tick that reached the leaf copy would show.
+  const T6 = [
+    task('t1', 'Gọi điện cho mẹ', false, TODAY, 1),
+    task('t2', 'Gửi báo cáo tuần', false, TODAY, 2),
+    task('m1', 'Gọi điện cho mẹ', false, TOMORROW, 3),
+    task('m2', 'Mang áo khoác đi giặt', false, TOMORROW, 4),
+  ];
+  const GROUPS = [group('g1', 'Công ty')];
+  const UI = '{"collapsed":[]}';
+  const seed = (page, tasks = T6, hash = '') => open(page, tasks, hash, { groups: GROUPS, ui: UI });
+  const slowFlip = (page) => page.evaluate(() => document.documentElement.style.setProperty('--dur-flip', '30000ms'));
+  // A move to tomorrow with the stage left in place.
+  const flipToTomorrow = async (page) => {
+    await slowFlip(page);
+    await next(page).click();
+    await expect(dateLine(page)).toHaveText('Ngày mai, Thứ Ba, 10/11/2026');
+    await expect(stages(page)).toHaveCount(1);
+  };
+  const byId = async (page, id) => (await storedJson(page, KEY)).find((t) => t.id === id);
+  const leftovers = (page) => page.locator('.drag-slip, .drop-strip, .task--placeholder, .task--pressing, html.is-dragging');
+  const strip = (page) => page.getByRole('group', { name: 'Thả vào nhóm' });
+  const rawAll = (page) => page.evaluate((keys) => keys.map((k) => localStorage.getItem(k)), [KEY, GROUPS_KEY, UI_KEY]);
+
+  test('typed add text stays across the move, the caret does not jump, and typing goes on while the stage plays', async ({ page }) => {
+    await seed(page);
+    await slowFlip(page);
+    const field = page.locator('#new-task');
+    await field.click();
+    await page.keyboard.type('abc');
+    await page.keyboard.press('ArrowLeft');
+    const now = await page.evaluate(() => {
+      document.getElementById('next-day').click();
+      const f = document.getElementById('new-task');
+      return { value: f.value, caret: [f.selectionStart, f.selectionEnd], focus: document.activeElement.id, stage: !!document.querySelector('.flip-stage') };
+    });
+    expect(now).toEqual({ value: 'abc', caret: [2, 2], focus: 'new-task', stage: true });
+    await page.keyboard.type('def');
+    await expect(field).toHaveValue('abdefc');
+    await expect(field).toBeFocused();
+    await expect(stages(page)).toHaveCount(1);
+  });
+
+  test('a task added while the stage plays is saved with the new day, and the rebuild ends the flip', async ({ page }) => {
+    await seed(page);
+    await flipToTomorrow(page);
+    await addTask(page, 'Mua quà');
+    await expect(labels(page)).toHaveText(['Gọi điện cho mẹ', 'Mang áo khoác đi giặt', 'Mua quà']);
+    const added = (await storedJson(page, KEY)).find((t) => t.text === 'Mua quà');
+    expect(added.date).toBe(TOMORROW);
+    await expect(stages(page)).toHaveCount(0);
+  });
+
+  test('a tick and an untick apply to the new day only and leave the flip running', async ({ page }) => {
+    await seed(page);
+    await flipToTomorrow(page);
+    await tick(page, 0, true);
+    expect((await byId(page, 'm1')).done).toBe(true);
+    expect((await byId(page, 't1')).done).toBe(false);
+    await expect(stages(page)).toHaveCount(1);
+    await expect(stages(page).locator('.leaf__content input[type="checkbox"]:checked')).toHaveCount(0);
+    await tick(page, 0, false);
+    expect((await byId(page, 'm1')).done).toBe(false);
+    await expect(stages(page)).toHaveCount(1);
+  });
+
+  test('an edit saved while the stage plays changes the new day row only; saving in place keeps the flip', async ({ page }) => {
+    await seed(page);
+    await flipToTomorrow(page);
+    await rows(page).first().getByRole('button', { name: 'Sửa' }).focus();
+    await page.keyboard.press('Enter');
+    const field = page.locator('#edit-m1');
+    await expect(field).toBeFocused();
+    await field.fill('Gọi điện cho bố');
+    await page.keyboard.press('Enter');
+    await expect(labels(page)).toHaveText(['Gọi điện cho bố', 'Mang áo khoác đi giặt']);
+    expect((await byId(page, 'm1')).text).toBe('Gọi điện cho bố');
+    expect((await byId(page, 't1')).text).toBe('Gọi điện cho mẹ');
+    // Observed and recorded: a save without a group change updates the row in place, no rebuild, so the flip runs on.
+    await expect(stages(page)).toHaveCount(1);
+  });
+
+  test('a delete through the note while the stage plays removes the new day row only, and the note ends the flip', async ({ page }) => {
+    await seed(page);
+    await flipToTomorrow(page);
+    await rows(page).first().getByRole('button', { name: 'Xóa' }).focus();
+    await page.keyboard.press('Enter');
+    const note = page.getByRole('alertdialog');
+    await expect(note).toBeVisible();
+    await expect(stages(page)).toHaveCount(0);
+    await note.getByRole('button', { name: 'Xóa việc' }).click();
+    await expect(labels(page)).toHaveText(['Mang áo khoác đi giặt']);
+    expect((await storedJson(page, KEY)).map((t) => t.id)).toEqual(['t1', 't2', 'm2']);
+  });
+
+  test('a click on a point the leaf covers reaches the real row beneath, never the leaf copy', async ({ page }) => {
+    await seed(page);
+    await flipToTomorrow(page);
+    const target = rows(page).first().locator('.check__box');
+    const b = await target.boundingBox();
+    const x = b.x + b.width / 2, y = b.y + b.height / 2;
+    const at = await page.evaluate(([x, y]) => {
+      const leaf = document.querySelector('.flip-stage .leaf:not(.leaf--blank)').getBoundingClientRect();
+      const hit = document.elementFromPoint(x, y);
+      return { covered: x >= leaf.left && x <= leaf.right && y >= leaf.top && y <= leaf.bottom, real: !!hit.closest('#day-list'), leaf: !!hit.closest('.flip-stage') };
+    }, [x, y]);
+    expect(at).toEqual({ covered: true, real: true, leaf: false });
+    await page.mouse.click(x, y);
+    await expect(box(page, 0)).toBeChecked();
+    expect((await byId(page, 'm1')).done).toBe(true);
+    expect((await byId(page, 't1')).done).toBe(false);
+  });
+
+  // Each focus step as a name a person would hear, plus whether it sat inside the stage.
+  const tabWalk = async (page) => {
+    const seen = [];
+    const name = () => page.evaluate(() => {
+      const el = document.activeElement;
+      const row = el.closest('#day-list .task')?.dataset.id ?? '';
+      return `${el.tagName.toLowerCase()}#${el.id}|${el.getAttribute('aria-label') ?? el.textContent.trim().slice(0, 30)}|${row}|${!!el.closest('.flip-stage')}`;
+    });
+    await page.locator('#prev-day').focus();
+    for (let i = 0; i < 40; i++) { await page.keyboard.press('Tab'); seen.push(await name()); }
+    for (let i = 0; i < 40; i++) { await page.keyboard.press('Shift+Tab'); seen.push(await name()); }
+    return seen;
+  };
+
+  test('Tab and Shift plus Tab follow the settled order and names, and no leaf node is ever focused', async ({ page }) => {
+    await seed(page);
+    await flipToTomorrow(page);
+    await page.evaluate(() => { window.__leafFocus = 0; addEventListener('focusin', (e) => { if (e.target.closest('.flip-stage')) window.__leafFocus++; }, true); });
+    const during = await tabWalk(page);
+    await expect(stages(page)).toHaveCount(1);
+    expect(await page.evaluate(() => window.__leafFocus)).toBe(0);
+    expect(during.filter((s) => s.endsWith('|true'))).toEqual([]);
+    expect(during.some((s) => s.includes('|m1|'))).toBe(true); // the walk did reach the new day's rows
+    await page.reload(); // the same day, settled: no stage on load
+    await expect(stages(page)).toHaveCount(0);
+    expect(await tabWalk(page)).toEqual(during);
+  });
+
+  test('the accessibility tree with a stage present holds the new day only, as on the settled page', async ({ page }) => {
+    await seed(page, [...T6.slice(0, 2), task('m2', 'Mang áo khoác đi giặt', false, TOMORROW, 4)]);
+    await flipToTomorrow(page);
+    const during = await page.locator('body').ariaSnapshot();
+    expect(during).not.toContain('Gửi báo cáo tuần');
+    expect(during).not.toContain('Gọi điện cho mẹ');
+    expect(during).toContain('Mang áo khoác đi giặt');
+    await page.reload();
+    await expect(stages(page)).toHaveCount(0);
+    expect(await page.locator('body').ariaSnapshot()).toEqual(during);
+  });
+
+  test('axe reports no violation with a stage present (Chromium)', async ({ page, browserName }) => {
+    test.skip(browserName !== 'chromium', 'axe runs on Chromium only');
+    await seed(page);
+    await flipToTomorrow(page);
+    const { violations } = await new AxeBuilder({ page }).analyze();
+    expect(violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).join(', ')}`)).toEqual([]);
+    await expect(stages(page)).toHaveCount(1);
+  });
+
+  test('a mouse drag active at a browser Back is cancelled first: nothing left over and no placeholder on the leaf', async ({ page, isMobile }) => {
+    test.skip(isMobile, 'mouse: desktop project');
+    await page.addInitScript(() => {
+      window.__copies = [];
+      new MutationObserver((list) => {
+        for (const m of list) for (const n of m.addedNodes) {
+          if (n.classList?.contains('flip-stage')) window.__copies.push({ back: n.classList.contains('flip-stage--back'), odd: n.querySelectorAll('.task--placeholder, .task--pressing, .drag-slip, .drop-strip').length, text: n.textContent });
+        }
+      }).observe(document, { subtree: true, childList: true });
+    });
+    await seed(page, T6, `#${TOMORROW}`);
+    const before = await rawAll(page);
+    await prev(page).click(); // to today, one history entry
+    await expect(dateLine(page)).toHaveText('Hôm nay, Thứ Hai, 09/11/2026');
+    await expect(stages(page)).toHaveCount(0);
+    await mouseDrag(page, rows(page).nth(1));
+    await expect(page.locator('html')).toHaveClass(/is-dragging/);
+    await page.goBack(); // to tomorrow: later by date, so the leaf carries the page the drag was on
+    await expect(dateLine(page)).toHaveText('Ngày mai, Thứ Ba, 10/11/2026');
+    await expect(leftovers(page)).toHaveCount(0);
+    const copies = await page.evaluate(() => window.__copies);
+    expect(copies.at(-1)).toMatchObject({ back: false, odd: 0 });
+    expect(copies.at(-1).text).toContain('Gửi báo cáo tuần');
+    await page.mouse.up();
+    await expect(leftovers(page)).toHaveCount(0);
+    expect(await rawAll(page)).toEqual(before);
+  });
+
+  for (const ms of [200, 450]) {
+    test(`a touch press held ${ms} ms during a move leaves no stuck press, drag, leaf or scroll lock`, async ({ page, isMobile }) => {
+      test.skip(!isMobile, 'touch: phone project');
+      await page.addInitScript(() => localStorage.setItem('daily-todo:swipe-hint-seen', '1'));
+      const long = Array.from({ length: 24 }, (_, i) => task(`l${i}`, `Việc dài ${i + 1}`, false, TOMORROW, 100 + i));
+      await seed(page, [...T6.slice(0, 2), ...long]);
+      const b = await rows(page).nth(1).locator('.task__label').boundingBox();
+      const f = await finger(page);
+      await f.down(b.x + Math.min(b.width / 2, 60), b.y + b.height / 2);
+      await page.waitForTimeout(ms);
+      if (ms === 450) await expect(page.locator('html')).toHaveClass(/is-dragging/);
+      await page.evaluate(() => document.getElementById('next-day').click());
+      await expect(dateLine(page)).toHaveText('Ngày mai, Thứ Ba, 10/11/2026');
+      await expect(leftovers(page)).toHaveCount(0);
+      await f.up();
+      await expect(leftovers(page)).toHaveCount(0);
+      await expect(stages(page)).toHaveCount(0);
+      // The page still scrolls under a finger: no lock was left behind.
+      const r = await rows(page).nth(6).locator('.task__label').boundingBox();
+      const g = await finger(page);
+      await g.down(r.x + 40, r.y + r.height / 2);
+      await g.move(r.x + 40, r.y + r.height / 2 - 300, 10);
+      await g.up();
+      await expect.poll(() => page.evaluate(() => scrollY)).toBeGreaterThan(100);
+    });
+  }
+
+  test('a new drag starts on the new day rows while the stage plays and its drop moves the task', async ({ page, isMobile }) => {
+    if (isMobile) await page.addInitScript(() => localStorage.setItem('daily-todo:swipe-hint-seen', '1'));
+    await seed(page);
+    await flipToTomorrow(page);
+    const row = rows(page).nth(1);
+    const target = strip(page).locator('.drop-target').filter({ hasText: 'Công ty' });
+    if (isMobile) {
+      const f = await longPressDrag(page, row, null, { release: false });
+      await expect(page.locator('html')).toHaveClass(/is-dragging/);
+      const t = await target.boundingBox();
+      await f.move(t.x + t.width / 2, t.y + t.height / 2);
+      await f.up();
+    } else {
+      await mouseDrag(page, row);
+      await expect(page.locator('html')).toHaveClass(/is-dragging/);
+      await expect(stages(page)).toHaveCount(1); // lifting rebuilds nothing, so the flip plays on
+      const t = await target.boundingBox();
+      await page.mouse.move(t.x + t.width / 2, t.y + t.height / 2, { steps: 6 });
+      await page.mouse.up();
+    }
+    await expect(leftovers(page)).toHaveCount(0);
+    expect((await byId(page, 'm2')).groupId).toBe('g1');
+    expect((await byId(page, 't2')).groupId).toBeUndefined();
+    await expect(page.locator('#day-list > .group').filter({ hasText: 'Công ty' }).locator('.task__label')).toHaveText(['Mang áo khoác đi giặt']);
+    await expect(dateLine(page)).toHaveText('Ngày mai, Thứ Ba, 10/11/2026');
+  });
+
+  test('20 moves of different distances with a tick and an untick leave the stored strings byte for byte', async ({ page }) => {
+    await watchFlips(page);
+    await seed(page);
+    const before = await rawAll(page);
+    expect(before.every((s) => typeof s === 'string')).toBe(true);
+    const pick = (k) => page.evaluate((k) => { const p = document.getElementById('day-picker'); p.value = k; p.dispatchEvent(new Event('change')); }, k);
+    const moves = [
+      () => next(page).click(), () => next(page).click(), () => prev(page).click(), () => pick('2026-11-20'),
+      () => page.getByRole('button', { name: 'Về hôm nay' }).click(), () => pick('2026-10-01'), () => page.goBack(),
+      () => page.goBack(), () => page.goForward(), () => page.evaluate(() => { location.hash = '#2026-12-31'; }),
+      () => next(page).click(), () => prev(page).click(), () => pick('2026-11-07'), () => next(page).click(),
+      () => next(page).click(), () => pick('2027-03-01'), () => page.getByRole('button', { name: 'Về hôm nay' }).click(),
+      () => prev(page).click(), () => pick('2026-11-12'), () => page.getByRole('button', { name: 'Về hôm nay' }).click(),
+    ];
+    for (const [i, move] of moves.entries()) {
+      const was = await dateLine(page).textContent();
+      if (i === 4) await slowFlip(page); // this move's stage stays, so the tick certainly lands during a flip
+      await move();
+      await expect(dateLine(page)).not.toHaveText(was);
+      if (i === 4) { // on today, while the flip plays; the next move ends that stage and plays at the normal length
+        await expect(stages(page)).toHaveCount(1);
+        await tick(page, 0, true);
+        await tick(page, 0, false);
+        await expect(stages(page)).toHaveCount(1);
+        await page.evaluate(() => document.documentElement.style.removeProperty('--dur-flip'));
+      }
+    }
+    await expect(dateLine(page)).toHaveText('Hôm nay, Thứ Hai, 09/11/2026');
+    await expect.poll(async () => (await flipsSeen(page)).length).toBe(20);
+    await expect(stages(page)).toHaveCount(0);
+    expect(await rawAll(page)).toEqual(before);
+  });
+
+  test('a save that throws while the stage plays shows the same storage slip and the day stays', async ({ page }) => {
+    await page.addInitScript(() => {
+      const real = Storage.prototype.setItem;
+      Storage.prototype.setItem = function (...args) {
+        if (window.blockSaves) throw new DOMException('Quota exceeded', 'QuotaExceededError');
+        return real.apply(this, args);
+      };
+    });
+    await seed(page);
+    await flipToTomorrow(page);
+    await page.evaluate(() => { window.blockSaves = true; });
+    await addTask(page, 'Mua quà');
+    await expect(page.getByRole('alert').filter({ hasText: 'Không thể lưu dữ liệu trên trình duyệt này.' })).toBeVisible();
+    await expect(labels(page)).toHaveText(['Gọi điện cho mẹ', 'Mang áo khoác đi giặt', 'Mua quà']);
+    await expect(dateLine(page)).toHaveText('Ngày mai, Thứ Ba, 10/11/2026');
+    expect(hash(page)).toBe(`#${TOMORROW}`);
+    expect((await storedJson(page, KEY)).map((t) => t.id)).toEqual(['t1', 't2', 'm1', 'm2']);
+  });
+
+  test('under reduced motion CSS hides a stage injected by hand', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await seed(page);
+    const display = await page.evaluate(() => {
+      const s = document.createElement('div');
+      s.className = 'flip-stage';
+      document.querySelector('.sheet').append(s);
+      return getComputedStyle(s).display;
+    });
+    expect(display).toBe('none');
+  });
+
+  for (const [how, act] of [['an arrow', (page) => next(page).click()], ['a riffle', (page) => page.evaluate(() => { const p = document.getElementById('day-picker'); p.value = '2026-11-20'; p.dispatchEvent(new Event('change')); })]]) {
+    test(`the live date line changes once at ${how} move and not at the end of the flip`, async ({ page }) => {
+      await watchFlips(page);
+      await seed(page);
+      await page.evaluate(() => {
+        window.__live = [];
+        new MutationObserver((l) => { for (const m of l) if (m.type !== 'attributes') window.__live.push(!!document.querySelector('.flip-stage')); })
+          .observe(document.getElementById('date-line'), { subtree: true, childList: true, characterData: true });
+      });
+      await act(page);
+      await expect.poll(async () => (await flipsSeen(page)).filter((f) => f.removed).length).toBe(1);
+      await page.waitForTimeout(100);
+      // One change, seen while the stage was there: at the move, in the same task that built it, never at its end.
+      expect(await page.evaluate(() => window.__live)).toEqual([true]);
+    });
+  }
 });

@@ -22,7 +22,8 @@ export function createFlip({ sheet, body, date }) {
   let timer = 0;
 
   // A copy of the sheet body as it is now. Cloned inputs keep value and checked state; a cloned select does not, so
-  // its value is copied over. Every id goes, so no lookup, label or aria reference ever finds a leaf node (R11).
+  // its value is copied over. Every id goes, so no lookup, label or aria reference ever finds a leaf node, and every
+  // label's `for` goes, so a leaf label never names a real control on the page (R11, R20).
   // ponytail: copies every row; T8 trims rows below the window (NFR3).
   function copy() {
     return [...body.children].map((node) => {
@@ -30,7 +31,7 @@ export function createFlip({ sheet, body, date }) {
       const from = node.querySelectorAll("select");
       clone.querySelectorAll("select").forEach((s, i) => { s.value = from[i].value; });
       clone.removeAttribute("id");
-      for (const el of clone.querySelectorAll("[id]")) el.removeAttribute("id");
+      for (const el of clone.querySelectorAll("[id], [for]")) { el.removeAttribute("id"); el.removeAttribute("for"); }
       return clone;
     });
   }
