@@ -188,3 +188,191 @@ for (const act of ['add', 'storage', 'filter', 'delete']) {
     expect(await page.locator('.sheet').getAttribute('class')).toBe('sheet');
   });
 }
+
+// T3: the riffle and every entry point (R2 to R6). A picker move runs in one task with a read of the stage it built.
+const pickAndRead = (page, key) => page.evaluate((key) => {
+  const p = document.getElementById('day-picker');
+  p.value = key;
+  p.dispatchEvent(new Event('change'));
+  const stage = document.querySelector('.flip-stage');
+  if (!stage) return null;
+  const i = (el) => Number(el.style.getPropertyValue('--i'));
+  return {
+    back: stage.classList.contains('flip-stage--back'),
+    leaves: [...stage.querySelectorAll('.leaf')].map((l) => ({
+      i: i(l), blank: l.classList.contains('leaf--blank'), content: !!l.querySelector('.leaf__content'),
+    })),
+    casts: [...stage.querySelectorAll('.leaf-cast')].map(i),
+    date: document.getElementById('date-line').textContent,
+  };
+}, key);
+// The lifetime the timer allows: 450 ms for one leaf and 125 ms more for each riffle leaf, plus 100 ms of slack.
+const lifetime = (n) => 450 + (n - 1) * 125 + 100;
+
+for (const [key, n] of [['2026-11-10', 1], ['2026-11-11', 2], ['2026-11-12', 3], ['2026-11-18', 3], ['2027-12-14', 3]]) {
+  test(`a picker move to ${key} turns ${n} leaf or leaves forward, the top one with the old day, then goes in time`, async ({ page }) => {
+    await watchFlips(page);
+    await open(page, SEED);
+    const s = await pickAndRead(page, key);
+    expect(s.back).toBe(false);
+    // Forward: --i is n - 1 - k, so the top leaf with the old page (last in the stage) starts first.
+    expect(s.leaves).toEqual(Array.from({ length: n }, (_, k) => (
+      { i: n - 1 - k, blank: k < n - 1, content: k === n - 1 })));
+    expect(s.casts).toEqual(s.leaves.map((l) => l.i));
+    await expect(stages(page)).toHaveCount(0);
+    const flips = await flipsSeen(page);
+    expect(flips).toHaveLength(1);
+    expect(flips[0]).toMatchObject({ back: false, leaves: n, blank: n - 1, ids: 0 });
+    expect(flips[0].text).toContain('Gửi báo cáo tuần');
+    expect(flips[0].removed - flips[0].added).toBeLessThanOrEqual(lifetime(n));
+    expect(flips[0].removed - flips[0].added).toBeGreaterThanOrEqual(lifetime(n) - 150);
+  });
+}
+
+for (const [key, n] of [['2026-11-08', 1], ['2026-11-07', 2], ['2026-11-06', 3], ['2026-10-31', 3]]) {
+  test(`a picker move back to ${key} turns ${n} leaf or leaves back, the last one landing with the new day`, async ({ page }) => {
+    await watchFlips(page);
+    await open(page, SEED);
+    const s = await pickAndRead(page, key);
+    expect(s.back).toBe(true);
+    // Back: --i is k, so the blank leaves land first and the copy of the new page lands last, on top.
+    expect(s.leaves).toEqual(Array.from({ length: n }, (_, k) => ({ i: k, blank: k < n - 1, content: k === n - 1 })));
+    expect(s.casts).toEqual(s.leaves.map((l) => l.i));
+    await expect(stages(page)).toHaveCount(0);
+    const [f] = await flipsSeen(page);
+    expect(f).toMatchObject({ back: true, leaves: n, blank: n - 1 });
+    expect(f.text).not.toContain('Gửi báo cáo tuần');
+    if (key === '2026-11-08') expect(f.text).toContain('Dọn tủ quần áo');
+    expect(f.removed - f.added).toBeLessThanOrEqual(lifetime(n));
+  });
+}
+
+// Về hôm nay: direction and leaf count by the distance from the viewed day to today (R1, R2, R5).
+for (const [from, back, n] of [['2026-11-08', false, 1], ['2026-11-03', false, 3], ['2026-11-10', true, 1], ['2026-11-15', true, 3]]) {
+  test(`Về hôm nay from ${from} flips ${back ? 'back' : 'forward'} with ${n} leaf or leaves`, async ({ page }) => {
+    await watchFlips(page);
+    await open(page, SEED, `#${from}`);
+    await page.getByRole('button', { name: 'Về hôm nay' }).click();
+    await expect(dateLine(page)).toHaveText('Hôm nay, Thứ Hai, 09/11/2026');
+    await expect(stages(page)).toHaveCount(0);
+    const flips = await flipsSeen(page);
+    expect(flips).toHaveLength(1);
+    expect(flips[0]).toMatchObject({ back, leaves: n, blank: n - 1 });
+    expect(flips[0].removed - flips[0].added).toBeLessThanOrEqual(lifetime(n));
+  });
+}
+
+// Waits for every flip seen so far to end, then returns them.
+const settled = async (page, count) => {
+  await expect.poll(async () => (await flipsSeen(page)).filter((f) => f.removed).length).toBe(count);
+  return (await flipsSeen(page)).map(({ back, leaves, blank }) => ({ back, leaves, blank }));
+};
+const flip = (back, leaves) => ({ back, leaves, blank: leaves - 1 });
+
+test('browser Back and Forward flip by the two dates: Back to an earlier day flips back, Forward flips forward', async ({ page }) => {
+  await watchFlips(page);
+  await open(page, SEED);
+  await next(page).click();
+  await settled(page, 1);
+  await page.goBack();
+  await expect(dateLine(page)).toHaveText('Hôm nay, Thứ Hai, 09/11/2026');
+  await page.goForward();
+  await expect(dateLine(page)).toHaveText('Ngày mai, Thứ Ba, 10/11/2026');
+  expect(await settled(page, 3)).toEqual([flip(false, 1), flip(true, 1), flip(false, 1)]);
+});
+
+test('browser Back follows the dates, not the history direction (Back from today to tomorrow flips forward)', async ({ page }) => {
+  await watchFlips(page);
+  await open(page, SEED, '#2026-11-10');
+  await page.getByRole('button', { name: 'Về hôm nay' }).click();
+  await expect(dateLine(page)).toHaveText('Hôm nay, Thứ Hai, 09/11/2026');
+  await settled(page, 1);
+  await page.goBack();
+  await expect(dateLine(page)).toHaveText('Ngày mai, Thứ Ba, 10/11/2026');
+  expect(await settled(page, 2)).toEqual([flip(true, 1), flip(false, 1)]);
+});
+
+test('picker jumps then Back twice: each Back flips by the distance and order of the two dates', async ({ page }) => {
+  await watchFlips(page);
+  await open(page, SEED);
+  await pickAndRead(page, '2026-11-12'); // A, 3 days on
+  await settled(page, 1);
+  await pickAndRead(page, '2026-11-07'); // B, 5 days before A
+  await settled(page, 2);
+  await page.goBack(); // B to A: later, so forward
+  await expect(page.locator('#day-picker')).toHaveValue('2026-11-12');
+  await settled(page, 3);
+  await page.goBack(); // A to today: earlier, so back
+  await expect(dateLine(page)).toHaveText('Hôm nay, Thứ Hai, 09/11/2026');
+  expect(await settled(page, 4)).toEqual([flip(false, 3), flip(true, 3), flip(false, 3), flip(true, 3)]);
+});
+
+test('an edited hash flips like any move: 2 days then 8 days away', async ({ page }) => {
+  await watchFlips(page);
+  await open(page, SEED);
+  await page.evaluate(() => { location.hash = '#2026-11-11'; });
+  await expect(page.locator('#day-picker')).toHaveValue('2026-11-11');
+  await settled(page, 1);
+  await page.evaluate(() => { location.hash = '#2026-11-03'; });
+  await expect(page.locator('#day-picker')).toHaveValue('2026-11-03');
+  expect(await settled(page, 2)).toEqual([flip(false, 2), flip(true, 3)]);
+});
+
+test('an edited hash that is invalid or today: no flip on today, a flip by distance when the day changes', async ({ page }) => {
+  await watchFlips(page);
+  await open(page, SEED);
+  for (const h of ['#hello', '#2026-13-01']) {
+    await page.evaluate((h) => { location.hash = h; }, h);
+    await expect.poll(() => hash(page)).toBe('');
+  }
+  await expect(dateLine(page)).toHaveText('Hôm nay, Thứ Hai, 09/11/2026');
+  await page.waitForTimeout(100);
+  expect(await flipsSeen(page)).toEqual([]);
+  await page.evaluate(() => { location.hash = '#2026-11-12'; });
+  await settled(page, 1);
+  await page.evaluate(() => { location.hash = '#2026-11-09'; }); // today, written by hand
+  await expect(dateLine(page)).toHaveText('Hôm nay, Thứ Hai, 09/11/2026');
+  await expect.poll(() => hash(page)).toBe('');
+  await page.evaluate(() => { location.hash = '#2026-11-12'; });
+  await settled(page, 3);
+  await page.evaluate(() => { location.hash = '#nope'; }); // invalid on another day: back to today, by distance
+  await expect(dateLine(page)).toHaveText('Hôm nay, Thứ Hai, 09/11/2026');
+  expect(await settled(page, 4)).toEqual([flip(false, 3), flip(true, 3), flip(false, 3), flip(true, 3)]);
+});
+
+test('a picker or hash move to the viewed day builds no stage', async ({ page }) => {
+  await watchFlips(page);
+  await open(page, SEED, '#2026-11-12');
+  expect(await pickAndRead(page, '2026-11-12')).toBeNull();
+  expect(await flipsSeen(page)).toEqual([]);
+});
+
+// Today typed by hand on a page already showing today with no hash: hashchange fires and the hash is cleaned, but the
+// day does not change, so the flip still running from the last move is left alone and no new stage is built (R6).
+// Without the key === viewed return in syncFromAddress, changeDay would end that flip at once.
+test('today typed into the hash while today is shown leaves the running flip alone and builds no stage', async ({ page }) => {
+  await watchFlips(page);
+  await open(page, SEED);
+  await next(page).click();
+  await settled(page, 1);
+  await prev(page).click(); // back on today, plain address, the flip still running
+  const r = await page.evaluate(() => new Promise((done) => {
+    addEventListener('hashchange', () => done({ fired: true, stages: document.querySelectorAll('.flip-stage').length }), { once: true });
+    location.hash = '#2026-11-09';
+  }));
+  expect(r).toEqual({ fired: true, stages: 1 });
+  await expect.poll(() => hash(page)).toBe('');
+  await expect(dateLine(page)).toHaveText('Hôm nay, Thứ Hai, 09/11/2026');
+  expect(await settled(page, 2)).toEqual([flip(false, 1), flip(true, 1)]);
+});
+
+test('keys compare as text across a year end: 31/12 to 1/1 flips forward, and back again flips back', async ({ page }) => {
+  await watchFlips(page);
+  await open(page, SEED, '#2026-12-31');
+  await next(page).click();
+  await expect(page.locator('#day-picker')).toHaveValue('2027-01-01');
+  await settled(page, 1);
+  await prev(page).click();
+  await expect(page.locator('#day-picker')).toHaveValue('2026-12-31');
+  expect(await settled(page, 2)).toEqual([flip(false, 1), flip(true, 1)]);
+});
