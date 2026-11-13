@@ -684,9 +684,18 @@ test('a throw while a book is made leaves no stage, no running library loop, and
     };
   });
   await open(page, SEED);
+  // Window resize listeners, read with CDP as in the NFR4 test; the failed book must leave none of its own behind.
+  const cdp = await page.context().newCDPSession(page);
+  const resizers = async () => {
+    const { result } = await cdp.send('Runtime.evaluate', { expression: 'window' });
+    const { listeners } = await cdp.send('DOMDebugger.getEventListeners', { objectId: result.objectId, depth: 0 });
+    return listeners.filter((l) => l.type === 'resize').length;
+  };
+  const before = await resizers();
   await next(page).click();
   await expect(dateLine(page)).toHaveText('Ngày mai, Thứ Ba, 10/11/2026');
   expect(await nodesLeft(page)).toBe(0);
+  expect(await resizers(), 'window resize listeners after the failed book').toBe(before);
   await page.waitForTimeout(100);
   const c = await page.evaluate(() => window.__lib);
   await page.waitForTimeout(500);

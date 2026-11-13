@@ -143,6 +143,7 @@ export function createFlip({ sheet, body }) {
           const r = book?.getRender();
           r?.pfSleep();
           if (r) r.pfRunning = false;
+          window.removeEventListener("resize", book?.ui?.onResize); // the library's UI adds it when it is made
         } catch { /* nothing more to stop */ }
         wrap.remove();
         throw err; // play() ends the stage
