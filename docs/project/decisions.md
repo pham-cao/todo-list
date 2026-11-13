@@ -709,3 +709,11 @@ Also accepted: strip appended inside <main>; pointer captured on the slip, not t
 - Q5 Empty group bar with no groups (hide it, keep an empty line): hide the bar until the first group exists.
 - BA extras kept: R23 (a day change behind an open card or box happens without a flip, typed text kept) and NFR7 (old inline group creation code and tests are removed).
 - 2026-11-13 page-flip StPageFlip build (owner): the library's fold shadow stays as dark as in the approved prototype (maxShadowOpacity 0.55); the moving fold shadow band is exempt from R35 for the frames it covers text. The owner approved design.md "Change 2026-11-13: StPageFlip curl and thick notebook" and tasks T11 to T15, then T9 and T10 as one round. The requirements were already updated by the BA before T11.
+- 2026-11-13 process (PM, owner asked for speed): FE builds T11 to T14 in one run with one QA and review round after T14 (the suite is red between T11 and T14 by design); then T15, T9 and T10 in a second run with one QA and review round before release.
+
+## 2026-11-13 group-header UX (chosen by the owner)
+- The owner approved the group-header requirements and the UX prototype.
+- Phone dialogs (all sticky notes become bottom sheets, all stay centred, only the new box is a sheet): every sticky note dialog (new group box, delete group confirm, blocked delete note) becomes a bottom sheet on phones.
+- "Quản lý nhóm" label (label at all widths, icon only below 452 px): show the label at all widths. This replaces the icon only rule in R3.
+- Colour preview for screen readers (announce the colour name, decorative only): decorative only (aria-hidden), as the old inline line was.
+- The proposed design-system additions in ux/critique.md and ux/group-header.css are merged into design-system.css and .md by the group-header build, after page-flip is released.

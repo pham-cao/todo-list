@@ -455,7 +455,7 @@ features:
         title: "Stop the library frame loop while idle"
         owner: fe
         depends_on: [T11]
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""
@@ -463,7 +463,7 @@ features:
         title: "Flip tests on the curl: harness and behaviour"
         owner: fe
         depends_on: [T12]
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""
@@ -471,7 +471,7 @@ features:
         title: "Flip tests on the curl: motion, look and speed"
         owner: fe
         depends_on: [T13]
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""
@@ -500,7 +500,7 @@ features:
         bugs_opened: []
         trello_card: ""
   - slug: group-header
-    phase: requirements
+    phase: design
     has_ui: true
     pr: ""
     trello_card: ""
