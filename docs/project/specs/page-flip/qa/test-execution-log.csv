@@ -336,3 +336,26 @@ date,task,tc_id,result,evidence,bug_id
 2026-11-13,T11-14 retest 2,TC-page-flip-T14-11,pass,docs/project/specs/page-flip/qa/evidence/T11-14-retest2/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-retest2/full-run-2.txt,BUG-029 retest: the 200 wrapping rows test passed in both full runs at --workers=2 (952 passed, 112 skipped, 0 failed each)
 2026-11-13,T11-14 retest 2,TC-page-flip-T3-riffle-pooled,pass,docs/project/specs/page-flip/qa/evidence/T11-14-retest2/manual-second-riffle.txt,Manual: second forward riffle in the same session shows both blank pages from the first frame; automated by the pooled books curl test in flip.spec.js
 2026-11-13,T11-14 retest 2,npm test,pass,docs/project/specs/page-flip/qa/evidence/T11-14-retest2/npm-test.txt,88 of 88 unit tests passed
+2026-11-13,T15,TC-page-flip-T15-01,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/full-run-1.txt,"T15 test, 4 combinations; 968 passed, 0 failed"
+2026-11-13,T15,TC-page-flip-T15-02,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T15-qa/manual-360px-stack.txt,"Reach inside the gutter, no scroll at 360, 390 and 1440 px"
+2026-11-13,T15,TC-page-flip-T15-03,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/full-run-1.txt,"T15 riffle test at 390 px, both projects"
+2026-11-13,T15,TC-page-flip-T15-04,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/manual-360px-stack.txt,"git diff of design-system.css read: one --shadow-sheet, dark block sets three colours only, --stack-u 0.7px under 601 px"
+2026-11-13,T15,TC-page-flip-T15-05,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/manual-360px-stack.txt,Playwright MCP
+2026-11-13,T15,TC-page-flip-T15-06,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/manual-screenshot-compare.txt,Matches the approved thick prototype
+2026-11-13,T15,TC-page-flip-T15-07,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/full-run-1.txt,Whole suite green in both projects
+2026-11-13,T15,TC-page-flip-T15-08,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/summary.txt,"git diff of design-system.md read: stack bullet, tokens and phone unit described"
+2026-11-13,T9,TC-page-flip-T9-01,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/grep-removed.txt,"grep -rnE of every removed class over src, index.html, design-system.*: no match (exit 1)"
+2026-11-13,T9,TC-page-flip-T9-02,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/grep-removed.txt,restick and keyframes gone; reduced motion flip tests stay green in the full run
+2026-11-13,T9,TC-page-flip-T9-03,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/summary.txt,"design-system.md diff read: day change bullet points to Page flip, Superseded note removed, reduced motion line names the flip as the exception"
+2026-11-13,T9,TC-page-flip-T9-04,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/full-run-1.txt,"Full suite 968 passed, 112 skipped, 0 failed; guard test for turn-- classes stays"
+2026-11-13,T10,TC-page-flip-T10-01,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/summary.txt,"package.json 1.4.0; lockfile root and packages[""""] 1.4.0 (git diff)"
+2026-11-13,T10,TC-page-flip-T10-02,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/grep-130.txt,"No 1.3.0 left in src, index.html, package files; every ?v= is 1.4.0"
+2026-11-13,T10,TC-page-flip-T10-03,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/version-mutation.txt,"Mutation: ./date.js?v=1.3.0 in app.js made version.test.js fail; restored, test passes (2 of 2)"
+2026-11-13,T10,TC-page-flip-T10-04,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/manual-subpath-network.txt,"Served under /sub/, all assets 200, flip plays and ends"
+2026-11-13,T10,TC-page-flip-T10-05,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/manual-subpath-network.txt,"One host, no external request, no new dependency, no console or CSP error"
+2026-11-13,T10,TC-page-flip-T10-06,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/diff-nonversion-lines.txt,No non-version change in index.html or the other src files; accessible names unchanged
+2026-11-13,T10,TC-page-flip-T10-07,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/npm-test.txt;docs/project/specs/page-flip/qa/evidence/T15-qa/full-run-1.txt,"npm test 88 of 88; Playwright 968 passed, 112 skipped, 0 failed (both projects)"
+2026-11-13,T10,TC-page-flip-T10-08,pass,docs/project/specs/page-flip/release-notes.md,"Release note lists Safari and iOS, Android, Firefox and Edge, accepted risks"
+2026-11-13,T10,TC-page-flip-T10-09,blocked,,"No Safari, macOS or iOS device on this host; manual check in the release note"
+2026-11-13,T10,TC-page-flip-T10-10,blocked,,No Android phone on this host; manual check in the release note
+2026-11-13,T10,TC-page-flip-T10-11,blocked,,Firefox and Edge not run on this host in this round; manual smoke check in the release note

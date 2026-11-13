@@ -1,0 +1,43 @@
+TAP version 13
+# Subtest: package.json version is set
+ok 1 - package.json version is set
+  ---
+  duration_ms: 1.202991
+  ...
+# Subtest: every local reference carries the package version and names an existing file
+not ok 2 - every local reference carries the package version and names an existing file
+  ---
+  duration_ms: 1.545147
+  location: '/home/gem/src/todo_list/tests/unit/version.test.js:26:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    src/app.js: ./date.js?v=1.3.0
+    + actual - expected
+    
+    + 'v=1.3.0'
+    - 'v=1.4.0'
+           ^
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'v=1.4.0'
+  actual: 'v=1.3.0'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/gem/src/todo_list/tests/unit/version.test.js:30:12)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 1
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 52.639809
+exit=1

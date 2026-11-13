@@ -1,0 +1,4 @@
+T15 screenshots in qa/evidence/T15-fe/ (12 files) compared with the approved thick-*.png of the prototype (proto-stpageflip, worktree agent-ac97ef2fd3696d839).
+1440 light settled: same stack on the right and bottom edges, same colours, same width of stack (about 18 px) and the same hole and ruled layout. The FE shot is cut at the 900 px viewport, so the bottom edge is outside it; this is a crop, not a difference.
+390 dark curl: same diagonal fold and shading, stack edge on the right inside the gutter, no horizontal scroll (also asserted by the T15 tests). Days differ (14/11 vs 15/11 text) because the frames are taken at different moments; not a defect.
+Result: matches the approved look. Read by eye (1440 light settled, 390 dark curl, plus the test assertions for the other combinations).
