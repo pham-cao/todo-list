@@ -717,3 +717,5 @@ Also accepted: strip appended inside <main>; pointer captured on the slip, not t
 - "Quản lý nhóm" label (label at all widths, icon only below 452 px): show the label at all widths. This replaces the icon only rule in R3.
 - Colour preview for screen readers (announce the colour name, decorative only): decorative only (aria-hidden), as the old inline line was.
 - The proposed design-system additions in ux/critique.md and ux/group-header.css are merged into design-system.css and .md by the group-header build, after page-flip is released.
+- 2026-11-13 group-header design (PM, following the owner's answers): the header "Quản lý nhóm" button has no tooltip, since its label is always visible (the BA removes "tooltip" from the text table). The task delete note ("Bạn có chắc muốn xóa việc này không?") also becomes a phone bottom sheet, because the owner chose "every dialog slides up from the bottom"; T3 includes #delete-dialog.
+- 2026-11-13 the owner approved the group-header design.md and tasks.md (T1 to T5).

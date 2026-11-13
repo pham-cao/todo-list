@@ -25,7 +25,7 @@ New and changed text is exact. Text not listed here stays as in `task-groups` (i
 
 | Key | Text |
 | --- | --- |
-| Manage button in the header (visible text, accessible name and tooltip) | Quản lý nhóm (unchanged text, new place) |
+| Manage button in the header (visible text and accessible name, always visible, no tooltip) | Quản lý nhóm (unchanged text, new place) |
 | Add group control in the card (visible text) | Thêm nhóm |
 | Box title | Tạo nhóm mới |
 | Box name input (label and accessible name) | Tên nhóm mới (unchanged) |
@@ -46,7 +46,7 @@ R1. THE SYSTEM SHALL show the "Quản lý nhóm" button in the page header, dire
 
 R2. WHEN the owner presses the header "Quản lý nhóm" button THE SYSTEM SHALL open the "Nhóm việc" card exactly as `task-groups` R35 and R36 describe (list of groups in creation order, Sửa and Xóa, "Bạn chưa có nhóm nào." when empty). WHEN the card closes THE SYSTEM SHALL return focus to this header button.
 
-R3. THE SYSTEM SHALL keep the header button at least 44 by 44 pixels to tap, with the name "Quản lý nhóm" as its accessible name and tooltip, and SHALL keep the existing narrow phone rule (icon only below 452 px, name kept as the accessible name and tooltip). The header SHALL fit at 360 px wide without horizontal scrolling, and the tab order SHALL stay logical: heading, previous day, next day, picker, "Về hôm nay", "Quản lý nhóm", then the add input.
+R3. THE SYSTEM SHALL keep the header button at least 44 by 44 pixels to tap, and SHALL show the visible label "Quản lý nhóm" at every width, phones included (no icon only rule any more), with the same name as its accessible name. The header SHALL fit at 360 px wide without horizontal scrolling, and the tab order SHALL stay logical: heading, previous day, next day, picker, "Về hôm nay", "Quản lý nhóm", then the add input.
 
 R4. WHEN the group bar has nothing to show (no groups exist, so no filter) THE SYSTEM SHALL not leave an empty line or gap in the body. WHEN groups exist THE SYSTEM SHALL show the filter as before, alone on its line.
 
@@ -56,7 +56,7 @@ R5. THE SYSTEM SHALL show a "Thêm nhóm" control in the card, above the list of
 
 R6. WHEN the owner presses "Thêm nhóm" THE SYSTEM SHALL open the box on top of the card (the card stays open behind it), in the same paper note style as the delete group confirmation: the same dialog surface, corner sticker, title style and button row, with the title "Tạo nhóm mới", a name input labelled "Tên nhóm mới", and the buttons "Hủy" and "Tạo nhóm". It SHALL move focus to the name input.
 
-R7. WHEN the box opens THE SYSTEM SHALL show the colour the new group will get (the next colour, as `task-groups` R10 sets it) as a swatch beside the name input, and SHALL keep that swatch correct if another tab adds a group while the box is open. No colour picker is shown in the box (see the open question on colour). The owner can change the colour later with Sửa.
+R7. WHEN the box opens THE SYSTEM SHALL show the colour the new group will get (the next colour, as `task-groups` R10 sets it) as a decorative swatch (`aria-hidden="true"`, never the only cue) beside the name input, and SHALL keep that swatch correct if another tab adds a group while the box is open. No colour picker is shown in the box (see the open question on colour). The owner can change the colour later with Sửa.
 
 R8. WHEN the owner presses "Tạo nhóm", or presses Enter in the name input, with a valid name THE SYSTEM SHALL create the group at the end of the list (creation order, `task-groups` R1 and R10), save it straight away, close the box, show the new group in the card's list, announce "Đã tạo nhóm "{name}"." through a live region (once), and return focus to the "Thêm nhóm" control. The new row SHALL be scrolled into view if the list scrolls. It SHALL not create a task.
 
@@ -110,7 +110,7 @@ R28. THE SYSTEM SHALL show a visible focus ring (2 px pen outline) on the header
 
 ### Phones and desktop
 
-R29. THE SYSTEM SHALL show the box as a bottom sheet on phones and as a centred note on desktop, the same as the delete group confirmation, with the on screen keyboard not hiding the name input or the buttons at 360 by 640 pixels (the box scrolls or moves up so the input stays visible).
+R29. THE SYSTEM SHALL show every sticky note dialog, that is the new group box, the delete group confirmation, the blocked delete note and the task delete note ("Bạn có chắc muốn xóa việc này không?", `#delete-dialog`), as a bottom sheet on phones and as a centred note on desktop, with the on screen keyboard not hiding the name input or the buttons at 360 by 640 pixels (the box scrolls or moves up so the input stays visible).
 
 R30. THE SYSTEM SHALL keep all box controls at least 44 by 44 pixels to tap, and show a name of 30 characters without spaces whole, wrapping if needed, at 360 pixels wide without horizontal scrolling.
 

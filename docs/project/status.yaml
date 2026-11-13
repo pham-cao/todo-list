@@ -500,11 +500,51 @@ features:
         bugs_opened: []
         trello_card: ""
   - slug: group-header
-    phase: design
+    phase: test-design
     has_ui: true
     pr: ""
     trello_card: ""
-    tasks: []
+    tasks:
+      - id: T1
+        title: "Quản lý nhóm in the header, group bar hidden with no groups"
+        owner: fe
+        depends_on: []
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T2
+        title: "Thêm nhóm and the new group box"
+        owner: fe
+        depends_on: [T1]
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T3
+        title: "Sticky note dialogs as bottom sheets on phones"
+        owner: fe
+        depends_on: [T2]
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T4
+        title: "Remove the old inline group creation"
+        owner: fe
+        depends_on: [T2]
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T5
+        title: "Release version 1.5.0"
+        owner: be
+        depends_on: [T3, T4]
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
   # - slug: user-login
 #   phase: requirements   # requirements | ux | design | build | release | done
 #   has_ui: true
