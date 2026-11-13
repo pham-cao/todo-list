@@ -578,3 +578,164 @@ Manual (T10 release note): Safari and iOS show the bend (the soft bow mid turn, 
 | NFR1, NFR2, NFR3 | One trimmed copy cloned N - 1 times; compositor only motion; slow frame fallback; T8 tests with the N check, T8e-06 |
 | NFR4 | Faces and strips inside the stage, removed by `end()`; listener count test unchanged |
 | R39, NFR7 fallbacks | `CAN_BEND`, the `flat` flag; T8e-06 |
+
+## Change 2026-11-13: StPageFlip curl and thick notebook
+
+Source: decisions.md, "2026-11-13 page-flip curl style" (chosen by the owner), including the two owner previews of the same day: the StPageFlip prototype with the riffle was approved, and the thick notebook stack was approved ("oki"). This section replaces "Change 2026-11-13: soft paper bend" as a whole (the strips, faces, `leaf-bend`, `leaf-shade`, `--flip-strips`, `--flip-bend`, the slow device fallback and the T8e tests) and overrides anything above that conflicts with it. It keeps "Change 2026-11-12" (whole sheet, always flip, 700 ms, 125 ms step, no tape re-press) and the day change path in `src/app.js` unchanged.
+
+Requirement text for the BA to amend: R8 ("no library", "narrow vertical strips"), NFR6 ("no new dependency and no external library"), and item 2 of Out of scope (a page corner curl and a flip library). The design below is written against "R8 as amended: the page curls like a real book page, with a diagonal fold, drawn by the vendored StPageFlip library".
+
+### Approach in short
+
+The approved prototype (worktree `agent-ac97ef2fd3696d839`, diff against cb310c3; screenshots in `qa/evidence/proto-stpageflip/`) becomes the build almost as it is. StPageFlip 2.0.7 (MIT) is vendored under `vendor/page-flip/`, loaded as a local ES module and a local stylesheet, so there is no CDN, no npm runtime dependency and no CSP change. `src/flip.js` keeps its API (`leafCount`, `createFlip({ sheet, body })` returning `{ snapshot, play, end }`), its copy of the sheet, its `place()`, its end paths and its listeners. Only the inside of `play()` and `end()` changes: instead of CSS animated leaves it drives one small library "book" per riffle page along a dipping corner path, so the fold runs diagonally with the lower corner lagging, as in the owner's reference photo.
+
+The thick notebook is a design system change only: `--shadow-sheet` becomes a stack of offset paper edges, a card back cover and a soft shadow, all box shadows, so no layout or scroll area changes.
+
+It follows the existing patterns: one module with a small returned API (`createFlip`, like `createDrag`), tokens read with `ms()`, inline geometry through the CSSOM only, one end path, a stage that is `aria-hidden`, `inert` and pointer free, and real time motion checks in the style of TC-page-flip-T8-11.
+
+### Vendored library
+
+| File | Content |
+| --- | --- |
+| `vendor/page-flip/page-flip.module.js` | npm `page-flip@2.0.7`, `dist/js/page-flip.module.js`, with two marked patches (below) and a header comment naming the version, the source path and the SHA-256 of the unpatched file |
+| `vendor/page-flip/page-flip.css` | The library CSS, which the library would otherwise inject as an inline `<style>` |
+| `vendor/page-flip/LICENSE` | The MIT licence, copyright 2020 Nodlik, unchanged |
+
+1. Pinned version. The version lives in the header comment and nowhere else; there is no `package.json` entry, because nothing installs or builds it. Upgrading means vendoring a new file, re-applying the two patches and re-running the curl tests, which are the guard for the internals listed below.
+2. Patch 1, CSP. The call that injected the library CSS as an inline `<style>` element is removed, because `style-src 'self'` blocks it. The same CSS is `page-flip.css`, linked from `index.html` before the design system. Everything else the library styles goes through `element.style` and `style.cssText`, which the CSP allows (the CSSOM rule already used by the drag slip and the progress ring). The Content-Security-Policy meta tag does not change.
+3. Patch 2, idle loop. `Render.start()` runs `requestAnimationFrame` forever, and `destroy()` does not stop it, so every book would draw a frame 60 times a second for the life of the page, also while no flip plays. The patch makes the loop stop when asked and restart on demand:
+
+```js
+// original
+start(){this.update();const t=e=>{this.render(e),requestAnimationFrame(t)};requestAnimationFrame(t)}
+// patched (names prefixed so they cannot clash with the library's own members)
+start(){this.update();this.pfLoop=e=>{this.render(e),this.pfAsleep?this.pfRunning=!1:requestAnimationFrame(this.pfLoop)};this.pfWake()}
+pfWake(){this.pfAsleep=!1,this.pfRunning||(this.pfRunning=!0,requestAnimationFrame(this.pfLoop))}
+pfSleep(){this.pfAsleep=!0}
+```
+
+   `flip.js` calls `getRender().pfSleep()` right after creating a book and in `end()` for every pooled book, and `getRender().pfWake()` when a book starts its turn in `drive()`. The library's own end animation (the forward tail after `userStop`) runs inside that window, because the stage only ends when the last book reports `read` or the end timer fires. With no flip playing, no library frame callback is queued.
+4. Version query. `index.html` links `vendor/page-flip/page-flip.css?v=1.3.0` and `src/flip.js` imports `../vendor/page-flip/page-flip.module.js?v=1.3.0`, because `tests/unit/version.test.js` requires every local reference in `index.html` and `src/*.js` to carry the package version (the prototype left both bare, which fails that test). T10 bumps them with the rest. The vendored module has no imports of its own.
+5. Hosting. `vendor/` is a plain folder at the repository root next to `src/`, reached by relative paths, so the GitHub Pages subpath works as before (NFR9).
+
+### Library internals the build relies on
+
+The library has no public cancel and no hook after a frame is drawn, so `flip.js` uses a few members that are not in its documented API. They are listed in one comment at the top of `createFlip` and here, so an upgrade knows what to check:
+
+| Member | Used for |
+| --- | --- |
+| `getRender().drawFrame` (wrapped) | Calls `punch(book)` after every drawn frame |
+| `getRender().animation`, `setBottomPage(null)`, `setFlippingPage(null)`, `clearShadow()` | `quiet()`: drops a turn cut short |
+| `getFlipController().reset()`, `setState("read")`, `getCalculation()` | `quiet()`, and in `drive()` whether a fold has started |
+| `book.isUserTouch` | Reset in `quiet()`, read in `drive()` |
+| `getPageCollection().getPages()[i].getElement()` | The front and clear page elements in `punch()` |
+| The clear page's inline `clipPath` (`polygon(...)`) and `transform` (`translate3d(...)`) | The uncovered area that `punch()` cuts out of the front page |
+| `pfWake()`, `pfSleep()` | Patch 2 |
+
+Documented members used as documented: `new PageFlip(el, settings)`, `loadFromHTML`, `updateFromHtml`, `getSettings`, `update`, `turnToPage`, `getCurrentPageIndex`, `startUserTouch`, `userMove`, `userStop`, `on("changeState")`.
+
+Any exception from these lands in the existing `try` in `play()` (or the one around the observer) and ends the stage, so a broken internal means no curl, never a stuck page (NFR7).
+
+### Stage structure
+
+```
+div.flip-stage.flip-stage--curl[.flip-stage--back]   aria-hidden, inert; --flip-top, --flip-h, --flip-offset (place())
+  div.leaf.leaf--base                    back only: copy of the old day, under the pages that fall back onto it
+  div.flip-layer  (bottom page first)    one per riffle page, n = leafCount(days)
+    div.flip-book                        the library root, sized to the stage
+      .stf__* library markup, holding:
+        div.leaf.leaf--front             the page that turns (forward: old day; back: new day; or .leaf--blank)
+        div.leaf.leaf--front (clone)     drawn by the library as the back of the sheet; content hidden by CSS
+        div.leaf--clear                  what the turn uncovers; see-through, its clip drives punch()
+```
+
+1. `flip-stage--back` is set when `to < from`, as before, so `watchFlips` and the CSS keep one way to tell the direction. The prototype dropped it; the build puts it back.
+2. Forward, top to bottom: the old day, then blank ruled pages, over the real new day. Back, top to bottom: the new day, then blank pages, over the `.leaf--base` copy of the old day; they start curled away and uncurl, the lowest first, so the new day lands last.
+3. Books are pooled (at most 3, one per riffle depth) and reused with `updateFromHtml`, because creating a book per move would add a loop and listeners per move (NFR4). The stage node itself is reused too and is detached by `end()`, so between flips there is no `.flip-stage`, `.flip-layer` or `.leaf` in the document.
+4. `punch(book)` cuts the uncovered part out of the front page with an `evenodd` polygon after each drawn frame, so the next page down (already turning, or the real new day) shows through it. Without it the library expects an opaque page there.
+5. `snapshot(from, to)` now copies the old day for both directions (forward it is the turning page, back it is `.leaf--base`). The back front page is `copy()` of the new day in `play()`, as before, and the ResizeObserver keeps refitting its rows with `fit()` as in T8d, so a back page lines up with the new day once its rows lay out (the prototype dropped this refit; the build keeps it so the T8d `linedUp` tests hold).
+
+### Motion and timing
+
+1. `drive()` moves the touch point along `x = w - 2 - 1.85 w t`, `y = 2 + sin(pi t) * 0.4 min(w, h)`, eased in and out. The dip makes the fold diagonal with the lower corner lagging. Forward drives 85 percent of `--dur-flip` by hand and lets the library animate the last part past the left edge (`userStop`); back drives the whole `--dur-flip` from the far end home and stops at the corner, so the page settles flat.
+2. Riffle: book k starts `k * --dur-riffle-step` after the first (forward top first, back lowest first), so a 3 page riffle still lasts 700 plus 2 x 125 = 950 ms (R3, R3a).
+3. The library animates its tail at one point per pixel and shortens runs under 1000 points; `flippingTime` is set per move from the stage width so the tail takes the remaining 15 percent of `--dur-flip` at every width. This is approximate (a frame or two either way), which is why the end timer stays the authority.
+4. End timer, as BUG-028: `life = dur + (n - 1) * step + 17`, a backstop of `2 * life` until the first animation frame, then `life` from that frame. The last book's `changeState` to `read` ends the stage earlier when the library finishes first. So NFR7 (every flip ends within its time plus one frame) holds by construction; the prototype's `2 * life + 300` backstop goes.
+5. The library animates with script, not CSS animations, so the global reduced motion rule (`animation-duration: 1ms`) does not touch it and the flip keeps playing under `prefers-reduced-motion` (R28, R29). The old duration override for `.flip-stage *` becomes dead and T9 removes it.
+6. Accepted limit (ponytail): the book size is taken from the stage once per move. If the visible part of the sheet grows during the turn (rows laying out on a short day), a strip at the bottom shows the new day without a curl until the turn ends; the stage is clipped, so it never overflows. Upgrade path, if the owner notices: call `getSettings()` plus `update()` with the new height from the ResizeObserver.
+
+### Fallbacks
+
+`allowed()` becomes `CAN_CURL && !document.hidden`, where `CAN_CURL = CAN_3D && CSS.supports("clip-path", "polygon(evenodd, 0 0, 1px 0, 0 1px)")`, read once. A hidden page and a browser without these features change the day with no flip and no error (R7, R39). The `visibilitychange` and capturing `toggle` listeners stay, and `end()` now also runs `quiet()` and `pfSleep()` on every pooled book.
+
+### Design system
+
+1. Page flip block of `design-system.css`: the prototype's "Page curl prototype" rules move into the Page flip block as its curl part (no "prototype" label): `.flip-stage--curl`, `.flip-layer`, `.flip-book`, `.flip-book .stf__wrapper`, the back of sheet rule on the second `.leaf--front`, the hidden content of that clone, and the unclipped `.stf__outerShadow` and `.stf__innerShadow` with the reason in a comment. The `.flip-stage--curl .leaf { animation: none }` override stays until T9 removes the leaf animations it overrides.
+2. Thick notebook: the prototype's "Thick notebook prototype" block moves into the Tokens section. `--shadow-sheet` is defined once from `--stack-u`, `--color-paper-edge`, `--color-stack-line`, `--color-cover` and `--stack-soft`; the dark block sets only `--color-stack-line`, `--color-cover` and `--stack-soft` (and drops its own `--shadow-sheet`); `--stack-u` is 1.8 px, and 0.7 px below 601 px so the stack fits the 8 px desk gutter at 390 px. Box shadows draw outside the layout, so no scroll bar or shift is added (R13, R33).
+3. `design-system.md`: the Page flip section describes the curl (diagonal fold, lower corner lagging, the back of the sheet, the fold shadows, the riffle as stacked books), the vendored library and its licence; "Spacing, size, radius, shadow" describes the page stack and its tokens.
+
+### Error handling and security
+
+1. No data is read or written (R27, R40). Pages come from the app's own stripped copy (no `id`, `for`, `aria-live`, `role`), inside the `aria-hidden`, `inert`, pointer free stage, so R11, R19 and R20 hold; `useMouseEvents: false` means the library listens to no pointer input.
+2. The library is local, MIT licensed, pinned and reviewed as two small patches; no network request, no `eval`, no inline style element, and the CSP is unchanged (NFR6 as amended).
+3. Every failure path ends the stage and leaves the settled page (NFR7).
+
+### Files to change
+
+| File | Task | Change |
+| --- | --- | --- |
+| `vendor/page-flip/page-flip.module.js`, `page-flip.css`, `LICENSE` | T11, T12 | New, from the prototype; header comment with version and hash (T11); idle loop patch (T12) |
+| `index.html` | T11 | Link `vendor/page-flip/page-flip.css?v=1.3.0` before the design system |
+| `src/flip.js` | T11, T12 | The prototype's `play()`, `end()`, `bookAt`, `punch`, `quiet`, `drive`, with `flip-stage--back`, the back refit, the BUG-028 end timer, `CAN_CURL`, the internals comment (T11); `pfWake` and `pfSleep` calls (T12) |
+| `docs/project/design-system.css`, `.md` | T11, T15 | Curl rules in the Page flip block (T11); page stack tokens (T15) |
+| `tests/e2e/helpers.js`, `tests/e2e/flip.spec.js`, `tests/e2e/day-nav.spec.js` (T7 block) | T13, T14 | Tests for the curl (below) |
+| `docs/project/design-system.css`, `.md`, `src/flip.js` | T9 | Dead leaf, strip and turn styles; anything in flip.js no longer called |
+| `package.json`, lockfile, `?v=` in `index.html` and `src/*.js` | T10 | 1.4.0 |
+
+The uncommitted T8e work in the main working tree (`src/flip.js`, `design-system.css`, `design-system.md`, `tests/e2e/flip.spec.js`, `tests/e2e/helpers.js`) is discarded back to HEAD (cb310c3) at the start of T11. `requirements.md`, `decisions.md` and `status.yaml` are not touched by that reset.
+
+### Tests
+
+Unit: `leafCount` and `daysBetween` unchanged; `version.test.js` passes with the two new `?v=` references and fails if one is removed.
+
+End to end, harness (T13):
+
+1. `watchFlips` records per stage: `back` from `flip-stage--back`, `leaves` as the number of `.flip-layer`, `blank` as the layers whose own `.leaf--front` is `.leaf--blank`, `text` from the first non blank `.leaf--front .leaf__content`, `first` (the first animation frame after the stage was added, kept from the T8e helper), and `removed`. Because the stage node is reused, removal is matched to the latest open record (`removed === null`), not the first record for that node.
+2. Lifetimes are measured from `first`: removed no earlier than `life - 60` ms and no later than `life + 100` ms, with `life` from `DUR = 700` and `STEP = 125`. The old edge test at 699, 700, 701 and 717 ms is replaced by these bounds.
+3. Every test that reads `.leaf`, `.leaf-cast`, `.leaf__back`, `.leaf__shade`, `--i` or CSS animations (the T8b `perceptible` checks, T7-09 contrast, the T7 dark test, the reduced motion animation duration test) is rewritten for the curl as below or deleted where the curl has no such part; no assertion on behaviour is weakened.
+
+End to end, behaviour kept (T13), each passing on the new harness: entry points and direction, page counts 1, 2 and 3 by distance (2 days: 1 blank; 3 and 9 days: 2 blank), no flip on load, reload, midnight, invalid hash and same day, 30 presses ending on the right day with zero `.flip-stage`, `.flip-layer` and `.leaf` nodes after the last lifetime, interrupts (a new move, a storage event, the delete note and the "Nhóm việc" dialog each end a running stage at once, all layers together), a hidden page building no stage and ending a running one, window blur, held key repeat and release, theme change, no support (`CSS.supports` false for `clip-path` with `evenodd`, init script) building no stage and no error, work during a flip (typing, adding, ticking, focus, tab order, `elementFromPoint` at the next arrow returning the real button, axe with a stage present, the accessibility tree holding no copy text), copies with no `id`, `for`, `aria-live` or `role`, and the stored strings unchanged byte for byte.
+
+End to end, curl (T14), real time with nothing paused, sampling every animation frame, at 1440 and 390 px:
+
+1. Curl visible: in a forward flip, a back flip and a 3 page riffle, the turning page (the second `.leaf--front` of each layer) is displayed and has a fold (its inline `clip-path` is a polygon) on samples covering at least 50 percent of `DUR` per page; on at least 30 percent of `DUR` its rotation from the computed `transform` is between 5 and 60 degrees from upright, so the fold is diagonal and not vertical; forward, the leftmost x of its drawn box moves from the right half to the left quarter of the stage, and back the other way.
+2. See-through: while a forward fold is drawn, the top `.leaf--front` has an `evenodd` polygon clip (the punch), so the next page or the new day shows.
+3. Riffle: each layer starts its fold `STEP` (within one frame plus 20 ms) after the one before, in the order of R4, and blank pages turn like the text page.
+4. Idle loop (T12, may live in T14's block): an init script counts `requestAnimationFrame` callbacks queued by the vendored module (wrap `requestAnimationFrame` and tag calls whose stack names `page-flip.module.js`); after load with no move, and from 100 ms after a stage ends, no such callback runs for 1 second; during a flip they do.
+5. CSP: a `securitypolicyviolation` listener records nothing on load and through a forward flip, a back flip and a riffle.
+6. Dark mode: the turning page's back (`.leaf--front ~ .leaf--front`) computes `--color-leaf-back` from the dark block, the front pages use the dark paper, and no sampled pixel in a screenshot at 30 and 60 percent of `DUR` is lighter than the light paper threshold used by the T7 dark test (no light flash, R34).
+7. Contrast (R35): the copied text on the front page, at 30 and 60 percent of `DUR`, light and dark, at 4.5:1 or better against its paper. The fold shadows are measured and reported for the new page text under them (open question in the hand-off).
+8. Layout at 1440, 390 and 360 px: no horizontal scroll and an unchanged `scrollHeight` during and after a riffle; every `.flip-layer` inside the sheet box; the T8d stage top and scrolled cases unchanged.
+9. Speed (NFR1, NFR2): the day-navigation "under 100 ms" tests unchanged; a 3 page riffle between two 200 task days, Chromium, median of 3 runs: no `longtask`, median frame at most 18.2 ms, no frame over 50 ms. FE reports the medians and the first frame time. If they fail, FE reports the numbers and does not tune the curl; the owner's accepted stutter risk (2026-11-13 T8e entry) is for the PM to apply.
+10. Reduced motion: the T8c inverted tests pass (a move under `reducedMotion: 'reduce'` builds a stage with the normal page count and lifetime, and a riffle runs on when the setting switches on), and check 1 passes once under reduced motion.
+
+Thick notebook (T15): at 390 px the sheet's box shadow reach (largest offset plus blur) stays inside the right gutter and adds no horizontal scroll; at 1440 and 390 px light and dark, `--shadow-sheet` computes to the stack (12 shadow layers) with the dark colours in dark mode; screenshots of the settled sheet and a mid curl in `qa/evidence/T15-fe/`.
+
+Manual (T10 release note): Safari and iOS show the curl with the diagonal fold and no seams or clipped corners, light and dark, also with Reduce Motion on; the stack edges look right at the phone width; a mid range Android phone plays the 950 ms riffle smoothly.
+
+### Requirement mapping for this change
+
+| Requirement (as amended) | Satisfied by |
+| --- | --- |
+| R8 curl with a diagonal fold | Vendored StPageFlip, `drive()` dip path, `punch()`; T14 checks 1 and 2 |
+| R3, R3a riffle, 700 and 950 ms | One pooled book per page, step from the token, end timer from the first frame; T13 counts and lifetimes, T14 check 3 |
+| R4 direction | `flip-stage--back`, back path driven home, `.leaf--base`; T13 direction tests |
+| R7, R38, R39 fallbacks | `allowed()` with `CAN_CURL`; `visibilitychange`; T13 |
+| R9, NFR4, NFR7 cleanup | `end()` detaches the stage, `quiet()` and `pfSleep()` on every book, pool capped at 3; T13 node counts, T14 check 4 |
+| R11, R18 to R21 | Stage attributes, stripped copies, `useMouseEvents: false`; T13 focus and axe tests |
+| R13, R33 | Stage on the visible sheet, `overflow: clip`, stack as box shadows; T14 check 8, T15 |
+| R14 to R17, R37 | `end()` from every existing path, unchanged in `app.js`; T13 |
+| R28, R29 always flip | Script driven motion outside the CSS reduced motion rule; T14 check 10 |
+| R34, R35 | Dark tokens on pages and back; T14 checks 6 and 7 |
+| NFR1 to NFR3 | Same trimmed copy, idle loop stopped, frame tests; T14 check 9 |
+| NFR6 (as amended), NFR9 | Local vendored files with licence, CSP patch, `?v=` on both references; T14 check 5, `version.test.js` |

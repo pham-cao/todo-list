@@ -687,3 +687,25 @@ Also accepted: strip appended inside <main>; pointer captured on the slip, not t
 - Slow devices (fall back to the flat leaf after a slow first frame, always bend, fewer strips on phones): always bend. There is no flat fallback; the slow device fallback in design.md "Change 2026-11-13" is dropped. Stutter on weak phones is an accepted risk for the release note.
 - The owner approved the soft paper bend design (T8e: 8 strips on desktop, 6 on phones, flat at start and end, shading that follows the curve, no library).
 - T8d reviewer minor (PM decision): the ruled lines of blank riffle leaves and the fading leaf back are out of phase with the body rules by the header height, since --flip-offset is now measured from the sheet top. Fixed in T8e, which rebuilds the leaf back and blank leaves for the strips anyway: place() also sets the body top inside the sheet (--flip-head) and the rule offset adds it.
+
+## 2026-11-13 page-flip T8e (PM, following owner decisions)
+- Lifetime upper bounds in the T4 reduced motion riffle test and the T7 lifetime test are measured from the first animation frame, as the design and the BUG-028 timer specify, not from when the stage is added. The N face copies make the first frame later, which is expected.
+- A scrolled 200 row day's first frame of 31 to 57 ms is accepted: the owner chose to always bend and accept stutter on slower devices. Recorded as a release note risk; the strip counts stay 8 and 6.
+- To save time the owner previews T8e on their own server before QA and review, and T9 and T10 run as one combined round.
+
+## 2026-11-13 page-flip curl style (chosen by the owner)
+- The owner reviewed T8e and says it shows almost no curve; they shared a reference photo of a page curling like a real book (diagonal fold, the lower corner lagging, a rolled cylinder with shading).
+- Curl style (in-house diagonal fold with roll shading, the StPageFlip library, a stronger vertical strip roll): the StPageFlip library. This replaces "no library" in R8 and the strip design. The library is vendored locally (no CDN, keeps the CSP) and its licence is checked.
+- Process (prototype first, full build at once): prototype first. FE builds a quick working prototype on the real app in a separate worktree, served on its own port, with no test runs. The owner previews it; only after approval is it built properly with tests, QA and review. T8e (8 strip bend) stays uncommitted until then and will likely be replaced.
+- 2026-11-13 owner preview of the StPageFlip prototype: approved, including the riffle (1, 2 or 3 curled pages by distance). The owner asks that the notebook look thicker, like a real notebook with a stack of pages, instead of two book pages. Added to the prototype first for another quick look, then the full build.
+- 2026-11-13 owner approved the thick notebook prototype ("oki"). The full build follows: StPageFlip curl and riffle, the thick page stack, replacing the uncommitted 8 strip bend (T8e).
+- 2026-11-13 new owner request, handled as a separate feature `group-header` after page-flip: move "Quản lý nhóm" into the header under "Về hôm nay"; move creating a new group into the Manage groups dialog; pressing "add new group" opens a message box in the same style as the delete group confirm.
+
+## 2026-11-13 group-header requirements (chosen by the owner)
+- Q1 After creating a group in the card, change the add form group choice (no, yes): no, keep it as it was.
+- Q2 Keep a "Nhóm mới..." shortcut in the add form select (remove, keep it opening the same box): remove it; groups are created only in Quản lý nhóm.
+- Q3 Colour in the new group box (automatic with a swatch preview, 6 colour choices, automatic with no preview): automatic next colour with a swatch preview; Sửa changes it later.
+- Q4 At 20 groups (open the box and show the limit at once, disable the button): open the box and show the limit message at once.
+- Q5 Empty group bar with no groups (hide it, keep an empty line): hide the bar until the first group exists.
+- BA extras kept: R23 (a day change behind an open card or box happens without a flip, typed text kept) and NFR7 (old inline group creation code and tests are removed).
+- 2026-11-13 page-flip StPageFlip build (owner): the library's fold shadow stays as dark as in the approved prototype (maxShadowOpacity 0.55); the moving fold shadow band is exempt from R35 for the frames it covers text. The owner approved design.md "Change 2026-11-13: StPageFlip curl and thick notebook" and tasks T11 to T15, then T9 and T10 as one round. The requirements were already updated by the BA before T11.
