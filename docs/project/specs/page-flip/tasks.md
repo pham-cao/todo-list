@@ -1,6 +1,8 @@
 # Tasks: page-flip
 
-Order: T1 comes first, because `src/flip.js` imports `daysBetween`. The FE tasks all touch `src/flip.js`, `src/app.js` or the same spec files, so they run one after another: T2, T3, T4, T5, T6, T7, T8, T9. T10 is the release step. All existing unit and end to end tests must keep passing after every task. Leaf markup and classes come from the "Page flip" block of `docs/project/design-system.css` and from `ux/screens/flip.html`; interfaces are in `design.md`. New imports carry `?v=1.3.0` until T10. Run Playwright with `--workers=2`.
+Order: T1 comes first, because `src/flip.js` imports `daysBetween`. The FE tasks all touch `src/flip.js`, `src/app.js` or the same spec files, so they run one after another: T2, T3, T4, T5, T6, T7, T8, T8b, T8c, T8d, T9. T10 is the release step. All existing unit and end to end tests must keep passing after every task. Leaf markup and classes come from the "Page flip" block of `docs/project/design-system.css` and from `ux/screens/flip.html`; interfaces are in `design.md`. New imports carry `?v=1.3.0` until T10. Run Playwright with `--workers=2`.
+
+Status 2026-11-12: T1 to T8b are done and committed. T8c and T8d come from the owner scope change of 2026-11-12 (whole sheet flip, always flip, 700 ms, no tape re-press); see "Change 2026-11-12" in design.md, which overrides the older text in T2 to T8 where they differ.
 
 ## T1: Days between two date keys
 Owner: be
@@ -65,16 +67,40 @@ Depends on: T7
 Boundary: `src/flip.js` (the trim in `copy()`), `tests/e2e/flip.spec.js`, `tests/e2e/day-nav.spec.js` (no change expected)
 Done when: `copy()` trims rows below the window as in design.md; e2e tests show the existing day-navigation "under 100 ms" tests passing unchanged with the flip on, a leaf copy of a 200 task day holding no more rows than reach into the window, and (Chromium, median of 3 runs) a 3 leaf riffle between two 200 task days recording no `longtask` entry, a median frame time of at most 18.2 ms and no frame over 50 ms; all e2e tests pass.
 
-## T9: Remove the superseded page turn styles
+## T8b: Perceptible flip motion (BUG-028) (done)
 Owner: fe
-Requirements: R9, R41
+Screens: ux/screens/flip.html
+Requirements: R8, R3a, R9
 Depends on: T8
+Boundary: `src/flip.js`, `tests/e2e/flip.spec.js`, the Page flip block of `docs/project/design-system.css` and `docs/project/design-system.md` (exception chosen by the owner)
+Done when: committed in 349716c; perspective origin on the hinge, an ease that moves at once, the back fading in at 70 to 92 percent, the end timer from the first frame with a 2x backstop, and the real time check TC-page-flip-T8-11 passing. Two reviewer minors are carried into T8c and T8d.
+
+## T8c: Always flip, 700 ms, no tape re-press
+Owner: fe
+Screens: ux/screens/flip.html
+Requirements: R3, R3a, R12, R28, R29, R39, R7, NFR4, NFR7 (as amended)
+Depends on: T8b
+Boundary: `src/flip.js`, `src/app.js` (the `createFlip` call only), the Page flip block of `docs/project/design-system.css` and `docs/project/design-system.md` (same exception as T8b), `tests/e2e/helpers.js`, `tests/e2e/flip.spec.js`, `tests/e2e/day-nav.spec.js` (its T7 block only)
+Done when: as in design.md "Change 2026-11-12": `allowed()` is `CAN_3D && !document.hidden` with no reduced motion listener; the tape re-press, `unstick` and the `date` parameter are gone from `src/flip.js` and the call in `src/app.js`; `--dur-flip` is 700 ms and the Page flip block hides nothing under reduced motion but keeps `.flip-stage, .flip-stage *` at `--dur-flip` over the global 1 ms rule; design-system.md shows 700 ms, a 950 ms riffle, the flip playing under reduced motion (owner decision, WCAG 2.3.3 risk noted), no tape press, and the lifetime bullet names the 2x backstop until the first frame (T8b reviewer minor); `watchFlips` no longer records the tape and `resticksSeen` is gone; flip.spec.js derives every lifetime and wait from `DUR = 700` and `STEP = 125` (timer edge test at 699, 700, 701 and 717 ms); the reduced motion tests in flip.spec.js and day-nav.spec.js are inverted as listed in design.md and show a move under `reducedMotion: 'reduce'` building a stage with the normal leaf count, lifetime and animation duration, a riffle running on when the setting switches on, and the T8b real time `perceptible` check passing under reduced motion; the hidden page and no 3D tests still build no stage; all unit and e2e tests pass in both projects.
+
+## T8d: The whole sheet flips
+Owner: fe
+Screens: ux/screens/flip.html
+Requirements: R8, R11, R13, R18, R19, R31, R35, NFR1, NFR3 (as amended)
+Depends on: T8c
+Boundary: `src/flip.js` (`copy()`, `place()`), the Page flip block of `docs/project/design-system.css` and `docs/project/design-system.md`, `tests/e2e/helpers.js`, `tests/e2e/flip.spec.js`, and test only selector scoping in the other spec files (as the T2 exception: header selectors pointed at their real ids, no assertion weakened)
+Done when: as in design.md "Change 2026-11-12": the copy holds the header and the trimmed body, read from `.sheet`, with `id`, `for`, `aria-live`, `role` and `progress--celebrate` removed; the stage covers the visible part of the sheet from its top, with `--flip-top` and `--flip-offset` measured from the sheet; `.leaf` is plain paper with the sheet radius, `.leaf--blank` stays ruled, and `.leaf__content` is a flex column reaching the leaf bottom so the copied body's rules fill it; design-system.md describes the whole sheet leaf and no longer says the header band never moves; e2e tests show a forward leaf holding the old title, date line and picker value and a back leaf holding the new date line, the stage top at the sheet top unscrolled and at the window top scrolled and always inside the sheet, `elementFromPoint` at the next arrow returning the real button during a flip and a second click moving again, the leaf lining up with the page measured from the sheet top (the `scrolledMove` and `linedUp` change, plus a 360 px today to tomorrow and back case where the title wraps), and T7-09 contrast passing light and dark with a 72 percent frame (T8b reviewer minor) and the copied title and date line inks included; `progress` in helpers.js is `#progress`; the T7 layout, T8 trim, NFR1 and NFR2 tests pass unchanged; all unit and e2e tests pass in both projects.
+
+## T9: Remove the superseded page turn and tape styles
+Owner: fe
+Requirements: R9, R12, R41
+Depends on: T8d
 Boundary: `docs/project/design-system.css`, `docs/project/design-system.md`
-Done when: `--dur-turn`, `.turn--back`, `.turn--forward`, `@keyframes turn-back` and `turn-forward`, and their reduced motion entry are gone, while `.washi--restick` and `@keyframes restick` stay with their reduced motion rule; the design-system.md page turn bullet points to the Page flip section and the "Superseded" note is removed; `grep -r "turn--\|dur-turn" src index.html docs/project/design-system.*` finds nothing; all unit and e2e tests pass.
+Done when: `--dur-turn`, `.turn--back`, `.turn--forward`, `@keyframes turn-back` and `turn-forward`, `.washi--restick`, `@keyframes restick` and their reduced motion rule are gone from the Day navigation block; the design-system.md page turn bullet points to the Page flip section and no longer mentions the tape press, the "Superseded" note in the Page flip section is removed, and the general motion line ("Everything is reduced to an instant change under prefers-reduced-motion") names the page flip as the one exception; `grep -rn "turn--\|dur-turn\|restick" src index.html docs/project/design-system.*` finds nothing, and `grep -rn restick tests` finds nothing (T8c removed the tape checks; the guard test that no `turn--` class is ever set stays); all unit and e2e tests pass.
 
 ## T10: Release version 1.4.0
 Owner: be
 Requirements: NFR8, NFR9
 Depends on: T9
 Boundary: `package.json` and `package-lock.json` (`version` only), the `?v=` values in `index.html` and `src/*.js`
-Done when: `version` is `1.4.0` in package.json and the lockfile root, and every `?v=1.3.0` in `index.html` and `src/*.js` (including the new `./flip.js` import in app.js and the `./date.js` import in flip.js) is `?v=1.4.0`; `tests/unit/version.test.js` passes and fails when one reference is changed back by hand; a short release note lists the manual checks (Safari and iOS: the leaf turns on the holes, no leaf left after quick taps, no flash in dark mode; a mid range Android phone: the riffle looks smooth); all unit and e2e tests pass in both projects.
+Done when: `version` is `1.4.0` in package.json and the lockfile root, and every `?v=1.3.0` in `index.html` and `src/*.js` (including the new `./flip.js` import in app.js and the `./date.js` import in flip.js) is `?v=1.4.0`; `tests/unit/version.test.js` passes and fails when one reference is changed back by hand; a short release note says the whole sheet now turns on a day change, always, also when the system asks for reduced motion (owner decision, 2026-11-12), and lists the manual checks (Safari and iOS: the whole sheet, header included, turns on the holes in 700 ms, also with Reduce Motion on; no leaf left after quick taps; no flash in dark mode; a mid range Android phone: the 950 ms riffle looks smooth); all unit and e2e tests pass in both projects.

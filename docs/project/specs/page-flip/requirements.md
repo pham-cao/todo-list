@@ -1,8 +1,16 @@
 # Requirements: page-flip
 
+## Changed on 2026-11-12
+
+After the owner saw the flip, the decision log entry "2026-11-12 page-flip scope change after the owner saw the flip" changed this document:
+
+1. Reduced motion: the flip always plays. The system setting `prefers-reduced-motion` is ignored for the page flip, and there is no in app off switch (R28, R29, R39, NFR5, out of scope).
+2. Flip area: the whole sheet flips, header included (title, arrows, date tape, "Về hôm nay"), together with the body, hinged on the binder holes. The separate date tape re-press is dropped (R8, R10 to R13, scope section).
+3. Durations: 700 ms per flip, 125 ms riffle step, 950 ms total budget for a 3 leaf riffle (R3, R3a, R9, NFR7).
+
 ## Goal
 
-Make moving between days feel like turning the page of a paper notebook. Today the app only slides the lines 18 px sideways (`.turn--back`, `.turn--forward`, from `day-navigation`). This feature replaces that slide with a real page flip: the sheet body turns like a leaf hinged at the punched holes on the left, and the new day is revealed underneath. The flip is only a visual response. The data, the address, the focus and the screen reader text change at once, exactly as they do now, and the owner can keep working while the leaf is still turning. Tasks stay in the browser only, there is no backend, all screen text is Vietnamese, and the day follows the browser's local timezone.
+Make moving between days feel like turning the page of a paper notebook. Today the app only slides the lines 18 px sideways (`.turn--back`, `.turn--forward`, from `day-navigation`). This feature replaces that slide with a real page flip: the whole sheet, header and body, turns like a leaf hinged at the punched holes on the left, and the new day is revealed underneath. The flip is only a visual response. The data, the address, the focus and the screen reader text change at once, exactly as they do now, and the owner can keep working while the leaf is still turning. Tasks stay in the browser only, there is no backend, all screen text is Vietnamese, and the day follows the browser's local timezone.
 
 Decisions: the owner answered every open question (decision log, 2026-11-11 "page-flip requirements"). All answers are settled below. For a move of more than one day, the owner chose a short riffle of quick pages, capped at 3 leaves.
 
@@ -17,12 +25,12 @@ Decisions: the owner answered every open question (decision log, 2026-11-11 "pag
 3. As the owner, I want the flip to play when I pick a date or press "Về hôm nay", so that every way of changing the day feels the same.
 4. As the owner, I want to press the arrows many times quickly without the screen stuttering or lagging behind, so that I can move several days fast.
 5. As the owner, I want to type, tick or edit tasks straight away while the page is still turning, so that the animation never makes me wait.
-6. As an owner who turns off animation in the system settings, I want the day to change at once with no flip, so that the page is comfortable for me.
+6. As the owner, I want the flip to play even when my computer reports that animation is reduced or off, so that I always see the page turn.
 7. As a screen reader or keyboard user, I want focus and announcements to stay as they are today, so that the flip never takes me out of place.
 
 ## Scope of the flip (which actions flip)
 
-The flip surface is the sheet body: the add form, the group bar, the empty state and the day list. The header (title, navigation controls, date tape, progress and summary) stays in place and updates at once as in `day-navigation`.
+The flip surface is the whole sheet: the header (title, navigation controls, date tape, "Về hôm nay", progress and summary) and the body (add form, group bar, empty state and day list). The real header and body update at once underneath, as in `day-navigation`, and the leaf is an inert copy.
 
 | Way the day changes | Flips | Direction |
 | --- | --- | --- |
@@ -49,9 +57,9 @@ R1. WHEN the owner presses the previous day button, the next day button, or "V�
 
 R2. WHEN the owner picks a date in the date picker or presses "Về hôm nay" AND the new viewed day is exactly 1 day from the old one THE SYSTEM SHALL play one flip, as for an arrow. WHEN the new viewed day is more than 1 day from the old one THE SYSTEM SHALL play a riffle (R3), whatever the distance.
 
-R3. THE SYSTEM SHALL set the number of leaves in a riffle from the distance in calendar days between the old and the new viewed day: 2 days gives 2 leaves, and 3 days or more gives 3 leaves (never more than 3). The leaves turn in the same direction (R4), each one lasts 600 ms (`--dur-flip`), and each one starts 125 ms after the one before it (a new token `--dur-riffle-step`), so the leaves overlap like fanned pages. The first leaf is the copy of the old page, and the later leaves are plain blank ruled paper without text.
+R3. THE SYSTEM SHALL set the number of leaves in a riffle from the distance in calendar days between the old and the new viewed day: 2 days gives 2 leaves, and 3 days or more gives 3 leaves (never more than 3). The leaves turn in the same direction (R4), each one lasts 700 ms (`--dur-flip`), and each one starts 125 ms after the one before it (a new token `--dur-riffle-step`), so the leaves overlap like fanned pages. The first leaf is the copy of the old page, and the later leaves are plain blank ruled paper without text.
 
-R3a. THE SYSTEM SHALL keep the whole riffle within a total time budget of 850 ms from the start of the first leaf to the end of the last one (600 ms plus at most 2 steps of 125 ms). The total SHALL not grow with the distance. A single flip for a move of 1 day lasts 600 ms.
+R3a. THE SYSTEM SHALL keep the whole riffle within a total time budget of 950 ms from the start of the first leaf to the end of the last one (700 ms plus at most 2 steps of 125 ms). The total SHALL not grow with the distance. A single flip for a move of 1 day lasts 700 ms.
 
 R3b. WHEN the viewed day changes because of the browser Back or Forward button or a hash edit THE SYSTEM SHALL play the same flip or riffle as for any other move, chosen by the distance in days (R2, R3).
 
@@ -65,17 +73,17 @@ R7. IF the page is hidden (the tab is in the background) when the viewed day cha
 
 ### What the owner sees during and after the flip
 
-R8. WHEN a flip starts THE SYSTEM SHALL show the leaf as a copy of the old sheet body, in the paper look of the notebook (ruled lines, margin line, punched hole side), turning with a visible hinge on the left edge, a soft shadow that moves with the turn, and a slightly darker back of the leaf during the second half of the turn. The turn SHALL be clearly perceptible in real time playback, not only in paused frames: the leaf visibly sweeps from the free edge to the hinge over most of the duration, and its text stays visible through most of the turn.
+R8. WHEN a flip starts THE SYSTEM SHALL show the leaf as a copy of the old whole sheet (header and body, including the title, arrows, date tape and "Về hôm nay"), in the paper look of the notebook (ruled lines, margin line, punched hole side), turning with a visible hinge on the left edge, a soft shadow that moves with the turn, and a slightly darker back of the leaf during the second half of the turn. The turn SHALL be clearly perceptible in real time playback, not only in paused frames: the leaf visibly sweeps from the free edge to the hinge over most of the duration, and its text stays visible through most of the turn.
 
-R9. THE SYSTEM SHALL make each leaf last 600 ms, taken from one design token (a new `--dur-flip`, replacing the use of `--dur-turn`), and SHALL remove every leaf and every helper class and style when the flip or riffle ends or is cancelled, so that the page looks and behaves exactly as before after it.
+R9. THE SYSTEM SHALL make each leaf last 700 ms, taken from one design token (a new `--dur-flip`, replacing the use of `--dur-turn`), and SHALL remove every leaf and every helper class and style when the flip or riffle ends or is cancelled, so that the page looks and behaves exactly as before after it.
 
-R10. WHEN a flip or riffle starts THE SYSTEM SHALL show the real new day beneath the leaves from the first frame, with its heading, date line, placeholder, rows, empty state, summary and progress already updated as in R6 of `day-navigation`, and SHALL write the address and the history entry, keep focus and announce the date line at once (R18, R19). Neither a flip nor a riffle SHALL delay, hold back or replay any of these updates, however many leaves play. A riffle SHALL never show an in between day: the leaves are visual only.
+R10. WHEN a flip or riffle starts THE SYSTEM SHALL show the real new day beneath the leaves from the first frame, with the real header and body updated at once (its heading, date line, placeholder, rows, empty state, summary and progress, as in R6 of `day-navigation`), and SHALL write the address and the history entry, keep focus and announce the date line at once (R18, R19). Neither a flip nor a riffle SHALL delay, hold back or replay any of these updates, however many leaves play. A riffle SHALL never show an in between day: the leaves are visual only.
 
-R11. THE SYSTEM SHALL keep the leaf a purely visual copy that is not a second page: it SHALL be hidden from assistive technology (`aria-hidden="true"`), SHALL NOT be reachable by Tab, SHALL ignore pointer events, and SHALL NOT be selectable text.
+R11. THE SYSTEM SHALL keep the leaf a purely visual copy that is not a second page: it SHALL be hidden from assistive technology (`aria-hidden="true"`), SHALL NOT be reachable by Tab, SHALL ignore pointer events so that clicks and taps reach the real controls and rows underneath (including the arrows, the picker and "Về hôm nay" in the header), and SHALL NOT be selectable text. Keyboard focus SHALL stay on the control that was pressed.
 
-R12. THE SYSTEM SHALL keep the date tape re-press (`.washi--restick`, 360 ms) with the flip, so that the tape still reacts to the day change. The re-press SHALL play once per day change, together with the first leaf, and not once per leaf.
+R12. THE SYSTEM SHALL NOT play a separate date tape re-press (`.washi--restick`) any more. The date tape turns with the rest of the sheet, and the real tape shows the new date at once.
 
-R13. THE SYSTEM SHALL keep the page free of horizontal scroll bars and of any layout shift during and after the flip, at 360 px wide and above. The leaf SHALL stay inside the sheet and SHALL NOT enlarge the scrollable area of the page.
+R13. THE SYSTEM SHALL keep the page free of horizontal scroll bars and of any layout shift during and after the flip, at 360 px wide and above. The stage that holds the leaves SHALL be bounded by the whole sheet (header and body), the leaf SHALL stay inside that stage, and it SHALL NOT enlarge the scrollable area of the page.
 
 ### Quick repeated moves
 
@@ -111,11 +119,11 @@ R26. IF a second flip would start while the owner is holding a touch long press 
 
 R27. THE SYSTEM SHALL not write to storage differently because of the flip: a flip SHALL never change, delay or duplicate any save, and a failed save SHALL show the same storage slip as today.
 
-### Reduced motion
+### Reduced motion setting
 
-R28. WHILE the system setting `prefers-reduced-motion: reduce` is on THE SYSTEM SHALL change the day at once with no flip, no leaf, no shadow, and no tape re-press, as the current page turn does. No fade or other substitute motion is added. This holds for a single flip and for a riffle: no leaf of any kind plays.
+R28. THE SYSTEM SHALL play the flip and the riffle whatever the value of the system setting `prefers-reduced-motion`. The page flip SHALL ignore that setting, and the app SHALL offer no switch to turn the flip off. (Other motion in the app keeps following the setting as before.)
 
-R29. WHEN the reduced motion setting is switched on while a flip or riffle is playing THE SYSTEM SHALL end it at once, with no leaf and no helper class left behind. WHEN it is switched off, the next move SHALL flip as usual.
+R29. WHEN the value of `prefers-reduced-motion` changes while a flip or riffle is playing, or between moves, THE SYSTEM SHALL change nothing: the running flip continues and the next move flips as usual.
 
 ### Phones and desktop
 
@@ -137,11 +145,11 @@ R36. WHEN the system theme changes during a flip THE SYSTEM SHALL finish or end 
 
 ### Interruptions and safety
 
-R37. IF anything re-renders or removes the sheet body during a flip or riffle (for example a storage event from another tab, a dialog opening, or the midnight refresh) THEN THE SYSTEM SHALL end the flip or riffle at once, all leaves together, and leave the correct page with no leaf. The page SHALL never be stuck, dimmed, covered, or unable to take clicks.
+R37. IF anything re-renders or removes the sheet or its body during a flip or riffle (for example a storage event from another tab, a dialog opening, or the midnight refresh) THEN THE SYSTEM SHALL end the flip or riffle at once, all leaves together, and leave the correct page with no leaf. The page SHALL never be stuck, dimmed, covered, or unable to take clicks.
 
 R38. IF the page is hidden or the window loses focus during a flip THEN THE SYSTEM SHALL finish or end it so that no leaf remains when the owner returns.
 
-R39. IF the browser does not support the features the flip needs (for example 3D transforms) THEN THE SYSTEM SHALL change the day at once with no flip and no error, as in R28.
+R39. IF the browser does not support the features the flip needs (for example 3D transforms) THEN THE SYSTEM SHALL change the day at once with no flip and no error. This is the only fallback besides R7 (hidden page).
 
 R40. THE SYSTEM SHALL never delete, duplicate or change a task, a group, a collapsed state or the filter because of the flip. Stored data SHALL be unchanged byte for byte by any number of flips.
 
@@ -153,9 +161,9 @@ R41. THE SYSTEM SHALL keep every rule of `day-navigation` and `drag-drop` about 
 2. Performance, frame rate: during a flip or a full 3 leaf riffle with 200 tasks on the old day and 200 on the new day, the median frame rate SHALL be at least 55 frames per second on a mid range phone and on a desktop, and no frame SHALL take longer than 50 ms. The browser SHALL record no long task (over 50 ms) between the start and the end of the flip.
 3. Performance, method: the flip SHALL animate only properties the browser can run off the main thread (`transform` and `opacity`) and SHALL NOT trigger layout or paint of the whole list on every frame. The first leaf SHALL NOT be a full live copy of 200 rows if that costs more than the budget in NFR 1 and 2; it MAY show only the part of the old page that is visible in the window. The extra leaves of a riffle are blank ruled paper, so a riffle costs no more than a flip plus two light layers.
 4. Performance, repeats: 30 moves in 3 seconds SHALL leave no growing memory, no leftover leaf nodes and no leftover listeners (a count of leaf elements in the page after the last flip SHALL be zero).
-5. Accessibility: all of R11, R18 to R21 and R28 hold. The flip SHALL pass WCAG 2.3.3 (animation from interactions can be disabled, through the reduced motion setting) and SHALL not flash more than three times in any one second (2.3.1).
+5. Accessibility: all of R11 and R18 to R21 hold. The flip SHALL not flash more than three times in any one second (WCAG 2.3.1). Known and accepted risk (owner decision, 2026-11-12): because the flip ignores `prefers-reduced-motion` and has no off switch, it does not meet WCAG 2.3.3 (AAA level, animation from interactions can be disabled), so people sensitive to motion cannot turn it off. The flip stays short (700 ms, 950 ms for a riffle), plays only on a day change the owner caused, and never plays on load or at midnight.
 6. Security and data protection: no data leaves the browser. The leaf is built from the app's own rendered page, never from the address or from stored text inserted as markup. No new dependency and no external library or image is needed (the flip is CSS and a little vanilla JavaScript, as the stack decision requires).
-7. Reliability: the app works the same with the flip failing, because it is cosmetic. Every flip ends within 600 ms plus one frame, and every riffle within 850 ms plus one frame, or is ended by R14, R29, R37 or R38.
+7. Reliability: the app works the same with the flip failing, because it is cosmetic. Every flip ends within 700 ms plus one frame, and every riffle within 950 ms plus one frame, or is ended by R14, R37 or R38.
 8. Compatibility: works in the current versions of Chrome, Safari, Firefox and Edge on desktop and mobile, using the same `animationend` and `animationcancel` care as today. Safari and iOS cannot be tested on the build host, so they are listed as a manual check in the release note, as earlier releases did.
 9. Hosting: the feature adds no file path that breaks the GitHub Pages subpath, and no asset except CSS and JS, which carry the release version query.
 10. Language: no new visible text. Existing Vietnamese text and accessible names stay unchanged.
@@ -164,13 +172,12 @@ R41. THE SYSTEM SHALL keep every rule of `day-navigation` and `drag-drop` about 
 
 1. Swipe or drag sideways on the page to change the day on phones (a possible later feature).
 2. A real curl of the page corner with bending paper and lighting (a full physical simulation), page stack edges that grow thinner or thicker, and sound or vibration.
-3. Flipping the header, or turning pages of other things, for example a flip when changing the group filter or opening the "Nhóm việc" dialog.
+3. Turning pages of other things, for example a flip when changing the group filter or opening the "Nhóm việc" dialog.
 4. More than 3 leaves in a riffle, a leaf for every day passed, and showing the days passed on the leaves.
-5. A different motion for reduced motion, such as a crossfade.
-6. A settings switch to turn the flip on or off inside the app. The system reduced motion setting is the only switch.
-7. Keyboard shortcuts for changing the day, a month or week overview, and any other navigation change.
-8. Any change to the data model, storage, groups, or drag and drop behaviour.
+5. Any switch to turn the flip off, in the app or through the system reduced motion setting, and any substitute motion such as a crossfade.
+6. Keyboard shortcuts for changing the day, a month or week overview, and any other navigation change.
+7. Any change to the data model, storage, groups, or drag and drop behaviour.
 
 ## Open questions
 
-None. All nine questions are answered in the decision log (2026-11-11 "page-flip requirements").
+None. All questions are answered in the decision log (2026-11-11 "page-flip requirements", and the 2026-11-12 entries, which replace the earlier reduced motion, flip area and duration answers).

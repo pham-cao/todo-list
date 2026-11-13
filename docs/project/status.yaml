@@ -419,10 +419,26 @@ features:
         attempts: 0
         bugs_opened: []
         trello_card: ""
-      - id: T9
-        title: "Remove the superseded page turn styles"
+      - id: T8c
+        title: "Always flip, 700 ms, no tape re-press"
         owner: fe
         depends_on: [T8b]
+        state: doing
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T8d
+        title: "The whole sheet flips"
+        owner: fe
+        depends_on: [T8c]
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T9
+        title: "Remove the superseded page turn and tape styles"
+        owner: fe
+        depends_on: [T8d]
         state: todo
         attempts: 0
         bugs_opened: []
