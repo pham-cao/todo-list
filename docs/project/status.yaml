@@ -431,7 +431,7 @@ features:
         title: "The whole sheet flips"
         owner: fe
         depends_on: [T8c]
-        state: doing
+        state: done
         attempts: 0
         bugs_opened: []
         trello_card: ""
@@ -439,7 +439,7 @@ features:
         title: "Soft paper bend"
         owner: fe
         depends_on: [T8d]
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""
