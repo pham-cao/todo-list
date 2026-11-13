@@ -1,0 +1,77 @@
+  1) [mobile] › tests/e2e/flip.spec.js:1425:7 › T7: layout, phones and dark mode › 200 wrapping rows scrolled near the bottom at 1440 px: the copy lines up 
+
+    Error: back {"body":[300,276],"odd":-1,"heights":null,"fonts":"loaded","page":["24px",24,900,"852px",888]}
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 9
+    + Received  + 9
+
+      Array [
+        Array [
+          191,
+          460,
+    -     10538,
+    +     10562,
+        ],
+        Array [
+          192,
+          460,
+    -     10626,
+    +     10650,
+        ],
+        Array [
+          193,
+          460,
+    -     10714,
+    +     10738,
+        ],
+        Array [
+          194,
+          460,
+    -     10802,
+    +     10826,
+        ],
+        Array [
+          195,
+          460,
+    -     10890,
+    +     10914,
+        ],
+        Array [
+          196,
+          460,
+    -     10978,
+    +     11002,
+        ],
+        Array [
+          197,
+          460,
+    -     11066,
+    +     11090,
+        ],
+        Array [
+          198,
+          460,
+    -     11154,
+    +     11178,
+        ],
+        Array [
+          199,
+          460,
+    -     11242,
+    +     11266,
+        ],
+      ]
+
+      1382 |     expect(m.count[1]).toBeGreaterThan(Math.max(...m.seen.map(([i]) => i)));
+      1383 |     expect(m.seen.length).toBeGreaterThan(2);
+    > 1384 |     expect(m.leaf, `${m.back ? 'back' : 'forward'} ${m.why}`).toEqual(m.seen); // every row in the window has its copy exactly on it
+           |                                                               ^
+      1385 |     expect(m.overflowX).toBe(0);
+      1386 |   };
+      1387 |
+        at linedUp (/home/gem/src/todo_list/tests/e2e/flip.spec.js:1384:63)
+        at /home/gem/src/todo_list/tests/e2e/flip.spec.js:1431:9
+
+    Error Context: test-results/flip-T7-layout-phones-and--f8b89-t-1440-px-the-copy-lines-up-mobile/error-context.md

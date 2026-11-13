@@ -1,0 +1,7 @@
+Manual check via Playwright MCP, 1440x900, own server on port 4175 (stopped afterwards), 2026-11-13.
+Moves via the day picker: 11-13 -> 11-20 (forward riffle 1), 11-20 -> 11-13 (back riffle), 11-13 -> 11-20 (forward riffle 2, pooled books).
+Sampled every animation frame for 1400 ms: [ms since change, .leaf--blank elements in DOM, visible blank elements].
+Forward 1: first frame [19,2,2]; blanks 2 and visible 2 for the first 400 ms.
+Back:      first frame [11,3,2]; blanks 3, visible 2 for the first 400 ms.
+Forward 2: first frame [7,2,2]; blanks 2 and visible 2 for the first 400 ms (same as forward 1, no 125 to 250 ms hidden window).
+Result: pass.

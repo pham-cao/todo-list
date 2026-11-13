@@ -447,39 +447,39 @@ features:
         title: "StPageFlip curl in the main tree"
         owner: fe
         depends_on: [T8d]
-        state: doing
-        attempts: 0
+        state: done
+        attempts: 1
         bugs_opened: []
         trello_card: ""
       - id: T12
         title: "Stop the library frame loop while idle"
         owner: fe
         depends_on: [T11]
-        state: doing
-        attempts: 0
+        state: done
+        attempts: 1
         bugs_opened: []
         trello_card: ""
       - id: T13
         title: "Flip tests on the curl: harness and behaviour"
         owner: fe
         depends_on: [T12]
-        state: doing
-        attempts: 0
+        state: done
+        attempts: 1
         bugs_opened: []
         trello_card: ""
       - id: T14
         title: "Flip tests on the curl: motion, look and speed"
         owner: fe
         depends_on: [T13]
-        state: doing
-        attempts: 0
-        bugs_opened: []
+        state: done
+        attempts: 1
+        bugs_opened: [BUG-029]
         trello_card: ""
       - id: T15
         title: "Thick notebook stack"
         owner: fe
         depends_on: [T14]
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""
@@ -487,7 +487,7 @@ features:
         title: "Remove the superseded leaf, strip, turn and tape styles"
         owner: fe
         depends_on: [T15]
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""
@@ -495,7 +495,7 @@ features:
         title: "Release version 1.4.0"
         owner: be
         depends_on: [T9]
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""

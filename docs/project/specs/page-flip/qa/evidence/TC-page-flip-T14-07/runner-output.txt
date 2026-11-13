@@ -1,0 +1,19 @@
+Excerpt of full-run-1.txt (npx playwright test --workers=2)
+T14 reduced motion next-day page 0: fold 704 ms, diagonal 256 ms, left 0.94 to -0.99
+T14 reduced motion prev-day page 0: fold 715 ms, diagonal 303 ms, left -0.85 to 0.99
+T14 reduced motion #2026-11-12 page 0: fold 688 ms, diagonal 256 ms, left 0.94 to -0.99
+T14 reduced motion #2026-11-12 page 1: fold 704 ms, diagonal 256 ms, left 0.94 to -0.99
+T14 reduced motion #2026-11-12 page 2: fold 720 ms, diagonal 256 ms, left 0.94 to -0.99
+T14 reduced motion #2026-11-09 page 0: fold 716 ms, diagonal 304 ms, left -0.85 to 0.99
+T14 reduced motion #2026-11-09 page 1: fold 704 ms, diagonal 305 ms, left -0.85 to 0.99
+T14 reduced motion #2026-11-09 page 2: fold 704 ms, diagonal 303 ms, left -0.85 to 0.99
+  ✓   458 [desktop] › tests/e2e/flip.spec.js:1828:3 › T14: the page curl in real time › under reduced motion the same moves curl the same way (4.4s)
+T14 reduced motion next-day page 0: fold 703 ms, diagonal 256 ms, left 0.94 to -0.99
+T14 reduced motion prev-day page 0: fold 713 ms, diagonal 305 ms, left -0.85 to 0.99
+T14 reduced motion #2026-11-12 page 0: fold 705 ms, diagonal 255 ms, left 0.94 to -0.99
+T14 reduced motion #2026-11-12 page 1: fold 720 ms, diagonal 257 ms, left 0.94 to -0.99
+T14 reduced motion #2026-11-12 page 2: fold 716 ms, diagonal 273 ms, left 0.94 to -0.99
+T14 reduced motion #2026-11-09 page 0: fold 731 ms, diagonal 304 ms, left -0.85 to 0.99
+T14 reduced motion #2026-11-09 page 1: fold 704 ms, diagonal 304 ms, left -0.85 to 0.99
+T14 reduced motion #2026-11-09 page 2: fold 687 ms, diagonal 304 ms, left -0.85 to 0.99
+  ✓  1006 [mobile] › tests/e2e/flip.spec.js:1828:3 › T14: the page curl in real time › under reduced motion the same moves curl the same way (4.4s)

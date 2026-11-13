@@ -1,0 +1,22 @@
+Excerpt of full-run-1.txt (npx playwright test --workers=2)
+  ✓   125 [desktop] › tests/e2e/day-nav.spec.js:857:3 › moving to a day with 0 tasks renders in under 100 ms (609ms)
+  ✓   128 [desktop] › tests/e2e/day-nav.spec.js:857:3 › moving to a day with 1 tasks renders in under 100 ms (633ms)
+  ✓   130 [desktop] › tests/e2e/day-nav.spec.js:857:3 › moving to a day with 200 tasks renders in under 100 ms (658ms)
+T8 speed, 200 tasks: pick up 17.0,17.0,9.0 ms, drop 12.0,14.0,16.0 ms
+  ✓   363 [desktop] › tests/e2e/flip.spec.js:1608:5 › T8: speed with 200 tasks › a leaf copy of a 200 task day holds no more rows than reach into the window, scrolled to the top (1.9s)
+  ✓   366 [desktop] › tests/e2e/flip.spec.js:1608:5 › T8: speed with 200 tasks › a leaf copy of a 200 task day holds no more rows than reach into the window, scrolled to near the bottom (1.9s)
+  ✓   369 [desktop] › tests/e2e/flip.spec.js:1632:3 › T8: speed with 200 tasks › the trimmed copy keeps the chosen select values and holds no id or for (162ms)
+  ✓   371 [desktop] › tests/e2e/flip.spec.js:1643:3 › T8: speed with 200 tasks › a row edit form open inside the trimmed part: the leaf keeps its group choice and the page prefix (193ms)
+T8 NFR2 3 leaf: [[1440,0,"16.0","24.0","78/123","26.0|29.0"],[1440,0,"16.0","19.0","96/122","29.0|31.0"],[1440,0,"16.0","21.0","20/123","26.0|27.0"],[390,0,"16.0","18.0","113/124","25.0|44.0"],[390,0,"16.0","19.0","51/123","26.0|38.0"],[390,0,"16.0","17.0","2/124","24.0|27.0"]]
+  ✓   373 [desktop] › tests/e2e/flip.spec.js:1687:5 › T8: speed with 200 tasks › a 3 leaf riffle between two 200 task days: no longtask, median frame at most 18.2 ms, no frame over 50 ms (median of 3) (16.8s)
+T8 NFR2 1 leaf: [[1440,0,"16.0","17.0","1/90","23.0|32.0"],[1440,0,"16.0","19.0","10/91","28.0|27.0"],[1440,0,"16.0","19.0","45/90","24.0|32.0"],[390,0,"16.0","18.0","3/92","29.0|28.0"],[390,0,"16.0","17.0","6/92","25.0|26.0"],[390,0,"16.0","18.0","91/92","23.0|27.0"]]
+  ✓   430 [desktop] › tests/e2e/flip.spec.js:1687:5 › T8: speed with 200 tasks › a 1 leaf flip between two 200 task days: no longtask, median frame at most 18.2 ms, no frame over 50 ms (median of 3) (13.7s)
+  ✓   643 [mobile] › tests/e2e/day-nav.spec.js:857:3 › moving to a day with 0 tasks renders in under 100 ms (594ms)
+  ✓   644 [mobile] › tests/e2e/day-nav.spec.js:857:3 › moving to a day with 1 tasks renders in under 100 ms (622ms)
+  ✓   645 [mobile] › tests/e2e/day-nav.spec.js:857:3 › moving to a day with 200 tasks renders in under 100 ms (667ms)
+  ✓   997 [mobile] › tests/e2e/flip.spec.js:1608:5 › T8: speed with 200 tasks › a leaf copy of a 200 task day holds no more rows than reach into the window, scrolled to the top (1.8s)
+  ✓   998 [mobile] › tests/e2e/flip.spec.js:1608:5 › T8: speed with 200 tasks › a leaf copy of a 200 task day holds no more rows than reach into the window, scrolled to near the bottom (2.1s)
+  ✓   999 [mobile] › tests/e2e/flip.spec.js:1632:3 › T8: speed with 200 tasks › the trimmed copy keeps the chosen select values and holds no id or for (160ms)
+  ✓  1000 [mobile] › tests/e2e/flip.spec.js:1643:3 › T8: speed with 200 tasks › a row edit form open inside the trimmed part: the leaf keeps its group choice and the page prefix (194ms)
+  -  1001 [mobile] › tests/e2e/flip.spec.js:1687:5 › T8: speed with 200 tasks › a 3 leaf riffle between two 200 task days: no longtask, median frame at most 18.2 ms, no frame over 50 ms (median of 3)
+  -  1002 [mobile] › tests/e2e/flip.spec.js:1687:5 › T8: speed with 200 tasks › a 1 leaf flip between two 200 task days: no longtask, median frame at most 18.2 ms, no frame over 50 ms (median of 3)

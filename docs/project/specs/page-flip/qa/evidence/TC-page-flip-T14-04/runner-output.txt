@@ -1,0 +1,3 @@
+Excerpt of full-run-1.txt (npx playwright test --workers=2)
+  ✓   466 [desktop] › tests/e2e/flip.spec.js:1864:3 › T14: the page curl in real time › no CSP violation or console error on load and through a forward flip, a back flip and riffles (4.0s)
+  ✓  1016 [mobile] › tests/e2e/flip.spec.js:1864:3 › T14: the page curl in real time › no CSP violation or console error on load and through a forward flip, a back flip and riffles (4.0s)

@@ -1,0 +1,3 @@
+Excerpt of full-run-1.txt (npx playwright test --workers=2)
+  ✓   459 [desktop] › tests/e2e/flip.spec.js:1837:3 › T14: the page curl in real time › the library runs no frame callback while no page turns, and runs them during forward, back and riffle turns (9.1s)
+  ✓  1011 [mobile] › tests/e2e/flip.spec.js:1837:3 › T14: the page curl in real time › the library runs no frame callback while no page turns, and runs them during forward, back and riffle turns (9.0s)

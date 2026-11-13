@@ -1,0 +1,21 @@
+Excerpt of full-run-1.txt (npx playwright test --workers=2)
+T14 dark 1440 next-day 0.3: light share 1.01 percent, settled 1.38 and 2.24
+T14 dark 1440 prev-day 0.3: light share 1.54 percent, settled 1.38 and 2.24
+T14 dark 1440 next-day 0.6: light share 2.02 percent, settled 1.38 and 2.24
+T14 dark 1440 prev-day 0.6: light share 0.99 percent, settled 1.38 and 2.24
+  ✓   471 [desktop] › tests/e2e/flip.spec.js:1915:5 › T14: the page curl in real time › dark mode at 1440 px: no light flash at 30 and 60 percent of a curl, forward and back (6.3s)
+T14 dark 390 next-day 0.3: light share 1.61 percent, settled 2.37 and 3.69
+T14 dark 390 prev-day 0.3: light share 2.79 percent, settled 2.37 and 3.69
+T14 dark 390 next-day 0.6: light share 3.35 percent, settled 2.37 and 3.69
+T14 dark 390 prev-day 0.6: light share 1.78 percent, settled 2.37 and 3.69
+  ✓   479 [desktop] › tests/e2e/flip.spec.js:1915:5 › T14: the page curl in real time › dark mode at 390 px: no light flash at 30 and 60 percent of a curl, forward and back (7.1s)
+T14 dark 1440 next-day 0.3: light share 1.47 percent, settled 1.48 and 2.04
+T14 dark 1440 prev-day 0.3: light share 1.58 percent, settled 1.48 and 2.04
+T14 dark 1440 next-day 0.6: light share 2.03 percent, settled 1.48 and 2.04
+T14 dark 1440 prev-day 0.6: light share 1.41 percent, settled 1.48 and 2.04
+  ✓  1022 [mobile] › tests/e2e/flip.spec.js:1915:5 › T14: the page curl in real time › dark mode at 1440 px: no light flash at 30 and 60 percent of a curl, forward and back (13.6s)
+T14 dark 390 next-day 0.3: light share 1.27 percent, settled 2.45 and 3.39
+T14 dark 390 prev-day 0.3: light share 2.18 percent, settled 2.45 and 3.39
+T14 dark 390 next-day 0.6: light share 3.37 percent, settled 2.45 and 3.39
+T14 dark 390 prev-day 0.6: light share 2.08 percent, settled 2.45 and 3.39
+  ✓  1032 [mobile] › tests/e2e/flip.spec.js:1915:5 › T14: the page curl in real time › dark mode at 390 px: no light flash at 30 and 60 percent of a curl, forward and back (9.3s)

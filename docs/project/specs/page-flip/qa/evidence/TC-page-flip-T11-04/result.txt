@@ -1,0 +1,4 @@
+Playwright MCP run_code, static server on port 4174 (stopped after), reduced motion emulated (matchMedia reduce = true in all 4 combinations).
+1440 light/dark and 390 light/dark: forward 1 layer (2 polygon clips), back 1 layer with flip-stage--back, riffle 3 layers (6 polygon clips).
+Stages after 1.3 s: 0. Horizontal scroll: 0. securitypolicyviolation: []. Console error/warning/pageerror: [].
+Screenshots reviewed: curl-1440-dark-forward.png (diagonal fold, new page seen through, text clipped by the fold), curl-390-light-riffle.png (three curled pages).
