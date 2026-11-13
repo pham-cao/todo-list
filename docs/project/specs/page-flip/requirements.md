@@ -97,7 +97,7 @@ R17. WHEN the owner types a date into the picker and the picker reports several 
 
 ### Focus and screen readers
 
-R18. WHEN a flip plays THE SYSTEM SHALL keep keyboard focus exactly where `day-navigation` R8 puts it today: on the control the owner used, and in the add input when focus was on a row that the day change removed. The flip SHALL NOT move focus, steal focus, or cause a focus ring to flicker.
+R18. WHEN a flip plays THE SYSTEM SHALL keep keyboard focus exactly where `day-navigation` R8 puts it today: on the control the owner used, and in the add input when focus was on a row that the day change removed. The flip SHALL NOT move focus, steal focus, or cause a focus ring to flicker. Because the whole sheet flips, the leaf may cover the focused nav control for up to 700 ms (950 ms in a riffle). The owner accepted this on 2026-11-13, because it clears on its own and clicks still reach the real control (R11).
 
 R19. WHEN the viewed day changes THE SYSTEM SHALL announce the new date line to screen readers at the moment of the change, not at the end of the flip, using the existing `aria-live="polite"` date line. The flip SHALL NOT add a second announcement, and the leaf SHALL NOT be announced or read (R11).
 
