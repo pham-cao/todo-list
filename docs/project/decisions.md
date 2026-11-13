@@ -719,3 +719,4 @@ Also accepted: strip appended inside <main>; pointer captured on the slip, not t
 - The proposed design-system additions in ux/critique.md and ux/group-header.css are merged into design-system.css and .md by the group-header build, after page-flip is released.
 - 2026-11-13 group-header design (PM, following the owner's answers): the header "Quản lý nhóm" button has no tooltip, since its label is always visible (the BA removes "tooltip" from the text table). The task delete note ("Bạn có chắc muốn xóa việc này không?") also becomes a phone bottom sheet, because the owner chose "every dialog slides up from the bottom"; T3 includes #delete-dialog.
 - 2026-11-13 the owner approved the group-header design.md and tasks.md (T1 to T5).
+- 2026-11-13 group-header test plan: 39 cases cover R1 to R33 and NFR1 to NFR7. The three manual cases (iPhone keyboard, Telex IME Enter, Safari/Firefox/Edge smoke) go to the release note as manual checks, as in earlier features.

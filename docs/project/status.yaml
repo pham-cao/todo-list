@@ -500,7 +500,7 @@ features:
         bugs_opened: []
         trello_card: ""
   - slug: group-header
-    phase: test-design
+    phase: build
     has_ui: true
     pr: ""
     trello_card: ""
