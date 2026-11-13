@@ -36,7 +36,7 @@ export const storedJson = async (page, key) => JSON.parse(await page.evaluate((k
 // Scoped to the real list, so the copy of a page on a flip leaf never matches.
 export const rows = (page) => page.locator('#day-list .task-list > .task');
 export const labels = (page) => rows(page).locator('.task__label');
-export const progress = (page) => page.locator('.progress');
+export const progress = (page) => page.locator('#progress');
 export const box = (page, i) => rows(page).nth(i).getByRole('checkbox', { name: 'Đánh dấu hoàn thành' });
 export const hash = (page) => new URL(page.url()).hash;
 export const storedRaw = (page) => page.evaluate((k) => localStorage.getItem(k), KEY);

@@ -192,7 +192,7 @@ test('previous and next move one day, write the address and never reload', async
   await next(page).click();
   await expect(dateLine(page)).toHaveText('Thứ Tư, 11/11/2026');
   expect(hash(page)).toBe('#2026-11-11');
-  await expect(page.getByLabel('Chọn ngày')).toHaveValue('2026-11-11');
+  await expect(page.locator('#day-picker')).toHaveValue('2026-11-11');
   expect(await historyLength(page)).toBe(start + 4);
   await expect(next(page)).toBeFocused();
   expect(await page.evaluate(() => window.marker)).toBe(1);
@@ -259,7 +259,7 @@ test('browser Back and Forward retrace three moves day by day', async ({ page })
     await expect(dateLine(page)).toHaveText(lines[h]);
     expect(hash(page)).toBe(h);
   }
-  await expect(page.getByLabel('Chọn ngày')).toHaveValue('2026-11-08');
+  await expect(page.locator('#day-picker')).toHaveValue('2026-11-08');
 });
 
 for (const [start, button, label] of [['#2099-12-31', next, 'Thứ Năm, 31/12/2099'], ['#2000-01-01', prev, 'Thứ Bảy, 01/01/2000']]) {
@@ -428,7 +428,7 @@ test('Về hôm nay after a silent midnight moves to the new today and keeps foc
 });
 
 // T5: date picker
-const picker = (page) => page.getByLabel('Chọn ngày');
+const picker = (page) => page.locator('#day-picker');
 
 test('picking a date shows that day, writes the hash and keeps focus on the picker', async ({ page }) => {
   await open(page, [...SEED, task('o1', 'Nộp hồ sơ', false, '2026-10-01', 4)]);

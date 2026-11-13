@@ -1308,13 +1308,17 @@ test.describe('T7: layout, phones and dark mode', () => {
   // every old row has painted at its real size), lets two frames paint (rows coming into view leave their one rule
   // placeholder), reads the label boxes, moves, holds the leaf flat (a forward leaf at its first frame, a back leaf at
   // its last, the same motion reversed), lets two more frames paint and reads the leaf copy and the page again.
-  // Boxes are taken from the sheet body top: the header can change height with the day (the title wraps on today at
-  // 360 px), and the leaf is the body's page, drawn under the header rule as it is now. `seen` lists the rows of the
-  // compared page that are in the window, as [index, left, top], and `leaf` the copy's rows at the same indexes.
+  // Boxes are taken from the sheet top: the leaf is the whole sheet (T8d), header included, so a forward leaf holds the
+  // old header at its old height and a back leaf the new one, whatever the header of the page beneath (the title wraps
+  // on today at 360 px). `seen` lists the rows of the compared page that are in the window, as [index, left, top], and
+  // `leaf` the copy's rows at the same indexes; `title` and `leafTitle` are the page title and its copy, as
+  // [left, top, height].
   const scrolledMove = (page, id, to, through = false) => page.evaluate(async ([id, to, through]) => {
     const paint = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+    const top0 = () => document.querySelector('.sheet').getBoundingClientRect().top;
+    const box = (el) => { const r = el.getBoundingClientRect(); return [Math.round(r.left), Math.round(r.top - top0()), Math.round(r.height)]; };
     const rects = (sel) => {
-      const top = document.querySelector('.sheet__body').getBoundingClientRect().top;
+      const top = top0();
       return [...document.querySelectorAll(sel)].map((l) => l.getBoundingClientRect())
         .map((r, i) => ({ i, left: Math.round(r.left), top: Math.round(r.top - top), seen: r.bottom > 0 && r.top < innerHeight }));
     };
@@ -1322,18 +1326,20 @@ test.describe('T7: layout, phones and dark mode', () => {
     if (through) for (let k = 0; k < y(); k += innerHeight) { scrollTo(0, k); await paint(); }
     scrollTo(0, y());
     await paint();
-    const old = rects('#day-list .task__label');
+    const old = rects('#day-list .task__label'), oldTitle = box(document.getElementById('page-title'));
     document.getElementById(id).click();
     const stage = document.querySelector('.flip-stage');
     const back = stage.classList.contains('flip-stage--back');
     stage.getAnimations({ subtree: true }).forEach((a) => (back ? a.finish() : a.pause()));
     await paint();
-    const body = document.querySelector('.sheet__body').getBoundingClientRect();
+    const sheet = document.querySelector('.sheet').getBoundingClientRect();
     const page = back ? rects('#day-list .task__label') : old;
+    const leafTitle = stage.querySelector('.leaf:not(.leaf--blank) .app-header__title');
     const leaf = rects('.flip-stage .leaf:not(.leaf--blank) .task__label');
     const seen = page.filter((r) => r.seen);
     return {
-      offset: parseFloat(stage.style.getPropertyValue('--flip-offset')), above: -body.top,
+      offset: parseFloat(stage.style.getPropertyValue('--flip-offset')), above: -sheet.top,
+      title: back ? box(document.getElementById('page-title')) : oldTitle, leafTitle: leafTitle && box(leafTitle),
       top: stage.getBoundingClientRect().top, count: [page.length, leaf.length],
       seen: seen.map(({ i, left, top }) => [i, left, top]),
       leaf: seen.map(({ i }) => [i, leaf[i].left, leaf[i].top]),
@@ -1356,6 +1362,25 @@ test.describe('T7: layout, phones and dark mode', () => {
     expect(m.leaf).toEqual(m.seen); // every row in the window has its copy exactly on it
     expect(m.overflowX).toBe(0);
   };
+
+  // T8d: an unscrolled move at 360 px from today, whose title wraps, to tomorrow, whose title does not, and back. The
+  // forward leaf holds the old header and rows exactly where the old page had them, the back leaf the new ones.
+  test('at 360 px today to tomorrow and back: the leaf header and rows line up with their page from the sheet top', async ({ page }) => {
+    await page.setViewportSize({ width: 360, height: 780 });
+    await open(page, SEED);
+    const there = await scrolledMove(page, 'next-day', 0);
+    await playOut(page);
+    const tomorrow = (await page.locator('#page-title').boundingBox()).height;
+    expect(there.title[2]).toBeGreaterThan(tomorrow + 10); // today's title wraps and tomorrow's does not
+    const home = await scrolledMove(page, 'prev-day', 0);
+    for (const m of [there, home]) {
+      expect(m.offset).toBe(0);
+      expect(m.leafTitle).toEqual(m.title);
+      expect(m.seen.length).toBeGreaterThanOrEqual(2);
+      expect(m.leaf).toEqual(m.seen);
+      expect(m.overflowX).toBe(0);
+    }
+  });
 
   for (const [width, height] of WIDTHS) {
     test(`a scrolled page at ${width} px: the leaf copy lines up with the page through --flip-offset, no overflow`, async ({ page }) => {
@@ -1472,7 +1497,7 @@ test.describe('T7: layout, phones and dark mode', () => {
     await page.evaluate(() => document.documentElement.style.setProperty('--dur-flip', '30000ms'));
     await next(page).click();
     await expect(stages(page)).toHaveCount(1);
-    for (const sel of ['#prev-day', '#next-day', '.date-stamp', '#to-today']) {
+    for (const sel of ['#prev-day', '#next-day', '.date-stamp:has(#day-picker)', '#to-today']) {
       const b = await page.locator(sel).boundingBox();
       expect(b.width, sel).toBeGreaterThanOrEqual(44);
       expect(b.height, sel).toBeGreaterThanOrEqual(44);
@@ -1513,7 +1538,7 @@ test.describe('T7: layout, phones and dark mode', () => {
     });
   }
 
-  // TC-page-flip-T7-09 (R35): text contrast at 20, 50 and 65 percent of a flip, forward and back, light and dark. The
+  // TC-page-flip-T7-09 (R35): text contrast at 20, 50, 65 and 72 percent of a flip, forward and back, light and dark. The
   // leaf is held at each frame and every colour is composited through a 1 px canvas, layer by layer as it is painted.
   // Leaf text is paper, then ink, then the shade, then the leaf back at its frame opacity, checked while the back has
   // not yet covered it (opacity under 1). The shade runs from clear at 10 percent of the leaf to --flip-shade at its
@@ -1528,7 +1553,7 @@ test.describe('T7: layout, phones and dark mode', () => {
     // a done task long enough to wrap, so its ink reaches the free edge where the shade is darkest
     task(`w${k}`, 'Trình bày số liệu tháng 10 ở buổi họp dự án với khách hàng, rồi gửi biên bản và lịch hẹn tiếp theo cho cả nhóm', true, d, 3 * k + 2)]);
   for (const colorScheme of ['light', 'dark']) {
-    test(`${colorScheme}: leaf and new page text keep 4.5 to 1 at 20, 50 and 65 percent of a flip, forward and back`, async ({ page }) => {
+    test(`${colorScheme}: leaf, header and new page text keep 4.5 to 1 at 20, 50, 65 and 72 percent of a flip, forward and back`, async ({ page }) => {
       await page.emulateMedia({ colorScheme });
       await open(page, INKS);
       const seen = [];
@@ -1536,7 +1561,8 @@ test.describe('T7: layout, phones and dark mode', () => {
         // 20, 50 and 65 percent of the turn; 65 is the last before the words fade into the back (70 to 92 percent of
         // the turn, BUG-028), the fade R35 allows (before T8b it ran from 45 to 70 percent and 80 fell after it). A back
         // flip plays the turn in reverse, so its times are 1 minus those.
-        for (const at of id === 'next-day' ? [0.2, 0.5, 0.65] : [0.8, 0.5, 0.35]) {
+        // 72 percent (28 for back) is just inside the fade, with the back partly over the words (T8b reviewer minor).
+        for (const at of id === 'next-day' ? [0.2, 0.5, 0.65, 0.72] : [0.8, 0.5, 0.35, 0.28]) {
           const r = await page.evaluate(([id, at]) => {
             document.getElementById(id).click();
             const stage = document.querySelector('.flip-stage');
@@ -1560,11 +1586,23 @@ test.describe('T7: layout, phones and dark mode', () => {
             const page = css(document.querySelector('.sheet'), 'backgroundColor');
             const inks = (root) => [...new Set([...root.querySelectorAll('.task__text')].map((t) => css(t, 'color')))];
             const flatRight = (el) => { let x = el.offsetWidth; for (let e = el; e && e !== leaf; e = e.offsetParent) x += e.offsetLeft; return x; };
+            const shadeAt = (el) => [shade[0], shade[1] * Math.min(Math.max((flatRight(el) / leaf.offsetWidth - 0.1) / 0.9, 0), 1)];
             const onLeaf = [...leaf.querySelectorAll('.task__label')].map((l) => {
-              const f = flatRight(l) / leaf.offsetWidth;
-              const s = [shade[0], shade[1] * Math.min(Math.max((f - 0.1) / 0.9, 0), 1)];
+              const s = shadeAt(l);
               const ink = css(l, 'color');
               return ratio(paint([paper], [ink], s, back), paint([paper], s, back));
+            });
+            // T8d: the copied header. The title is ink on paper; the date line is ink on the washi tape, checked on both
+            // stripes (the darker one is the worst case by day, the lighter one at night).
+            const root = getComputedStyle(document.documentElement);
+            const heads = [['.app-header__title', [null]], ['.app-header__date', ['--color-washi', '--color-washi-2']]].map(([sel, tapes]) => {
+              const el = leaf.querySelector(sel);
+              if (!el) return NaN;
+              const s = shadeAt(el), ink = css(el, 'color');
+              return Math.min(...tapes.map((t) => {
+                const under = t ? [[paper], [root.getPropertyValue(t).trim()]] : [[paper]];
+                return ratio(paint(...under, [ink], s, back), paint(...under, s, back));
+              }));
             });
             const c = stage.querySelector('.leaf-cast').getBoundingClientRect();
             const edge = leaf.getBoundingClientRect().right;
@@ -1576,7 +1614,7 @@ test.describe('T7: layout, phones and dark mode', () => {
               const under = [cast[0], cast[1] * Math.max(0, 1 - f / 0.92)];
               return [ratio(paint([page], under, [css(t, 'color')]), paint([page], under))];
             });
-            const out = { back: back[1], onLeaf, onPage, inks: inks(leaf).length, pageInks: inks(document.getElementById('day-list')).length };
+            const out = { back: back[1], onLeaf, heads, onPage, inks: inks(leaf).length, pageInks: inks(document.getElementById('day-list')).length };
             for (const a of stage.getAnimations({ subtree: true })) a.finish();
             return out;
           }, [id, at]);
@@ -1584,13 +1622,15 @@ test.describe('T7: layout, phones and dark mode', () => {
           await expect(stages(page)).toHaveCount(0);
         }
       }
-      console.log(`T7 text contrast ${colorScheme}: ${JSON.stringify(seen.map(({ id, at, back, onLeaf, onPage }) => [id, at, back, onLeaf.map((v) => v.toFixed(1)), onPage.map((v) => v.toFixed(1))]))}`);
+      console.log(`T7 text contrast ${colorScheme}: ${JSON.stringify(seen.map(({ id, at, back, onLeaf, heads, onPage }) => [id, at, +back.toFixed(2), onLeaf.map((v) => v.toFixed(1)), heads.map((v) => v.toFixed(1)), onPage.map((v) => v.toFixed(1))]))}`);
       const readable = seen.filter((f) => f.back < 1);
-      expect(readable.length).toBeGreaterThanOrEqual(3); // text shows on the leaf in at least 3 of the 6 frames
+      expect(readable.length).toBeGreaterThanOrEqual(3); // text shows on the leaf in at least 3 of the 8 frames
+      expect(seen.filter((f) => f.at === 0.72 || f.at === 0.28).every((f) => f.back > 0 && f.back < 1)).toBe(true); // the fade frame
       for (const f of seen) {
         expect(f.inks, `${f.id} ${f.at}`).toBe(2); // open and done ink both checked
         expect(f.onLeaf.length, `${f.id} ${f.at}`).toBe(3);
-        if (f.back < 1) for (const v of f.onLeaf) expect(v, `leaf ${f.id} ${f.at}`).toBeGreaterThanOrEqual(4.5);
+        expect(f.heads.length, `${f.id} ${f.at}`).toBe(2);
+        if (f.back < 1) for (const v of [...f.onLeaf, ...f.heads]) expect(v, `leaf ${f.id} ${f.at}`).toBeGreaterThanOrEqual(4.5);
         for (const v of f.onPage) expect(v, `page ${f.id} ${f.at}`).toBeGreaterThanOrEqual(4.5);
       }
     });
@@ -1753,14 +1793,16 @@ test.describe('T8b: perceptible flip motion (BUG-028)', () => {
   // Real time, nothing paused: the move, then the leaf with words read on every animation frame until the stage goes.
   // angle: how far the leaf has turned up from the page (rotateY, 0 to 92 degrees); back: the plain back's opacity;
   // width: the leaf's drawn width over the stage width; left: the leftmost drawn edge of any leaf, from the stage left,
-  // over the stage width.
+  // over the stage width; head: the copied title's drawn width over its flat width (the header turns with the leaf,
+  // T8d). top: the stage top from the sheet top, at the move.
   const sweep = (page, move) => page.evaluate(async (move) => {
     const picker = document.getElementById('day-picker');
     if (move.startsWith('#')) { picker.value = move.slice(1); picker.dispatchEvent(new Event('change')); }
     else document.getElementById(move).click();
     const stage = document.querySelector('.flip-stage');
     const leaf = stage.querySelector('.leaf:not(.leaf--blank)'), leaves = [...stage.querySelectorAll('.leaf')];
-    const back = leaf.querySelector('.leaf__back');
+    const back = leaf.querySelector('.leaf__back'), title = leaf.querySelector('.app-header__title');
+    const top = stage.getBoundingClientRect().top - document.querySelector('.sheet').getBoundingClientRect().top;
     const samples = [];
     await new Promise((done) => {
       const read = (t) => {
@@ -1770,12 +1812,13 @@ test.describe('T8b: perceptible flip motion (BUG-028)', () => {
           t, angle: (Math.atan2(m.m13, m.m11) * 180) / Math.PI, back: +getComputedStyle(back).opacity,
           width: leaf.getBoundingClientRect().width / s.width,
           left: (Math.min(...leaves.map((l) => l.getBoundingClientRect().left)) - s.left) / s.width,
+          head: title ? title.getBoundingClientRect().width / title.offsetWidth : null,
         });
         requestAnimationFrame(read);
       };
       requestAnimationFrame(read);
     });
-    return { dur: parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--dur-flip')), samples, leaves: leaves.length };
+    return { dur: parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--dur-flip')), samples, leaves: leaves.length, top };
   }, move);
 
   // TC-page-flip-T8-11: the leaf turns at 2 degrees per 50 ms or more for at least 60 percent of --dur-flip, the words
@@ -1783,7 +1826,13 @@ test.describe('T8b: perceptible flip motion (BUG-028)', () => {
   // more, the leaf keeps at least a fifth of its width until 75 degrees (no early collapse onto the hinge), and no leaf
   // is drawn more than 5 percent of the stage width past its left edge (the leaf ends at 92 degrees, just past edge on,
   // a few pixels over the hinge; it must never swing far past it into the clip, as with BUG-028's 36 percent).
-  const perceptible = ({ dur, samples }, what) => {
+  // T8d: the leaf is the whole sheet from its top (unscrolled), and its copied title turns from flat to edge on.
+  const perceptible = ({ dur, samples, top }, what) => {
+    expect(top, `${what}: stage top from the sheet top`).toBeCloseTo(0, 0);
+    const heads = samples.map((s) => s.head);
+    expect(heads.every((h) => h != null), `${what}: the title is on the leaf`).toBe(true);
+    expect(Math.max(...heads), `${what}: title flat`).toBeGreaterThan(0.9);
+    expect(Math.min(...heads), `${what}: title edge on`).toBeLessThan(0.3);
     let turning = 0, words = 0;
     for (let k = 1; k < samples.length; k++) {
       const [a, b] = [samples[k - 1], samples[k]], dt = b.t - a.t;
@@ -1835,5 +1884,94 @@ test.describe('T8b: perceptible flip motion (BUG-028)', () => {
     await open(page, Array.from({ length: 200 }, (_, k) => task(`b${k}`, `Việc số ${k + 1}`, k % 3 === 0, TODAY, k)));
     await page.waitForTimeout(300);
     perceptible(await sweep(page, 'next-day'), '200 tasks');
+  });
+});
+
+// T8d: the whole sheet flips (R8, R11, R13, R18, R19, R31 as amended; design.md, Change 2026-11-12).
+test.describe('T8d: the whole sheet flips', () => {
+  // Moves (an arrow id, or '#key' through the picker) and reads the leaf copy in the same task as the move.
+  const leafCopy = (page, move) => page.evaluate((move) => {
+    const picker = document.getElementById('day-picker');
+    if (move.startsWith('#')) { picker.value = move.slice(1); picker.dispatchEvent(new Event('change')); }
+    else document.getElementById(move).click();
+    const c = document.querySelector('.flip-stage .leaf:not(.leaf--blank) .leaf__content');
+    return {
+      parts: [...c.children].map((e) => e.className),
+      title: c.querySelector('.app-header__title')?.textContent ?? null,
+      date: c.querySelector('.app-header__date')?.textContent ?? null,
+      picker: c.querySelector('input[type="date"]')?.value ?? null,
+      rows: [...c.querySelectorAll('.task__label')].map((l) => l.textContent),
+      refs: c.querySelectorAll('[id], [for], [aria-live], [role]').length,
+      celebrate: c.querySelectorAll('.progress--celebrate').length,
+      blankHeads: document.querySelectorAll('.flip-stage .leaf--blank .app-header').length,
+    };
+  }, move);
+
+  test('a forward leaf holds the old header: title, date line and picker value, with no id, for, aria-live or role', async ({ page }) => {
+    await open(page, SEED);
+    expect(await leafCopy(page, 'next-day')).toEqual({
+      parts: ['app-header', 'sheet__body'], title: 'Việc cần làm hôm nay', date: 'Hôm nay, Thứ Hai, 09/11/2026', picker: TODAY,
+      rows: ['Gửi báo cáo tuần', 'Đi chợ mua rau', 'Tập yoga 30 phút'], refs: 0, celebrate: 0, blankHeads: 0,
+    });
+  });
+
+  test('a back leaf holds the new header, and a riffle has blank leaves with no header band', async ({ page }) => {
+    await open(page, SEED);
+    expect(await leafCopy(page, 'prev-day')).toMatchObject({
+      parts: ['app-header', 'sheet__body'], title: 'Việc cần làm', date: 'Hôm qua, Chủ Nhật, 08/11/2026', picker: '2026-11-08',
+      rows: ['Dọn tủ quần áo'], refs: 0,
+    });
+    await expect(stages(page)).toHaveCount(0);
+    const r = await leafCopy(page, '#2026-11-12');
+    expect(r).toMatchObject({ date: 'Hôm qua, Chủ Nhật, 08/11/2026', blankHeads: 0 });
+    expect(await page.locator('.flip-stage .leaf--blank').count()).toBe(2);
+  });
+
+  test('a move right after the tick that finishes the day: the leaf never replays the stamp', async ({ page }) => {
+    await open(page, SEED);
+    const r = await page.evaluate(() => {
+      for (const input of document.querySelectorAll('#day-list .check input:not(:checked)')) input.click();
+      const was = document.getElementById('progress').classList.contains('progress--celebrate');
+      document.getElementById('next-day').click();
+      const c = document.querySelector('.flip-stage .leaf__content');
+      return { was, copied: !!c.querySelector('.progress'), celebrate: c.querySelectorAll('.progress--celebrate').length };
+    });
+    expect(r).toEqual({ was: true, copied: true, celebrate: 0 });
+  });
+
+  for (const [width, height] of [[1440, 900], [390, 844]]) {
+    test(`at ${width} px unscrolled the stage starts at the sheet top and covers the visible sheet, forward and back`, async ({ page }) => {
+      await page.setViewportSize({ width, height });
+      await open(page, SEED);
+      for (const id of ['next-day', 'prev-day']) {
+        await expect(stages(page)).toHaveCount(0);
+        const g = await page.evaluate((id) => {
+          document.getElementById(id).click();
+          const s = document.querySelector('.flip-stage').getBoundingClientRect(), sh = document.querySelector('.sheet').getBoundingClientRect();
+          return [s.top - sh.top, s.left - sh.left, sh.right - s.right, s.height - (Math.min(sh.bottom, innerHeight) - Math.max(sh.top, 0))].map(Math.round);
+        }, id);
+        expect(g, id).toEqual([0, 0, 0, 0]);
+      }
+    });
+  }
+
+  test('during a flip the next arrow under the leaf is the real button, and a second click there moves again', async ({ page }) => {
+    await watchFlips(page);
+    await open(page, SEED);
+    await page.evaluate(() => document.documentElement.style.setProperty('--dur-flip', '30000ms'));
+    await next(page).click();
+    await expect(stages(page)).toHaveCount(1);
+    const b = await next(page).boundingBox();
+    const x = b.x + b.width / 2, y = b.y + b.height / 2;
+    const at = await page.evaluate(([x, y]) => {
+      const leaf = document.querySelector('.flip-stage .leaf:not(.leaf--blank)').getBoundingClientRect();
+      const hit = document.elementFromPoint(x, y);
+      return { covered: x >= leaf.left && x <= leaf.right && y >= leaf.top && y <= leaf.bottom, real: !!hit.closest('#next-day'), leaf: !!hit.closest('.flip-stage') };
+    }, [x, y]);
+    expect(at).toEqual({ covered: true, real: true, leaf: false });
+    await page.mouse.click(x, y);
+    await expect(dateLine(page)).toHaveText('Thứ Tư, 11/11/2026');
+    await expect(next(page)).toBeFocused();
+    expect((await flipsSeen(page)).map((f) => f.back)).toEqual([false, false]);
   });
 });

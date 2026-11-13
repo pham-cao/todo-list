@@ -12,7 +12,8 @@ const div = (className) => {
 
 // The page flip (R1 to R12): a purely visual layer of leaves on the sheet, built after the new day has rendered and
 // removed by a timer, never by animationend (R9). It is aria-hidden, inert and ignores the pointer (R11).
-// sheet: .sheet (the stage's positioned parent), body: .sheet__body (what is copied).
+// sheet: .sheet (the stage's positioned parent and what is copied: the header and the body, R8), body: .sheet__body
+// (the rows; its size changes as they lay out).
 // The flip always plays, also under prefers-reduced-motion (owner decision 2026-11-12; R28, R29 as amended).
 export function createFlip({ sheet, body }) {
   const CAN_3D = CSS.supports("transform", "rotateY(1deg)") && CSS.supports("perspective", "1px"); // R39
@@ -22,27 +23,32 @@ export function createFlip({ sheet, body }) {
   let timer = 0;
   let follow = null; // the ResizeObserver that keeps the stage on the page while it lives
 
-  // A copy of the sheet body as it is now, down to the first row whose top is below the window (NFR3). Rows above the
-  // window stay, so --flip-offset still lines the copy up with the page. A Range clones only that part: no row below
-  // the cut is ever cloned, and the rows' ancestors come along as shallow copies holding the rows before it.
-  // Cloned inputs keep value and checked state; a cloned select does not, so its value is copied over. Every id goes,
-  // so no lookup, label or aria reference ever finds a leaf node, and every label's `for` goes, so a leaf label never
-  // names a real control on the page (R11, R20).
+  // A copy of the whole sheet as it is now, the header and then the body down to the first row whose top is below the
+  // window (R8, NFR3). Rows above the window stay, so --flip-offset still lines the copy up with the page. A Range
+  // clones only that part: no row below the cut is ever cloned, and the rows' ancestors come along as shallow copies
+  // holding the rows before it. At copy time the sheet holds only the header and the body (no stage, no drag slip).
+  // Cloned inputs keep value and checked state (the picker keeps its day); a cloned select does not, so its value is
+  // copied over. Every id goes, so no lookup, label or aria reference ever finds a leaf node; every label's `for` goes,
+  // so a leaf label never names a real control; aria-live and role go, so the copied date line, summary and slips can
+  // never announce (R11, R19, R20). progress--celebrate goes, so the stamp never replays on the leaf.
   // Each copied row is as tall as its row is laid out now (fit). Rows use content-visibility: auto, and a clone has no
   // remembered size, so left alone every copied row would be a one rule placeholder and the copy would drift off the
   // page, with the rows meant for the window laid out elsewhere and never painted (R13).
   function copy() {
     const range = document.createRange();
-    range.selectNodeContents(body);
+    range.selectNodeContents(sheet);
     // One layout for all the reads. A row not yet laid out sits at its one rule placeholder, which is never taller than
     // the row, so the cut can only fall later than the real one, never cut a row the window shows.
     const cut = [...body.querySelectorAll(".task")].find((t) => t.getBoundingClientRect().top >= innerHeight);
     if (cut) range.setEndBefore(cut);
     const part = range.cloneContents();
-    const from = body.querySelectorAll("select");
+    const from = sheet.querySelectorAll("select");
     part.querySelectorAll("select").forEach((s, i) => { s.value = from[i].value; }); // the copy's selects are a prefix
     fit(body, part)();
-    for (const el of part.querySelectorAll("[id], [for]")) { el.removeAttribute("id"); el.removeAttribute("for"); }
+    for (const el of part.querySelectorAll("[id], [for], [aria-live], [role]")) {
+      for (const a of ["id", "for", "aria-live", "role"]) el.removeAttribute(a);
+    }
+    for (const el of part.querySelectorAll(".progress--celebrate")) el.classList.remove("progress--celebrate");
     return [...part.childNodes];
   }
 
@@ -55,14 +61,16 @@ export function createFlip({ sheet, body }) {
     return () => rows.forEach((t, i) => { t.style.height = `${tall[i]}px`; });
   }
 
-  // Puts the stage over the part of the sheet body that is in the window; false when under 1 px of it is.
+  // Puts the stage over the part of the sheet that is in the window; false when under 1 px of it is (R13).
+  // --flip-top (the stage top) and --flip-offset (how much of the sheet is above the window) hold the same value; the
+  // CSS uses the first for the stage and its holes and the second for the copy and its rules.
   function place(s) {
-    const sr = sheet.getBoundingClientRect(), br = body.getBoundingClientRect();
-    const top = Math.max(br.top, 0), bottom = Math.min(br.bottom, innerHeight); // only the part in the window
+    const sr = sheet.getBoundingClientRect();
+    const top = Math.max(sr.top, 0), bottom = Math.min(sr.bottom, innerHeight); // only the part in the window
     if (bottom - top < 1) return false;
     s.style.setProperty("--flip-top", `${top - sr.top}px`);
     s.style.setProperty("--flip-h", `${bottom - top}px`);
-    s.style.setProperty("--flip-offset", `${top - br.top}px`);
+    s.style.setProperty("--flip-offset", `${top - sr.top}px`);
     return true;
   }
 

@@ -981,15 +981,16 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
 
 /* ---------- Page flip (feature page-flip, additive) ----------
    Replaces the 18 px slide of .turn--back and .turn--forward (those two classes and --dur-turn are no longer used once
-   page-flip ships). A day change builds one .flip-stage on the .sheet, over the part of the sheet body that is in the
-   window, and fills it with leaves. The real new day is already rendered underneath; the stage is aria-hidden, inert and
+   page-flip ships). A day change builds one .flip-stage on the .sheet, over the part of the sheet that is in the window,
+   and fills it with leaves. The whole sheet turns: the leaf with words holds a copy of the header band and the ruled
+   body (owner, 2026-11-12); blank riffle leaves are ruled paper with no header band (owner, 2026-11-13). The real new day is already rendered underneath; the stage is aria-hidden, inert and
    ignores the pointer, so it is only a picture. Only transform and opacity animate.
    Forward (a later day): the leaf is a copy of the old page, hinged at the punched holes, and turns up towards the owner
    until it stands edge on at the holes. Back (an earlier day): the same motion played in reverse with a copy of the new
    page, so the leaf lands from the holes onto the page. Riffle: up to two blank ruled leaves, each one --dur-riffle-step
    after the one before it. The flip always plays, also under prefers-reduced-motion (owner decision 2026-11-12).
-   Stage geometry is set inline by script: --flip-top and --flip-h (the visible part of the sheet body, in sheet
-   coordinates) and --flip-offset (how much of the sheet body is scrolled above the window). */
+   Stage geometry is set inline by script: --flip-top and --flip-h (the visible part of the sheet, in sheet
+   coordinates) and --flip-offset (how much of the sheet is scrolled above the window; the same value as --flip-top). */
 :root {
   --dur-flip: 700ms;                     /* one leaf, phones and desktop (owner, 2026-11-12; 450 ms read as a flicker) */
   --dur-riffle-step: 125ms;              /* start of one riffle leaf to the start of the next; 3 leaves end at 950 ms */
@@ -1022,14 +1023,17 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
   animation-duration: var(--dur-flip); animation-timing-function: var(--ease-flip);
   animation-delay: calc(var(--i, 0) * var(--dur-riffle-step)); animation-fill-mode: both;
 }
-.leaf {
-  overflow: clip; will-change: transform; animation-name: leaf-turn;
+.leaf { /* plain paper: the copied header and the copied ruled body draw the rest */
+  overflow: clip; will-change: transform; animation-name: leaf-turn; border-radius: var(--radius-paper);
+  background: var(--grain), var(--color-paper);
+  box-shadow: inset -1px 0 0 color-mix(in srgb, var(--color-pencil) 45%, transparent), 3px 0 8px -3px var(--flip-cast); /* the free edge, visible at night too */
+}
+.leaf--blank { /* riffle leaves: ruled over their whole height, no header band */
   background:
     var(--grain),
     repeating-linear-gradient(to bottom, transparent 0 calc(var(--rule) - 1px), var(--color-rule) calc(var(--rule) - 1px) var(--rule))
       0 calc(var(--rule-shift) - var(--flip-offset, 0px)) / 100% var(--rule),
     var(--color-paper);
-  box-shadow: inset -1px 0 0 color-mix(in srgb, var(--color-pencil) 45%, transparent), 3px 0 8px -3px var(--flip-cast); /* the free edge, visible at night too */
 }
 .leaf::before { /* punched holes, lined up with the sheet's own holes */
   content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: var(--holes-w); z-index: 1;
@@ -1043,7 +1047,10 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
 @media (max-width: 600px) {
   .leaf::before { background-size: 100% 66px; background-image: radial-gradient(circle at 50% 50%, var(--color-desk) 0 4.5px, var(--color-desk-deep) 5px 6px, transparent 6.5px); }
 }
-.leaf__content { position: absolute; left: 0; right: 0; top: 0; translate: 0 calc(-1 * var(--flip-offset, 0px)); }
+.leaf__content { /* the copied header, then the copied .sheet__body, which grows (flex: 1) to the leaf bottom as on the page */
+  position: absolute; left: 0; right: 0; top: 0; translate: 0 calc(-1 * var(--flip-offset, 0px));
+  display: flex; flex-direction: column; min-height: calc(100% + var(--flip-offset, 0px));
+}
 .leaf__back { /* plain paper, no text: what the owner sees once the leaf is nearly edge on */
   position: absolute; inset: 0; opacity: 0;
   background:
