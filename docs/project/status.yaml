@@ -435,10 +435,18 @@ features:
         attempts: 0
         bugs_opened: []
         trello_card: ""
+      - id: T8e
+        title: "Soft paper bend"
+        owner: fe
+        depends_on: [T8d]
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
       - id: T9
         title: "Remove the superseded page turn and tape styles"
         owner: fe
-        depends_on: [T8d]
+        depends_on: [T8e]
         state: todo
         attempts: 0
         bugs_opened: []

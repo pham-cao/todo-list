@@ -8,6 +8,8 @@ After the owner saw the flip, the decision log entry "2026-11-12 page-flip scope
 2. Flip area: the whole sheet flips, header included (title, arrows, date tape, "Về hôm nay"), together with the body, hinged on the binder holes. The separate date tape re-press is dropped (R8, R10 to R13, scope section).
 3. Durations: 700 ms per flip, 125 ms riffle step, 950 ms total budget for a 3 leaf riffle (R3, R3a, R9, NFR7).
 
+Changed on 2026-11-13 (decision "page-flip soft paper bend"): the turning leaf bends like soft paper, a smooth curve with the free edge trailing, flat at the start and end, with shading that follows the curve, using transforms and opacity only and no library (R8, scope section, out of scope). This replaces the simple hinged leaf of the first answer, and the old out of scope note on curl.
+
 ## Goal
 
 Make moving between days feel like turning the page of a paper notebook. Today the app only slides the lines 18 px sideways (`.turn--back`, `.turn--forward`, from `day-navigation`). This feature replaces that slide with a real page flip: the whole sheet, header and body, turns like a leaf hinged at the punched holes on the left, and the new day is revealed underneath. The flip is only a visual response. The data, the address, the focus and the screen reader text change at once, exactly as they do now, and the owner can keep working while the leaf is still turning. Tasks stay in the browser only, there is no backend, all screen text is Vietnamese, and the day follows the browser's local timezone.
@@ -30,7 +32,7 @@ Decisions: the owner answered every open question (decision log, 2026-11-11 "pag
 
 ## Scope of the flip (which actions flip)
 
-The flip surface is the whole sheet: the header (title, navigation controls, date tape, "Về hôm nay", progress and summary) and the body (add form, group bar, empty state and day list). The real header and body update at once underneath, as in `day-navigation`, and the leaf is an inert copy.
+The flip surface is the whole sheet: the header (title, navigation controls, date tape, "Về hôm nay", progress and summary) and the body (add form, group bar, empty state and day list). The real header and body update at once underneath, as in `day-navigation`, and the leaf is an inert copy that bends like soft paper as it turns (R8).
 
 | Way the day changes | Flips | Direction |
 | --- | --- | --- |
@@ -73,7 +75,7 @@ R7. IF the page is hidden (the tab is in the background) when the viewed day cha
 
 ### What the owner sees during and after the flip
 
-R8. WHEN a flip starts THE SYSTEM SHALL show the leaf as a copy of the old whole sheet (header and body, including the title, arrows, date tape and "Về hôm nay"), in the paper look of the notebook (ruled lines, margin line, punched hole side), turning with a visible hinge on the left edge, a soft shadow that moves with the turn, and a slightly darker back of the leaf during the second half of the turn. The turn SHALL be clearly perceptible in real time playback, not only in paused frames: the leaf visibly sweeps from the free edge to the hinge over most of the duration, and its text stays visible through most of the turn.
+R8. WHEN a flip starts THE SYSTEM SHALL show the leaf as a copy of the old whole sheet (header and body, including the title, arrows, date tape and "Về hôm nay"), in the paper look of the notebook (ruled lines, margin line, punched hole side), turning with a visible hinge on the left edge, a soft shadow that moves with the turn, and a slightly darker back of the leaf during the second half of the turn. The turning leaf SHALL bend like soft paper, not turn flat like stiff card: mid turn its outline is a smooth curve with the free edge trailing behind the part near the hinge, and it is flat at the start and at the end of the turn. The shading SHALL follow the curve. The bend SHALL use CSS transforms and opacity only (for example narrow vertical strips of the leaf, each turned a little more than the one before) and no library. The turn SHALL be clearly perceptible in real time playback, not only in paused frames: the leaf visibly sweeps from the free edge to the hinge over most of the duration, and its text stays visible through most of the turn.
 
 R9. THE SYSTEM SHALL make each leaf last 700 ms, taken from one design token (a new `--dur-flip`, replacing the use of `--dur-turn`), and SHALL remove every leaf and every helper class and style when the flip or riffle ends or is cancelled, so that the page looks and behaves exactly as before after it.
 
@@ -171,7 +173,7 @@ R41. THE SYSTEM SHALL keep every rule of `day-navigation` and `drag-drop` about 
 ## Out of scope
 
 1. Swipe or drag sideways on the page to change the day on phones (a possible later feature).
-2. A real curl of the page corner with bending paper and lighting (a full physical simulation), page stack edges that grow thinner or thicker, and sound or vibration.
+2. A full physical paper simulation (a page corner curl, real time lighting or a flip library), page stack edges that grow thinner or thicker, and sound or vibration.
 3. Turning pages of other things, for example a flip when changing the group filter or opening the "Nhóm việc" dialog.
 4. More than 3 leaves in a riffle, a leaf for every day passed, and showing the days passed on the leaves.
 5. Any switch to turn the flip off, in the app or through the system reduced motion setting, and any substitute motion such as a crossfade.

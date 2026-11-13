@@ -679,3 +679,10 @@ Also accepted: strip appended inside <main>; pointer captured on the slip, not t
 - T8b (perceptible motion, BUG-028) passed QA and review and is committed as the base for this change. Its two minors (a 72 percent contrast sample, the backstop clause in design-system.md) fold into the next FE task.
 - 2026-11-13 whole sheet design (owner): the leaf may cover the focused nav control for up to 700 ms (950 ms riffle); accepted, since it clears on its own and clicks still reach the real control (record in R18). Blank riffle leaves stay fully ruled with no header band. The owner approved the updated design.md and tasks.md (T8c, T8d, T9, T10).
 - 2026-11-13 test-plan.md still mentions 450 ms and reduced motion off in places; QA refreshes it in report mode.
+
+## 2026-11-13 page-flip soft paper bend (chosen by the owner)
+- The owner says the leaf turns flat like stiff card and wants the curve of soft paper.
+- Options (strips that really bend, fake the curve with light, a page flip library): strips that really bend. The leaf is cut into narrow vertical strips, each turning a little more than the one before, so the sheet bends into a soft curve with the free edge trailing, with shading that follows the curve. CSS transforms and opacity only, no new library. This supersedes Q1's "simple hinged leaf" and the out of scope note on curl. Built as a new task after T8d (whole sheet).
+- Bend strength (28, 20 or 31 degrees): 28 degrees at mid turn (`--flip-bend`).
+- Slow devices (fall back to the flat leaf after a slow first frame, always bend, fewer strips on phones): always bend. There is no flat fallback; the slow device fallback in design.md "Change 2026-11-13" is dropped. Stutter on weak phones is an accepted risk for the release note.
+- The owner approved the soft paper bend design (T8e: 8 strips on desktop, 6 on phones, flat at start and end, shading that follows the curve, no library).
