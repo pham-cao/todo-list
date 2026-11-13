@@ -12,11 +12,11 @@ const div = (className) => {
 
 // The page flip (R1 to R12): a purely visual layer of leaves on the sheet, built after the new day has rendered and
 // removed by a timer, never by animationend (R9). It is aria-hidden, inert and ignores the pointer (R11).
-// sheet: .sheet (the stage's positioned parent), body: .sheet__body (what is copied), date: #date-line (the tape).
-export function createFlip({ sheet, body, date }) {
-  const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+// sheet: .sheet (the stage's positioned parent), body: .sheet__body (what is copied).
+// The flip always plays, also under prefers-reduced-motion (owner decision 2026-11-12; R28, R29 as amended).
+export function createFlip({ sheet, body }) {
   const CAN_3D = CSS.supports("transform", "rotateY(1deg)") && CSS.supports("perspective", "1px"); // R39
-  const allowed = () => !reduced.matches && CAN_3D && !document.hidden; // R7, R28
+  const allowed = () => CAN_3D && !document.hidden; // R7
   const ms = (name) => parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name)) || 0;
   let stage = null;
   let timer = 0;
@@ -83,10 +83,6 @@ export function createFlip({ sheet, body, date }) {
     end();
     if (from === to || !allowed()) return;
     try {
-      // The tape is pressed once per move, even with the sheet body scrolled away (R12).
-      date.classList.remove("washi--restick");
-      void date.offsetWidth;
-      date.classList.add("washi--restick");
       const n = leafCount(daysBetween(from, to));
       if (!n) return;
       const back = to < from; // keys are YYYY-MM-DD, so they compare as text (R5)
@@ -143,13 +139,8 @@ export function createFlip({ sheet, body, date }) {
   }
 
   // Registered once, never per move (NFR4).
-  // R29: under reduced motion the tape's animation is none, so no animationend would ever take its class off.
-  reduced.addEventListener("change", () => { if (reduced.matches) { end(); date.classList.remove("washi--restick"); } });
   document.addEventListener("visibilitychange", () => { if (document.hidden) end(); }); // R7, R38
   document.addEventListener("toggle", (e) => { if (e.newState === "open") end(); }, true); // a dialog or popover opened (R37)
-  const unstick = (e) => { if (e.target === date) date.classList.remove("washi--restick"); };
-  date.addEventListener("animationend", unstick);
-  date.addEventListener("animationcancel", unstick);
 
   return { snapshot, play, end };
 }

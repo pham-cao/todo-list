@@ -55,22 +55,16 @@ export async function tick(page, i, on) {
   await (on ? expect(box(page, i)).toBeChecked() : expect(box(page, i)).not.toBeChecked());
 }
 
-// Records every .flip-stage ever added and when it went, and every time the tape gets washi--restick, so a 600 ms
-// stage cannot slip between two checks. Times are performance.now() in the page.
+// Records every .flip-stage ever added and when it went, so a 700 ms stage cannot slip between two checks, and whether
+// a superseded page turn class (turn--) is ever set. Times are performance.now() in the page.
 export async function watchFlips(page) {
   await page.addInitScript(() => {
     window.__flips = [];
-    window.__resticks = [];
     window.__turnClass = false;
     new MutationObserver((list) => {
       for (const m of list) {
         if (m.type === 'attributes') {
           if (/\bturn--/.test(m.target.className)) window.__turnClass = true; // the superseded page turn
-          // A record holds the value before the change; the value after is the next record's oldValue, or the current one.
-          const later = list.slice(list.indexOf(m) + 1).find((r) => r.type === 'attributes' && r.target === m.target);
-          const was = /\bwashi--restick\b/.test(m.oldValue ?? '');
-          const on = /\bwashi--restick\b/.test(later ? later.oldValue ?? '' : m.target.className);
-          if (on !== was) window.__resticks.push({ on, t: performance.now() });
           continue;
         }
         for (const n of m.addedNodes) {
@@ -88,12 +82,11 @@ export async function watchFlips(page) {
           if (f) f.removed = performance.now();
         }
       }
-    }).observe(document, { subtree: true, childList: true, attributes: true, attributeFilter: ['class'], attributeOldValue: true });
+    }).observe(document, { subtree: true, childList: true, attributes: true, attributeFilter: ['class'] });
   });
 }
 // The flips recorded by watchFlips, without the DOM node.
 export const flipsSeen = (page) => page.evaluate(() => window.__flips.map(({ node, ...f }) => f));
-export const resticksSeen = (page) => page.evaluate(() => window.__resticks);
 
 // Move the fake clock past local midnight, then fire the event the app listens to.
 export async function passMidnight(page, event = 'visibilitychange', at = AFTER_MIDNIGHT) {

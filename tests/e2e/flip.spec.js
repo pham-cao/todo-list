@@ -1,9 +1,13 @@
 import { test, expect } from '@playwright/test';
-import { TODAY, GROUPS_KEY, task, group, open, rows, labels, hash, addTask, passMidnight, watchFlips, flipsSeen, resticksSeen } from './helpers.js';
+import { TODAY, GROUPS_KEY, task, group, open, rows, labels, hash, addTask, passMidnight, watchFlips, flipsSeen } from './helpers.js';
 import AxeBuilder from '@axe-core/playwright';
 import { KEY, UI_KEY, storedJson, tick, box, mouseDrag, longPressDrag, finger, touchDrag } from './helpers.js';
 
 // page-flip end to end tests. Today is Thứ Hai 09/11/2026.
+// --dur-flip and --dur-riffle-step: every lifetime and wait below comes from these two (design.md, Change 2026-11-12).
+const DUR = 700, STEP = 125;
+// The lifetime the timer allows: DUR for one leaf and STEP more for each riffle leaf, plus 100 ms of slack.
+const lifetime = (n) => DUR + (n - 1) * STEP + 100;
 const SEED = [
   task('y1', 'Dọn tủ quần áo', true, '2026-11-08', 1),
   task('t1', 'Gửi báo cáo tuần', false, TODAY, 2),
@@ -37,7 +41,7 @@ const clickAndRead = (page, id) => page.evaluate((id) => {
   };
 }, id);
 
-test('the next arrow turns one leaf forward carrying the old day, then the stage goes within 700 ms', async ({ page }) => {
+test(`the next arrow turns one leaf forward carrying the old day, then the stage goes within ${DUR} ms`, async ({ page }) => {
   await watchFlips(page);
   await open(page, SEED);
   const now = await clickAndRead(page, 'next-day');
@@ -52,8 +56,8 @@ test('the next arrow turns one leaf forward carrying the old day, then the stage
   expect(f.text).toContain('Gửi báo cáo tuần');
   expect(f.text).toContain('Tập yoga 30 phút');
   expect(f.text).not.toContain('Đặt bánh sinh nhật');
-  expect(f.removed - f.added).toBeLessThanOrEqual(600 + 100);
-  expect(f.removed - f.added).toBeGreaterThanOrEqual(550);
+  expect(f.removed - f.added).toBeLessThanOrEqual(lifetime(1));
+  expect(f.removed - f.added).toBeGreaterThanOrEqual(DUR - 50);
 });
 
 test('the previous arrow turns one leaf back carrying the new day', async ({ page }) => {
@@ -66,7 +70,7 @@ test('the previous arrow turns one leaf back carrying the new day', async ({ pag
   expect(flips[0]).toMatchObject({ back: true, leaves: 1, blank: 0, ariaHidden: 'true', inert: true, ids: 0 });
   expect(flips[0].text).toContain('Dọn tủ quần áo');
   expect(flips[0].text).not.toContain('Gửi báo cáo tuần');
-  expect(flips[0].removed - flips[0].added).toBeLessThanOrEqual(600 + 100);
+  expect(flips[0].removed - flips[0].added).toBeLessThanOrEqual(lifetime(1));
 });
 
 test('the day, address, picker and focus change in the same task as the click; the leaf copy is never matched', async ({ page }) => {
@@ -98,16 +102,6 @@ test('a move with focus in a removed row hands focus to the add field', async ({
   await expect(stages(page)).toHaveCount(1);
 });
 
-test('the date tape is pressed once per move and loses the class after its animation', async ({ page }) => {
-  await watchFlips(page);
-  await open(page, SEED);
-  await next(page).click();
-  await expect(dateLine(page)).not.toHaveClass(/washi--restick/);
-  const log = await resticksSeen(page);
-  expect(log.map((r) => r.on)).toEqual([true, false]);
-  expect(log[1].t - log[0].t).toBeGreaterThan(200);
-});
-
 test('no stage on load, reload or a bookmarked day', async ({ page }) => {
   await watchFlips(page);
   await open(page, SEED);
@@ -119,7 +113,6 @@ test('no stage on load, reload or a bookmarked day', async ({ page }) => {
   await expect(labels(page)).toHaveText(['Dọn tủ quần áo']);
   await page.waitForTimeout(100);
   expect(await flipsSeen(page)).toEqual([]);
-  expect(await resticksSeen(page)).toEqual([]);
 });
 
 test('no stage on a midnight refresh, an invalid hash or a hash equal to today', async ({ page }) => {
@@ -208,8 +201,6 @@ const pickAndRead = (page, key) => page.evaluate((key) => {
     date: document.getElementById('date-line').textContent,
   };
 }, key);
-// The lifetime the timer allows: 600 ms for one leaf and 125 ms more for each riffle leaf, plus 100 ms of slack.
-const lifetime = (n) => 600 + (n - 1) * 125 + 100;
 
 for (const [key, n] of [['2026-11-10', 1], ['2026-11-11', 2], ['2026-11-12', 3], ['2026-11-18', 3], ['2027-12-14', 3]]) {
   test(`a picker move to ${key} turns ${n} leaf or leaves forward, the top one with the old day, then goes in time`, async ({ page }) => {
@@ -430,7 +421,7 @@ test('a riffle cut by a previous press goes whole, then one back leaf plays from
   expectOneAtATime(await flipsSeen(page));
 });
 
-test('30 presses at 100 ms end on the right day with everything matching and no leaf 950 ms later', async ({ page }) => {
+test(`30 presses at 100 ms end on the right day with everything matching and no leaf ${lifetime(3)} ms later`, async ({ page }) => {
   test.setTimeout(30_000);
   await watchFlips(page);
   await open(page, SEED);
@@ -439,7 +430,7 @@ test('30 presses at 100 ms end on the right day with everything matching and no 
     await next(page).click();
     await page.waitForTimeout(100);
   }
-  await page.waitForTimeout(850); // 950 ms after the last press, counting the wait in the loop
+  await page.waitForTimeout(lifetime(3) - 100); // lifetime(3) after the last press, counting the wait in the loop
   expect(await nodesLeft(page)).toBe(0);
   expect(hash(page)).toBe('#2026-12-09');
   expect(await page.evaluate(() => history.length)).toBe(before + 30);
@@ -452,13 +443,13 @@ test('30 presses at 100 ms end on the right day with everything matching and no 
   expectOneAtATime(flips);
 });
 
-// The removal timer is --dur-flip plus 17 ms (617 ms), counted from the first frame that draws the stage. Presses 617,
-// 625 and 633 ms after the one before race that timer: whichever runs first, there is one stage at a time and none
-// left over.
-test('presses at 599, 600 and 601 ms, then at the 617 ms timer edge, never leave two stages or a leftover', async ({ page }) => {
+// The removal timer is --dur-flip plus 17 ms (DUR + 17), counted from the first frame that draws the stage. Presses
+// DUR + 17, DUR + 25 and DUR + 33 ms after the one before race that timer: whichever runs first, there is one stage at
+// a time and none left over.
+test(`presses at ${DUR - 1}, ${DUR} and ${DUR + 1} ms, then at the ${DUR + 17} ms timer edge, never leave two stages or a leftover`, async ({ page }) => {
   await watchFlips(page);
   await open(page, SEED);
-  const counts = await page.evaluate(() => new Promise((done) => {
+  const counts = await page.evaluate((DUR) => new Promise((done) => {
     const seen = [];
     const press = () => {
       document.getElementById('next-day').click();
@@ -466,10 +457,10 @@ test('presses at 599, 600 and 601 ms, then at the 617 ms timer edge, never leave
     };
     const after = (ms, then) => setTimeout(() => { press(); then?.(); }, ms);
     press();
-    setTimeout(press, 599);
-    setTimeout(press, 600);
-    after(601, () => after(617, () => after(625, () => after(633, () => done(seen)))));
-  }));
+    setTimeout(press, DUR - 1);
+    setTimeout(press, DUR);
+    after(DUR + 1, () => after(DUR + 17, () => after(DUR + 25, () => after(DUR + 33, () => done(seen)))));
+  }), DUR);
   expect(counts).toEqual([1, 1, 1, 1, 1, 1, 1]);
   await expect(page.locator('#day-picker')).toHaveValue('2026-11-16');
   await expect.poll(() => nodesLeft(page)).toBe(0);
@@ -511,7 +502,7 @@ test('typing a date into the picker moves on each valid date and ends on the typ
   await expect(page.locator('#day-picker')).toHaveValue('2026-12-12');
   await expect.poll(() => hash(page)).toBe('#2026-12-12');
   await expect(dateLine(page)).toHaveText('Thứ Bảy, 12/12/2026');
-  await page.waitForTimeout(950);
+  await page.waitForTimeout(lifetime(3));
   expect(await nodesLeft(page)).toBe(0);
   // Each distinct valid date the picker reported, other than the day it started on, is one move (R17); empty values
   // and partial years are ignored.
@@ -524,21 +515,39 @@ test('typing a date into the picker moves on each valid date and ends on the typ
   expectOneAtATime(flips);
 });
 
-test('reduced motion switched on during a riffle removes it at once with no helper class left; off again flips', async ({ page }) => {
+// The flip always plays, also when the system asks for reduced motion (owner, 2026-11-12; R28, R29 as amended).
+test('reduced motion switched on during a riffle leaves it running to its normal end', async ({ page }) => {
   await watchFlips(page);
   await open(page, SEED);
   await pickAndRead(page, '2026-11-15');
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await expect(stages(page)).toHaveCount(0);
-  await expect(dateLine(page)).not.toHaveClass(/washi--restick/);
-  const [f] = await flipsSeen(page);
-  expect(f.removed - f.added).toBeLessThan(500); // the riffle lives 850 ms: the setting ended it, not the timer
-  await page.emulateMedia({ reducedMotion: 'no-preference' });
-  await next(page).click();
-  expect(await settled(page, 2)).toEqual([flip(false, 3), flip(false, 1)]);
+  await page.waitForTimeout(100);
+  await expect(stages(page)).toHaveCount(1);
+  const [f] = await settled(page, 1);
+  expect(f).toEqual(flip(false, 3));
+  const [seen] = await flipsSeen(page);
+  expect(seen.removed - seen.added).toBeGreaterThanOrEqual(lifetime(3) - 150); // the timer ended it, not the setting
+  expect(seen.removed - seen.added).toBeLessThanOrEqual(lifetime(3));
 });
 
-test('a hidden page changes the day with no stage and no tape press', async ({ page }) => {
+for (const [how, act, n, back] of [
+  ['the next arrow', (page) => next(page).click(), 1, false],
+  ['the previous arrow', (page) => prev(page).click(), 1, true],
+  ['a picker jump of 6 days', (page) => pickAndRead(page, '2026-11-15'), 3, false],
+]) {
+  test(`under reduced motion ${how} builds a stage with ${n} leaf or leaves and the normal lifetime`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await watchFlips(page);
+    await open(page, SEED);
+    await act(page);
+    expect(await settled(page, 1)).toEqual([flip(back, n)]);
+    const [f] = await flipsSeen(page);
+    expect(f.removed - f.added).toBeLessThanOrEqual(lifetime(n));
+    expect(f.removed - f.added).toBeGreaterThanOrEqual(lifetime(n) - 150);
+  });
+}
+
+test('a hidden page changes the day with no stage', async ({ page }) => {
   await fakeVisibility(page);
   await watchFlips(page);
   await open(page, SEED);
@@ -549,7 +558,6 @@ test('a hidden page changes the day with no stage and no tape press', async ({ p
   await expect(dateLine(page)).toHaveText('Thứ Ba, 03/11/2026');
   await page.waitForTimeout(100);
   expect(await flipsSeen(page)).toEqual([]);
-  expect(await resticksSeen(page)).toEqual([]);
 });
 
 test('the page going hidden during a flip ends it at once', async ({ page }) => {
@@ -566,11 +574,11 @@ test('the page going hidden during a flip ends it at once', async ({ page }) => 
   await expect(dateLine(page)).toHaveText('Ngày mai, Thứ Ba, 10/11/2026');
 });
 
-test('a window blur during a riffle leaves no stage after 850 ms', async ({ page }) => {
+test(`a window blur during a riffle leaves no stage after ${DUR + 2 * STEP + 50} ms`, async ({ page }) => {
   await open(page, SEED);
   await pickAndRead(page, '2026-11-15');
   await page.evaluate(() => dispatchEvent(new Event('blur')));
-  await page.waitForTimeout(850 + 50); // the timer starts at the first frame
+  await page.waitForTimeout(DUR + 2 * STEP + 50); // the timer starts at the first frame
   expect(await nodesLeft(page)).toBe(0);
 });
 
@@ -612,7 +620,7 @@ test('the midnight refresh during a flip ends it and shows the new today', async
   await expect(labels(page)).toHaveText(['Đặt bánh sinh nhật', 'Mang áo khoác đi giặt']);
 });
 
-test('without 3D support a move changes the day with no stage, no tape press and no error', async ({ page }) => {
+test('without 3D support a move changes the day with no stage and no error', async ({ page }) => {
   const errors = [];
   page.on('pageerror', (e) => errors.push(e.message));
   page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
@@ -628,7 +636,6 @@ test('without 3D support a move changes the day with no stage, no tape press and
   await expect(dateLine(page)).toHaveText('Thứ Hai, 02/11/2026');
   await page.waitForTimeout(100);
   expect(await flipsSeen(page)).toEqual([]);
-  expect(await resticksSeen(page)).toEqual([]);
   expect(errors).toEqual([]);
 });
 
@@ -655,7 +662,7 @@ test('a theme change during a riffle leaves no stage, and the next leaf back use
   await open(page, SEED);
   await pickAndRead(page, '2026-11-15');
   await page.emulateMedia({ colorScheme: 'light' });
-  await page.waitForTimeout(850 + 100);
+  await page.waitForTimeout(DUR + 2 * STEP + 100);
   expect(await nodesLeft(page)).toBe(0);
   const back = await page.evaluate(() => {
     document.getElementById('next-day').click();
@@ -682,7 +689,7 @@ test('30 moves leave zero leaf nodes and the same listener count on window, docu
     await (k % 2 ? prev(page) : next(page)).click();
     await page.waitForTimeout(50);
   }
-  await page.waitForTimeout(950);
+  await page.waitForTimeout(lifetime(3));
   expect(await nodesLeft(page)).toBe(0);
   expect(await listeners()).toEqual(before);
   await cdp.detach();
@@ -728,7 +735,7 @@ test('a held Enter on next: the first down flips, each repeat moves at once with
   expectOneAtATime(await flipsSeen(page));
 });
 
-test('one repeat gives 1 leaf on release, and 5 repeats give 3 leaves gone within 950 ms', async ({ page }) => {
+test(`one repeat gives 1 leaf on release, and 5 repeats give 3 leaves gone within ${DUR + 2 * STEP} ms`, async ({ page }) => {
   await watchFlips(page);
   await open(page, SEED);
   await next(page).focus();
@@ -743,13 +750,13 @@ test('one repeat gives 1 leaf on release, and 5 repeats give 3 leaves gone withi
   expect(last.removed - last.added).toBeLessThan(lifetime(3));
 });
 
-test('a 40 repeat hold ends on the right day with 3 leaves and no leaf 950 ms after the release', async ({ page }) => {
+test(`a 40 repeat hold ends on the right day with 3 leaves and no leaf ${lifetime(3)} ms after the release`, async ({ page }) => {
   await watchFlips(page);
   await open(page, SEED);
   await next(page).focus();
   await hold(page, 'Enter', 40);
   await page.keyboard.up('Enter');
-  await page.waitForTimeout(950);
+  await page.waitForTimeout(lifetime(3));
   expect(await nodesLeft(page)).toBe(0);
   expect(hash(page)).toBe('#2026-12-20');
   await expect(page.locator('#day-picker')).toHaveValue('2026-12-20');
@@ -894,7 +901,7 @@ test('a held Enter on Về hôm nay moves to today once with at most one flip an
   await hold(page, 'Enter', 4);
   await page.keyboard.up('Enter');
   await expect(dateLine(page)).toHaveText('Hôm nay, Thứ Hai, 09/11/2026');
-  await page.waitForTimeout(950);
+  await page.waitForTimeout(lifetime(3));
   expect((await flipsSeen(page)).length).toBeLessThanOrEqual(1);
   expect(await nodesLeft(page)).toBe(0);
   expect(errors).toEqual([]);
@@ -1199,16 +1206,23 @@ test.describe('T6: working on the page during a flip', () => {
     expect((await storedJson(page, KEY)).map((t) => t.id)).toEqual(['t1', 't2', 'm1', 'm2']);
   });
 
-  test('under reduced motion CSS hides a stage injected by hand', async ({ page }) => {
+  test('under reduced motion a real move shows its stage and every leaf animation lasts --dur-flip', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await seed(page);
-    const display = await page.evaluate(() => {
-      const s = document.createElement('div');
-      s.className = 'flip-stage';
-      document.querySelector('.sheet').append(s);
-      return getComputedStyle(s).display;
+    const r = await page.evaluate(() => {
+      const p = document.getElementById('day-picker');
+      p.value = '2026-11-12';
+      p.dispatchEvent(new Event('change'));
+      const stage = document.querySelector('.flip-stage');
+      return {
+        display: getComputedStyle(stage).display,
+        durations: [...new Set(stage.getAnimations({ subtree: true }).map((a) => a.effect.getTiming().duration))],
+        delays: [...new Set(stage.getAnimations({ subtree: true }).map((a) => a.effect.getTiming().delay))].sort((x, y) => x - y),
+      };
     });
-    expect(display).toBe('none');
+    expect(r.display).toBe('block');
+    expect(r.durations).toEqual([DUR]);
+    expect(r.delays).toEqual([0, STEP, 2 * STEP]); // the riffle steps are not cut either
   });
 
   for (const [how, act] of [['an arrow', (page) => next(page).click()], ['a riffle', (page) => page.evaluate(() => { const p = document.getElementById('day-picker'); p.value = '2026-11-20'; p.dispatchEvent(new Event('change')); })]]) {
@@ -1344,14 +1358,13 @@ test.describe('T7: layout, phones and dark mode', () => {
   };
 
   for (const [width, height] of WIDTHS) {
-    test(`a scrolled page at ${width} px: the leaf copy lines up with the page through --flip-offset, the tape presses, no overflow`, async ({ page }) => {
+    test(`a scrolled page at ${width} px: the leaf copy lines up with the page through --flip-offset, no overflow`, async ({ page }) => {
       await page.setViewportSize({ width, height });
       await watchFlips(page);
       await open(page, SCROLL);
       linedUp(await scrolledMove(page, 'next-day', 1200), 30); // forward: the old page's copy as the old rows sat
       await playOut(page);
       linedUp(await scrolledMove(page, 'prev-day', 1200), 30); // back: the new page's copy on the new rows
-      expect((await resticksSeen(page)).filter((r) => r.on)).toHaveLength(2);
     });
   }
 
@@ -1433,7 +1446,6 @@ test.describe('T7: layout, phones and dark mode', () => {
     await expect(dateLine(page)).toHaveText('Hôm nay, Thứ Hai, 09/11/2026');
     expect(hash(page)).toBe('');
     expect(await flipsSeen(page)).toEqual([]);
-    expect(await resticksSeen(page)).toEqual([]);
   });
 
   test('a sideways swipe on an empty part of the page changes no day and plays no flip', async ({ page, isMobile }) => {
@@ -1588,7 +1600,7 @@ test.describe('T7: layout, phones and dark mode', () => {
     await open(page, SEED);
     await pick(page, '2026-11-15');
     await page.emulateMedia({ colorScheme: 'dark' });
-    await page.waitForTimeout(850 + 100);
+    await page.waitForTimeout(DUR + 2 * STEP + 100);
     await expect(stages(page)).toHaveCount(0);
     const c = await leafColours(page, '2026-11-14');
     expect(c.leaf).toEqual([DARK_PAPER]);
@@ -1802,6 +1814,21 @@ test.describe('T8b: perceptible flip motion (BUG-028)', () => {
       }
     });
   }
+
+  // The owner's machine reports reduced motion (GNOME); the flip still plays whole (owner, 2026-11-12).
+  test('under reduced motion a forward flip and a 3 leaf riffle visibly turn in real time for the whole --dur-flip', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await open(page, SEED);
+    for (const [move, n] of [['next-day', 1], ['#2026-11-13', 3]]) {
+      await page.waitForTimeout(200);
+      const r = await sweep(page, move);
+      expect(r.leaves, move).toBe(n);
+      expect(r.dur, move).toBe(DUR);
+      expect(r.samples.at(-1).t - r.samples[0].t, `${move}: ms the leaf was drawn`).toBeGreaterThanOrEqual(DUR + (n - 1) * STEP - 50);
+      perceptible(r, `reduced motion ${move}`);
+    }
+  });
 
   test('a forward flip off a 200 task day visibly turns in real time', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });

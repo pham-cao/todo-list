@@ -987,12 +987,12 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
    Forward (a later day): the leaf is a copy of the old page, hinged at the punched holes, and turns up towards the owner
    until it stands edge on at the holes. Back (an earlier day): the same motion played in reverse with a copy of the new
    page, so the leaf lands from the holes onto the page. Riffle: up to two blank ruled leaves, each one --dur-riffle-step
-   after the one before it.
+   after the one before it. The flip always plays, also under prefers-reduced-motion (owner decision 2026-11-12).
    Stage geometry is set inline by script: --flip-top and --flip-h (the visible part of the sheet body, in sheet
    coordinates) and --flip-offset (how much of the sheet body is scrolled above the window). */
 :root {
-  --dur-flip: 600ms;                     /* one leaf, phones and desktop (BUG-028: 450 ms read as a flicker) */
-  --dur-riffle-step: 125ms;              /* start of one riffle leaf to the start of the next; 3 leaves end at 850 ms */
+  --dur-flip: 700ms;                     /* one leaf, phones and desktop (owner, 2026-11-12; 450 ms read as a flicker) */
+  --dur-riffle-step: 125ms;              /* start of one riffle leaf to the start of the next; 3 leaves end at 950 ms */
   --ease-flip: cubic-bezier(0.4, 0, 0.6, 1); /* moves at once, eases into the rings; the same shape reversed */
   --flip-perspective: 1800px;
   --color-leaf-back: #ECE5D4;            /* back of a leaf: the same paper, turned away from the light */
@@ -1074,4 +1074,8 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
   30% { opacity: 1; transform: scaleX(0.82); }
   to { opacity: 0; transform: scaleX(0.04); }
 }
-@media (prefers-reduced-motion: reduce) { .flip-stage { display: none; } } /* script builds none either (R28) */
+/* The global reduced motion rule cuts every animation to 1 ms; the flip always plays whole (owner, 2026-11-12). Both
+   are !important and .flip-stage * is more specific than *, so this wins in any order. Delays are untouched. */
+@media (prefers-reduced-motion: reduce) {
+  .flip-stage, .flip-stage * { animation-duration: var(--dur-flip) !important; }
+}

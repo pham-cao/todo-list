@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { TODAY, NOW, KEY, AFTER_MIDNIGHT, task, open, rows, labels, progress, hash, stored, storedRaw, addTask, tick, passMidnight, watchFlips, flipsSeen, resticksSeen } from './helpers.js';
+import { TODAY, NOW, KEY, AFTER_MIDNIGHT, task, open, rows, labels, progress, hash, stored, storedRaw, addTask, tick, passMidnight, watchFlips, flipsSeen } from './helpers.js';
 
 const heading = (page) => page.getByRole('heading', { level: 1 });
 const dateLine = (page) => page.locator('#date-line');
@@ -760,30 +760,26 @@ test('after midnight on an all done day nothing celebrates again and no page tur
   await expect(dateLine(page)).toHaveText('Chủ Nhật, 08/11/2026');
   await expect(progress(page)).toHaveClass(/progress--complete/);
   await expect(progress(page)).not.toHaveClass(/progress--celebrate/);
-  await expect(page.locator('.flip-stage, .washi--restick')).toHaveCount(0);
+  await expect(page.locator('.flip-stage')).toHaveCount(0);
   expect(await flipsSeen(page)).toEqual([]);
-  expect(await resticksSeen(page)).toEqual([]);
 });
 
 // T7: page turn motion, keyboard order, size and speed. The turn is the page flip (page-flip): watchFlips records
-// every stage, so a 600 ms leaf cannot slip between two checks.
+// every stage, so a 700 ms leaf cannot slip between two checks.
 const stages = (page) => page.locator('.flip-stage');
 
-test('a move flips a leaf by direction and the stage and tape class go after the animation', async ({ page }) => {
+test('a move flips a leaf by direction and the stage goes after the animation', async ({ page }) => {
   await watchFlips(page);
   await open(page, SEED);
   await page.getByRole('button', { name: 'Xem ngày sau' }).click();
   await expect(stages(page)).toHaveCount(0);
-  await expect(dateLine(page)).not.toHaveClass(/washi--restick/);
   await page.getByRole('button', { name: 'Xem ngày trước' }).click();
   await expect(stages(page)).toHaveCount(0);
-  await expect(dateLine(page)).not.toHaveClass(/washi--restick/);
   // Browser Back is a move too: back from today to tomorrow flips forward.
   await page.goBack();
   await expect(dateLine(page)).toHaveText('Ngày mai, Thứ Ba, 10/11/2026');
   await expect(stages(page)).toHaveCount(0);
   expect((await flipsSeen(page)).map((f) => f.back)).toEqual([false, true, false]);
-  expect((await resticksSeen(page)).filter((r) => r.on)).toHaveLength(3);
 });
 
 test('loading a day plays no page flip', async ({ page }) => {
@@ -793,10 +789,10 @@ test('loading a day plays no page flip', async ({ page }) => {
   await page.reload();
   await expect(dateLine(page)).toHaveText('Hôm qua, Chủ Nhật, 08/11/2026');
   expect(await flipsSeen(page)).toEqual([]);
-  expect(await resticksSeen(page)).toEqual([]);
 });
 
-test('with reduced motion a move changes the day and plays no page flip', async ({ page }) => {
+// The flip always plays, also under reduced motion (owner, 2026-11-12; R28, R29 as amended).
+test('with reduced motion a move changes the day at once and plays one flip by direction', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await watchFlips(page);
   await open(page, SEED);
@@ -805,16 +801,17 @@ test('with reduced motion a move changes the day and plays no page flip', async 
   await expect(rows(page)).toHaveCount(3);
   await page.getByRole('button', { name: 'Xem ngày sau' }).click();
   await expect(dateLine(page)).toHaveText('Hôm nay, Thứ Hai, 09/11/2026');
-  // A 6 day jump, Về hôm nay and browser Back: each changes the day at once with no riffle either (R28).
+  // A 6 day jump, Về hôm nay and browser Back: each changes the day at once and plays its flip or riffle.
   await page.locator('#day-picker').fill('2026-11-15');
   await expect(dateLine(page)).toHaveText('Chủ Nhật, 15/11/2026');
   await page.getByRole('button', { name: 'Về hôm nay' }).click();
   await expect(dateLine(page)).toHaveText('Hôm nay, Thứ Hai, 09/11/2026');
   await page.goBack();
   await expect(dateLine(page)).toHaveText('Chủ Nhật, 15/11/2026');
-  await page.waitForTimeout(100);
-  expect(await flipsSeen(page)).toEqual([]);
-  expect(await resticksSeen(page)).toEqual([]);
+  await expect.poll(async () => (await flipsSeen(page)).filter((f) => f.removed).length).toBe(5);
+  expect((await flipsSeen(page)).map(({ back, leaves }) => ({ back, leaves }))).toEqual([
+    { back: true, leaves: 1 }, { back: false, leaves: 1 }, { back: false, leaves: 3 }, { back: true, leaves: 3 }, { back: false, leaves: 3 },
+  ]);
 });
 
 test('Tab from the page start reaches previous, next, Chọn ngày, Về hôm nay, then the add field', async ({ page }) => {

@@ -686,8 +686,9 @@ const drag = createDrag({
   onStart: () => closeSwipes(),
   onEnd: dropOrCancel,
 });
-// Page flip (page-flip R1 to R12): a visual layer of leaves over the sheet on a day change only.
-const flip = createFlip({ sheet: document.querySelector(".sheet"), body: els.sheetBody, date: els.date });
+// Page flip (page-flip R1 to R12): a visual layer of leaves over the sheet on a day change only. It always plays, also
+// under reduced motion, and no longer presses the date tape (owner, 2026-11-12).
+const flip = createFlip({ sheet: document.querySelector(".sheet"), body: els.sheetBody });
 
 // A release on another group that still exists moves the task the same way as the edit form: one write of groupId
 // only, then moveRow (creation order, unfold, filter, focus, the moved text) (R13 to R15, R23, R33, R34, R36).
