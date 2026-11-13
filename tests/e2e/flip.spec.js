@@ -1,13 +1,24 @@
 import { test, expect } from '@playwright/test';
-import { TODAY, GROUPS_KEY, task, group, open, rows, labels, hash, addTask, passMidnight, watchFlips, flipsSeen } from './helpers.js';
+import { TODAY, NOW, GROUPS_KEY, task, group, open, rows, labels, hash, addTask, passMidnight, watchFlips, flipsSeen } from './helpers.js';
 import AxeBuilder from '@axe-core/playwright';
 import { KEY, UI_KEY, storedJson, tick, box, mouseDrag, longPressDrag, finger, touchDrag } from './helpers.js';
 
 // page-flip end to end tests. Today is Thứ Hai 09/11/2026.
 // --dur-flip and --dur-riffle-step: every lifetime and wait below comes from these two (design.md, Change 2026-11-12).
 const DUR = 700, STEP = 125;
-// The lifetime the timer allows: DUR for one leaf and STEP more for each riffle leaf, plus 100 ms of slack.
+// The lifetime the timer allows: DUR for one page and STEP more for each riffle page, plus 100 ms of slack (for waits).
 const lifetime = (n) => DUR + (n - 1) * STEP + 100;
+// The end timer for n pages, counted from the first animation frame (BUG-028): DUR, STEP per riffle page, one frame.
+const life = (n) => DUR + (n - 1) * STEP + 17;
+// A stage that ran to its end lived from its first frame between life - 60 and life + 100 ms (design.md, T13): the last
+// book's own end may come a little before the timer, never later than the timer plus a frame or two.
+const expectLife = (f, n) => {
+  expect(f.first, 'first frame recorded').not.toBeNull();
+  expect(f.removed - f.first).toBeGreaterThanOrEqual(life(n) - 60);
+  expect(f.removed - f.first).toBeLessThanOrEqual(life(n) + 100);
+};
+// The page with words that turns (the top layer's own front page, not the clone the library turns, not .leaf--base).
+const TOP = '.flip-stage .flip-layer:last-child .leaf--front:not(.leaf--front ~ .leaf--front)';
 const SEED = [
   task('y1', 'Dọn tủ quần áo', true, '2026-11-08', 1),
   task('t1', 'Gửi báo cáo tuần', false, TODAY, 2),
@@ -49,15 +60,14 @@ test(`the next arrow turns one leaf forward carrying the old day, then the stage
   expect(now.stageStyle).toEqual(['none', 'none']);
   expect(now.tabbable).toBe(0);
   await expect(stages(page)).toHaveCount(0);
-  await expect(page.locator('.leaf, .leaf-cast')).toHaveCount(0);
+  await expect(page.locator('.flip-layer, .leaf')).toHaveCount(0);
   const [f] = await flipsSeen(page);
   expect(await flipsSeen(page)).toHaveLength(1);
   expect(f).toMatchObject({ back: false, leaves: 1, blank: 0, ariaHidden: 'true', inert: true, ids: 0 });
   expect(f.text).toContain('Gửi báo cáo tuần');
   expect(f.text).toContain('Tập yoga 30 phút');
   expect(f.text).not.toContain('Đặt bánh sinh nhật');
-  expect(f.removed - f.added).toBeLessThanOrEqual(lifetime(1));
-  expect(f.removed - f.added).toBeGreaterThanOrEqual(DUR - 50);
+  expectLife(f, 1);
 });
 
 test('the previous arrow turns one leaf back carrying the new day', async ({ page }) => {
@@ -70,7 +80,7 @@ test('the previous arrow turns one leaf back carrying the new day', async ({ pag
   expect(flips[0]).toMatchObject({ back: true, leaves: 1, blank: 0, ariaHidden: 'true', inert: true, ids: 0 });
   expect(flips[0].text).toContain('Dọn tủ quần áo');
   expect(flips[0].text).not.toContain('Gửi báo cáo tuần');
-  expect(flips[0].removed - flips[0].added).toBeLessThanOrEqual(lifetime(1));
+  expectLife(flips[0], 1);
 });
 
 test('the day, address, picker and focus change in the same task as the click; the leaf copy is never matched', async ({ page }) => {
@@ -159,7 +169,7 @@ const actAndCount = (page, act) => page.evaluate((act) => {
   if (act === 'storage') dispatchEvent(new StorageEvent('storage', { key: null }));
   if (act === 'filter') document.getElementById('group-filter').dispatchEvent(new Event('change'));
   if (act === 'delete') document.querySelector('#day-list .task [data-action="remove"]').click();
-  return document.querySelectorAll('.flip-stage, .leaf, .leaf-cast').length;
+  return document.querySelectorAll('.flip-stage, .flip-layer, .leaf').length;
 }, act);
 
 for (const act of ['add', 'storage', 'filter', 'delete']) {
@@ -169,7 +179,7 @@ for (const act of ['add', 'storage', 'filter', 'delete']) {
     await expect(stages(page)).toHaveCount(1);
     const left = await actAndCount(page, act);
     // Xóa opens the delete note; the dialog's toggle event, queued one task later, ends the flip (R37).
-    if (act === 'delete') expect(await page.evaluate(() => new Promise((r) => setTimeout(() => r(document.querySelectorAll('.flip-stage, .leaf, .leaf-cast').length))))).toBe(0);
+    if (act === 'delete') expect(await page.evaluate(() => new Promise((r) => setTimeout(() => r(document.querySelectorAll('.flip-stage, .flip-layer, .leaf').length))))).toBe(0);
     else expect(left).toBe(0);
     if (act === 'add') {
       await expect(labels(page)).toHaveText(['Đặt bánh sinh nhật', 'Mang áo khoác đi giặt', 'Mua quà']);
@@ -191,13 +201,13 @@ const pickAndRead = (page, key) => page.evaluate((key) => {
   p.dispatchEvent(new Event('change'));
   const stage = document.querySelector('.flip-stage');
   if (!stage) return null;
-  const i = (el) => Number(el.style.getPropertyValue('--i'));
+  // One layer per page, bottom first; each layer's own turning page. The start order is checked in real time (T14).
   return {
     back: stage.classList.contains('flip-stage--back'),
-    leaves: [...stage.querySelectorAll('.leaf')].map((l) => ({
-      i: i(l), blank: l.classList.contains('leaf--blank'), content: !!l.querySelector('.leaf__content'),
+    leaves: [...stage.querySelectorAll('.flip-layer')].map((l) => l.querySelector('.leaf--front')).map((l) => ({
+      blank: l.classList.contains('leaf--blank'), content: !!l.querySelector('.leaf__content'),
     })),
-    casts: [...stage.querySelectorAll('.leaf-cast')].map(i),
+    base: [...stage.querySelectorAll('.leaf--base .leaf__content')].map((c) => c.textContent.includes('Gửi báo cáo tuần')),
     date: document.getElementById('date-line').textContent,
   };
 }, key);
@@ -208,17 +218,16 @@ for (const [key, n] of [['2026-11-10', 1], ['2026-11-11', 2], ['2026-11-12', 3],
     await open(page, SEED);
     const s = await pickAndRead(page, key);
     expect(s.back).toBe(false);
-    // Forward: --i is n - 1 - k, so the top leaf with the old page (last in the stage) starts first.
-    expect(s.leaves).toEqual(Array.from({ length: n }, (_, k) => (
-      { i: n - 1 - k, blank: k < n - 1, content: k === n - 1 })));
-    expect(s.casts).toEqual(s.leaves.map((l) => l.i));
+    // Forward: the top page with the old day is last in the stage, over the blanks; no base copy. (The old --i and
+    // .leaf-cast checks are gone: the curl has no CSS delays or cast; T14 checks the start order in real time.)
+    expect(s.leaves).toEqual(Array.from({ length: n }, (_, k) => ({ blank: k < n - 1, content: k === n - 1 })));
+    expect(s.base).toEqual([]);
     await expect(stages(page)).toHaveCount(0);
     const flips = await flipsSeen(page);
     expect(flips).toHaveLength(1);
     expect(flips[0]).toMatchObject({ back: false, leaves: n, blank: n - 1, ids: 0 });
     expect(flips[0].text).toContain('Gửi báo cáo tuần');
-    expect(flips[0].removed - flips[0].added).toBeLessThanOrEqual(lifetime(n));
-    expect(flips[0].removed - flips[0].added).toBeGreaterThanOrEqual(lifetime(n) - 150);
+    expectLife(flips[0], n);
   });
 }
 
@@ -228,15 +237,15 @@ for (const [key, n] of [['2026-11-08', 1], ['2026-11-07', 2], ['2026-11-06', 3],
     await open(page, SEED);
     const s = await pickAndRead(page, key);
     expect(s.back).toBe(true);
-    // Back: --i is k, so the blank leaves land first and the copy of the new page lands last, on top.
-    expect(s.leaves).toEqual(Array.from({ length: n }, (_, k) => ({ i: k, blank: k < n - 1, content: k === n - 1 })));
-    expect(s.casts).toEqual(s.leaves.map((l) => l.i));
+    // Back: the copy of the new page is on top over the blanks, and a copy of the old day lies under them all.
+    expect(s.leaves).toEqual(Array.from({ length: n }, (_, k) => ({ blank: k < n - 1, content: k === n - 1 })));
+    expect(s.base).toEqual([true]);
     await expect(stages(page)).toHaveCount(0);
     const [f] = await flipsSeen(page);
     expect(f).toMatchObject({ back: true, leaves: n, blank: n - 1 });
     expect(f.text).not.toContain('Gửi báo cáo tuần');
     if (key === '2026-11-08') expect(f.text).toContain('Dọn tủ quần áo');
-    expect(f.removed - f.added).toBeLessThanOrEqual(lifetime(n));
+    expectLife(f, n);
   });
 }
 
@@ -251,7 +260,7 @@ for (const [from, back, n] of [['2026-11-08', false, 1], ['2026-11-03', false, 3
     const flips = await flipsSeen(page);
     expect(flips).toHaveLength(1);
     expect(flips[0]).toMatchObject({ back, leaves: n, blank: n - 1 });
-    expect(flips[0].removed - flips[0].added).toBeLessThanOrEqual(lifetime(n));
+    expectLife(flips[0], n);
   });
 }
 
@@ -371,7 +380,7 @@ test('keys compare as text across a year end: 31/12 to 1/1 flips forward, and ba
 });
 
 // T4: rapid moves and interruptions (R7, R14, R16, R17, R28, R29, R36 to R39, NFR4, NFR7).
-const nodesLeft = (page) => page.evaluate(() => document.querySelectorAll('.flip-stage, .leaf, .leaf-cast').length);
+const nodesLeft = (page) => page.evaluate(() => document.querySelectorAll('.flip-stage, .flip-layer, .leaf').length);
 // The observer log never shows two stages at once: each stage is gone before the next one comes (R14).
 const expectOneAtATime = (flips) => {
   for (let k = 1; k < flips.length; k++) {
@@ -412,9 +421,9 @@ test('a riffle cut by a previous press goes whole, then one back leaf plays from
   await page.waitForTimeout(200);
   const left = await page.evaluate(() => {
     document.getElementById('prev-day').click();
-    return [...document.querySelectorAll('.flip-stage')].map((s) => s.querySelectorAll('.leaf').length);
+    return [...document.querySelectorAll('.flip-stage')].map((s) => s.querySelectorAll('.flip-layer').length);
   });
-  expect(left).toEqual([1]); // the 3 leaves of the riffle went together; only the new stage is there
+  expect(left).toEqual([1]); // the 3 pages of the riffle went together; only the new stage is there
   await expect(page.locator('#day-picker')).toHaveValue('2026-11-14');
   const flips = await settled(page, 2);
   expect(flips).toEqual([flip(false, 3), flip(true, 1)]);
@@ -526,8 +535,7 @@ test('reduced motion switched on during a riffle leaves it running to its normal
   const [f] = await settled(page, 1);
   expect(f).toEqual(flip(false, 3));
   const [seen] = await flipsSeen(page);
-  expect(seen.removed - seen.added).toBeGreaterThanOrEqual(lifetime(3) - 150); // the timer ended it, not the setting
-  expect(seen.removed - seen.added).toBeLessThanOrEqual(lifetime(3));
+  expectLife(seen, 3); // it ran to its end, not cut by the setting
 });
 
 for (const [how, act, n, back] of [
@@ -542,8 +550,7 @@ for (const [how, act, n, back] of [
     await act(page);
     expect(await settled(page, 1)).toEqual([flip(back, n)]);
     const [f] = await flipsSeen(page);
-    expect(f.removed - f.added).toBeLessThanOrEqual(lifetime(n));
-    expect(f.removed - f.added).toBeGreaterThanOrEqual(lifetime(n) - 150);
+    expectLife(f, n);
   });
 }
 
@@ -568,7 +575,7 @@ test('the page going hidden during a flip ends it at once', async ({ page }) => 
   const left = await page.evaluate(() => {
     window.__hidden = true;
     document.dispatchEvent(new Event('visibilitychange'));
-    return document.querySelectorAll('.flip-stage, .leaf, .leaf-cast').length;
+    return document.querySelectorAll('.flip-stage, .flip-layer, .leaf').length;
   });
   expect(left).toBe(0);
   await expect(dateLine(page)).toHaveText('Ngày mai, Thứ Ba, 10/11/2026');
@@ -588,7 +595,7 @@ test('a storage event on the groups key ends a running flip at once and the page
   await expect(stages(page)).toHaveCount(1);
   const left = await page.evaluate((key) => {
     dispatchEvent(new StorageEvent('storage', { key }));
-    return document.querySelectorAll('.flip-stage, .leaf, .leaf-cast').length;
+    return document.querySelectorAll('.flip-stage, .flip-layer, .leaf').length;
   }, GROUPS_KEY);
   expect(left).toBe(0);
   await addTask(page, 'Mua quà');
@@ -600,7 +607,7 @@ test('the delete note opening during a flip ends it at once and the note still w
   await next(page).click();
   await expect(stages(page)).toHaveCount(1);
   await page.evaluate(() => document.querySelector('#day-list .task [data-action="remove"]').click());
-  expect(await page.evaluate(() => new Promise((r) => setTimeout(() => r(document.querySelectorAll('.flip-stage, .leaf, .leaf-cast').length))))).toBe(0);
+  expect(await page.evaluate(() => new Promise((r) => setTimeout(() => r(document.querySelectorAll('.flip-stage, .flip-layer, .leaf').length))))).toBe(0);
   const note = page.getByRole('alertdialog');
   await note.getByRole('button', { name: 'Xóa việc' }).click();
   await expect(note).toBeHidden();
@@ -620,14 +627,15 @@ test('the midnight refresh during a flip ends it and shows the new today', async
   await expect(labels(page)).toHaveText(['Đặt bánh sinh nhật', 'Mang áo khoác đi giặt']);
 });
 
-test('without 3D support a move changes the day with no stage and no error', async ({ page }) => {
+// The curl needs 3D transforms and a clip-path polygon with evenodd (the punch); without either, no stage (R39).
+for (const [what, missing] of [['3D support', 'rotateY|perspective'], ['clip-path with evenodd', 'evenodd']]) test(`without ${what} a move changes the day with no stage and no error`, async ({ page }) => {
   const errors = [];
   page.on('pageerror', (e) => errors.push(e.message));
   page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
-  await page.addInitScript(() => {
+  await page.addInitScript((missing) => {
     const supports = CSS.supports.bind(CSS);
-    CSS.supports = (...args) => (/rotateY|perspective/.test(args.join(' ')) ? false : supports(...args));
-  });
+    CSS.supports = (...args) => (new RegExp(missing).test(args.join(' ')) ? false : supports(...args));
+  }, missing);
   await watchFlips(page);
   await open(page, SEED);
   await next(page).click();
@@ -664,10 +672,15 @@ test('a theme change during a riffle leaves no stage, and the next leaf back use
   await page.emulateMedia({ colorScheme: 'light' });
   await page.waitForTimeout(DUR + 2 * STEP + 100);
   expect(await nodesLeft(page)).toBe(0);
-  const back = await page.evaluate(() => {
+  // The back of the sheet is the clone the library turns, there from the turn's first frame.
+  const back = await page.evaluate(() => new Promise((done) => {
     document.getElementById('next-day').click();
-    return getComputedStyle(document.querySelector('.flip-stage .leaf__back')).backgroundColor;
-  });
+    const read = () => {
+      const b = document.querySelector('.flip-book .leaf--front ~ .leaf--front');
+      if (b) done(getComputedStyle(b).backgroundColor); else requestAnimationFrame(read);
+    };
+    read();
+  }));
   expect(back).toBe('rgb(236, 229, 212)'); // the light --color-leaf-back, #ECE5D4
 });
 
@@ -684,6 +697,12 @@ test('30 moves leave zero leaf nodes and the same listener count on window, docu
     }
     return out;
   };
+  // The page curl keeps up to 3 books for the session (one per riffle depth), each with its own listeners; a riffle
+  // and its way back first create them all, so the 30 moves below must add nothing more.
+  await pickAndRead(page, '2026-11-12');
+  await expect(stages(page)).toHaveCount(0);
+  await pickAndRead(page, TODAY);
+  await expect(stages(page)).toHaveCount(0);
   const before = await listeners();
   for (let k = 0; k < 30; k++) {
     await (k % 2 ? prev(page) : next(page)).click();
@@ -747,7 +766,7 @@ test(`one repeat gives 1 leaf on release, and 5 repeats give 3 leaves gone withi
   await expect(dateLine(page)).toHaveText('Thứ Ba, 17/11/2026');
   expect(await settled(page, 4)).toEqual([flip(false, 1), flip(false, 1), flip(false, 1), flip(false, 3)]);
   const last = (await flipsSeen(page))[3];
-  expect(last.removed - last.added).toBeLessThan(lifetime(3));
+  expectLife(last, 3);
 });
 
 test(`a 40 repeat hold ends on the right day with 3 leaves and no leaf ${lifetime(3)} ms after the release`, async ({ page }) => {
@@ -784,7 +803,7 @@ for (const [how, act] of [
     await next(page).focus();
     await hold(page, 'Enter', 2);
     await act(page);
-    expect(await page.evaluate(() => document.querySelectorAll('.flip-stage .leaf').length)).toBe(2);
+    expect(await page.evaluate(() => document.querySelectorAll('.flip-stage .flip-layer').length)).toBe(2);
     await page.keyboard.up('Enter'); // the held key's own release now finds nothing to play
     expect(await settled(page, 2)).toEqual([flip(false, 1), flip(false, 2)]);
     await page.waitForTimeout(200);
@@ -1012,7 +1031,7 @@ test.describe('T6: working on the page during a flip', () => {
     const b = await target.boundingBox();
     const x = b.x + b.width / 2, y = b.y + b.height / 2;
     const at = await page.evaluate(([x, y]) => {
-      const leaf = document.querySelector('.flip-stage .leaf:not(.leaf--blank)').getBoundingClientRect();
+      const leaf = document.querySelector('.flip-stage .flip-layer:last-child .leaf--front:not(.leaf--front ~ .leaf--front)').getBoundingClientRect();
       const hit = document.elementFromPoint(x, y);
       return { covered: x >= leaf.left && x <= leaf.right && y >= leaf.top && y <= leaf.bottom, real: !!hit.closest('#day-list'), leaf: !!hit.closest('.flip-stage') };
     }, [x, y]);
@@ -1206,24 +1225,8 @@ test.describe('T6: working on the page during a flip', () => {
     expect((await storedJson(page, KEY)).map((t) => t.id)).toEqual(['t1', 't2', 'm1', 'm2']);
   });
 
-  test('under reduced motion a real move shows its stage and every leaf animation lasts --dur-flip', async ({ page }) => {
-    await page.emulateMedia({ reducedMotion: 'reduce' });
-    await seed(page);
-    const r = await page.evaluate(() => {
-      const p = document.getElementById('day-picker');
-      p.value = '2026-11-12';
-      p.dispatchEvent(new Event('change'));
-      const stage = document.querySelector('.flip-stage');
-      return {
-        display: getComputedStyle(stage).display,
-        durations: [...new Set(stage.getAnimations({ subtree: true }).map((a) => a.effect.getTiming().duration))],
-        delays: [...new Set(stage.getAnimations({ subtree: true }).map((a) => a.effect.getTiming().delay))].sort((x, y) => x - y),
-      };
-    });
-    expect(r.display).toBe('block');
-    expect(r.durations).toEqual([DUR]);
-    expect(r.delays).toEqual([0, STEP, 2 * STEP]); // the riffle steps are not cut either
-  });
+  // Deleted: 'every leaf animation lasts --dur-flip under reduced motion'. The curl has no CSS animations; T14 checks the
+  // curl in real time under reduced motion instead.
 
   for (const [how, act] of [['an arrow', (page) => next(page).click()], ['a riffle', (page) => page.evaluate(() => { const p = document.getElementById('day-picker'); p.value = '2026-11-20'; p.dispatchEvent(new Event('change')); })]]) {
     test(`the live date line changes once at ${how} move and not at the end of the flip`, async ({ page }) => {
@@ -1276,9 +1279,10 @@ test.describe('T7: layout, phones and dark mode', () => {
       const bare = root.scrollHeight;
       if (stage) stage.style.display = '';
       frames.push({
-        stage: !!stage, leaves: stage ? stage.querySelectorAll('.leaf').length : 0,
+        stage: !!stage, leaves: stage ? stage.querySelectorAll('.flip-layer').length : 0,
         overflowX: root.scrollWidth - root.clientWidth, height, bare,
-        inside: !s || (s.left >= sh.left - 0.5 && s.right <= sh.right + 0.5 && s.top >= sh.top - 0.5 && s.bottom <= sh.bottom + 0.5),
+        inside: !s || [s, ...[...stage.querySelectorAll('.flip-layer')].map((l) => l.getBoundingClientRect())]
+          .every((b) => b.left >= sh.left - 0.5 && b.right <= sh.right + 0.5 && b.top >= sh.top - 0.5 && b.bottom <= sh.bottom + 0.5),
       });
       if (!stage) after++;
       if (after > 3) done(frames); else requestAnimationFrame(read);
@@ -1313,8 +1317,11 @@ test.describe('T7: layout, phones and dark mode', () => {
   // on today at 360 px). `seen` lists the rows of the compared page that are in the window, as [index, left, top], and
   // `leaf` the copy's rows at the same indexes; `title` and `leafTitle` are the page title and its copy, as
   // [left, top, height].
+  // Reads after the second frame's rendering (a task after its animation frame), so the ResizeObserver that refits a
+  // back copy has run for that frame's layout: a read inside the frame's own callback forced its row layout early and
+  // saw the page moved before the copy followed, a state never painted.
   const scrolledMove = (page, id, to, through = false) => page.evaluate(async ([id, to, through]) => {
-    const paint = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+    const paint = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(r))));
     const top0 = () => document.querySelector('.sheet').getBoundingClientRect().top;
     const box = (el) => { const r = el.getBoundingClientRect(); return [Math.round(r.left), Math.round(r.top - top0()), Math.round(r.height)]; };
     const rects = (sel) => {
@@ -1330,15 +1337,31 @@ test.describe('T7: layout, phones and dark mode', () => {
     document.getElementById(id).click();
     const stage = document.querySelector('.flip-stage');
     const back = stage.classList.contains('flip-stage--back');
-    stage.getAnimations({ subtree: true }).forEach((a) => (back ? a.finish() : a.pause()));
-    await paint();
+    await paint(); // the turning page's own front never moves under the curl, it is only cut, so it is read live
     const sheet = document.querySelector('.sheet').getBoundingClientRect();
     const page = back ? rects('#day-list .task__label') : old;
-    const leafTitle = stage.querySelector('.leaf:not(.leaf--blank) .app-header__title');
-    const leaf = rects('.flip-stage .leaf:not(.leaf--blank) .task__label');
+    const top = '.flip-stage .flip-layer:last-child .leaf--front:not(.leaf--front ~ .leaf--front)';
+    const leafTitle = document.querySelector(`${top} .app-header__title`);
+    const leaf = rects(`${top} .task__label`);
     const seen = page.filter((r) => r.seen);
+    // Where a copy that does not line up first differs: the body top (sheet coordinates) and, back, the first row whose
+    // height differs from the row it copies (forward copies the old day, so there is no row to compare).
+    const cBody = document.querySelector(`${top} .sheet__body`), cRows = [...document.querySelectorAll(`${top} .task`)];
+    const rRows = [...document.querySelectorAll('#day-list .task')];
+    const odd = back ? cRows.findIndex((t, i) => Math.round(t.getBoundingClientRect().height) !== Math.round(rRows[i]?.getBoundingClientRect().height)) : -1;
+    const why = JSON.stringify({
+      body: [cBody && Math.round(cBody.getBoundingClientRect().top - top0()), Math.round(document.querySelector('.sheet__body').getBoundingClientRect().top - top0())],
+      odd, heights: odd < 0 ? null : [cRows[odd].getBoundingClientRect().height, rRows[odd]?.getBoundingClientRect().height, cRows[odd].style.height],
+      fonts: document.fonts.status,
+      page: (() => {
+        const f = document.querySelector(top);
+        return f && [f.style.top, Math.round(f.getBoundingClientRect().top - stage.getBoundingClientRect().top), f.closest('.stf__block')?.offsetHeight,
+          f.closest('.flip-book')?.style.height, stage.clientHeight];
+      })(),
+    });
     return {
-      offset: parseFloat(stage.style.getPropertyValue('--flip-offset')), above: -sheet.top,
+      why,
+      back, offset: parseFloat(stage.style.getPropertyValue('--flip-offset')), above: -sheet.top,
       title: back ? box(document.getElementById('page-title')) : oldTitle, leafTitle: leafTitle && box(leafTitle),
       top: stage.getBoundingClientRect().top, count: [page.length, leaf.length],
       seen: seen.map(({ i, left, top }) => [i, left, top]),
@@ -1347,7 +1370,6 @@ test.describe('T7: layout, phones and dark mode', () => {
     };
   }, [id, to, through]);
   const playOut = async (page) => {
-    await page.evaluate(() => document.querySelector('.flip-stage')?.getAnimations({ subtree: true }).forEach((a) => a.play()));
     await expect(stages(page)).toHaveCount(0);
   };
   const linedUp = (m, rows) => {
@@ -1359,7 +1381,7 @@ test.describe('T7: layout, phones and dark mode', () => {
     expect(m.count[1]).toBeLessThanOrEqual(rows);
     expect(m.count[1]).toBeGreaterThan(Math.max(...m.seen.map(([i]) => i)));
     expect(m.seen.length).toBeGreaterThan(2);
-    expect(m.leaf).toEqual(m.seen); // every row in the window has its copy exactly on it
+    expect(m.leaf, `${m.back ? 'back' : 'forward'} ${m.why}`).toEqual(m.seen); // every row in the window has its copy exactly on it
     expect(m.overflowX).toBe(0);
   };
 
@@ -1411,6 +1433,35 @@ test.describe('T7: layout, phones and dark mode', () => {
     }
   }
 
+  // BUG-029: books are pooled, and the library sets min-width and min-height on a book's block when it is built. A
+  // later, shorter or narrower stage must not keep the first stage's size, or the library centres the page in the
+  // larger block and the copy sits off the page. A tall scrolled move, a shorter unscrolled one, then a narrower one.
+  test('pooled books take each stage size: a tall move, then a shorter one, then a narrower one keep the page at the stage top left', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await open(page, SCROLL);
+    const fit = (id, y) => page.evaluate(async ([id, y]) => {
+      scrollTo(0, y);
+      await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+      document.getElementById(id).click();
+      await new Promise((r) => requestAnimationFrame(r));
+      const stage = document.querySelector('.flip-stage');
+      const front = stage.querySelector('.flip-layer:last-child .leaf--front');
+      return {
+        stage: [stage.clientWidth, stage.clientHeight],
+        books: [...stage.querySelectorAll('.flip-book')].map((b) => [b.offsetWidth, b.offsetHeight]),
+        at: [front.style.left, front.style.top],
+      };
+    }, [id, y]);
+    const moves = [['next-day', 400], ['prev-day', 0], ['resize'], ['next-day', 0]];
+    for (const [id, y] of moves) {
+      if (id === 'resize') { await page.setViewportSize({ width: 390, height: 844 }); continue; }
+      const m = await fit(id, y);
+      expect(m.books, `${id} at ${y}: ${JSON.stringify(m)}`).toEqual([m.stage]);
+      expect(m.at, `${id} at ${y}`).toEqual(['0px', '0px']);
+      await playOut(page);
+    }
+  });
+
   // NFR1 with the flip on: a move to a day of 200 long, wrapping rows, the click and the layout it forces, median of 3,
   // from the top of the page and from near its bottom. play() lays out no rows in this task; the ResizeObserver
   // realigns the stage in the frame that follows, so near the bottom costs no more than the top.
@@ -1453,8 +1504,7 @@ test.describe('T7: layout, phones and dark mode', () => {
     expect(flips.map(({ back, leaves }) => ({ back, leaves }))).toEqual([
       { back: false, leaves: 1 }, { back: false, leaves: 3 }, { back: true, leaves: 3 }]);
     for (const f of flips) {
-      expect(f.removed - f.added).toBeLessThanOrEqual(lifetime(f.leaves));
-      expect(f.removed - f.added).toBeGreaterThanOrEqual(lifetime(f.leaves) - 150);
+      expectLife(f, f.leaves);
     }
   });
 
@@ -1508,7 +1558,8 @@ test.describe('T7: layout, phones and dark mode', () => {
   // Dark tokens from design-system.css: --color-paper #22262D, --color-leaf-back #1B1F25. Light: #FCF9F1 and #ECE5D4.
   const DARK_PAPER = 'rgb(34, 38, 45)', DARK_BACK = 'rgb(27, 31, 37)';
   const LIGHT = ['rgb(252, 249, 241)', 'rgb(236, 229, 212)'];
-  // Reads the background of every leaf and leaf back on every frame of a move, until the stage goes.
+  // Reads the background of every page (front pages and the base copy) and of every back of the sheet (the clone the
+  // library turns) on every frame of a move, until the stage goes.
   const leafColours = (page, key) => page.evaluate((key) => new Promise((done) => {
     const p = document.getElementById('day-picker');
     p.value = key;
@@ -1518,8 +1569,8 @@ test.describe('T7: layout, phones and dark mode', () => {
       const stage = document.querySelector('.flip-stage');
       if (!stage) return done({ leaf: [...seen.leaf], back: [...seen.back], frames: seen.frames });
       seen.frames++;
-      for (const l of stage.querySelectorAll('.leaf')) seen.leaf.add(getComputedStyle(l).backgroundColor);
-      for (const b of stage.querySelectorAll('.leaf__back')) seen.back.add(getComputedStyle(b).backgroundColor);
+      for (const l of stage.querySelectorAll('.leaf:not(.leaf--front ~ .leaf--front)')) seen.leaf.add(getComputedStyle(l).backgroundColor);
+      for (const b of stage.querySelectorAll('.leaf--front ~ .leaf--front')) seen.back.add(getComputedStyle(b).backgroundColor);
       requestAnimationFrame(read);
     };
     read();
@@ -1538,103 +1589,8 @@ test.describe('T7: layout, phones and dark mode', () => {
     });
   }
 
-  // TC-page-flip-T7-09 (R35): text contrast at 20, 50, 65 and 72 percent of a flip, forward and back, light and dark. The
-  // leaf is held at each frame and every colour is composited through a 1 px canvas, layer by layer as it is painted.
-  // Leaf text is paper, then ink, then the shade, then the leaf back at its frame opacity, checked while the back has
-  // not yet covered it (opacity under 1). The shade runs from clear at 10 percent of the leaf to --flip-shade at its
-  // free edge, so each label takes the shade at its right end (its darkest point), in the leaf's own flat coordinates.
-  // New page text is ink on paper under the cast shadow at its frame opacity. The cast fades from the rings to clear
-  // at 92 percent of its width and the leaf hides what is left of its projected edge, so each label is checked at
-  // its darkest visible point: its left end, or the leaf's edge when the leaf covers that end; a label wholly under
-  // the leaf is not readable and is skipped.
-  // Every day holds an open and a done task, so both inks are checked on the leaf and on the page at every frame.
-  const INKS = ['2026-11-09', '2026-11-10', '2026-11-11', '2026-11-12'].flatMap((d, k) => [
-    task(`o${k}`, 'Gửi biên bản họp cho anh Minh', false, d, 3 * k), task(`d${k}`, 'Đi chợ mua rau và trứng', true, d, 3 * k + 1),
-    // a done task long enough to wrap, so its ink reaches the free edge where the shade is darkest
-    task(`w${k}`, 'Trình bày số liệu tháng 10 ở buổi họp dự án với khách hàng, rồi gửi biên bản và lịch hẹn tiếp theo cho cả nhóm', true, d, 3 * k + 2)]);
-  for (const colorScheme of ['light', 'dark']) {
-    test(`${colorScheme}: leaf, header and new page text keep 4.5 to 1 at 20, 50, 65 and 72 percent of a flip, forward and back`, async ({ page }) => {
-      await page.emulateMedia({ colorScheme });
-      await open(page, INKS);
-      const seen = [];
-      for (const id of ['next-day', 'prev-day']) {
-        // 20, 50 and 65 percent of the turn; 65 is the last before the words fade into the back (70 to 92 percent of
-        // the turn, BUG-028), the fade R35 allows (before T8b it ran from 45 to 70 percent and 80 fell after it). A back
-        // flip plays the turn in reverse, so its times are 1 minus those.
-        // 72 percent (28 for back) is just inside the fade, with the back partly over the words (T8b reviewer minor).
-        for (const at of id === 'next-day' ? [0.2, 0.5, 0.65, 0.72] : [0.8, 0.5, 0.35, 0.28]) {
-          const r = await page.evaluate(([id, at]) => {
-            document.getElementById(id).click();
-            const stage = document.querySelector('.flip-stage');
-            const ms = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--dur-flip'));
-            for (const a of stage.getAnimations({ subtree: true })) { a.pause(); a.currentTime = at * ms; }
-            const ctx = Object.assign(document.createElement('canvas'), { width: 1, height: 1 }).getContext('2d', { willReadFrequently: true });
-            const paint = (...layers) => { // [colour, alpha] pairs, painted in order
-              ctx.clearRect(0, 0, 1, 1);
-              for (const [c, alpha = 1] of layers) { ctx.globalAlpha = alpha; ctx.fillStyle = '#000'; ctx.fillStyle = c; ctx.fillRect(0, 0, 1, 1); }
-              ctx.globalAlpha = 1;
-              return [...ctx.getImageData(0, 0, 1, 1).data.slice(0, 3)];
-            };
-            const lum = (rgb) => { const [r, g, b] = rgb.map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
-            const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return (x + 0.05) / (y + 0.05); };
-            const css = (el, p) => getComputedStyle(el)[p];
-            const leaf = stage.querySelector('.leaf:not(.leaf--blank)');
-            const paper = css(leaf, 'backgroundColor');
-            const shade = [getComputedStyle(document.documentElement).getPropertyValue('--flip-shade').trim(), +css(leaf.querySelector('.leaf__shade'), 'opacity')];
-            const back = [css(leaf.querySelector('.leaf__back'), 'backgroundColor'), +css(leaf.querySelector('.leaf__back'), 'opacity')];
-            const cast = [getComputedStyle(document.documentElement).getPropertyValue('--flip-cast').trim(), +css(stage.querySelector('.leaf-cast'), 'opacity')];
-            const page = css(document.querySelector('.sheet'), 'backgroundColor');
-            const inks = (root) => [...new Set([...root.querySelectorAll('.task__text')].map((t) => css(t, 'color')))];
-            const flatRight = (el) => { let x = el.offsetWidth; for (let e = el; e && e !== leaf; e = e.offsetParent) x += e.offsetLeft; return x; };
-            const shadeAt = (el) => [shade[0], shade[1] * Math.min(Math.max((flatRight(el) / leaf.offsetWidth - 0.1) / 0.9, 0), 1)];
-            const onLeaf = [...leaf.querySelectorAll('.task__label')].map((l) => {
-              const s = shadeAt(l);
-              const ink = css(l, 'color');
-              return ratio(paint([paper], [ink], s, back), paint([paper], s, back));
-            });
-            // T8d: the copied header. The title is ink on paper; the date line is ink on the washi tape, checked on both
-            // stripes (the darker one is the worst case by day, the lighter one at night).
-            const root = getComputedStyle(document.documentElement);
-            const heads = [['.app-header__title', [null]], ['.app-header__date', ['--color-washi', '--color-washi-2']]].map(([sel, tapes]) => {
-              const el = leaf.querySelector(sel);
-              if (!el) return NaN;
-              const s = shadeAt(el), ink = css(el, 'color');
-              return Math.min(...tapes.map((t) => {
-                const under = t ? [[paper], [root.getPropertyValue(t).trim()]] : [[paper]];
-                return ratio(paint(...under, [ink], s, back), paint(...under, s, back));
-              }));
-            });
-            const c = stage.querySelector('.leaf-cast').getBoundingClientRect();
-            const edge = leaf.getBoundingClientRect().right;
-            const onPage = [...document.querySelectorAll('#day-list .task__label')].flatMap((t) => {
-              const r = t.getBoundingClientRect();
-              const x = Math.max(r.left, edge);
-              if (x >= r.right) return []; // wholly under the leaf
-              const f = Math.min(Math.max((x - c.left) / c.width, 0), 1);
-              const under = [cast[0], cast[1] * Math.max(0, 1 - f / 0.92)];
-              return [ratio(paint([page], under, [css(t, 'color')]), paint([page], under))];
-            });
-            const out = { back: back[1], onLeaf, heads, onPage, inks: inks(leaf).length, pageInks: inks(document.getElementById('day-list')).length };
-            for (const a of stage.getAnimations({ subtree: true })) a.finish();
-            return out;
-          }, [id, at]);
-          seen.push({ id, at, ...r });
-          await expect(stages(page)).toHaveCount(0);
-        }
-      }
-      console.log(`T7 text contrast ${colorScheme}: ${JSON.stringify(seen.map(({ id, at, back, onLeaf, heads, onPage }) => [id, at, +back.toFixed(2), onLeaf.map((v) => v.toFixed(1)), heads.map((v) => v.toFixed(1)), onPage.map((v) => v.toFixed(1))]))}`);
-      const readable = seen.filter((f) => f.back < 1);
-      expect(readable.length).toBeGreaterThanOrEqual(3); // text shows on the leaf in at least 3 of the 8 frames
-      expect(seen.filter((f) => f.at === 0.72 || f.at === 0.28).every((f) => f.back > 0 && f.back < 1)).toBe(true); // the fade frame
-      for (const f of seen) {
-        expect(f.inks, `${f.id} ${f.at}`).toBe(2); // open and done ink both checked
-        expect(f.onLeaf.length, `${f.id} ${f.at}`).toBe(3);
-        expect(f.heads.length, `${f.id} ${f.at}`).toBe(2);
-        if (f.back < 1) for (const v of [...f.onLeaf, ...f.heads]) expect(v, `leaf ${f.id} ${f.at}`).toBeGreaterThanOrEqual(4.5);
-        for (const v of f.onPage) expect(v, `page ${f.id} ${f.at}`).toBeGreaterThanOrEqual(4.5);
-      }
-    });
-  }
+  // Deleted: TC-page-flip-T7-09 held the CSS leaf at 20 to 72 percent and composited its shade and back. The curl has no
+  // such layers; T14 checks text contrast on the turning page in real time instead.
 
   test('switching to dark mid flip ends cleanly, and the next flip uses the dark leaf back', async ({ page }) => {
     await open(page, SEED);
@@ -1670,7 +1626,7 @@ test.describe('T8: speed with 200 tasks', () => {
     document.getElementById(id).click();
     const stage = document.querySelector('.flip-stage');
     const back = stage.classList.contains('flip-stage--back');
-    const copied = () => stage.querySelectorAll('.leaf:not(.leaf--blank) .task').length;
+    const copied = () => stage.querySelectorAll('.flip-layer:last-child .leaf--front:not(.leaf--front ~ .leaf--front) .task').length;
     const first = copied();
     if (!back) return { ...old, copied: first, back };
     await paint();
@@ -1694,7 +1650,7 @@ test.describe('T8: speed with 200 tasks', () => {
   const copiedSelects = (page) => page.evaluate(() => {
     const page = [...document.querySelectorAll('.sheet__body select')].map((s) => s.value);
     document.getElementById('next-day').click();
-    const leaf = document.querySelector('.flip-stage .leaf:not(.leaf--blank)');
+    const leaf = document.querySelector('.flip-stage .flip-layer:last-child .leaf--front:not(.leaf--front ~ .leaf--front)');
     return {
       page, values: [...leaf.querySelectorAll('select')].map((s) => s.value),
       refs: leaf.querySelectorAll('[id], [for]').length, rows: leaf.querySelectorAll('.task').length,
@@ -1740,8 +1696,9 @@ test.describe('T8: speed with 200 tasks', () => {
     let first = 0, last = 0, after = 0;
     const p = document.getElementById('day-picker');
     p.value = key;
+    const t0 = performance.now();
     p.dispatchEvent(new Event('change'));
-    const leaves = document.querySelectorAll('.flip-stage .leaf').length;
+    const leaves = document.querySelectorAll('.flip-stage .flip-layer').length;
     const tick = (t) => {
       if (!after) frames.push(t - last); // up to and with the frame the stage is removed in
       last = t;
@@ -1749,7 +1706,7 @@ test.describe('T8: speed with 200 tasks', () => {
       if (after < 3) return requestAnimationFrame(tick); // longtasks are still watched for 3 frames more
       setTimeout(() => { // longtask entries are delivered late
         po.disconnect();
-        done({ leaves, frames, long: long.filter((e) => e.startTime + e.duration > first).map((e) => e.duration) });
+        done({ leaves, frames, firstFrame: first - t0, long: long.filter((e) => e.startTime + e.duration > first).map((e) => e.duration) });
       }, 50);
     };
     requestAnimationFrame((t) => { first = last = t; requestAnimationFrame(tick); });
@@ -1767,18 +1724,20 @@ test.describe('T8: speed with 200 tasks', () => {
       for (const [width, height] of [[1440, 900], [390, 844]]) {
         await page.setViewportSize({ width, height });
         for (let k = 0; k < 3; k++) { // one run: forward, then back again
-          const frames = [], long = [];
+          const frames = [], long = [], firsts = [];
           for (const key of keys) {
             await page.waitForTimeout(300);
             const r = await measure(page, key);
             expect(r.leaves).toBe(n);
             frames.push(...r.frames);
             long.push(...r.long);
+            firsts.push(r.firstFrame.toFixed(1));
           }
-          runs.push({ width, long: long.length, median: median(frames), max: Math.max(...frames), at: frames.indexOf(Math.max(...frames)), n: frames.length });
+          runs.push({ width, long: long.length, median: median(frames), max: Math.max(...frames), at: frames.indexOf(Math.max(...frames)), n: frames.length, firsts });
         }
       }
-      console.log(`T8 NFR2 ${n} leaf: ${JSON.stringify(runs.map((r) => [r.width, r.long, r.median.toFixed(1), r.max.toFixed(1), `${r.at}/${r.n}`]))}`);
+      // [width, longtasks, median frame, worst frame, worst at/frames, first frame after the move per direction] (T14)
+      console.log(`T8 NFR2 ${n} leaf: ${JSON.stringify(runs.map((r) => [r.width, r.long, r.median.toFixed(1), r.max.toFixed(1), `${r.at}/${r.n}`, r.firsts.join('|')]))}`);
       for (const width of [1440, 390]) {
         const at = runs.filter((r) => r.width === width);
         expect(median(at.map((r) => r.long)), `${width} px`).toBe(0);
@@ -1789,102 +1748,284 @@ test.describe('T8: speed with 200 tasks', () => {
   }
 });
 
-test.describe('T8b: perceptible flip motion (BUG-028)', () => {
-  // Real time, nothing paused: the move, then the leaf with words read on every animation frame until the stage goes.
-  // angle: how far the leaf has turned up from the page (rotateY, 0 to 92 degrees); back: the plain back's opacity;
-  // width: the leaf's drawn width over the stage width; left: the leftmost drawn edge of any leaf, from the stage left,
-  // over the stage width; head: the copied title's drawn width over its flat width (the header turns with the leaf,
-  // T8d). top: the stage top from the sheet top, at the move.
-  const sweep = (page, move) => page.evaluate(async (move) => {
+// Deleted: the T8b 'perceptible' checks read the CSS leaf's rotateY, back and width. The curl replaces them (T14 below).
+// T14: the page curl in real time (design.md "Change 2026-11-13: StPageFlip curl and thick notebook", End to end, curl).
+// Nothing is paused: every check samples animation frames or waits in real time.
+test.describe('T14: the page curl in real time', () => {
+  const TOP_FRONT = '.flip-layer:last-child .leaf--front:not(.leaf--front ~ .leaf--front)';
+  // Moves (an arrow id, or '#key' through the picker), then reads every layer, bottom first, on every animation frame
+  // until the stage goes. Per layer and frame: folded (the clone the library turns, drawn as the back of the sheet, is
+  // displayed with a polygon clip: a fold is drawn), rot (that clone's rotation from upright in degrees; the library
+  // mirrors the page across the fold, so 0 is a vertical fold), left (its box's left edge from the stage left, over the
+  // stage width), punched (the layer's own front page carries the evenodd cut, so what is under it shows), bare (the
+  // clone is displayed with no fold clip, so the back of the sheet would cover the whole page: a blank flash) and up
+  // (the layer's own front page is displayed and its layer visible).
+  const curl = (page, move) => page.evaluate(async (move) => {
     const picker = document.getElementById('day-picker');
     if (move.startsWith('#')) { picker.value = move.slice(1); picker.dispatchEvent(new Event('change')); }
     else document.getElementById(move).click();
     const stage = document.querySelector('.flip-stage');
-    const leaf = stage.querySelector('.leaf:not(.leaf--blank)'), leaves = [...stage.querySelectorAll('.leaf')];
-    const back = leaf.querySelector('.leaf__back'), title = leaf.querySelector('.app-header__title');
-    const top = stage.getBoundingClientRect().top - document.querySelector('.sheet').getBoundingClientRect().top;
-    const samples = [];
+    const layers = [...stage.querySelectorAll('.flip-layer')];
+    const samples = layers.map(() => []);
     await new Promise((done) => {
       const read = (t) => {
         if (!stage.isConnected) return done();
-        const m = new DOMMatrix(getComputedStyle(leaf).transform), s = stage.getBoundingClientRect();
-        samples.push({
-          t, angle: (Math.atan2(m.m13, m.m11) * 180) / Math.PI, back: +getComputedStyle(back).opacity,
-          width: leaf.getBoundingClientRect().width / s.width,
-          left: (Math.min(...leaves.map((l) => l.getBoundingClientRect().left)) - s.left) / s.width,
-          head: title ? title.getBoundingClientRect().width / title.offsetWidth : null,
+        const s = stage.getBoundingClientRect();
+        layers.forEach((l, i) => {
+          const [front, clone] = l.querySelectorAll('.leaf--front');
+          const cs = clone && getComputedStyle(clone);
+          const shown = !!clone && cs.display !== 'none' && getComputedStyle(l).visibility !== 'hidden';
+          const folded = shown && clone.style.clipPath.startsWith('polygon');
+          const m = folded && new DOMMatrix(cs.transform);
+          samples[i].push({
+            t, folded, up: getComputedStyle(front).display !== 'none' && getComputedStyle(l).visibility !== 'hidden', bare: shown && !folded, punched: front.style.clipPath.startsWith('polygon(evenodd'),
+            rot: folded ? Math.abs((Math.atan2(m.b, m.a) * 180) / Math.PI) : null,
+            left: folded ? (clone.getBoundingClientRect().left - s.left) / s.width : null,
+          });
         });
         requestAnimationFrame(read);
       };
       requestAnimationFrame(read);
     });
-    return { dur: parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--dur-flip')), samples, leaves: leaves.length, top };
+    return {
+      back: stage.classList.contains('flip-stage--back'), samples,
+      blank: layers.map((l) => l.querySelector('.leaf--front').classList.contains('leaf--blank')),
+    };
   }, move);
 
-  // TC-page-flip-T8-11: the leaf turns at 2 degrees per 50 ms or more for at least 60 percent of --dur-flip, the words
-  // show (back under 0.05) for at least 60 percent of it, the back shows only once the leaf is turned 60 degrees or
-  // more, the leaf keeps at least a fifth of its width until 75 degrees (no early collapse onto the hinge), and no leaf
-  // is drawn more than 5 percent of the stage width past its left edge (the leaf ends at 92 degrees, just past edge on,
-  // a few pixels over the hinge; it must never swing far past it into the clip, as with BUG-028's 36 percent).
-  // T8d: the leaf is the whole sheet from its top (unscrolled), and its copied title turns from flat to edge on.
-  const perceptible = ({ dur, samples, top }, what) => {
-    expect(top, `${what}: stage top from the sheet top`).toBeCloseTo(0, 0);
-    const heads = samples.map((s) => s.head);
-    expect(heads.every((h) => h != null), `${what}: the title is on the leaf`).toBe(true);
-    expect(Math.max(...heads), `${what}: title flat`).toBeGreaterThan(0.9);
-    expect(Math.min(...heads), `${what}: title edge on`).toBeLessThan(0.3);
-    let turning = 0, words = 0;
-    for (let k = 1; k < samples.length; k++) {
-      const [a, b] = [samples[k - 1], samples[k]], dt = b.t - a.t;
-      if ((Math.abs(b.angle - a.angle) / dt) * 50 >= 2) turning += dt;
-      if (a.back < 0.05) words += dt;
+  // Check 1: each page has a fold on samples covering at least half of DUR, a diagonal fold (5 to 60 degrees) for at
+  // least 30 percent of it, and sweeps across: forward from the right half to the left quarter, back the other way.
+  const expectCurl = (r, what) => r.samples.forEach((ss, i) => {
+    let folded = 0, diagonal = 0;
+    for (let k = 1; k < ss.length; k++) {
+      const a = ss[k - 1], dt = ss[k].t - a.t;
+      if (!a.folded) continue;
+      folded += dt;
+      if (a.rot >= 5 && a.rot <= 60) diagonal += dt;
     }
-    expect(samples.length, what).toBeGreaterThan(10);
-    expect(Math.max(...samples.map((s) => s.angle)), what).toBeGreaterThan(85);
-    expect(turning, `${what}: ms turning`).toBeGreaterThanOrEqual(0.6 * dur);
-    expect(words, `${what}: ms with words showing`).toBeGreaterThanOrEqual(0.6 * dur);
-    for (const s of samples) {
-      if (s.back >= 0.05) expect(s.angle, `${what}: back shown at ${s.angle.toFixed(0)} degrees`).toBeGreaterThanOrEqual(60);
-      if (s.angle < 75) expect(s.width, `${what}: width at ${s.angle.toFixed(0)} degrees`).toBeGreaterThanOrEqual(0.2);
-      expect(s.left, `${what}: drawn past the hinge`).toBeGreaterThanOrEqual(-0.05);
+    const lefts = ss.filter((x) => x.folded).map((x) => x.left);
+    // A forward page covers the new day from the first frame until its turn starts, also on a pooled book.
+    if (!r.back) {
+      const wait = ss.slice(0, ss.findIndex((x) => x.folded) + 1);
+      expect(wait.filter((x) => !x.up).map((x) => x.t - ss[0].t), `${what} page ${i}: frames before its turn with the page hidden`).toEqual([]);
+    }
+    expect(ss.filter((x) => x.bare).map((x) => x.t - ss[0].t), `${what} page ${i}: frames with the back of the sheet unclipped`).toEqual([]);
+    console.log(`T14 ${what} page ${i}: fold ${folded.toFixed(0)} ms, diagonal ${diagonal.toFixed(0)} ms, left ${lefts[0]?.toFixed(2)} to ${lefts.at(-1)?.toFixed(2)}`);
+    expect(folded, `${what} page ${i}: ms with a fold`).toBeGreaterThanOrEqual(0.5 * DUR);
+    expect(diagonal, `${what} page ${i}: ms with a diagonal fold`).toBeGreaterThanOrEqual(0.3 * DUR);
+    if (r.back) {
+      expect(lefts[0], `${what} page ${i}: starts curled over to the left`).toBeLessThanOrEqual(0.25);
+      expect(lefts.at(-1), `${what} page ${i}: ends at the right`).toBeGreaterThanOrEqual(0.5);
+    } else {
+      expect(lefts[0], `${what} page ${i}: starts at the right`).toBeGreaterThanOrEqual(0.5);
+      expect(Math.min(...lefts), `${what} page ${i}: reaches the left quarter`).toBeLessThanOrEqual(0.25);
+    }
+  });
+  // Check 2: while a forward fold is drawn, the top page is cut (evenodd) from its second folded frame on.
+  const expectPunch = (r, what) => {
+    const top = r.samples.at(-1).filter((x) => x.folded).slice(1);
+    expect(top.length, what).toBeGreaterThan(10);
+    expect(top.every((x) => x.punched), `${what}: the top page is cut where the fold uncovers`).toBe(true);
+  };
+  // Check 3: each page starts its fold STEP after the one before (one frame plus 20 ms either way), forward top first,
+  // back lowest first (R4).
+  const expectRiffle = (r, what) => {
+    const starts = r.samples.map((ss) => ss.find((x) => x.folded).t);
+    const order = r.back ? starts : [...starts].reverse();
+    for (let k = 1; k < order.length; k++) {
+      expect(Math.abs(order[k] - order[k - 1] - STEP), `${what}: start ${k} after ${k - 1}`).toBeLessThanOrEqual(17 + 20);
+    }
+    expect(r.blank, what).toEqual([true, true, false]); // bottom first: two blank pages, the page with words on top
+  };
+  // The second forward riffle runs on pooled books.
+  const MOVES = [['next-day', 1, false], ['prev-day', 1, true], ['#2026-11-12', 3, false], ['#2026-11-09', 3, true], ['#2026-11-12', 3, false]];
+  const playAll = async (page, label) => {
+    for (const [move, n, back] of MOVES) {
+      await page.waitForTimeout(200);
+      const r = await curl(page, move);
+      const what = `${label} ${move}`;
+      expect(r.samples.length, what).toBe(n);
+      expect(r.back, what).toBe(back);
+      expectCurl(r, what);
+      if (!back) expectPunch(r, what);
+      if (n === 3) expectRiffle(r, what);
     }
   };
 
   for (const [width, height] of [[1440, 900], [390, 844]]) {
-    test(`at ${width} px a forward flip, a back flip and a 3 leaf riffle visibly turn in real time`, async ({ page }) => {
+    test(`at ${width} px a forward flip, a back flip and 3 page riffles both ways curl with a diagonal fold across the sheet`, async ({ page }) => {
       await page.setViewportSize({ width, height });
       await open(page, SEED);
-      for (const [move, n] of [['next-day', 1], ['prev-day', 1], ['#2026-11-12', 3]]) {
-        await page.waitForTimeout(200);
-        const r = await sweep(page, move);
-        expect(r.leaves, move).toBe(n);
-        console.log(`T8b ${width} ${move}: ${r.samples.map((s) => `${s.angle.toFixed(0)}/${s.back.toFixed(2)}/${s.width.toFixed(2)}`).join(' ')}`);
-        perceptible(r, `${width} px ${move}`);
+      await playAll(page, `${width} px`);
+    });
+  }
+
+  // A heavy day (T8b, NFR2): a forward move from a day of 200 tasks still curls whole, with the top page cut.
+  test('a forward move from a 200 task day curls with a diagonal fold across the sheet', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await open(page, Array.from({ length: 200 }, (_, k) => task(`h${k}`, `Việc số ${k + 1} của hôm nay`, k % 3 === 0, TODAY, k)));
+    await page.waitForTimeout(200);
+    const r = await curl(page, 'next-day');
+    expect(r.samples.length).toBe(1);
+    expectCurl(r, '200 tasks next-day');
+    expectPunch(r, '200 tasks next-day');
+  });
+
+  // Check 10: the owner's machine reports reduced motion (GNOME); the curl still plays whole (owner, 2026-11-12).
+  test('under reduced motion the same moves curl the same way', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await open(page, SEED);
+    await playAll(page, 'reduced motion');
+  });
+
+  // Check 4 (T12): an init script tags requestAnimationFrame calls made from the vendored module. After load, and from
+  // 100 ms after a stage ends, none of its callbacks runs for 1 second; during a flip they do.
+  test('the library runs no frame callback while no page turns, and runs them during forward, back and riffle turns', async ({ page }) => {
+    test.setTimeout(30_000);
+    await page.clock.setFixedTime(NOW); // the fake clock wraps requestAnimationFrame too, so it goes in first
+    await page.addInitScript(() => {
+      const raf = window.requestAnimationFrame.bind(window);
+      window.__lib = 0;
+      window.requestAnimationFrame = (cb) => (/page-flip\.module\.js/.test(new Error().stack) ? raf((t) => { window.__lib++; cb(t); }) : raf(cb));
+    });
+    await open(page, SEED);
+    const ran = () => page.evaluate(() => window.__lib);
+    const idle = async (what) => {
+      const c = await ran();
+      await page.waitForTimeout(1000);
+      expect(await ran(), `${what}: library callbacks in 1 s`).toBe(c);
+    };
+    await page.waitForTimeout(100);
+    await idle('after load');
+    for (const [move] of MOVES) {
+      const c = await ran();
+      await curl(page, move); // returns once the stage has gone
+      expect(await ran() - c, `${move}: library callbacks during the turn`).toBeGreaterThan(10);
+      await page.waitForTimeout(100);
+      await idle(`after ${move}`);
+    }
+  });
+
+  // Check 5: the vendored library injects no inline style and loads nothing from elsewhere (NFR6 as amended).
+  test('no CSP violation or console error on load and through a forward flip, a back flip and riffles', async ({ page }) => {
+    const errors = [];
+    page.on('pageerror', (e) => errors.push(e.message));
+    page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
+    await page.addInitScript(() => {
+      window.__csp = [];
+      document.addEventListener('securitypolicyviolation', (e) => window.__csp.push(`${e.violatedDirective} ${e.blockedURI}`));
+    });
+    await open(page, SEED);
+    expect(await page.locator('meta[http-equiv="Content-Security-Policy"]').getAttribute('content'))
+      .toBe("default-src 'self'; img-src 'self' data:; style-src 'self'");
+    for (const [move] of MOVES) { await page.waitForTimeout(100); await curl(page, move); }
+    expect(await page.evaluate(() => window.__csp)).toEqual([]);
+    expect(errors).toEqual([]);
+    expect(await page.evaluate(() => document.querySelectorAll('style').length)).toBe(0);
+  });
+
+  // Share of the visible sheet's pixels lighter than halfway (by luminance) between the dark paper (#22262D) and the light
+  // leaf back (#ECE5D4), read through a canvas in the page. A light page or back of the sheet drawn at night is far
+  // over it, dark paper and the dark back far under. Dark ink is light too, so a frame is compared with the settled
+  // pages (plus 2 percent for the two days' words both showing), not with zero.
+  const lightShare = (page, png) => page.evaluate(async (src) => {
+    const img = new Image();
+    img.src = src;
+    await img.decode();
+    const c = document.createElement('canvas');
+    c.width = img.width; c.height = img.height;
+    const g = c.getContext('2d');
+    g.drawImage(img, 0, 0);
+    const d = g.getImageData(0, 0, c.width, c.height).data;
+    const lin = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; };
+    const lum = (r, gr, b) => 0.2126 * lin(r) + 0.7152 * lin(gr) + 0.0722 * lin(b);
+    const limit = (lum(236, 229, 212) + lum(34, 38, 45)) / 2;
+    let light = 0;
+    for (let k = 0; k < d.length; k += 4) if (lum(d[k], d[k + 1], d[k + 2]) >= limit) light++;
+    return light / (d.length / 4);
+  }, `data:image/png;base64,${png.toString('base64')}`);
+  const sheetShot = async (page) => {
+    const b = await page.locator('.sheet').boundingBox(), v = page.viewportSize();
+    const y = Math.max(b.y, 0);
+    return page.screenshot({ clip: { x: b.x, y, width: b.width, height: Math.min(b.y + b.height, v.height) - y } });
+  };
+  // Moves and resolves `at` (a share of DUR) after the stage's first animation frame.
+  const moveAndWait = (page, id, at) => page.evaluate(([id, ms]) => new Promise((done) => {
+    document.getElementById(id).click();
+    requestAnimationFrame((t0) => { const w = (t) => (t - t0 >= ms ? done() : requestAnimationFrame(w)); requestAnimationFrame(w); });
+  }), [id, at * DUR]);
+
+  // Check 6: in dark mode the back of the sheet and the pages use the dark tokens (T7 dark tests), and no frame at 30
+  // or 60 percent of a curl, forward or back, holds more light area than the settled pages (no light flash, R34).
+  for (const [width, height] of [[1440, 900], [390, 844]]) {
+    test(`dark mode at ${width} px: no light flash at 30 and 60 percent of a curl, forward and back`, async ({ page }) => {
+      await page.emulateMedia({ colorScheme: 'dark' });
+      await page.setViewportSize({ width, height });
+      await open(page, SEED);
+      await page.waitForTimeout(300);
+      const settled = [await lightShare(page, await sheetShot(page))];
+      await next(page).click();
+      await expect(stages(page)).toHaveCount(0);
+      settled.push(await lightShare(page, await sheetShot(page)));
+      await prev(page).click();
+      await expect(stages(page)).toHaveCount(0);
+      const most = Math.max(...settled);
+      for (const at of [0.3, 0.6]) {
+        for (const id of ['next-day', 'prev-day']) {
+          await page.waitForTimeout(200);
+          await moveAndWait(page, id, at);
+          const shot = await sheetShot(page);
+          const share = await lightShare(page, shot);
+          console.log(`T14 dark ${width} ${id} ${at}: light share ${(100 * share).toFixed(2)} percent, settled ${settled.map((x) => (100 * x).toFixed(2)).join(' and ')}`);
+          expect(share, `${id} at ${at}`).toBeLessThanOrEqual(most + 0.02);
+          await expect(stages(page)).toHaveCount(0);
+        }
       }
     });
   }
 
-  // The owner's machine reports reduced motion (GNOME); the flip still plays whole (owner, 2026-11-12).
-  test('under reduced motion a forward flip and a 3 leaf riffle visibly turn in real time for the whole --dur-flip', async ({ page }) => {
-    await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.setViewportSize({ width: 1440, height: 900 });
-    await open(page, SEED);
-    for (const [move, n] of [['next-day', 1], ['#2026-11-13', 3]]) {
-      await page.waitForTimeout(200);
-      const r = await sweep(page, move);
-      expect(r.leaves, move).toBe(n);
-      expect(r.dur, move).toBe(DUR);
-      expect(r.samples.at(-1).t - r.samples[0].t, `${move}: ms the leaf was drawn`).toBeGreaterThanOrEqual(DUR + (n - 1) * STEP - 50);
-      perceptible(r, `reduced motion ${move}`);
-    }
-  });
-
-  test('a forward flip off a 200 task day visibly turns in real time', async ({ page }) => {
-    await page.setViewportSize({ width: 1440, height: 900 });
-    await open(page, Array.from({ length: 200 }, (_, k) => task(`b${k}`, `Việc số ${k + 1}`, k % 3 === 0, TODAY, k)));
-    await page.waitForTimeout(300);
-    perceptible(await sweep(page, 'next-day'), '200 tasks');
-  });
+  // Check 7 (R35): at 30 and 60 percent of a curl, forward and back, light and dark, the words on the turning page
+  // (the rows and the title; the date line sits on its tape, not the paper) keep 4.5:1 against its paper, at full opacity. The fold shadows are exempt
+  // (owner, 2026-11-13); the darkest point of the outer shadow, on the new page under the fold, is measured and logged.
+  const INKS = ['2026-11-09', '2026-11-10'].flatMap((d, k) => [
+    task(`o${k}`, 'Gửi biên bản họp cho anh Minh', false, d, 3 * k), task(`d${k}`, 'Đi chợ mua rau và trứng', true, d, 3 * k + 1)]);
+  for (const colorScheme of ['light', 'dark']) {
+    test(`${colorScheme}: words on the turning page keep 4.5 to 1 at 30 and 60 percent of a curl, forward and back`, async ({ page }) => {
+      await page.emulateMedia({ colorScheme });
+      await page.setViewportSize({ width: 1440, height: 900 });
+      await open(page, INKS);
+      for (const id of ['next-day', 'prev-day']) {
+        for (const at of [0.3, 0.6]) {
+          await page.waitForTimeout(200);
+          await moveAndWait(page, id, at);
+          const m = await page.evaluate((sel) => {
+            const rgb = (c) => c.match(/[\d.]+/g).map(Number);
+            const lin = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; };
+            const lum = ([r, g, b]) => 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
+            const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); };
+            const front = document.querySelector(`.flip-stage ${sel}`);
+            const paper = rgb(getComputedStyle(front).backgroundColor);
+            const words = [...front.querySelectorAll('.task__label, .app-header__title')];
+            const opacity = Math.min(...words.map((w) => { let o = 1; for (let e = w; e && e !== front.parentElement; e = e.parentElement) o *= +getComputedStyle(e).opacity; return o; }));
+            const inks = words.map((w) => ratio(rgb(getComputedStyle(w).color), paper));
+            // The outer fold shadow: its darkest stop times its opacity, laid over the paper under it.
+            const sh = document.querySelector('.flip-stage .flip-layer:last-child .stf__outerShadow');
+            const alphas = (getComputedStyle(sh).backgroundImage.match(/rgba\([^)]*\)/g) ?? []).map((c) => rgb(c)[3]);
+            const a = Math.max(0, ...alphas) * +getComputedStyle(sh).opacity;
+            const under = paper.slice(0, 3).map((v) => v * (1 - a));
+            const shaded = Math.min(...[...document.querySelectorAll('#day-list .task__label')].map((l) => ratio(rgb(getComputedStyle(l).color), under)));
+            return { inks, opacity, count: words.length, shadow: a, shaded };
+          }, TOP_FRONT);
+          console.log(`T14 contrast ${colorScheme} ${id} ${at}: words ${Math.min(...m.inks).toFixed(2)} (${m.count}), fold shadow alpha ${m.shadow.toFixed(2)}, new page ink under its darkest point ${m.shaded.toFixed(2)}`);
+          expect(m.count, `${id} ${at}`).toBe(3); // two rows and the title
+          expect(m.opacity, `${id} ${at}`).toBe(1);
+          for (const v of m.inks) expect(v, `${id} ${at}`).toBeGreaterThanOrEqual(4.5);
+          await expect(stages(page)).toHaveCount(0);
+        }
+      }
+    });
+  }
 });
 
 // T8d: the whole sheet flips (R8, R11, R13, R18, R19, R31 as amended; design.md, Change 2026-11-12).
@@ -1894,7 +2035,7 @@ test.describe('T8d: the whole sheet flips', () => {
     const picker = document.getElementById('day-picker');
     if (move.startsWith('#')) { picker.value = move.slice(1); picker.dispatchEvent(new Event('change')); }
     else document.getElementById(move).click();
-    const c = document.querySelector('.flip-stage .leaf:not(.leaf--blank) .leaf__content');
+    const c = document.querySelector(`${'.flip-stage .flip-layer:last-child .leaf--front:not(.leaf--front ~ .leaf--front)'} .leaf__content`);
     return {
       parts: [...c.children].map((e) => e.className),
       title: c.querySelector('.app-header__title')?.textContent ?? null,
@@ -1924,7 +2065,7 @@ test.describe('T8d: the whole sheet flips', () => {
     await expect(stages(page)).toHaveCount(0);
     const r = await leafCopy(page, '#2026-11-12');
     expect(r).toMatchObject({ date: 'Hôm qua, Chủ Nhật, 08/11/2026', blankHeads: 0 });
-    expect(await page.locator('.flip-stage .leaf--blank').count()).toBe(2);
+    expect(await page.locator('.flip-stage .leaf--blank:not(.leaf--front ~ .leaf--front)').count()).toBe(2);
   });
 
   test('a move right after the tick that finishes the day: the leaf never replays the stamp', async ({ page }) => {
@@ -1933,7 +2074,7 @@ test.describe('T8d: the whole sheet flips', () => {
       for (const input of document.querySelectorAll('#day-list .check input:not(:checked)')) input.click();
       const was = document.getElementById('progress').classList.contains('progress--celebrate');
       document.getElementById('next-day').click();
-      const c = document.querySelector('.flip-stage .leaf__content');
+      const c = document.querySelector('.flip-stage .flip-layer:last-child .leaf--front .leaf__content');
       return { was, copied: !!c.querySelector('.progress'), celebrate: c.querySelectorAll('.progress--celebrate').length };
     });
     expect(r).toEqual({ was: true, copied: true, celebrate: 0 });
@@ -1964,7 +2105,7 @@ test.describe('T8d: the whole sheet flips', () => {
     const b = await next(page).boundingBox();
     const x = b.x + b.width / 2, y = b.y + b.height / 2;
     const at = await page.evaluate(([x, y]) => {
-      const leaf = document.querySelector('.flip-stage .leaf:not(.leaf--blank)').getBoundingClientRect();
+      const leaf = document.querySelector('.flip-stage .flip-layer:last-child .leaf--front:not(.leaf--front ~ .leaf--front)').getBoundingClientRect();
       const hit = document.elementFromPoint(x, y);
       return { covered: x >= leaf.left && x <= leaf.right && y >= leaf.top && y <= leaf.bottom, real: !!hit.closest('#next-day'), leaf: !!hit.closest('.flip-stage') };
     }, [x, y]);

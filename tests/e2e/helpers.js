@@ -56,7 +56,10 @@ export async function tick(page, i, on) {
 }
 
 // Records every .flip-stage ever added and when it went, so a 700 ms stage cannot slip between two checks, and whether
-// a superseded page turn class (turn--) is ever set. Times are performance.now() in the page.
+// a superseded page turn class (turn--) is ever set. Times are performance.now() in the page. Per stage: `back`,
+// `leaves` (.flip-layer count, one per page), `blank` (layers whose own turning page is blank), `text` (the first page
+// with words), `first` (the first animation frame after it was added, where the end timer starts, BUG-028) and
+// `removed`. The stage node is reused from move to move, so a removal closes the latest open record for it.
 export async function watchFlips(page) {
   await page.addInitScript(() => {
     window.__flips = [];
@@ -69,16 +72,19 @@ export async function watchFlips(page) {
         }
         for (const n of m.addedNodes) {
           if (!n.classList?.contains('flip-stage')) continue;
-          const leaves = [...n.querySelectorAll('.leaf')];
-          window.__flips.push({
-            node: n, added: performance.now(), removed: null, back: n.classList.contains('flip-stage--back'),
-            leaves: leaves.length, blank: leaves.filter((l) => l.classList.contains('leaf--blank')).length,
+          const layers = [...n.querySelectorAll('.flip-layer')];
+          const fronts = layers.map((l) => l.querySelector('.leaf--front'));
+          const rec = {
+            node: n, added: performance.now(), removed: null, first: null, back: n.classList.contains('flip-stage--back'),
+            leaves: layers.length, blank: fronts.filter((f) => f?.classList.contains('leaf--blank')).length,
             ariaHidden: n.getAttribute('aria-hidden'), inert: n.inert, ids: n.querySelectorAll('[id]').length,
-            text: leaves.find((l) => !l.classList.contains('leaf--blank'))?.querySelector('.leaf__content')?.textContent ?? '',
-          });
+            text: fronts.find((f) => f && !f.classList.contains('leaf--blank'))?.querySelector('.leaf__content')?.textContent ?? '',
+          };
+          window.__flips.push(rec);
+          requestAnimationFrame(() => { rec.first = performance.now(); });
         }
         for (const n of m.removedNodes) {
-          const f = window.__flips.find((x) => x.node === n);
+          const f = window.__flips.findLast((x) => x.node === n && x.removed === null);
           if (f) f.removed = performance.now();
         }
       }

@@ -1086,3 +1086,31 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) {
   .flip-stage, .flip-stage * { animation-duration: var(--dur-flip) !important; }
 }
+
+/* Curl (StPageFlip, owner 2026-11-13 curl style; vendor/page-flip). The library positions and clips every page inline
+   (left, top, size, clip-path, transform) each frame and draws the fold shadows; these rules only give the pages their
+   paper. Each .flip-layer holds one book that turns one page (.leaf--front: the old day, a blank ruled page or, back,
+   the new day); script cuts the uncovered part out of it, so the layer below shows. .leaf--base is the old day under a
+   back riffle. The library turns a clone of .leaf--front, the second .leaf--front in its block, which is drawn as the
+   back of the sheet. The library animates with script, so the reduced motion rule above does not touch it. */
+.flip-stage--curl { perspective: none; }
+/* The library writes every page's place, clip and transform inline each frame. The global reduced motion rule gives
+   every element a 1 ms transition (transition-property defaults to all), which drew each frame one frame late and the
+   first one untransformed; nothing in the curl transitions. */
+.flip-stage--curl, .flip-stage--curl * { transition: none !important; }
+.flip-layer, .flip-book { position: absolute; inset: 0; }
+.flip-book .stf__wrapper { height: 100%; }
+.flip-stage--curl .leaf { animation: none; will-change: transform, clip-path; box-shadow: none; border-radius: 0; }
+.flip-book .leaf--front ~ .leaf--front { /* the back of the sheet: plain paper, faint rules, light falling off */
+  background:
+    linear-gradient(to right, transparent 40%, var(--flip-shade)),
+    var(--grain),
+    repeating-linear-gradient(to bottom, transparent 0 calc(var(--rule) - 1px), color-mix(in srgb, var(--color-rule) 55%, transparent) calc(var(--rule) - 1px) var(--rule))
+      0 calc(var(--rule-shift) - var(--flip-offset, 0px)) / 100% var(--rule),
+    var(--color-leaf-back);
+}
+.flip-book .leaf--front ~ .leaf--front > *, .flip-book .leaf--front ~ .leaf--front::before, .flip-book .leaf--front ~ .leaf--front::after { visibility: hidden; }
+/* In portrait mode with a dragged corner the library clips its fold shadows to polygons that fall almost wholly outside
+   the shadow boxes, so only a hairline shows. Unclipped, the inner shadow rolls the turning part like a cylinder and the
+   outer one falls on the new day along the fold; the overflow clip of the stage keeps both on the sheet. */
+.flip-book .stf__outerShadow, .flip-book .stf__innerShadow { clip-path: none !important; }
