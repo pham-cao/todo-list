@@ -423,7 +423,7 @@ features:
         title: "Always flip, 700 ms, no tape re-press"
         owner: fe
         depends_on: [T8b]
-        state: doing
+        state: done
         attempts: 0
         bugs_opened: []
         trello_card: ""
@@ -431,7 +431,7 @@ features:
         title: "The whole sheet flips"
         owner: fe
         depends_on: [T8c]
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""

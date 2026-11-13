@@ -143,3 +143,27 @@ date,task,tc_id,result,evidence,bug_id
 2026-11-12,T8b,TC-page-flip-T7-09,pass,docs/project/specs/page-flip/qa/evidence/T8b-qa/full-suite-clean.txt,"Contrast samples at 20, 50, 65 percent: pass light and dark in the full suite. R35 reading accepted, see BUG-028.md"
 2026-11-12,T8b,TC-page-flip-T8-03,pass,docs/project/specs/page-flip/qa/evidence/T8b-qa/full-suite-clean.txt,"Full suite 922 passed, 112 skipped, 0 failed (workers=2); npm test 88 of 88"
 2026-11-12,T8b,TC-page-flip-T8-10,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T8-10/charter2-output.txt,"Charter 2 now run (40 rapid mixed moves, adds, picker jumps on 200 tasks, 1440 and 390 wide): no stuck leaf or stage, 0 page errors. Observation: 200 row renders gave longtasks of 53 to 64 ms and frames of 110 and 135 ms under abuse; not the flip (NFR2 leaves the move render out); watch item"
+2026-11-13,T8c,TC-page-flip-T8c-01,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,"Static: grep restick|unstick|matchMedia in src/flip.js and src finds nothing but the comment; grep restick in tests empty; createFlip({ sheet, body }). CSS rule .washi--restick still in design-system.css lines 559 to 564 until T9 (expected)"
+2026-11-13,T8c,TC-page-flip-T8c-02,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,"3 e2e cases (next, previous, 6 day jump) under reduced motion pass in desktop and mobile; day-nav reduced motion test passes"
+2026-11-13,T8c,TC-page-flip-T8c-03,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,"reduced motion switched on during a riffle leaves it running: pass, both projects"
+2026-11-13,T8c,TC-page-flip-T8c-04,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,"stage displayed and every leaf animation lasts --dur-flip: pass, both projects"
+2026-11-13,T8c,TC-page-flip-T8c-05,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/t8b-repeat3.txt,"--repeat-each=3, T8b perceptible block incl. reduced motion variant: 24 passed, 0 failed (33.9s), samples show 0 to 92 degrees over the whole duration"
+2026-11-13,T8c,TC-page-flip-T8c-06,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,"hidden page and no 3D tests: no stage, no error"
+2026-11-13,T8c,TC-page-flip-T8c-07,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,"timer edge 699/700/701/717, 30 presses, lifetime(3) = 950+100 ms: pass, both projects"
+2026-11-13,T8c,TC-page-flip-T8c-08,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/manual-reduced-motion.txt,"Playwright MCP, reduce emulated, own server 4181. Leaf rotates 0 to about 92 degrees over 700 ms, removed at 743 ms. Screenshots reduced-motion-mid-flip-1440.png and -390.png"
+2026-11-13,T8c,TC-page-flip-T8c-09,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/manual-reduced-motion.txt,"design-system.css/.md diff read: --dur-flip 700ms, riffle 950, .flip-stage * override at --dur-flip with !important, no hide rule, md states always-flip and the WCAG 2.3.3 risk, lifetime bullet names the 2x backstop"
+2026-11-13,T8c,TC-page-flip-T2-08,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,amended to 700 + 100
+2026-11-13,T8c,TC-page-flip-T3-01,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,amended 700 + 100
+2026-11-13,T8c,TC-page-flip-T3-02,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,amended 825 + 100
+2026-11-13,T8c,TC-page-flip-T3-03,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,amended 950 + 100
+2026-11-13,T8c,TC-page-flip-T3-07,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,"covered by e2e riffle stagger tests with DUR/STEP, amended 700 / 950"
+2026-11-13,T8c,TC-page-flip-T4-04,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,amended 699/700/701 and 717
+2026-11-13,T8c,TC-page-flip-T4-11,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,amended 950 + frame
+2026-11-13,T8c,TC-page-flip-T5-05,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,amended 950 + 100
+2026-11-13,T8c,TC-page-flip-T7-03,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,"mobile project, amended 700/825/950 + 100"
+2026-11-13,T8c,TC-page-flip-T7-11,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,"tape assertion removed, line up and no overflow pass"
+2026-11-13,T8c,TC-page-flip-T4-19,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,"Full suite 928 passed, 112 skipped, 0 failed (workers=2); npm test 88 of 88 (evidence/T8c-qa/npm-test.txt)"
+2026-11-13,T8c,TC-page-flip-T4-07,superseded,docs/project/specs/page-flip/qa/evidence/T8c-qa/,"Not run: replaced by T8c-02 (decisions.md 2026-11-12 page-flip scope change, R28 amended)"
+2026-11-13,T8c,TC-page-flip-T4-08,superseded,docs/project/specs/page-flip/qa/evidence/T8c-qa/,Not run: replaced by T8c-03 (R29 amended)
+2026-11-13,T8c,TC-page-flip-T6-20,superseded,docs/project/specs/page-flip/qa/evidence/T8c-qa/,"Not run: replaced by T8c-04 (R28, NFR5 amended)"
+2026-11-13,T8c,TC-page-flip-T2-07,superseded,docs/project/specs/page-flip/qa/evidence/T8c-qa/,"Not run: replaced by T8c-01 (R12 amended, no tape re-press)"

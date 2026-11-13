@@ -678,3 +678,4 @@ Also accepted: strip appended inside <main>; pointer captured on the slip, not t
 - Duration (700, 600 or 900 ms): 700 ms per flip; with the 125 ms step a 3 leaf riffle lasts about 950 ms. This replaces the 600 ms motion fix value.
 - T8b (perceptible motion, BUG-028) passed QA and review and is committed as the base for this change. Its two minors (a 72 percent contrast sample, the backstop clause in design-system.md) fold into the next FE task.
 - 2026-11-13 whole sheet design (owner): the leaf may cover the focused nav control for up to 700 ms (950 ms riffle); accepted, since it clears on its own and clicks still reach the real control (record in R18). Blank riffle leaves stay fully ruled with no header band. The owner approved the updated design.md and tasks.md (T8c, T8d, T9, T10).
+- 2026-11-13 test-plan.md still mentions 450 ms and reduced motion off in places; QA refreshes it in report mode.

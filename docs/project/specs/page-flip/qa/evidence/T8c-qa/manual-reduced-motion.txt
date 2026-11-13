@@ -1,0 +1,7 @@
+T8c-08 manual check, Playwright MCP, reducedMotion: reduce, own server python3 -m http.server 4181 (8080 untouched), 2026-11-13
+matchMedia("(prefers-reduced-motion: reduce)").matches = true
+next-day click at 1440: 47 frames; leaf animation duration 700 ms on every frame; rotateY matrix cos/sin
+ t=9ms 0 deg, t=76 about 2 deg, t=176 about 11 deg, t=276 about 28 deg, t=376 about 50 deg, t=476 about 70 deg, t=576 about 85 deg, t=676 about 92 deg
+ stage gone at 743 ms (timer 717 ms plus frame)
+390 px: stage present at 250 ms, animation duration 700, no .washi--restick, no stage 900 ms later
+Screenshots: reduced-motion-mid-flip-1440.png, reduced-motion-mid-flip-390.png (leaf visibly skewed mid turn; header band still static, which is T8d scope)
