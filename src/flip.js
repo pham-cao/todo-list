@@ -1,5 +1,5 @@
-import { daysBetween } from "./date.js?v=1.3.0";
-import { PageFlip } from "../vendor/page-flip/page-flip.module.js?v=1.3.0";
+import { daysBetween } from "./date.js?v=1.4.0";
+import { PageFlip } from "../vendor/page-flip/page-flip.module.js?v=1.4.0";
 
 // Leaves for a move of `days` calendar days (sign ignored): 0 for 0, 1, 2, then 3 for 3 or more (R3).
 // null (an invalid key) gives 0, so no stage is built.
@@ -118,22 +118,35 @@ export function createFlip({ sheet, body }) {
       const wrap = div("flip-layer"), el = div("flip-book");
       wrap.append(el);
       host.append(wrap);
-      const book = new PageFlip(el, settings);
-      book.loadFromHTML(pages);
-      // loadFromHTML fixes the block's min size to this first stage; the books are reused for stages of other sizes,
-      // and the library centres the page in its block, so a stale min size moves the page off the stage (BUG-029).
-      el.style.minWidth = el.style.minHeight = "";
-      const r = book.getRender(), draw = r.drawFrame.bind(r), loop = r.pfLoop;
-      r.pfSleep(); // no frame loop until drive() wakes it (NFR4; patch 2 in the vendored module)
-      r.drawFrame = () => {
-        draw();
-        try { punch(book); } catch { end(); }
-      };
-      // A throw in the library's frame stops its loop with pfRunning still set, so pfWake() would never restart it.
-      r.pfLoop = (t) => {
-        try { loop(t); } catch { r.pfRunning = false; end(); }
-      };
-      book.on("changeState", (e) => { if (e.data === "read" && stage && book === lastBook) end(); });
+      let book;
+      try {
+        book = new PageFlip(el, settings);
+        book.loadFromHTML(pages);
+        // loadFromHTML fixes the block's min size to this first stage; the books are reused for stages of other
+        // sizes, and the library centres the page in its block, so a stale min size moves the page off the stage
+        // (BUG-029).
+        el.style.minWidth = el.style.minHeight = "";
+        const r = book.getRender(), draw = r.drawFrame.bind(r), loop = r.pfLoop;
+        r.pfSleep(); // no frame loop until drive() wakes it (NFR4; patch 2 in the vendored module)
+        r.drawFrame = () => {
+          draw();
+          try { punch(book); } catch { end(); }
+        };
+        // A throw in the library's frame stops its loop with pfRunning still set, so pfWake() would never restart it.
+        r.pfLoop = (t) => {
+          try { loop(t); } catch { r.pfRunning = false; end(); }
+        };
+        book.on("changeState", (e) => { if (e.data === "read" && stage && book === lastBook) end(); });
+      } catch (err) {
+        // A book that failed half way is never pooled; its loop, if it started, stops after its next frame.
+        try {
+          const r = book?.getRender();
+          r?.pfSleep();
+          if (r) r.pfRunning = false;
+        } catch { /* nothing more to stop */ }
+        wrap.remove();
+        throw err; // play() ends the stage
+      }
       pool[i] = { wrap, book };
     } else {
       Object.assign(pool[i].book.getSettings(), settings);
@@ -163,8 +176,11 @@ export function createFlip({ sheet, body }) {
     follow = null;
     stage?.remove();
     stage = null;
-    pool.forEach(quiet);
-    pool.forEach(({ book }) => book.getRender().pfSleep()); // the loop stops after its next frame
+    // Each book on its own, so one that throws cannot keep the others awake or let the throw out of play().
+    for (const b of pool) {
+      try { quiet(b); } catch { /* the book is reset on its next turn */ }
+      try { b.book.getRender().pfSleep(); } catch { /* no loop to stop */ } // the loop stops after its next frame
+    }
   }
 
   // Before the new day renders: the old page, which forward curls away and back is curled over.

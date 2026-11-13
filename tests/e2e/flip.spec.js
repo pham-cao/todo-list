@@ -665,6 +665,43 @@ test('an error inside the flip leaves the day changed, no stage and no uncaught 
   expect(errors).toEqual([]);
 });
 
+// Reviewer minor (round T9 and T10): a library throw while a book is being made, after its frame loop has started,
+// must not leave that half made book drawing frames for the life of the page, and the next move still curls.
+test('a throw while a book is made leaves no stage, no running library loop, and the next move curls', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await page.clock.setFixedTime(NOW); // the fake clock wraps requestAnimationFrame too, so it goes in first
+  await page.addInitScript(() => {
+    const raf = window.requestAnimationFrame.bind(window);
+    window.__lib = 0;
+    window.requestAnimationFrame = (cb) => (/page-flip\.module\.js/.test(new Error().stack) ? raf((t) => { window.__lib++; cb(t); }) : raf(cb));
+    // flip.js binds the render's drawFrame right after loadFromHTML has started the loop: the first time, that throws.
+    const bind = Function.prototype.bind;
+    let thrown = false;
+    Function.prototype.bind = function (...args) {
+      if (!thrown && /\/src\/flip\.js/.test(new Error().stack.split('\n')[2])) { thrown = window.__thrown = true; throw new Error('book broke'); }
+      return bind.apply(this, args);
+    };
+  });
+  await open(page, SEED);
+  await next(page).click();
+  await expect(dateLine(page)).toHaveText('Ngày mai, Thứ Ba, 10/11/2026');
+  expect(await nodesLeft(page)).toBe(0);
+  await page.waitForTimeout(100);
+  const c = await page.evaluate(() => window.__lib);
+  await page.waitForTimeout(500);
+  expect(await page.evaluate(() => window.__lib), 'library callbacks in 500 ms after the failed book').toBe(c);
+  expect(await page.evaluate(() => window.__thrown)).toBe(true);
+  const second = await page.evaluate(() => {
+    document.querySelector('[aria-label="Xem ngày sau"]').click();
+    const st = document.querySelector('.flip-stage');
+    return { stage: !!st, layers: st ? st.querySelectorAll('.flip-layer').length : 0 };
+  });
+  expect(second).toEqual({ stage: true, layers: 1 });
+  await expect(stages(page)).toHaveCount(0, { timeout: lifetime(1) + 500 });
+  expect(errors).toEqual([]);
+});
+
 test('a theme change during a riffle leaves no stage, and the next leaf back uses the new theme', async ({ page }) => {
   await page.emulateMedia({ colorScheme: 'dark' });
   await open(page, SEED);
@@ -2114,5 +2151,75 @@ test.describe('T8d: the whole sheet flips', () => {
     await expect(dateLine(page)).toHaveText('Thứ Tư, 11/11/2026');
     await expect(next(page)).toBeFocused();
     expect((await flipsSeen(page)).map((f) => f.back)).toEqual([false, false]);
+  });
+});
+
+test.describe('T15: the thick notebook stack (R8a)', () => {
+  // Tokens from design-system.css: the stack line and the back cover, light and dark.
+  const COLOURS = { light: ['rgb(201, 190, 165)', 'rgb(125, 119, 102)'], dark: ['rgb(53, 59, 68)', 'rgb(10, 12, 15)'] };
+  // Reads the settled sheet: its box shadow split into layers (colour, x, y, blur, spread), --stack-u, the right gutter,
+  // the scroll size and the header and body boxes; then the same reads with the sheet shadow off, which must match.
+  const readStack = (page) => page.evaluate(() => {
+    const root = document.documentElement, sheet = document.querySelector('.sheet');
+    const boxes = () => ['.app-header', '.sheet__body', '.sheet'].map((s) => JSON.stringify(document.querySelector(s).getBoundingClientRect()));
+    const layout = () => ({ boxes: boxes(), scrollW: root.scrollWidth, scrollH: root.scrollHeight });
+    const shadow = getComputedStyle(sheet).boxShadow;
+    const layers = shadow.split(/,(?![^(]*\))/).map((l) => {
+      const colour = /rgba?\([^)]*\)/.exec(l)[0];
+      const [x, y, blur, spread = 0] = l.replace(colour, '').trim().split(/\s+/).map(parseFloat);
+      return { colour, x, y, blur, spread };
+    });
+    const withStack = layout();
+    sheet.style.boxShadow = 'none';
+    const without = layout();
+    sheet.style.boxShadow = '';
+    return {
+      layers, withStack, without, overflowX: root.scrollWidth - root.clientWidth,
+      unit: getComputedStyle(root).getPropertyValue('--stack-u').trim(),
+      gutter: root.clientWidth - sheet.getBoundingClientRect().right,
+    };
+  });
+
+  for (const [width, height] of [[1440, 900], [390, 844], [360, 780]]) {
+    for (const scheme of ['light', 'dark']) {
+      test(`at ${width} px ${scheme}: the settled sheet sits on 12 stack layers in the ${scheme} colours, inside the gutter, with no layout change`, async ({ page }) => {
+        await page.setViewportSize({ width, height });
+        await page.emulateMedia({ colorScheme: scheme });
+        await open(page, SEED);
+        const s = await readStack(page);
+        expect(s.layers).toHaveLength(12);
+        expect(s.unit).toBe(width > 600 ? '1.8px' : '0.7px');
+        const colours = s.layers.map((l) => l.colour);
+        for (const c of COLOURS[scheme]) expect(colours).toContain(c);
+        for (const c of COLOURS[scheme === 'light' ? 'dark' : 'light']) expect(colours).not.toContain(c);
+        // Every edge goes out to the right and down (the holes on the left stay the binding).
+        expect(s.layers.every((l) => l.x >= 0 && l.y > 0)).toBe(true);
+        // The solid edges and the cover (no blur) stay inside the right desk gutter; the soft shadow fades past it.
+        const solid = s.layers.filter((l) => l.blur === 0);
+        expect(solid.length).toBe(10);
+        expect(Math.max(...solid.map((l) => l.x + l.spread))).toBeLessThanOrEqual(s.gutter);
+        expect(s.overflowX).toBe(0);
+        expect(s.withStack).toEqual(s.without);
+      });
+    }
+  }
+
+  test('at 390 px the stack stays through a riffle and after it, with no horizontal scroll', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await open(page, SEED);
+    const during = await page.evaluate(() => {
+      const p = document.getElementById('day-picker');
+      p.value = '2026-11-12';
+      p.dispatchEvent(new Event('change'));
+      const root = document.documentElement;
+      return { stage: !!document.querySelector('.flip-stage'), shadow: getComputedStyle(document.querySelector('.sheet')).boxShadow, overflowX: root.scrollWidth - root.clientWidth };
+    });
+    expect(during.stage).toBe(true);
+    expect(during.shadow.split(/,(?![^(]*\))/)).toHaveLength(12);
+    expect(during.overflowX).toBe(0);
+    await expect(stages(page)).toHaveCount(0, { timeout: lifetime(3) + 500 });
+    const after = await readStack(page);
+    expect(after.layers).toHaveLength(12);
+    expect(after.overflowX).toBe(0);
   });
 });
