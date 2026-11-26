@@ -1,9 +1,9 @@
-import { toDateKey, parseDateKey, addDays, dayKind, dateLine } from "./date.js?v=1.4.0";
-import { createStore, getStorage, isValid, STORAGE_KEY } from "./store.js?v=1.4.0";
-import { createGroups, nextColor, GROUPS_KEY, MAX_GROUPS, UNGROUPED, UNGROUPED_NAME } from "./groups.js?v=1.4.0";
-import { createManage, setFieldError, showFieldError, GROUP_ERRORS } from "./manage.js?v=1.4.0";
-import { createDrag } from "./drag.js?v=1.4.0";
-import { createFlip } from "./flip.js?v=1.4.0";
+import { toDateKey, parseDateKey, addDays, dayKind, dateLine } from "./date.js?v=1.5.0";
+import { createStore, getStorage, isValid, STORAGE_KEY } from "./store.js?v=1.5.0";
+import { createGroups, GROUPS_KEY, UNGROUPED, UNGROUPED_NAME } from "./groups.js?v=1.5.0";
+import { createManage, setFieldError, showFieldError } from "./manage.js?v=1.5.0";
+import { createDrag } from "./drag.js?v=1.5.0";
+import { createFlip } from "./flip.js?v=1.5.0";
 
 const $ = (id) => document.getElementById(id);
 const els = {
@@ -22,7 +22,6 @@ const els = {
   addError: $("new-task-error"),
   addGroup: $("new-task-group"),
   addSwatch: $("new-task-swatch"),
-  newGroupTemplate: $("new-group-template"),
   empty: $("empty"),
   list: $("day-list"),
   rowTemplate: $("task-template"),
@@ -35,7 +34,7 @@ const els = {
   bar: $("group-bar"),
   filter: $("group-filter"),
   filterSwatch: $("group-filter-swatch"),
-  filterParts: [document.querySelector(".group-bar__icon"), document.querySelector(".group-bar__label"), $("group-filter").parentElement],
+  manageButton: $("manage-groups"),
   groupEmpty: $("group-empty"),
   groupEmptyText: $("group-empty-text"),
   dialog: $("delete-dialog"),
@@ -308,19 +307,18 @@ const option = (value, text) => Object.assign(document.createElement("option"), 
 const groupOptions = () => [option(UNGROUPED, UNGROUPED_NAME), ...groups.list().map((g) => option(g.id, g.name))];
 const colorOf = (key) => groups.get(key)?.color ?? "none";
 
-// Add choice: Chưa phân nhóm, every group in creation order, then Nhóm mới... (R14).
+// Add choice: Chưa phân nhóm, then every group in creation order; groups are made only in the card (group-header R18).
 // Filter: Tất cả nhóm, Chưa phân nhóm, every group; shown from the first group on, back to "all" if its group is gone (R42, R48).
 function renderChoices() {
   if (!groups.get(addGroup)) addGroup = UNGROUPED;
-  els.addGroup.replaceChildren(...groupOptions(), option("new", "Nhóm mới..."));
-  els.addGroup.value = newLine ? "new" : addGroup;
+  els.addGroup.replaceChildren(...groupOptions());
+  els.addGroup.value = addGroup;
   els.addSwatch.dataset.color = colorOf(addGroup);
-  els.addSwatch.hidden = !!newLine;
   const any = groups.list().length > 0;
   if (!any || (filter !== UNGROUPED && !groups.get(filter))) filter = "all";
   els.filter.replaceChildren(option("all", "Tất cả nhóm"), ...groupOptions());
   els.filter.value = filter;
-  for (const el of els.filterParts) show(el, any);
+  show(els.bar, any); // no groups: no filter, and no empty line in the body (R4)
   els.bar.classList.toggle("group-bar--filtered", filter !== "all");
   els.filterSwatch.dataset.color = colorOf(filter);
   show(els.filterSwatch, filter !== "all");
@@ -344,67 +342,9 @@ els.filter.addEventListener("change", () => {
   maybePeek();
 });
 
-// The Nhóm mới... line exists only while it is open, from #new-group-template.
-let newLine = null;
-const newName = () => newLine.querySelector(".input");
-const setNewError = (code) => setFieldError(newName(), newLine.querySelector(".field-error"), code, GROUP_ERRORS);
-
-function openNewGroup() {
-  newLine = els.newGroupTemplate.content.firstElementChild.cloneNode(true);
-  newLine.querySelector(".swatch").dataset.color = nextColor(groups.list());
-  els.form.append(newLine);
-  els.addSwatch.hidden = true;
-  newName().focus();
-  // At the limit the error shows at once, before any typing (decisions.md).
-  if (groups.list().length >= MAX_GROUPS) setNewError("tooMany");
-}
-
-function closeNewGroup() {
-  newLine?.remove();
-  newLine = null;
-  els.addGroup.value = addGroup;
-  els.addSwatch.hidden = false;
-}
-
-function createGroup() {
-  const result = groups.create(newName().value);
-  updateSlip();
-  if (result.error) {
-    showFieldError(newName(), newLine.querySelector(".field-error"), result.error, GROUP_ERRORS);
-    newName().focus();
-    return;
-  }
-  // The group is chosen, no task is made, and the owner goes on writing the task (R16).
-  addGroup = result.group.id;
-  closeNewGroup();
-  renderChoices();
-  els.input.focus();
-}
-
 els.addGroup.addEventListener("change", () => {
-  if (els.addGroup.value === "new") return openNewGroup();
   addGroup = els.addGroup.value;
-  closeNewGroup();
   renderChoices();
-});
-
-els.form.addEventListener("click", (e) => {
-  if (e.target.closest("#create-group")) createGroup();
-});
-els.form.addEventListener("input", (e) => {
-  if (newLine?.contains(e.target) && !newLine.querySelector(".field-error").hidden) setNewError(null);
-});
-els.form.addEventListener("keydown", (e) => {
-  // isComposing or keyCode 229: a key that ends an IME composition (Safari reports only 229).
-  if (!newLine?.contains(e.target) || e.isComposing || e.keyCode === 229) return;
-  if (e.key === "Escape") {
-    // Nothing is created; the choice goes back to what it was (R17).
-    closeNewGroup();
-    els.addGroup.focus();
-  } else if (e.key === "Enter" && e.target === newName()) {
-    e.preventDefault(); // the name input sits inside the add form: Enter creates the group, never a task
-    createGroup();
-  }
 });
 
 // Another tab changed the groups: take its list, so a removed group is never offered or saved (R21).
@@ -426,8 +366,6 @@ window.addEventListener("storage", (e) => {
 function refresh() {
   updateSlip();
   renderChoices();
-  // The open Nhóm mới... line previews the colour the group will get now (R10, R15, BUG-006).
-  newLine?.querySelector(".swatch").setAttribute("data-color", nextColor(groups.list()));
   for (const select of els.list.querySelectorAll(".task__edit select")) {
     const value = groups.get(select.value) ? select.value : UNGROUPED;
     select.replaceChildren(...groupOptions());
@@ -468,8 +406,12 @@ function storedUsage(id) {
   }
 }
 
-const manage = createManage({ groups: () => groups, store, button: $("manage-groups"), refresh, notify, showGroupTasks, storedUsage });
-$("manage-groups").addEventListener("click", () => manage.open());
+const manage = createManage({ groups: () => groups, store, button: els.manageButton, refresh, notify, showGroupTasks, storedUsage });
+els.manageButton.addEventListener("click", () => {
+  drag.cancel();
+  flip.end(); // at once, not a task later through the flip's toggle listener (R22)
+  manage.open();
+});
 
 // Edit in place: one row at a time. The read-only line stays in the DOM (hidden)
 // so the checkbox description and the Sửa button survive the round trip.

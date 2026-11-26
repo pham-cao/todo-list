@@ -1,4 +1,4 @@
-import { COLORS, COLOR_NAMES, UNGROUPED, UNGROUPED_NAME } from "./groups.js?v=1.4.0";
+import { COLORS, COLOR_NAMES, MAX_GROUPS, UNGROUPED, UNGROUPED_NAME, nextColor } from "./groups.js?v=1.5.0";
 
 const MOVE_ERROR = "Không thể lưu thay đổi. Chưa có việc nào được chuyển.";
 const MOVE_STALE = "Một tab khác vừa thay đổi việc của nhóm này. Hãy tải lại trang rồi thử lại."; // BUG-013
@@ -273,6 +273,74 @@ export function createManage({ groups, store, button, refresh, notify, showGroup
     else focusRow(id, "move");
   });
 
+  // Thêm nhóm (group-header R5 to R16): the new group box, a sticky note stacked over the card like the delete note.
+  // It is a sibling of the card, so the card's rename listeners never see its events.
+  const box = $("new-group-dialog");
+  const boxInput = $("new-group-name");
+  const boxError = $("new-group-error");
+  const addLine = dialog.querySelector('[data-action="add"]');
+  const status = $("manage-status");
+  const atLimit = () => groups().list().length >= MAX_GROUPS;
+  // The colour the group will get, on the swatch and the blank corner label; decorative only (R7).
+  const paintBox = () => { for (const el of box.querySelectorAll(".swatch, .sticker")) el.dataset.color = nextColor(groups().list()); };
+
+  function openBox() {
+    if (editId) cancelEdit(); // an open row edit is dropped, as Xóa does (R36)
+    boxInput.value = "";
+    setFieldError(boxInput, boxError, atLimit() ? "tooMany" : null, GROUP_ERRORS); // the limit shows at once (R15)
+    paintBox();
+    box.showModal();
+    boxInput.focus();
+  }
+
+  // The header #sr-status sits behind the modal card, so the card says it itself: cleared, then written a frame later.
+  function announce(text) {
+    status.textContent = "";
+    requestAnimationFrame(() => { status.textContent = text; });
+  }
+
+  box.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!box.open) return; // a second press after the box closed creates nothing (NFR3)
+    // create() checks the name against the groups as they are now, also ones another tab just added (R14).
+    const result = groups().create(boxInput.value);
+    if (result.error) {
+      showFieldError(boxInput, boxError, result.error, GROUP_ERRORS);
+      boxInput.focus();
+      return;
+    }
+    box.close();
+    showSaveResult(); // a failed write keeps the group for the session and says so inside the card (R32)
+    refresh(); // the add choice, filter and edit choices offer it; the add choice itself is kept (R19)
+    render(null);
+    const row = list.lastElementChild;
+    row.dataset.color = result.group.color;
+    row.classList.add("group-row--new");
+    row.scrollIntoView({ block: "nearest" });
+    announce(`Đã tạo nhóm "${result.group.name}".`);
+    addLine.focus();
+  });
+  box.addEventListener("keydown", (e) => {
+    // isComposing or keyCode 229: a key that ends an IME composition (Safari reports only 229). Neither creates nor closes.
+    if ((e.key === "Escape" && (e.isComposing || e.keyCode === 229)) || (e.key === "Enter" && e.keyCode === 229 && !e.isComposing)) e.preventDefault();
+  });
+  boxInput.addEventListener("input", () => {
+    if (!boxError.hidden && !atLimit()) setFieldError(boxInput, boxError, null); // the limit stays while 20 exist (R16)
+  });
+  // Hủy, Escape (native, reaching only this top dialog) and the backdrop close the box; the card stays (R10).
+  box.addEventListener("click", (e) => {
+    if (e.target.closest('[data-action="cancel"]')) return box.close();
+    if (e.target !== box) return;
+    const r = box.getBoundingClientRect();
+    if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) box.close();
+  });
+  box.addEventListener("close", () => {
+    if (box.open) return; // queued event of a box that was opened again straight away
+    boxInput.value = ""; // what was typed is dropped (R11)
+    setFieldError(boxInput, boxError, null);
+    if (dialog.open) addLine.focus();
+  });
+
   const nameInput = () => list.querySelector(".group-row--editing .input");
   const nameError = () => list.querySelector(".group-row--editing .field-error");
 
@@ -298,6 +366,7 @@ export function createManage({ groups, store, button, refresh, notify, showGroup
   dialog.addEventListener("click", (e) => {
     const action = e.target.closest("[data-action]")?.dataset.action;
     if (action === "close") dialog.close();
+    else if (action === "add") openBox();
     else if (action === "rename") startEdit(e.target.closest(".group-row").dataset.id);
     else if (action === "cancel") cancelEdit();
     else if (action === "delete") askDelete(e.target.closest(".group-row").dataset.id);
@@ -351,6 +420,7 @@ export function createManage({ groups, store, button, refresh, notify, showGroup
   // Đóng or Escape (R38). A backdrop click does nothing: the card holds forms.
   dialog.addEventListener("close", () => {
     if (dialog.open) return; // queued event of a card that was opened again straight away: keep its focus
+    if (box.open) box.close(); // never left open over a closed card (R11)
     editId = null;
     if (!refreshed) refresh();
     refreshed = false;
@@ -367,6 +437,7 @@ export function createManage({ groups, store, button, refresh, notify, showGroup
     // Groups changed in another tab: rows follow unless one is in edit, which keeps the typed name.
     sync() {
       if (dialog.open && !editId) render();
+      if (box.open) paintBox(); // another tab added a group: the next colour moved on (R7)
       if (moveCard.open) {
         if (groups().get(moveId)) renderTargets(); // a target removed in another tab falls back to Chưa phân nhóm
         else {

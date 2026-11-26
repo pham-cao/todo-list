@@ -1,0 +1,51 @@
+{
+ "noGroups": {
+  "barHidden": true,
+  "barBox": null
+ },
+ "r11": {
+  "boxOpen": true,
+  "val": "Học",
+  "groups": "[]",
+  "focus": "manage-groups",
+  "covered": "DIV#"
+ },
+ "r11reopen": "",
+ "created": {
+  "status": "Đã tạo nhóm \"Nhà\".",
+  "focus": "Thêm nhóm",
+  "addSel": "none",
+  "addOpts": [
+   "Chưa phân nhóm",
+   "Nhà"
+  ],
+  "tasksAfter": 2
+ },
+ "barAfter": {
+  "hidden": false,
+  "focus": "manage-groups",
+  "filterOpts": [
+   "Tất cả nhóm",
+   "Chưa phân nhóm",
+   "Nhà"
+  ]
+ },
+ "limit": {
+  "err": "Tối đa 20 nhóm. Hãy xóa bớt một nhóm trước khi tạo thêm.",
+  "role": "alert"
+ },
+ "limitTyping": true,
+ "limitEnter": {
+  "open": true,
+  "n": 20
+ },
+ "r23": {
+  "dayBefore": "Hôm qua, Chủ Nhật, 08/11/2026",
+  "dayAfter": "Hôm nay, Thứ Hai, 09/11/2026",
+  "stagesBuilt": 0,
+  "stageNow": 0,
+  "boxOpen": true,
+  "val": "Học"
+ },
+ "errs": []
+}

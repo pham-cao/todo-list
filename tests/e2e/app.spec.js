@@ -316,7 +316,7 @@ test('Giữ lại, Escape and a backdrop click keep the task and return focus to
   const exits = [
     () => delDialog(page).getByRole('button', { name: 'Giữ lại' }).click(),
     () => page.keyboard.press('Escape'),
-    () => page.mouse.click(page.viewportSize().width - 3, page.viewportSize().height - 3),
+    () => page.mouse.click(page.viewportSize().width - 3, 3), // top corner: on phones the note is a bottom sheet
   ];
   for (const exit of exits) {
     await removeBtn(page, 1).click();
@@ -378,15 +378,17 @@ test('deleting a row while another row is being edited keeps that edit open', as
   await expect(labels(page)).toHaveText(['Một mới']);
 });
 
-test('the sticky note sits in the middle of the viewport', async ({ page }) => {
+test('the sticky note sits in the middle of the viewport on desktop and docks to the bottom on phones', async ({ page }) => {
   await open(page, [task('a', 'Một')]);
   await removeBtn(page, 0).click();
   await expect(delDialog(page)).toBeVisible();
-  await expect(page.locator('#delete-dialog')).toHaveCSS('opacity', '1'); // note-in finished
+  await expect.poll(() => page.locator('#delete-dialog').evaluate((el) => el.getAnimations().length)).toBe(0); // the motion finished
   const box = await page.locator('#delete-dialog').boundingBox();
   const vp = page.viewportSize();
   expect(Math.abs(box.x + box.width / 2 - vp.width / 2)).toBeLessThan(4);
-  expect(Math.abs(box.y + box.height / 2 - vp.height / 2)).toBeLessThan(8);
+  // group-header R29: below 601 px every sticky note is a bottom sheet.
+  if (vp.width <= 600) expect(Math.abs(box.y + box.height - vp.height)).toBeLessThanOrEqual(1);
+  else expect(Math.abs(box.y + box.height / 2 - vp.height / 2)).toBeLessThan(8);
 });
 
 // Phone row actions (T9)
@@ -761,9 +763,7 @@ test('keyboard only: add, tick with Space, edit with Enter, cancel with Escape, 
   await focused('Nhóm', 'combobox');
   await kb.press('Tab'); // Thêm
   await focused('Thêm');
-  await kb.press('Tab'); // Quản lý nhóm
-  await focused('Quản lý nhóm');
-  await kb.press('Tab');
+  await kb.press('Tab'); // Quản lý nhóm is in the header now, before the add input (group-header R3)
   await expect(box(page, 0)).toBeFocused();
   await kb.press('Space');
   await expect(box(page, 0)).toBeChecked();
@@ -809,7 +809,7 @@ test('every button and checkbox has its Vietnamese accessible name', async ({ pa
     const controls = scope.locator('button:visible, input[type="checkbox"]');
     for (let i = 0; i < names.length; i++) await expect(controls.nth(i)).toHaveAccessibleName(names[i]);
   };
-  await expectNamed(page.locator('main'), ['Xem ngày trước', 'Xem ngày sau', 'Về hôm nay', 'Thêm', 'Quản lý nhóm', 'Đánh dấu hoàn thành', 'Sửa', 'Xóa', 'Đánh dấu hoàn thành', 'Sửa', 'Xóa']);
+  await expectNamed(page.locator('main'), ['Xem ngày trước', 'Xem ngày sau', 'Về hôm nay', 'Quản lý nhóm', 'Thêm', 'Đánh dấu hoàn thành', 'Sửa', 'Xóa', 'Đánh dấu hoàn thành', 'Sửa', 'Xóa']);
   // The row text is the description, so a screen reader hears which task each control is for.
   await expect(box(page, 0)).toHaveAccessibleDescription('Một');
   await expect(removeBtn(page, 1)).toHaveAccessibleDescription('Hai');

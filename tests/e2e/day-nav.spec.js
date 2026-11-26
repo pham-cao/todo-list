@@ -27,8 +27,8 @@ test('nav row has the named buttons, the date stamp and a live date line', async
   await open(page);
   const nav = page.locator('header nav.day-nav');
   const buttons = nav.getByRole('button');
-  await expect(buttons).toHaveCount(3);
-  for (const [i, name] of ['Xem ngày trước', 'Xem ngày sau', 'Về hôm nay'].entries()) {
+  await expect(buttons).toHaveCount(4);
+  for (const [i, name] of ['Xem ngày trước', 'Xem ngày sau', 'Về hôm nay', 'Quản lý nhóm'].entries()) {
     await expect(buttons.nth(i)).toHaveAccessibleName(name);
     await expect(buttons.nth(i)).toHaveAttribute('type', 'button');
   }
@@ -814,7 +814,7 @@ test('with reduced motion a move changes the day at once and plays one flip by d
   ]);
 });
 
-test('Tab from the page start reaches previous, next, Chọn ngày, Về hôm nay, then the add field', async ({ page }) => {
+test('Tab from the page start reaches previous, next, Chọn ngày, Về hôm nay, Quản lý nhóm, then the add field', async ({ page }) => {
   await open(page, SEED);
   // Clicking the title moves the focus starting point to the top, before every control.
   await heading(page).click();
@@ -825,7 +825,7 @@ test('Tab from the page start reaches previous, next, Chọn ngày, Về hôm na
     // The picker's date segments are separate Tab stops in Chromium; count the control once.
     if (order.at(-1) !== id) order.push(id);
   }
-  expect(order).toEqual(['prev-day', 'next-day', 'day-picker', 'to-today', 'new-task']);
+  expect(order).toEqual(['prev-day', 'next-day', 'day-picker', 'to-today', 'manage-groups', 'new-task']);
 });
 
 for (const hash of ['', '#2026-11-08']) {

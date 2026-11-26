@@ -337,7 +337,7 @@ test.describe('mouse edge cases', () => {
     expect(await stray(page)).toBe(0);
   });
 
-  test('a drag under the filter, with a folded section, or with the new group line open cancels cleanly', async ({ page }) => {
+  test('a drag under the filter or with a folded section cancels cleanly', async ({ page }) => {
     await seed(page);
     const before = await rawAll(page);
     await page.locator('#group-filter').selectOption('cty');
@@ -359,15 +359,7 @@ test.describe('mouse edge cases', () => {
     await mouseDrag(page, row(page, 'Cắt tóc')); // another row, with one section folded
     expect(await dragging(page)).toBe(true);
     await page.mouse.up();
-    await page.locator('#new-task-group').selectOption('new');
-    const line = page.locator('#add-form .input').last();
-    await line.fill('Nhóm thử');
-    await mouseDrag(page, row(page, 'Cắt tóc'));
-    expect(await dragging(page)).toBe(true);
-    await page.keyboard.press('Escape');
-    await expect(line).toHaveValue('Nhóm thử'); // the Escape closed only the drag, not the open line
-    await page.mouse.up();
-    await expect(line).toHaveValue('Nhóm thử');
+    // The inline Nhóm mới... line is gone (group-header T4) and the new group box is modal, so no drag can start under it.
     expect(await rawAll(page)).toEqual(folded);
     expect(await stray(page)).toBe(0);
   });
@@ -846,7 +838,8 @@ test.describe('touch', () => {
 
   test('the page does not scroll while the finger moves during a drag (R32)', async ({ page }) => {
     await seed(page, LONG);
-    await page.evaluate(() => scrollTo(0, 300));
+    // 344: 300 plus the 44 px the header grew by with Quản lý nhóm (group-header), so the row stays clear of the edge zones.
+    await page.evaluate(() => scrollTo(0, 344));
     const top = await scrollY(page);
     expect(top).toBeGreaterThan(0);
     const [x, y] = await label(page, 'Việc dài 8');

@@ -1,8 +1,9 @@
 import { test, expect } from '@playwright/test';
 import {
   TODAY, NOW, KEY, GROUPS_KEY, UI_KEY, task, group, open, rows, labels, progress, box, storedRaw, storedJson,
-  addTask, tick, stored, sections, section, toggle, passMidnight, hash, touchDrag,
+  addTask, tick, stored, sections, section, toggle, passMidnight, hash, touchDrag, createGroup, closeCard, watchFlips, flipsSeen, mouseDrag,
 } from './helpers.js';
+import AxeBuilder from '@axe-core/playwright';
 
 // T4: the day list in sections, with collapse (R29 to R34, R39, R40, R50, R57, R58, R63, R65, NFR1)
 const at = (h, m) => new Date(`${TODAY}T${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:00+07:00`).getTime();
@@ -398,17 +399,17 @@ test('a failing write of the fold shows the slip, and the section still folds in
 
 // T5: group choice and new group in the add form (R3 to R8, R10, R14 to R22, R55, R62)
 const choice = (page) => page.getByRole('combobox', { name: 'Nhóm', exact: true });
-const nameInput = (page) => page.getByRole('textbox', { name: 'Tên nhóm mới' });
-const createBtn = (page) => page.getByRole('button', { name: 'Tạo nhóm' });
-const groupError = (page) => page.locator('#new-group-error');
 const optionTexts = (page) => choice(page).locator('option').allTextContents();
 const chosenText = (page) => choice(page).evaluate((s) => s.selectedOptions[0].textContent);
 const addSwatch = (page) => page.locator('#new-task-swatch');
 
-test('the add choice lists Chưa phân nhóm, the groups and Nhóm mới..., and starts on Chưa phân nhóm after load and reload', async ({ page }) => {
+test('the add choice lists only Chưa phân nhóm and the groups, and starts on Chưa phân nhóm after load and reload', async ({ page }) => {
   await open(page, [], '', { groups: GROUPS.slice(0, 2) });
   await expect(choice(page)).toBeVisible();
-  expect(await optionTexts(page)).toEqual(['Chưa phân nhóm', 'Công ty', 'Nhà', 'Nhóm mới...']);
+  expect(await optionTexts(page)).toEqual(['Chưa phân nhóm', 'Công ty', 'Nhà']);
+  // group-header R18: no "new" choice and no inline line markup are left.
+  await expect(choice(page).locator('option[value="new"]')).toHaveCount(0);
+  await expect(page.locator('#new-group-template, .add-form__newgroup, #create-group')).toHaveCount(0);
   expect(await chosenText(page)).toBe('Chưa phân nhóm');
   await expect(addSwatch(page)).toHaveAttribute('data-color', 'none');
   await choice(page).selectOption({ label: 'Nhà' });
@@ -417,113 +418,22 @@ test('the add choice lists Chưa phân nhóm, the groups and Nhóm mới..., and
   await expect(addSwatch(page)).toHaveAttribute('data-color', 'yellow');
   await page.reload();
   expect(await chosenText(page)).toBe('Chưa phân nhóm');
-  await expect(nameInput(page)).toBeHidden();
 });
 
-test('Nhóm mới... opens the name line with the next colour; Enter and Tạo nhóm create and choose the group without a task', async ({ page }) => {
-  await open(page, [], '', { groups: [] });
-  await page.locator('#new-task').fill('Mua sữa');
-  await choice(page).selectOption({ label: 'Nhóm mới...' });
-  await expect(nameInput(page)).toBeFocused();
-  await expect(createBtn(page)).toBeVisible();
-  await expect(page.locator('#new-group-swatch')).toHaveAttribute('data-color', 'yellow');
-  await page.keyboard.type('Công ty');
-  await page.keyboard.press('Enter');
-  // Saved before the next action (R55), chosen, line closed, focus back, typed task text kept, no task (R16).
-  expect((await storedJson(page, GROUPS_KEY)).map((g) => [g.name, g.color])).toEqual([['Công ty', 'yellow']]);
-  await expect(nameInput(page)).toBeHidden();
-  expect(await chosenText(page)).toBe('Công ty');
-  await expect(addSwatch(page)).toHaveAttribute('data-color', 'yellow');
-  await expect(page.locator('#new-task')).toBeFocused();
-  await expect(page.locator('#new-task')).toHaveValue('Mua sữa');
-  await expect(rows(page)).toHaveCount(0);
-  expect(await storedRaw(page)).toBe('[]');
+// Removed with the inline line (group-header T4): the box describe covers the next colour, Enter and Tạo nhóm, no task and the add choice.
 
-  await choice(page).selectOption({ label: 'Nhóm mới...' });
-  await expect(page.locator('#new-group-swatch')).toHaveAttribute('data-color', 'pink');
-  await expect(nameInput(page)).toHaveValue('');
-  await nameInput(page).fill('  Học 🏠 <b>x</b>  ');
-  await createBtn(page).click();
-  expect(await optionTexts(page)).toEqual(['Chưa phân nhóm', 'Công ty', 'Học 🏠 <b>x</b>', 'Nhóm mới...']);
-  expect(await chosenText(page)).toBe('Học 🏠 <b>x</b>');
-  expect((await storedJson(page, GROUPS_KEY))[1]).toMatchObject({ name: 'Học 🏠 <b>x</b>', color: 'pink' });
-  await expect(page.locator('#new-task')).toBeFocused();
-});
-
-test('seven groups made on the fly take the colours in order and wrap', async ({ page }) => {
+test('seven groups made in the card take the colours in order and wrap', async ({ page }) => {
   await open(page, [], '', { groups: [] });
-  for (const n of ['A', 'B', 'C', 'D', 'E', 'F', 'G']) {
-    await choice(page).selectOption({ label: 'Nhóm mới...' });
-    await nameInput(page).fill(n);
-    await nameInput(page).press('Enter');
-  }
+  for (const n of ['A', 'B', 'C', 'D', 'E', 'F', 'G']) await createGroup(page, n);
   expect((await storedJson(page, GROUPS_KEY)).map((g) => g.color))
     .toEqual(['yellow', 'pink', 'green', 'blue', 'orange', 'purple', 'yellow']);
 });
 
-test('name errors keep the line open and create nothing; typing clears them', async ({ page }) => {
-  await open(page, [], '', { groups: GROUPS.slice(0, 1) });
-  await choice(page).selectOption({ label: 'Nhóm mới...' });
-  const tries = [
-    ['', 'Vui lòng nhập tên nhóm.'],
-    ['   ', 'Vui lòng nhập tên nhóm.'],
-    ['a'.repeat(31), 'Tên nhóm tối đa 30 ký tự.'],
-    ['công ty', 'Tên nhóm này đã có rồi.'],
-    ['Chưa phân nhóm', 'Tên nhóm này đã có rồi.'],
-  ];
-  for (const [value, message] of tries) {
-    await nameInput(page).fill(value);
-    await createBtn(page).click();
-    await expect(groupError(page)).toHaveText(message);
-    await expect(nameInput(page)).toHaveAttribute('aria-invalid', 'true');
-    await expect(nameInput(page)).toBeFocused();
-  }
-  await page.keyboard.press('End');
-  await page.keyboard.type('x');
-  await expect(groupError(page)).toBeHidden();
-  await expect(nameInput(page)).not.toHaveAttribute('aria-invalid');
-  expect(await storedJson(page, GROUPS_KEY)).toHaveLength(1);
-  await nameInput(page).fill('b'.repeat(30));
-  await nameInput(page).press('Enter');
-  expect(await storedJson(page, GROUPS_KEY)).toHaveLength(2);
-});
+// Removed with the inline line (group-header T4): the box describe covers every name error, aria-invalid and clearing on typing.
 
-test('at 20 groups the limit error shows as soon as Nhóm mới... is chosen, and nothing is created', async ({ page }) => {
-  const twenty = Array.from({ length: 20 }, (_, i) => group(`g${i}`, `Nhóm ${i + 1}`, 'yellow', i + 1));
-  await open(page, [], '', { groups: twenty });
-  await choice(page).selectOption({ label: 'Nhóm mới...' });
-  const message = 'Tối đa 20 nhóm. Hãy xóa bớt một nhóm trước khi tạo thêm.';
-  await expect(groupError(page)).toHaveText(message);
-  await expect(nameInput(page)).toBeFocused();
-  await page.keyboard.type('Mới');
-  await expect(groupError(page)).toBeHidden();
-  await page.keyboard.press('Enter');
-  await expect(groupError(page)).toHaveText(message);
-  expect(await storedJson(page, GROUPS_KEY)).toHaveLength(20);
-});
+// Removed with the inline line (group-header T4): the box describe covers the limit, which now stays while typing (R16).
 
-test('Escape closes the line, puts the choice back and focuses it; an add while it is open uses the previous choice', async ({ page }) => {
-  await open(page, [], '', { groups: GROUPS.slice(0, 2) });
-  await choice(page).selectOption({ label: 'Nhà' });
-  await choice(page).selectOption({ label: 'Nhóm mới...' });
-  await nameInput(page).fill('Gia đình');
-  await nameInput(page).press('Escape');
-  await expect(nameInput(page)).toBeHidden();
-  expect(await chosenText(page)).toBe('Nhà');
-  await expect(choice(page)).toBeFocused();
-
-  await choice(page).selectOption({ label: 'Chưa phân nhóm' });
-  await choice(page).selectOption({ label: 'Nhóm mới...' });
-  await nameInput(page).press('Escape');
-  expect(await chosenText(page)).toBe('Chưa phân nhóm');
-  await expect(choice(page)).toBeFocused();
-  expect(await storedJson(page, GROUPS_KEY)).toHaveLength(2);
-
-  await choice(page).selectOption({ label: 'Nhà' });
-  await choice(page).selectOption({ label: 'Nhóm mới...' });
-  await addTask(page, 'Tưới cây');
-  expect((await storedJson(page, KEY))[0].groupId).toBe('nha');
-});
+// Removed with the inline line (group-header T4): the box describe covers Hủy, Escape and the backdrop; the add choice never changes.
 
 test('an add saves the group on the viewed day at the end of its section, keeps the choice and the focus', async ({ page }) => {
   const past = '2026-11-08';
@@ -550,6 +460,29 @@ test('an add saves the group on the viewed day at the end of its section, keeps 
   expect((await storedJson(page, KEY)).at(-1)).not.toHaveProperty('groupId');
 });
 
+// group-header T4 (R20, R21): the add line is for tasks only.
+test('Enter in the add input adds a task and never creates a group or opens the box', async ({ page }) => {
+  await open(page, [], '', { groups: GROUPS });
+  const before = await page.evaluate((k) => localStorage.getItem(k), GROUPS_KEY);
+  await addTask(page, 'Mua sách');
+  await expect(labels(page)).toHaveText(['Mua sách']);
+  await expect(page.locator('#new-group-dialog')).toBeHidden();
+  expect(await page.evaluate((k) => localStorage.getItem(k), GROUPS_KEY)).toBe(before);
+  expect(await optionTexts(page)).toEqual(['Chưa phân nhóm', 'Công ty', 'Nhà', 'Học tiếng Nhật']);
+});
+
+test('the chosen add group deleted in the card falls back to Chưa phân nhóm, and the next task goes there', async ({ page }) => {
+  await open(page, [], '', { groups: GROUPS });
+  await choice(page).selectOption({ label: 'Học tiếng Nhật' });
+  await page.locator('#manage-groups').click();
+  await page.locator('#manage-dialog .group-row').filter({ hasText: 'Học tiếng Nhật' }).getByRole('button', { name: 'Xóa' }).click();
+  await page.locator('#group-delete-dialog').getByRole('button', { name: 'Xóa nhóm' }).click();
+  await page.keyboard.press('Escape');
+  expect(await chosenText(page)).toBe('Chưa phân nhóm');
+  await addTask(page, 'Học từ mới');
+  expect((await storedJson(page, KEY)).at(-1)).not.toHaveProperty('groupId');
+});
+
 test('a group removed in another tab: the add saves ungrouped and the choice goes back to Chưa phân nhóm', async ({ page, context }) => {
   await open(page, [], '', { groups: GROUPS });
   await choice(page).selectOption({ label: 'Công ty' });
@@ -560,7 +493,7 @@ test('a group removed in another tab: the add saves ungrouped and the choice goe
   await addTask(page, 'Gọi khách');
   expect((await storedJson(page, KEY))[0]).not.toHaveProperty('groupId');
   expect(await chosenText(page)).toBe('Chưa phân nhóm');
-  expect(await optionTexts(page)).toEqual(['Chưa phân nhóm', 'Nhà', 'Học tiếng Nhật', 'Nhóm mới...']);
+  expect(await optionTexts(page)).toEqual(['Chưa phân nhóm', 'Nhà', 'Học tiếng Nhật']);
   await expect(page.locator('#new-task-error')).toBeHidden();
 });
 
@@ -575,47 +508,56 @@ test('an add to a folded section opens it and stores that', async ({ page }) => 
   expect(await storedJson(page, UI_KEY)).toEqual({ collapsed: [] });
 });
 
-test('keyboard only: input, group choice, Thêm; Nhóm mới..., name, Tạo nhóm', async ({ page }) => {
+test('keyboard only: Quản lý nhóm, Thêm nhóm, name, Tạo nhóm, Escape; then input, group choice, Thêm', async ({ page }) => {
   await open(page, [], '', { groups: GROUPS.slice(0, 1) });
   const kb = page.keyboard;
   await expect(page.locator('#new-task')).toBeFocused();
-  await kb.press('Tab');
-  await expect(choice(page)).toBeFocused();
-  await kb.press('Tab');
-  await expect(page.getByRole('button', { name: 'Thêm' })).toBeFocused();
   await kb.press('Shift+Tab');
-  // Arrow keys change a focused native select without opening its list (Chromium on Linux).
-  await kb.press('ArrowDown');
-  expect(await chosenText(page)).toBe('Công ty');
-  await kb.press('ArrowDown');
-  await expect(nameInput(page)).toBeFocused();
+  await expect(manageBtn(page)).toBeFocused();
+  await kb.press('Enter');
+  await expect(card(page)).toBeVisible();
+  for (let i = 0; i < 10 && !(await page.evaluate(() => document.activeElement.matches('.group-add'))); i++) await kb.press('Tab');
+  await kb.press('Space');
+  await expect(page.locator('#new-group-name')).toBeFocused();
   await kb.type('Nhà');
   await kb.press('Tab');
-  await expect(createBtn(page)).toBeFocused();
+  await kb.press('Tab');
+  await expect(page.locator('#new-group-dialog').getByRole('button', { name: 'Tạo nhóm' })).toBeFocused();
   await kb.press('Enter');
-  expect(await chosenText(page)).toBe('Nhà');
+  await expect(card(page).getByRole('button', { name: 'Thêm nhóm' })).toBeFocused();
+  await closeCard(page, () => kb.press('Escape'));
+  await kb.press('Tab');
   await expect(page.locator('#new-task')).toBeFocused();
   await kb.type('Tưới cây');
+  await kb.press('Tab');
+  await expect(choice(page)).toBeFocused();
+  // Arrow keys change a focused native select without opening its list (Chromium on Linux).
+  await kb.press('ArrowDown');
+  await kb.press('ArrowDown');
+  expect(await chosenText(page)).toBe('Nhà');
+  await kb.press('ArrowDown'); // the last choice is the last group: there is no Nhóm mới... (R18)
+  expect(await chosenText(page)).toBe('Nhà');
+  await kb.press('Tab');
+  await expect(page.getByRole('button', { name: 'Thêm' })).toBeFocused();
   await kb.press('Enter');
   await expect(sectionLabels(page, 'Nhà')).toHaveText(['Tưới cây']);
 });
 
-test('storage blocked: a group made on the fly works in memory and the slip shows', async ({ page }) => {
+test('storage blocked: a group made in the card works in memory and the slip shows', async ({ page }) => {
   await page.addInitScript(() => {
     Storage.prototype.getItem = function () { throw new DOMException('Blocked', 'SecurityError'); };
   });
   await open(page, null);
   await expect(slip(page)).toBeVisible();
-  await choice(page).selectOption({ label: 'Nhóm mới...' });
-  await nameInput(page).fill('Công ty');
-  await nameInput(page).press('Enter');
-  expect(await chosenText(page)).toBe('Công ty');
+  await createGroup(page, 'Công ty');
+  await choice(page).selectOption({ label: 'Công ty' });
   await addTask(page, 'Gọi khách');
   await expect(sectionLabels(page, 'Công ty')).toHaveText(['Gọi khách']);
-  await choice(page).selectOption({ label: 'Nhóm mới...' });
-  await nameInput(page).fill('CÔNG TY');
-  await nameInput(page).press('Enter');
-  await expect(groupError(page)).toHaveText('Tên nhóm này đã có rồi.');
+  await openCard(page);
+  await card(page).getByRole('button', { name: 'Thêm nhóm' }).click();
+  await page.locator('#new-group-name').fill('CÔNG TY');
+  await page.locator('#new-group-name').press('Enter');
+  await expect(page.locator('#new-group-error')).toHaveText('Tên nhóm này đã có rồi.');
 });
 
 test('a failing groups write keeps the new group in memory and shows the slip', async ({ page }) => {
@@ -624,10 +566,8 @@ test('a failing groups write keeps the new group in memory and shows the slip', 
     const set = Storage.prototype.setItem;
     Storage.prototype.setItem = function (key, v) { if (key === k) throw new DOMException('Full', 'QuotaExceededError'); return set.call(this, key, v); };
   }, GROUPS_KEY);
-  await choice(page).selectOption({ label: 'Nhóm mới...' });
-  await nameInput(page).fill('Công ty');
-  await createBtn(page).click();
-  expect(await chosenText(page)).toBe('Công ty');
+  await createGroup(page, 'Công ty');
+  expect(await optionTexts(page)).toEqual(['Chưa phân nhóm', 'Công ty']);
   await expect(slip(page)).toBeVisible();
 });
 
@@ -648,116 +588,40 @@ test('200 tasks in 20 groups: an add to a group stays under 100 ms', async ({ pa
 });
 
 // T5 QA additions: IME and pasted diacritics, double submit, two pages, accessible names (R63a)
-test('IME: Enter that commits a composition does not create the group; Enter after it does', async ({ page, browserName }) => {
-  test.skip(browserName !== 'chromium', 'CDP IME is Chromium only');
-  await open(page, [], '', { groups: [] });
-  await choice(page).selectOption({ label: 'Nhóm mới...' });
-  await nameInput(page).focus();
-  const cdp = await page.context().newCDPSession(page);
-  await cdp.send('Input.imeSetComposition', { text: 'Cong tyj', selectionStart: 8, selectionEnd: 8 });
-  await cdp.send('Input.dispatchKeyEvent', { type: 'rawKeyDown', key: 'Process', code: 'Enter', windowsVirtualKeyCode: 229 });
-  await cdp.send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13 });
-  expect(await storedJson(page, GROUPS_KEY)).toEqual([]);
-  await cdp.send('Input.insertText', { text: 'Công ty' });
-  await expect(nameInput(page)).toHaveValue('Công ty');
-  await nameInput(page).press('Enter');
-  expect((await storedJson(page, GROUPS_KEY)).map((g) => g.name)).toEqual(['Công ty']);
-  expect(await storedRaw(page)).toBe('[]');
-});
+// Removed with the inline line (group-header T4): the box describe has the same CDP composition test.
 
 test('pasted decomposed diacritics: a duplicate of a composed name is found, 30 visible characters are accepted', async ({ page }) => {
   await open(page, [], '', { groups: [group('c', 'Công ty'.normalize('NFC'))] });
-  await choice(page).selectOption({ label: 'Nhóm mới...' });
-  await nameInput(page).fill('CÔNG TY'.normalize('NFD'));
-  await createBtn(page).click();
-  await expect(groupError(page)).toHaveText('Tên nhóm này đã có rồi.');
-  await nameInput(page).fill('Ướcmơđẹpnhấtcủađờingườitốtxy'.normalize('NFD')); // 29 visible, more than 30 code points
-  await createBtn(page).click();
-  await expect(nameInput(page)).toBeHidden();
+  await openCard(page);
+  await card(page).getByRole('button', { name: 'Thêm nhóm' }).click();
+  const field = page.locator('#new-group-name');
+  await field.fill('CÔNG TY'.normalize('NFD'));
+  await page.locator('#new-group-dialog').getByRole('button', { name: 'Tạo nhóm' }).click();
+  await expect(page.locator('#new-group-error')).toHaveText('Tên nhóm này đã có rồi.');
+  await field.fill('Ướcmơđẹpnhấtcủađờingườitốtxy'.normalize('NFD')); // 29 visible, more than 30 code points
+  await page.locator('#new-group-dialog').getByRole('button', { name: 'Tạo nhóm' }).click();
+  await expect(page.locator('#new-group-dialog')).toBeHidden();
   expect(await storedJson(page, GROUPS_KEY)).toHaveLength(2);
 });
 
-test('Enter twice and a double click on Tạo nhóm make one group', async ({ page }) => {
-  await open(page, [], '', { groups: [] });
-  await choice(page).selectOption({ label: 'Nhóm mới...' });
-  await nameInput(page).fill('Nhà');
-  await page.keyboard.press('Enter');
-  await page.keyboard.press('Enter');
-  expect(await storedJson(page, GROUPS_KEY)).toHaveLength(1);
-  expect(await storedRaw(page)).toBe('[]'); // the second Enter hits the empty add input: an error, no task
-  await choice(page).selectOption({ label: 'Nhóm mới...' });
-  await nameInput(page).fill('Khác');
-  await createBtn(page).dblclick({ force: true }).catch(() => {});
-  expect(await storedJson(page, GROUPS_KEY)).toHaveLength(2);
-});
+// Removed with the inline line (group-header T4): the box describe covers a double Enter and a double click.
 
-test('another page adds a group: the choice lists it, an open line keeps its text, and the same name is now a duplicate', async ({ page, context }) => {
-  await open(page, [], '', { groups: [group('a', 'A', 'yellow', 1)] });
-  const other = await context.newPage();
-  await other.goto('./');
-  await choice(page).selectOption({ label: 'Nhóm mới...' });
-  await nameInput(page).fill('Công ty');
-  await other.evaluate(([k, v]) => localStorage.setItem(k, v), [GROUPS_KEY, JSON.stringify([group('a', 'A', 'yellow', 1), group('b', 'Công ty', 'pink', 2)])]);
-  await expect(choice(page).locator('option')).toHaveText(['Chưa phân nhóm', 'A', 'Công ty', 'Nhóm mới...']);
-  await expect(nameInput(page)).toHaveValue('Công ty');
-  await nameInput(page).press('Enter');
-  await expect(groupError(page)).toHaveText('Tên nhóm này đã có rồi.');
-  expect(await storedJson(page, GROUPS_KEY)).toHaveLength(2);
-});
+// Removed with the inline line (group-header T4): the box describe covers a duplicate found at press time.
 
 // Covers the BUG-006 fix: the colour shown on an open line follows a group added in another page.
-test('another page adds a group: the open line swatch shows the new next colour (BUG-006)', async ({ page, context }) => {
-  await open(page, [], '', { groups: [group('a', 'A', 'yellow', 1)] });
-  const other = await context.newPage();
-  await other.goto('./');
-  await choice(page).selectOption({ label: 'Nhóm mới...' });
-  await expect(page.locator('#new-group-swatch')).toHaveAttribute('data-color', 'pink');
-  await other.evaluate(([k, v]) => localStorage.setItem(k, v), [GROUPS_KEY, JSON.stringify([group('a', 'A', 'yellow', 1), group('b', 'B', 'pink', 2)])]);
-  await expect(choice(page).locator('option')).toHaveCount(4);
-  await expect(page.locator('#new-group-swatch')).toHaveAttribute('data-color', 'green');
-});
+// Removed with the inline line (group-header T4): the box describe covers the swatch following another tab (R7).
 
 test('accessible names of the add form keep their visible text (R63a)', async ({ page }) => {
   await open(page, [], '', { groups: GROUPS.slice(0, 1) });
   await expect(page.getByRole('button', { name: 'Thêm', exact: true })).toBeVisible();
   await expect(choice(page)).toBeVisible();
   await expect(page.locator('#new-task-swatch')).toHaveAttribute('aria-hidden', 'true');
-  await choice(page).selectOption({ label: 'Nhóm mới...' });
-  await expect(nameInput(page)).toHaveAttribute('placeholder', 'Tên nhóm mới');
-  await expect(createBtn(page)).toHaveText('Tạo nhóm');
-  await expect(page.locator('#new-group-swatch')).toHaveAttribute('aria-hidden', 'true');
-  await createBtn(page).click();
-  await expect(groupError(page)).toHaveAttribute('role', 'alert');
-  await expect(page.locator('#new-task-error')).toBeHidden(); // one field-error at a time in the add form
+  await expect(page.locator('#add-form').getByRole('textbox')).toHaveCount(1); // the task input only (R18)
 });
 
-test('an Enter that ends an IME composition (Safari keyCode 229) does not create the group', async ({ page }) => {
-  await open(page, [], '', { groups: [] });
-  await choice(page).selectOption({ label: 'Nhóm mới...' });
-  await nameInput(page).fill('Nhật');
-  await nameInput(page).evaluate((el) => {
-    el.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', keyCode: 229, bubbles: true, cancelable: true }));
-  });
-  await expect(nameInput(page)).toBeVisible();
-  expect(await storedJson(page, GROUPS_KEY)).toEqual([]);
-  await nameInput(page).press('Enter');
-  expect((await storedJson(page, GROUPS_KEY)).map((g) => g.name)).toEqual(['Nhật']);
-});
+// Removed with the inline line (group-header T4): the box describe covers keyCode 229 for Enter and Escape.
 
-test('an Escape that ends an IME composition (Safari keyCode 229) keeps the name line open', async ({ page }) => {
-  await open(page, [], '', { groups: [] });
-  await choice(page).selectOption({ label: 'Nhóm mới...' });
-  await nameInput(page).fill('Nhật');
-  await nameInput(page).evaluate((el) => {
-    el.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', keyCode: 229, bubbles: true, cancelable: true }));
-    el.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', isComposing: true, bubbles: true, cancelable: true }));
-  });
-  await expect(nameInput(page)).toBeVisible();
-  await expect(nameInput(page)).toHaveValue('Nhật');
-  await nameInput(page).press('Escape');
-  await expect(nameInput(page)).toBeHidden();
-  await expect(choice(page)).toBeFocused();
-});
+// Removed with the inline line (group-header T4): the box describe covers keyCode 229 for Enter and Escape.
 
 test('a session whose groups could not be saved keeps its memory groups when another page changes them', async ({ page, context }) => {
   await open(page, [], '', { groups: [] });
@@ -765,16 +629,15 @@ test('a session whose groups could not be saved keeps its memory groups when ano
     const set = Storage.prototype.setItem;
     Storage.prototype.setItem = function (key, v) { if (key === k) throw new DOMException('Full', 'QuotaExceededError'); return set.call(this, key, v); };
   }, GROUPS_KEY);
-  await choice(page).selectOption({ label: 'Nhóm mới...' });
-  await nameInput(page).fill('Công ty');
-  await nameInput(page).press('Enter');
+  await createGroup(page, 'Công ty');
+  await choice(page).selectOption({ label: 'Công ty' });
   await expect(page.locator('#storage-slip')).toBeVisible();
   const other = await context.newPage();
   await other.goto('./');
   await other.evaluate((k) => localStorage.setItem(k, JSON.stringify([{ id: 'x', name: 'Khác', color: 'pink', createdAt: 1 }])), GROUPS_KEY);
   await other.close();
   await page.waitForTimeout(100);
-  expect(await optionTexts(page)).toEqual(['Chưa phân nhóm', 'Công ty', 'Nhóm mới...']);
+  expect(await optionTexts(page)).toEqual(['Chưa phân nhóm', 'Công ty']);
   expect(await chosenText(page)).toBe('Công ty');
   await expect(page.locator('#storage-slip')).toBeVisible();
 });
@@ -998,6 +861,7 @@ test('on a phone the swipe and Sửa reach the edit form inside a section; the f
   await open(page, DAY, '', { groups: GROUPS });
   await page.evaluate((k) => localStorage.setItem(k, '1'), HINT);
   const swipe = rowOf(page, 'Tưới cây').locator('.task__swipe');
+  await swipe.scrollIntoViewIfNeeded(); // the header holds Quản lý nhóm now (group-header), so the row may start below the fold
   await touchDrag(page, swipe, -200);
   await expect.poll(() => swipe.evaluate((el) => el.scrollLeft)).toBeGreaterThan(100);
   await editOf(page, 'Tưới cây').click();
@@ -1116,20 +980,19 @@ const notice = (page) => page.locator('#notice');
 const dayEmpty = (page) => page.locator('#empty');
 const storedAll = (page) => page.evaluate((ks) => ks.map((k) => localStorage.getItem(k)), [KEY, GROUPS_KEY, UI_KEY]);
 
-test('no filter before the first group, Quản lý nhóm on every day, and the filter appears once a group is made', async ({ page }) => {
+test('no group bar before the first group, Quản lý nhóm in the header on every day, and the filter alone once a group is made', async ({ page }) => {
   await open(page, [task('a', 'Một')]);
   for (const move of ['prev-day', 'next-day', 'next-day']) {
-    await expect(manageBtn(page)).toBeVisible();
-    await expect(filterSel(page)).toBeHidden();
-    await expect(page.locator('#group-bar .group-bar__icon')).toBeHidden();
+    await expect(page.locator('.app-header .day-nav__end #manage-groups')).toBeVisible();
+    await expect(page.locator('#group-bar')).toBeHidden(); // R4: no empty line in the body
     await page.locator(`#${move}`).click();
   }
   await page.locator('#to-today').click();
-  await choice(page).selectOption('new');
-  await nameInput(page).fill('Công ty');
-  await nameInput(page).press('Enter');
+  await createGroup(page, 'Công ty');
+  await expect(page.locator('#group-bar')).toBeVisible();
   await expect(filterSel(page)).toBeVisible();
   await expect(filterSel(page)).toHaveValue('all');
+  await expect(page.locator('#group-bar button')).toHaveCount(0); // the filter alone on its line
 });
 
 test('the filter sits between the add form and the list and lists Tất cả nhóm, Chưa phân nhóm, then the groups', async ({ page }) => {
@@ -1487,15 +1350,15 @@ test('filtering and moving between days never writes to storage', async ({ page 
   expect(await storedAll(page)).toEqual(before);
 });
 
-test('keyboard only: the filter and Quản lý nhóm follow Thêm in the Tab order and the filter changes with the keys', async ({ page }) => {
+test('keyboard only: the filter follows Thêm in the Tab order and the filter changes with the keys', async ({ page }) => {
   await open(page, DAY, '', { groups: GROUPS });
   await page.locator('#new-task').focus();
   const order = [];
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 4; i++) {
     await page.keyboard.press('Tab');
     order.push(await page.evaluate(() => { const el = document.activeElement; return el.id || el.className || el.textContent.trim(); }));
   }
-  expect(order).toEqual(['new-task-group', 'btn btn--primary', 'group-filter', 'manage-groups', 'group__toggle']);
+  expect(order).toEqual(['new-task-group', 'btn btn--primary', 'group-filter', 'group__toggle']);
   await filterSel(page).focus();
   await expect(filterSel(page)).toHaveAccessibleName('Lọc theo nhóm');
   await page.keyboard.press('ArrowDown'); // Chưa phân nhóm
@@ -1505,32 +1368,26 @@ test('keyboard only: the filter and Quản lý nhóm follow Thêm in the Tab ord
   await expect(manageBtn(page)).toHaveAccessibleName('Quản lý nhóm');
 });
 
-// Below 452 px Quản lý nhóm is icon only, so the longest realistic choices fit; from 452 px it shows its text (decisions.md).
-const ICON_ONLY_BELOW = 452;
-for (const width of [360, 380, 390, 412, 452, 1440]) {
-  const iconOnly = width < ICON_ONLY_BELOW;
-  test(`${width}px: Quản lý nhóm ${iconOnly ? 'is icon only with its name and tooltip' : 'shows its text'}, targets are 44 px, the filter choice is not cut`, async ({ page }) => {
+// Quản lý nhóm sits in the header under Về hôm nay with its label at every width (R1, R3, owner 2026-11-13).
+for (const width of [360, 390, 412, 452, 1440]) {
+  test(`${width}px: Quản lý nhóm is under Về hôm nay with its label, targets are 44 px, the filter choice is not cut`, async ({ page }) => {
     await page.setViewportSize({ width, height: 780 });
     await open(page, DAY, '', { groups: [...GROUPS, group('sk', 'Sức khỏe', 'blue', at(7, 3))] });
     await expect(manageBtn(page)).toHaveAccessibleName('Quản lý nhóm');
-    const label = page.locator('#group-bar .group-bar__manage-label');
+    await expect(manageBtn(page)).toHaveText('Quản lý nhóm');
+    await expect(manageBtn(page)).not.toHaveAttribute('data-tip');
+    const label = page.locator('.app-header .header-manage__label');
+    expect((await label.boundingBox()).width).toBeGreaterThan(40);
     const b = await manageBtn(page).boundingBox();
-    if (iconOnly) {
-      expect((await label.boundingBox()).width).toBeLessThanOrEqual(1);
-      expect(b.width).toBeGreaterThanOrEqual(44);
-      expect(b.height).toBeGreaterThanOrEqual(44);
-      await manageBtn(page).focus();
-      await page.keyboard.press('Shift+Tab');
-      await page.keyboard.press('Tab'); // keyboard focus shows the tooltip
-      expect(await manageBtn(page).evaluate((el) => getComputedStyle(el, '::after').content)).toContain('Quản lý nhóm');
-      await expect.poll(() => manageBtn(page).evaluate((el) => getComputedStyle(el, '::after').opacity)).toBe('1');
-    } else {
-      expect((await label.boundingBox()).width).toBeGreaterThan(40);
-      expect(await manageBtn(page).evaluate((el) => getComputedStyle(el, '::after').content)).toBe('none');
-      // The 36 px button gets a 44 px tall hit area from its ::before.
-      const hit = await page.evaluate(({ x, y, h }) => [y - 3, y + h + 3].map((py) => !!document.elementFromPoint(x, py)?.closest('#manage-groups')), { x: b.x + b.width / 2, y: b.y, h: b.height });
-      expect(hit).toEqual([true, true]);
-    }
+    const tab = await page.locator('#to-today').boundingBox();
+    expect(b.y).toBeGreaterThanOrEqual(tab.y + tab.height); // directly under Về hôm nay
+    expect(Math.abs(b.x + b.width - (tab.x + tab.width))).toBeLessThanOrEqual(1); // right aligned with it
+    expect(b.width).toBeGreaterThanOrEqual(44);
+    // The 36 px button gets a 44 px tall hit area from its ::before.
+    expect(parseFloat(await manageBtn(page).evaluate((el) => getComputedStyle(el, '::before').height))).toBeGreaterThanOrEqual(44);
+    // 4 px above and below the 36 px button still hit it (just inside the edge, so rounding cannot miss).
+    const hit = await page.evaluate(({ x, y, h }) => [y - 3.9, y + h + 3.9].map((py) => !!document.elementFromPoint(x, py)?.closest('#manage-groups')), { x: b.x + b.width / 2, y: b.y, h: b.height });
+    expect(hit).toEqual([true, true]);
     // The chosen name fits: the select is at least as wide as a copy of it holding only the chosen option at natural width.
     for (const label of ['Chưa phân nhóm', 'Học tiếng Nhật']) {
       await filterSel(page).selectOption({ label });
@@ -1616,17 +1473,7 @@ test('a filter change drops an open edit on a row it hides and keeps one on a ro
   await expect(editField(page)).toHaveValue('Tưới cây'); // the row stays in view: its edit stays
 });
 
-test('a filter change while Nhóm mới... is open changes the add choice but keeps the line and its text', async ({ page }) => {
-  await open(page, DAY, '', { groups: GROUPS });
-  await choice(page).selectOption({ label: 'Nhóm mới...' });
-  await page.locator('#new-group-name').fill('Mới');
-  await filterSel(page).selectOption({ label: 'Nhà' });
-  await expect(choice(page)).toHaveValue('new');
-  await expect(page.locator('#new-group-name')).toHaveValue('Mới');
-  await page.locator('#new-group-name').press('Escape');
-  await expect(page.locator('#new-group-name')).toHaveCount(0);
-  await expect(choice(page).locator('option:checked')).toHaveText('Nhà');
-});
+// Removed with the inline line (group-header T4): there is no line to keep open; the filter sets the add choice as R46 says.
 
 test('midnight with a filter on keeps the filter, follows the new day and clears the notice', async ({ page }) => {
   await open(page, DAY, '', { groups: GROUPS });
@@ -1776,7 +1623,7 @@ test('Lưu and Enter save the name and colour at once; headers, choices, filter 
   await expect(names(page)).toHaveText(['Việc công ty', 'Gia đình', 'Chưa phân nhóm']);
   expect(await sections(page).evaluateAll((s) => s.map((el) => el.dataset.color))).toEqual(['orange', 'pink', 'none']);
   await expect(toggle(page, 'Việc công ty')).toHaveAccessibleName('Nhóm Việc công ty 1/3 việc đã hoàn thành');
-  await expect(choice(page).locator('option')).toHaveText(['Chưa phân nhóm', 'Việc công ty', 'Gia đình', 'Học tiếng Nhật', 'Nhóm mới...']);
+  await expect(choice(page).locator('option')).toHaveText(['Chưa phân nhóm', 'Việc công ty', 'Gia đình', 'Học tiếng Nhật']);
   await expect(filterSel(page).locator('option')).toHaveText(['Tất cả nhóm', 'Chưa phân nhóm', 'Việc công ty', 'Gia đình', 'Học tiếng Nhật']);
   await page.getByRole('button', { name: 'Xem ngày trước' }).click();
   await expect(names(page)).toHaveText(['Việc công ty']);
@@ -2175,10 +2022,7 @@ test('a deleted group leaves the collapsed list; the others keep order and colou
   await xoa(page, 'B').click();
   await deleteNote(page).getByRole('button', { name: 'Xóa nhóm' }).click();
   expect((await storedJson(page, UI_KEY)).collapsed).toEqual(['a']);
-  await page.keyboard.press('Escape');
-  await choice(page).selectOption('new');
-  await nameInput(page).fill('D');
-  await createBtn(page).click();
+  await createGroup(page, 'D');
   expect((await storedJson(page, GROUPS_KEY)).map((g) => [g.id === 'a' || g.id === 'c' ? g.id : g.name, g.color]))
     .toEqual([['a', 'yellow'], ['c', 'green'], ['D', 'blue']]);
 });
@@ -2442,6 +2286,7 @@ for (const [w, h] of [[390, 844], [360, 640]]) {
     for (const [name, note] of [['Học tiếng Nhật', deleteNote], ['Nhà', blockedNote]]) {
       await xoa(page, name).click();
       await expect(note(page)).toBeVisible();
+      await expect.poll(() => note(page).evaluate((el) => el.getAnimations().length)).toBe(0); // the sheet has risen
       const box = await note(page).boundingBox();
       expect(box.x).toBeGreaterThanOrEqual(0);
       expect(box.x + box.width).toBeLessThanOrEqual(w);
@@ -3141,19 +2986,25 @@ const allowWrites = (page) => page.evaluate(() => { Storage.prototype.setItem = 
 const SLIP_TEXT = 'Không thể lưu dữ liệu trên trình duyệt này. Công việc có thể bị mất khi bạn tải lại trang.';
 const cardAlert = (page) => card(page).locator('#manage-save-error');
 
-test('keyboard only: create a group on the fly, add, collapse, filter, move a task, rename and recolour, move all, delete', async ({ page }) => {
+test('keyboard only: create a group in the card, add, collapse, filter, move a task, rename and recolour, move all, delete', async ({ page }) => {
   await open(page, []);
   const input = page.locator('#new-task');
   await expect(input).toBeFocused();
-  // Two groups made on the fly, each with a task; the typed task text waits while the group is made (R16).
+  // Two groups made in the card from the header, each with a task; the typed task text waits while the group is made.
   for (const [text, name] of [['Gửi báo cáo', 'Công ty'], ['Tưới cây', 'Nhà']]) {
     await page.keyboard.type(text);
-    await press(page, 'Tab', 'End'); // Nhóm mới... is the last option
-    await expect(nameInput(page)).toBeFocused();
+    await press(page, 'Shift+Tab', 'Enter'); // Quản lý nhóm, just before the add input
+    await tabTo(page, card(page).getByRole('button', { name: 'Thêm nhóm' }));
+    await press(page, 'Enter');
+    await expect(page.locator('#new-group-name')).toBeFocused();
     await page.keyboard.type(name);
     await press(page, 'Enter');
+    await closeCard(page, () => press(page, 'Escape'));
+    await press(page, 'Tab');
     await expect(input).toBeFocused();
     await expect(input).toHaveValue(text);
+    await press(page, 'Tab', 'End'); // the new group is the last choice
+    await press(page, 'Shift+Tab');
     await press(page, 'Enter');
     await expect(sectionLabels(page, name)).toHaveText([text]);
   }
@@ -3228,8 +3079,10 @@ test('keyboard only: create a group on the fly, add, collapse, filter, move a ta
 test('every new control is at least 44 by 44 px', async ({ page }) => {
   await open(page, SPREAD, '', { groups: [...GROUPS, SK] });
   await atLeast44(page.locator('#new-task-group, #group-filter, #manage-groups, .group__toggle, #add-form [type=submit]'), 'page');
-  await choice(page).selectOption({ label: 'Nhóm mới...' });
-  await atLeast44(page.locator('#create-group, #new-group-name'), 'new group line');
+  await openCard(page);
+  await card(page).getByRole('button', { name: 'Thêm nhóm' }).click();
+  await atLeast44(page.locator('#new-group-dialog button, #new-group-name, #manage-dialog .group-add'), 'new group box');
+  await page.keyboard.press('Escape');
   await page.keyboard.press('Escape');
   await editOf(page, 'Gửi báo cáo').click();
   await atLeast44(page.locator('#day-list .task__edit select, #day-list .task__edit button'), 'task edit');
@@ -3248,7 +3101,7 @@ test('every new control is at least 44 by 44 px', async ({ page }) => {
   await atLeast44(moveCard(page).locator('select, button'), 'move card');
 });
 
-test('360 px with 20 long names: no horizontal scroll with the new group line, the edit choice and each dialog open', async ({ page }) => {
+test('360 px with 20 long names: no horizontal scroll with the new group box, the edit choice and each dialog open', async ({ page }) => {
   await page.setViewportSize({ width: 360, height: 740 });
   const long = Array.from({ length: 19 }, (_, i) => group(`g${i}`, `${String(i).padStart(2, '0')} Dự án khách hàng lớn ${'x'.repeat(6)}`, 'blue', i + 1));
   const gs = [...long, group('w', 'W'.repeat(30), 'pink', 99)];
@@ -3259,9 +3112,11 @@ test('360 px with 20 long names: no horizontal scroll with the new group line, t
   await filterSel(page).selectOption('w');
   await noHScroll(page, 'long name chosen');
   await filterSel(page).selectOption('all');
-  await choice(page).selectOption({ label: 'Nhóm mới...' });
-  await nameInput(page).fill('W'.repeat(30));
-  await noHScroll(page, 'new group line');
+  await openCard(page);
+  await card(page).getByRole('button', { name: 'Thêm nhóm' }).click();
+  await page.locator('#new-group-name').fill('W'.repeat(30));
+  await noHScroll(page, 'new group box');
+  await page.keyboard.press('Escape');
   await page.keyboard.press('Escape');
   await editOf(page, 'Hai').click();
   await editChoice(page).selectOption('w');
@@ -3324,9 +3179,8 @@ test('data saved before the feature: every task shown ungrouped, the tasks strin
   expect(await storedRaw(page)).toBe(raw);
   expect(await storedAll(page)).toEqual([raw, null, null]);
   // The first group, a task added to it and one old task moved into it.
-  await choice(page).selectOption({ label: 'Nhóm mới...' });
-  await nameInput(page).fill('Công ty');
-  await nameInput(page).press('Enter');
+  await createGroup(page, 'Công ty');
+  await choice(page).selectOption({ label: 'Công ty' });
   await addTask(page, 'Việc mới');
   await editOf(page, 'Việc cũ 5').click();
   await editChoice(page).selectOption({ label: 'Công ty' });
@@ -3370,9 +3224,8 @@ test('storage blocked: create, add, move and collapse work in memory with the sl
   await open(page, null);
   await expect(slip(page)).toBeVisible();
   for (const name of ['Công ty', 'Nhà']) {
-    await choice(page).selectOption({ label: 'Nhóm mới...' });
-    await nameInput(page).fill(name);
-    await nameInput(page).press('Enter');
+    await createGroup(page, name);
+    await choice(page).selectOption({ label: name });
     await addTask(page, `Việc ${name}`);
   }
   await editOf(page, 'Việc Nhà').click();
@@ -3420,9 +3273,8 @@ test('every request stays on the same origin and the CSP meta is unchanged', asy
   const urls = [];
   page.on('request', (r) => urls.push(r.url()));
   await open(page, SPREAD, '', { groups: GROUPS });
-  await choice(page).selectOption({ label: 'Nhóm mới...' });
-  await nameInput(page).fill('Mới');
-  await nameInput(page).press('Enter');
+  await createGroup(page, 'Mới');
+  await choice(page).selectOption({ label: 'Mới' });
   await addTask(page, 'Một');
   await filterSel(page).selectOption('cty');
   await openCard(page);
@@ -3437,9 +3289,8 @@ test('failing writes on every action never change or shrink the stored strings, 
   await open(page, SPREAD, '', { groups: [...GROUPS, SK] });
   const before = await storedAll(page);
   await failWrites(page, [KEY, GROUPS_KEY, UI_KEY]);
-  await choice(page).selectOption({ label: 'Nhóm mới...' });
-  await nameInput(page).fill('Mới');
-  await nameInput(page).press('Enter');
+  await createGroup(page, 'Mới');
+  await choice(page).selectOption({ label: 'Mới' });
   await addTask(page, 'Việc mới');
   await editOf(page, 'Tưới cây').click();
   await editChoice(page).selectOption('cty');
@@ -3605,16 +3456,16 @@ test('every shown string is Vietnamese: the listed texts are present and no dash
     })) seen.add(s);
   };
   await collect();
-  await choice(page).selectOption({ label: 'Nhóm mới...' });
-  await nameInput(page).fill('');
-  await page.getByRole('button', { name: 'Tạo nhóm' }).click();
+  await openCard(page);
+  await card(page).getByRole('button', { name: 'Thêm nhóm' }).click();
   await collect();
-  await nameInput(page).fill('x'.repeat(31));
-  await page.getByRole('button', { name: 'Tạo nhóm' }).click();
-  await collect();
-  await nameInput(page).fill('Nhà');
-  await page.getByRole('button', { name: 'Tạo nhóm' }).click();
-  await collect();
+  for (const value of ['', 'x'.repeat(31), 'Nhà']) {
+    await page.locator('#new-group-name').fill(value);
+    await page.locator('#new-group-dialog').getByRole('button', { name: 'Tạo nhóm' }).click();
+    await collect();
+  }
+  await page.keyboard.press('Escape');
+  await page.keyboard.press('Escape');
   await filterSel(page).selectOption({ label: 'Nhà' });
   await collect();
   await page.getByRole('button', { name: 'Quản lý nhóm' }).click();
@@ -3631,7 +3482,7 @@ test('every shown string is Vietnamese: the listed texts are present and no dash
   await card(page).getByRole('button', { name: 'Xóa' }).first().click();
   await collect();
   const all = [...seen];
-  for (const must of ['Nhóm', 'Chưa phân nhóm', 'Nhóm mới...', 'Tên nhóm mới', 'Tạo nhóm', 'Quản lý nhóm', 'Nhóm việc', 'Đóng', 'Lọc theo nhóm', 'Tất cả nhóm', 'Màu nhóm', 'Vàng', 'Xanh lá', 'Xanh dương', 'Chuyển tất cả việc', 'Chuyển đến nhóm', 'Chuyển việc', 'Giữ lại', 'Đã hiểu', 'Xem các việc này',
+  for (const must of ['Nhóm', 'Chưa phân nhóm', 'Thêm nhóm', 'Tạo nhóm mới', 'Tên nhóm mới', 'Tạo nhóm', 'Hủy', 'Quản lý nhóm', 'Nhóm việc', 'Đóng', 'Lọc theo nhóm', 'Tất cả nhóm', 'Màu nhóm', 'Vàng', 'Xanh lá', 'Xanh dương', 'Chuyển tất cả việc', 'Chuyển đến nhóm', 'Chuyển việc', 'Giữ lại', 'Đã hiểu', 'Xem các việc này',
     'Vui lòng nhập tên nhóm.', 'Tên nhóm tối đa 30 ký tự.', 'Tên nhóm này đã có rồi.', 'Chuyển tất cả việc của nhóm "Công ty"']) {
     expect(all.some((s) => s.includes(must)), `missing: ${must}`).toBe(true);
   }
@@ -3690,4 +3541,501 @@ test('reused sections across a day change and the filter: rows, fold and header 
   await expect(names(page)).toHaveText(['Công ty', 'Nhà', 'Chưa phân nhóm']);
   await expect(toggle(page, 'Nhà')).toHaveAttribute('aria-expanded', 'false');
   await expect(rows(page)).toHaveCount(6);
+});
+
+// group-header T2: "Thêm nhóm" in the card and the new group box (R5 to R17, R19, R23, R26 to R28, R30 to R32, NFR1 to NFR4, NFR6).
+// Scoped to real ids: the flip leaf copy has none.
+test.describe('new group box', () => {
+  const box = (page) => page.locator('#new-group-dialog');
+  const boxInput = (page) => page.locator('#new-group-name');
+  const boxError = (page) => page.locator('#new-group-error');
+  const boxCreate = (page) => box(page).getByRole('button', { name: 'Tạo nhóm', exact: true });
+  const boxCancel = (page) => box(page).getByRole('button', { name: 'Hủy', exact: true });
+  const addLine = (page) => card(page).getByRole('button', { name: 'Thêm nhóm', exact: true });
+  const status = (page) => page.locator('#manage-status');
+  const openBox = async (page) => {
+    await openCard(page);
+    await addLine(page).click();
+    await expect(box(page)).toBeVisible();
+  };
+  const storedNames = async (page) => (await storedJson(page, GROUPS_KEY) ?? []).map((g) => g.name);
+  const twenty = Array.from({ length: 20 }, (_, i) => group(`g${i}`, `Nhóm ${i + 1}`, ['yellow', 'pink', 'green', 'blue', 'orange', 'purple'][i % 6], i + 1));
+
+  test('Thêm nhóm sits above the rows with 0, 3 and 20 groups, and stays in view when the rows scroll', async ({ page }) => {
+    for (const gs of [[], GROUPS, twenty]) {
+      await open(page, [], '', { groups: gs });
+      await openCard(page);
+      await expect(addLine(page)).toBeVisible();
+      await expect(addLine(page)).toHaveText('Thêm nhóm');
+      const top = (await addLine(page).boundingBox()).y;
+      expect(top).toBeLessThan((await card(page).locator('#group-rows').boundingBox()).y);
+      if (gs.length === 20) {
+        await card(page).locator('#group-rows').evaluate((el) => { el.scrollTop = el.scrollHeight; });
+        expect(Math.abs((await addLine(page).boundingBox()).y - top)).toBeLessThanOrEqual(1); // the card may still be settling
+        // The card still fits the screen with 20 groups and the add line (UX critique P1).
+        const c = await card(page).boundingBox();
+        expect(c.y + c.height).toBeLessThanOrEqual(page.viewportSize().height);
+      }
+      const b = await addLine(page).boundingBox();
+      expect(b.height).toBeGreaterThanOrEqual(44);
+      await page.keyboard.press('Escape');
+    }
+  });
+
+  test('opens over the card as a dialog named Tạo nhóm mới, focus in Tên nhóm mới, next colour shown, the card inert', async ({ page }) => {
+    await open(page, [], '', { groups: GROUPS.slice(0, 2) }); // yellow, pink: next is green
+    await openBox(page);
+    await expect(page.getByRole('dialog', { name: 'Tạo nhóm mới' })).toBeVisible();
+    await expect(card(page)).toBeVisible(); // stays open behind
+    await expect(boxInput(page)).toBeFocused();
+    await expect(boxInput(page)).toHaveAccessibleName('Tên nhóm mới');
+    await expect(boxInput(page)).toHaveValue('');
+    await expect(boxError(page)).toBeHidden();
+    await expect(box(page).getByRole('button')).toHaveText(['Hủy', 'Tạo nhóm']);
+    for (const sel of ['.swatch', '.sticker']) {
+      await expect(box(page).locator(sel)).toHaveAttribute('data-color', 'green');
+      await expect(box(page).locator(sel)).toHaveAttribute('aria-hidden', 'true');
+    }
+    await expect(box(page)).not.toHaveAttribute('role', 'alertdialog');
+    // Modal: the card behind cannot be reached, and Tab stays in the box (R26, R27).
+    expect(await page.evaluate(() => {
+      const behind = document.querySelector('#manage-dialog [data-action="close"]');
+      behind.focus(); // inert under the modal box: focus stays in the box
+      return document.activeElement.id;
+    })).toBe('new-group-name');
+    // Tab never reaches the page or the card: past Tạo nhóm the browser may hold focus on the document, then it comes back.
+    const seen = [];
+    for (let i = 0; i < 5; i++) {
+      await page.keyboard.press('Tab');
+      seen.push(await page.evaluate(() => {
+        const el = document.activeElement;
+        return el === document.body ? 'body' : el.closest('#new-group-dialog') ? (el.id || el.textContent.trim()) : `outside: ${el.id || el.className}`;
+      }));
+    }
+    expect(seen.filter((x) => x !== 'body').slice(0, 3)).toEqual(['Hủy', 'Tạo nhóm', 'new-group-name']);
+    expect(seen.filter((x) => x.startsWith('outside'))).toEqual([]);
+    await boxInput(page).focus();
+    await page.keyboard.press('Shift+Tab');
+    expect(await page.evaluate(() => document.activeElement === document.body || !!document.activeElement.closest('#new-group-dialog'))).toBe(true);
+    await boxInput(page).focus();
+    for (const el of [boxInput(page), boxCancel(page), boxCreate(page)]) {
+      const r = await el.boundingBox();
+      expect(r.height).toBeGreaterThanOrEqual(44);
+      expect(r.width).toBeGreaterThanOrEqual(44);
+    }
+  });
+
+  test('the first group gets yellow, the one after it pink', async ({ page }) => {
+    await open(page, [], '', { groups: [] });
+    await openBox(page);
+    await expect(box(page).locator('.swatch')).toHaveAttribute('data-color', 'yellow');
+    await boxInput(page).fill('Công ty');
+    await boxInput(page).press('Enter');
+    await addLine(page).click();
+    await expect(box(page).locator('.swatch')).toHaveAttribute('data-color', 'pink');
+    await expect(box(page).locator('.sticker')).toHaveAttribute('data-color', 'pink');
+  });
+
+  for (const how of ['Enter', 'click']) {
+    test(`${how} creates the group at the end, closes the box, announces it once and focuses Thêm nhóm; no task, add form untouched`, async ({ page }) => {
+      await open(page, DAY, '', { groups: GROUPS });
+      await choice(page).selectOption({ label: 'Nhà' });
+      await page.locator('#new-task').fill('Việc đang viết');
+      await filterSel(page).selectOption({ label: 'Công ty' });
+      await choice(page).selectOption({ label: 'Nhà' }); // the filter set the add choice; the owner picks Nhà again
+      const tasks = await storedRaw(page);
+      await page.evaluate(() => {
+        window.__said = [];
+        new MutationObserver(() => { const t = document.getElementById('manage-status').textContent; if (t) window.__said.push(t); })
+          .observe(document.getElementById('manage-status'), { childList: true, characterData: true, subtree: true });
+      });
+      await openBox(page);
+      await boxInput(page).fill('Sức khỏe');
+      if (how === 'Enter') await boxInput(page).press('Enter'); else await boxCreate(page).click();
+      await expect(box(page)).toBeHidden();
+      await expect(card(page)).toBeVisible();
+      await expect(addLine(page)).toBeFocused();
+      await expect(cardRows(page).locator('.sticker')).toHaveText(['Công ty', 'Nhà', 'Học tiếng Nhật', 'Sức khỏe']);
+      await expect(cardRows(page).last()).toHaveClass(/group-row--new/);
+      await expect(status(page)).toHaveText('Đã tạo nhóm "Sức khỏe".');
+      await page.waitForTimeout(100);
+      expect(await page.evaluate(() => window.__said)).toEqual(['Đã tạo nhóm "Sức khỏe".']);
+      const saved = (await storedJson(page, GROUPS_KEY)).at(-1);
+      expect(saved).toMatchObject({ name: 'Sức khỏe', color: 'blue' });
+      expect(typeof saved.id).toBe('string');
+      expect(Number.isFinite(saved.createdAt)).toBe(true);
+      expect(await storedRaw(page)).toBe(tasks); // no task created
+      // The page behind: the new group is offered everywhere, the add choice, typed text and filter are as they were (R19).
+      expect(await optionTexts(page)).toContain('Sức khỏe');
+      await expect(filterSel(page).locator('option')).toContainText(['Sức khỏe']);
+      await expect(choice(page)).toHaveValue('nha');
+      await expect(page.locator('#new-task')).toHaveValue('Việc đang viết');
+      await expect(filterSel(page)).toHaveValue('cty');
+      await page.keyboard.press('Escape');
+      await expect(manageBtn(page)).toBeFocused();
+    });
+  }
+
+  test('a new last row in a scrolling list is scrolled into view', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 600 });
+    await open(page, [], '', { groups: twenty.slice(0, 19) });
+    await openBox(page);
+    await boxInput(page).fill('Cuối cùng');
+    await boxInput(page).press('Enter');
+    await expect(cardRows(page).last()).toBeInViewport();
+    await expect(cardRows(page).last().locator('.sticker')).toHaveText('Cuối cùng');
+  });
+
+  for (const [value, code, text] of [
+    ['', 'empty', 'Vui lòng nhập tên nhóm.'],
+    ['    ', 'empty', 'Vui lòng nhập tên nhóm.'],
+    ['x'.repeat(31), 'tooLong', 'Tên nhóm tối đa 30 ký tự.'],
+    ['nhà', 'duplicate', 'Tên nhóm này đã có rồi.'],
+    ['NHÀ'.normalize('NFD'), 'duplicate', 'Tên nhóm này đã có rồi.'],
+    ['chưa phân nhóm', 'duplicate', 'Tên nhóm này đã có rồi.'],
+  ]) {
+    test(`${code} "${value.slice(0, 8)}": the message under the field, invalid and linked, text and focus kept, nothing saved`, async ({ page }) => {
+      await open(page, [], '', { groups: GROUPS });
+      const before = await page.evaluate((k) => localStorage.getItem(k), GROUPS_KEY);
+      await openBox(page);
+      await boxInput(page).fill(value);
+      await boxCreate(page).click();
+      await expect(box(page)).toBeVisible();
+      await expect(boxError(page)).toHaveText(text);
+      await expect(boxError(page)).toHaveAttribute('role', 'alert');
+      await expect(boxInput(page)).toHaveAttribute('aria-invalid', 'true');
+      await expect(boxInput(page)).toHaveAttribute('aria-describedby', 'new-group-error');
+      await expect(boxInput(page)).toHaveAccessibleDescription(text);
+      await expect(boxInput(page)).toBeFocused();
+      await expect(boxInput(page)).toHaveValue(value);
+      expect(await page.evaluate((k) => localStorage.getItem(k), GROUPS_KEY)).toBe(before);
+      // A repeat shows it again (re-added, so it is announced); typing clears it (R16).
+      await page.evaluate(() => { window.__shown = 0; new MutationObserver(() => { if (!document.getElementById('new-group-error').hidden) window.__shown++; }).observe(document.getElementById('new-group-error'), { attributes: true }); });
+      await boxInput(page).press('Enter');
+      await expect(boxError(page)).toHaveText(text);
+      expect(await page.evaluate(() => window.__shown)).toBeGreaterThanOrEqual(1);
+      await boxInput(page).press('a');
+      await expect(boxError(page)).toBeHidden();
+      await expect(boxInput(page)).not.toHaveAttribute('aria-invalid');
+      await expect(boxInput(page)).not.toHaveAttribute('aria-describedby');
+    });
+  }
+
+  test('30 characters is accepted, padding spaces trimmed', async ({ page }) => {
+    await open(page, [], '', { groups: [] });
+    await openBox(page);
+    await boxInput(page).fill(`  ${'Đ'.repeat(30)}  `);
+    await boxInput(page).press('Enter');
+    await expect(box(page)).toBeHidden();
+    expect(await storedNames(page)).toEqual(['Đ'.repeat(30)]);
+  });
+
+  test('at 20 groups the limit shows at once, stays while typing, and Tạo nhóm creates nothing', async ({ page }) => {
+    await open(page, [], '', { groups: twenty });
+    const before = await page.evaluate((k) => localStorage.getItem(k), GROUPS_KEY);
+    await openBox(page);
+    const limit = 'Tối đa 20 nhóm. Hãy xóa bớt một nhóm trước khi tạo thêm.';
+    await expect(boxError(page)).toHaveText(limit);
+    await expect(boxInput(page)).toHaveAttribute('aria-invalid', 'true');
+    await expect(boxInput(page)).toBeFocused();
+    await boxInput(page).pressSequentially('Mới');
+    await expect(boxError(page)).toHaveText(limit);
+    await boxCreate(page).click();
+    await boxCreate(page).click();
+    await expect(boxError(page)).toHaveText(limit);
+    await expect(box(page)).toBeVisible();
+    expect(await page.evaluate((k) => localStorage.getItem(k), GROUPS_KEY)).toBe(before);
+    // The box still fits the screen over a full card.
+    const b = await box(page).boundingBox();
+    expect(b.y).toBeGreaterThanOrEqual(0);
+    expect(b.y + b.height).toBeLessThanOrEqual(page.viewportSize().height);
+  });
+
+  test('IME: an Enter that commits a composition does not create the group; Enter after it does', async ({ page, browserName }) => {
+    test.skip(browserName !== 'chromium', 'CDP IME is Chromium only');
+    await open(page, [], '', { groups: [] });
+    await openBox(page);
+    const cdp = await page.context().newCDPSession(page);
+    await cdp.send('Input.imeSetComposition', { text: 'nhaf', selectionStart: 4, selectionEnd: 4 });
+    await cdp.send('Input.dispatchKeyEvent', { type: 'rawKeyDown', key: 'Process', code: 'Enter', windowsVirtualKeyCode: 229 });
+    await cdp.send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13 });
+    await expect(box(page)).toBeVisible();
+    expect(await storedJson(page, GROUPS_KEY)).toEqual([]);
+    await cdp.send('Input.insertText', { text: 'Nhà' });
+    await boxInput(page).press('Enter');
+    await expect(box(page)).toBeHidden();
+    expect(await storedNames(page)).toEqual(['Nhà']);
+    expect(await storedRaw(page)).toBe('[]');
+  });
+
+  test('an Enter or Escape with Safari keyCode 229 neither creates nor closes', async ({ page }) => {
+    await open(page, [], '', { groups: [] });
+    await openBox(page);
+    await boxInput(page).fill('Nhật');
+    const prevented = await boxInput(page).evaluate((el) => ['Enter', 'Escape'].map((key) => {
+      const e = new KeyboardEvent('keydown', { key, keyCode: 229, bubbles: true, cancelable: true });
+      el.dispatchEvent(e);
+      return e.defaultPrevented;
+    }));
+    expect(prevented).toEqual([true, true]);
+    await expect(box(page)).toBeVisible();
+    await expect(boxInput(page)).toHaveValue('Nhật');
+    expect(await storedJson(page, GROUPS_KEY)).toEqual([]);
+    await boxInput(page).press('Enter');
+    expect(await storedNames(page)).toEqual(['Nhật']);
+  });
+
+  for (const how of ['Hủy', 'Escape', 'backdrop']) {
+    test(`${how} closes only the box: nothing created, the card open, focus on Thêm nhóm, no announcement, text dropped`, async ({ page }) => {
+      await open(page, [], '', { groups: GROUPS });
+      const before = await page.evaluate((k) => localStorage.getItem(k), GROUPS_KEY);
+      await openBox(page);
+      await boxInput(page).fill('Học');
+      if (how === 'Hủy') await boxCancel(page).click();
+      else if (how === 'Escape') await page.keyboard.press('Escape');
+      else await page.mouse.click(5, 5);
+      await expect(box(page)).toBeHidden();
+      await expect(card(page)).toBeVisible();
+      await expect(addLine(page)).toBeFocused();
+      await expect(status(page)).toHaveText('');
+      expect(await page.evaluate((k) => localStorage.getItem(k), GROUPS_KEY)).toBe(before);
+      await addLine(page).click();
+      await expect(boxInput(page)).toHaveValue('');
+    });
+  }
+
+  test('Enter twice and a double click on Tạo nhóm make one group each', async ({ page }) => {
+    await open(page, [], '', { groups: [] });
+    await openBox(page);
+    await boxInput(page).fill('Nhà');
+    await page.evaluate(() => {
+      const form = document.querySelector('#new-group-dialog form');
+      form.requestSubmit();
+      form.requestSubmit();
+    });
+    expect(await storedNames(page)).toEqual(['Nhà']);
+    await addLine(page).click();
+    await boxInput(page).fill('Khác');
+    await boxInput(page).press('Enter');
+    await page.keyboard.press('Enter'); // lands on Thêm nhóm, which opens an empty box
+    expect(await storedNames(page)).toEqual(['Nhà', 'Khác']);
+    if (await box(page).isVisible()) await page.keyboard.press('Escape');
+    await addLine(page).click();
+    await boxInput(page).fill('Ba');
+    await boxCreate(page).dblclick();
+    expect(await storedNames(page)).toEqual(['Nhà', 'Khác', 'Ba']);
+  });
+
+  test('another tab adds a group: the swatch follows, and the same name is a duplicate at the moment of pressing', async ({ page, context }) => {
+    await open(page, [], '', { groups: [group('a', 'A', 'yellow', 1)] });
+    await openBox(page);
+    await expect(box(page).locator('.swatch')).toHaveAttribute('data-color', 'pink');
+    await boxInput(page).fill('Mới');
+    const other = await context.newPage();
+    await other.goto('./');
+    await other.evaluate(([k, v]) => localStorage.setItem(k, v), [GROUPS_KEY, JSON.stringify([group('a', 'A', 'yellow', 1), group('b', 'Mới', 'pink', 2)])]);
+    await expect(box(page).locator('.swatch')).toHaveAttribute('data-color', 'green');
+    await expect(box(page).locator('.sticker')).toHaveAttribute('data-color', 'green');
+    await expect(boxInput(page)).toHaveValue('Mới');
+    await boxCreate(page).click();
+    await expect(boxError(page)).toHaveText('Tên nhóm này đã có rồi.');
+    expect(await storedNames(page)).toEqual(['A', 'Mới']);
+    await other.close();
+  });
+
+  test('a failed write closes the box, shows the new row and the storage text inside the card', async ({ page }) => {
+    await open(page, [], '', { groups: GROUPS });
+    const before = await page.evaluate((k) => localStorage.getItem(k), GROUPS_KEY);
+    await failWrites(page, [GROUPS_KEY]);
+    await openBox(page);
+    await boxInput(page).fill('Sức khỏe');
+    await boxInput(page).press('Enter');
+    await expect(box(page)).toBeHidden();
+    await expect(cardRows(page).last().locator('.sticker')).toHaveText('Sức khỏe');
+    await expect(cardAlert(page)).toBeVisible();
+    await expect(cardAlert(page)).toHaveText(SLIP_TEXT);
+    await allowWrites(page);
+    expect(await page.evaluate((k) => localStorage.getItem(k), GROUPS_KEY)).toBe(before);
+    await page.keyboard.press('Escape');
+    expect(await optionTexts(page)).toContain('Sức khỏe'); // kept for the session
+  });
+
+  test('a name with markup is shown as text in the row, the choices and the live message', async ({ page }) => {
+    await open(page, [], '', { groups: [] });
+    await page.evaluate(() => { window.__x = 0; });
+    const name = '<img src=x onerror=__x=1>';
+    await openBox(page);
+    await boxInput(page).fill(name);
+    await boxInput(page).press('Enter');
+    await expect(cardRows(page).locator('.sticker')).toHaveText([name]);
+    await expect(status(page)).toHaveText(`Đã tạo nhóm "${name}".`);
+    expect(await page.locator('img').count()).toBe(0);
+    expect(await page.evaluate(() => window.__x)).toBe(0);
+  });
+
+  test('Back with the box open changes the day with no flip, the card, box and typed name kept', async ({ page }) => {
+    await watchFlips(page);
+    await open(page, [], '#2026-11-08', { groups: GROUPS });
+    await page.locator('#next-day').click();
+    await expect(page.locator('.flip-stage')).toHaveCount(0, { timeout: 3000 });
+    const seen = (await flipsSeen(page)).length;
+    await openBox(page);
+    await boxInput(page).fill('Học');
+    await page.goBack();
+    await expect(page.locator('#date-line')).toContainText('08/11/2026');
+    await page.waitForTimeout(100);
+    expect((await flipsSeen(page)).length).toBe(seen);
+    await expect(box(page)).toBeVisible();
+    await expect(card(page)).toBeVisible();
+    await expect(boxInput(page)).toHaveValue('Học');
+  });
+
+  for (const scheme of ['light', 'dark']) {
+    test(`axe: the open box, empty and with an error, has no violations (${scheme})`, async ({ page }) => {
+      await page.emulateMedia({ colorScheme: scheme });
+      await open(page, [], '', { groups: GROUPS });
+      await openBox(page);
+      await page.waitForTimeout(400); // the note-in motion settles
+      const scan = () => new AxeBuilder({ page }).include('#new-group-dialog').withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
+      expect((await scan()).violations).toEqual([]);
+      await boxCreate(page).click();
+      await expect(boxError(page)).toBeVisible();
+      await page.waitForTimeout(400);
+      expect((await scan()).violations).toEqual([]);
+    });
+  }
+
+  test('the card closing by another route closes the box with it: nothing created, the name dropped (R11)', async ({ page }) => {
+    await open(page, [], '', { groups: GROUPS });
+    const before = await page.evaluate((k) => localStorage.getItem(k), GROUPS_KEY);
+    await openBox(page);
+    await boxInput(page).fill('Học');
+    await page.evaluate(() => document.getElementById('manage-dialog').close());
+    await expect(card(page)).toBeHidden();
+    await expect(box(page)).toBeHidden();
+    expect(await page.evaluate((k) => localStorage.getItem(k), GROUPS_KEY)).toBe(before);
+    await openBox(page);
+    await expect(boxInput(page)).toHaveValue('');
+    await expect(boxError(page)).toBeHidden();
+  });
+
+  test('Quản lý nhóm during a drag cancels the drag and opens the card (R33)', async ({ page, isMobile }) => {
+    test.skip(isMobile, 'mouse drag');
+    await open(page, DAY, '', { groups: GROUPS });
+    const tasks = await storedRaw(page);
+    await mouseDrag(page, rowOf(page, 'Tưới cây'));
+    expect(await page.evaluate(() => document.documentElement.classList.contains('is-dragging'))).toBe(true);
+    await page.evaluate(() => document.getElementById('manage-groups').click());
+    expect(await page.evaluate(() => document.querySelectorAll('.drag-slip, .drop-strip, .task--placeholder, html.is-dragging').length)).toBe(0);
+    await expect(card(page)).toBeVisible();
+    await page.mouse.up();
+    expect(await storedRaw(page)).toBe(tasks); // nothing moved
+  });
+
+  test('20 groups and 200 tasks: opening the card and the box and creating a group each stay under 100 ms', async ({ page }) => {
+    const gs = twenty.slice(0, 19);
+    const big = Array.from({ length: 200 }, (_, i) => ({ ...task(`t${i}`, `Việc số ${i + 1}`, false, TODAY, i + 1), groupId: `g${i % 19}` }));
+    await open(page, big, '', { groups: gs });
+    const ms = await page.evaluate(async () => {
+      const time = (fn) => { const t0 = performance.now(); fn(); void document.body.offsetHeight; return performance.now() - t0; };
+      const card = time(() => document.getElementById('manage-groups').click());
+      const box = time(() => document.querySelector('#manage-dialog [data-action="add"]').click());
+      document.getElementById('new-group-name').value = 'Nhóm 20';
+      const create = time(() => document.querySelector('#new-group-dialog form').requestSubmit());
+      const full = time(() => document.querySelector('#manage-dialog [data-action="add"]').click()); // now 20
+      return { card, box, create, full };
+    });
+    expect(ms.card).toBeLessThan(100);
+    expect(ms.box).toBeLessThan(50); // no long task when the box opens (NFR1)
+    expect(ms.create).toBeLessThan(100);
+    expect(ms.full).toBeLessThan(100);
+    await expect(cardRows(page)).toHaveCount(20);
+    await expect(rows(page)).toHaveCount(200);
+  });
+});
+
+// group-header T3: every sticky note is a bottom sheet on phones and a centred note on desktop (R29, R30).
+test.describe('sticky notes as phone sheets', () => {
+  const NOTES = {
+    'new group box': async (page) => { await openCard(page); await card(page).getByRole('button', { name: 'Thêm nhóm', exact: true }).click(); return page.locator('#new-group-dialog'); },
+    'delete group note': async (page) => { await openCard(page); await cardRow(page, 'Học tiếng Nhật').getByRole('button', { name: 'Xóa' }).click(); return page.locator('#group-delete-dialog'); },
+    'blocked note': async (page) => { await openCard(page); await cardRow(page, 'Công ty').getByRole('button', { name: 'Xóa' }).click(); return page.locator('#group-blocked-dialog'); },
+    'task delete note': async (page) => { await rows(page).first().locator('[data-action="remove"]').evaluate((b) => b.click()); return page.locator('#delete-dialog'); },
+  };
+  const place = (note) => note.evaluate((el) => {
+    const r = el.getBoundingClientRect();
+    const sticker = el.querySelector('.sticker--corner')?.getBoundingClientRect();
+    return {
+      left: r.left, right: r.right, top: r.top, bottom: r.bottom, w: innerWidth, h: innerHeight, width: el.offsetWidth,
+      rotate: getComputedStyle(el).rotate, tapeTop: r.top - 12, // the tape (::before) sits 12 px above the top edge
+      sticker: sticker && [sticker.left, sticker.right, sticker.top],
+      scroll: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    };
+  });
+
+  for (const [w, h] of [[390, 844], [360, 640]]) {
+    for (const [name, show] of Object.entries(NOTES)) {
+      test(`${w} by ${h}: the ${name} docks to the bottom, full width, untilted, tape and sticker on screen`, async ({ page }) => {
+        await page.setViewportSize({ width: w, height: h });
+        await open(page, DAY, '', { groups: GROUPS });
+        const note = await show(page);
+        await expect(note).toBeVisible();
+        await expect.poll(() => note.evaluate((el) => el.getAnimations().length)).toBe(0); // the sheet-up motion settles
+        const p = await place(note);
+        expect(p.left).toBe(0);
+        expect(p.right).toBe(p.w);
+        expect(Math.abs(p.bottom - p.h)).toBeLessThanOrEqual(1);
+        expect(['none', '0deg']).toContain(p.rotate);
+        expect(p.tapeTop).toBeGreaterThanOrEqual(0);
+        if (p.sticker) {
+          expect(p.sticker[0]).toBeGreaterThanOrEqual(0);
+          expect(p.sticker[1]).toBeLessThanOrEqual(p.w);
+          expect(p.sticker[2]).toBeGreaterThanOrEqual(0);
+        }
+        expect(p.scroll).toBe(0);
+      });
+    }
+  }
+
+  for (const [name, show] of Object.entries(NOTES)) {
+    test(`1440 px: the ${name} stays a centred, tilted note`, async ({ page }) => {
+      await page.setViewportSize({ width: 1440, height: 900 });
+      await open(page, DAY, '', { groups: GROUPS });
+      const note = await show(page);
+      await expect.poll(() => note.evaluate((el) => el.getAnimations().length)).toBe(0);
+      const p = await place(note);
+      expect(Math.abs((p.left + p.right) / 2 - p.w / 2)).toBeLessThanOrEqual(2);
+      expect(p.width).toBeLessThanOrEqual(400); // offsetWidth: the bounding box grows with the tilt
+      expect(p.bottom).toBeLessThan(p.h - 100);
+      expect(p.rotate).not.toBe('none');
+    });
+  }
+
+  test('360 by 340 (keyboard up): the box input, Hủy and Tạo nhóm are in view; a 30 character name stays inside the box', async ({ page }) => {
+    await page.setViewportSize({ width: 360, height: 340 });
+    await open(page, [], '', { groups: GROUPS });
+    const box = await NOTES['new group box'](page);
+    const name = 'Đ'.repeat(30);
+    await page.locator('#new-group-name').fill(name);
+    for (const el of [page.locator('#new-group-name'), box.getByRole('button', { name: 'Hủy' }), box.getByRole('button', { name: 'Tạo nhóm' })]) {
+      await expect(el).toBeInViewport({ ratio: 1 });
+    }
+    const [input, b] = await Promise.all([page.locator('#new-group-name').boundingBox(), box.boundingBox()]);
+    expect(input.x).toBeGreaterThanOrEqual(b.x);
+    expect(input.x + input.width).toBeLessThanOrEqual(b.x + b.width);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBe(0);
+    // Created, the name wraps whole inside its card row.
+    await page.setViewportSize({ width: 360, height: 640 });
+    await page.locator('#new-group-name').press('Enter');
+    const row = cardRows(page).last();
+    await expect(row.locator('.sticker')).toHaveText(name);
+    const [s, c] = await Promise.all([row.locator('.sticker').boundingBox(), card(page).boundingBox()]);
+    expect(s.x + s.width).toBeLessThanOrEqual(c.x + c.width);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBe(0);
+  });
+
+  test('the viewport lets the on screen keyboard resize the page, so a bottom sheet rides above it', async ({ page }) => {
+    await open(page, []);
+    await expect(page.locator('meta[name="viewport"]')).toHaveAttribute('content', 'width=device-width, initial-scale=1, interactive-widget=resizes-content');
+  });
 });

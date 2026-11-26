@@ -1,5 +1,5 @@
-import { daysBetween } from "./date.js?v=1.4.0";
-import { PageFlip } from "../vendor/page-flip/page-flip.module.js?v=1.4.0";
+import { daysBetween } from "./date.js?v=1.5.0";
+import { PageFlip } from "../vendor/page-flip/page-flip.module.js?v=1.5.0";
 
 // Leaves for a move of `days` calendar days (sign ignored): 0 for 0, 1, 2, then 3 for 3 or more (R3).
 // null (an invalid key) gives 0, so no stage is built.
@@ -26,7 +26,7 @@ const div = (className) => {
 export function createFlip({ sheet, body }) {
   const CAN_3D = CSS.supports("transform", "rotateY(1deg)") && CSS.supports("perspective", "1px");
   const CAN_CURL = CAN_3D && CSS.supports("clip-path", "polygon(evenodd, 0 0, 1px 0, 0 1px)"); // R39: punch() needs it
-  const allowed = () => CAN_CURL && !document.hidden; // R7
+  const allowed = () => CAN_CURL && !document.hidden && !document.querySelector("dialog[open]"); // R7; group-header R23: never behind a dialog
   const ms = (name) => parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name)) || 0;
   let stage = null;
   let timer = 0;
