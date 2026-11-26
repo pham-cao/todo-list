@@ -509,7 +509,7 @@ features:
         title: "Quản lý nhóm in the header, group bar hidden with no groups"
         owner: fe
         depends_on: []
-        state: doing
+        state: done
         attempts: 0
         bugs_opened: []
         trello_card: ""
@@ -517,7 +517,7 @@ features:
         title: "Thêm nhóm and the new group box"
         owner: fe
         depends_on: [T1]
-        state: todo
+        state: done
         attempts: 0
         bugs_opened: []
         trello_card: ""
@@ -525,7 +525,7 @@ features:
         title: "Sticky note dialogs as bottom sheets on phones"
         owner: fe
         depends_on: [T2]
-        state: todo
+        state: done
         attempts: 0
         bugs_opened: []
         trello_card: ""
@@ -533,7 +533,7 @@ features:
         title: "Remove the old inline group creation"
         owner: fe
         depends_on: [T2]
-        state: todo
+        state: done
         attempts: 0
         bugs_opened: []
         trello_card: ""

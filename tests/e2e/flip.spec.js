@@ -194,6 +194,32 @@ for (const act of ['add', 'storage', 'filter', 'delete']) {
   });
 }
 
+// group-header R22, R23: the header Quản lý nhóm ends a running flip in the same task as its click, and while the card
+// is open no flip starts: Back changes the day under it with no stage, and the card stays open.
+test('Quản lý nhóm during a flip ends it at once; Back with the card open changes the day with no flip', async ({ page }) => {
+  await watchFlips(page);
+  await open(page, SEED);
+  await next(page).click();
+  await expect(stages(page)).toHaveCount(1);
+  const left = await page.evaluate(() => {
+    document.getElementById('manage-groups').click();
+    return [document.querySelectorAll('.flip-stage, .flip-layer, .leaf').length, document.getElementById('manage-dialog').open];
+  });
+  expect(left).toEqual([0, true]);
+  const card = page.getByRole('dialog', { name: 'Nhóm việc' });
+  await expect(card).toBeVisible();
+  const seen = (await flipsSeen(page)).length;
+  await page.goBack();
+  await expect(dateLine(page)).toHaveText('Hôm nay, Thứ Hai, 09/11/2026');
+  await expect(labels(page)).toHaveText(['Gửi báo cáo tuần', 'Đi chợ mua rau', 'Tập yoga 30 phút']);
+  await page.waitForTimeout(100);
+  expect((await flipsSeen(page)).length).toBe(seen); // no stage built behind the card
+  await expect(stages(page)).toHaveCount(0);
+  await expect(card).toBeVisible();
+  await card.getByRole('button', { name: 'Đóng' }).click();
+  await expect(page.locator('#manage-groups')).toBeFocused();
+});
+
 // T3: the riffle and every entry point (R2 to R6). A picker move runs in one task with a read of the stage it built.
 const pickAndRead = (page, key) => page.evaluate((key) => {
   const p = document.getElementById('day-picker');

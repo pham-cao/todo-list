@@ -161,3 +161,32 @@ export async function longPressDrag(page, row, to, { release = true } = {}) {
   if (release) await f.up();
   return f;
 }
+
+// Creates a group the only way the page offers (group-header): Quản lý nhóm, Thêm nhóm, the name, Enter. The card is
+// opened if it was closed, and then closed again, so the page is left as it was found. The name must be valid.
+export async function createGroup(page, name) {
+  const card = page.locator('#manage-dialog');
+  const opened = !(await card.evaluate((el) => el.open));
+  if (opened) await page.locator('#manage-groups').click();
+  await card.locator('[data-action="add"]').click();
+  const box = page.locator('#new-group-dialog');
+  await expect(box).toBeVisible();
+  await page.locator('#new-group-name').fill(name);
+  await page.locator('#new-group-name').press('Enter');
+  await expect(box).toBeHidden();
+  if (opened) await closeCard(page, () => card.getByRole('button', { name: 'Đóng' }).click());
+}
+
+// Closes the "Nhóm việc" card with `close` (a click or a key) and waits until the card's own close event has run.
+// That event focuses Quản lý nhóm and is queued behind key input, so the next keys must wait for it. The browser has
+// already put focus back on the button by then, so a focus check alone would not wait; a listener added after the
+// app's runs after its handler.
+export async function closeCard(page, close) {
+  await page.evaluate(() => {
+    window.__cardClosed = false;
+    document.getElementById('manage-dialog').addEventListener('close', () => { window.__cardClosed = true; }, { once: true });
+  });
+  await close();
+  await page.waitForFunction(() => window.__cardClosed);
+  await expect(page.locator('#manage-groups')).toBeFocused();
+}

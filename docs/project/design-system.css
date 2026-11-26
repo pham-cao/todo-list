@@ -571,6 +571,27 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
   .today-tab .icon { display: none; }
 }
 
+/* Header end column (group-header): "Về hôm nay" with "Quản lý nhóm" right under it, right aligned. The left controls
+   align to the top, so the arrows line up with the tab. The column leaves room for the nav tooltips, so the nav drops
+   its own bottom margin. */
+.day-nav { align-items: flex-start; }
+@media (min-width: 601px) { .day-nav { margin-bottom: 0; } }
+.day-nav__end { margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; gap: var(--space-2); }
+.day-nav__end .today-tab { margin-left: 0; }
+/* Quản lý nhóm: a ghost pen button with the tag icon, padded like the tab so both labels end on one vertical line.
+   Label visible at every width, no tooltip (owner 2026-11-13). Drawn 36 px tall, hit area extended to 44 px. */
+.header-manage {
+  position: relative; z-index: 1; /* its hit area reaches over the date tape below */ min-height: 36px; padding: 0 var(--space-4); gap: var(--space-2);
+  color: var(--color-pen); font-weight: var(--fw-semibold); white-space: nowrap;
+}
+.header-manage::before { content: ""; position: absolute; inset: -5.5px 0; } /* 33 px padding box + 2 x 5.5 px = 44 px */
+.header-manage .icon { width: 18px; height: 18px; }
+.header-manage:hover { color: var(--color-pen); }
+@media (max-width: 600px) { /* as the tab: smaller label, no icon, so the column stays narrow */
+  .header-manage { padding: 0 var(--space-3); font-size: var(--fs-small); }
+  .header-manage .icon { display: none; }
+}
+
 /* The day change motion is the page flip (Page flip block below); the date tape is not pressed again. */
 
 /* ---------- Task groups (feature task-groups, additive) ----------
@@ -671,13 +692,6 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
 .add-form__pen { align-self: start; }
 .add-form__group { display: flex; align-items: center; gap: var(--space-2); min-width: 0; max-width: 250px; }
 .add-form__group .select { flex: 1; }
-.add-form__newgroup { /* the "Nhóm mới..." line: name input and Tạo nhóm, next colour shown in the margin */
-  grid-column: 1 / -1; display: grid; grid-template-columns: var(--margin-w) minmax(0, 1fr); column-gap: var(--margin-gap); align-items: center;
-}
-.add-form__newgroup > .swatch { justify-self: center; width: 24px; height: 16px; }
-.add-form__newgroup-line { display: flex; align-items: center; gap: var(--space-3); min-width: 0; }
-.add-form__newgroup .input { flex: 1; max-width: 320px; }
-.add-form__newgroup .field-error { grid-column: 2; }
 @media (max-width: 600px) {
   .add-form__input { flex: 1 0 100%; } /* phone: the input gets line one, Nhóm and Thêm share line two */
   .add-form__group { flex: 1 1 0; max-width: none; }
@@ -685,10 +699,9 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
   .add-form__group .field-label { /* phones: the word "Nhóm" stays as the accessible label but is hidden, so the full choice fits */
     position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
   }
-  .add-form__newgroup .input { max-width: none; }
 }
 
-/* Group bar: one ruled line above the list. Filter on the left, Quản lý nhóm on the right. */
+/* Group bar: one ruled line above the list holding the filter alone; hidden as a whole while no group exists (group-header R4). */
 .group-bar {
   display: grid; grid-template-columns: var(--margin-w) minmax(0, 1fr); column-gap: var(--margin-gap); align-items: center;
   padding-left: var(--holes-w); padding-right: var(--sheet-pad-end); min-height: var(--rule);
@@ -699,32 +712,10 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
 .group-bar__line .select select { max-width: 240px; }
 .group-bar--filtered .group-bar__icon .icon { fill: currentColor; } /* filter on: the funnel is inked in */
 .group-bar--filtered .select select { border-bottom-color: var(--color-pen); font-weight: var(--fw-semibold); }
-.group-bar__manage { margin-left: auto; min-height: 36px; padding: 0 var(--space-3); position: relative; color: var(--color-pen); }
-.group-bar__manage::before { content: ""; position: absolute; inset: -5.5px 0; } /* 33 px padding box + 2 x 5.5 px = 44 px */
-.group-bar__manage .icon { width: 18px; height: 18px; }
 @media (max-width: 600px) {
   .group-bar__label { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .group-bar__line { gap: var(--space-2); }
   .group-bar__line .select select { max-width: 100%; }
-  .group-bar__manage { padding: 0 var(--space-2); font-size: var(--fs-small); }
-}
-/* Phones below 452 px: Quản lý nhóm is the tag icon only, so the filter choice keeps its full name. 452 px is the
-   smallest width where "Chưa phân nhóm" and "Học tiếng Nhật" fit beside the text button (measured, decisions.md).
-   The text stays as the accessible name (visually hidden) and shows as a tooltip on hover and keyboard focus. */
-@media (max-width: 451px) {
-  .group-bar__manage { min-height: var(--tap); padding: 0; }
-  .group-bar__manage::before { inset: 0; }
-  .group-bar__manage-label { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .group-bar__manage::after {
-    content: attr(data-tip) / ""; position: absolute; bottom: calc(100% + 2px); right: 0; /* empty alt: the tip is not added to the name */ translate: 0 4px;
-    padding: 3px 8px; border-radius: 4px; background: var(--color-ink); color: var(--color-paper);
-    font-size: var(--fs-tiny); font-weight: var(--fw-medium); line-height: 1.4; white-space: nowrap;
-    opacity: 0; pointer-events: none; transition: opacity var(--dur-fast) ease, translate var(--dur-fast) ease;
-  }
-  .group-bar__manage:focus-visible::after { opacity: 1; translate: 0 0; }
-}
-@media (max-width: 451px) and (hover: hover) and (pointer: fine) {
-  .group-bar__manage:hover::after { opacity: 1; translate: 0 0; transition-delay: 350ms; }
 }
 
 /* Section: a header line with a highlighter swipe, then the task rows */
@@ -1068,3 +1059,62 @@ a { color: var(--color-pen); text-underline-offset: 3px; }
    the shadow boxes, so only a hairline shows. Unclipped, the inner shadow rolls the turning part like a cylinder and the
    outer one falls on the new day along the fold; the overflow clip of the stage keeps both on the sheet. */
 .flip-book .stf__outerShadow, .flip-book .stf__innerShadow { clip-path: none !important; }
+
+/* ---------- Group header (feature group-header, additive) ----------
+   The header column is under Day navigation. Here: Thêm nhóm in the card, the new group box, and the phone sheet. */
+
+/* Thêm nhóm: a blank line at the top of the card with a pen plus in a drawn circle. It sits outside the scrolling rows,
+   so it never scrolls away. */
+.group-add {
+  display: flex; align-items: center; gap: var(--space-3); width: 100%; min-height: 52px; margin-top: var(--space-1);
+  padding: 0 var(--space-1); border: 0; border-bottom: 1.5px dashed var(--color-pencil); border-radius: 0;
+  background: transparent; color: var(--color-pen); cursor: pointer; text-align: left;
+  font-size: var(--fs-meta); font-weight: var(--fw-semibold); text-decoration: none;
+  transition: background-color var(--dur-fast) ease;
+}
+.group-add:hover { background: var(--color-pen-wash); }
+.group-add__plus {
+  display: grid; place-items: center; width: 28px; height: 28px; flex: none;
+  border: 1.75px solid var(--color-pen); border-radius: 50% 46% 52% 48%; rotate: -4deg;
+}
+.group-add__plus .icon { width: 16px; height: 16px; stroke-width: 2.4; }
+.group-add:focus-visible { outline-offset: -2px; }
+/* The add line takes 56 px of the card, so the scrolling rows give it back: the card still fits the screen with 20 groups. */
+.group-add + .group-rows { max-height: calc(100dvh - 12.5rem); }
+
+/* The row just created: the label colour wash of .task--moved, fading once. */
+.group-row--new { position: relative; isolation: isolate; }
+.group-row--new::before {
+  content: ""; position: absolute; inset: 0 calc(-1 * var(--space-3)); z-index: -1; pointer-events: none;
+  background: var(--hl, var(--color-highlight)); opacity: 0.45; animation: moved-fade 1800ms ease 600ms forwards;
+}
+@media (prefers-reduced-motion: reduce) { .group-row--new::before { animation: none; opacity: 0; } }
+
+/* The new group box: the delete group note with a name field. The corner sticker is a blank torn label in the colour
+   the group will get. */
+.new-group__field { margin-top: var(--space-4); }
+.new-group__label { display: block; font-size: var(--fs-meta); font-weight: var(--fw-medium); color: var(--text-muted); }
+.new-group__line { display: flex; align-items: center; gap: var(--space-3); }
+.new-group__line .swatch { width: 28px; height: 18px; }
+.new-group__line .input { flex: 1; min-width: 0; font-weight: var(--fw-semibold); }
+.new-group .field-error { min-height: 0; padding-top: var(--space-2); align-items: flex-start; }
+.new-group .field-error .icon { margin-top: 1px; }
+.new-group .field-error__text { min-width: 0; overflow-wrap: anywhere; }
+.new-group .dialog__actions { margin-top: var(--space-5); }
+.new-group .input[aria-invalid="true"] { animation: nudge 260ms ease; }
+.sticker--corner.sticker--blank { width: 64px; height: 26px; padding: 0; }
+@media (prefers-reduced-motion: reduce) { .new-group .input[aria-invalid="true"] { animation: none; } }
+
+/* Phones: every sticky note docks to the bottom as a sheet (thumb reach, and it rises with the on screen keyboard,
+   with interactive-widget=resizes-content in the viewport meta). Straight, full width, rounded top corners; the paper,
+   grain, tape and corner sticker stay, the sticker pulled inside the screen edge. */
+@media (max-width: 600px) {
+  .dialog--sheet {
+    margin: auto 0 0; width: 100%; max-width: none; rotate: 0deg;
+    border-radius: 16px 16px 0 0; padding: var(--space-8) var(--space-4) calc(var(--space-4) + env(safe-area-inset-bottom));
+  }
+  .dialog--sheet[open] { animation: sheet-up var(--dur-slow) var(--ease-out); }
+  .dialog--sheet .sticker--corner { right: var(--space-4); }
+}
+@keyframes sheet-up { from { translate: 0 40px; opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .dialog--sheet[open] { animation: none; } }

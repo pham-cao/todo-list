@@ -26,7 +26,7 @@ const div = (className) => {
 export function createFlip({ sheet, body }) {
   const CAN_3D = CSS.supports("transform", "rotateY(1deg)") && CSS.supports("perspective", "1px");
   const CAN_CURL = CAN_3D && CSS.supports("clip-path", "polygon(evenodd, 0 0, 1px 0, 0 1px)"); // R39: punch() needs it
-  const allowed = () => CAN_CURL && !document.hidden; // R7
+  const allowed = () => CAN_CURL && !document.hidden && !document.querySelector("dialog[open]"); // R7; group-header R23: never behind a dialog
   const ms = (name) => parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name)) || 0;
   let stage = null;
   let timer = 0;

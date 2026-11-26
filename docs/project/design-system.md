@@ -79,7 +79,7 @@ Rules:
 - Field error: red text with a circle icon, one rule tall, directly under the field, linked with `aria-describedby`.
 - Washi tape (`.washi`): striped translucent tape with torn ends, used for the date.
 - Progress (`.progress`): a dotted pencil track with a pen arc driven by `--p` (0 to 100). With `.progress--complete` the circle is replaced by a red star stamp. Add `.progress--celebrate` only at the moment the last task is ticked: the stamp presses in once (520 ms) with a single soft ink bloom (900 ms). No new text.
-- Sticky note dialog: native `<dialog>` with `showModal()`, yellow note rotated 1.2 degrees, a strip of tape on top, title, quoted task in muted ink with a pencil rule, then Giữ lại and Xóa việc.
+- Sticky note dialog: native `<dialog>` with `showModal()`, yellow note rotated 1.2 degrees, a strip of tape on top, title, quoted task in muted ink with a pencil rule, then Giữ lại and Xóa việc. On phones it is a bottom sheet (`.dialog--sheet`, see Group header).
 - Alert slip (`.alert--warning`): a clipped slip of warm paper with a paperclip icon, placed in the header band.
 - Empty state: a pen doodle of a cà phê phin on a cup with the empty message written on the next line.
 - Table: ruled table, one rule per row, reserved for later features.
@@ -149,10 +149,10 @@ Rules: only the group name sits on a label, always in main ink (muted ink on the
 ### Components
 
 - Torn label (`.sticker[data-color]`): the group label described above. The paper is a `::before` layer clipped with `--torn`, and the label itself carries the drop-shadow filter. Used for section headers (`.group__name.sticker`), the names in the Quản lý nhóm rows, and `.sticker--corner`, a small decorative label of the group stuck on the top right corner of the delete, blocked and move notes (aria-hidden).
-- Mini label (`.swatch`): a 20 by 13 px torn label without text, tilted 6 degrees, with two teeth per end so it stays crisp at that size. Four 1 px drop-shadows in the mark colour draw an outline that follows the teeth, for 3:1 against the page. Shown before the chosen value in the add, edit, filter and move choices (blank for Chưa phân nhóm, none for Tất cả nhóm), and in the margin of the Nhóm mới... line as a preview of the next colour. Below 381 px it is hidden inside the add line and filter selects so the name has room.
+- Mini label (`.swatch`): a 20 by 13 px torn label without text, tilted 6 degrees, with two teeth per end so it stays crisp at that size. Four 1 px drop-shadows in the mark colour draw an outline that follows the teeth, for 3:1 against the page. Shown before the chosen value in the add, edit, filter and move choices (blank for Chưa phân nhóm, none for Tất cả nhóm), and beside the name field of the new group box as a preview of the next colour. Below 381 px it is hidden inside the add line and filter selects so the name has room.
 - Line select (`.select`): a native `<select>` written on the line like the inputs (pencil underline, pen on hover and focus, pen chevron), with an optional swatch before it showing the chosen group's colour. Native lists cannot show colour, so the options are names only.
-- Add line group choice (`.add-form__group`): "Nhóm" label plus the line select, between the input and Thêm on desktop. On phones the input takes line one and the choice with Thêm share line two; the word "Nhóm" is visually hidden there (it stays the accessible label) so the full "Chưa phân nhóm" fits at 360 and 390 px. `.add-form__newgroup` adds one line under it with the swatch preview, the "Tên nhóm mới" input and a secondary "Tạo nhóm" button; errors use the existing `.field-error` line.
-- Group bar (`.group-bar`): one ruled line directly above the list, with the funnel in the margin, "Lọc theo nhóm" and its select on the left (shown from the first group on) and "Quản lý nhóm" (ghost pen button with a tag icon) on the right, present on every day. On phones the filter label is visually hidden and the funnel stands for it. `.group-bar--filtered` inks the funnel and the select underline while a filter is on. Below 452 px (the smallest width where "Chưa phân nhóm" and "Học tiếng Nhật" fit beside the text button; a 30 character name can still be shortened) "Quản lý nhóm" is the tag icon only (44 by 44 px): its text stays as the accessible name in `.group-bar__manage-label` (visually hidden) and shows as a tooltip from `data-tip` on hover and keyboard focus, so the filter choice keeps its full name (decisions.md).
+- Add line group choice (`.add-form__group`): "Nhóm" label plus the line select, between the input and Thêm on desktop. On phones the input takes line one and the choice with Thêm share line two; the word "Nhóm" is visually hidden there (it stays the accessible label) so the full "Chưa phân nhóm" fits at 360 and 390 px. The choice lists only "Chưa phân nhóm" and the groups; groups are created in the card (group-header).
+- Group bar (`.group-bar`): one ruled line directly above the list holding the filter alone: the funnel in the margin, then "Lọc theo nhóm" and its select. The whole bar is hidden while no group exists, so no empty line is left in the body, and shows from the first group on (group-header R4). On phones the filter label is visually hidden and the funnel stands for it. `.group-bar--filtered` inks the funnel and the select underline while a filter is on. "Quản lý nhóm" moved to the header (see Group header).
 - Section (`.group[data-color]` with `.group__head`, `.group__toggle`, `.group__chev`, `.group__name`, `.group__count`): an `h2` holding a full width `button` with `aria-expanded` and the accessible name "Nhóm {name}, đã hoàn thành {done}/{total} việc". The whole line is the 44 px target. `.group--collapsed` hides the rows and turns the chevron to point right. When the filter shows one group, use `.group__static` instead of the button (no toggle, the margin stays empty).
 - Filter empty state (`.group-empty`): the one line message on the ruling, in muted ink, without the doodle (the doodle stays for a day with no tasks at all).
 - Edit line group choice (`.task__edit-group`): "Nhóm" and the line select at the start of the Hủy and Lưu line; on phones it takes its own line above the buttons.
@@ -274,4 +274,35 @@ The flip plays the same under `prefers-reduced-motion`, by the owner's decision 
 - Focus, the live date line and the tab order are untouched, because the real page changes before the leaf is drawn.
 - Text on the turning page keeps 4.5:1 against its paper in both modes; the moving fold shadow band may darken it for the frames it passes (owner, 2026-11-13).
 - Motion is checked in real time, never only on paused frames: the page shows a diagonal fold for at least 30 percent of `--dur-flip` and a fold for at least half of it, sweeping across the sheet (T14).
+- Verified without horizontal scroll at 1440, 390 and 360 px in both modes.
+
+## Group header (added for group-header)
+
+"Quản lý nhóm" moves into the page header, and groups are created only from "Thêm nhóm" in the "Nhóm việc" card, in a small sticky note box. No token is added or changed; everything is built from the existing ones.
+
+### Components
+
+- Header end column (`.day-nav__end`): the last item of the day nav, pushed right, a column with "Về hôm nay" on top and "Quản lý nhóm" right under it, both right aligned with an 8 px gap. The nav aligns its controls to the top so the arrows line up with the tab, and drops its 16 px bottom margin on wide screens, because the column already leaves room for the nav tooltips. If the nav wraps at 360 px the column moves to its own right aligned line, as the tab did before. Tab order follows the DOM: previous, next, picker, Về hôm nay, Quản lý nhóm, then the add input.
+- Header manage button (`.header-manage` on `.btn.btn--ghost`): pen ink, semibold, tag icon, side padding equal to the tab's (16 px, 12 px on phones) so both labels end on one vertical line. Drawn 36 px tall with a 44 px hit area from `::before`, lifted over the date tape below it. The label "Quản lý nhóm" is visible at every width and is the accessible name; there is no icon only form and no tooltip (owner, 2026-11-13). Below 601 px the icon is hidden and the label uses `--fs-small`, as the tab does.
+- Thêm nhóm (`.group-add`, `.group-add__plus`): a full width blank line at the top of the card, above the rows and outside their scroll box, so it never scrolls away: a pen plus in a hand drawn circle, the words "Thêm nhóm", and a dashed pencil rule under it. 52 px tall, pen wash on hover, focus ring inset. With it the rows scroll box is 56 px shorter (`.group-add + .group-rows`), so the card still fits the screen with 20 groups.
+- New row (`.group-row--new`): the row just created gets the label colour wash of a moved task, fading once (removed under reduced motion). The row is also last in the list and the live message confirms it.
+- New group box (`#new-group-dialog`, `.new-group`): the delete group sticky note (same surface, tape, title and button row) with a corner sticker that is a blank torn label (`.sticker--corner.sticker--blank`) in the colour the group will get. Title "Tạo nhóm mới", then the "Tên nhóm mới" label (`.new-group__label`, muted), the line input with a 28 by 18 px swatch of the next colour before it (`.new-group__line`), the field error under it, and Hủy (secondary) and Tạo nhóm (primary). Swatch and sticker are decorative (`aria-hidden`); the colour can be changed later with Sửa. A native modal `<dialog>` (role dialog, not alertdialog, because it holds a form) stacked over the card; Escape closes only the box. An error nudges the input once.
+- Live message (`#manage-status`): a visually hidden `role="status"` line inside the card says "Đã tạo nhóm "{name}".", because the header status line sits behind the modal card.
+- Phone sheet (`.dialog--sheet`): below 601 px every sticky note (the task delete note, the new group box, the delete group note and the blocked note) docks to the bottom edge: full width, no tilt, 16 px top corners, safe area padding at the bottom, and a short rise (`sheet-up`). The yellow paper, grain, tape and corner sticker stay; the sticker moves inside the screen edge. With `interactive-widget=resizes-content` in the viewport meta the page shrinks above the on screen keyboard, so the sheet rides above it. On desktop the notes stay centred and tilted.
+
+### Motion
+
+| Moment | Motion | Duration |
+| --- | --- | --- |
+| A sticky note opens on a phone | The sheet rises 40 px and fades in | 360 ms |
+| A group is created | Wash in the group colour on its new row fades | 1.8 s after 0.6 s |
+
+Both are removed under `prefers-reduced-motion`.
+
+### Accessibility
+
+- The header button, Thêm nhóm, the field and both box buttons are at least 44 by 44 px to tap.
+- The box is a modal dialog named by its title; the card behind is inert and Tab stays in the box. Each error has `role="alert"` and is linked with `aria-invalid` and `aria-describedby`.
+- The field shows focus as the design system's input does, a 2 px pen underline; buttons and Thêm nhóm get the 2 px pen outline.
+- Group names reach the page as text only, also in the live message.
 - Verified without horizontal scroll at 1440, 390 and 360 px in both modes.
