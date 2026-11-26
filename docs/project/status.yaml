@@ -1,9 +1,9 @@
 project: "daily-todo"
 idea: "Web app todo list de ghi lai (log) cac viec can lam hang ngay (daily). Nguyen van: hien tai toi can lam todolist web log may cai toi can lam trong daily"
-state: waiting_user             # running | waiting_user | done
-waiting_for: "Owner to push branch page-flip and open the PR (no GitHub credentials on this host)"
+state: running             # running | waiting_user | done
+waiting_for: ""
 phase: features       # discovery | features | done
-current_feature: "page-flip"
+current_feature: "group-header"
 trello:               # optional mirror of this file, see "Trello sync" in the PM skill
   enabled: false
   board_url: ""
@@ -342,9 +342,9 @@ features:
         bugs_opened: []
         trello_card: ""
   - slug: page-flip
-    phase: release
+    phase: done
     has_ui: true
-    pr: ""
+    pr: "https://github.com/pham-cao/todo-list/pull/5"
     trello_card: ""
     tasks:
       - id: T1
@@ -509,7 +509,7 @@ features:
         title: "Quản lý nhóm in the header, group bar hidden with no groups"
         owner: fe
         depends_on: []
-        state: todo
+        state: doing
         attempts: 0
         bugs_opened: []
         trello_card: ""
