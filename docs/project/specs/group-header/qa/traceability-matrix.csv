@@ -27,7 +27,7 @@ R25,TC-group-header-08,,pass
 R26,TC-group-header-24,,pass
 R27,TC-group-header-24,,pass
 R28,TC-group-header-08;TC-group-header-25,,pass
-R29,TC-group-header-30;TC-group-header-31;TC-group-header-32,,partial: 32 blocked
+R29,TC-group-header-30;TC-group-header-31;TC-group-header-32,,pass in automation; TC-32 not run (manual for owner)
 R30,TC-group-header-31,,pass
 R31,TC-group-header-12;TC-group-header-38,,pass
 R32,TC-group-header-26,,pass
@@ -36,6 +36,6 @@ NFR1,TC-group-header-27,,pass
 NFR2,TC-group-header-28,,pass
 NFR3,TC-group-header-29,,pass
 NFR4,TC-group-header-25,,pass
-NFR5,TC-group-header-32;TC-group-header-33;TC-group-header-34;TC-group-header-39,,"partial: 32 blocked, 33 not run, 34 not run, 39 not run"
+NFR5,TC-group-header-32;TC-group-header-33;TC-group-header-34;TC-group-header-39,,"partial: TC-39 pass; TC-32, 33, 34 not run (manual checks for owner in release note)"
 NFR6,TC-group-header-11;TC-group-header-12,,pass
-NFR7,TC-group-header-38;TC-group-header-39,,partial: 39 not run
+NFR7,TC-group-header-38;TC-group-header-39,,pass

@@ -1,0 +1,25 @@
+  ...
+# Subtest: setGroup keeps groupId for an empty or non string value and returns notFound for a bad id
+ok 86 - setGroup keeps groupId for an empty or non string value and returns notFound for a bad id
+  ---
+  duration_ms: 0.189742
+  ...
+# Subtest: package.json version is set
+ok 87 - package.json version is set
+  ---
+  duration_ms: 2.05132
+  ...
+# Subtest: every local reference carries the package version and names an existing file
+ok 88 - every local reference carries the package version and names an existing file
+  ---
+  duration_ms: 0.973397
+  ...
+1..88
+# tests 88
+# suites 0
+# pass 88
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 117.738936
