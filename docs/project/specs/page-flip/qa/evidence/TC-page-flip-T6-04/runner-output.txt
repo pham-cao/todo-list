@@ -1,0 +1,3 @@
+npx playwright test --workers=2 --reporter=list -g "T6:" (build 1.3.0, uncommitted T6 diff)
+  ✓   7 [desktop] › tests/e2e/flip.spec.js:971:3 › T6: working on the page during a flip › an edit saved while the stage plays changes the new day row only; saving in place keeps the flip (182ms)
+  ✓   8 [mobile] › tests/e2e/flip.spec.js:971:3 › T6: working on the page during a flip › an edit saved while the stage plays changes the new day row only; saving in place keeps the flip (188ms)

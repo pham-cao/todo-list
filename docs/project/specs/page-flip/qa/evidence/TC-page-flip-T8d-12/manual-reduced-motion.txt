@@ -1,0 +1,4 @@
+Own server python http.server 4181 (8080 untouched). Playwright MCP, emulateMedia reducedMotion=reduce, matchMedia reduce = true.
+1440x900: leaf frames 36 (first 71 ms, last 782 ms), max rotation 92 deg, stage top 0 from sheet top on every frame, copied header present on every frame, stage gone afterwards.
+390x844: leaf frames 44 (first 70 ms, last 787 ms), max rotation 92 deg, stage top 0, copied header present, stage gone afterwards.
+Screenshots at 250 ms: mid-1440.png, mid-390.png. Title, nav, date tape and Ve hom nay slip visibly turn with the sheet.

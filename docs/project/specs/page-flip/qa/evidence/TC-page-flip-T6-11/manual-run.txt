@@ -1,0 +1,9 @@
+Manual run via Playwright MCP, Chromium desktop 1440x900, 41 tasks, --dur-flip 30000ms so the stage stays.
+stage present after move: 1
+Type xyz in add field: value xyz
+Escape in add field: stage still 1, value kept xyz (no wait, no error)
+End: scrollY 1408 within 700 ms; Home: scrollY 0
+Open Sua, type Q, Escape: edit field closed, stage still 1
+Console errors: none
+Screenshot: keys-stage.png
+Result: pass

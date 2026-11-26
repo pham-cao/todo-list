@@ -33,9 +33,10 @@ export const section = (page, name) => sections(page).filter({ has: page.locator
 export const toggle = (page, name) => section(page, name).locator('.group__toggle');
 export const storedJson = async (page, key) => JSON.parse(await page.evaluate((k) => localStorage.getItem(k), key));
 
-export const rows = (page) => page.locator('.task-list > .task');
+// Scoped to the real list, so the copy of a page on a flip leaf never matches.
+export const rows = (page) => page.locator('#day-list .task-list > .task');
 export const labels = (page) => rows(page).locator('.task__label');
-export const progress = (page) => page.locator('.progress');
+export const progress = (page) => page.locator('#progress');
 export const box = (page, i) => rows(page).nth(i).getByRole('checkbox', { name: 'Đánh dấu hoàn thành' });
 export const hash = (page) => new URL(page.url()).hash;
 export const storedRaw = (page) => page.evaluate((k) => localStorage.getItem(k), KEY);
@@ -53,6 +54,45 @@ export async function tick(page, i, on) {
   if (on === undefined) return;
   await (on ? expect(box(page, i)).toBeChecked() : expect(box(page, i)).not.toBeChecked());
 }
+
+// Records every .flip-stage ever added and when it went, so a 700 ms stage cannot slip between two checks, and whether
+// a superseded page turn class (turn--) is ever set. Times are performance.now() in the page. Per stage: `back`,
+// `leaves` (.flip-layer count, one per page), `blank` (layers whose own turning page is blank), `text` (the first page
+// with words), `first` (the first animation frame after it was added, where the end timer starts, BUG-028) and
+// `removed`. The stage node is reused from move to move, so a removal closes the latest open record for it.
+export async function watchFlips(page) {
+  await page.addInitScript(() => {
+    window.__flips = [];
+    window.__turnClass = false;
+    new MutationObserver((list) => {
+      for (const m of list) {
+        if (m.type === 'attributes') {
+          if (/\bturn--/.test(m.target.className)) window.__turnClass = true; // the superseded page turn
+          continue;
+        }
+        for (const n of m.addedNodes) {
+          if (!n.classList?.contains('flip-stage')) continue;
+          const layers = [...n.querySelectorAll('.flip-layer')];
+          const fronts = layers.map((l) => l.querySelector('.leaf--front'));
+          const rec = {
+            node: n, added: performance.now(), removed: null, first: null, back: n.classList.contains('flip-stage--back'),
+            leaves: layers.length, blank: fronts.filter((f) => f?.classList.contains('leaf--blank')).length,
+            ariaHidden: n.getAttribute('aria-hidden'), inert: n.inert, ids: n.querySelectorAll('[id]').length,
+            text: fronts.find((f) => f && !f.classList.contains('leaf--blank'))?.querySelector('.leaf__content')?.textContent ?? '',
+          };
+          window.__flips.push(rec);
+          requestAnimationFrame(() => { rec.first = performance.now(); });
+        }
+        for (const n of m.removedNodes) {
+          const f = window.__flips.findLast((x) => x.node === n && x.removed === null);
+          if (f) f.removed = performance.now();
+        }
+      }
+    }).observe(document, { subtree: true, childList: true, attributes: true, attributeFilter: ['class'] });
+  });
+}
+// The flips recorded by watchFlips, without the DOM node.
+export const flipsSeen = (page) => page.evaluate(() => window.__flips.map(({ node, ...f }) => f));
 
 // Move the fake clock past local midnight, then fire the event the app listens to.
 export async function passMidnight(page, event = 'visibilitychange', at = AFTER_MIDNIGHT) {

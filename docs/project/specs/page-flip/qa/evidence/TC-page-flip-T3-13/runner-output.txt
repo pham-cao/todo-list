@@ -1,0 +1,2 @@
+  ✓  63 [desktop] › tests/e2e/flip.spec.js:321:1 › an edited hash that is invalid or today: no flip on today, a flip by distance when the day changes (3.0s)
+  ✓  64 [mobile] › tests/e2e/flip.spec.js:321:1 › an edited hash that is invalid or today: no flip on today, a flip by distance when the day changes (3.4s)

@@ -1,0 +1,3 @@
+npx playwright test --workers=2 (full suite, 2026-11-12): 807 passed, 105 skipped, 0 failed. Matching lines:
+  ✓  253 [desktop] › tests/e2e/flip.spec.js:564:1 › a storage event on the groups key ends a running flip at once and the page stays usable (164ms)
+  ✓  778 [mobile] › tests/e2e/flip.spec.js:564:1 › a storage event on the groups key ends a running flip at once and the page stays usable (149ms)

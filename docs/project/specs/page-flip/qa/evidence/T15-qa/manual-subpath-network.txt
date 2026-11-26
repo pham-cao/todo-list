@@ -1,0 +1,6 @@
+Manual (Playwright MCP, Chromium, own static server on port 4999 serving the project under /sub/, stopped afterwards).
+Load http://127.0.0.1:4999/sub/index.html, press "Xem ngày sau".
+Requests: 11, one host (127.0.0.1:4999), no external host. Status 4xx or 5xx: none.
+Every ?v= reference loaded: v=1.4.0 only (flip.js, page-flip.module.js, page-flip.css included).
+Console warnings and errors: none (no CSP error). Stage seen in 24 samples at 30 ms, 0 stages left after 1.6 s. URL moved to #2026-11-14.
+package.json diff: version lines only (no new dependency). Non-version diff lines in index.html, app.js, store.js, groups.js, manage.js, drag.js: 0 (diff-nonversion-lines.txt).

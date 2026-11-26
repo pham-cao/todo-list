@@ -1,0 +1,2 @@
+  ✓  147 [desktop] › tests/e2e/flip.spec.js:99:1 › the date tape is pressed once per move and loses the class after its animation (918ms)
+  ✓  593 [mobile] › tests/e2e/flip.spec.js:99:1 › the date tape is pressed once per move and loses the class after its animation (931ms)

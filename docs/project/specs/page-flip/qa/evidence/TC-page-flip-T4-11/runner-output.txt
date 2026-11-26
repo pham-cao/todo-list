@@ -1,0 +1,3 @@
+npx playwright test --workers=2 (full suite, 2026-11-12): 807 passed, 105 skipped, 0 failed. Matching lines:
+  ✓  252 [desktop] › tests/e2e/flip.spec.js:556:1 › a window blur during a riffle leaves no stage after 700 ms (816ms)
+  ✓  776 [mobile] › tests/e2e/flip.spec.js:556:1 › a window blur during a riffle leaves no stage after 700 ms (823ms)

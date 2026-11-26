@@ -1,0 +1,3 @@
+TC-page-flip-T1-05 TZ=Europe/Berlin [36524]
+TC-page-flip-T1-05 TZ=America/New_York [36524]
+TC-page-flip-T1-05 TZ=UTC [36524]

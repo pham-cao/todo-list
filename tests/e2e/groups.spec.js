@@ -55,7 +55,7 @@ test('a day with only ungrouped tasks, and a task with an unknown group, show th
   await open(page, tasks, '', { groups: GROUPS });
   await expect(labels(page)).toHaveText(['Một', 'Hai', 'Ba']);
   await expect(sections(page)).toHaveCount(0);
-  await expect(page.locator('.group__toggle')).toHaveCount(0);
+  await expect(page.locator('#day-list .group__toggle')).toHaveCount(0);
   await expect(page.getByRole('heading', { level: 2 })).toHaveCount(0);
   expect(await page.locator('#day-list').evaluate((el) => [...el.children].map((c) => c.outerHTML.match(/^<\w+[^>]*>/)[0])))
     .toEqual(['<ul class="task-list">']);
@@ -199,7 +199,7 @@ async function deleteSlowly(page, row) {
 test('an open edit stays open with its text when a row in another section is ticked', async ({ page }) => {
   await open(page, DAY, '', { groups: GROUPS });
   await rows(page).nth(0).getByRole('button', { name: 'Sửa' }).click();
-  const field = page.locator('.task__edit .input');
+  const field = page.locator('#day-list .task__edit .input');
   await field.fill('Gửi báo cáo quý');
   await tick(page, 5, true);
   await expect(field).toHaveValue('Gửi báo cáo quý');
@@ -211,7 +211,7 @@ test('an open edit stays open with its text when a row in another section is tic
 test('a rebuild keeps an open edit with its text and focus', async ({ page }) => {
   await open(page, DAY, '', { groups: GROUPS });
   await rows(page).nth(0).getByRole('button', { name: 'Sửa' }).click();
-  const field = page.locator('.task__edit .input');
+  const field = page.locator('#day-list .task__edit .input');
   await field.fill('Gửi báo cáo quý');
   // Deleting Đọc sách empties Chưa phân nhóm, so the day is rebuilt while the owner is back in the edit.
   await deleteSlowly(page, section(page, 'Chưa phân nhóm').locator('.task'));
@@ -281,11 +281,11 @@ test('on a phone the peek skips a folded section, and swipe, tick and delete wor
   test.skip(!isMobile, 'phone layout only');
   await open(page, DAY, '', { groups: GROUPS, ui: { collapsed: ['cty'] } });
   await expect(section(page, 'Nhà').locator('.task').first()).toHaveClass(/task--peek/);
-  await expect(page.locator('.task--peek')).toHaveCount(1);
-  await expect(page.locator('.task--peek')).toHaveCount(0, { timeout: 4000 });
+  await expect(page.locator('#day-list .task--peek')).toHaveCount(1);
+  await expect(page.locator('#day-list .task--peek')).toHaveCount(0, { timeout: 4000 });
   expect(await page.evaluate((k) => localStorage.getItem(k), HINT)).toBe('1');
 
-  const swipes = page.locator('.group:not(.group--collapsed) .task__swipe');
+  const swipes = page.locator('#day-list .group:not(.group--collapsed) .task__swipe');
   const left = (i) => swipes.nth(i).evaluate((el) => el.scrollLeft);
   await touchDrag(page, swipes.nth(0), -200);
   await expect.poll(() => left(0)).toBeGreaterThan(100);
@@ -782,9 +782,9 @@ test('a session whose groups could not be saved keeps its memory groups when ano
 // T6: move a task through the edit form (R23 to R28, R32, R64)
 const rowOf = (page, text) => rows(page).filter({ has: page.locator('.task__label').getByText(text, { exact: true }) });
 const editOf = (page, text) => rowOf(page, text).getByRole('button', { name: 'Sửa' });
-const editField = (page) => page.locator('.task__edit .input');
-const editChoice = (page) => page.locator('.task__edit').getByRole('combobox', { name: 'Nhóm', exact: true });
-const editSwatch = (page) => page.locator('.task__edit .swatch');
+const editField = (page) => page.locator('#day-list .task__edit .input');
+const editChoice = (page) => page.locator('#day-list .task__edit').getByRole('combobox', { name: 'Nhóm', exact: true });
+const editSwatch = (page) => page.locator('#day-list .task__edit .swatch');
 const srStatus = (page) => page.locator('#sr-status');
 const byId = async (page, id) => (await storedJson(page, KEY)).find((t) => t.id === id);
 
@@ -869,7 +869,7 @@ test('invalid text keeps the edit open and changes neither text nor group', asyn
   for (const text of ['   ', 'a'.repeat(201)]) {
     await editField(page).fill(text);
     await page.getByRole('button', { name: 'Lưu', exact: true }).click();
-    await expect(page.locator('.task__edit .field-error')).toBeVisible();
+    await expect(page.locator('#day-list .task__edit .field-error')).toBeVisible();
     await expect(editField(page)).toBeFocused();
     await expect(editChoice(page)).toHaveValue('cty');
     expect(await storedRaw(page)).toBe(before);
@@ -930,7 +930,7 @@ test('text only, group only and no change: an unchanged choice never rewrites th
   const before = await storedRaw(page);
   await editOf(page, 'Họp nhóm').click();
   await editField(page).press('Enter');
-  await expect(page.locator('.task__edit')).toHaveCount(0);
+  await expect(page.locator('#day-list .task__edit')).toHaveCount(0);
   await expect(page.locator('.field-error:visible')).toHaveCount(0);
   expect(await storedRaw(page)).toBe(before);
 });
@@ -964,7 +964,7 @@ test('keyboard only: text, group choice, Hủy, Lưu; Enter saves and Escape can
   await page.keyboard.press('Shift+Tab');
   await page.keyboard.press('Escape');
   await expect(editOf(page, 'Tưới cây')).toBeFocused();
-  await expect(page.locator('.task__edit')).toHaveCount(0);
+  await expect(page.locator('#day-list .task__edit')).toHaveCount(0);
   await page.keyboard.press('Enter');
   await editChoice(page).focus();
   await page.keyboard.press('ArrowUp'); // Nhà -> Công ty
@@ -1121,7 +1121,7 @@ test('no filter before the first group, Quản lý nhóm on every day, and the f
   for (const move of ['prev-day', 'next-day', 'next-day']) {
     await expect(manageBtn(page)).toBeVisible();
     await expect(filterSel(page)).toBeHidden();
-    await expect(page.locator('.group-bar__icon')).toBeHidden();
+    await expect(page.locator('#group-bar .group-bar__icon')).toBeHidden();
     await page.locator(`#${move}`).click();
   }
   await page.locator('#to-today').click();
@@ -1136,7 +1136,7 @@ test('the filter sits between the add form and the list and lists Tất cả nh�
   await open(page, DAY, '', { groups: GROUPS.slice(0, 2) });
   await expect(filterSel(page).locator('option')).toHaveText(['Tất cả nhóm', 'Chưa phân nhóm', 'Công ty', 'Nhà']);
   await expect(filterSel(page)).toHaveValue('all');
-  await expect(page.locator('.group-bar')).not.toHaveClass(/group-bar--filtered/);
+  await expect(page.locator('#group-bar')).not.toHaveClass(/group-bar--filtered/);
   await expect(page.locator('#group-filter-swatch')).toBeHidden(); // no mini label for Tất cả nhóm
   const top = async (sel) => (await page.locator(sel).boundingBox()).y;
   expect(await top('#add-form')).toBeLessThan(await top('.group-bar'));
@@ -1152,14 +1152,14 @@ test('a group in the filter shows only its section, open and without a toggle; t
   await expect(sectionLabels(page, 'Công ty').first()).toBeVisible();
   await expect(sections(page).locator('button.group__toggle')).toHaveCount(0);
   await expect(page.getByRole('heading', { level: 2 })).toHaveText(['Nhóm Công ty 1/3 việc đã hoàn thành']);
-  await expect(page.locator('.group-bar')).toHaveClass(/group-bar--filtered/);
+  await expect(page.locator('#group-bar')).toHaveClass(/group-bar--filtered/);
   await expect(page.locator('#group-filter-swatch')).toHaveAttribute('data-color', 'yellow');
-  await expect(page.locator('.group-bar__icon')).toBeVisible();
+  await expect(page.locator('#group-bar .group-bar__icon')).toBeVisible();
 
   await filterSel(page).selectOption('all');
   await expect(names(page)).toHaveText(['Công ty', 'Nhà', 'Chưa phân nhóm']);
   await expect(toggle(page, 'Công ty')).toHaveAttribute('aria-expanded', 'false');
-  await expect(page.locator('.group-bar')).not.toHaveClass(/group-bar--filtered/);
+  await expect(page.locator('#group-bar')).not.toHaveClass(/group-bar--filtered/);
   expect(await page.evaluate((k) => localStorage.getItem(k), UI_KEY)).toBe(ui);
 });
 
@@ -1513,7 +1513,7 @@ for (const width of [360, 380, 390, 412, 452, 1440]) {
     await page.setViewportSize({ width, height: 780 });
     await open(page, DAY, '', { groups: [...GROUPS, group('sk', 'Sức khỏe', 'blue', at(7, 3))] });
     await expect(manageBtn(page)).toHaveAccessibleName('Quản lý nhóm');
-    const label = page.locator('.group-bar__manage-label');
+    const label = page.locator('#group-bar .group-bar__manage-label');
     const b = await manageBtn(page).boundingBox();
     if (iconOnly) {
       expect((await label.boundingBox()).width).toBeLessThanOrEqual(1);
@@ -1606,7 +1606,7 @@ test('a filter change drops an open edit on a row it hides and keeps one on a ro
   await rowOf(page, 'Tưới cây').getByRole('button', { name: 'Sửa' }).click();
   await editField(page).fill('Tưới cây sửa dở');
   await filterSel(page).selectOption({ label: 'Công ty' });
-  await expect(page.locator('.task__edit')).toHaveCount(0);
+  await expect(page.locator('#day-list .task__edit')).toHaveCount(0);
   await filterSel(page).selectOption({ label: 'Tất cả nhóm' });
   await expect(labels(page)).toContainText(['Tưới cây']);
   expect((await storedJson(page, KEY)).find((t) => t.id === 'n1').text).toBe('Tưới cây');
@@ -3170,7 +3170,7 @@ test('keyboard only: create a group on the fly, add, collapse, filter, move a ta
   await expect(editField(page)).toBeFocused();
   await tabTo(page, editChoice(page));
   await press(page, 'ArrowDown'); // Công ty to Nhà
-  await tabTo(page, page.locator('.task__edit').getByRole('button', { name: 'Lưu' }));
+  await tabTo(page, page.locator('#day-list .task__edit').getByRole('button', { name: 'Lưu' }));
   await press(page, 'Enter');
   await expect(sectionLabels(page, 'Nhà')).toHaveText(['Gửi báo cáo', 'Tưới cây']);
   await expect(editOf(page, 'Gửi báo cáo')).toBeFocused();
@@ -3232,7 +3232,7 @@ test('every new control is at least 44 by 44 px', async ({ page }) => {
   await atLeast44(page.locator('#create-group, #new-group-name'), 'new group line');
   await page.keyboard.press('Escape');
   await editOf(page, 'Gửi báo cáo').click();
-  await atLeast44(page.locator('.task__edit select, .task__edit button'), 'task edit');
+  await atLeast44(page.locator('#day-list .task__edit select, #day-list .task__edit button'), 'task edit');
   await page.keyboard.press('Escape');
   await openCard(page);
   await atLeast44(card(page).locator('button'), 'card');
@@ -3306,7 +3306,7 @@ test('reduced motion: collapse, expand and a move run no animation', async ({ pa
   expect(await running()).toEqual([]);
   await editOf(page, 'Tưới cây').click();
   await editChoice(page).selectOption('cty');
-  await page.locator('.task__edit').getByRole('button', { name: 'Lưu' }).click();
+  await page.locator('#day-list .task__edit').getByRole('button', { name: 'Lưu' }).click();
   await expect(sectionLabels(page, 'Công ty')).toContainText(['Tưới cây']);
   expect(await running()).toEqual([]);
 });
@@ -3683,7 +3683,7 @@ test('reused sections across a day change and the filter: rows, fold and header 
   await expect(toggle(page, 'Nhà')).toHaveAttribute('aria-expanded', 'false');
   await page.locator('#group-filter').selectOption('nha');
   await expect(sections(page)).toHaveCount(1);
-  await expect(page.locator('.group__toggle')).toHaveCount(0);
+  await expect(page.locator('#day-list .group__toggle')).toHaveCount(0);
   await expect(sectionLabels(page, 'Nhà')).toHaveText(['Tưới cây', 'Nấu cơm']);
   await expect(sectionLabels(page, 'Nhà').first()).toBeVisible();
   await page.locator('#group-filter').selectOption('all');

@@ -1,0 +1,7 @@
+7:   2. Idle loop: Render.start() ran requestAnimationFrame forever, also after 
+8:      called and starts again on pfWake() (new members pfLoop, pfWake, pfSleep
+9:class t{constructor(t,e){this.state={angle:0,area:[],position:{x:0,y:0},hardAn
+25:// transform (translate3d), and the patched getRender().pfWake() and pfSleep().
+125:      r.pfSleep(); // no frame loop until drive() wakes it (NFR4; patch 2 in the vendored module)
+158:    pool.forEach(({ book }) => book.getRender().pfSleep()); // the loop stops after its next frame
+195:        book.getRender().pfWake();

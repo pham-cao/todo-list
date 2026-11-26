@@ -1,0 +1,5 @@
+Excerpt of full-run-1.txt (npx playwright test --workers=2)
+  ✓   451 [desktop] › tests/e2e/flip.spec.js:1820:5 › T14: the page curl in real time › at 1440 px a forward flip, a back flip and 3 page riffles both ways curl with a diagonal fold across the sheet (4.4s)
+  ✓   455 [desktop] › tests/e2e/flip.spec.js:1820:5 › T14: the page curl in real time › at 390 px a forward flip, a back flip and 3 page riffles both ways curl with a diagonal fold across the sheet (4.4s)
+  ✓  1003 [mobile] › tests/e2e/flip.spec.js:1820:5 › T14: the page curl in real time › at 1440 px a forward flip, a back flip and 3 page riffles both ways curl with a diagonal fold across the sheet (4.4s)
+  ✓  1004 [mobile] › tests/e2e/flip.spec.js:1820:5 › T14: the page curl in real time › at 390 px a forward flip, a back flip and 3 page riffles both ways curl with a diagonal fold across the sheet (4.4s)

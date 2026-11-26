@@ -1,0 +1,8 @@
+  ✓  155 [desktop] › tests/e2e/flip.spec.js:171:3 › add during a flip removes the stage at once and the page stays usable (157ms)
+  ✓  156 [desktop] › tests/e2e/flip.spec.js:171:3 › storage during a flip removes the stage at once and the page stays usable (150ms)
+  ✓  157 [desktop] › tests/e2e/flip.spec.js:171:3 › filter during a flip removes the stage at once and the page stays usable (159ms)
+  ✓  158 [desktop] › tests/e2e/flip.spec.js:171:3 › delete during a flip removes the stage at once and the page stays usable (155ms)
+  ✓  600 [mobile] › tests/e2e/flip.spec.js:171:3 › add during a flip removes the stage at once and the page stays usable (147ms)
+  ✓  602 [mobile] › tests/e2e/flip.spec.js:171:3 › storage during a flip removes the stage at once and the page stays usable (145ms)
+  ✓  603 [mobile] › tests/e2e/flip.spec.js:171:3 › filter during a flip removes the stage at once and the page stays usable (140ms)
+  ✓  604 [mobile] › tests/e2e/flip.spec.js:171:3 › delete during a flip removes the stage at once and the page stays usable (147ms)

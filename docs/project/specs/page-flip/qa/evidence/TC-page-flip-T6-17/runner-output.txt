@@ -1,0 +1,4 @@
+{"innerW":412,"stage":1,"scrollY":385,"stageAfterScroll":1,"scale0":1,"scale1":5,"prevented":0,"stageAfterPinch":1}
+Method: scratch script, Chromium Pixel 7 emulation (412 px wide), CDP Input.dispatchTouchEvent (Input.synthesize*Gesture did nothing in headless, so raw touch points were used), --dur-flip 30000ms.
+Scroll: one finger up 400 px -> scrollY 385, stage still present. Pinch: two fingers apart -> visualViewport.scale 1 -> 5. defaultPrevented touchstart/touchmove/touchend count: 0.
+Result: pass (emulation only; real device zoom not tested)

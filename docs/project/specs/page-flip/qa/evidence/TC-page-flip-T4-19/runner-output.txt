@@ -1,0 +1,6 @@
+npm test: 88 pass, 0 fail
+
+  105 skipped
+  807 passed (7.3m)
+  ✓  107 [desktop] › tests/e2e/day-nav.spec.js:799:1 › with reduced motion a move changes the day and plays no page flip (358ms)
+  ✓  540 [mobile] › tests/e2e/day-nav.spec.js:799:1 › with reduced motion a move changes the day and plays no page flip (335ms)

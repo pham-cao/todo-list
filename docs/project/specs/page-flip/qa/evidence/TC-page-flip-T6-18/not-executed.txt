@@ -1,0 +1,1 @@
+Manual case, not executed: needs a 15 minute human exploratory session. Partial cover from automated T6 cases 01 to 06, 12 to 14.

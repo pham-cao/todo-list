@@ -613,3 +613,114 @@ Also accepted: strip appended inside <main>; pointer captured on the slip, not t
 - BUG-024: fix it now. This is a test-only change: compare scrollY with a tolerance under 1 px, so the two T6 tests also pass in Firefox.
 - Two Firefox-only, load-dependent test failures are accepted as known risks: the BUG-020 short-screen strip test, and the 3-section count in the NFR1 drag test. QA's earlier Firefox run passed both, and the e2e suite officially runs on Chromium only. BUG-024 is verified by QA in report mode.
 - The two device-only cases (TC-drag-drop-T5-18 and T5-19) are counted as blocked. They go into the release note as manual checks.
+
+## 2026-11-11 page-flip requirements (chosen by the owner)
+- Q1 Flip style (hinged 3D leaf, flat 2D fold, full 3D curl): a hinged 3D leaf that turns on the left edge, with perspective, a moving shadow and a darker back, using transform and opacity only.
+- Q2 Duration (450, 350 or 600 ms): 450 ms on phones and desktop, as one token `--dur-flip`.
+- Q3 Browser Back and Forward flip (yes, or only arrows, picker and Về hôm nay): yes, every day change by the owner flips.
+- Q4 Far jump from the picker or Về hôm nay (one flip, a short riffle capped at 3, no flip past 7 days): a short riffle of a few quick pages, capped at 3. This differs from the BA default.
+- Q5 What flips (sheet body only, the whole sheet, the body without the tape re-press): the sheet body only. The header updates at once and the date tape keeps its 360 ms re-press.
+- Q6 Back and Forward direction (follow the date, follow the history): follow the date.
+- Q7 Rapid presses (interrupt and restart, skip, queue): interrupt and restart. Held key repeat changes the day with no new flip, and one flip plays after it stops. Nothing is queued.
+- Q8 Reduced motion (no motion, a 150 ms crossfade): no motion, the day changes at once.
+- Q9 Sideways swipe to turn days on phones (out of scope, later feature, now): out of scope for this feature.
+- Riffle detail (approve as written, or Back and Forward always one flip): approved as written. 2 days plays 2 leaves, 3 or more days plays 3, total under 700 ms, and Back and Forward follow the same distance rule. The owner approved the page-flip requirements.
+
+## 2026-11-12 page-flip UX (chosen by the owner)
+- UX review (approve, request changes): approved. The prototype's control slip is a review aid only and is not built.
+- Held key repeat release (one riffle on release, no flip on release): when the owner releases a held arrow key after repeated day changes, one flip or riffle plays for the whole distance moved, capped at 3 leaves. Repeated key presses during the hold play nothing. This refines R15, and the prototype, which plays nothing on release, differs here.
+- Leaf back (fade to darker paper inside the sheet, show the back over the hole strip past 90 degrees): keep the fade to darker paper as built.
+- The P3 critique finding (the leaf's top edge is briefly cut at the header rule) is accepted, because the leaf stays inside the sheet (R13).
+
+## 2026-11-12 page-flip design (chosen by the owner)
+- List rebuild during a flip (any rebuild ends the flip, only external rebuilds end it): any renderList rebuild ends the running flip, as R37 reads. Adding, deleting or changing the filter within 450 ms of a move cuts the leaf short. Ticking a box does not rebuild and does not end it.
+- Held arrow key in the date picker (follow R15, every step restarts the flip): follow R15. A picker change with repeat true counts as a repeated move, plays no motion, and one flip or riffle plays on release.
+- The owner approved design.md and tasks.md (T1 to T10).
+
+## 2026-11-12 page-flip test plan (PM, following earlier owner decisions)
+- QA plan point 1: already settled by the owner on 2026-11-12. An add, save or delete within 450 ms of a move may cut the leaf short, and the action must land on the new day.
+- Point 2: if Chromium does not report repeated picker steps, T5-14 is recorded as not applicable for that browser.
+- Point 3: T4-11 asserting no stage 700 ms plus one frame after a blur is accepted.
+- Point 4: T4-06 records the observed typing sequence; it is accepted as written.
+- Point 5: Firefox stays a hand or temporary config run, as in drag-drop. No Firefox project is added.
+- Point 6: a held Enter on Về hôm nay moves once and plays no motion on the repeats. This is expected.
+
+## 2026-11-12 page-flip T2
+- T2 Boundary exception: test only selector scoping in tests/e2e/groups.spec.js, app.spec.js, drag.spec.js and day-nav.spec.js (beyond its T7 block), because the leaf copy has no ids and would otherwise match unscoped selectors. Selectors inside the sheet body now point at real ids (#empty, #empty-text, #new-task-error, #group-bar) or are prefixed with #day-list (.task__edit, .task--editing, .task--peek, .task__swipe, .group__toggle, .task-list b). The reviewer checked that none weakens an assertion.
+- Adding a task appends a row without renderList. The owner was told on 2026-11-12 that adding, deleting or changing the filter during a flip ends it, so the add submit handler also calls flip.end(). This replaces an earlier note in this section.
+
+## 2026-11-12 page-flip T6
+- copy() strips every label's `for` as well as every `id`. A cloned `<label for>` would otherwise join the real control's labels and double its accessible name (R11, R20). This amends step 2 of copy() in design.md. Other ARIA reference attributes in the copy point outward and stay, since the stage is aria-hidden and inert.
+- Editing and saving a row during a flip updates it in place, so the flip keeps running. Only add, delete and real list rebuilds end it.
+
+## 2026-11-12 page-flip T7
+- Reviewer attempt 1 failed T7: forcing every row visible for the geometry read costs up to 197 to 235 ms with 200 wrapping rows (NFR1). (Superseded by the T7 rework bullet below: no measure at all, a ResizeObserver realigns the stage.) FE proves the fix with a 200 long-row NFR1 case and a scrolled near the bottom case.
+- design-system.md gets a note on `.flip-measure` and its interplay with content-visibility in T9, which owns that file.
+- QA confirmed the reviewer finding as BUG-027 (High). BUG-026 (scrolled leaf offset) is closed.
+- TC-page-flip-T7-12 (sheet body fully scrolled out of view) is dropped: the sheet body runs to the bottom of the sheet, so the state cannot be reached. R13 stays covered by T7-01 and T7-11.
+- TC-page-flip-T7-09 (contrast at sampled frames) is automated by FE in the T7 rework.
+- The flaky T7-01 frame assumption is fixed by FE in the same rework, not by the healer, since the BUG-027 fix changes the timing.
+- T7-14 to T7-17 (real devices, Safari, Firefox, Edge) go to the release note as manual checks, as in drag-drop.
+- T7 rework: play() no longer forces row layout; a ResizeObserver on the sheet body realigns the stage after each layout until the flip ends, and copied rows get explicit heights. The flip-measure class and CSS rule are removed. design-system.md will describe this in T9.
+- The dark `--flip-shade` goes from 0.34 to 0.08, because at 0.34 dark done ink on the leaf fell to 3.1:1 and broke R35. The dark leaf shows less shading near its free edge than the approved prototype; the cast shadow and darker back still give depth. Accessibility (R35, approved by the owner) takes priority over the prototype's shade strength. Light stays at 0.10, which is the darkest that passes.
+
+## 2026-11-12 page-flip motion fix (chosen by the owner)
+- The owner reported no visible page flip in two real browsers. FE recorded real time playback (no pausing): the ease kept the leaf almost still for 200 ms, perspective-origin at 100% collapsed the leaf onto the hinge at about 67 degrees and clipped the rest, and the leaf back faded in while the text was still facing front. Only about 170 ms was visible, which read as a flicker. The approved prototype had the same problem. Logged as BUG-028. All tests passed because they paused frames; real time checks are now required for motion.
+- Fix options (fix and lengthen to 600 ms, fix and keep 450 ms, UX reworks the prototype first): fix and lengthen to 600 ms. perspective-origin on the hinge, an ease that starts moving at once (for example cubic-bezier(0.4, 0, 0.6, 1)), the leaf back fading in late (70 to 92 percent), `--dur-flip` 600 ms. With the 125 ms riffle step a 3 leaf riffle lasts about 850 ms, so R3a's 700 ms budget becomes 850 ms. The end timer starts from the first animation frame, so a slow first frame never cuts the end.
+- The motion fix runs as an extra task T8b "Perceptible flip motion (BUG-028)" after T8, owner fe, with a Boundary exception for the Page flip block of design-system.css and design-system.md (UX owned tokens, as decided by the owner). T9 now depends on T8b. The two minor T8 reviewer findings (edit form select case, NFR2 comment) are folded into T8b.
+- 2026-11-12 owner review of T8b on port 8080: "không rõ lật, có làm lật chậm lại, kể cả bản ux cũng không test lật được". The owner still sees no clear flip in their own browsers, also in the UX prototype, while QA, the reviewer and real time recordings in headless Chromium show a visible 600 ms turn. T8b is held (not committed) until the owner's browser is diagnosed. QA and the reviewer passed T8b with minors (a 72 percent contrast sample, the backstop clause in design-system.md).
+- Root cause of the owner seeing no flip: the browser reports prefers-reduced-motion: reduce. GNOME 50 is in the Power Saver profile, which turns animations off for apps (the settings portal reports enable-animations false although gsettings says true). The app correctly plays no flip under reduced motion (R28, owner decision Q8). No code defect. The owner can switch to the Balanced profile to see the flip.
+
+## 2026-11-12 page-flip scope change after the owner saw the flip (chosen by the owner)
+- The owner points out that many machines turn animations off without the user knowing (here GNOME reported reduced motion even in the Performance profile), so ordinary users would never see the flip.
+- Reduced motion (always flip with an in-app off switch, always flip with no switch, keep respecting the OS): always flip, with no off switch. This replaces Q8 and R28, R29 and R39 reduced motion behaviour. The app ignores prefers-reduced-motion for the page flip. Risk noted: people sensitive to motion cannot turn it off (WCAG 2.3.3, AAA level).
+- Flip area (whole sheet without the tape re-press, whole sheet keeping it): the whole sheet flips, header included (title, nav, date tape) along with the body, hinged on the binder holes. The separate tape re-press is dropped. This replaces Q5 and R12. The real header and nav update at once under the leaf, which stays an inert, aria-hidden copy, so focus and clicks are unaffected.
+- Duration (700, 600 or 900 ms): 700 ms per flip; with the 125 ms step a 3 leaf riffle lasts about 950 ms. This replaces the 600 ms motion fix value.
+- T8b (perceptible motion, BUG-028) passed QA and review and is committed as the base for this change. Its two minors (a 72 percent contrast sample, the backstop clause in design-system.md) fold into the next FE task.
+- 2026-11-13 whole sheet design (owner): the leaf may cover the focused nav control for up to 700 ms (950 ms riffle); accepted, since it clears on its own and clicks still reach the real control (record in R18). Blank riffle leaves stay fully ruled with no header band. The owner approved the updated design.md and tasks.md (T8c, T8d, T9, T10).
+- 2026-11-13 test-plan.md still mentions 450 ms and reduced motion off in places; QA refreshes it in report mode.
+
+## 2026-11-13 page-flip soft paper bend (chosen by the owner)
+- The owner says the leaf turns flat like stiff card and wants the curve of soft paper.
+- Options (strips that really bend, fake the curve with light, a page flip library): strips that really bend. The leaf is cut into narrow vertical strips, each turning a little more than the one before, so the sheet bends into a soft curve with the free edge trailing, with shading that follows the curve. CSS transforms and opacity only, no new library. This supersedes Q1's "simple hinged leaf" and the out of scope note on curl. Built as a new task after T8d (whole sheet).
+- Bend strength (28, 20 or 31 degrees): 28 degrees at mid turn (`--flip-bend`).
+- Slow devices (fall back to the flat leaf after a slow first frame, always bend, fewer strips on phones): always bend. There is no flat fallback; the slow device fallback in design.md "Change 2026-11-13" is dropped. Stutter on weak phones is an accepted risk for the release note.
+- The owner approved the soft paper bend design (T8e: 8 strips on desktop, 6 on phones, flat at start and end, shading that follows the curve, no library).
+- T8d reviewer minor (PM decision): the ruled lines of blank riffle leaves and the fading leaf back are out of phase with the body rules by the header height, since --flip-offset is now measured from the sheet top. Fixed in T8e, which rebuilds the leaf back and blank leaves for the strips anyway: place() also sets the body top inside the sheet (--flip-head) and the rule offset adds it.
+
+## 2026-11-13 page-flip T8e (PM, following owner decisions)
+- Lifetime upper bounds in the T4 reduced motion riffle test and the T7 lifetime test are measured from the first animation frame, as the design and the BUG-028 timer specify, not from when the stage is added. The N face copies make the first frame later, which is expected.
+- A scrolled 200 row day's first frame of 31 to 57 ms is accepted: the owner chose to always bend and accept stutter on slower devices. Recorded as a release note risk; the strip counts stay 8 and 6.
+- To save time the owner previews T8e on their own server before QA and review, and T9 and T10 run as one combined round.
+
+## 2026-11-13 page-flip curl style (chosen by the owner)
+- The owner reviewed T8e and says it shows almost no curve; they shared a reference photo of a page curling like a real book (diagonal fold, the lower corner lagging, a rolled cylinder with shading).
+- Curl style (in-house diagonal fold with roll shading, the StPageFlip library, a stronger vertical strip roll): the StPageFlip library. This replaces "no library" in R8 and the strip design. The library is vendored locally (no CDN, keeps the CSP) and its licence is checked.
+- Process (prototype first, full build at once): prototype first. FE builds a quick working prototype on the real app in a separate worktree, served on its own port, with no test runs. The owner previews it; only after approval is it built properly with tests, QA and review. T8e (8 strip bend) stays uncommitted until then and will likely be replaced.
+- 2026-11-13 owner preview of the StPageFlip prototype: approved, including the riffle (1, 2 or 3 curled pages by distance). The owner asks that the notebook look thicker, like a real notebook with a stack of pages, instead of two book pages. Added to the prototype first for another quick look, then the full build.
+- 2026-11-13 owner approved the thick notebook prototype ("oki"). The full build follows: StPageFlip curl and riffle, the thick page stack, replacing the uncommitted 8 strip bend (T8e).
+- 2026-11-13 new owner request, handled as a separate feature `group-header` after page-flip: move "Quản lý nhóm" into the header under "Về hôm nay"; move creating a new group into the Manage groups dialog; pressing "add new group" opens a message box in the same style as the delete group confirm.
+
+## 2026-11-13 group-header requirements (chosen by the owner)
+- Q1 After creating a group in the card, change the add form group choice (no, yes): no, keep it as it was.
+- Q2 Keep a "Nhóm mới..." shortcut in the add form select (remove, keep it opening the same box): remove it; groups are created only in Quản lý nhóm.
+- Q3 Colour in the new group box (automatic with a swatch preview, 6 colour choices, automatic with no preview): automatic next colour with a swatch preview; Sửa changes it later.
+- Q4 At 20 groups (open the box and show the limit at once, disable the button): open the box and show the limit message at once.
+- Q5 Empty group bar with no groups (hide it, keep an empty line): hide the bar until the first group exists.
+- BA extras kept: R23 (a day change behind an open card or box happens without a flip, typed text kept) and NFR7 (old inline group creation code and tests are removed).
+- 2026-11-13 page-flip StPageFlip build (owner): the library's fold shadow stays as dark as in the approved prototype (maxShadowOpacity 0.55); the moving fold shadow band is exempt from R35 for the frames it covers text. The owner approved design.md "Change 2026-11-13: StPageFlip curl and thick notebook" and tasks T11 to T15, then T9 and T10 as one round. The requirements were already updated by the BA before T11.
+- 2026-11-13 process (PM, owner asked for speed): FE builds T11 to T14 in one run with one QA and review round after T14 (the suite is red between T11 and T14 by design); then T15, T9 and T10 in a second run with one QA and review round before release.
+
+## 2026-11-13 group-header UX (chosen by the owner)
+- The owner approved the group-header requirements and the UX prototype.
+- Phone dialogs (all sticky notes become bottom sheets, all stay centred, only the new box is a sheet): every sticky note dialog (new group box, delete group confirm, blocked delete note) becomes a bottom sheet on phones.
+- "Quản lý nhóm" label (label at all widths, icon only below 452 px): show the label at all widths. This replaces the icon only rule in R3.
+- Colour preview for screen readers (announce the colour name, decorative only): decorative only (aria-hidden), as the old inline line was.
+- The proposed design-system additions in ux/critique.md and ux/group-header.css are merged into design-system.css and .md by the group-header build, after page-flip is released.
+- 2026-11-13 group-header design (PM, following the owner's answers): the header "Quản lý nhóm" button has no tooltip, since its label is always visible (the BA removes "tooltip" from the text table). The task delete note ("Bạn có chắc muốn xóa việc này không?") also becomes a phone bottom sheet, because the owner chose "every dialog slides up from the bottom"; T3 includes #delete-dialog.
+- 2026-11-13 the owner approved the group-header design.md and tasks.md (T1 to T5).
+- 2026-11-13 group-header test plan: 39 cases cover R1 to R33 and NFR1 to NFR7. The three manual cases (iPhone keyboard, Telex IME Enter, Safari/Firefox/Edge smoke) go to the release note as manual checks, as in earlier features.
+- 2026-11-13 page-flip T11 to T14 built (948 passed). One alignment test (200 wrapping rows near the bottom, 1440 px, back move) fails in about half of full runs: copied rows sit 24 px below the page. PM decision: QA and review proceed now with the new diagnostics; the root cause is fixed in the next FE round before release, since it may be visible to users on busy machines.
+- 2026-11-13 reviewer failed T11 to T14 (attempt 1): pooled books keep the first stage size (likely root cause of the 24 px alignment flake), reused books hide riffle blank pages for 125 to 250 ms, and design-system.md has a duplicated Page flip section; minors: rAF exceptions outside try, no curl check on a 200 task day. Sent back to FE with QA findings.
+- 2026-11-13 reviewer passed T11 to T14 attempt 2. Two low-probability minors (a half-built pooled book on a library throw during creation; end() not guarding quiet() and pfSleep() per book) are folded into the T15, T9 and T10 round.
+- 2026-11-13 reviewer passed T15, T9 and T10. PM decisions on the minors: the T15 gutter rule means the solid stack edges stay inside the gutter and there is no horizontal scroll; the soft shadow may fade past it (this amends design.md T15 tests). FE fixes the release note first frame figure (use the curl's measured first frame, not the unshipped strip bend) and removes the library resize listener on a half-built book.

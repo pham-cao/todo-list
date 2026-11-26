@@ -1,0 +1,40 @@
+[WebServer] 127.0.0.1 - - [12/Nov/2026 11:40:31] "GET /src/store.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 11:40:31] "GET /src/drag.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 11:40:31] "GET /src/manage.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 11:40:31] "GET /src/groups.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 11:40:31] "GET /src/flip.js?v=1.3.0 HTTP/1.1" 200 -
+  ✓  24 [desktop] › tests/e2e/flip.spec.js:1437:3 › T7: layout, phones and dark mode › switching to dark mid flip ends cleanly, and the next flip uses the dark leaf back (1.5s)
+  ✓  26 [mobile] › tests/e2e/flip.spec.js:1437:3 › T7: layout, phones and dark mode › switching to dark mid flip ends cleanly, and the next flip uses the dark leaf back (1.5s)
+
+
+  1) [desktop] › tests/e2e/flip.spec.js:1274:5 › T7: layout, phones and dark mode › at 360 px a 3 leaf riffle adds no horizontal scroll or height and stays inside the sheet, during and after 
+
+    Error: 2026-11-09
+
+    expect(received).toMatchObject(expected)
+
+    - Expected  - 2
+    + Received  + 2
+
+      Object {
+    -   "height": 1154,
+    -   "inside": true,
+    +   "height": 780,
+    +   "inside": false,
+      }
+
+      1281 |         const settled = frames.at(-1).height;
+      1282 |         for (const f of frames) expect(f, key).toMatchObject({ overflowX: 0, height: f.bare });
+    > 1283 |         for (const f of frames.slice(1)) expect(f, key).toMatchObject({ height: settled, inside: true });
+           |                                                         ^
+      1284 |       }
+      1285 |     });
+      1286 |   }
+        at /home/gem/src/todo_list/tests/e2e/flip.spec.js:1283:57
+
+    Error Context: test-results/flip-T7-layout-phones-and--ffcc4--the-sheet-during-and-after-desktop/error-context.md
+
+  1 failed
+    [desktop] › tests/e2e/flip.spec.js:1274:5 › T7: layout, phones and dark mode › at 360 px a 3 leaf riffle adds no horizontal scroll or height and stays inside the sheet, during and after 
+  2 skipped
+  23 passed (19.4s)

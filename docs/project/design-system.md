@@ -65,7 +65,8 @@ Rules:
 - Spacing uses a 4 px base: 4, 8, 12, 16, 20, 24, 32, 40, 48, 64.
 - Every tap target is at least 44 by 44 px (`--tap`). The Thêm, Hủy and Lưu buttons are drawn 36 px tall to sit inside a line, and a transparent pseudo element extends their hit area to 44 px.
 - Radius: 3 px for the sheet, 6 px for buttons and swipe actions, a slightly uneven 3 to 5 px for the drawn checkbox, and a folded corner on the sticky note.
-- Shadows are warm and physical: `--shadow-sheet` (a soft lift plus the offset edge of the sheet underneath) and `--shadow-note` for the sticky note. Rows and buttons have no shadow.
+- Shadows are warm and physical: `--shadow-sheet` and `--shadow-note` for the sticky note. Rows and buttons have no shadow.
+- Thick notebook (`--shadow-sheet`, owner 2026-11-13, R8a): the sheet sits on a stack of pages, not on a desk alone. Out to the right and bottom (the punched holes on the left stay the binding) the shadow draws five offset paper edges, each with a hairline gap under it, then a card back cover a little thicker than a sheet, then one soft shadow; a faint lift sits on top. It is drawn with box shadows only, so it adds no layout, no scroll area and no shift to the header or the body, it is there on every settled page, and a turning page uncovers the real next sheet with the stack still beside it. Tokens: `--stack-u` (the step between edges: 1.8 px, and 0.7 px below 601 px so the solid edges and the cover, at most 10 steps out, stay inside the 8 px desk gutter at 390 and 360 px; only the soft shadow fades past it), `--color-paper-edge` (each page edge, #EFE8D8 light, #1A1D22 dark), `--color-stack-line` (the shaded gap between two sheets, #C9BEA5 light, #353B44 dark, where the edges catch a little light instead), `--color-cover` (the back cover, #7D7766 light, #0A0C0F dark) and `--stack-soft` (the soft shadow under the cover, rgba(56, 48, 30, 0.30) light, rgba(0, 0, 0, 0.65) dark). `--shadow-sheet` is defined once from these; dark mode changes only the three stack colours (and `--color-paper-edge` with the paper).
 - Paper grain is an inline SVG noise (`--grain`), so there is no image request.
 
 ## Components
@@ -103,7 +104,7 @@ Motion answers something the owner did. The stamp is still a response, and the s
 | Delete note | Note drops in with a small rotation | 360 ms |
 | Swipe hint (phones, once) | First line slides left to show Sửa, holds, then settles back (`.task--peek`), after a 400 ms pause | 1100 ms |
 
-Everything is reduced to an instant change under `prefers-reduced-motion`; the bloom and the swipe hint are removed.
+Everything is reduced to an instant change under `prefers-reduced-motion`; the bloom and the swipe hint are removed. The one exception is the page flip on a day change, which always plays (owner, 2026-11-12; see Page flip, Motion).
 
 ## Accessibility
 
@@ -119,7 +120,7 @@ This section only adds to the system; no existing token or component changed. Th
 - Page turning arrows (`.day-nav__turn` on `.icon-btn`): pen chevrons, 44 px, tooltip from `aria-label`. Tooltips in the nav open below the controls so the heading stays readable. The arrow pair is pulled left 11 px so the chevron lines up with the title.
 - Date stamp (`.date-stamp`): a 3 px double pen border rotated 2 degrees, like a rubber date stamp, wrapping a calendar icon and a native `<input type="date">`. At rest the input text is hidden, because the native format follows the browser locale and the date is already on the tape; mouse or touch anywhere on the stamp opens the browser's calendar. With a fine pointer and focus, the stamp widens to show the native field for typing. Tooltip text comes from `data-tip`.
 - Back to today (`.today-tab`): an index tab with a return mark. It is pen filled on other days and drawn as a dashed pencil outline in done ink (5.5:1 light, 5.9:1 dark) when `aria-disabled="true"` on today. On phones it drops the icon and uses 14 px text so it fits beside the arrows. When it changes state, its background and text colour fade together, so the label stays readable throughout. The fade is skipped on first render, so a page opened on another day shows the filled tab straight away.
-- Page turn motion: `.turn--back` or `.turn--forward` on the sheet body (lines slide 18 px in from the side turned towards, 240 ms, new token `--dur-turn`) and `.washi--restick` on the date tape (360 ms). These are added once per day change and removed on reduced motion.
+- Day change motion: the page flip (see Page flip). The date tape is not pressed again on a day change.
 - Narrow phones: below 381 px the add line placeholder is 14 px, so "Bạn cần làm gì ngày này?" stays whole.
 
 ## Task groups (added for task-groups)
@@ -223,4 +224,54 @@ Under `prefers-reduced-motion` the slip and strip do not tilt or move, the long 
 - Dragging is never the only way: Sửa and its Nhóm choice move a task with one tap or key press.
 - Results are announced in the existing polite live region; the strip and slip are not read or focused.
 - Targets are named in text (the slip's corner label and the strip labels), framed in pen at 3:1 or better in both modes, and at least 44 by 44 px.
+- Verified without horizontal scroll at 1440, 390 and 360 px in both modes.
+
+## Page flip (added for page-flip)
+
+This section only adds to the system. The CSS lives at the end of `design-system.css` under "Page flip". The ui-ux-pro-max search confirmed the rules that shape it: animate only transform and opacity, keep one key motion per view, and make every transition cancellable without relying on `animationend` for correctness. Its suggested flat teal style was not used, because the paper notebook system is approved.
+
+### Direction
+
+The whole sheet curls away like a real notebook page (owner, 2026-11-13 curl style): the header band (title, day navigation, date tape, progress, summary and any slip) and the ruled body, as one page (owner, 2026-11-12). The fold runs diagonally, the lower corner lagging behind the top one, as if a hand pulled the top right corner across and down. The turning part shows the back of the sheet (plain darker paper with faint rules and light falling off towards the fold), the inner fold shadow rolls it like a cylinder, and the outer fold shadow falls on the page underneath along the fold. The page moves from the first frame, so the whole turn reads as one sweep in real time, not a flicker (BUG-028). Going back plays the turn the other way: a page of the earlier day starts curled away and uncurls flat onto the sheet. Jumps of 2 or more days riffle through blank ruled pages, which have no header band (owner, 2026-11-13); each page curls on its own, one step after the one before, so the pages fan out. The real header underneath changes at once, so while a forward page curls away it covers the focused nav control for up to 700 ms (950 ms in a riffle); the owner accepted this (R18), and clicks still reach the real control.
+
+The curl is drawn by StPageFlip 2.0.7 (MIT, copyright 2020 Nodlik), vendored in `vendor/page-flip/` with its licence and two marked patches: its stylesheet is a linked file instead of an injected `<style>` (so the CSP stays `style-src 'self'`), and its frame loop sleeps while no page turns. No CDN, no npm runtime dependency.
+
+### New tokens
+
+| Token | Light | Dark | Use |
+| --- | --- | --- | --- |
+| `--dur-flip` | 700 ms | same | One page turn, phones and desktop. 450 ms read as a flicker (BUG-028); the owner chose 700 ms (2026-11-12) |
+| `--dur-riffle-step` | 125 ms | same | Start of one riffle page to the next; 3 pages end at 950 ms |
+| `--color-leaf-back` | #ECE5D4 | #1B1F25 | Back of the sheet as it curls, never lighter than the paper, so no flash at night |
+| `--flip-shade` | rgba(56, 48, 30, 0.10) | rgba(0, 0, 0, 0.08) | Light falling off across the back of the sheet towards the fold. Capped at 0.10 by day and 0.08 at night (R35) |
+
+### Components
+
+- Stage (`.flip-stage`, `.flip-stage--back`): absolute on `.sheet`, covering the part of the sheet in the window: from the sheet top when unscrolled (header included), from the window top when scrolled. Script sets `--flip-top`, `--flip-h` and `--flip-offset` inline, all measured from the sheet; `--flip-top` and `--flip-offset` hold the same value. `aria-hidden="true"`, `inert`, `pointer-events: none`, not selectable, `overflow: clip`, `z-index: 3`, so it never adds scroll area and is drawn above the sheet's own holes and margin line. It plays under `prefers-reduced-motion` too, because the library animates with script, which the global 1 ms rule does not touch.
+- Curl (`.flip-stage--curl`, `.flip-layer`, `.flip-book`): one `.flip-layer` per riffle page, bottom page first, each holding one library book (`.flip-book`) sized to the stage. A book holds the page that turns (`.leaf--front`: the old day forward, the new day back, or a blank ruled `.leaf--blank`), the clone of it the library turns (the second `.leaf--front`, drawn as the back of the sheet with `--color-leaf-back`, faint rules and `--flip-shade` falling off, its content hidden) and a see-through `.leaf--clear`. Script cuts the uncovered part out of the front page after each frame (an `evenodd` clip), so the page below shows through. Back flips add `.leaf--base`, a copy of the old day, under the pages. The library positions, clips and shadows every page inline; the fold shadows are unclipped (the stage's overflow clip keeps them on the sheet) and keep the approved strength (`maxShadowOpacity` 0.55; the moving fold shadow band is exempt from R35, owner 2026-11-13). Nothing in the curl stage transitions (`transition: none`), because the global reduced motion rule's 1 ms transition would draw every frame one frame late. Each book's block keeps the move's height, because the library centres the page in its block.
+- Page (`.leaf`, `.leaf--blank`): plain paper with grain, its own punched holes and double margin line aligned with the sheet's. The rules on a page with words come from the copied `.sheet__body`, which keeps its ruled background under the unruled copied header. Blank pages (`.leaf--blank`) are ruled over their whole height and have no content. `.leaf__content` is a flex column holding the copied header and body, at least as tall as the page, shifted up by `--flip-offset`; the copied body grows to the page bottom as on the sheet.
+- Order: the page with words is always the top layer (last in the stage). Forward it holds the old day and turns first; back it holds the new day, the lowest blank falls first and the page with words lands last.
+- Copy: the leaf holds the whole sheet, the header and then the body down to the first row below the window (rows above it stay, so `--flip-offset` lines it up). A forward leaf shows the old title, date tape and picker day; a back leaf the new ones. The copy loses every `id`, `for`, `aria-live` and `role`, and `progress--celebrate`, so it never announces and the stamp never replays on the leaf. Each copied row gets the height its row has now, because rows use `content-visibility: auto` and a clone has no remembered size.
+- Following the page: rows of a new day are one rule placeholders until the browser lays out the ones near the window, which can take a frame or more and can move the window back from a clamped scroll. The script lays out no rows itself (NFR1); a ResizeObserver on the sheet body puts the stage back on the page after each layout until the flip ends, and a back leaf's copied rows take their rows' new heights. Every read in its callback comes before any write.
+- Lifetime: the stage ends when the last page's book reports its turn done, or at the latest by a timer at `--dur-flip + (leaves - 1) * --dur-riffle-step` plus one frame, counted from the first frame that draws the stage (so a slow first frame never cuts the end of the turn); until that frame a backstop timer of twice that time stands in, so a frame that never comes still leaves no leaf. It also goes at once on a new move, the page becoming hidden, a dialog opening, or a re-render of the sheet body. Reduced motion switching on does not end it. The stage node and the books (at most 3) are reused; between flips none of them is in the document and no book runs a frame loop.
+
+### Motion
+
+| Moment | Motion | Duration |
+| --- | --- | --- |
+| 1 day later | Old page curls away from the top right corner | 700 ms |
+| 1 day earlier | A page of the earlier day uncurls flat onto the sheet | 700 ms |
+| 2 days | Riffle: page with words plus 1 blank | 825 ms |
+| 3 days or more | Riffle: page with words plus 2 blanks | 950 ms |
+
+The date tape is not pressed on a day change.
+
+The flip plays the same under `prefers-reduced-motion`, by the owner's decision (2026-11-12): many machines report reduced motion without the person knowing (GNOME in a power profile did so on the owner's machine), so most people would never see the flip. There is no off switch. This is a known risk against WCAG 2.3.3 (Animation from Interactions, AAA): people sensitive to motion cannot turn it off. The motion is one short turn started by the person's own action, with no flashing. Every other reduced motion rule in the app stays. The curl is animated by script, so the global reduced motion rule does not touch it. A hidden page and a browser without 3D transforms or `clip-path` with `evenodd` still change the day with no flip.
+
+### Accessibility
+
+- The leaf is a picture: hidden from assistive technology, inert, and clicks pass through to the new day.
+- Focus, the live date line and the tab order are untouched, because the real page changes before the leaf is drawn.
+- Text on the turning page keeps 4.5:1 against its paper in both modes; the moving fold shadow band may darken it for the frames it passes (owner, 2026-11-13).
+- Motion is checked in real time, never only on paused frames: the page shows a diagonal fold for at least 30 percent of `--dur-flip` and a fold for at least half of it, sweeping across the sheet (T14).
 - Verified without horizontal scroll at 1440, 390 and 360 px in both modes.

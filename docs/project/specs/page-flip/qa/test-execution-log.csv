@@ -1,0 +1,361 @@
+date,task,tc_id,result,evidence,bug_id
+2026-11-12,T1,TC-page-flip-T1-01,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T1-01/,
+2026-11-12,T1,TC-page-flip-T1-02,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T1-02/,
+2026-11-12,T1,TC-page-flip-T1-03,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T1-03/,
+2026-11-12,T1,TC-page-flip-T1-04,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T1-04/,
+2026-11-12,T1,TC-page-flip-T1-05,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T1-05/,
+2026-11-12,T1,TC-page-flip-T1-06,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T1-06/,
+2026-11-12,T1,TC-page-flip-T1-07,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T1-07/,
+2026-11-12,T1,TC-page-flip-T1-11,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T1-11/,
+2026-11-12,T1,TC-page-flip-T1-08,blocked,leafCount arrives in T2,
+2026-11-12,T1,TC-page-flip-T1-09,blocked,leafCount arrives in T2,
+2026-11-12,T1,TC-page-flip-T1-10,blocked,leafCount arrives in T2,
+2026-11-12,T2,TC-page-flip-T1-08,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T1-08/,
+2026-11-12,T2,TC-page-flip-T1-09,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T1-09/,
+2026-11-12,T2,TC-page-flip-T1-10,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T1-10/,
+2026-11-12,T2,TC-page-flip-T2-01,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T2-01/,
+2026-11-12,T2,TC-page-flip-T2-02,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T2-02/,
+2026-11-12,T2,TC-page-flip-T2-03,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T2-03/,
+2026-11-12,T2,TC-page-flip-T2-04,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T2-04/,
+2026-11-12,T2,TC-page-flip-T2-05,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T2-05/,
+2026-11-12,T2,TC-page-flip-T2-06,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T2-06/,
+2026-11-12,T2,TC-page-flip-T2-07,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T2-07/,
+2026-11-12,T2,TC-page-flip-T2-08,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T2-08/,
+2026-11-12,T2,TC-page-flip-T2-09,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T2-09/,
+2026-11-12,T2,TC-page-flip-T2-10,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T2-10/,
+2026-11-12,T2,TC-page-flip-T2-11,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T2-11/,
+2026-11-12,T2,TC-page-flip-T2-12,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T2-12/,
+2026-11-12,T2,TC-page-flip-T2-13,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T2-13/,
+2026-11-12,T2,TC-page-flip-T2-14,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T2-14/,
+2026-11-12,T2,TC-page-flip-T2-15,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T2-15/,
+2026-11-12,T3,TC-page-flip-T3-01,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T3-01/,
+2026-11-12,T3,TC-page-flip-T3-02,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T3-02/,
+2026-11-12,T3,TC-page-flip-T3-03,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T3-03/,
+2026-11-12,T3,TC-page-flip-T3-04,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T3-04/,
+2026-11-12,T3,TC-page-flip-T3-05,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T3-05/,
+2026-11-12,T3,TC-page-flip-T3-06,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T3-06/,
+2026-11-12,T3,TC-page-flip-T3-07,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T3-07/,
+2026-11-12,T3,TC-page-flip-T3-08,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T3-08/,
+2026-11-12,T3,TC-page-flip-T3-09,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T3-09/,
+2026-11-12,T3,TC-page-flip-T3-10,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T3-10/,
+2026-11-12,T3,TC-page-flip-T3-11,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T3-11/,
+2026-11-12,T3,TC-page-flip-T3-12,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T3-12/,
+2026-11-12,T3,TC-page-flip-T3-13,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T3-13/,
+2026-11-12,T3,TC-page-flip-T3-14,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T3-14/,
+2026-11-12,T3,TC-page-flip-T3-15,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T3-15/,
+2026-11-12,T3,TC-page-flip-T3-16,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T3-16/,
+2026-11-12,T4,TC-page-flip-T4-01,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T4-01/,
+2026-11-12,T4,TC-page-flip-T4-02,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T4-02/,
+2026-11-12,T4,TC-page-flip-T4-03,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T4-03/,
+2026-11-12,T4,TC-page-flip-T4-04,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T4-04/,
+2026-11-12,T4,TC-page-flip-T4-05,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T4-05/,
+2026-11-12,T4,TC-page-flip-T4-06,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T4-06/,
+2026-11-12,T4,TC-page-flip-T4-07,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T4-07/,
+2026-11-12,T4,TC-page-flip-T4-08,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T4-08/,
+2026-11-12,T4,TC-page-flip-T4-09,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T4-09/,
+2026-11-12,T4,TC-page-flip-T4-10,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T4-10/,
+2026-11-12,T4,TC-page-flip-T4-11,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T4-11/,
+2026-11-12,T4,TC-page-flip-T4-12,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T4-12/,
+2026-11-12,T4,TC-page-flip-T4-13,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T4-13/,
+2026-11-12,T4,TC-page-flip-T4-14,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T4-14/,
+2026-11-12,T4,TC-page-flip-T4-15,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T4-15/,
+2026-11-12,T4,TC-page-flip-T4-16,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T4-16/,
+2026-11-12,T4,TC-page-flip-T4-17,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T4-17/,
+2026-11-12,T4,TC-page-flip-T4-18,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T4-18/,
+2026-11-12,T4,TC-page-flip-T4-19,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T4-19/,
+2026-11-12,T5,TC-page-flip-T5-01,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T5-01/,
+2026-11-12,T5,TC-page-flip-T5-02,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T5-02/,
+2026-11-12,T5,TC-page-flip-T5-03,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T5-03/,
+2026-11-12,T5,TC-page-flip-T5-04,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T5-04/,
+2026-11-12,T5,TC-page-flip-T5-05,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T5-05/,
+2026-11-12,T5,TC-page-flip-T5-06,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T5-06/,
+2026-11-12,T5,TC-page-flip-T5-07,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T5-07/,
+2026-11-12,T5,TC-page-flip-T5-08,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T5-08/,
+2026-11-12,T5,TC-page-flip-T5-09,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T5-09/,
+2026-11-12,T5,TC-page-flip-T5-10,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T5-10/,
+2026-11-12,T5,TC-page-flip-T5-11,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T5-11/,
+2026-11-12,T5,TC-page-flip-T5-12,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T5-12/,
+2026-11-12,T5,TC-page-flip-T5-13,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T5-13/,
+2026-11-12,T5,TC-page-flip-T5-14,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T5-14/,
+2026-11-12,T5,TC-page-flip-T5-15,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T5-15/,
+2026-11-12,T5,TC-page-flip-T5-16,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T5-16/,
+2026-11-12,T5,TC-page-flip-T5-17,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T5-17/,
+2026-11-12,T6,TC-page-flip-T6-01,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T6-01/,
+2026-11-12,T6,TC-page-flip-T6-02,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T6-02/,
+2026-11-12,T6,TC-page-flip-T6-03,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T6-03/,
+2026-11-12,T6,TC-page-flip-T6-04,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T6-04/,
+2026-11-12,T6,TC-page-flip-T6-05,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T6-05/,
+2026-11-12,T6,TC-page-flip-T6-06,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T6-06/,
+2026-11-12,T6,TC-page-flip-T6-07,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T6-07/,
+2026-11-12,T6,TC-page-flip-T6-08,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T6-08/,
+2026-11-12,T6,TC-page-flip-T6-09,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T6-09/,BUG-025
+2026-11-12,T6,TC-page-flip-T6-10,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T6-10/,
+2026-11-12,T6,TC-page-flip-T6-11,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T6-11/,
+2026-11-12,T6,TC-page-flip-T6-12,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T6-12/,
+2026-11-12,T6,TC-page-flip-T6-13,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T6-13/,
+2026-11-12,T6,TC-page-flip-T6-14,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T6-14/,
+2026-11-12,T6,TC-page-flip-T6-15,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T6-15/,
+2026-11-12,T6,TC-page-flip-T6-16,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T6-16/,
+2026-11-12,T6,TC-page-flip-T6-17,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T6-17/,
+2026-11-12,T6,TC-page-flip-T6-18,blocked,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T6-18/,
+2026-11-12,T6,TC-page-flip-T6-19,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T6-19/,
+2026-11-12,T6,TC-page-flip-T6-20,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T6-20/,
+2026-11-12,T6,TC-page-flip-T6-21,blocked,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T6-21/,
+2026-11-12,T6,TC-page-flip-T6-22,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T6-22/,
+2026-11-12,T7,TC-page-flip-T7-01,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-01/,
+2026-11-12,T7,TC-page-flip-T7-02,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-02/,
+2026-11-12,T7,TC-page-flip-T7-03,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-03/,
+2026-11-12,T7,TC-page-flip-T7-04,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-04/,
+2026-11-12,T7,TC-page-flip-T7-05,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-05/,
+2026-11-12,T7,TC-page-flip-T7-06,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-06/,
+2026-11-12,T7,TC-page-flip-T7-07,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-07/,
+2026-11-12,T7,TC-page-flip-T7-08,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-08/,
+2026-11-12,T7,TC-page-flip-T7-09,blocked,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-09/,
+2026-11-12,T7,TC-page-flip-T7-10,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-10/,
+2026-11-12,T7,TC-page-flip-T7-11,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-11/,BUG-026
+2026-11-12,T7,TC-page-flip-T7-12,blocked,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-12/,
+2026-11-12,T7,TC-page-flip-T7-13,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-13/,
+2026-11-12,T7,TC-page-flip-T7-14,blocked,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-14/,
+2026-11-12,T7,TC-page-flip-T7-15,blocked,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-15/,
+2026-11-12,T7,TC-page-flip-T7-16,blocked,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-16/,
+2026-11-12,T7,TC-page-flip-T7-17,blocked,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-17/,
+2026-11-12,T7,TC-page-flip-T7-18,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-18/,
+2026-11-12,T7,TC-page-flip-T2-15,fail,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T2-15/,BUG-027
+2026-11-12,T7,TC-page-flip-T2-15,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T2-15/retest2-runner-output.txt,BUG-027 verified (one unreproduced mobile miss in 51 runs; see BUG-027)
+2026-11-12,T7,TC-page-flip-T7-01,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-01/retest2-note.txt,
+2026-11-12,T7,TC-page-flip-T7-09,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-09/qa-note-retest2.txt,
+2026-11-12,T7,TC-page-flip-T7-12,dropped,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T7-12/retest2-note.txt,
+2026-11-12,T7,TC-page-flip-T7-13,pass,docs/project/specs/page-flip/qa/evidence/T7-fe/,Recaptured frames reviewed (dark riffle, 200 rows near bottom, 360 px dark)
+2026-11-12,T8,TC-page-flip-T8-01,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T8-01/runner-output.txt,Top and bottom; 3 runs each
+2026-11-12,T8,TC-page-flip-T8-02,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T8-02/runner-output.txt,3 runs
+2026-11-12,T8,TC-page-flip-T8-03,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T8-03/full-suite-runner-output.txt,Existing day-nav 200 task tests pass unchanged in both projects in the full suite (914 passed 112 skipped)
+2026-11-12,T8,TC-page-flip-T8-04,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T8-04/runner-output.txt,"3 runs x (1440, 390): 0 longtasks; median frame 16.0 ms; max frame 17 to 23 ms"
+2026-11-12,T8,TC-page-flip-T8-05,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T8-05/runner-output.txt,3 runs: 0 longtasks; median 16.0 ms; max frame 17 to 31 ms
+2026-11-12,T8,TC-page-flip-T8-06,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T8-06/runner-output.txt,"QA ad hoc check, 4 animations, properties transform and opacity only"
+2026-11-12,T8,TC-page-flip-T8-07,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T8-07/runner-output.txt,30 moves: 0 leaf nodes. Heap growth not measured (performance.memory not exposed in headless Chromium)
+2026-11-12,T8,TC-page-flip-T8-08,blocked,,Firefox not run on this host in T8; goes to release note
+2026-11-12,T8,TC-page-flip-T8-09,blocked,,Needs a real Android phone; goes to release note
+2026-11-12,T8,TC-page-flip-T8-10,blocked,,Exploratory charter not run in this pass; run after the BUG-028 fix
+2026-11-12,T8,TC-page-flip-T8-11,fail,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T8-11/app-contact.png,BUG-028
+2026-11-12,T8b,TC-page-flip-T8-11,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T8-11/runner-output-t8b-repeat3.txt,"T8b block 18 of 18 over 3 repeats (1440 and 390: forward, back, 3 leaf riffle, 200 task day). QA reviewed FE contact sheets: leaf visibly turns from about 100 to 550 ms, back appears only at the end, no hinge collapse. BUG-028 Verified"
+2026-11-12,T8b,TC-page-flip-T8-04,pass,docs/project/specs/page-flip/qa/evidence/T8b-qa/nfr2-repeat3.txt,"Rerun at 600 ms, 3 repeats x (1440, 390): 0 longtasks; median frame 16.0 ms; max frame 21 to 32 ms"
+2026-11-12,T8b,TC-page-flip-T8-05,pass,docs/project/specs/page-flip/qa/evidence/T8b-qa/nfr2-repeat3.txt,"Rerun at 600 ms, 3 repeats x (1440, 390): 0 longtasks; median 16.0 ms; max frame 20 to 32 ms"
+2026-11-12,T8b,TC-page-flip-T7-09,pass,docs/project/specs/page-flip/qa/evidence/T8b-qa/full-suite-clean.txt,"Contrast samples at 20, 50, 65 percent: pass light and dark in the full suite. R35 reading accepted, see BUG-028.md"
+2026-11-12,T8b,TC-page-flip-T8-03,pass,docs/project/specs/page-flip/qa/evidence/T8b-qa/full-suite-clean.txt,"Full suite 922 passed, 112 skipped, 0 failed (workers=2); npm test 88 of 88"
+2026-11-12,T8b,TC-page-flip-T8-10,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T8-10/charter2-output.txt,"Charter 2 now run (40 rapid mixed moves, adds, picker jumps on 200 tasks, 1440 and 390 wide): no stuck leaf or stage, 0 page errors. Observation: 200 row renders gave longtasks of 53 to 64 ms and frames of 110 and 135 ms under abuse; not the flip (NFR2 leaves the move render out); watch item"
+2026-11-13,T8c,TC-page-flip-T8c-01,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,"Static: grep restick|unstick|matchMedia in src/flip.js and src finds nothing but the comment; grep restick in tests empty; createFlip({ sheet, body }). CSS rule .washi--restick still in design-system.css lines 559 to 564 until T9 (expected)"
+2026-11-13,T8c,TC-page-flip-T8c-02,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,"3 e2e cases (next, previous, 6 day jump) under reduced motion pass in desktop and mobile; day-nav reduced motion test passes"
+2026-11-13,T8c,TC-page-flip-T8c-03,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,"reduced motion switched on during a riffle leaves it running: pass, both projects"
+2026-11-13,T8c,TC-page-flip-T8c-04,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,"stage displayed and every leaf animation lasts --dur-flip: pass, both projects"
+2026-11-13,T8c,TC-page-flip-T8c-05,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/t8b-repeat3.txt,"--repeat-each=3, T8b perceptible block incl. reduced motion variant: 24 passed, 0 failed (33.9s), samples show 0 to 92 degrees over the whole duration"
+2026-11-13,T8c,TC-page-flip-T8c-06,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,"hidden page and no 3D tests: no stage, no error"
+2026-11-13,T8c,TC-page-flip-T8c-07,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,"timer edge 699/700/701/717, 30 presses, lifetime(3) = 950+100 ms: pass, both projects"
+2026-11-13,T8c,TC-page-flip-T8c-08,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/manual-reduced-motion.txt,"Playwright MCP, reduce emulated, own server 4181. Leaf rotates 0 to about 92 degrees over 700 ms, removed at 743 ms. Screenshots reduced-motion-mid-flip-1440.png and -390.png"
+2026-11-13,T8c,TC-page-flip-T8c-09,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/manual-reduced-motion.txt,"design-system.css/.md diff read: --dur-flip 700ms, riffle 950, .flip-stage * override at --dur-flip with !important, no hide rule, md states always-flip and the WCAG 2.3.3 risk, lifetime bullet names the 2x backstop"
+2026-11-13,T8c,TC-page-flip-T2-08,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,amended to 700 + 100
+2026-11-13,T8c,TC-page-flip-T3-01,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,amended 700 + 100
+2026-11-13,T8c,TC-page-flip-T3-02,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,amended 825 + 100
+2026-11-13,T8c,TC-page-flip-T3-03,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,amended 950 + 100
+2026-11-13,T8c,TC-page-flip-T3-07,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,"covered by e2e riffle stagger tests with DUR/STEP, amended 700 / 950"
+2026-11-13,T8c,TC-page-flip-T4-04,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,amended 699/700/701 and 717
+2026-11-13,T8c,TC-page-flip-T4-11,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,amended 950 + frame
+2026-11-13,T8c,TC-page-flip-T5-05,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,amended 950 + 100
+2026-11-13,T8c,TC-page-flip-T7-03,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,"mobile project, amended 700/825/950 + 100"
+2026-11-13,T8c,TC-page-flip-T7-11,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,"tape assertion removed, line up and no overflow pass"
+2026-11-13,T8c,TC-page-flip-T4-19,pass,docs/project/specs/page-flip/qa/evidence/T8c-qa/full-suite.txt,"Full suite 928 passed, 112 skipped, 0 failed (workers=2); npm test 88 of 88 (evidence/T8c-qa/npm-test.txt)"
+2026-11-13,T8c,TC-page-flip-T4-07,superseded,docs/project/specs/page-flip/qa/evidence/T8c-qa/,"Not run: replaced by T8c-02 (decisions.md 2026-11-12 page-flip scope change, R28 amended)"
+2026-11-13,T8c,TC-page-flip-T4-08,superseded,docs/project/specs/page-flip/qa/evidence/T8c-qa/,Not run: replaced by T8c-03 (R29 amended)
+2026-11-13,T8c,TC-page-flip-T6-20,superseded,docs/project/specs/page-flip/qa/evidence/T8c-qa/,"Not run: replaced by T8c-04 (R28, NFR5 amended)"
+2026-11-13,T8c,TC-page-flip-T2-07,superseded,docs/project/specs/page-flip/qa/evidence/T8c-qa/,"Not run: replaced by T8c-01 (R12 amended, no tape re-press)"
+2026-11-13,T8d,TC-page-flip-T8d-01,pass,docs/project/specs/page-flip/qa/evidence/T8d-qa/t8b-t8d-repeat3.txt,Automated (T8d: forward leaf holds the old header); full suite 942 passed 112 skipped 0 failed; T8b and T8d --repeat-each=3: 60 passed; npm test 88 of 88
+2026-11-13,T8d,TC-page-flip-T8d-02,pass,docs/project/specs/page-flip/qa/evidence/T8d-qa/t8b-t8d-repeat3.txt,Automated (T8d: back leaf and riffle); full suite 942 passed 112 skipped 0 failed; T8b and T8d --repeat-each=3: 60 passed; npm test 88 of 88
+2026-11-13,T8d,TC-page-flip-T8d-03,pass,docs/project/specs/page-flip/qa/evidence/T8d-qa/t8b-t8d-repeat3.txt,Automated (T8d: stamp never replays); full suite 942 passed 112 skipped 0 failed; T8b and T8d --repeat-each=3: 60 passed; npm test 88 of 88
+2026-11-13,T8d,TC-page-flip-T8d-04,pass,docs/project/specs/page-flip/qa/evidence/T8d-qa/t8b-t8d-repeat3.txt,Automated (T8d: stage starts at the sheet top); full suite 942 passed 112 skipped 0 failed; T8b and T8d --repeat-each=3: 60 passed; npm test 88 of 88
+2026-11-13,T8d,TC-page-flip-T8d-05,pass,docs/project/specs/page-flip/qa/evidence/T8d-qa/t8b-t8d-repeat3.txt,Automated (scrolled lines up); full suite 942 passed 112 skipped 0 failed; T8b and T8d --repeat-each=3: 60 passed; npm test 88 of 88
+2026-11-13,T8d,TC-page-flip-T8d-06,pass,docs/project/specs/page-flip/qa/evidence/T8d-qa/t8b-t8d-repeat3.txt,Automated (T8d: next arrow is the real button); full suite 942 passed 112 skipped 0 failed; T8b and T8d --repeat-each=3: 60 passed; npm test 88 of 88
+2026-11-13,T8d,TC-page-flip-T8d-07,pass,docs/project/specs/page-flip/qa/evidence/T8d-qa/t8b-t8d-repeat3.txt,Automated (T8d 360 px); full suite 942 passed 112 skipped 0 failed; T8b and T8d --repeat-each=3: 60 passed; npm test 88 of 88
+2026-11-13,T8d,TC-page-flip-T8d-08,pass,docs/project/specs/page-flip/qa/evidence/T8d-qa/t8b-t8d-repeat3.txt,Automated (T7-09 contrast); full suite 942 passed 112 skipped 0 failed; T8b and T8d --repeat-each=3: 60 passed; npm test 88 of 88
+2026-11-13,T8d,TC-page-flip-T8d-09,pass,docs/project/specs/page-flip/qa/evidence/T8d-qa/t8b-t8d-repeat3.txt,Automated (T8b/T8-11 real time); full suite 942 passed 112 skipped 0 failed; T8b and T8d --repeat-each=3: 60 passed; npm test 88 of 88
+2026-11-13,T8d,TC-page-flip-T8d-10,pass,docs/project/specs/page-flip/qa/evidence/T8d-qa/full-suite.txt,Automated (full suite); full suite 942 passed 112 skipped 0 failed; T8b and T8d --repeat-each=3: 60 passed; npm test 88 of 88
+2026-11-13,T8d,TC-page-flip-T8d-11,pass,docs/project/specs/page-flip/qa/evidence/T8d-qa/,"git diff read: copy() range on .sheet, place() on sheet rect, attrs stripped; design-system.md line 234 and 255 describe the whole sheet"
+2026-11-13,T8d,TC-page-flip-T8d-12,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T8d-12/,"Manual with reduced motion: 36 and 44 frames, max 92 deg, stage top 0, header in every frame (manual-reduced-motion.txt, mid-1440.png, mid-390.png)"
+2026-11-13,T8d,TC-page-flip-T8d-13,pass,docs/project/specs/page-flip/qa/evidence/T8d-fe/,"Reviewed app-forward-desktop-light, app-back-mobile-dark, app-riffle-desktop-dark: header turns with the sheet, lands aligned, riffle blank"
+2026-11-13,T8d,TC-page-flip-T7-13,superseded,docs/project/specs/page-flip/qa/evidence/T8d-qa/,"P3 'top edge cut at the header rule' no longer holds: whole sheet flips; replaced by T8d-04, T8d-12, T8d-13"
+2026-11-13,T8d,TC-page-flip-T7-11,pass,docs/project/specs/page-flip/qa/evidence/T8d-qa/full-suite.txt,Wording amended (sheet top); re-run in the full suite
+2026-11-13,T11-14,TC-page-flip-T8c-04,superseded,docs/project/specs/page-flip/qa/evidence/T11-14-qa/,Test deleted by FE with a reason in flip.spec.js; replaced by TC-page-flip-T14-07
+2026-11-13,T11-14,TC-page-flip-T8c-08,superseded,docs/project/specs/page-flip/qa/evidence/T11-14-qa/,Test deleted by FE with a reason in flip.spec.js; replaced by TC-page-flip-T14-07
+2026-11-13,T11-14,TC-page-flip-T8d-09,superseded,docs/project/specs/page-flip/qa/evidence/T11-14-qa/,Test deleted by FE with a reason in flip.spec.js; replaced by TC-page-flip-T14-01
+2026-11-13,T11-14,TC-page-flip-T8c-05,superseded,docs/project/specs/page-flip/qa/evidence/T11-14-qa/,Test deleted by FE with a reason in flip.spec.js; replaced by TC-page-flip-T14-07
+2026-11-13,T11-14,TC-page-flip-T8-11,superseded,docs/project/specs/page-flip/qa/evidence/T11-14-qa/,Test deleted by FE with a reason in flip.spec.js; replaced by TC-page-flip-T14-01
+2026-11-13,T11-14,TC-page-flip-T8d-08,superseded,docs/project/specs/page-flip/qa/evidence/T11-14-qa/,Test deleted by FE with a reason in flip.spec.js; replaced by TC-page-flip-T14-06
+2026-11-13,T11-14,TC-page-flip-T7-09,superseded,docs/project/specs/page-flip/qa/evidence/T11-14-qa/,Test deleted by FE with a reason in flip.spec.js; replaced by TC-page-flip-T14-06
+2026-11-13,T11-14,TC-page-flip-T8d-12,superseded,docs/project/specs/page-flip/qa/evidence/T11-14-qa/,Test deleted by FE with a reason in flip.spec.js; replaced by TC-page-flip-T14-07
+2026-11-13,T11-14,TC-page-flip-T8-06,superseded,docs/project/specs/page-flip/qa/evidence/T11-14-qa/,Test deleted by FE with a reason in flip.spec.js; replaced by TC-page-flip-T14-09
+2026-11-13,T11-14,TC-page-flip-T11-01,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T11-01/,"Files, header (2.0.7, SHA-256 line, 2 patches), MIT LICENSE, both ?v=1.3.0 present; npm test 88 of 88. SHA-256 of the unpatched source not re-derived by QA"
+2026-11-13,T11-14,TC-page-flip-T11-02,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T11-02/,CSP meta unchanged; only change in index.html is the stylesheet link; no external URL; same origin test passes
+2026-11-13,T11-14,TC-page-flip-T11-03,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T11-03/,0 matches for the strip bend names
+2026-11-13,T11-14,TC-page-flip-T11-04,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T11-04/,"12 screenshots, reduced motion true, no CSP violation, no console message, no horizontal scroll"
+2026-11-13,T11-14,TC-page-flip-T12-01,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T12-01/,Passed in both full runs and both projects
+2026-11-13,T11-14,TC-page-flip-T12-02,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T12-02/,Patch and the three call sites present
+2026-11-13,T11-14,TC-page-flip-T13-01,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T13-01/,Lifetime tests pass in both runs
+2026-11-13,T11-14,TC-page-flip-T13-02,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T13-02/,"Full suite twice: 947 passed, 112 skipped, 1 failed (BUG-029 test, not a behaviour case)"
+2026-11-13,T11-14,TC-page-flip-T14-01,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T14-01/,"Fold 688 to 721 ms, diagonal 255 to 305 ms of 700 at 1440 and 390 px, forward and back, riffles"
+2026-11-13,T11-14,TC-page-flip-T14-02,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T14-02/,Punch present on the top page
+2026-11-13,T11-14,TC-page-flip-T14-03,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T14-03/,"Riffle layers start 125 ms apart in R4 order, 2 blank pages"
+2026-11-13,T11-14,TC-page-flip-T14-04,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T14-04/,"No violation, no console error; also confirmed by hand in T11-04"
+2026-11-13,T11-14,TC-page-flip-T14-05,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T14-05/,Light share 0.99 to 3.35 percent against settled 2.24 (1440) and 3.69 (390) maximum
+2026-11-13,T11-14,TC-page-flip-T14-06,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T14-06/,Words 5.52 light and 5.62 dark at 30 and 60 percent
+2026-11-13,T11-14,TC-page-flip-T14-07,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T14-07/,"Curl plays whole under reduced motion, same fold times"
+2026-11-13,T11-14,TC-page-flip-T14-08,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T14-08/,"No horizontal scroll, scroll height unchanged at 1440, 390, 360 px"
+2026-11-13,T11-14,TC-page-flip-T14-09,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T14-09/,"NFR2 3 page and 1 page: 0 longtasks, median 16.0 ms, max 17 to 24 ms; first frame 25 to 44 ms; day navigation under 100 ms tests pass"
+2026-11-13,T11-14,TC-page-flip-T14-10,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T14-10/,"Reported only: new page ink under the darkest fold shadow 1.81 light (forward 30 percent), 2.10 light (back 60 percent), 4.10 light (back 30 percent); dark 5.97 to 6.72. Exempt from R35 by decision 2026-11-13; see residual risk"
+2026-11-13,T11-14,TC-page-flip-T14-11,fail,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T14-11/,BUG-029,Failed in full run 1 (mobile project) and run 2 (desktop project): back copy 24 px low; passes alone 32 of 32
+2026-11-13,T11-14,TC-page-flip-T14-12,pass,docs/project/specs/page-flip/qa/evidence/TC-page-flip-T11-04/,Same run as T11-04
+2026-11-13,T11-14,TC-page-flip-T1-01,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/npm-test.txt,npm test 88 of 88
+2026-11-13,T11-14,TC-page-flip-T1-02,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/npm-test.txt,npm test 88 of 88
+2026-11-13,T11-14,TC-page-flip-T1-03,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/npm-test.txt,npm test 88 of 88
+2026-11-13,T11-14,TC-page-flip-T1-04,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/npm-test.txt,npm test 88 of 88
+2026-11-13,T11-14,TC-page-flip-T1-05,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/npm-test.txt,npm test 88 of 88
+2026-11-13,T11-14,TC-page-flip-T1-06,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/npm-test.txt,npm test 88 of 88
+2026-11-13,T11-14,TC-page-flip-T1-07,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/npm-test.txt,npm test 88 of 88
+2026-11-13,T11-14,TC-page-flip-T1-08,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/npm-test.txt,npm test 88 of 88
+2026-11-13,T11-14,TC-page-flip-T1-09,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/npm-test.txt,npm test 88 of 88
+2026-11-13,T11-14,TC-page-flip-T1-10,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/npm-test.txt,npm test 88 of 88
+2026-11-13,T11-14,TC-page-flip-T1-11,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/npm-test.txt,npm test 88 of 88
+2026-11-13,T11-14,TC-page-flip-T2-01,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T2-02,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T2-03,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T2-04,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T2-05,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T2-06,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T2-08,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T2-09,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T2-10,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T2-11,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T2-12,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T2-13,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T2-15,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T3-01,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T3-02,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T3-03,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T3-04,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T3-05,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T3-06,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T3-08,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T3-09,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T3-10,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T3-11,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T3-12,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T3-13,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T3-14,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T3-15,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T3-16,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T4-01,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T4-02,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T4-03,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T4-04,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T4-05,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T4-06,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T4-09,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T4-10,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T4-11,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T4-12,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T4-13,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T4-14,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T4-15,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T4-16,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T4-17,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T4-18,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T4-19,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T5-01,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T5-02,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T5-03,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T5-04,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T5-05,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T5-06,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T5-07,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T5-08,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T5-09,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T5-10,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T5-11,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T5-12,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T5-13,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T5-14,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T5-15,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T5-16,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T5-17,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T6-01,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T6-02,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T6-03,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T6-04,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T6-05,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T6-06,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T6-07,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T6-08,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T6-09,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T6-10,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T6-11,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T6-12,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T6-13,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T6-14,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T6-15,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T6-16,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T6-17,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T7-01,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T7-02,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T7-03,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T7-04,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T7-05,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T7-06,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T7-07,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T7-08,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T7-10,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T7-11,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T7-18,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T8-01,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T8-02,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T8-03,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T8-04,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T8-05,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T8-07,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T6-19,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T6-22,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T8c-01,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T8c-02,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T8c-03,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T8c-06,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T8c-07,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T8d-01,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T8d-02,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T8d-03,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T8d-04,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T8d-05,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T8d-06,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T8d-07,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14,TC-page-flip-T8d-10,pass,docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-qa/full-run-2.txt,"Retained on the curl; full suite run twice, no failure of its own test"
+2026-11-13,T11-14 retest 2,TC-page-flip-T14-11,pass,docs/project/specs/page-flip/qa/evidence/T11-14-retest2/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T11-14-retest2/full-run-2.txt,BUG-029 retest: the 200 wrapping rows test passed in both full runs at --workers=2 (952 passed, 112 skipped, 0 failed each)
+2026-11-13,T11-14 retest 2,TC-page-flip-T3-riffle-pooled,pass,docs/project/specs/page-flip/qa/evidence/T11-14-retest2/manual-second-riffle.txt,Manual: second forward riffle in the same session shows both blank pages from the first frame; automated by the pooled books curl test in flip.spec.js
+2026-11-13,T11-14 retest 2,npm test,pass,docs/project/specs/page-flip/qa/evidence/T11-14-retest2/npm-test.txt,88 of 88 unit tests passed
+2026-11-13,T15,TC-page-flip-T15-01,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/full-run-1.txt,"T15 test, 4 combinations; 968 passed, 0 failed"
+2026-11-13,T15,TC-page-flip-T15-02,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/full-run-1.txt;docs/project/specs/page-flip/qa/evidence/T15-qa/manual-360px-stack.txt,"Reach inside the gutter, no scroll at 360, 390 and 1440 px"
+2026-11-13,T15,TC-page-flip-T15-03,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/full-run-1.txt,"T15 riffle test at 390 px, both projects"
+2026-11-13,T15,TC-page-flip-T15-04,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/manual-360px-stack.txt,"git diff of design-system.css read: one --shadow-sheet, dark block sets three colours only, --stack-u 0.7px under 601 px"
+2026-11-13,T15,TC-page-flip-T15-05,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/manual-360px-stack.txt,Playwright MCP
+2026-11-13,T15,TC-page-flip-T15-06,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/manual-screenshot-compare.txt,Matches the approved thick prototype
+2026-11-13,T15,TC-page-flip-T15-07,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/full-run-1.txt,Whole suite green in both projects
+2026-11-13,T15,TC-page-flip-T15-08,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/summary.txt,"git diff of design-system.md read: stack bullet, tokens and phone unit described"
+2026-11-13,T9,TC-page-flip-T9-01,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/grep-removed.txt,"grep -rnE of every removed class over src, index.html, design-system.*: no match (exit 1)"
+2026-11-13,T9,TC-page-flip-T9-02,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/grep-removed.txt,restick and keyframes gone; reduced motion flip tests stay green in the full run
+2026-11-13,T9,TC-page-flip-T9-03,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/summary.txt,"design-system.md diff read: day change bullet points to Page flip, Superseded note removed, reduced motion line names the flip as the exception"
+2026-11-13,T9,TC-page-flip-T9-04,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/full-run-1.txt,"Full suite 968 passed, 112 skipped, 0 failed; guard test for turn-- classes stays"
+2026-11-13,T10,TC-page-flip-T10-01,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/summary.txt,"package.json 1.4.0; lockfile root and packages[""""] 1.4.0 (git diff)"
+2026-11-13,T10,TC-page-flip-T10-02,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/grep-130.txt,"No 1.3.0 left in src, index.html, package files; every ?v= is 1.4.0"
+2026-11-13,T10,TC-page-flip-T10-03,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/version-mutation.txt,"Mutation: ./date.js?v=1.3.0 in app.js made version.test.js fail; restored, test passes (2 of 2)"
+2026-11-13,T10,TC-page-flip-T10-04,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/manual-subpath-network.txt,"Served under /sub/, all assets 200, flip plays and ends"
+2026-11-13,T10,TC-page-flip-T10-05,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/manual-subpath-network.txt,"One host, no external request, no new dependency, no console or CSP error"
+2026-11-13,T10,TC-page-flip-T10-06,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/diff-nonversion-lines.txt,No non-version change in index.html or the other src files; accessible names unchanged
+2026-11-13,T10,TC-page-flip-T10-07,pass,docs/project/specs/page-flip/qa/evidence/T15-qa/npm-test.txt;docs/project/specs/page-flip/qa/evidence/T15-qa/full-run-1.txt,"npm test 88 of 88; Playwright 968 passed, 112 skipped, 0 failed (both projects)"
+2026-11-13,T10,TC-page-flip-T10-08,pass,docs/project/specs/page-flip/release-notes.md,"Release note lists Safari and iOS, Android, Firefox and Edge, accepted risks"
+2026-11-13,T10,TC-page-flip-T10-09,blocked,,"No Safari, macOS or iOS device on this host; manual check in the release note"
+2026-11-13,T10,TC-page-flip-T10-10,blocked,,No Android phone on this host; manual check in the release note
+2026-11-13,T10,TC-page-flip-T10-11,blocked,,Firefox and Edge not run on this host in this round; manual smoke check in the release note

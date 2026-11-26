@@ -1,0 +1,3 @@
+npx playwright test --workers=2 (full suite, 2026-11-12): 807 passed, 105 skipped, 0 failed. Matching lines:
+  ✓  257 [desktop] › tests/e2e/flip.spec.js:622:1 › an error inside the flip leaves the day changed, no stage and no uncaught error (135ms)
+  ✓  787 [mobile] › tests/e2e/flip.spec.js:622:1 › an error inside the flip leaves the day changed, no stage and no uncaught error (346ms)

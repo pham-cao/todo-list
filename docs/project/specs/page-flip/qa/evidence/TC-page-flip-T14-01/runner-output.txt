@@ -1,0 +1,85 @@
+Excerpt of full-run-1.txt (npx playwright test --workers=2)
+T14 1440 px next-day page 0: fold 704 ms, diagonal 257 ms, left 0.94 to -0.99
+T14 1440 px prev-day page 0: fold 714 ms, diagonal 305 ms, left -0.85 to 0.99
+T14 1440 px #2026-11-12 page 0: fold 688 ms, diagonal 257 ms, left 0.94 to -0.99
+T14 1440 px #2026-11-12 page 1: fold 719 ms, diagonal 256 ms, left 0.94 to -0.99
+T14 1440 px #2026-11-12 page 2: fold 719 ms, diagonal 255 ms, left 0.94 to -0.99
+T14 1440 px #2026-11-09 page 0: fold 716 ms, diagonal 305 ms, left -0.85 to 0.99
+T14 1440 px #2026-11-09 page 1: fold 704 ms, diagonal 304 ms, left -0.85 to 0.99
+T14 1440 px #2026-11-09 page 2: fold 705 ms, diagonal 304 ms, left -0.85 to 0.99
+  ✓   451 [desktop] › tests/e2e/flip.spec.js:1820:5 › T14: the page curl in real time › at 1440 px a forward flip, a back flip and 3 page riffles both ways curl with a diagonal fold across the sheet (4.4s)
+T14 390 px next-day page 0: fold 703 ms, diagonal 256 ms, left 0.94 to -0.99
+T14 390 px prev-day page 0: fold 714 ms, diagonal 303 ms, left -0.86 to 0.98
+T14 390 px #2026-11-12 page 0: fold 688 ms, diagonal 256 ms, left 0.94 to -0.99
+T14 390 px #2026-11-12 page 1: fold 705 ms, diagonal 255 ms, left 0.94 to -0.99
+T14 390 px #2026-11-12 page 2: fold 720 ms, diagonal 257 ms, left 0.94 to -0.99
+T14 390 px #2026-11-09 page 0: fold 718 ms, diagonal 304 ms, left -0.86 to 0.98
+T14 390 px #2026-11-09 page 1: fold 705 ms, diagonal 305 ms, left -0.85 to 0.98
+T14 390 px #2026-11-09 page 2: fold 703 ms, diagonal 304 ms, left -0.86 to 0.98
+  ✓   455 [desktop] › tests/e2e/flip.spec.js:1820:5 › T14: the page curl in real time › at 390 px a forward flip, a back flip and 3 page riffles both ways curl with a diagonal fold across the sheet (4.4s)
+T14 reduced motion next-day page 0: fold 704 ms, diagonal 256 ms, left 0.94 to -0.99
+T14 reduced motion prev-day page 0: fold 715 ms, diagonal 303 ms, left -0.85 to 0.99
+T14 reduced motion #2026-11-12 page 0: fold 688 ms, diagonal 256 ms, left 0.94 to -0.99
+T14 reduced motion #2026-11-12 page 1: fold 704 ms, diagonal 256 ms, left 0.94 to -0.99
+T14 reduced motion #2026-11-12 page 2: fold 720 ms, diagonal 256 ms, left 0.94 to -0.99
+T14 reduced motion #2026-11-09 page 0: fold 716 ms, diagonal 304 ms, left -0.85 to 0.99
+T14 reduced motion #2026-11-09 page 1: fold 704 ms, diagonal 305 ms, left -0.85 to 0.99
+T14 reduced motion #2026-11-09 page 2: fold 704 ms, diagonal 303 ms, left -0.85 to 0.99
+T14 dark 1440 next-day 0.3: light share 1.01 percent, settled 1.38 and 2.24
+T14 dark 1440 prev-day 0.3: light share 1.54 percent, settled 1.38 and 2.24
+T14 dark 1440 next-day 0.6: light share 2.02 percent, settled 1.38 and 2.24
+T14 dark 1440 prev-day 0.6: light share 0.99 percent, settled 1.38 and 2.24
+T14 dark 390 next-day 0.3: light share 1.61 percent, settled 2.37 and 3.69
+T14 dark 390 prev-day 0.3: light share 2.79 percent, settled 2.37 and 3.69
+T14 dark 390 next-day 0.6: light share 3.35 percent, settled 2.37 and 3.69
+T14 dark 390 prev-day 0.6: light share 1.78 percent, settled 2.37 and 3.69
+T14 contrast light next-day 0.3: words 5.52 (3), fold shadow alpha 0.42, new page ink under its darkest point 1.81
+T14 contrast light next-day 0.6: words 5.52 (3), fold shadow alpha 0.13, new page ink under its darkest point Infinity
+T14 contrast light prev-day 0.3: words 5.52 (3), fold shadow alpha 0.13, new page ink under its darkest point 4.10
+T14 contrast light prev-day 0.6: words 5.52 (3), fold shadow alpha 0.38, new page ink under its darkest point 2.10
+T14 contrast dark next-day 0.3: words 5.62 (3), fold shadow alpha 0.42, new page ink under its darkest point 6.72
+T14 contrast dark next-day 0.6: words 5.62 (3), fold shadow alpha 0.13, new page ink under its darkest point Infinity
+T14 contrast dark prev-day 0.3: words 5.62 (3), fold shadow alpha 0.13, new page ink under its darkest point 5.97
+T14 contrast dark prev-day 0.6: words 5.62 (3), fold shadow alpha 0.37, new page ink under its darkest point 6.60
+T14 1440 px next-day page 0: fold 703 ms, diagonal 257 ms, left 0.94 to -0.99
+T14 1440 px prev-day page 0: fold 715 ms, diagonal 303 ms, left -0.85 to 0.99
+T14 1440 px #2026-11-12 page 0: fold 688 ms, diagonal 256 ms, left 0.94 to -0.99
+T14 1440 px #2026-11-12 page 1: fold 704 ms, diagonal 256 ms, left 0.94 to -0.99
+T14 1440 px #2026-11-12 page 2: fold 721 ms, diagonal 257 ms, left 0.94 to -0.99
+T14 1440 px #2026-11-09 page 0: fold 717 ms, diagonal 304 ms, left -0.85 to 0.99
+T14 1440 px #2026-11-09 page 1: fold 703 ms, diagonal 303 ms, left -0.85 to 0.99
+T14 1440 px #2026-11-09 page 2: fold 704 ms, diagonal 304 ms, left -0.85 to 0.99
+  ✓  1003 [mobile] › tests/e2e/flip.spec.js:1820:5 › T14: the page curl in real time › at 1440 px a forward flip, a back flip and 3 page riffles both ways curl with a diagonal fold across the sheet (4.4s)
+T14 390 px next-day page 0: fold 704 ms, diagonal 256 ms, left 0.94 to -0.99
+T14 390 px prev-day page 0: fold 715 ms, diagonal 305 ms, left -0.86 to 0.98
+T14 390 px #2026-11-12 page 0: fold 689 ms, diagonal 256 ms, left 0.94 to -0.99
+T14 390 px #2026-11-12 page 1: fold 704 ms, diagonal 256 ms, left 0.94 to -0.99
+T14 390 px #2026-11-12 page 2: fold 717 ms, diagonal 256 ms, left 0.94 to -0.99
+T14 390 px #2026-11-09 page 0: fold 716 ms, diagonal 305 ms, left -0.86 to 0.98
+T14 390 px #2026-11-09 page 1: fold 704 ms, diagonal 304 ms, left -0.85 to 0.98
+T14 390 px #2026-11-09 page 2: fold 703 ms, diagonal 305 ms, left -0.86 to 0.98
+  ✓  1004 [mobile] › tests/e2e/flip.spec.js:1820:5 › T14: the page curl in real time › at 390 px a forward flip, a back flip and 3 page riffles both ways curl with a diagonal fold across the sheet (4.4s)
+T14 reduced motion next-day page 0: fold 703 ms, diagonal 256 ms, left 0.94 to -0.99
+T14 reduced motion prev-day page 0: fold 713 ms, diagonal 305 ms, left -0.85 to 0.99
+T14 reduced motion #2026-11-12 page 0: fold 705 ms, diagonal 255 ms, left 0.94 to -0.99
+T14 reduced motion #2026-11-12 page 1: fold 720 ms, diagonal 257 ms, left 0.94 to -0.99
+T14 reduced motion #2026-11-12 page 2: fold 716 ms, diagonal 273 ms, left 0.94 to -0.99
+T14 reduced motion #2026-11-09 page 0: fold 731 ms, diagonal 304 ms, left -0.85 to 0.99
+T14 reduced motion #2026-11-09 page 1: fold 704 ms, diagonal 304 ms, left -0.85 to 0.99
+T14 reduced motion #2026-11-09 page 2: fold 687 ms, diagonal 304 ms, left -0.85 to 0.99
+T14 dark 1440 next-day 0.3: light share 1.47 percent, settled 1.48 and 2.04
+T14 dark 1440 prev-day 0.3: light share 1.58 percent, settled 1.48 and 2.04
+T14 dark 1440 next-day 0.6: light share 2.03 percent, settled 1.48 and 2.04
+T14 dark 1440 prev-day 0.6: light share 1.41 percent, settled 1.48 and 2.04
+T14 dark 390 next-day 0.3: light share 1.27 percent, settled 2.45 and 3.39
+T14 dark 390 prev-day 0.3: light share 2.18 percent, settled 2.45 and 3.39
+T14 dark 390 next-day 0.6: light share 3.37 percent, settled 2.45 and 3.39
+T14 dark 390 prev-day 0.6: light share 2.08 percent, settled 2.45 and 3.39
+T14 contrast light next-day 0.3: words 5.52 (3), fold shadow alpha 0.42, new page ink under its darkest point 1.81
+T14 contrast light next-day 0.6: words 5.52 (3), fold shadow alpha 0.13, new page ink under its darkest point Infinity
+T14 contrast light prev-day 0.3: words 5.52 (3), fold shadow alpha 0.13, new page ink under its darkest point 4.10
+T14 contrast light prev-day 0.6: words 5.52 (3), fold shadow alpha 0.38, new page ink under its darkest point 2.05
+T14 contrast dark next-day 0.3: words 5.62 (3), fold shadow alpha 0.42, new page ink under its darkest point 6.72
+T14 contrast dark next-day 0.6: words 5.62 (3), fold shadow alpha 0.13, new page ink under its darkest point Infinity
+T14 contrast dark prev-day 0.3: words 5.62 (3), fold shadow alpha 0.13, new page ink under its darkest point 5.97
+T14 contrast dark prev-day 0.6: words 5.62 (3), fold shadow alpha 0.38, new page ink under its darkest point 6.60

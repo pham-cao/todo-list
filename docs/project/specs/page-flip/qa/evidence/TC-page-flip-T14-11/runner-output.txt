@@ -1,0 +1,11 @@
+Excerpt of full-run-1.txt (npx playwright test --workers=2)
+  ✓   303 [desktop] › tests/e2e/flip.spec.js:1425:7 › T7: layout, phones and dark mode › 200 wrapping rows scrolled near the bottom at 1440 px: the copy lines up (1.4s)
+  ✓   304 [desktop] › tests/e2e/flip.spec.js:1425:7 › T7: layout, phones and dark mode › 200 wrapping rows scrolled near the bottom at 1440 px after scrolling the whole page: the copy lines up (2.6s)
+  ✓   305 [desktop] › tests/e2e/flip.spec.js:1425:7 › T7: layout, phones and dark mode › 200 wrapping rows scrolled near the bottom at 390 px: the copy lines up (1.5s)
+  ✓   306 [desktop] › tests/e2e/flip.spec.js:1425:7 › T7: layout, phones and dark mode › 200 wrapping rows scrolled near the bottom at 390 px after scrolling the whole page: the copy lines up (3.4s)
+  ✘   968 [mobile] › tests/e2e/flip.spec.js:1425:7 › T7: layout, phones and dark mode › 200 wrapping rows scrolled near the bottom at 1440 px: the copy lines up (2.3s)
+  ✓   971 [mobile] › tests/e2e/flip.spec.js:1425:7 › T7: layout, phones and dark mode › 200 wrapping rows scrolled near the bottom at 1440 px after scrolling the whole page: the copy lines up (2.8s)
+  ✓   974 [mobile] › tests/e2e/flip.spec.js:1425:7 › T7: layout, phones and dark mode › 200 wrapping rows scrolled near the bottom at 390 px: the copy lines up (1.5s)
+  ✓   978 [mobile] › tests/e2e/flip.spec.js:1425:7 › T7: layout, phones and dark mode › 200 wrapping rows scrolled near the bottom at 390 px after scrolling the whole page: the copy lines up (3.4s)
+  1) [mobile] › tests/e2e/flip.spec.js:1425:7 › T7: layout, phones and dark mode › 200 wrapping rows scrolled near the bottom at 1440 px: the copy lines up 
+    [mobile] › tests/e2e/flip.spec.js:1425:7 › T7: layout, phones and dark mode › 200 wrapping rows scrolled near the bottom at 1440 px: the copy lines up 

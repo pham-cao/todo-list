@@ -1,0 +1,1 @@
+T5-17 pass: full npx playwright test --workers=2: 831 passed, 105 skipped, 0 failed (7.3m); npm test 88 pass. Run 2026-11-12, Chromium desktop and mobile projects.

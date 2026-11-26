@@ -1,0 +1,3 @@
+npx playwright test --workers=2 (full suite, 2026-11-12): 807 passed, 105 skipped, 0 failed. Matching lines:
+  ✓  243 [desktop] › tests/e2e/flip.spec.js:475:1 › after 5 quick presses nothing plays once the last flip ends: no queue (2.2s)
+  ✓  760 [mobile] › tests/e2e/flip.spec.js:475:1 › after 5 quick presses nothing plays once the last flip ends: no queue (2.3s)

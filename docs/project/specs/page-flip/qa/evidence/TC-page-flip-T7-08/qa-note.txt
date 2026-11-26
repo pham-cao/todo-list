@@ -1,0 +1,1 @@
+Per frame computed colours asserted by the dark mode tests (runner-output.txt); QA also viewed the dark frames: no bright frame, shadow visible on the dark desk.

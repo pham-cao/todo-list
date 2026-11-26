@@ -1,0 +1,2 @@
+  ✓  66 [desktop] › tests/e2e/flip.spec.js:352:1 › keys compare as text across a year end: 31/12 to 1/1 flips forward, and back again flips back (2.0s)
+  ✓  68 [mobile] › tests/e2e/flip.spec.js:352:1 › keys compare as text across a year end: 31/12 to 1/1 flips forward, and back again flips back (2.0s)

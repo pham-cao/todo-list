@@ -33,9 +33,9 @@ test('shows only today\'s tasks, oldest first, with their done state and summary
   await expect(progress(page)).toBeVisible();
   await expect(progress(page)).toHaveCSS('--p', '67');
   await expect(progress(page)).not.toHaveClass(/progress--complete/);
-  await expect(page.locator('.empty')).toBeHidden();
+  await expect(page.locator('#empty')).toBeHidden();
   await expect(page.locator('.alert:visible')).toHaveCount(0); // neither the storage slip nor the notice
-  await expect(page.locator('.add-form .field-error')).toBeHidden();
+  await expect(page.locator('#new-task-error')).toBeHidden();
 });
 
 test('shows the empty state with no rows, progress or summary', async ({ page }) => {
@@ -58,11 +58,11 @@ test('shows the star stamp without the celebration when every task is done', asy
 test('shows task text as plain text, never as markup', async ({ page }) => {
   await open(page, [task('x', '<b>abc</b>')]);
   await expect(labels(page)).toHaveText('<b>abc</b>');
-  await expect(page.locator('.task-list b')).toHaveCount(0);
+  await expect(page.locator('#day-list .task-list b')).toHaveCount(0);
 });
 
 const input = (page) => page.getByLabel('Bạn cần làm gì hôm nay?');
-const addError = (page) => page.locator('.add-form .field-error');
+const addError = (page) => page.locator('#new-task-error');
 
 test('adds a task with Thêm and Enter, keeps focus, and keeps it after reload', async ({ page }) => {
   await open(page, [task('a', 'Gửi báo cáo tuần', true)]);
@@ -89,7 +89,7 @@ test('adding the first task replaces the empty state', async ({ page }) => {
   await open(page);
   await addTask(page, 'Việc đầu tiên');
   await expect(rows(page)).toHaveCount(1);
-  await expect(page.locator('.empty')).toBeHidden();
+  await expect(page.locator('#empty')).toBeHidden();
   await expect(page.getByRole('status')).toHaveText('Đã hoàn thành 0/1 việc');
 });
 
@@ -177,7 +177,7 @@ test('adding a task while all are done removes the stamp', async ({ page }) => {
 
 const editBtn = (page, i) => rows(page).nth(i).getByRole('button', { name: 'Sửa' });
 const editInput = (page) => page.getByRole('textbox', { name: 'Sửa' });
-const editError = (page) => page.locator('.task__edit .field-error');
+const editError = (page) => page.locator('#day-list .task__edit .field-error');
 
 test('Sửa opens a prefilled, focused edit line; Lưu saves and keeps done state and position', async ({ page }) => {
   await open(page, [task('a', 'Một'), task('b', 'Hai', true), task('c', 'Ba')]);
@@ -255,7 +255,7 @@ test('only one row edits at a time, and adding and ticking still work while edit
   await editBtn(page, 0).click();
   await editInput(page).fill('Không lưu');
   await editBtn(page, 1).click();
-  await expect(page.locator('.task--editing')).toHaveCount(1);
+  await expect(page.locator('#day-list .task--editing')).toHaveCount(1);
   await expect(rows(page).nth(1)).toHaveClass(/task--editing/);
   await expect(labels(page).nth(0)).toHaveText('Một');
   await expect(editInput(page)).toHaveValue('Hai');
@@ -666,7 +666,7 @@ test('after midnight, returning to the page shows the new date and an empty list
   await passMidnight(page);
   await expect(page.locator('.app-header__date')).toHaveText('Hôm nay, Thứ Ba, 10/11/2026');
   await expect(rows(page)).toHaveCount(0);
-  await expect(page.locator('.empty')).toBeVisible();
+  await expect(page.locator('#empty')).toBeVisible();
   await expect(progress(page)).toBeHidden();
   await expect(page.locator('.summary')).toBeHidden();
     expect((await stored(page)).map((t) => [t.id, t.date])).toEqual([['a', TODAY], ['b', TODAY]]);
@@ -694,13 +694,13 @@ test('adding right after midnight saves the task to the new day on a fresh list'
 test('a day change drops an open edit and closes the delete note without saving or deleting', async ({ page }) => {
   await open(page, [task('a', 'Gửi báo cáo tuần'), task('b', 'Đi chợ mua rau')]);
   await rows(page).nth(0).getByRole('button', { name: 'Sửa' }).click();
-  await page.locator('.task__edit .input').fill('Chưa lưu');
+  await page.locator('#day-list .task__edit .input').fill('Chưa lưu');
   await rows(page).nth(1).getByRole('button', { name: 'Xóa' }).click();
   await expect(page.locator('#delete-dialog')).toBeVisible();
   await passMidnight(page);
   await expect(page.locator('#delete-dialog')).toBeHidden();
   await expect(rows(page)).toHaveCount(0);
-  await expect(page.locator('.task__edit')).toHaveCount(0);
+  await expect(page.locator('#day-list .task__edit')).toHaveCount(0);
   await expect(page.getByLabel('Bạn cần làm gì hôm nay?')).toBeFocused();
     expect((await stored(page)).map((t) => t.text)).toEqual(['Gửi báo cáo tuần', 'Đi chợ mua rau']);
   // The new day works normally afterwards.
@@ -716,7 +716,7 @@ test('a day change does not replay the celebration or the swipe hint', async ({ 
   await expect(labels(page)).toHaveText(['Việc ngày mai']);
   await expect(progress(page)).toHaveClass(/progress--complete/);
   await expect(progress(page)).not.toHaveClass(/progress--celebrate/);
-  await expect(page.locator('.task--peek')).toHaveCount(0);
+  await expect(page.locator('#day-list .task--peek')).toHaveCount(0);
 });
 
 test('the day boundary is local midnight: 23:59:59.999 stays, 00:00:00 switches (Asia/Ho_Chi_Minh)', async ({ page }) => {

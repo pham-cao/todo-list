@@ -1,0 +1,454 @@
+
+> todo-list@1.3.0 test
+> node --test tests/unit/
+
+TAP version 13
+# Subtest: toDateKey pads month and day
+ok 1 - toDateKey pads month and day
+  ---
+  duration_ms: 1.345765
+  ...
+# Subtest: toDateKey uses local midnight boundary
+ok 2 - toDateKey uses local midnight boundary
+  ---
+  duration_ms: 0.213676
+  ...
+# Subtest: toDateKey and formatDate default to now
+ok 3 - toDateKey and formatDate default to now
+  ---
+  duration_ms: 0.287412
+  ...
+# Subtest: formatDate example
+ok 4 - formatDate example
+  ---
+  duration_ms: 0.134601
+  ...
+# Subtest: formatDate gives all seven weekday names
+ok 5 - formatDate gives all seven weekday names
+  ---
+  duration_ms: 0.22437
+  ...
+# Subtest: bounds constants
+ok 6 - bounds constants
+  ---
+  duration_ms: 0.119227
+  ...
+# Subtest: parseDateKey accepts valid keys as local midnight
+ok 7 - parseDateKey accepts valid keys as local midnight
+  ---
+  duration_ms: 0.255772
+  ...
+# Subtest: parseDateKey rejects impossible dates, wrong formats and out of range years
+ok 8 - parseDateKey rejects impossible dates, wrong formats and out of range years
+  ---
+  duration_ms: 0.188635
+  ...
+# Subtest: addDays across month end, year end and leap day
+ok 9 - addDays across month end, year end and leap day
+  ---
+  duration_ms: 0.258886
+  ...
+# Subtest: addDays 400 single steps match a UTC calendar
+ok 10 - addDays 400 single steps match a UTC calendar
+  ---
+  duration_ms: 3.932444
+  ...
+# Subtest: addDays is null at the bounds and for invalid keys
+ok 11 - addDays is null at the bounds and for invalid keys
+  ---
+  duration_ms: 0.17742
+  ...
+# Subtest: dayKind gives all five kinds
+ok 12 - dayKind gives all five kinds
+  ---
+  duration_ms: 0.714107
+  ...
+# Subtest: dayKind and dateLine across month and year ends
+ok 13 - dayKind and dateLine across month and year ends
+  ---
+  duration_ms: 0.187098
+  ...
+# Subtest: dateLine requirement examples
+ok 14 - dateLine requirement examples
+  ---
+  duration_ms: 0.207933
+  ...
+# Subtest: dateLine and dayKind never throw or echo invalid input
+ok 15 - dateLine and dayKind never throw or echo invalid input
+  ---
+  duration_ms: 0.274284
+  ...
+# Subtest: daysBetween: same day, 1 and -1
+ok 16 - daysBetween: same day, 1 and -1
+  ---
+  duration_ms: 0.268226
+  ...
+# Subtest: daysBetween: month end and year end
+ok 17 - daysBetween: month end and year end
+  ---
+  duration_ms: 0.140568
+  ...
+# Subtest: daysBetween: 28 February to 1 March 2028 is 2 days
+ok 18 - daysBetween: 28 February to 1 March 2028 is 2 days
+  ---
+  duration_ms: 0.208451
+  ...
+# Subtest: daysBetween: whole supported range
+ok 19 - daysBetween: whole supported range
+  ---
+  duration_ms: 0.132741
+  ...
+# Subtest: daysBetween: invalid or out of range key gives null
+ok 20 - daysBetween: invalid or out of range key gives null
+  ---
+  duration_ms: 0.174877
+  ...
+# Subtest: daysBetween: a 23 or 25 hour DST day still counts as 1
+ok 21 - daysBetween: a 23 or 25 hour DST day still counts as 1
+  ---
+  duration_ms: 0.123471
+  ...
+# Subtest: scrollSpeed: 0 in the middle, at the zone borders and over the strip
+ok 22 - scrollSpeed: 0 in the middle, at the zone borders and over the strip
+  ---
+  duration_ms: 1.272975
+  ...
+# Subtest: scrollSpeed: negative near the top, faster nearer the edge
+ok 23 - scrollSpeed: negative near the top, faster nearer the edge
+  ---
+  duration_ms: 0.197245
+  ...
+# Subtest: scrollSpeed: positive in the 64 px above the strip, faster nearer the strip
+ok 24 - scrollSpeed: positive in the 64 px above the strip, faster nearer the strip
+  ---
+  duration_ms: 0.185397
+  ...
+# Subtest: scrollSpeed: capped, also with the pointer past the screen top
+ok 25 - scrollSpeed: capped, also with the pointer past the screen top
+  ---
+  duration_ms: 0.283778
+  ...
+# Subtest: scrollSpeed: never a fraction, so every step moves the page
+ok 26 - scrollSpeed: never a fraction, so every step moves the page
+  ---
+  duration_ms: 0.164348
+  ...
+# Subtest: scrollSpeed: over the strip it is always 0, whatever the strip's height
+ok 27 - scrollSpeed: over the strip it is always 0, whatever the strip's height
+  ---
+  duration_ms: 4.554123
+  ...
+# Subtest: scrollSpeed: stripTop 100 splits into [0, 50) up and [50, 100) down, each from 1 to the cap
+ok 28 - scrollSpeed: stripTop 100 splits into [0, 50) up and [50, 100) down, each from 1 to the cap
+  ---
+  duration_ms: 0.144467
+  ...
+# Subtest: scrollSpeed: stripTop 50 and 8 split the same way, every value an integer within the cap
+ok 29 - scrollSpeed: stripTop 50 and 8 split the same way, every value an integer within the cap
+  ---
+  duration_ms: 0.347801
+  ...
+# Subtest: scrollSpeed: a strip taller than the screen (stripTop -60, or 0) leaves no zone at all
+ok 30 - scrollSpeed: a strip taller than the screen (stripTop -60, or 0) leaves no zone at all
+  ---
+  duration_ms: 0.741534
+  ...
+# Subtest: leafCount gives 0 for no move and 1, 2, 3 for 1, 2, 3 days
+ok 31 - leafCount gives 0 for no move and 1, 2, 3 for 1, 2, 3 days
+  ---
+  duration_ms: 3.307227
+  ...
+# Subtest: leafCount caps at 3 leaves for longer moves
+ok 32 - leafCount caps at 3 leaves for longer moves
+  ---
+  duration_ms: 0.218009
+  ...
+# Subtest: leafCount ignores the sign of a backward move
+ok 33 - leafCount ignores the sign of a backward move
+  ---
+  duration_ms: 0.213332
+  ...
+# Subtest: leafCount gives 0 for null from an invalid key, without throwing
+ok 34 - leafCount gives 0 for null from an invalid key, without throwing
+  ---
+  duration_ms: 0.225449
+  ...
+# Subtest: name: trim, kept as typed
+ok 35 - name: trim, kept as typed
+  ---
+  duration_ms: 1.859081
+  ...
+# Subtest: name: 30 code points after NFC
+ok 36 - name: 30 code points after NFC
+  ---
+  duration_ms: 0.258303
+  ...
+# Subtest: name: duplicates
+ok 37 - name: duplicates
+  ---
+  duration_ms: 0.231184
+  ...
+# Subtest: create: 20 group limit comes before name errors
+ok 38 - create: 20 group limit comes before name errors
+  ---
+  duration_ms: 2.375699
+  ...
+# Subtest: colour order, wrap, continuation after deletion
+ok 39 - colour order, wrap, continuation after deletion
+  ---
+  duration_ms: 1.24531
+  ...
+# Subtest: create and update save straight away
+ok 40 - create and update save straight away
+  ---
+  duration_ms: 0.414545
+  ...
+# Subtest: load: missing, empty, corrupt
+ok 41 - load: missing, empty, corrupt
+  ---
+  duration_ms: 0.323579
+  ...
+# Subtest: load: bad items dropped, reserved ids dropped, colour fallback
+ok 42 - load: bad items dropped, reserved ids dropped, colour fallback
+  ---
+  duration_ms: 0.320653
+  ...
+# Subtest: throwing getItem locks writes
+ok 43 - throwing getItem locks writes
+  ---
+  duration_ms: 0.337597
+  ...
+# Subtest: throwing setItem keeps the change in memory
+ok 44 - throwing setItem keeps the change in memory
+  ---
+  duration_ms: 0.307861
+  ...
+# Subtest: collapsed state round trip and cleaning
+ok 45 - collapsed state round trip and cleaning
+  ---
+  duration_ms: 0.366362
+  ...
+# Subtest: garbage UI values ignored without a copy or an error
+ok 46 - garbage UI values ignored without a copy or an error
+  ---
+  duration_ms: 0.234749
+  ...
+# Subtest: update: non string, reserved and unknown ids give notFound and write nothing
+ok 47 - update: non string, reserved and unknown ids give notFound and write nothing
+  ---
+  duration_ms: 0.398196
+  ...
+# Subtest: update: only palette colours are applied, others keep the current colour
+ok 48 - update: only palette colours are applied, others keep the current colour
+  ---
+  duration_ms: 0.263363
+  ...
+# Subtest: create: NFC duplicate of an existing name is rejected
+ok 49 - create: NFC duplicate of an existing name is rejected
+  ---
+  duration_ms: 0.207046
+  ...
+# Subtest: collapsed key none (ungrouped section) is kept on load and on remove of other groups
+ok 50 - collapsed key none (ungrouped section) is kept on load and on remove of other groups
+  ---
+  duration_ms: 0.317815
+  ...
+# Subtest: load: duplicate ids keep the first and do not rewrite storage
+ok 51 - load: duplicate ids keep the first and do not rewrite storage
+  ---
+  duration_ms: 0.313472
+  ...
+# Subtest: setCollapsed ignores non string and empty keys; create rejects non string names
+ok 52 - setCollapsed ignores non string and empty keys; create rejects non string names
+  ---
+  duration_ms: 0.496655
+  ...
+# Subtest: validateText limits
+ok 53 - validateText limits
+  ---
+  duration_ms: 1.846769
+  ...
+# Subtest: validateText trims only
+ok 54 - validateText trims only
+  ---
+  duration_ms: 0.149556
+  ...
+# Subtest: getStorage returns null when unavailable
+ok 55 - getStorage returns null when unavailable
+  ---
+  duration_ms: 0.144253
+  ...
+# Subtest: add sets fields; tasksFor filters by date in creation order
+ok 56 - add sets fields; tasksFor filters by date in creation order
+  ---
+  duration_ms: 2.724225
+  ...
+# Subtest: tasksFor returns copies
+ok 57 - tasksFor returns copies
+  ---
+  duration_ms: 0.180632
+  ...
+# Subtest: updateText keeps done, date and position; errors leave text
+ok 58 - updateText keeps done, date and position; errors leave text
+  ---
+  duration_ms: 0.308222
+  ...
+# Subtest: setDone and remove
+ok 59 - setDone and remove
+  ---
+  duration_ms: 0.253887
+  ...
+# Subtest: data survives a new store on the same storage
+ok 60 - data survives a new store on the same storage
+  ---
+  duration_ms: 0.267605
+  ...
+# Subtest: corrupt JSON and non array start empty and back up raw value
+ok 61 - corrupt JSON and non array start empty and back up raw value
+  ---
+  duration_ms: 0.46376
+  ...
+# Subtest: missing or empty value starts empty without backup
+ok 62 - missing or empty value starts empty without backup
+  ---
+  duration_ms: 0.274766
+  ...
+# Subtest: invalid items are dropped, valid kept
+ok 63 - invalid items are dropped, valid kept
+  ---
+  duration_ms: 0.284358
+  ...
+# Subtest: read failure: memory only, no writes
+ok 64 - read failure: memory only, no writes
+  ---
+  duration_ms: 0.204719
+  ...
+# Subtest: write failure keeps memory and old stored value; recovery restores storageOk
+ok 65 - write failure keeps memory and old stored value; recovery restores storageOk
+  ---
+  duration_ms: 0.258457
+  ...
+# Subtest: unknown id: updateText notFound, setDone undefined, remove harmless
+ok 66 - unknown id: updateText notFound, setDone undefined, remove harmless
+  ---
+  duration_ms: 0.213941
+  ...
+# Subtest: write failure on remove and setDone keeps memory change
+ok 67 - write failure on remove and setDone keeps memory change
+  ---
+  duration_ms: 0.214265
+  ...
+# Subtest: corrupt backup failing does not throw or lock the store
+ok 68 - corrupt backup failing does not throw or lock the store
+  ---
+  duration_ms: 0.252484
+  ...
+# Subtest: add with a dateKey uses it as date, keeps real createdAt, persists
+ok 69 - add with a dateKey uses it as date, keeps real createdAt, persists
+  ---
+  duration_ms: 0.272761
+  ...
+# Subtest: add with a dateKey: too long saves nothing; failing write keeps task in memory and old stored value
+ok 70 - add with a dateKey: too long saves nothing; failing write keeps task in memory and old stored value
+  ---
+  duration_ms: 0.332492
+  ...
+# Subtest: validateText max argument and exported newId
+ok 71 - validateText max argument and exported newId
+  ---
+  duration_ms: 0.147985
+  ...
+# Subtest: groupId is written only when set; updateText sets, keeps and removes it
+ok 72 - groupId is written only when set; updateText sets, keeps and removes it
+  ---
+  duration_ms: 0.243282
+  ...
+# Subtest: invalid text changes neither text nor group
+ok 73 - invalid text changes neither text nor group
+  ---
+  duration_ms: 0.139376
+  ...
+# Subtest: groupUsage counts tasks and lists sorted distinct days
+ok 74 - groupUsage counts tasks and lists sorted distinct days
+  ---
+  duration_ms: 0.287632
+  ...
+# Subtest: moveGroup changes only groupId, one write; to null removes the field
+ok 75 - moveGroup changes only groupId, one write; to null removes the field
+  ---
+  duration_ms: 0.456269
+  ...
+# Subtest: moveGroup on an empty group does not write
+ok 76 - moveGroup on an empty group does not write
+  ---
+  duration_ms: 0.122007
+  ...
+# Subtest: moveGroup write failure returns save error and changes nothing
+ok 77 - moveGroup write failure returns save error and changes nothing
+  ---
+  duration_ms: 0.315653
+  ...
+# Subtest: locked store moves in memory without writing
+ok 78 - locked store moves in memory without writing
+  ---
+  duration_ms: 0.167907
+  ...
+# Subtest: stored tasks with missing, null or unknown groupId load and are not rewritten
+ok 79 - stored tasks with missing, null or unknown groupId load and are not rewritten
+  ---
+  duration_ms: 0.129318
+  ...
+# Subtest: non string group ids are ignored by add and updateText
+ok 80 - non string group ids are ignored by add and updateText
+  ---
+  duration_ms: 0.151257
+  ...
+# Subtest: moveGroup with a missing fromId moves nothing and does not write
+ok 81 - moveGroup with a missing fromId moves nothing and does not write
+  ---
+  duration_ms: 0.157187
+  ...
+# Subtest: a successful moveGroup write restores storageOk
+ok 82 - a successful moveGroup write restores storageOk
+  ---
+  duration_ms: 0.201275
+  ...
+# Subtest: setGroup sets, replaces and removes groupId and touches nothing else, one write
+ok 83 - setGroup sets, replaces and removes groupId and touches nothing else, one write
+  ---
+  duration_ms: 1.202589
+  ...
+# Subtest: setGroup on an unknown id returns notFound and does not write
+ok 84 - setGroup on an unknown id returns notFound and does not write
+  ---
+  duration_ms: 0.261535
+  ...
+# Subtest: setGroup keeps the change in memory when setItem throws or the store is locked
+ok 85 - setGroup keeps the change in memory when setItem throws or the store is locked
+  ---
+  duration_ms: 0.429306
+  ...
+# Subtest: setGroup keeps groupId for an empty or non string value and returns notFound for a bad id
+ok 86 - setGroup keeps groupId for an empty or non string value and returns notFound for a bad id
+  ---
+  duration_ms: 0.29856
+  ...
+# Subtest: package.json version is set
+ok 87 - package.json version is set
+  ---
+  duration_ms: 2.085938
+  ...
+# Subtest: every local reference carries the package version and names an existing file
+ok 88 - every local reference carries the package version and names an existing file
+  ---
+  duration_ms: 1.01133
+  ...
+1..88
+# tests 88
+# suites 0
+# pass 88
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 95.357664

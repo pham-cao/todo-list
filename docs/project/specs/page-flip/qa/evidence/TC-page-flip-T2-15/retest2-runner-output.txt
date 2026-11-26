@@ -1,0 +1,23 @@
+Running 2 tests using 1 worker
+
+  ✓  1 [desktop] › tests/e2e/day-nav.spec.js:860:3 › moving to a day with 200 tasks renders in under 100 ms (734ms)
+  ✓  2 [mobile] › tests/e2e/day-nav.spec.js:860:3 › moving to a day with 200 tasks renders in under 100 ms (827ms)
+
+  2 passed (3.3s)
+
+    Error Context: test-results/day-nav-moving-to-a-day-wi-c58d5-sks-renders-in-under-100-ms-mobile/error-context.md
+
+  1 failed
+    [mobile] › tests/e2e/day-nav.spec.js:860:3 › moving to a day with 200 tasks renders in under 100 ms 
+  1 passed (4.2s)
+Running 2 tests using 1 worker
+
+  ✓  1 [desktop] › tests/e2e/day-nav.spec.js:860:3 › moving to a day with 200 tasks renders in under 100 ms (735ms)
+  ✓  2 [mobile] › tests/e2e/day-nav.spec.js:860:3 › moving to a day with 200 tasks renders in under 100 ms (813ms)
+
+  2 passed (3.3s)
+      9   1 passed (1.8s) 
+      5   1 passed (1.9s) 
+      3   1 passed (2.0s) 
+      2   1 passed (2.1s) 
+      1   1 passed (2.3s) 

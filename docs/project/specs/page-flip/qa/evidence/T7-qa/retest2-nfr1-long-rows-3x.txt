@@ -1,0 +1,18 @@
+T7 NFR1 200 wrapping rows, top: 20.0, 19.0, 15.0 ms
+  ✓  3 [mobile] › tests/e2e/flip.spec.js:1375:5 › T7: layout, phones and dark mode › a move between two days of 200 long wrapping rows takes under 100 ms (median of 3), scrolled to the top (4.4s)
+T7 NFR1 200 wrapping rows, bottom: 18.0, 17.0, 15.0 ms
+  ✓  4 [mobile] › tests/e2e/flip.spec.js:1375:5 › T7: layout, phones and dark mode › a move between two days of 200 long wrapping rows takes under 100 ms (median of 3), scrolled to the bottom (4.3s)
+
+  4 passed (19.2s)
+T7 NFR1 200 wrapping rows, top: 22.0, 17.0, 18.0 ms
+  ✓  3 [mobile] › tests/e2e/flip.spec.js:1375:5 › T7: layout, phones and dark mode › a move between two days of 200 long wrapping rows takes under 100 ms (median of 3), scrolled to the top (4.3s)
+T7 NFR1 200 wrapping rows, bottom: 20.0, 15.0, 18.0 ms
+  ✓  4 [mobile] › tests/e2e/flip.spec.js:1375:5 › T7: layout, phones and dark mode › a move between two days of 200 long wrapping rows takes under 100 ms (median of 3), scrolled to the bottom (4.3s)
+
+  4 passed (19.4s)
+T7 NFR1 200 wrapping rows, top: 21.0, 26.0, 18.0 ms
+  ✓  3 [mobile] › tests/e2e/flip.spec.js:1375:5 › T7: layout, phones and dark mode › a move between two days of 200 long wrapping rows takes under 100 ms (median of 3), scrolled to the top (4.4s)
+T7 NFR1 200 wrapping rows, bottom: 25.0, 16.0, 16.0 ms
+  ✓  4 [mobile] › tests/e2e/flip.spec.js:1375:5 › T7: layout, phones and dark mode › a move between two days of 200 long wrapping rows takes under 100 ms (median of 3), scrolled to the bottom (4.4s)
+
+  4 passed (19.6s)

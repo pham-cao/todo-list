@@ -1,0 +1,17 @@
+Excerpt of full-run-1.txt (npx playwright test --workers=2)
+T14 contrast light next-day 0.3: words 5.52 (3), fold shadow alpha 0.42, new page ink under its darkest point 1.81
+T14 contrast light next-day 0.6: words 5.52 (3), fold shadow alpha 0.13, new page ink under its darkest point Infinity
+T14 contrast light prev-day 0.3: words 5.52 (3), fold shadow alpha 0.13, new page ink under its darkest point 4.10
+T14 contrast light prev-day 0.6: words 5.52 (3), fold shadow alpha 0.38, new page ink under its darkest point 2.10
+T14 contrast dark next-day 0.3: words 5.62 (3), fold shadow alpha 0.42, new page ink under its darkest point 6.72
+T14 contrast dark next-day 0.6: words 5.62 (3), fold shadow alpha 0.13, new page ink under its darkest point Infinity
+T14 contrast dark prev-day 0.3: words 5.62 (3), fold shadow alpha 0.13, new page ink under its darkest point 5.97
+T14 contrast dark prev-day 0.6: words 5.62 (3), fold shadow alpha 0.37, new page ink under its darkest point 6.60
+T14 contrast light next-day 0.3: words 5.52 (3), fold shadow alpha 0.42, new page ink under its darkest point 1.81
+T14 contrast light next-day 0.6: words 5.52 (3), fold shadow alpha 0.13, new page ink under its darkest point Infinity
+T14 contrast light prev-day 0.3: words 5.52 (3), fold shadow alpha 0.13, new page ink under its darkest point 4.10
+T14 contrast light prev-day 0.6: words 5.52 (3), fold shadow alpha 0.38, new page ink under its darkest point 2.05
+T14 contrast dark next-day 0.3: words 5.62 (3), fold shadow alpha 0.42, new page ink under its darkest point 6.72
+T14 contrast dark next-day 0.6: words 5.62 (3), fold shadow alpha 0.13, new page ink under its darkest point Infinity
+T14 contrast dark prev-day 0.3: words 5.62 (3), fold shadow alpha 0.13, new page ink under its darkest point 5.97
+T14 contrast dark prev-day 0.6: words 5.62 (3), fold shadow alpha 0.38, new page ink under its darkest point 6.60

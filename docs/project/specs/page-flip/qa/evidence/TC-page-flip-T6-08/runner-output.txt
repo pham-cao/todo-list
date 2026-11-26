@@ -1,0 +1,3 @@
+npx playwright test -g "hands focus to the add field" (flip.spec.js:93, T2 test)
+  ok desktop (178ms)
+  ok mobile (189ms)

@@ -1,0 +1,7 @@
+Excerpt of full-run-1.txt (npx playwright test --workers=2)
+  ✓   296 [desktop] › tests/e2e/flip.spec.js:1294:5 › T7: layout, phones and dark mode › at 1440 px a 3 leaf riffle adds no horizontal scroll or height and stays inside the sheet, during and after (2.2s)
+  ✓   297 [desktop] › tests/e2e/flip.spec.js:1294:5 › T7: layout, phones and dark mode › at 390 px a 3 leaf riffle adds no horizontal scroll or height and stays inside the sheet, during and after (2.2s)
+  ✓   298 [desktop] › tests/e2e/flip.spec.js:1294:5 › T7: layout, phones and dark mode › at 360 px a 3 leaf riffle adds no horizontal scroll or height and stays inside the sheet, during and after (2.2s)
+  ✓   958 [mobile] › tests/e2e/flip.spec.js:1294:5 › T7: layout, phones and dark mode › at 1440 px a 3 leaf riffle adds no horizontal scroll or height and stays inside the sheet, during and after (2.2s)
+  ✓   961 [mobile] › tests/e2e/flip.spec.js:1294:5 › T7: layout, phones and dark mode › at 390 px a 3 leaf riffle adds no horizontal scroll or height and stays inside the sheet, during and after (2.2s)
+  ✓   962 [mobile] › tests/e2e/flip.spec.js:1294:5 › T7: layout, phones and dark mode › at 360 px a 3 leaf riffle adds no horizontal scroll or height and stays inside the sheet, during and after (2.2s)

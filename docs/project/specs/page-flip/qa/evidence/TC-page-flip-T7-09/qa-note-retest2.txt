@@ -1,0 +1,1 @@
+Retest 2: no source change by QA. T7-09 contrast automated and passing light and dark at 20/50/80 percent (min 4.5:1). See T7-qa/retest2-t7-repeat4-tail.txt

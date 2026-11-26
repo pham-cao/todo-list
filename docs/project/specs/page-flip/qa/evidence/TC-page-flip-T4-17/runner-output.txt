@@ -1,0 +1,3 @@
+npx playwright test --workers=2 (full suite, 2026-11-12): 807 passed, 105 skipped, 0 failed. Matching lines:
+  ✓  259 [desktop] › tests/e2e/flip.spec.js:654:1 › 30 moves leave zero leaf nodes and the same listener count on window, document, sheet and tape (3.6s)
+  ✓  792 [mobile] › tests/e2e/flip.spec.js:654:1 › 30 moves leave zero leaf nodes and the same listener count on window, document, sheet and tape (4.3s)

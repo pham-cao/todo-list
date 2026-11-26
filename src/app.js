@@ -1,8 +1,9 @@
-import { toDateKey, parseDateKey, addDays, dayKind, dateLine } from "./date.js?v=1.3.0";
-import { createStore, getStorage, isValid, STORAGE_KEY } from "./store.js?v=1.3.0";
-import { createGroups, nextColor, GROUPS_KEY, MAX_GROUPS, UNGROUPED, UNGROUPED_NAME } from "./groups.js?v=1.3.0";
-import { createManage, setFieldError, showFieldError, GROUP_ERRORS } from "./manage.js?v=1.3.0";
-import { createDrag } from "./drag.js?v=1.3.0";
+import { toDateKey, parseDateKey, addDays, dayKind, dateLine } from "./date.js?v=1.4.0";
+import { createStore, getStorage, isValid, STORAGE_KEY } from "./store.js?v=1.4.0";
+import { createGroups, nextColor, GROUPS_KEY, MAX_GROUPS, UNGROUPED, UNGROUPED_NAME } from "./groups.js?v=1.4.0";
+import { createManage, setFieldError, showFieldError, GROUP_ERRORS } from "./manage.js?v=1.4.0";
+import { createDrag } from "./drag.js?v=1.4.0";
+import { createFlip } from "./flip.js?v=1.4.0";
 
 const $ = (id) => document.getElementById(id);
 const els = {
@@ -78,6 +79,7 @@ function renderList() {
   // Every rebuild ends a running drag first, so it never runs over rows that move or go (R20, R21, T5 review).
   // A drop's own rebuild comes after the drag has ended, so this does nothing there.
   drag.cancel();
+  flip.end(); // and a page flip over the old rows (R37: add, delete, storage refresh, filter, midnight)
   const tasks = store.tasksFor(viewed);
   const focused = els.list.contains(document.activeElement) ? document.activeElement : null;
   // A section changes its header between toggle and plain heading, so a focused toggle is found again by its key.
@@ -242,6 +244,7 @@ const setAddError = (code) => setFieldError(els.input, els.addError, code);
 els.form.addEventListener("submit", (e) => {
   e.preventDefault();
   drag.cancel(); // an add during a drag ends it, also when the row is added in place without a rebuild (BUG-021)
+  flip.end(); // and an add during a flip ends it, also in place (decisions.md 2026-11-12, page-flip design)
   const now = new Date();
   checkDay(now);
   // R21 (a chosen group removed elsewhere) is covered by the storage listener, which resets addGroup.
@@ -683,6 +686,9 @@ const drag = createDrag({
   onStart: () => closeSwipes(),
   onEnd: dropOrCancel,
 });
+// Page flip (page-flip R1 to R12): a visual layer of leaves over the sheet on a day change only. It always plays, also
+// under reduced motion, and no longer presses the date tape (owner, 2026-11-12).
+const flip = createFlip({ sheet: document.querySelector(".sheet"), body: els.sheetBody });
 
 // A release on another group that still exists moves the task the same way as the edit form: one write of groupId
 // only, then moveRow (creation order, unfold, filter, focus, the moved text) (R13 to R15, R23, R33, R34, R36).
@@ -733,34 +739,49 @@ function resetTransient() {
   notify(null);
 }
 
-// Page turn (R8): only a move plays it, never a load or a midnight refresh. Keys are YYYY-MM-DD, so they compare as strings.
-const TURNS = ["turn--back", "turn--forward", "washi--restick"];
-function turnPage(from, to) {
-  if (reducedMotion.matches) return; // the CSS drops the animation, so animationend would never clear the class
-  els.sheetBody.classList.remove(...TURNS);
-  els.date.classList.remove(...TURNS);
-  void els.sheetBody.offsetWidth; // restart the animation on quick repeated moves
-  els.sheetBody.classList.add(to < from ? "turn--back" : "turn--forward");
-  els.date.classList.add("washi--restick");
-}
-// Row animations bubble up to the sheet body; only its own turn ends here.
-const endTurn = (e) => { if (e.target === e.currentTarget) e.target.classList.remove(...TURNS); };
-for (const el of [els.sheetBody, els.date]) {
-  el.addEventListener("animationend", endTurn);
-  el.addEventListener("animationcancel", endTurn);
-}
-
-// One move is one history entry (R22, R25). Focus is left on the control used (R8).
-function go(key) {
-  if (!key || key === viewed) { if (els.picker.value !== viewed) els.picker.value = viewed; return; }
-  const onRow = rowFocus();
+// One day change, shared by go() and syncFromAddress(); the caller writes the address. The day renders, focus settles
+// and the live date line changes at once (R10, R18, R19); the flip only draws over the settled page afterwards.
+// A repeated move (R15) plays nothing; the first one remembers the day it left and that page for the release.
+function changeDay(key, repeat = false) {
+  const from = viewed;
+  const onRow = rowFocus(); // read before the drag is cancelled (drag.active() counts)
   resetTransient();
-  writeAddress(key, true);
-  turnPage(viewed, key);
+  drag.cancel(); // R25: the drag ends before the old page is copied, so no placeholder on the leaf
+  flip.end(); // R14: the running flip goes, all leaves together
+  if (repeat) held ??= { from, page: flip.snapshot(from, key) };
+  else held = null; // a move that is not a repeat is the release, and plays its own flip from the day on screen
+  const page = repeat ? null : flip.snapshot(from, key);
   viewed = key;
   renderDay();
   if (onRow) focusAddIfLost();
+  if (!repeat) flip.play(from, key, page);
 }
+
+// One move is one history entry (R22, R25). Focus is left on the control used (R8).
+// Only a move flips the page, never a load or a midnight refresh (R6).
+function go(key, repeat = false) {
+  if (!key || key === viewed) { if (els.picker.value !== viewed) els.picker.value = viewed; return; }
+  writeAddress(key, true);
+  changeDay(key, repeat);
+}
+
+// Held key (R15). repeating: the last keydown was an auto repeat, set in the capture phase before the button's click.
+// held: { from, page } while repeated moves run. The release plays one flip or riffle for the whole distance (R3, R4),
+// none if the repeats came back to the start, and none on a hidden page, where play() refuses (R7).
+let repeating = false;
+let held = null;
+function release() {
+  repeating = false;
+  if (!held) return;
+  const { from, page } = held;
+  held = null;
+  if (from !== viewed) flip.play(from, viewed, page);
+}
+document.addEventListener("keydown", (e) => { repeating = e.repeat; }, true);
+// Space clicks on keyup, after this has run, so a single Space press is never taken as a repeat.
+document.addEventListener("keyup", release);
+document.addEventListener("focusout", release); // focus leaves the control
+window.addEventListener("blur", release); // the window loses focus
 
 // A day change removes the old rows, and with them a focused row or the Sửa a drag cancel returns focus to: the page
 // then starts again at the add field. Only then: while a date is typed into the picker Chromium reports body as the
@@ -777,17 +798,13 @@ function syncFromAddress() {
   const key = readHash() ?? today;
   if (key === today && location.href.includes("#")) writeAddress(today, false);
   if (key === viewed) return;
-  const onRow = rowFocus();
-  resetTransient();
-  turnPage(viewed, key);
-  viewed = key;
-  renderDay();
-  if (onRow) focusAddIfLost();
+  changeDay(key);
 }
 
 // Targets come from the day on screen, before the midnight check.
 for (const [id, n] of [["prev-day", -1], ["next-day", 1]]) {
-  $(id).addEventListener("click", () => { const key = addDays(viewed, n); checkDay(); go(key); });
+  // A keyboard click has detail 0, a mouse or touch click 1 or more: only a held key repeats (R15).
+  $(id).addEventListener("click", (e) => { const key = addDays(viewed, n); checkDay(); go(key, repeating && e.detail === 0); });
 }
 // checkDay first: after a silent midnight the muted tab still means "show the new today".
 els.toToday.addEventListener("click", () => {
@@ -804,7 +821,7 @@ els.picker.addEventListener("change", () => {
     return;
   }
   checkDay();
-  go(key);
+  go(key, repeating); // a held arrow key in the date field steps the date as repeats (decisions.md 2026-11-12)
 });
 els.picker.addEventListener("blur", () => { if (els.picker.value !== viewed) els.picker.value = viewed; });
 window.addEventListener("popstate", syncFromAddress);
@@ -829,7 +846,10 @@ function checkDay(now = new Date()) {
   focusAddIfLost(); // focus that sat on an old row or the note is gone
 }
 
-document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") checkDay(); });
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible") checkDay();
+  else release(); // a hidden page ends the hold, and play() refuses there, so no motion (R7)
+});
 window.addEventListener("focus", () => checkDay());
 
 viewed = readHash() ?? today;

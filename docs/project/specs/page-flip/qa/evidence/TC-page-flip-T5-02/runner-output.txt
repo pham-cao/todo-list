@@ -1,0 +1,1 @@
+T5-02 pass: spec flip.spec.js:706 and manual MCP run: 6 repeats, stage 0 leaves 0 each. Run 2026-11-12, Chromium desktop and mobile projects.

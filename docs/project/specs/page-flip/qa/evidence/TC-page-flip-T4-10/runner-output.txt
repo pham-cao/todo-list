@@ -1,0 +1,3 @@
+npx playwright test --workers=2 (full suite, 2026-11-12): 807 passed, 105 skipped, 0 failed. Matching lines:
+  ✓  251 [desktop] › tests/e2e/flip.spec.js:542:1 › the page going hidden during a flip ends it at once (151ms)
+  ✓  775 [mobile] › tests/e2e/flip.spec.js:542:1 › the page going hidden during a flip ends it at once (141ms)

@@ -1,0 +1,2 @@
+  ✓  55 [desktop] › tests/e2e/flip.spec.js:272:1 › browser Back and Forward flip by the two dates: Back to an earlier day flips back, Forward flips forward (2.0s)
+  ✓  56 [mobile] › tests/e2e/flip.spec.js:272:1 › browser Back and Forward flip by the two dates: Back to an earlier day flips back, Forward flips forward (2.0s)

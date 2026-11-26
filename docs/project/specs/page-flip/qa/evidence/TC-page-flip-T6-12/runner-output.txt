@@ -1,0 +1,3 @@
+npx playwright test --workers=2 --reporter=list -g "T6:" (build 1.3.0, uncommitted T6 diff)
+  -  19 [mobile] › tests/e2e/flip.spec.js:1067:3 › T6: working on the page during a flip › a mouse drag active at a browser Back is cancelled first: nothing left over and no placeholder on the leaf
+  ✓  20 [desktop] › tests/e2e/flip.spec.js:1067:3 › T6: working on the page during a flip › a mouse drag active at a browser Back is cancelled first: nothing left over and no placeholder on the leaf (1.1s)

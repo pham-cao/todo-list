@@ -1,0 +1,27 @@
+total 60
+drwxrwxr-x 2 gem gem  4096 Nov 13 15:16 .
+drwxrwxr-x 3 gem gem  4096 Nov 13 15:14 ..
+-rw-r--r-- 1 gem gem  1063 Nov 13 15:14 LICENSE
+-rw-r--r-- 1 gem gem   815 Nov 13 15:14 page-flip.css
+-rw-rw-r-- 1 gem gem 43516 Nov 13 15:44 page-flip.module.js
+/* page-flip 2.0.7 (StPageFlip by Nodlik, MIT licence, see LICENSE in this folder).
+   Source: npm page-flip@2.0.7, dist/js/page-flip.module.js
+   SHA-256 of the unpatched file: b718faafca6856bff51629baedeff601e2cc59482e951105bdbd6e46978cca38
+   Patches (re-apply both when upgrading, then re-run the curl tests in tests/e2e/flip.spec.js):
+   1. CSP: the call that injected the library CSS as an inline <style> element is removed, because style-src 'self'
+      blocks it. The same CSS is page-flip.css, linked from index.html.
+   2. Idle loop: Render.start() ran requestAnimationFrame forever, also after destroy(). It now stops when pfSleep() is
+      called and starts again on pfWake() (new members pfLoop, pfWake, pfSleep, pfAsleep, pfRunning on Render). */
+MIT License
+
+Copyright (c) 2020 Nodlik
+9:  <link rel="stylesheet" href="vendor/page-flip/page-flip.css?v=1.3.0">
+1:import { daysBetween } from "./date.js?v=1.3.0";
+2:import { PageFlip } from "../vendor/page-flip/page-flip.module.js?v=1.3.0";
+
+  ---
+  duration_ms: 1.01133
+  ...
+1..88
+# tests 88
+# suites 0

@@ -1,0 +1,5 @@
+Manual (Playwright MCP, Chromium, own static server on 4999, stopped afterwards). Settled day, light then dark.
+360 px: scrollWidth 360 = clientWidth 360, --stack-u 0.7px, --desk-gutter 8px, sheet right edge 352, 12 shadow layers, dark also 12 layers, no horizontal scroll, --color-cover #0A0C0F in dark.
+390 px: scrollWidth 390, same unit and layers, dark 12 layers.
+1440 px: scrollWidth 1440, --stack-u 1.8px, gutter 48px, 12 layers, dark 12 layers.
+Solid edge reach at phone width: 7.5 x 0.7 + 10 x 0.7 = at most 7 px, inside the 8 px gutter (the T15 test asserts this at 390 px).

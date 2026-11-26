@@ -1,0 +1,40 @@
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:29] "GET /src/app.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:29] "GET /docs/project/design-system.css?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:29] "GET /src/date.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:29] "GET /src/store.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:29] "GET /src/drag.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:29] "GET /src/manage.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:29] "GET /src/groups.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:29] "GET /src/flip.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:29] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:29] "GET /src/app.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:29] "GET /docs/project/design-system.css?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:29] "GET /src/store.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:29] "GET /src/date.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:29] "GET /src/manage.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:29] "GET /src/drag.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:29] "GET /src/groups.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:29] "GET /src/flip.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:29] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:30] "GET /docs/project/design-system.css?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:30] "GET /src/app.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:30] "GET /src/date.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:30] "GET /src/drag.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:30] "GET /src/store.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:30] "GET /src/flip.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:30] "GET /src/manage.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:30] "GET /src/groups.js?v=1.3.0 HTTP/1.1" 200 -
+  ✓  1015 [mobile] › tests/e2e/groups.spec.js:3643:1 › 360 px: swipe, peek and Sửa work on rows with long text in sections and in the filtered view, with no sideways scroll (1.1s)
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:30] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:30] "GET /docs/project/design-system.css?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:30] "GET /src/app.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:30] "GET /src/date.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:30] "GET /src/drag.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:30] "GET /src/groups.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:30] "GET /src/flip.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:30] "GET /src/manage.js?v=1.3.0 HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [12/Nov/2026 13:58:30] "GET /src/store.js?v=1.3.0 HTTP/1.1" 200 -
+  ✓  1016 [mobile] › tests/e2e/groups.spec.js:3671:1 › reused sections across a day change and the filter: rows, fold and header kind stay right (327ms)
+
+  110 skipped
+  906 passed (8.0m)

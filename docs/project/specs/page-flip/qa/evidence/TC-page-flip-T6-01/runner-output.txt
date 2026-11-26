@@ -1,0 +1,3 @@
+npx playwright test --workers=2 --reporter=list -g "T6:" (build 1.3.0, uncommitted T6 diff)
+  ✓   1 [desktop] › tests/e2e/flip.spec.js:929:3 › T6: working on the page during a flip › typed add text stays across the move, the caret does not jump, and typing goes on while the stage plays (234ms)
+  ✓   2 [mobile] › tests/e2e/flip.spec.js:929:3 › T6: working on the page during a flip › typed add text stays across the move, the caret does not jump, and typing goes on while the stage plays (254ms)

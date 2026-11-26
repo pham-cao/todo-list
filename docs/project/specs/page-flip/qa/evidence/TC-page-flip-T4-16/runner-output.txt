@@ -1,0 +1,3 @@
+npx playwright test --workers=2 (full suite, 2026-11-12): 807 passed, 105 skipped, 0 failed. Matching lines:
+  ✓  258 [desktop] › tests/e2e/flip.spec.js:640:1 › a theme change during a riffle leaves no stage, and the next leaf back uses the new theme (889ms)
+  ✓  788 [mobile] › tests/e2e/flip.spec.js:640:1 › a theme change during a riffle leaves no stage, and the next leaf back uses the new theme (885ms)

@@ -1,0 +1,5 @@
+  6 passed (7.6s) 
+  6 passed (8.1s) 
+  6 passed (7.5s) 
+    expect(received).toMatchObject(expected)     - Expected  - 2     + Received  + 2       Object {     -   "height": 1154,     -   "inside": true,     +   "height": 780,     +   "inside": false,       1282 |         for (const f of frames) expect(f, key).toMatchObject({ overflowX: 0, height: f.bare });     > 1283 |         for (const f of frames.slice(1)) expect(f, key).toMatchObject({ height: settled, inside: true });   1 failed   5 passed (7.7s) 
+  6 passed (7.5s) 

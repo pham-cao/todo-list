@@ -1,0 +1,3 @@
+npx playwright test --workers=2 (full suite, 2026-11-12): 807 passed, 105 skipped, 0 failed. Matching lines:
+  ✓  241 [desktop] › tests/e2e/flip.spec.js:453:1 › presses at 449, 450 and 451 ms never leave two stages and the last press always has its own (1.6s)
+  ✓  757 [mobile] › tests/e2e/flip.spec.js:453:1 › presses at 449, 450 and 451 ms never leave two stages and the last press always has its own (1.1s)

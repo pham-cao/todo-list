@@ -1,0 +1,3 @@
+npx playwright test --workers=2 (full suite, 2026-11-12): 807 passed, 105 skipped, 0 failed. Matching lines:
+  ✓  256 [desktop] › tests/e2e/flip.spec.js:602:1 › without 3D support a move changes the day with no stage, no tape press and no error (250ms)
+  ✓  786 [mobile] › tests/e2e/flip.spec.js:602:1 › without 3D support a move changes the day with no stage, no tape press and no error (278ms)

@@ -1,0 +1,2 @@
+  ✓  138 [desktop] › tests/e2e/flip.spec.js:38:1 › the next arrow turns one leaf forward carrying the old day, then the stage goes within 550 ms (899ms)
+  ✓  586 [mobile] › tests/e2e/flip.spec.js:38:1 › the next arrow turns one leaf forward carrying the old day, then the stage goes within 550 ms (889ms)

@@ -1,0 +1,5 @@
+npx playwright test --workers=2 --reporter=list -g "T6:" (build 1.3.0, uncommitted T6 diff)
+  -  22 [desktop] › tests/e2e/flip.spec.js:1096:5 › T6: working on the page during a flip › a touch press held 200 ms during a move leaves no stuck press, drag, leaf or scroll lock
+  -  23 [desktop] › tests/e2e/flip.spec.js:1096:5 › T6: working on the page during a flip › a touch press held 450 ms during a move leaves no stuck press, drag, leaf or scroll lock
+  ✓  21 [mobile] › tests/e2e/flip.spec.js:1096:5 › T6: working on the page during a flip › a touch press held 200 ms during a move leaves no stuck press, drag, leaf or scroll lock (1.5s)
+  ✓  25 [mobile] › tests/e2e/flip.spec.js:1096:5 › T6: working on the page during a flip › a touch press held 450 ms during a move leaves no stuck press, drag, leaf or scroll lock (1.8s)

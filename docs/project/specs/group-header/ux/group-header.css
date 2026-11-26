@@ -1,0 +1,98 @@
+/* group-header prototype: proposed additions to design-system.css.
+   Kept local while page-flip edits the design system; critique.md lists them for the merge.
+   Uses only existing tokens. */
+
+/* ---------- 1. Header: "Quản lý nhóm" under "Về hôm nay" ----------
+   The nav keeps its order (previous, next, picker), then one end column that stacks the "Về hôm nay" tab and the
+   "Quản lý nhóm" button, right aligned. Left controls align to the top, so the arrows line up with the tab. */
+.day-nav { align-items: flex-start; }
+@media (min-width: 601px) { .day-nav { margin-bottom: 0; } } /* the end column already leaves room for the tooltips */
+.day-nav__end { margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; gap: var(--space-2); }
+.day-nav__end .today-tab { margin-left: 0; }
+
+/* A ghost pen button with the tag icon (the old group bar button), padded like the tab so the two labels end on the
+   same vertical line. Drawn 36 px tall; the hit area is extended to 44 px. */
+.header-manage {
+  position: relative; min-height: 36px; padding: 0 var(--space-4); gap: var(--space-2);
+  color: var(--color-pen); font-weight: var(--fw-semibold);
+}
+.header-manage::before { content: ""; position: absolute; inset: -4px 0; }
+.header-manage .icon { width: 18px; height: 18px; }
+.header-manage:hover { color: var(--color-pen); }
+@media (max-width: 600px) { .header-manage { padding: 0 var(--space-3); font-size: var(--fs-small); } }
+/* Below 452 px: tag icon only (44 by 44), the name stays as the accessible name and shows as a tooltip below. */
+@media (max-width: 451px) {
+  .header-manage { /* icon only: drawn as a small outlined tab, so it reads as a control and not a stray mark */
+    min-height: var(--tap); min-width: var(--tap); padding: 0;
+    border: 1.5px solid var(--color-pen); border-radius: 2px 2px var(--radius-control) var(--radius-control);
+  }
+  .header-manage::before { inset: 0; }
+  .header-manage__label { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .header-manage::after {
+    content: attr(data-tip) / ""; position: absolute; top: calc(100% + 2px); right: 0; translate: 0 -4px; z-index: 2;
+    padding: 3px 8px; border-radius: 4px; background: var(--color-ink); color: var(--color-paper);
+    font-size: var(--fs-tiny); font-weight: var(--fw-medium); line-height: 1.4; white-space: nowrap;
+    opacity: 0; pointer-events: none; transition: opacity var(--dur-fast) ease, translate var(--dur-fast) ease;
+  }
+  .header-manage:focus-visible::after { opacity: 1; translate: 0 0; }
+}
+@media (max-width: 451px) and (hover: hover) and (pointer: fine) {
+  .header-manage:hover::after { opacity: 1; translate: 0 0; transition-delay: 350ms; }
+}
+
+/* ---------- 2. Card: "Thêm nhóm" above the rows ----------
+   A blank line at the top of the card with a pen plus in a drawn circle: you start a new line on the card.
+   It sits outside the scrolling rows, so it never scrolls away. */
+.group-add {
+  display: flex; align-items: center; gap: var(--space-3); width: 100%; min-height: 52px; margin-top: var(--space-1);
+  padding: 0 var(--space-1); border: 0; border-bottom: 1.5px dashed var(--color-pencil); border-radius: 0;
+  background: transparent; color: var(--color-pen); cursor: pointer; text-align: left;
+  font-size: var(--fs-meta); font-weight: var(--fw-semibold); text-decoration: none;
+  transition: background-color var(--dur-fast) ease;
+}
+.group-add:hover { background: var(--color-pen-wash); }
+.group-add__plus {
+  display: grid; place-items: center; width: 28px; height: 28px; flex: none;
+  border: 1.75px solid var(--color-pen); border-radius: 50% 46% 52% 48%; rotate: -4deg;
+}
+.group-add__plus .icon { width: 16px; height: 16px; stroke-width: 2.4; }
+.group-add:focus-visible { outline-offset: -2px; }
+/* The add line takes 56 px of the card, so the scrolling rows give it back: the card still fits the screen with 20 groups. */
+.group-add + .group-rows { max-height: calc(100dvh - 12.5rem); }
+
+/* The row just created: the label colour wash of .task--moved, fading once. */
+.group-row--new { position: relative; isolation: isolate; }
+.group-row--new::before {
+  content: ""; position: absolute; inset: 0 calc(-1 * var(--space-3)); z-index: -1; pointer-events: none;
+  background: var(--hl, var(--color-highlight)); opacity: 0.45; animation: moved-fade 1800ms ease 600ms forwards;
+}
+@media (prefers-reduced-motion: reduce) { .group-row--new::before { animation: none; opacity: 0; } }
+
+/* ---------- 3. The new group box: a sticky note with a name field ----------
+   Same .dialog surface, tape, corner sticker, title and action row as the delete group note.
+   The corner sticker is a blank torn label in the colour the group will get. */
+.new-group__field { margin-top: var(--space-4); }
+.new-group__label { display: block; font-size: var(--fs-meta); font-weight: var(--fw-medium); color: var(--text-muted); }
+.new-group__line { display: flex; align-items: center; gap: var(--space-3); }
+.new-group__line .swatch { width: 28px; height: 18px; }
+.new-group__line .input { flex: 1; min-width: 0; font-weight: var(--fw-semibold); }
+.new-group .field-error { min-height: 0; padding-top: var(--space-2); align-items: flex-start; }
+.new-group .field-error .icon { margin-top: 1px; }
+.new-group .dialog__actions { margin-top: var(--space-5); }
+.new-group .input[aria-invalid="true"] { animation: nudge 260ms ease; }
+.sticker--corner.sticker--blank { width: 64px; height: 26px; padding: 0; }
+@media (prefers-reduced-motion: reduce) { .new-group .input[aria-invalid="true"] { animation: none; } }
+
+/* Phones: the note docks to the bottom as a sheet (thumb reach, and it rises with the on screen keyboard).
+   Straight, full width, rounded top corners, tape kept, corner sticker pulled inside the screen. */
+@media (max-width: 600px) {
+  .dialog--sheet {
+    margin: auto 0 0; width: 100vw; max-width: none; rotate: 0deg; /* overflow stays visible for the tape and sticker; the box is about 300 px tall, so it fits above a keyboard at 360 by 640 */
+    border-radius: 16px 16px 0 0; padding: var(--space-8) var(--space-4) calc(var(--space-4) + env(safe-area-inset-bottom));
+  }
+  .dialog--sheet[open] { animation: sheet-up var(--dur-slow) var(--ease-out); }
+  .dialog--sheet .sticker--corner { right: var(--space-4); }
+  .new-group .input { font-size: 1rem; } /* 16 px: iOS does not zoom */
+}
+@keyframes sheet-up { from { translate: 0 40px; opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .dialog--sheet[open] { animation: none; } }

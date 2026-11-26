@@ -1,0 +1,51 @@
+
+Running 1 test using 1 worker
+
+  ✘  1 [desktop] › tests/e2e/flip.spec.js:1046:3 › T6: working on the page during a flip › the accessibility tree with a stage present holds the new day only, as on the settled page (268ms)
+
+
+  1) [desktop] › tests/e2e/flip.spec.js:1046:3 › T6: working on the page during a flip › the accessibility tree with a stage present holds the new day only, as on the settled page 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 4
+    + Received  + 3
+
+    @@ -11,20 +11,19 @@
+          - text: Đã hoàn thành
+          - strong: 0/1
+          - text: việc
+        - paragraph
+        - text: Bạn cần làm gì ngày này?
+    -   - textbox "Bạn cần làm gì ngày này? Bạn cần làm gì hôm nay?":
+    -     - /placeholder: Bạn cần làm gì ngày này?
+    +   - textbox "Bạn cần làm gì ngày này?"
+        - text: Nhóm
+    -   - combobox "Nhóm Nhóm":
+    +   - combobox "Nhóm":
+          - option "Chưa phân nhóm" [selected]
+          - option "Công ty"
+          - option "Nhóm mới..."
+        - button "Thêm"
+        - text: Lọc theo nhóm
+    -   - combobox "Lọc theo nhóm Lọc theo nhóm":
+    +   - combobox "Lọc theo nhóm":
+          - option "Tất cả nhóm" [selected]
+          - option "Chưa phân nhóm"
+          - option "Công ty"
+        - button "Quản lý nhóm"
+        - list:
+
+      1053 |     await page.reload();
+      1054 |     await expect(stages(page)).toHaveCount(0);
+    > 1055 |     expect(await page.locator('body').ariaSnapshot()).toEqual(during);
+           |                                                       ^
+      1056 |   });
+      1057 |
+      1058 |   test('axe reports no violation with a stage present (Chromium)', async ({ page, browserName }) => {
+        at /tmp/claude-1000/-home-gem-src-todo-list/832f85e5-a60f-4d79-a693-e0ce7014eb66/scratchpad/old/tests/e2e/flip.spec.js:1055:55
+
+    Error Context: test-results/flip-T6-working-on-the-pag-81bd2-only-as-on-the-settled-page-desktop/error-context.md
+
+  1 failed
+    [desktop] › tests/e2e/flip.spec.js:1046:3 › T6: working on the page during a flip › the accessibility tree with a stage present holds the new day only, as on the settled page 

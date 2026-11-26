@@ -1,9 +1,9 @@
 project: "daily-todo"
 idea: "Web app todo list de ghi lai (log) cac viec can lam hang ngay (daily). Nguyen van: hien tai toi can lam todolist web log may cai toi can lam trong daily"
-state: waiting_user        # running | waiting_user | done
-waiting_for: ""
+state: waiting_user             # running | waiting_user | done
+waiting_for: "Owner to push branch page-flip and open the PR (no GitHub credentials on this host)"
 phase: features       # discovery | features | done
-current_feature: "drag-drop"
+current_feature: "page-flip"
 trello:               # optional mirror of this file, see "Trello sync" in the PM skill
   enabled: false
   board_url: ""
@@ -264,9 +264,9 @@ features:
         bugs_opened: [BUG-014 fixed]
         trello_card: ""
   - slug: drag-drop
-    phase: release
+    phase: done
     has_ui: true
-    pr: ""
+    pr: "https://github.com/pham-cao/todo-list/pull/4"
     trello_card: ""
     tasks:
       - id: T1
@@ -341,7 +341,211 @@ features:
         attempts: 0
         bugs_opened: []
         trello_card: ""
-# - slug: user-login
+  - slug: page-flip
+    phase: release
+    has_ui: true
+    pr: ""
+    trello_card: ""
+    tasks:
+      - id: T1
+        title: "Days between two date keys"
+        owner: be
+        depends_on: []
+        state: done
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T2
+        title: "Flip module and one leaf on the arrows"
+        owner: fe
+        depends_on: [T1]
+        state: done
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T3
+        title: "Riffle and every entry point"
+        owner: fe
+        depends_on: [T2]
+        state: done
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T4
+        title: "Rapid moves and interruptions"
+        owner: fe
+        depends_on: [T3]
+        state: done
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T5
+        title: "Held key repeat and release"
+        owner: fe
+        depends_on: [T4]
+        state: done
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T6
+        title: "Working on the page during a flip"
+        owner: fe
+        depends_on: [T5]
+        state: done
+        attempts: 0
+        bugs_opened: [BUG-025]
+        trello_card: ""
+      - id: T7
+        title: "Layout, phones and dark mode"
+        owner: fe
+        depends_on: [T6]
+        state: done
+        attempts: 1
+        bugs_opened: [BUG-026, BUG-027]
+        trello_card: ""
+      - id: T8
+        title: "Speed with 200 tasks"
+        owner: fe
+        depends_on: [T7]
+        state: done
+        attempts: 0
+        bugs_opened: [BUG-028]
+        trello_card: ""
+      - id: T8b
+        title: "Perceptible flip motion (BUG-028)"
+        owner: fe
+        depends_on: [T8]
+        state: done
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T8c
+        title: "Always flip, 700 ms, no tape re-press"
+        owner: fe
+        depends_on: [T8b]
+        state: done
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T8d
+        title: "The whole sheet flips"
+        owner: fe
+        depends_on: [T8c]
+        state: done
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T8e
+        title: "Soft paper bend (replaced by StPageFlip, not built)"
+        owner: fe
+        depends_on: [T8d]
+        state: done
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T11
+        title: "StPageFlip curl in the main tree"
+        owner: fe
+        depends_on: [T8d]
+        state: done
+        attempts: 1
+        bugs_opened: []
+        trello_card: ""
+      - id: T12
+        title: "Stop the library frame loop while idle"
+        owner: fe
+        depends_on: [T11]
+        state: done
+        attempts: 1
+        bugs_opened: []
+        trello_card: ""
+      - id: T13
+        title: "Flip tests on the curl: harness and behaviour"
+        owner: fe
+        depends_on: [T12]
+        state: done
+        attempts: 1
+        bugs_opened: []
+        trello_card: ""
+      - id: T14
+        title: "Flip tests on the curl: motion, look and speed"
+        owner: fe
+        depends_on: [T13]
+        state: done
+        attempts: 1
+        bugs_opened: [BUG-029]
+        trello_card: ""
+      - id: T15
+        title: "Thick notebook stack"
+        owner: fe
+        depends_on: [T14]
+        state: done
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T9
+        title: "Remove the superseded leaf, strip, turn and tape styles"
+        owner: fe
+        depends_on: [T15]
+        state: done
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T10
+        title: "Release version 1.4.0"
+        owner: be
+        depends_on: [T9]
+        state: done
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+  - slug: group-header
+    phase: build
+    has_ui: true
+    pr: ""
+    trello_card: ""
+    tasks:
+      - id: T1
+        title: "Quản lý nhóm in the header, group bar hidden with no groups"
+        owner: fe
+        depends_on: []
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T2
+        title: "Thêm nhóm and the new group box"
+        owner: fe
+        depends_on: [T1]
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T3
+        title: "Sticky note dialogs as bottom sheets on phones"
+        owner: fe
+        depends_on: [T2]
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T4
+        title: "Remove the old inline group creation"
+        owner: fe
+        depends_on: [T2]
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+      - id: T5
+        title: "Release version 1.5.0"
+        owner: be
+        depends_on: [T3, T4]
+        state: todo
+        attempts: 0
+        bugs_opened: []
+        trello_card: ""
+  # - slug: user-login
 #   phase: requirements   # requirements | ux | design | build | release | done
 #   has_ui: true
 #   pr: ""

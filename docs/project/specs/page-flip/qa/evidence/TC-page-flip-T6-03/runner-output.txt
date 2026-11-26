@@ -1,0 +1,5 @@
+npx playwright test --workers=2 --reporter=list -g "T6:" (build 1.3.0, uncommitted T6 diff)
+  ✓   5 [desktop] › tests/e2e/flip.spec.js:958:3 › T6: working on the page during a flip › a tick and an untick apply to the new day only and leave the flip running (246ms)
+  ✓   6 [mobile] › tests/e2e/flip.spec.js:958:3 › T6: working on the page during a flip › a tick and an untick apply to the new day only and leave the flip running (240ms)
+  ✓  26 [desktop] › tests/e2e/flip.spec.js:1149:3 › T6: working on the page during a flip › 20 moves of different distances with a tick and an untick leave the stored strings byte for byte (1.5s)
+  ✓  31 [mobile] › tests/e2e/flip.spec.js:1149:3 › T6: working on the page during a flip › 20 moves of different distances with a tick and an untick leave the stored strings byte for byte (1.6s)

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Group header prototype</title>
+  <link rel="stylesheet" href="../../../design-system.css">
+  <style>
+    .doc { padding: var(--space-12) var(--sheet-pad-end) var(--space-16) calc(var(--holes-w) + var(--margin-w) + var(--margin-gap)); }
+    .doc h1 { font-size: var(--fs-display); line-height: 1.2; letter-spacing: -0.015em; }
+    .doc h2 { font-size: var(--fs-title); margin: var(--space-10) 0 var(--space-3); }
+    .doc p, .doc li { max-width: 68ch; }
+    .doc .washi { margin-top: var(--space-3); }
+    .lead { margin-top: var(--space-5); }
+    .screens { list-style: none; padding: 0; }
+    .screens li { border-bottom: 1px solid var(--color-rule); }
+    .screens a { display: block; padding: var(--space-3) var(--space-2); text-decoration: none; color: var(--text); }
+    .screens a:hover { background: var(--color-pen-wash); }
+    .screens strong { color: var(--color-pen); font-weight: var(--fw-semibold); }
+    .screens span { display: block; color: var(--text-muted); font-size: var(--fs-meta); }
+    .notes { padding-left: var(--space-5); }
+    .notes li + li { margin-top: var(--space-3); }
+  </style>
+</head>
+<body>
+  <div class="desk">
+  <main class="sheet doc">
+    <h1>Group header</h1>
+    <p class="washi">Prototype on the paper notebook design, for review</p>
+    <p class="lead">"Quản lý nhóm" moves into the page header, under "Về hôm nay", and creating a group moves out of the add form into the "Nhóm việc" card, where "Thêm nhóm" opens a small sticky note that asks only for the name. Every screen opens in a browser on its own; links and buttons walk you through the flow. Try each one at desktop width and on a phone (390 px), and switch your system to dark mode to see the night notebook.</p>
+
+    <h2>Flow 1: reach the groups from the header</h2>
+    <ul class="screens">
+      <li><a href="screens/day.html"><strong>Day page with groups</strong><span>Header with Quản lý nhóm under Về hôm nay; the add choice without Nhóm mới...; the filter alone on its line</span></a></li>
+      <li><a href="screens/day--no-groups.html"><strong>Day page with no groups</strong><span>The group bar is hidden, so no empty line is left</span></a></li>
+      <li><a href="screens/manage.html"><strong>Nhóm việc card</strong><span>Thêm nhóm is the first line, above the rows</span></a></li>
+      <li><a href="screens/manage--empty.html"><strong>Nhóm việc card, no groups</strong><span>Thêm nhóm above "Bạn chưa có nhóm nào."</span></a></li>
+    </ul>
+
+    <h2>Flow 2: create a group</h2>
+    <ul class="screens">
+      <li><a href="screens/new-group.html"><strong>Tạo nhóm mới</strong><span>Centred note on desktop, bottom sheet on phones; the swatch shows the colour it will get</span></a></li>
+      <li><a href="screens/new-group--typed.html"><strong>Name typed</strong><span>Enter or Tạo nhóm creates it</span></a></li>
+      <li><a href="screens/manage--created.html"><strong>Group created</strong><span>New last row with a short wash, focus back on Thêm nhóm</span></a></li>
+      <li><a href="screens/new-group--first.html"><strong>First group</strong><span>With no groups the next colour is Vàng</span></a></li>
+      <li><a href="screens/new-group--keyboard.html"><strong>Phone keyboard open</strong><span>Check at 360 by 640: the field and buttons stay above the keyboard</span></a></li>
+    </ul>
+
+    <h2>Validation and errors</h2>
+    <ul class="screens">
+      <li><a href="screens/new-group--empty.html"><strong>Empty name</strong><span>Vui lòng nhập tên nhóm.</span></a></li>
+      <li><a href="screens/new-group--too-long.html"><strong>Name too long</strong><span>Tên nhóm tối đa 30 ký tự.</span></a></li>
+      <li><a href="screens/new-group--duplicate.html"><strong>Name already used</strong><span>Tên nhóm này đã có rồi.</span></a></li>
+      <li><a href="screens/new-group--limit.html"><strong>20 groups</strong><span>The limit message shows as soon as the box opens</span></a></li>
+      <li><a href="screens/manage--save-error.html"><strong>Storage failed</strong><span>The storage slip inside the card</span></a></li>
+    </ul>
+
+    <h2>Key design decisions</h2>
+    <ul class="notes">
+      <li>"Về hôm nay" and "Quản lý nhóm" share one right hand column at the end of the day navigation, so the two labels end on the same vertical line. Quản lý nhóm keeps its pen coloured tag button. Below 452 px it is the tag icon only, as before, now drawn with a thin pen outline so it reads as a button on its own.</li>
+      <li>"Thêm nhóm" is a blank line at the top of the card with a hand drawn plus, like starting a new line on an index card. It sits outside the scrolling rows, so it stays visible with 20 groups; the rows give back its height so the card still fits the screen.</li>
+      <li>The box reuses the delete group note: the same yellow paper, tape, corner label, title and button row. The corner label and the swatch beside the field are both in the colour the group will get, so the colour is previewed without a picker. On phones the note docks to the bottom as a sheet, so it rises with the keyboard and the buttons stay under the thumb.</li>
+      <li>Errors use the existing field error line under the input, in red with an icon, and the typed text is always kept. The 20 group message shows at once, as the owner chose.</li>
+      <li>After creating, the box closes and the new row gets the same short colour wash a moved task gets, so the result is visible without a toast; focus goes back to Thêm nhóm for the next group.</li>
+    </ul>
+    <p>Flows and the screen inventory are in <a href="flows.md">flows.md</a>; the review findings and the proposed design system additions are in <a href="critique.md">critique.md</a>. The new styles are in <a href="group-header.css">group-header.css</a> until they move into the design system.</p>
+  </main>
+  </div>
+</body>
+</html>

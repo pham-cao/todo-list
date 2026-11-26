@@ -1,0 +1,3 @@
+npx playwright test --workers=2 --reporter=list -g "T6:" (build 1.3.0, uncommitted T6 diff)
+  ✓   9 [desktop] › tests/e2e/flip.spec.js:987:3 › T6: working on the page during a flip › a delete through the note while the stage plays removes the new day row only, and the note ends the flip (921ms)
+  ✓  10 [mobile] › tests/e2e/flip.spec.js:987:3 › T6: working on the page during a flip › a delete through the note while the stage plays removes the new day row only, and the note ends the flip (906ms)

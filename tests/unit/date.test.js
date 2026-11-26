@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { toDateKey, formatDate, MIN_YEAR, MAX_YEAR, parseDateKey, addDays, dayKind, dateLine } from "../../src/date.js";
+import { toDateKey, formatDate, MIN_YEAR, MAX_YEAR, parseDateKey, addDays, dayKind, dateLine, daysBetween } from "../../src/date.js";
 
 test("toDateKey pads month and day", () => {
   assert.equal(toDateKey(new Date(2026, 0, 5)), "2026-01-05");
@@ -102,4 +102,39 @@ test("dateLine and dayKind never throw or echo invalid input", () => {
   assert.equal(dayKind("<img src=x>", "2026-11-09"), "future");
   assert.equal(dayKind("1999-12-31", "2026-11-09"), "past");
   assert.equal(dayKind("2026-11-09", null), "future");
+});
+
+test("daysBetween: same day, 1 and -1", () => {
+  assert.equal(daysBetween("2026-11-09", "2026-11-09"), 0);
+  assert.equal(daysBetween("2026-11-09", "2026-11-10"), 1);
+  assert.equal(daysBetween("2026-11-10", "2026-11-09"), -1);
+});
+
+test("daysBetween: month end and year end", () => {
+  assert.equal(daysBetween("2026-11-30", "2026-12-01"), 1);
+  assert.equal(daysBetween("2026-12-31", "2027-01-01"), 1);
+});
+
+test("daysBetween: 28 February to 1 March 2028 is 2 days", () => {
+  assert.equal(daysBetween("2028-02-28", "2028-03-01"), 2);
+});
+
+test("daysBetween: whole supported range", () => {
+  assert.equal(daysBetween("2000-01-01", "2099-12-31"), 36524);
+  assert.equal(daysBetween("2099-12-31", "2000-01-01"), -36524);
+});
+
+test("daysBetween: invalid or out of range key gives null", () => {
+  assert.equal(daysBetween("2026-02-30", "2026-03-01"), null);
+  assert.equal(daysBetween("2026-03-01", "nope"), null);
+  assert.equal(daysBetween("1999-12-31", "2026-03-01"), null);
+  assert.equal(daysBetween("2026-03-01", "2100-01-01"), null);
+  assert.equal(daysBetween(undefined, "2026-03-01"), null);
+});
+
+test("daysBetween: a 23 or 25 hour DST day still counts as 1", () => {
+  assert.equal(daysBetween("2026-03-08", "2026-03-09"), 1);
+  assert.equal(daysBetween("2026-11-01", "2026-11-02"), 1);
+  assert.equal(daysBetween("2026-03-29", "2026-03-30"), 1);
+  assert.equal(daysBetween("2026-10-25", "2026-10-26"), 1);
 });

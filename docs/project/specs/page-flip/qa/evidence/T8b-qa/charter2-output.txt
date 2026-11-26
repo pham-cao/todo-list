@@ -1,0 +1,9 @@
+
+Running 2 tests using 1 worker
+
+CHARTER2 1440 {"stages":0,"leaves":0,"long":[],"max":110} errors 0
+  ✓  1 [desktop] › tests/e2e/zz-charter2.spec.js:3:45 › charter2 1440 (8.3s)
+CHARTER2 390 {"stages":0,"leaves":0,"long":[53,54,64],"max":135} errors 0
+  ✓  2 [desktop] › tests/e2e/zz-charter2.spec.js:3:45 › charter2 390 (8.3s)
+
+  2 passed (18.7s)

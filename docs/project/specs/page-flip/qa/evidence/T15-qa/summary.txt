@@ -1,0 +1,5 @@
+npm test: 88 of 88 passed (npm-test.txt)
+npx playwright test --workers=2: 968 passed, 112 skipped, 0 failed, 9.2 min (full-run-1.txt)
+grep of removed classes: no match (grep-removed.txt, exit 1)
+grep 1.3.0 in src, index.html, package files: no match (grep-130.txt)
+version.test.js: 2 of 2 pass; with one ?v= in app.js set to 1.3.0 it failed (exit 1, version-mutation.txt); restored, git diff unchanged

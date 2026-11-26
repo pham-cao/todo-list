@@ -1,0 +1,14 @@
+npm test
+1..88
+# tests 88
+# suites 0
+# pass 88
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 289.846453
+
+npx playwright test --workers=2 (full suite): 771 passed, 105 skipped, 0 failed (7.3m)
+flip.spec.js alone: 68 passed
+No linter configured in package.json.

@@ -1,0 +1,4 @@
+T5-14 pass: spec flip.spec.js:853 and manual MCP run: real ArrowUp held in #day-picker. First step plays as an ordinary move (non repeat, expected), 4 repeats show no stage, release shows a 3 leaf riffle 2026-12-19 to 2026-04-19, gone after 1050 ms. Run 2026-11-12, Chromium desktop and mobile projects.
+Manual MCP detail: hold Enter on next (1 down + 6 repeats): stage 0 each repeat, day 13 to 19 Nov, address updated at once; keyup gave stage 1, 3 leaves; end 0.
+Add field: typed abc, Enter held with 5 repeats: no stage, no day change.
+Console: no errors.
