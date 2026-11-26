@@ -1,4 +1,4 @@
-import { COLORS, COLOR_NAMES, MAX_GROUPS, UNGROUPED, UNGROUPED_NAME, nextColor } from "./groups.js?v=1.4.0";
+import { COLORS, COLOR_NAMES, MAX_GROUPS, UNGROUPED, UNGROUPED_NAME, nextColor } from "./groups.js?v=1.5.0";
 
 const MOVE_ERROR = "Không thể lưu thay đổi. Chưa có việc nào được chuyển.";
 const MOVE_STALE = "Một tab khác vừa thay đổi việc của nhóm này. Hãy tải lại trang rồi thử lại."; // BUG-013

@@ -1,5 +1,5 @@
-import { daysBetween } from "./date.js?v=1.4.0";
-import { PageFlip } from "../vendor/page-flip/page-flip.module.js?v=1.4.0";
+import { daysBetween } from "./date.js?v=1.5.0";
+import { PageFlip } from "../vendor/page-flip/page-flip.module.js?v=1.5.0";
 
 // Leaves for a move of `days` calendar days (sign ignored): 0 for 0, 1, 2, then 3 for 3 or more (R3).
 // null (an invalid key) gives 0, so no stage is built.

@@ -1,9 +1,9 @@
-import { toDateKey, parseDateKey, addDays, dayKind, dateLine } from "./date.js?v=1.4.0";
-import { createStore, getStorage, isValid, STORAGE_KEY } from "./store.js?v=1.4.0";
-import { createGroups, GROUPS_KEY, UNGROUPED, UNGROUPED_NAME } from "./groups.js?v=1.4.0";
-import { createManage, setFieldError, showFieldError } from "./manage.js?v=1.4.0";
-import { createDrag } from "./drag.js?v=1.4.0";
-import { createFlip } from "./flip.js?v=1.4.0";
+import { toDateKey, parseDateKey, addDays, dayKind, dateLine } from "./date.js?v=1.5.0";
+import { createStore, getStorage, isValid, STORAGE_KEY } from "./store.js?v=1.5.0";
+import { createGroups, GROUPS_KEY, UNGROUPED, UNGROUPED_NAME } from "./groups.js?v=1.5.0";
+import { createManage, setFieldError, showFieldError } from "./manage.js?v=1.5.0";
+import { createDrag } from "./drag.js?v=1.5.0";
+import { createFlip } from "./flip.js?v=1.5.0";
 
 const $ = (id) => document.getElementById(id);
 const els = {

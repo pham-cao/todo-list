@@ -1,4 +1,4 @@
-import { validateText, newId } from "./store.js?v=1.4.0";
+import { validateText, newId } from "./store.js?v=1.5.0";
 
 export const GROUPS_KEY = "daily-todo:groups:v1";
 export const UI_KEY = "daily-todo:ui:v1";
